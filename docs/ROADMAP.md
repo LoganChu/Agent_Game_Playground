@@ -15,7 +15,7 @@ with a meaningful burn choice → consequences visible in the village.
       *A Light for Saltmarrow* (first two stages) (Day 1)
 - [x] Blender pipeline: 4 props (pine, rocks, stilt house, Gull's Beacon) (Day 1)
 - [x] CI workflow (`.github/workflows/checks.yml`) running `tools/run_checks.sh` in the
-      godot-ci container — **unverified until its first run; check it on Day 2** (Day 1)
+      godot-ci container (Day 1)
 
 ### Next up
 1. [S] **Quest journal UI** (J key): active/done quests with current stage text.

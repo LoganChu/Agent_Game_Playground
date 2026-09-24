@@ -27,7 +27,8 @@ Newest entries first. Each entry: what was done, decisions & why, problems, next
   dialogue termination on all paths, and a validator self-test with deliberately broken
   links; plus a smoke test that plays the real main scene (intro → every region twice →
   every NPC → pickups → save/load round-trip). `tools/run_checks.sh` runs everything and
-  fails on any Godot `SCRIPT ERROR`/`ERROR:` output. CI workflow added (untested yet).
+  fails on any Godot `SCRIPT ERROR`/`ERROR:` output. CI workflow added; its first run caught
+  a benign `Unable to load fontconfig` engine error in the container, now allow-listed.
 
 **Decisions**
 - **Custom JSON dialogue instead of Ink.** godot-ink needs Godot .NET; compiling .ink needs
@@ -46,6 +47,6 @@ Newest entries first. Each entry: what was done, decisions & why, problems, next
 - Expected validator warnings: `a_light_for_saltmarrow` never completes yet.
 
 **Next run should**
-1. Check the first CI run of `.github/workflows/checks.yml`; fix if red.
+1. Confirm CI (`.github/workflows/checks.yml`) is green on the latest commit; fix if red.
 2. Build the Quest journal (J) and Inventory (I) panels (ROADMAP #1–2).
 3. Then content: net-lofts + headland path gated by the Harbormaster's Token (ROADMAP #3).

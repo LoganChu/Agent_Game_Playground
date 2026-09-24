@@ -15,6 +15,8 @@ if [[ -z "$GODOT" ]]; then
 	exit 2
 fi
 LOG_DIR="$(mktemp -d)"
+ERROR_PATTERN="SCRIPT ERROR|Parse Error|^ERROR:|USER ERROR|Failed to load script"
+BENIGN="Unable to load fontconfig"
 FAILED=0
 
 run_step() {
@@ -23,9 +25,11 @@ run_step() {
 	echo "== $name"
 	"$@" >"$log" 2>&1
 	local code=$?
-	if grep -qE "SCRIPT ERROR|Parse Error|^ERROR:|USER ERROR|Failed to load script" "$log"; then
+	# Drop known-benign environment messages (missing fontconfig in minimal CI containers).
+	grep -vE "$BENIGN" "$log" >"$log.filtered"
+	if grep -qE "$ERROR_PATTERN" "$log.filtered"; then
 		echo "   errors in output:"
-		grep -nE -A3 "SCRIPT ERROR|Parse Error|^ERROR:|USER ERROR|Failed to load script" "$log" | head -40 | sed 's/^/   /'
+		grep -nE -A3 "$ERROR_PATTERN" "$log.filtered" | head -40 | sed 's/^/   /'
 		code=1
 	fi
 	if [[ $code -ne 0 ]]; then
