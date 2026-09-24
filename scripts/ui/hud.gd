@@ -63,6 +63,16 @@ func _build() -> void:
 	_title.offset_right = 400
 	_title.modulate.a = 0.0
 	add_child(_title)
+	var keys := Label.new()
+	keys.text = "[J] Journal   [I] Satchel"
+	keys.add_theme_font_size_override("font_size", 15)
+	keys.add_theme_color_override("font_color", PropFactory.color("bone"))
+	keys.add_theme_color_override("font_outline_color", PropFactory.color("ink"))
+	keys.add_theme_constant_override("outline_size", 5)
+	keys.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	keys.offset_left = 20
+	keys.offset_top = -40
+	add_child(keys)
 	_toasts = VBoxContainer.new()
 	_toasts.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	_toasts.offset_left = -420

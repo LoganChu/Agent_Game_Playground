@@ -43,6 +43,7 @@ func _run() -> void:
 				if not node.is_queued_for_deletion():
 					(node as Pickup).interact()
 			await get_tree().process_frame
+	await _check_journal(main.get("journal_ui"))
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
 	var before := GameState.world.to_dict()
 	_check(SaveSystem.save_game("smoke_test"), "save succeeds")
@@ -59,6 +60,37 @@ func _run() -> void:
 	else:
 		printerr("SMOKE TEST FAILED:\n  " + "\n  ".join(_failures))
 		get_tree().quit(1)
+
+
+## Opens both journal tabs via the real input actions and checks they mirror world state.
+func _check_journal(journal: JournalUI) -> void:
+	_press("journal")
+	await get_tree().process_frame
+	_check(journal.is_open() and journal.tab == JournalUI.Tab.JOURNAL, "J opens the journal")
+	_check(GameState.input_locked, "journal locks player input")
+	var quests := JournalModel.quest_entries(Content.db, GameState.world)
+	_check(journal.entry_count() == quests.size() and quests.size() > 0, "journal lists started quests")
+	_press("inventory")
+	await get_tree().process_frame
+	_check(journal.is_open() and journal.tab == JournalUI.Tab.SATCHEL, "I switches to the satchel")
+	var items := JournalModel.item_entries(Content.db, GameState.world)
+	_check(journal.entry_count() == items.size(), "satchel lists carried items")
+	if not items.is_empty():
+		_check(journal.detail_text().contains(str(items[0]["description"])), "satchel shows item description")
+	_press("ui_cancel")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(not journal.is_open() and not GameState.input_locked, "Esc closes the journal and unlocks input")
+
+
+func _press(action: String) -> void:
+	var ev := InputEventAction.new()
+	ev.action = action
+	ev.pressed = true
+	Input.parse_input_event(ev)
+	var up := InputEventAction.new()
+	up.action = action
+	Input.parse_input_event(up)
 
 
 ## Clicks through an open dialogue. Picks option 0 the first time a menu is seen, then 1,

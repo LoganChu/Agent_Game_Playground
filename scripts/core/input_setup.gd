@@ -13,10 +13,14 @@ const BINDINGS: Dictionary = {
 	"camera_right": [KEY_R],
 	"quick_save": [KEY_F5],
 	"quick_load": [KEY_F9],
+	"journal": [KEY_J],
+	"inventory": [KEY_I],
 }
 
 const PAD_BUTTONS: Dictionary = {
 	"interact": JOY_BUTTON_A,
+	"journal": JOY_BUTTON_BACK,
+	"inventory": JOY_BUTTON_Y,
 }
 
 const PAD_AXES: Dictionary = {

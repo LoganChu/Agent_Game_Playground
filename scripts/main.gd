@@ -10,6 +10,7 @@ var region: Region
 var player: Player
 var hud: Hud
 var dialogue_ui: DialogueUI
+var journal_ui: JournalUI
 
 var _environment: Environment
 
@@ -20,6 +21,8 @@ func _ready() -> void:
 	add_child(hud)
 	dialogue_ui = DialogueUI.new()
 	add_child(dialogue_ui)
+	journal_ui = JournalUI.new()
+	add_child(journal_ui)
 	player = Player.new()
 	add_child(player)
 	player.focus_changed.connect(hud.set_focus)
