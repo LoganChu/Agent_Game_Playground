@@ -2,6 +2,44 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-24 — Day 2: Quest journal & Satchel
+
+**Did**
+- Confirmed CI green on `15719bd` (run #2) and `tools/setup.sh` still works (Godot 4.7.2 and
+  bpy 5.2.2 both downloaded directly this time; no Docker fallback needed).
+- **Quest journal + Satchel** (ROADMAP #1–2), one two-tab panel: `J` / gamepad View opens the
+  Journal, `I` / gamepad Y the Satchel; pressing the same key again or Esc/B closes it.
+  - Journal: active quests (newest first) then completed ones; detail pane shows the
+    description, the current objective highlighted, and passed stages struck through.
+  - Satchel: Remnants first (ember-colored), then key items, then oddments, by name;
+    stack counts; kind label + description in the detail pane.
+  - Refreshes live if a quest/item changes while open; locks player input like dialogue,
+    and refuses to open over an open dialogue.
+  - Small `[J] Journal  [I] Satchel` key hint in the HUD corner.
+- `JournalModel` (pure logic) holds all ordering/text rules; `JournalUI` only renders.
+  4 new unit tests (ordering, stage history, save round-trip keeps order, empty state).
+  Smoke test now drives both tabs with real `InputEventAction`s and checks they mirror
+  world state and that Esc unlocks input. 15 tests + smoke + launch all pass.
+
+**Decisions**
+- **One panel, two tabs** rather than two screens: fewer modals to juggle, and the future
+  pause menu can add tabs (Map, Settings) in the same frame.
+- **"Satchel"** as the player-facing name for inventory — fits the Wakebearer's
+  travelling-pilgrim tone; code/actions still say `inventory`.
+- Quest recency comes from `WorldState.quests` insertion order instead of a new
+  timestamp field, so no save-format change was needed (verified by test).
+- Avoided glyphs like ✓/▸ that Godot's default font may lack; used "(done)" and "•".
+
+**Problems / notes**
+- UI styling is duplicated as per-widget overrides across dialogue/HUD/journal; logged as
+  tech debt (shared `Theme` resource) before the settings menu adds text-size scaling.
+
+**Next run should**
+1. Content: the net-lofts & headland zone gated by the Harbormaster's Token, and advance
+   *A Light for Saltmarrow* at the Gull's Beacon (ROADMAP #1). Someone must actually give the
+   token (Mara, after the Aldous conversation) — remove `future` from `harbor_token`.
+2. Then The Greying v1 (fog drain meter) if time allows.
+
 ## 2026-09-24 — Day 1: Foundation
 
 **Did**

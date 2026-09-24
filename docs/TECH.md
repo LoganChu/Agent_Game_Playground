@@ -35,6 +35,7 @@ scripts/
     conditions.gd         Conditions — tiny condition language (see below)
     dialogue_runner.gd    DialogueRunner — steps JSON dialogue, applies effects
     input_setup.gd        default input actions registered in code
+    journal_model.gd      JournalModel — ordered view data for the quest journal + satchel
     json_util.gd, layers.gd
   autoload/    singletons (registered in project.godot)
     content.gd      "Content"    – the loaded ContentDatabase (validates in debug builds)
@@ -43,7 +44,9 @@ scripts/
   world/       region.gd (builds a region from data), npc_actor.gd, pickup.gd,
                region_exit.gd, interactable.gd, prop_factory.gd (procedural low-poly props)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
-  ui/          dialogue_ui.gd, hud.gd — built in code, palette-themed
+  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code,
+               palette-themed. Modal UIs set `GameState.input_locked` while open and refuse
+               to open if another modal already holds it.
   debug/       smoke_test.gd, screenshot.gd
   main.gd      root scene script (scenes/main.tscn)
 data/          game.json, flags.json, regions/, npcs/, items/, quests/  (one JSON per record)
@@ -124,9 +127,11 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 ## Testing
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
-- `tests/test_dialogue.gd`, `tests/test_world_state.gd` — unit tests on fixtures.
+- `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit
+  tests on fixtures.
 - Smoke test — boots the real main scene, plays intro, visits every region twice, talks to
-  every NPC walking each menu, collects pickups, saves/loads and compares state.
+  every NPC walking each menu, collects pickups, opens the journal and satchel via real input
+  actions, saves/loads and compares state.
 - Add a `test_*.gd` extending `TestCase`; methods named `test_*` run automatically.
 
 ## Rendering notes

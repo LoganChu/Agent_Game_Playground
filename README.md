@@ -18,7 +18,7 @@ On Windows/macOS, install Godot 4.7.2 yourself and open `project.godot`.
 
 **Controls:** WASD / left stick to move · right-mouse drag, Q/R or right stick to turn the
 camera · E / Enter / A to talk, pick up and continue · 1–9 or click to choose · F5 quicksave ·
-F9 quickload.
+J / View button journal · I / Y satchel (inventory) · Esc / B close panel · F9 quickload.
 
 ## Tests
 ```bash

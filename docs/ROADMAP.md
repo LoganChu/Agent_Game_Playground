@@ -16,34 +16,33 @@ with a meaningful burn choice → consequences visible in the village.
 - [x] Blender pipeline: 4 props (pine, rocks, stilt house, Gull's Beacon) (Day 1)
 - [x] CI workflow (`.github/workflows/checks.yml`) running `tools/run_checks.sh` in the
       godot-ci container (Day 1)
+- [x] Quest journal (J) and Satchel/inventory (I) panels (Day 2)
 
 ### Next up
-1. [S] **Quest journal UI** (J key): active/done quests with current stage text.
-2. [S] **Inventory panel** (I key): items with descriptions; Remnants highlighted.
-3. [C] **The net-lofts & headland**: greyed zone north of Saltmarrow gated by the
+1. [C] **The net-lofts & headland**: greyed zone north of Saltmarrow gated by the
    Harbormaster's Token (`harbor_token`, currently `future`); path to the Gull's Beacon.
    Advance *A Light for Saltmarrow* at the beacon.
-4. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
+2. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
    drains the ember (UI meter); leaving refills. No fail state — at zero you are gently
    walked back out ("you forget why you came").
-5. [C] **The Burning choice** at the Gull's Beacon: offer available Remnants (humming pebble
+3. [C] **The Burning choice** at the Gull's Beacon: offer available Remnants (humming pebble
    if kept; Pell's collection if given → Pell must agree; Mara's memory of Dunstan as a
    costly third option). Set `saltmarrow_beacon_burned`. Region fog recedes.
-6. [C] **Aftermath**: NPC dialogue branches on the burn; Aldous confides (sooner if
+4. [C] **Aftermath**: NPC dialogue branches on the burn; Aldous confides (sooner if
    `saltmarrow_aldous_approach=gentle`) that the Snuffing was deliberate. Hook to Act II.
-7. [S] Region state reacting to flags (props/NPC placement `if` conditions already
+5. [S] Region state reacting to flags (props/NPC placement `if` conditions already
    supported; add per-region fog/mood overrides driven by flags).
-8. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+6. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+.
-9. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
-10. [S] Settings: volume buses, text size, camera sensitivity/invert, key rebinding
+7. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
+8. [S] Settings: volume buses, text size, camera sensitivity/invert, key rebinding
     (InputSetup is the hook).
-11. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+9. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-12. [C] Blender: NPC base mesh(es), dock, net-loft, smokehouse, boat props.
-13. [P] Terrain: replace slab boxes with a heightmap/mesh per region (Blender or Godot
+10. [C] Blender: NPC base mesh(es), dock, net-loft, smokehouse, boat props.
+11. [P] Terrain: replace slab boxes with a heightmap/mesh per region (Blender or Godot
     SurfaceTool) with shingle/grass vertex colors.
-14. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
+12. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
 
 ## Milestone 2 — Alpha (Act II begins)
 - [C] Ferry travel system & map screen; Tidewright ferryman NPC.
@@ -69,3 +68,8 @@ with a meaningful burn choice → consequences visible in the village.
 - Region terrain is box slabs; NPC bodies are primitive meshes.
 - `a_light_for_saltmarrow` has no completion yet (validator warning, expected).
 - Region does not refresh live when flags change mid-visit (only on region load).
+- UI is built in code with per-widget theme overrides; extract a shared `Theme` resource
+  (palette, fonts, sizes) before the pause/settings menus so text-size settings apply
+  everywhere at once.
+- Journal quest order relies on `WorldState.quests` insertion order (Dictionary order is
+  preserved through JSON saves); if save migration ever rebuilds that dict, keep the order.
