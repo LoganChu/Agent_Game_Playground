@@ -1,0 +1,22 @@
+# Godot 4
+.godot/
+/android/
+*.translation
+export_presets.cfg
+/build/
+/exports/
+
+# Local toolchain installed by tools/setup.sh
+/.tools/
+
+# Blender
+*.blend
+*.blend1
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

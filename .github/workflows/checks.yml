@@ -1,0 +1,16 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  godot-checks:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7.2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import, tests, smoke playthrough, launch
+        run: GODOT=godot tools/run_checks.sh
