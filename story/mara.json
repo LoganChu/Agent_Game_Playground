@@ -1,0 +1,190 @@
+{
+  "id": "mara",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:saltmarrow_met_mara",
+        "goto": "first"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "set": {
+          "saltmarrow_met_mara": true
+        }
+      },
+      {
+        "say": "mara",
+        "text": "Stop there. Let me see your hand."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at the ember a long moment. Her jaw works like she's chewing something bitter."
+      },
+      {
+        "say": "mara",
+        "text": "Mara Tollen. Harbormaster. These days that means I count what's left and try not to count what isn't."
+      },
+      {
+        "say": "mara",
+        "text": "If you're what the old songs say, you picked a fine time to wash up."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "What happened here?",
+            "goto": "what_happened"
+          },
+          {
+            "text": "\"What isn't\" — who's missing?",
+            "if": "!flag:saltmarrow_mara_told_of_dunstan",
+            "goto": "dunstan"
+          },
+          {
+            "text": "How do we push the fog back?",
+            "if": "quest:a_light_for_saltmarrow=inactive",
+            "goto": "beacon_offer"
+          },
+          {
+            "text": "Where do I find the Keeper?",
+            "if": "stage:a_light_for_saltmarrow=speak_to_aldous",
+            "goto": "where_aldous"
+          },
+          {
+            "text": "Listen to this. It hums.",
+            "if": [
+              "flag:saltmarrow_pebble_fate=kept",
+              "item:humming_pebble"
+            ],
+            "goto": "pebble_kept"
+          },
+          {
+            "text": "Pell has the humming pebble now.",
+            "if": "flag:saltmarrow_pebble_fate=given",
+            "goto": "pebble_given"
+          },
+          {
+            "text": "I'll be going.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "what_happened": [
+      {
+        "say": "mara",
+        "text": "Three months back the Hearthspire went dark. The Snuffing, folk call it, like naming it makes it smaller."
+      },
+      {
+        "say": "mara",
+        "text": "The fog came in behind it. First the net-lofts. Then the smokehouse. People go in to fetch a net and come out not knowing whose net it is."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dunstan": [
+      {
+        "set": {
+          "saltmarrow_mara_told_of_dunstan": true
+        }
+      },
+      {
+        "say": "mara",
+        "text": "My brother. Dunstan. Two weeks ago he walked north into the grey with a lantern and no reason he'd give me."
+      },
+      {
+        "say": "mara",
+        "text": "He's not dead. I'd know. I'd— I think I'd know."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "beacon_offer": [
+      {
+        "say": "mara",
+        "text": "The Gull's Beacon, up on the headland. Every midwinter the Keepers lit it from the Spire, and the fog kept its distance."
+      },
+      {
+        "say": "mara",
+        "text": "There's a Keeper in the village. Brother Aldous. Came off the Spire the night it went out and hasn't been sober since."
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll talk to him.",
+            "quest_start": "a_light_for_saltmarrow",
+            "give_item": "harbor_token",
+            "goto": "token"
+          },
+          {
+            "text": "Why haven't you asked him yourself?",
+            "goto": "why_not"
+          }
+        ]
+      }
+    ],
+    "why_not": [
+      {
+        "say": "mara",
+        "text": "I have. He cries. Maybe he'll talk to someone with fire in their hand."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "token": [
+      {
+        "say": "mara",
+        "text": "Take this. It'll get you past the lads at the net-lofts when the time comes."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "where_aldous": [
+      {
+        "say": "mara",
+        "text": "West side, by the Wrens' old house. Follow the smell of cheap spirits."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pebble_kept": [
+      {
+        "say": "narrator",
+        "text": "When the hum reaches her, Mara's eyes go wet. She hums three notes along with it, stops, frowns."
+      },
+      {
+        "say": "mara",
+        "text": "I knew the rest of that. Yesterday I knew it. Keep it safe, Wakebearer."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pebble_given": [
+      {
+        "say": "mara",
+        "text": "Pell showed me. Carries it everywhere and hums along all day now. Wrong, mind you, but hums it."
+      },
+      {
+        "say": "mara",
+        "text": "Good of you. That child's got precious little that's their own."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

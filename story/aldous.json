@@ -1,0 +1,170 @@
+{
+  "id": "aldous",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:saltmarrow_met_aldous",
+        "goto": "first"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "set": {
+          "saltmarrow_met_aldous": true
+        }
+      },
+      {
+        "say": "aldous",
+        "text": "Ah. Ah, no. No, no. Not yet. It's too soon for— you should be—"
+      },
+      {
+        "say": "aldous",
+        "text": "Forgive me. Brother Aldous Wren, of the Keepers of the Spire. Formerly. Currently of this bench."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Do you know me?",
+            "goto": "know_me"
+          },
+          {
+            "text": "Mara says you can relight the Gull's Beacon.",
+            "if": "stage:a_light_for_saltmarrow=speak_to_aldous",
+            "goto": "beacon"
+          },
+          {
+            "text": "What happened at the Hearthspire?",
+            "goto": "spire"
+          },
+          {
+            "text": "Rest easy, Brother.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "know_me": [
+      {
+        "say": "aldous",
+        "text": "Know you? I— no. No. Everyone looks a bit familiar after the fourth cup."
+      },
+      {
+        "say": "narrator",
+        "text": "He doesn't meet your eyes. His hand has drifted to cover the faded ember stitched on his sleeve."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "spire": [
+      {
+        "say": "aldous",
+        "text": "It went out. Fire does that. Even very old fire."
+      },
+      {
+        "choice": [
+          {
+            "text": "You were there. You don't have to tell me yet.",
+            "if": "flag:saltmarrow_aldous_approach=",
+            "set": {
+              "saltmarrow_aldous_approach": "gentle"
+            },
+            "goto": "spire_gentle"
+          },
+          {
+            "text": "Nine hundred years, and it just \"went out\"? Tell me the truth.",
+            "if": "flag:saltmarrow_aldous_approach=",
+            "set": {
+              "saltmarrow_aldous_approach": "pressed"
+            },
+            "goto": "spire_pressed"
+          }
+        ]
+      },
+      {
+        "if": "flag:saltmarrow_aldous_approach=gentle",
+        "say": "aldous",
+        "text": "You're patient with an old coward. I'm working up to it. Truly."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_approach=pressed",
+        "say": "aldous",
+        "text": "I've said what I'll say on that."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "spire_gentle": [
+      {
+        "say": "aldous",
+        "text": "…Thank you. I'll tell you. Not on this bench, not with this cup. But I will."
+      },
+      {
+        "say": "aldous",
+        "text": "I can say this much sober: it did not go out by accident."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "spire_pressed": [
+      {
+        "say": "aldous",
+        "text": "The truth is a heavier thing than you'd think, Wakebearer. I dropped it once already."
+      },
+      {
+        "say": "narrator",
+        "text": "He turns his shoulder to you and stares at the fog until you leave him be."
+      },
+      {
+        "end": true
+      }
+    ],
+    "beacon": [
+      {
+        "say": "aldous",
+        "text": "The Gull's Beacon. Yes. It can be lit. The ember isn't the hard part."
+      },
+      {
+        "say": "aldous",
+        "text": "A beacon has to be fed. Not oil — memory. Something the fog left behind. A Remnant."
+      },
+      {
+        "say": "aldous",
+        "text": "Whatever you feed it, the island keeps everything else… and loses that one thing for good."
+      },
+      {
+        "if": "item:humming_pebble",
+        "say": "aldous",
+        "text": "That pebble in your pocket is humming loud enough to wake the Spire. It would do. Gods forgive whoever chooses."
+      },
+      {
+        "if": "flag:saltmarrow_pebble_fate=given",
+        "say": "aldous",
+        "text": "Remnants wash up where the fog thins. That child with the collection of lost things — Pell? — may already hold one."
+      },
+      {
+        "say": "aldous",
+        "text": "Go up to the headland. Look at it. Then decide whether you still want to."
+      },
+      {
+        "quest_stage": [
+          "a_light_for_saltmarrow",
+          "reach_the_beacon"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

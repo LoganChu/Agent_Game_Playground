@@ -1,0 +1,234 @@
+{
+  "id": "pell",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:shingle_met_pell",
+        "goto": "first"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "set": {
+          "shingle_met_pell": true
+        }
+      },
+      {
+        "say": "pell",
+        "text": "You're awake! I thought you were Hushed. Or dead. Hushed is worse — dead people don't hum."
+      },
+      {
+        "say": "pell",
+        "text": "…Is that an ember? In your HAND? Does it hurt? Can I— no. Don't let me touch it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Where am I?",
+            "goto": "where"
+          },
+          {
+            "text": "Who are you?",
+            "goto": "who"
+          },
+          {
+            "text": "You said the fog leaves things behind?",
+            "if": "quest:lost_things=inactive",
+            "goto": "offer"
+          },
+          {
+            "text": "Where was that humming thing again?",
+            "if": [
+              "stage:lost_things=find_pebble",
+              "!item:humming_pebble"
+            ],
+            "goto": "still_looking"
+          },
+          {
+            "text": "I found it. The humming pebble.",
+            "if": [
+              "quest:lost_things=active",
+              "item:humming_pebble"
+            ],
+            "goto": "pebble_return"
+          },
+          {
+            "text": "How are your lost things?",
+            "if": "flag:saltmarrow_pebble_fate=given",
+            "goto": "collection"
+          },
+          {
+            "text": "See you, Pell.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "where": [
+      {
+        "say": "pell",
+        "text": "Shingle Point. Saltmarrow's up the boardwalk. Well — most of it. The north end's gone grey."
+      },
+      {
+        "say": "pell",
+        "text": "Don't go in the grey. You forget stuff. First little stuff, then you forget to come back."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "who": [
+      {
+        "say": "pell",
+        "text": "Pell. I mend nets for Mara — she's the harbormaster. And I find things."
+      },
+      {
+        "say": "pell",
+        "text": "The fog spits stuff out on the tide. Buttons. A doll's arm. Once, a whole door. Nobody remembered whose."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "offer": [
+      {
+        "say": "pell",
+        "text": "Lately it spits out things that are… warm. There's one by the big rocks, north-west. It hums."
+      },
+      {
+        "say": "pell",
+        "text": "I tried to grab it but my head went soft, like when you forget a word you just had."
+      },
+      {
+        "say": "pell",
+        "text": "You've got an ember, though. Maybe the fog can't get in your head. Will you fetch it?"
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll get it.",
+            "quest_start": "lost_things",
+            "goto": "accepted"
+          },
+          {
+            "text": "Not right now.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "accepted": [
+      {
+        "if": "item:humming_pebble",
+        "quest_stage": [
+          "lost_things",
+          "return_to_pell"
+        ]
+      },
+      {
+        "say": "pell",
+        "text": "North-west, by the big rocks. Don't stand in the grey too long, even with that thing."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "still_looking": [
+      {
+        "say": "pell",
+        "text": "North-west rocks. Follow the humming. You'll know it when your teeth start to itch."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pebble_return": [
+      {
+        "quest_stage": [
+          "lost_things",
+          "return_to_pell"
+        ]
+      },
+      {
+        "say": "pell",
+        "text": "You got it! And you still know your name? …You do know your name, right?"
+      },
+      {
+        "say": "narrator",
+        "text": "The pebble hums against your palm. For a moment you almost know the tune: a woman's voice, a cradle rocking in a boat."
+      },
+      {
+        "say": "pell",
+        "text": "That song… Mara used to hum it. Before. She can't remember the end anymore. Nobody can."
+      },
+      {
+        "say": "pell",
+        "text": "Can I keep it? I'll put it with my lost things. It'll be safe there."
+      },
+      {
+        "choice": [
+          {
+            "text": "It's yours, Pell.",
+            "take_item": "humming_pebble",
+            "set": {
+              "saltmarrow_pebble_fate": "given"
+            },
+            "goto": "gave"
+          },
+          {
+            "text": "I should hold on to it. It might matter.",
+            "set": {
+              "saltmarrow_pebble_fate": "kept"
+            },
+            "goto": "kept"
+          }
+        ]
+      }
+    ],
+    "gave": [
+      {
+        "say": "pell",
+        "text": "Really? …Thanks. I'll keep it somewhere dry. I'll keep it forever."
+      },
+      {
+        "quest_complete": "lost_things"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "kept": [
+      {
+        "say": "pell",
+        "text": "Oh. Yeah. Okay. It's probably important. Wakebearer stuff."
+      },
+      {
+        "say": "pell",
+        "text": "Just — don't lose it, all right? Somebody should remember that song."
+      },
+      {
+        "quest_complete": "lost_things"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "collection": [
+      {
+        "say": "pell",
+        "text": "The pebble hums at night. I sleep better. Don't tell Mara, she'll say I've gone soft."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

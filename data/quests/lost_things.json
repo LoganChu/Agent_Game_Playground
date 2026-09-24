@@ -1,0 +1,17 @@
+{
+  "id": "lost_things",
+  "title": "Lost Things",
+  "region": "shingle_point",
+  "giver": "pell",
+  "description": "Pell says the fog left something that hums near the rocks at the north end of Shingle Point.",
+  "stages": [
+    {
+      "id": "find_pebble",
+      "text": "Search the rocks at the north-west of Shingle Point for the humming thing."
+    },
+    {
+      "id": "return_to_pell",
+      "text": "Bring the humming pebble back to Pell."
+    }
+  ]
+}

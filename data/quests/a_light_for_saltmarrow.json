@@ -1,0 +1,17 @@
+{
+  "id": "a_light_for_saltmarrow",
+  "title": "A Light for Saltmarrow",
+  "region": "saltmarrow",
+  "giver": "mara",
+  "description": "The Gull's Beacon on the headland has been dark since the Snuffing. Mara thinks the Keeper hiding in the village knows how to relight it.",
+  "stages": [
+    {
+      "id": "speak_to_aldous",
+      "text": "Find Brother Aldous in Saltmarrow and ask him about the beacon."
+    },
+    {
+      "id": "reach_the_beacon",
+      "text": "Cross the greyed net-lofts and reach the Gull's Beacon on the headland."
+    }
+  ]
+}

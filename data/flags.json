@@ -1,0 +1,33 @@
+{
+  "flags": {
+    "intro_seen": {
+      "description": "Player has seen the waking-on-the-beach narration.",
+      "default": false,
+      "read_by_code": true
+    },
+    "shingle_met_pell": {
+      "description": "Player has met Pell on Shingle Point.",
+      "default": false
+    },
+    "saltmarrow_met_mara": {
+      "description": "Player has met Mara Tollen, the harbormaster.",
+      "default": false
+    },
+    "saltmarrow_mara_told_of_dunstan": {
+      "description": "Mara told the player her brother Dunstan walked into the fog.",
+      "default": false
+    },
+    "saltmarrow_met_aldous": {
+      "description": "Player has met Brother Aldous Wren.",
+      "default": false
+    },
+    "saltmarrow_pebble_fate": {
+      "description": "What the player did with the humming pebble Remnant: '' (not decided), 'given' (to Pell) or 'kept'. Pays off when the Gull's Beacon needs a memory to burn.",
+      "default": ""
+    },
+    "saltmarrow_aldous_approach": {
+      "description": "How the player first handled Aldous's evasions: '' / 'gentle' / 'pressed'. Gentle earns his trust (he confides sooner in Act I); pressed makes him defensive.",
+      "default": ""
+    }
+  }
+}

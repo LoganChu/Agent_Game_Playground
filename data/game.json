@@ -1,0 +1,6 @@
+{
+  "title": "Emberwake",
+  "start_region": "shingle_point",
+  "start_spawn": "default",
+  "intro_dialogue": "wake_intro"
+}

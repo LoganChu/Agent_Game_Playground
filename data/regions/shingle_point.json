@@ -1,0 +1,192 @@
+{
+  "id": "shingle_point",
+  "name": "Shingle Point",
+  "description": "A grey pebble beach south of Saltmarrow, where the tide leaves wrack, driftwood and — lately — things that hum.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.014,
+    "color": "silverfog"
+  },
+  "spawn_points": {
+    "default": [
+      0,
+      0.5,
+      9
+    ],
+    "from_village": [
+      0,
+      0.5,
+      -10
+    ]
+  },
+  "terrain": [
+    {
+      "size": [
+        36,
+        1,
+        30
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "color": "driftwood"
+    },
+    {
+      "size": [
+        10,
+        1,
+        8
+      ],
+      "position": [
+        -12,
+        0.4,
+        -10
+      ],
+      "color": "slate"
+    }
+  ],
+  "props": [
+    {
+      "model": "res://assets/models/rock_cluster.glb",
+      "shape": "rock",
+      "position": [
+        -14,
+        0.4,
+        -12
+      ],
+      "scale": 1.4,
+      "collider": [
+        2.2,
+        1.2,
+        2.2
+      ]
+    },
+    {
+      "model": "res://assets/models/rock_cluster.glb",
+      "shape": "rock",
+      "position": [
+        -9,
+        0.4,
+        -8
+      ],
+      "collider": [
+        1.6,
+        1.0,
+        1.6
+      ]
+    },
+    {
+      "shape": "rock",
+      "position": [
+        12,
+        0,
+        4
+      ],
+      "scale": 1.2
+    },
+    {
+      "shape": "post",
+      "position": [
+        -2,
+        0,
+        -11
+      ]
+    },
+    {
+      "shape": "post",
+      "position": [
+        2,
+        0,
+        -11
+      ]
+    },
+    {
+      "shape": "crate",
+      "position": [
+        5,
+        0,
+        1
+      ],
+      "rotation_y": 20
+    },
+    {
+      "shape": "crate",
+      "position": [
+        5.6,
+        0,
+        2.1
+      ],
+      "rotation_y": -10,
+      "scale": 0.8
+    },
+    {
+      "model": "res://assets/models/pine_tree.glb",
+      "shape": "pine",
+      "position": [
+        15,
+        0,
+        -12
+      ],
+      "scale": 1.2,
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/pine_tree.glb",
+      "shape": "pine",
+      "position": [
+        11,
+        0,
+        -13
+      ],
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "pell",
+      "position": [
+        3,
+        0,
+        2
+      ],
+      "rotation_y": 200
+    }
+  ],
+  "pickups": [
+    {
+      "id": "shingle_humming_pebble",
+      "item": "humming_pebble",
+      "position": [
+        -11,
+        0.4,
+        -10
+      ],
+      "quest_stage": [
+        "lost_things",
+        "return_to_pell"
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "to": "saltmarrow",
+      "spawn": "from_beach",
+      "position": [
+        0,
+        0,
+        -13
+      ],
+      "prompt": "Follow the boardwalk to Saltmarrow"
+    }
+  ]
+}

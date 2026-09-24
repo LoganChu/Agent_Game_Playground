@@ -1,0 +1,224 @@
+{
+  "id": "saltmarrow",
+  "name": "Saltmarrow",
+  "description": "A fishing village on stilts around a tidal harbor. Smells of tar and smoked fish. The northern net-lofts are lost in fog; beyond them, the dark Gull's Beacon.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.018,
+    "color": "silverfog"
+  },
+  "spawn_points": {
+    "default": [
+      0,
+      0.5,
+      9.5
+    ],
+    "from_beach": [
+      0,
+      0.5,
+      9.5
+    ]
+  },
+  "terrain": [
+    {
+      "size": [
+        40,
+        1,
+        30
+      ],
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "color": "moss"
+    },
+    {
+      "size": [
+        12,
+        1,
+        10
+      ],
+      "position": [
+        0,
+        2.0,
+        -21
+      ],
+      "color": "slate"
+    },
+    {
+      "size": [
+        3,
+        1,
+        8
+      ],
+      "position": [
+        0,
+        1.0,
+        -15.5
+      ],
+      "color": "driftwood"
+    }
+  ],
+  "props": [
+    {
+      "model": "res://assets/models/stilt_house.glb",
+      "shape": "house",
+      "position": [
+        -9,
+        0,
+        -3
+      ],
+      "rotation_y": 15,
+      "collider": [
+        2.6,
+        3.6,
+        2.2
+      ]
+    },
+    {
+      "model": "res://assets/models/stilt_house.glb",
+      "shape": "house",
+      "position": [
+        9,
+        0,
+        -4
+      ],
+      "rotation_y": -20,
+      "collider": [
+        2.6,
+        3.6,
+        2.2
+      ]
+    },
+    {
+      "shape": "house",
+      "position": [
+        -12,
+        0,
+        6
+      ],
+      "rotation_y": 80
+    },
+    {
+      "shape": "house",
+      "position": [
+        13,
+        0,
+        5
+      ],
+      "rotation_y": -95,
+      "color": "slate"
+    },
+    {
+      "shape": "dock",
+      "position": [
+        6,
+        -0.4,
+        17
+      ],
+      "rotation_y": 0
+    },
+    {
+      "shape": "crate",
+      "position": [
+        4,
+        0,
+        10
+      ]
+    },
+    {
+      "shape": "crate",
+      "position": [
+        4.9,
+        0,
+        10.4
+      ],
+      "scale": 0.7
+    },
+    {
+      "model": "res://assets/models/gull_beacon.glb",
+      "shape": "beacon",
+      "position": [
+        0,
+        2.0,
+        -23
+      ],
+      "collider": [
+        2.4,
+        5.6,
+        2.4
+      ]
+    },
+    {
+      "model": "res://assets/models/pine_tree.glb",
+      "shape": "pine",
+      "position": [
+        -16,
+        0,
+        -10
+      ],
+      "scale": 1.3,
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/pine_tree.glb",
+      "shape": "pine",
+      "position": [
+        16,
+        0,
+        -11
+      ],
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "shape": "pine",
+      "position": [
+        -17,
+        0,
+        -3
+      ],
+      "scale": 0.9
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "mara",
+      "position": [
+        6,
+        0,
+        11
+      ],
+      "rotation_y": 180
+    },
+    {
+      "npc": "aldous",
+      "position": [
+        -7,
+        0,
+        -1
+      ],
+      "rotation_y": 130
+    }
+  ],
+  "exits": [
+    {
+      "to": "shingle_point",
+      "spawn": "from_village",
+      "position": [
+        0,
+        0,
+        13.5
+      ],
+      "prompt": "Walk back down to Shingle Point"
+    }
+  ]
+}
