@@ -2,6 +2,59 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-25 21:00 UTC — Day 4: The Burning
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try again (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **The Burning choice** (ROADMAP #1) — *A Light for Saltmarrow* can now be completed.
+  The beacon's cradle offers every Remnant the player carries, each behind a "weigh it"
+  step that spells out the cost, with "No. Not this." to back out and "Not yet." to leave:
+  - **Humming pebble** (lullaby). If it was given to Pell, Pell must be asked in person and
+    can be refused on their behalf (`saltmarrow_pell_lent_pebble`).
+  - **Remembering Knot** (founding knot).
+  - **Dunstan's Whittled Gull** — new item. Mara, if she has told you of Dunstan, can be
+    asked to give her memory of him; she holds the gull in the fog at the gate until it
+    becomes a Remnant (`saltmarrow_mara_offered_gull`).
+  - Burning sets `saltmarrow_beacon_burned` = `pebble|knot|gull`, completes the quest and
+    lights the lantern room.
+  - Waiting-state hints point at Pell / Mara when those Remnants aren't in hand yet.
+- **Aftermath lines**: Mara (one-time scene per burn — no song / no beginning / no brother,
+  "two cups"), Pell, Hesk (stops humming if the knot burned), Tam, Aldous (reacts per burn,
+  promises his story). Lent Remnants that weren't burned can be handed back.
+- Aldous now explains Remnants can be *made on purpose* ("We Keepers knew that trick…
+  far too well") — new canon, foreshadows mystery #1. LORE updated.
+- **Systems**: region `fog.overrides` (first matching condition wins) resolved by new
+  `RegionMood`; props accept `if`; both re-evaluate **live** on any flag/quest change, and
+  fog tweens over 4 s so the player watches the Greying lean back after the burn. All three
+  Saltmarrow regions thin once the quest is done. New `beacon_light` prop shape.
+- Validator: fog override conditions/density/color and prop `if` conditions + self-test.
+- Tests: new `test_burning.gd` (6 tests driving real story JSON through every burn path).
+  Smoke test now asserts the menu walk relit the beacon, the light prop shows and the
+  fog thinned. 23 tests + smoke + launch pass. The long-standing "quest never completes"
+  validator warning is gone.
+
+**Decisions**
+- **Three options, not four**: Pell's pebble counts as the Pell option (via consent) rather
+  than a separate "Pell's memory of their parents" Remnant — LORE's list was "e.g.", and
+  three well-written costs beat four thin ones.
+- **Mara's option needs her consent in person and an object**: Remnants are physical in
+  canon, so the memory had to condense into something. That produced the "made on purpose"
+  rule, which neatly seeds the Keepers' secret without revealing it.
+- **The Wakebearer forgets the burned memory too.** Keeps the cost real for the player.
+- **Aldous's confession deferred** to its own session (now ROADMAP #1): it's Act I's
+  closing beat and deserves the same care as the burn.
+
+**Problems / notes**
+- The lit lantern room (`beacon_light`) is only asserted by tests, not eyeballed: there is
+  no debug arg to start with a finished quest. Added a `--flags`/`--quest` debug arg to the
+  polish item.
+- The smoke test always burns the first listed Remnant (pebble); the other paths rely on
+  unit tests.
+
+**Next run should**
+1. Aldous's confession & Act II hook (ROADMAP #1).
+2. Then The Greying v1 (fog drain meter). A polish/debt pass is due within ~4 sessions.
+
 ## 2026-09-25 09:00 UTC — Day 3: Gull's Head (net-lofts & headland)
 
 **Did**

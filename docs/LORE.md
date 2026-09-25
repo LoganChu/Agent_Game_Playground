@@ -86,6 +86,29 @@ greyed net-lofts.
     lantern room is an **iron cradle** where the fed Remnant burns, holding pale ash of old
     midwinters. Ember alone does nothing; the cradle "leans toward" the ember, waiting.
 
+- **Established in play (Day 4 — the Burning):**
+  - The Gull's Beacon is relit by the player feeding its cradle one Remnant
+    (flag `saltmarrow_beacon_burned`). The three Act I options:
+    - **`pebble`** — the lullaby. Nobody on Saltmarrow can hum it again, not even wrongly;
+      Mara forgets she ever sang. If Pell had it, Pell had to agree to give it up (and
+      afterwards only knows a pocket feels empty).
+    - **`knot`** — the founding knot. Nets still get made, but nobody knows where a net
+      *begins*; Hesk stops humming "over, under, round the gull" and forgets what she mends.
+    - **`gull`** — Mara's memory of Dunstan. Mara held **Dunstan's whittled gull** (he carved
+      it for her when she was six) in the fog at the boardwalk gate until it became a
+      Remnant. Afterwards she believes "Tollens end with me", yet keeps setting out two cups.
+  - **New rule:** a Remnant need not be found. A loved object held in the Greying long enough
+    takes the holder's memory into itself — *a Remnant made on purpose*. Aldous admits "We
+    Keepers knew that trick. We knew it far too well" (foreshadows mystery #1; do not make it
+    explicit yet).
+  - Relighting the beacon does not banish the fog; it *leans back* off the headland, the
+    boardwalk and past the harbor wall (all three Saltmarrow regions thin). The burned memory
+    is gone for everyone, including the Wakebearer (who hears the lullaby's ending once, as it
+    burns, and then cannot recall it).
+  - Unburned Remnants that were lent (the pebble, the gull) can be handed back afterwards.
+  - Aldous felt the beacon catch "like a hand on the back of my neck" and promises the rest
+    of his story; he has not told it yet.
+
 ### 2. Thornwold (planned — Alpha)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of
 charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.

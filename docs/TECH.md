@@ -36,6 +36,7 @@ scripts/
     dialogue_runner.gd    DialogueRunner — steps JSON dialogue, applies effects
     input_setup.gd        default input actions registered in code
     journal_model.gd      JournalModel — ordered view data for the quest journal + satchel
+    region_mood.gd        RegionMood — region fog after flag-driven overrides
     json_util.gd, layers.gd
   autoload/    singletons (registered in project.godot)
     content.gd      "Content"    – the loaded ContentDatabase (validates in debug builds)
@@ -68,12 +69,13 @@ Every record lives in its own file whose name equals its `id`.
 ```jsonc
 { "id", "name", "description",
   "water_level": -0.25,                         // optional water plane height
-  "fog": {"density": 0.014, "color": "silverfog"},
+  "fog": {"density": 0.014, "color": "silverfog",
+          "overrides": [{"if": condition, "density": 0.007, "color": "..."}]},  // first match wins
   "spawn_points": {"default": [x,y,z], ...},    // "default" required
   "terrain": [{"size": [w,h,d], "position": [x,top_y,z], "color": "moss", "rotation_y": 0}],
   "props":   [{"model": "res://assets/models/x.glb", "collider": [w,h,d],   // or
                "shape": "pine|rock|house|post|crate|beacon|dock", "color": "...",
-               "position": [...], "rotation_y": deg, "scale": 1.0}],
+               "position": [...], "rotation_y": deg, "scale": 1.0, "if": condition}],
   "npcs":    [{"npc": id, "position": [...], "rotation_y": deg, "if": condition}],
   "pickups": [{"id": unique, "item": id, "position": [...], "count": 1, "if": condition,
                "set": {flag: value}, "quest_stage": [quest, stage]}],
@@ -82,6 +84,10 @@ Every record lives in its own file whose name equals its `id`.
   "exits":   [{"to": region, "spawn": spawn_name, "position": [...], "prompt": "...",
                "requires": condition, "locked_text": "..."}] }   // gated exits
 ```
+Fog and conditional props (`if`) are re-evaluated **live** whenever a flag or quest changes
+(`main.gd` → `Region.refresh_conditional_props()` + `RegionMood.fog()`; fog changes tween
+over 4 s). NPCs, pickups, objects and exits still only re-evaluate on region load.
+Shape `beacon_light` = glowing lantern room + OmniLight for the Gull's Beacon (no collider).
 Objects have no visuals of their own (place a prop at the same spot); their dialogue runs
 with no NPC. A gated exit is always shown; while `requires` is false, interacting toasts
 `locked_text` (required with `requires`) instead of travelling.
@@ -137,12 +143,15 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 ## Testing
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
+- `tests/test_burning.gd` — the Act I beacon choice through real story content (each burn
+  path, Pell's consent, Mara's gull, returning unburned Remnants, fog thinning).
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit
   tests on fixtures.
 - Smoke test — boots the real main scene, plays intro, checks every gated exit refuses
   travel on a new game, visits every region twice, talks to every NPC and examines every
-  object walking each menu, collects pickups, checks gated exits now open and the Gull's
-  Beacon quest stage was reached, opens the journal and satchel via real input
+  object walking each menu, collects pickups, checks gated exits now open, that the menu
+  walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog
+  thinned), opens the journal and satchel via real input
   actions, saves/loads and compares state.
 - Add a `test_*.gd` extending `TestCase`; methods named `test_*` run automatically.
 

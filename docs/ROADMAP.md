@@ -22,30 +22,38 @@ with a meaningful burn choice → consequences visible in the village.
       Saltmarrow* to `feed_the_beacon`; Mara learns Dunstan left willingly (Day 3)
 - [x] Engine: gated exits (`requires`/`locked_text`), inspectable `objects` (Day 3)
 - [x] Blender: net-loft prop (Day 3)
+- [x] **The Burning choice** at the Gull's Beacon: pebble (Pell must consent if given),
+      Remembering Knot, or Mara's memory of Dunstan (whittled gull, offered in person);
+      confirm step; quest complete; fog thins live in all three regions; lantern light;
+      aftermath lines for Mara/Pell/Hesk/Tam/Aldous; lent Remnants can be returned (Day 4)
+- [x] Engine: flag-driven fog `overrides`, conditional props (`if`) refreshed live (Day 4)
 
 ### Next up
-1. [C] **The Burning choice** at the Gull's Beacon (`story/gulls_beacon.json`, knot
-   `waiting` — replace "Not yet." with real options): humming pebble if kept; if given,
-   Pell must agree to part with it (visit Pell); the Remembering Knot (the village's
-   founding craft — Hesk/Tam react); Mara's memory of Dunstan as a costly option (only if
-   `saltmarrow_mara_told_of_dunstan`; she must be asked in person). Take the burned item,
-   set `saltmarrow_beacon_burned` (value = what burned), complete the quest.
-   Region fog recedes (Gull's Head + Saltmarrow density drop via flag-driven fog).
+1. [C] **Aldous's confession** (Act I close): after the beacon is lit, Aldous tells the
+   player the Snuffing was deliberate — sooner/fuller if `saltmarrow_aldous_approach=gentle`,
+   grudging (maybe needs a second visit or a Remnant shown) if `pressed`. Reveal only what
+   LORE allows (deliberate; a High Keeper; not *why*). Set a flag, hook to Act II (the
+   ferry). He also reacts to the player being "too soon" (mystery #2 foreshadow).
 2. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
    drains the ember (UI meter); leaving refills. No fail state — at zero you are gently
-   walked back out ("you forget why you came"). Gull's Head is the natural test bed.
-3. [C] **Aftermath**: NPC dialogue branches on the burn; Aldous confides (sooner if
-   `saltmarrow_aldous_approach=gentle`) that the Snuffing was deliberate. Hook to Act II.
-4. [S] Region state reacting to flags (props/NPC placement `if` conditions already
-   supported; add per-region fog/mood overrides driven by flags).
+   walked back out ("you forget why you came"). Gull's Head (before the beacon) is the test
+   bed; after the burn its areas should shrink (reuse `fog.overrides` idea).
+3. [P] **Polish/debt pass** (due by session 8 at the latest): shared UI `Theme` resource;
+   live refresh of NPC/pickup/object `if` conditions (props already refresh); a debug
+   `--flags=a=b,c` / `--quest=` CLI arg so screenshots can show late-game states (the lit
+   beacon light has not been eyeballed yet — only asserted by the smoke test).
+4. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
+   stool/second cup prop by Mara; `knot`: half-started nets; `pebble`: Pell's lost-things
+   crate without the pebble. Use conditional props.
 5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
-   renderer) are washed out; verify palette reads correctly in Forward+.
+   renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow).
 6. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
 7. [S] Settings: volume buses, text size, camera sensitivity/invert, key rebinding
     (InputSetup is the hook).
 8. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-9. [C] Blender: NPC base mesh(es), dock, smokehouse, boat props.
+9. [C] Blender: NPC base mesh(es), dock, smokehouse, boat props; a proper lit-lantern
+    model to replace the procedural `beacon_light`.
 10. [P] Terrain: replace slab boxes with a heightmap/mesh per region (Blender or Godot
     SurfaceTool) with shingle/grass vertex colors.
 11. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
@@ -72,14 +80,15 @@ with a meaningful burn choice → consequences visible in the village.
 
 ## Known issues / tech debt
 - Region terrain is box slabs; NPC bodies are primitive meshes.
-- `a_light_for_saltmarrow` has no completion yet (validator warning, expected) — the beacon
-  offers only "Not yet." until the Burning choice lands (Next up #1).
 - Terrain slabs can't make slopes/steps (Y rotation only) and the player can't climb, so
   every region is flat; the Gull's Head headland should be raised once ramps exist
   (fold into the terrain item).
 - Smoke test: parsed input needs two process frames when resuming from a physics frame;
   keep the double await in `_check_journal`.
-- Region does not refresh live when flags change mid-visit (only on region load).
+- Region NPCs/pickups/objects do not refresh live when flags change mid-visit (only on
+  region load); props and fog do.
+- The smoke test's menu walk always burns whichever Remnant is listed first (currently the
+  pebble); the other burn paths are covered by `test_burning.gd` unit tests only.
 - UI is built in code with per-widget theme overrides; extract a shared `Theme` resource
   (palette, fonts, sizes) before the pause/settings menus so text-size settings apply
   everywhere at once.
