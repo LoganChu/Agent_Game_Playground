@@ -41,6 +41,11 @@
             "goto": "beacon"
           },
           {
+            "text": "I've seen the beacon. It wants a memory.",
+            "if": "stage:a_light_for_saltmarrow=feed_the_beacon",
+            "goto": "after_beacon"
+          },
+          {
             "text": "What happened at the Hearthspire?",
             "goto": "spire"
           },
@@ -161,6 +166,24 @@
           "a_light_for_saltmarrow",
           "reach_the_beacon"
         ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "after_beacon": [
+      {
+        "say": "aldous",
+        "text": "So you've seen the cradle. Now you know why I'm on this bench."
+      },
+      {
+        "say": "aldous",
+        "text": "People will tell you to burn whatever hurts least. There isn't one. There's only whichever you can live with having chosen."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_approach=gentle",
+        "say": "aldous",
+        "text": "Whatever you pick — come and tell me after. I owe you the rest of a story, and I'd like to pay it sober."
       },
       {
         "goto": "hub"

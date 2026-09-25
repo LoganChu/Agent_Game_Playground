@@ -1,0 +1,75 @@
+{
+  "id": "tam",
+  "knots": {
+    "start": [
+      {
+        "if": "!item:harbor_token",
+        "goto": "shut"
+      },
+      {
+        "say": "tam",
+        "text": "That's Mara's gull on your token. Right, then. Right."
+      },
+      {
+        "say": "tam",
+        "text": "Stay on the boardwalk. Keep that ember high. And if you start forgetting why you went — turn round, that's what she told us."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "shut": [
+      {
+        "say": "tam",
+        "text": "Lofts are shut. Harbormaster's orders. Folk go in for a net and come out asking whose net it is."
+      },
+      {
+        "say": "tam",
+        "text": "You want past, you want Mara's say-so. Brass, with a gull on it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "What's up there?",
+            "goto": "lofts"
+          },
+          {
+            "text": "Is anyone still inside?",
+            "goto": "hesk"
+          },
+          {
+            "text": "Thanks, Tam.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "lofts": [
+      {
+        "say": "tam",
+        "text": "The net-lofts, then the headland, then the Gull's Beacon. Used to be you could see it from the harbor. Now you can't see your own boots past the third loft."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hesk": [
+      {
+        "say": "tam",
+        "text": "Old Hesk. Wouldn't come out when the rest of us ran. She's still up there mending, humming. She won't know you."
+      },
+      {
+        "say": "tam",
+        "text": "She taught me every knot I've got. Doesn't know my name now."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "id": "gulls_head",
+  "name": "Gull's Head",
+  "description": "Saltmarrow's northern net-lofts, greyed and silent, strung along a boardwalk to the headland where the Gull's Beacon stands dark.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.045,
+    "color": "silverfog"
+  },
+  "spawn_points": {
+    "default": [
+      0,
+      0.5,
+      15
+    ],
+    "from_village": [
+      0,
+      0.5,
+      15
+    ]
+  },
+  "terrain": [
+    {
+      "size": [
+        26,
+        1,
+        24
+      ],
+      "position": [
+        0,
+        0,
+        6
+      ],
+      "color": "slate"
+    },
+    {
+      "size": [
+        3,
+        0.4,
+        22
+      ],
+      "position": [
+        0,
+        0.05,
+        6
+      ],
+      "color": "driftwood"
+    },
+    {
+      "size": [
+        16,
+        1,
+        12
+      ],
+      "position": [
+        0,
+        0,
+        -12
+      ],
+      "color": "moss"
+    }
+  ],
+  "props": [
+    {
+      "model": "res://assets/models/net_loft.glb",
+      "shape": "house",
+      "color": "silverfog",
+      "position": [
+        -4.5,
+        0,
+        12
+      ],
+      "rotation_y": 90,
+      "collider": [
+        3.2,
+        3.8,
+        2.6
+      ]
+    },
+    {
+      "model": "res://assets/models/net_loft.glb",
+      "shape": "house",
+      "color": "silverfog",
+      "position": [
+        4.5,
+        0,
+        9
+      ],
+      "rotation_y": -90,
+      "collider": [
+        3.2,
+        3.8,
+        2.6
+      ]
+    },
+    {
+      "model": "res://assets/models/net_loft.glb",
+      "shape": "house",
+      "color": "silverfog",
+      "position": [
+        -4.5,
+        0,
+        3
+      ],
+      "rotation_y": 80,
+      "collider": [
+        3.2,
+        3.8,
+        2.6
+      ]
+    },
+    {
+      "model": "res://assets/models/net_loft.glb",
+      "shape": "house",
+      "color": "silverfog",
+      "position": [
+        5,
+        0,
+        0
+      ],
+      "rotation_y": -100,
+      "collider": [
+        3.2,
+        3.8,
+        2.6
+      ]
+    },
+    {
+      "shape": "crate",
+      "position": [
+        -2.4,
+        0,
+        7
+      ]
+    },
+    {
+      "shape": "crate",
+      "position": [
+        2.3,
+        0,
+        4.5
+      ],
+      "scale": 0.8
+    },
+    {
+      "shape": "post",
+      "position": [
+        -1.8,
+        0,
+        -3
+      ]
+    },
+    {
+      "shape": "post",
+      "position": [
+        1.8,
+        0,
+        -3
+      ]
+    },
+    {
+      "model": "res://assets/models/rock_cluster.glb",
+      "shape": "rock",
+      "position": [
+        -6,
+        0,
+        -14
+      ],
+      "collider": [
+        1.8,
+        0.9,
+        1.8
+      ]
+    },
+    {
+      "model": "res://assets/models/rock_cluster.glb",
+      "shape": "rock",
+      "position": [
+        6.5,
+        0,
+        -10
+      ],
+      "rotation_y": 140,
+      "collider": [
+        1.8,
+        0.9,
+        1.8
+      ]
+    },
+    {
+      "model": "res://assets/models/pine_tree.glb",
+      "shape": "pine",
+      "color": "slate",
+      "position": [
+        -7,
+        0,
+        -8
+      ],
+      "scale": 0.8,
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/gull_beacon.glb",
+      "shape": "beacon",
+      "position": [
+        0,
+        0,
+        -15
+      ],
+      "collider": [
+        2.4,
+        5.6,
+        2.4
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "hesk",
+      "position": [
+        -2.6,
+        0,
+        4.5
+      ],
+      "rotation_y": 60
+    }
+  ],
+  "pickups": [
+    {
+      "id": "gulls_head_knot",
+      "item": "remembering_knot",
+      "position": [
+        2.6,
+        0,
+        11.5
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "gulls_beacon",
+      "prompt": "Examine the Gull's Beacon",
+      "dialogue": "gulls_beacon",
+      "position": [
+        0,
+        0,
+        -13
+      ],
+      "reach": 2.2
+    }
+  ],
+  "exits": [
+    {
+      "to": "saltmarrow",
+      "spawn": "from_lofts",
+      "position": [
+        0,
+        0,
+        17.5
+      ],
+      "prompt": "Walk back down the boardwalk to Saltmarrow"
+    }
+  ]
+}

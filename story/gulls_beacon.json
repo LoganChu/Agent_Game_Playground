@@ -1,0 +1,76 @@
+{
+  "id": "gulls_beacon",
+  "knots": {
+    "start": [
+      {
+        "if": "stage:a_light_for_saltmarrow=reach_the_beacon",
+        "goto": "arrive"
+      },
+      {
+        "if": "stage:a_light_for_saltmarrow=feed_the_beacon",
+        "goto": "waiting"
+      },
+      {
+        "say": "narrator",
+        "text": "The Gull's Beacon stands dark and cold on the headland, its lantern room full of fog."
+      }
+    ],
+    "arrive": [
+      {
+        "say": "narrator",
+        "text": "Up close the beacon is smaller than the songs make it: a stub of grey stone, a gull of beaten iron on the roof, the lantern room choked with fog."
+      },
+      {
+        "say": "narrator",
+        "text": "Inside, an iron cradle sits where a flame should be. Old ash, a few pale flecks of it, from nine hundred midwinters."
+      },
+      {
+        "say": "narrator",
+        "text": "You lift the ember. The fog along the headland flinches — and the cradle seems to lean toward you, empty, waiting. Ember alone won't do. It wants to be fed."
+      },
+      {
+        "if": "item:humming_pebble",
+        "say": "narrator",
+        "text": "In your pocket, the pebble hums louder, as if it knows exactly where it is."
+      },
+      {
+        "if": "item:remembering_knot",
+        "say": "narrator",
+        "text": "In your satchel, the knot pulls itself tight."
+      },
+      {
+        "if": "flag:saltmarrow_pebble_fate=given",
+        "say": "narrator",
+        "text": "You think of Pell, and the humming pebble tucked among their lost things."
+      },
+      {
+        "if": "flag:saltmarrow_mara_told_of_dunstan",
+        "say": "narrator",
+        "text": "And you think of Mara, who still remembers a brother walking north into the grey."
+      },
+      {
+        "quest_stage": [
+          "a_light_for_saltmarrow",
+          "feed_the_beacon"
+        ]
+      },
+      {
+        "goto": "waiting"
+      }
+    ],
+    "waiting": [
+      {
+        "say": "narrator",
+        "text": "The cradle waits. Whatever you set in it, Saltmarrow will never remember again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ]
+  }
+}

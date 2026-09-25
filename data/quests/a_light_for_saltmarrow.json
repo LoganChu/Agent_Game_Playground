@@ -12,6 +12,10 @@
     {
       "id": "reach_the_beacon",
       "text": "Cross the greyed net-lofts and reach the Gull's Beacon on the headland."
+    },
+    {
+      "id": "feed_the_beacon",
+      "text": "The Gull's Beacon must be fed a Remnant. Whatever burns, Saltmarrow forgets for good. Decide what it will be, then return to the beacon."
     }
   ]
 }

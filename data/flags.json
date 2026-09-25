@@ -28,6 +28,15 @@
     "saltmarrow_aldous_approach": {
       "description": "How the player first handled Aldous's evasions: '' / 'gentle' / 'pressed'. Gentle earns his trust (he confides sooner in Act I); pressed makes him defensive.",
       "default": ""
+    },
+    "saltmarrow_hesk_saw_dunstan": {
+      "description": "Old Hesk, Hushed in the net-lofts, told the player a big man with a lantern and 'Tollen shoulders' went north laughing, saying he'd come back for his name.",
+      "default": false
+    },
+    "saltmarrow_mara_knows_dunstan_chose": {
+      "description": "Player told Mara what Hesk saw: Dunstan went into the fog willingly. Pays off when Dunstan is found among the Unmoored (Act II).",
+      "default": false,
+      "future": true
     }
   }
 }

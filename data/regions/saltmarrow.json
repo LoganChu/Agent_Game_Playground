@@ -1,7 +1,7 @@
 {
   "id": "saltmarrow",
   "name": "Saltmarrow",
-  "description": "A fishing village on stilts around a tidal harbor. Smells of tar and smoked fish. The northern net-lofts are lost in fog; beyond them, the dark Gull's Beacon.",
+  "description": "A fishing village on stilts around a tidal harbor. Smells of tar and smoked fish. A boardwalk runs north to the net-lofts, now lost in fog; beyond them, the dark Gull's Beacon.",
   "water_level": -0.25,
   "fog": {
     "density": 0.018,
@@ -17,6 +17,11 @@
       0,
       0.5,
       9.5
+    ],
+    "from_lofts": [
+      1.5,
+      0.5,
+      -11
     ]
   },
   "terrain": [
@@ -35,29 +40,29 @@
     },
     {
       "size": [
-        12,
-        1,
-        10
-      ],
-      "position": [
-        0,
-        2.0,
-        -21
-      ],
-      "color": "slate"
-    },
-    {
-      "size": [
         3,
-        1,
+        0.4,
         8
       ],
       "position": [
         0,
-        1.0,
-        -15.5
+        0.05,
+        -16
       ],
       "color": "driftwood"
+    },
+    {
+      "size": [
+        14,
+        1,
+        6
+      ],
+      "position": [
+        0,
+        0.0,
+        -23
+      ],
+      "color": "slate"
     }
   ],
   "props": [
@@ -137,20 +142,6 @@
       "scale": 0.7
     },
     {
-      "model": "res://assets/models/gull_beacon.glb",
-      "shape": "beacon",
-      "position": [
-        0,
-        2.0,
-        -23
-      ],
-      "collider": [
-        2.4,
-        5.6,
-        2.4
-      ]
-    },
-    {
       "model": "res://assets/models/pine_tree.glb",
       "shape": "pine",
       "position": [
@@ -187,6 +178,54 @@
         -3
       ],
       "scale": 0.9
+    },
+    {
+      "model": "res://assets/models/net_loft.glb",
+      "shape": "house",
+      "color": "silverfog",
+      "position": [
+        -4,
+        0,
+        -23
+      ],
+      "rotation_y": 10,
+      "collider": [
+        3.2,
+        3.8,
+        2.6
+      ]
+    },
+    {
+      "model": "res://assets/models/net_loft.glb",
+      "shape": "house",
+      "color": "silverfog",
+      "position": [
+        4.5,
+        0,
+        -22.5
+      ],
+      "rotation_y": -12,
+      "collider": [
+        3.2,
+        3.8,
+        2.6
+      ]
+    },
+    {
+      "shape": "post",
+      "position": [
+        -1.8,
+        0,
+        -12.5
+      ]
+    },
+    {
+      "shape": "post",
+      "position": [
+        1.8,
+        0,
+        -12.5
+      ]
     }
   ],
   "npcs": [
@@ -207,6 +246,15 @@
         -1
       ],
       "rotation_y": 130
+    },
+    {
+      "npc": "tam",
+      "position": [
+        2.4,
+        0,
+        -13
+      ],
+      "rotation_y": -60
     }
   ],
   "exits": [
@@ -219,6 +267,18 @@
         13.5
       ],
       "prompt": "Walk back down to Shingle Point"
+    },
+    {
+      "to": "gulls_head",
+      "spawn": "from_village",
+      "position": [
+        0,
+        0,
+        -19
+      ],
+      "prompt": "Go north through the net-lofts",
+      "requires": "item:harbor_token",
+      "locked_text": "Tam blocks the boardwalk: \"Not without the harbormaster's say-so.\""
     }
   ]
 }

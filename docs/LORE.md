@@ -68,6 +68,24 @@ greyed net-lofts.
     good) and, if treated gently, that the Hearthspire "did not go out by accident."
   - Folk already use the word **Wakebearer** for someone carrying a living ember.
 
+- **Established in play (Day 3):**
+  - A driftwood **boardwalk** runs north from the village to the greyed **net-lofts** and on
+    to the headland, together called **Gull's Head**. **Tam Hollis**, a young Tidewright
+    net-hand (Hesk's apprentice once), guards the boardwalk gate on Mara's orders and lets
+    only the Token's bearer pass.
+  - **Old Hesk**, Saltmarrow's oldest netmender, refused to leave the lofts and is Hushed:
+    she mends the same net forever, humming "over, under, round the gull".
+  - Hesk saw **Dunstan** go north with a lantern, *laughing*, saying he'd "come back for his
+    name when he was done with it" (flag `saltmarrow_hesk_saw_dunstan`). If told, Mara now
+    knows he went willingly (`saltmarrow_mara_knows_dunstan_chose`) — foreshadows mystery #5.
+  - The **Remembering Knot** — a Remnant found in the lofts: tarred cord that ties itself
+    into Saltmarrow's **founding knot**, with which the first village net was tied. No living
+    hand remembers it. Burning it would take the village's founding craft (the "founding"
+    option of the Act I burn choice).
+  - The **Gull's Beacon** is a stub of grey stone with an iron gull on its roof; inside the
+    lantern room is an **iron cradle** where the fed Remnant burns, holding pale ash of old
+    midwinters. Ember alone does nothing; the cradle "leans toward" the ember, waiting.
+
 ### 2. Thornwold (planned — Alpha)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of
 charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.

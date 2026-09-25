@@ -49,6 +49,15 @@
             "goto": "dunstan"
           },
           {
+            "text": "Someone in the net-lofts saw Dunstan leave.",
+            "if": [
+              "flag:saltmarrow_hesk_saw_dunstan",
+              "flag:saltmarrow_mara_told_of_dunstan",
+              "!flag:saltmarrow_mara_knows_dunstan_chose"
+            ],
+            "goto": "dunstan_chose"
+          },
+          {
             "text": "How do we push the fog back?",
             "if": "quest:a_light_for_saltmarrow=inactive",
             "goto": "beacon_offer"
@@ -181,6 +190,36 @@
       {
         "say": "mara",
         "text": "Good of you. That child's got precious little that's their own."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dunstan_chose": [
+      {
+        "set": {
+          "saltmarrow_mara_knows_dunstan_chose": true
+        }
+      },
+      {
+        "say": "mara",
+        "text": "Hesk? Hesk's been Hushed a month. She doesn't know her own—"
+      },
+      {
+        "say": "narrator",
+        "text": "You tell her: the lantern, the laughing, coming back for his name."
+      },
+      {
+        "say": "mara",
+        "text": "…That's him. That's exactly him, the great fool."
+      },
+      {
+        "say": "mara",
+        "text": "So the fog didn't take him. He went. He walked in there on purpose and didn't tell me why."
+      },
+      {
+        "say": "mara",
+        "text": "I don't know if that's better. Ask me when I've slept."
       },
       {
         "goto": "hub"

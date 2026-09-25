@@ -1,0 +1,94 @@
+{
+  "id": "hesk",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "An old woman sits among half-mended nets, fingers working a knot that never quite finishes. She hums without a tune."
+      },
+      {
+        "say": "hesk",
+        "text": "Over, under, round the gull… over, under…"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Who are you?",
+            "goto": "who"
+          },
+          {
+            "text": "Has anyone come through here?",
+            "if": "!flag:saltmarrow_hesk_saw_dunstan",
+            "goto": "lantern"
+          },
+          {
+            "text": "Show her the self-tying knot.",
+            "if": "item:remembering_knot",
+            "goto": "knot"
+          },
+          {
+            "text": "Rest, mother.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "who": [
+      {
+        "say": "hesk",
+        "text": "Who… I mend. That's who. Over, under."
+      },
+      {
+        "say": "narrator",
+        "text": "Her eyes slide across you as if you were weather. Only when your ember comes close do her hands slow, for a breath."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lantern": [
+      {
+        "set": {
+          "saltmarrow_hesk_saw_dunstan": true
+        }
+      },
+      {
+        "say": "hesk",
+        "text": "A big one. With a lantern. Tollen shoulders, the Tollen walk. North, into the thick of it."
+      },
+      {
+        "say": "hesk",
+        "text": "Said he'd come back for his name when he was done with it. Laughing, he was. Not sad."
+      },
+      {
+        "say": "hesk",
+        "text": "I thought that was strange. I remember thinking it was strange. Over, under…"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "knot": [
+      {
+        "say": "narrator",
+        "text": "The cord in your palm ties itself, loop by slow loop. Hesk's fingers stop."
+      },
+      {
+        "say": "hesk",
+        "text": "That's the first knot. The founding knot. Gran's gran's gran tied the first Saltmarrow net with that, when there was nothing here but gulls."
+      },
+      {
+        "say": "hesk",
+        "text": "My hands have lost it. Everyone's hands have. Only that string remembers now."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}
