@@ -171,8 +171,27 @@ def build_gull_beacon() -> None:
     export("gull_beacon")
 
 
+def build_net_loft() -> None:
+    """A tall, open-sided drying shed on stilts with nets hung from its rails."""
+    reset_scene()
+    for x in (-1.4, 1.4):
+        for y in (-1.0, 1.0):
+            cone("Stilt", 0.1, 0.1, 3.0, 5, (x, y, 0), material("slate"))
+    box("Floor", (3.2, 2.4, 0.12), (0, 0, 1.2), material("driftwood"))
+    box("BackWall", (3.2, 0.1, 1.7), (0, 1.15, 1.32), material("driftwood"))
+    for x in (-1.4, 1.4):
+        box("Rail", (0.08, 2.2, 0.08), (x, 0, 2.3), material("driftwood"))
+    prism("Roof", 3.6, 2.8, 0.9, (0, 0, 3.0), material("slate"))
+    # Hanging nets: thin silverfog sheets, slightly staggered.
+    for i, x in enumerate((-0.9, 0.0, 0.9)):
+        box(f"Net{i}", (0.7, 0.03, 1.0 + 0.15 * i), (x, -0.2 + 0.25 * i, 1.35), material("silverfog"))
+    box("Ladder", (0.5, 0.06, 1.2), (0.9, -1.3, 0.0), material("driftwood"))
+    export("net_loft")
+
+
 if __name__ == "__main__":
     build_pine_tree()
     build_rock_cluster()
     build_stilt_house()
     build_gull_beacon()
+    build_net_loft()
