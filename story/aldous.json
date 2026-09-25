@@ -46,6 +46,11 @@
             "goto": "after_beacon"
           },
           {
+            "text": "The Gull's Beacon is lit.",
+            "if": "quest:a_light_for_saltmarrow=done",
+            "goto": "beacon_lit"
+          },
+          {
             "text": "What happened at the Hearthspire?",
             "goto": "spire"
           },
@@ -181,9 +186,47 @@
         "text": "People will tell you to burn whatever hurts least. There isn't one. There's only whichever you can live with having chosen."
       },
       {
+        "say": "aldous",
+        "text": "And a Remnant needn't be found. Hold a loved thing in the grey long enough and the memory settles into it. We Keepers knew that trick. We knew it far too well."
+      },
+      {
         "if": "flag:saltmarrow_aldous_approach=gentle",
         "say": "aldous",
         "text": "Whatever you pick — come and tell me after. I owe you the rest of a story, and I'd like to pay it sober."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "beacon_lit": [
+      {
+        "say": "aldous",
+        "text": "I know. I felt it catch from this bench, like a hand on the back of my neck. Nine hundred midwinters, and it still knows how."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "aldous",
+        "text": "The lullaby. That child will sleep worse, and never know why. You chose something small that was everything to someone. They all are."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "aldous",
+        "text": "The founding knot. The village's beginning, for its future. A Keeper's choice — tidy, and cold. I'd have made it too. That's not praise."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "aldous",
+        "text": "Mara's brother. She gave him willingly; I saw her at the gate. That's a kind of courage I never had."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_approach=gentle",
+        "say": "aldous",
+        "text": "I promised you the rest of a story. Give me a night to find the bottom of this bottle, and the courage under it."
+      },
+      {
+        "if": "!flag:saltmarrow_aldous_approach=gentle",
+        "say": "aldous",
+        "text": "There are things I should tell you. I'm not brave enough yet. Perhaps you'll make me."
       },
       {
         "goto": "hub"

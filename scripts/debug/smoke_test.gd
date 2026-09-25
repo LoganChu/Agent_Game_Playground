@@ -53,7 +53,7 @@ func _run() -> void:
 					(node as Pickup).interact()
 			await get_tree().process_frame
 	await _check_gates(main, true)
-	_check(GameState.world.quest_stage("a_light_for_saltmarrow") == "feed_the_beacon", "the Gull's Beacon advances A Light for Saltmarrow")
+	await _check_beacon_lit(main)
 	await _check_journal(main.get("journal_ui"))
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
 	var before := GameState.world.to_dict()
@@ -98,6 +98,24 @@ func _check_gates(main: Node, expect_open: bool) -> void:
 			var now: Region = main.get("region")
 			var arrived := now != null and now.region_id == target
 			_check(arrived == expect_open, "exit %s -> %s %s travel" % [region_id, target, "allows" if expect_open else "refuses"])
+
+
+## By the end of pass two the menu walk has fed the Gull's Beacon: check the quest, the
+## burn flag, the lantern-room light and that the fog thinned.
+func _check_beacon_lit(main: Node) -> void:
+	var world := GameState.world
+	_check(world.quest_state("a_light_for_saltmarrow") == WorldState.QUEST_DONE, "the Gull's Beacon is relit")
+	_check(str(world.get_flag("saltmarrow_beacon_burned")) in ["pebble", "knot", "gull"], "a Remnant was burned")
+	GameState.travel("gulls_head")
+	for i in 3:
+		await get_tree().physics_frame
+	var region: Region = main.get("region")
+	_check(region.shown_conditional_props() == 1, "beacon light shows once lit")
+	var base := float((region.data.get("fog", {}) as Dictionary).get("density", 0.0))
+	var target: float = main.call("target_fog_density")
+	_check(target < base, "fog override thins Gull's Head")
+	var env: Environment = main.get("_environment")
+	_check(is_equal_approx(env.fog_density, target), "fog applied on region load")
 
 
 ## Opens both journal tabs via the real input actions and checks they mirror world state.

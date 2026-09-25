@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "goto": "lit"
+      },
+      {
         "if": "stage:a_light_for_saltmarrow=reach_the_beacon",
         "goto": "arrive"
       },
@@ -64,12 +68,191 @@
         "text": "The cradle waits. Whatever you set in it, Saltmarrow will never remember again."
       },
       {
+        "if": [
+          "flag:saltmarrow_pebble_fate=given",
+          "!flag:saltmarrow_pell_lent_pebble"
+        ],
+        "say": "narrator",
+        "text": "The humming pebble is Pell's now, among their lost things. It isn't yours to burn unless Pell says so."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_mara_told_of_dunstan",
+          "!flag:saltmarrow_mara_offered_gull"
+        ],
+        "say": "narrator",
+        "text": "You think of Mara, and a brother she still remembers. Some memories are carried, not found."
+      },
+      {
         "choice": [
+          {
+            "text": "Set the humming pebble in the cradle.",
+            "if": "item:humming_pebble",
+            "goto": "weigh_pebble"
+          },
+          {
+            "text": "Set the Remembering Knot in the cradle.",
+            "if": "item:remembering_knot",
+            "goto": "weigh_knot"
+          },
+          {
+            "text": "Set Dunstan's whittled gull in the cradle.",
+            "if": "item:dunstans_gull",
+            "goto": "weigh_gull"
+          },
           {
             "text": "Not yet.",
             "end": true
           }
         ]
+      }
+    ],
+    "weigh_pebble": [
+      {
+        "say": "narrator",
+        "text": "The pebble hums in your palm: a woman's voice, a boat rocking, the lullaby every Saltmarrow child fell asleep to."
+      },
+      {
+        "if": "flag:saltmarrow_pell_lent_pebble",
+        "say": "narrator",
+        "text": "Pell put it in your hand themselves. They said it helped them sleep."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and no one on this island will ever hum it again. Not Mara. Not Pell. Not anyone."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn the lullaby.",
+            "take_item": "humming_pebble",
+            "set": {
+              "saltmarrow_beacon_burned": "pebble"
+            },
+            "goto": "burn_pebble"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "weigh_knot": [
+      {
+        "say": "narrator",
+        "text": "The cord ties itself in your hand: over, under, round the gull. The first knot of the first net, before there was a Saltmarrow to tie it for."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and the knot is gone from every hand for good. The village will go on mending nets. It will just never know how it began."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn the founding knot.",
+            "take_item": "remembering_knot",
+            "set": {
+              "saltmarrow_beacon_burned": "knot"
+            },
+            "goto": "burn_knot"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "weigh_gull": [
+      {
+        "say": "narrator",
+        "text": "The little driftwood gull is warm as a hand. Everything Mara remembers of her brother is in it: a boy's laugh, a man's shoulders, a lantern walking north."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and Mara Tollen will never have had a brother. Wherever Dunstan is, no one here will be waiting for him."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Mara's memory of Dunstan.",
+            "take_item": "dunstans_gull",
+            "set": {
+              "saltmarrow_beacon_burned": "gull"
+            },
+            "goto": "burn_gull"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "burn_pebble": [
+      {
+        "say": "narrator",
+        "text": "You set the pebble in the cradle and hold the ember to it. The humming rises, sweet and whole — you hear the ending, the one nobody could remember — and then it is fire."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "burn_knot": [
+      {
+        "say": "narrator",
+        "text": "You lay the knot in the cradle. It ties itself one last time, slowly, perfectly, as the ember touches it. Then the cord is light, and the knot is nowhere at all."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "burn_gull": [
+      {
+        "say": "narrator",
+        "text": "You set the little gull in the cradle. For a moment you see him — big, laughing, a lantern in his fist, a small girl on his shoulders — and then the wood takes the flame."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "kindle": [
+      {
+        "say": "narrator",
+        "text": "The Gull's Beacon catches. Light pours out of the lantern room, gold and steady, and the iron gull on the roof throws a long shadow across the headland."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog does not flee. It leans back, the way a crowd steps back from a fire — off the headland, off the boardwalk, out past the harbor wall."
+      },
+      {
+        "quest_complete": "a_light_for_saltmarrow"
+      },
+      {
+        "say": "narrator",
+        "text": "Somewhere below, in Saltmarrow, someone has just forgotten something. They won't know what. That's the point, and the price."
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "The Gull's Beacon burns gold and steady. The fog keeps a respectful distance from the headland."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "narrator",
+        "text": "There is no humming anywhere now. You find you can't remember the tune either."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a cord seems to loop over and under. Then it's only fire."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "narrator",
+        "text": "The light falls north, the way a lantern once went. No one in the village watches that way anymore."
       }
     ]
   }

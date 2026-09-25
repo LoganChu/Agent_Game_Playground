@@ -3,6 +3,14 @@
   "knots": {
     "start": [
       {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "goto": "start_knot_burned"
+      },
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "goto": "start_lit"
+      },
+      {
         "say": "narrator",
         "text": "An old woman sits among half-mended nets, fingers working a knot that never quite finishes. She hums without a tune."
       },
@@ -85,6 +93,36 @@
       {
         "say": "hesk",
         "text": "My hands have lost it. Everyone's hands have. Only that string remembers now."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "start_lit": [
+      {
+        "say": "narrator",
+        "text": "Beacon-light falls gold through the loft slats. Hesk's fingers work the same knot, a little slower. She looks up once, toward the headland."
+      },
+      {
+        "say": "hesk",
+        "text": "Is it midwinter? Someone's lit the gull. Over, under, round the gull…"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "start_knot_burned": [
+      {
+        "say": "narrator",
+        "text": "Beacon-light falls gold through the loft slats. Hesk sits with a net across her knees, hands still, turning a cord over and over."
+      },
+      {
+        "say": "hesk",
+        "text": "Over… under…"
+      },
+      {
+        "say": "hesk",
+        "text": "I've forgotten what I was mending. There was a knot. There was always a knot."
       },
       {
         "goto": "hub"

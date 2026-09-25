@@ -5,7 +5,13 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.045,
-    "color": "silverfog"
+    "color": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "density": 0.014
+      }
+    ]
   },
   "spawn_points": {
     "default": [
@@ -216,6 +222,15 @@
         5.6,
         2.4
       ]
+    },
+    {
+      "shape": "beacon_light",
+      "position": [
+        0,
+        0,
+        -15
+      ],
+      "if": "quest:a_light_for_saltmarrow=done"
     }
   ],
   "npcs": [

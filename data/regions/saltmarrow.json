@@ -5,7 +5,13 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.018,
-    "color": "silverfog"
+    "color": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "density": 0.008
+      }
+    ]
   },
   "spawn_points": {
     "default": [

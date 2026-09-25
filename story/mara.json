@@ -7,6 +7,13 @@
         "goto": "first"
       },
       {
+        "if": [
+          "quest:a_light_for_saltmarrow=done",
+          "!flag:saltmarrow_mara_saw_beacon_lit"
+        ],
+        "goto": "beacon_lit"
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -45,7 +52,10 @@
           },
           {
             "text": "\"What isn't\" — who's missing?",
-            "if": "!flag:saltmarrow_mara_told_of_dunstan",
+            "if": [
+              "!flag:saltmarrow_mara_told_of_dunstan",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
             "goto": "dunstan"
           },
           {
@@ -53,7 +63,8 @@
             "if": [
               "flag:saltmarrow_hesk_saw_dunstan",
               "flag:saltmarrow_mara_told_of_dunstan",
-              "!flag:saltmarrow_mara_knows_dunstan_chose"
+              "!flag:saltmarrow_mara_knows_dunstan_chose",
+              "!flag:saltmarrow_beacon_burned=gull"
             ],
             "goto": "dunstan_chose"
           },
@@ -71,14 +82,36 @@
             "text": "Listen to this. It hums.",
             "if": [
               "flag:saltmarrow_pebble_fate=kept",
-              "item:humming_pebble"
+              "item:humming_pebble",
+              "!flag:saltmarrow_beacon_burned=pebble"
             ],
             "goto": "pebble_kept"
           },
           {
             "text": "Pell has the humming pebble now.",
-            "if": "flag:saltmarrow_pebble_fate=given",
+            "if": [
+              "flag:saltmarrow_pebble_fate=given",
+              "!flag:saltmarrow_pell_lent_pebble"
+            ],
             "goto": "pebble_given"
+          },
+          {
+            "text": "The beacon needs a memory. It could be yours — of Dunstan.",
+            "if": [
+              "stage:a_light_for_saltmarrow=feed_the_beacon",
+              "flag:saltmarrow_mara_told_of_dunstan",
+              "!flag:saltmarrow_mara_offered_gull"
+            ],
+            "goto": "offer_gull"
+          },
+          {
+            "text": "Your gull. The beacon didn't need it.",
+            "if": [
+              "quest:a_light_for_saltmarrow=done",
+              "item:dunstans_gull"
+            ],
+            "take_item": "dunstans_gull",
+            "goto": "gull_back"
           },
           {
             "text": "I'll be going.",
@@ -220,6 +253,155 @@
       {
         "say": "mara",
         "text": "I don't know if that's better. Ask me when I've slept."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "offer_gull": [
+      {
+        "say": "narrator",
+        "text": "Mara goes very still."
+      },
+      {
+        "say": "mara",
+        "text": "You're asking me to forget my brother."
+      },
+      {
+        "if": "flag:saltmarrow_mara_knows_dunstan_chose",
+        "say": "mara",
+        "text": "…He chose, didn't he. Walked off laughing and left me the counting. Maybe I get a choice too."
+      },
+      {
+        "if": "!flag:saltmarrow_mara_knows_dunstan_chose",
+        "say": "mara",
+        "text": "He's out there. If I forget him, who's left to be waiting when he comes back?"
+      },
+      {
+        "choice": [
+          {
+            "text": "Only if you're willing. It has to be your choice.",
+            "goto": "offer_gull_yes"
+          },
+          {
+            "text": "Forget I asked.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "offer_gull_yes": [
+      {
+        "say": "narrator",
+        "text": "She takes something from her coat: a thumb-sized gull whittled from driftwood, its beak worn smooth by a thumb."
+      },
+      {
+        "say": "mara",
+        "text": "He made it for me when I was six and he was ten. Wouldn't let me on the boats, so he brought me a bird."
+      },
+      {
+        "say": "narrator",
+        "text": "She walks to the boardwalk gate and holds the gull out into the grey. She stays there a long time. When she comes back the wood is warm, and her eyes are wet and angry."
+      },
+      {
+        "say": "mara",
+        "text": "There. It's all in there. Don't— don't tell me if you use it. I won't know what you mean anyway."
+      },
+      {
+        "give_item": "dunstans_gull",
+        "set": {
+          "saltmarrow_mara_offered_gull": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "gull_back": [
+      {
+        "say": "narrator",
+        "text": "Mara turns the gull over in her fingers. The warmth fades out of it as you watch, back into her."
+      },
+      {
+        "say": "mara",
+        "text": "Great fool of a bird. Great fool of a brother."
+      },
+      {
+        "say": "mara",
+        "text": "Thank you. I mean it. Now go away before I say something soft."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "beacon_lit": [
+      {
+        "set": {
+          "saltmarrow_mara_saw_beacon_lit": true
+        }
+      },
+      {
+        "say": "mara",
+        "text": "I watched it catch from the harbor wall. Half the village did. Old Brenner dropped his pipe in the water."
+      },
+      {
+        "say": "mara",
+        "text": "The fog's back past the wall. We can reach the smokehouse again. The lofts, even. You've fed us for the winter, Wakebearer."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "goto": "lit_pebble"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "goto": "lit_knot"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "goto": "lit_gull"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lit_pebble": [
+      {
+        "say": "narrator",
+        "text": "She hums, absently — three notes, four — and stops. She frowns at the air."
+      },
+      {
+        "say": "mara",
+        "text": "Was I humming? Odd. I don't know any songs. Never had the voice for it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lit_knot": [
+      {
+        "say": "mara",
+        "text": "Strange thing. I went to show Tam how to start a new net and my hands didn't know where to begin. Started from the middle. Works fine."
+      },
+      {
+        "say": "mara",
+        "text": "Suppose that's what it cost. A beginning. We'll manage without one."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lit_gull": [
+      {
+        "say": "narrator",
+        "text": "She glances at the empty stool beside her door, the one with a big man's dent worn into the seat, and looks away without seeing it."
+      },
+      {
+        "say": "mara",
+        "text": "Just me here. Tollens end with me, always have. Never minded."
+      },
+      {
+        "say": "mara",
+        "text": "…Though I keep setting out two cups. Habit, I suppose. Whose, I couldn't tell you."
       },
       {
         "goto": "hub"

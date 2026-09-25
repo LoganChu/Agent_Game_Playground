@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "goto": "start_lit"
+      },
+      {
         "if": "!item:harbor_token",
         "goto": "shut"
       },
@@ -66,6 +70,20 @@
       {
         "say": "tam",
         "text": "She taught me every knot I've got. Doesn't know my name now."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "start_lit": [
+      {
+        "say": "tam",
+        "text": "I can see the beacon from the gate. First time since the Snuffing. I keep looking, in case it goes out."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "tam",
+        "text": "Hesk's stopped humming. The lofts are quiet as a church. I don't know if that's better."
       },
       {
         "goto": "hub"

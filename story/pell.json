@@ -62,8 +62,35 @@
           },
           {
             "text": "How are your lost things?",
-            "if": "flag:saltmarrow_pebble_fate=given",
+            "if": [
+              "flag:saltmarrow_pebble_fate=given",
+              "!flag:saltmarrow_pell_lent_pebble"
+            ],
             "goto": "collection"
+          },
+          {
+            "text": "The beacon needs a Remnant. Could it be the pebble?",
+            "if": [
+              "stage:a_light_for_saltmarrow=feed_the_beacon",
+              "flag:saltmarrow_pebble_fate=given",
+              "!flag:saltmarrow_pell_lent_pebble"
+            ],
+            "goto": "ask_pebble"
+          },
+          {
+            "text": "Here. Your pebble back. The beacon didn't need it.",
+            "if": [
+              "quest:a_light_for_saltmarrow=done",
+              "flag:saltmarrow_pell_lent_pebble",
+              "item:humming_pebble"
+            ],
+            "take_item": "humming_pebble",
+            "goto": "pebble_back"
+          },
+          {
+            "text": "The beacon's lit.",
+            "if": "quest:a_light_for_saltmarrow=done",
+            "goto": "lit"
           },
           {
             "text": "See you, Pell.",
@@ -225,6 +252,114 @@
       {
         "say": "pell",
         "text": "The pebble hums at night. I sleep better. Don't tell Mara, she'll say I've gone soft."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ask_pebble": [
+      {
+        "say": "pell",
+        "text": "The pebble? My pebble?"
+      },
+      {
+        "say": "narrator",
+        "text": "Pell's hand goes to their pocket and stays there."
+      },
+      {
+        "say": "pell",
+        "text": "If it burns, nobody gets the song. Not even the wrong way I hum it. That's what the Keeper said, right? Gone gone."
+      },
+      {
+        "choice": [
+          {
+            "text": "Yes. Gone for good. I'm sorry.",
+            "goto": "ask_pebble_truth"
+          },
+          {
+            "text": "Keep it, Pell. I'll find another way.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "ask_pebble_truth": [
+      {
+        "say": "pell",
+        "text": "…Mara can't finish it anyway. Nobody can. Maybe a song nobody can finish is the right thing to burn."
+      },
+      {
+        "say": "narrator",
+        "text": "They put the pebble in your hand and close your fingers over it, hard, like it might try to get back out."
+      },
+      {
+        "say": "pell",
+        "text": "Don't tell me when you do it. I don't want to feel it go."
+      },
+      {
+        "give_item": "humming_pebble",
+        "set": {
+          "saltmarrow_pell_lent_pebble": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pebble_back": [
+      {
+        "say": "pell",
+        "text": "You didn't— it's still humming. It's still HUMMING."
+      },
+      {
+        "say": "pell",
+        "text": "I'm not crying. It's the smoke. From the beacon. Which is really far away."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lit": [
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "goto": "lit_pebble"
+      },
+      {
+        "say": "pell",
+        "text": "I saw it from the harbor! Gold! The fog's gone all the way back past the wall — I can see the lofts again!"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "pell",
+        "text": "Mara's got everyone mending. Funny — nobody can say what the first knot was. Like it's on the tip of your tongue, forever."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "pell",
+        "text": "Mara's been setting out two cups at supper. Then she stares at the second one. Is that a grown-up thing?"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lit_pebble": [
+      {
+        "say": "pell",
+        "text": "The fog's gone back past the harbor wall! You did it!"
+      },
+      {
+        "if": "flag:saltmarrow_pell_lent_pebble",
+        "say": "pell",
+        "text": "I had a pebble. I know I had one. I keep reaching in my pocket and there's just… pocket."
+      },
+      {
+        "if": "!flag:saltmarrow_pell_lent_pebble",
+        "say": "pell",
+        "text": "Mara was humming at the nets this morning. Then she stopped halfway and couldn't think what she'd been humming."
+      },
+      {
+        "say": "pell",
+        "text": "Weird. Everything's so quiet at night now."
       },
       {
         "goto": "hub"

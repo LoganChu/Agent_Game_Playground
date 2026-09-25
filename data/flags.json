@@ -37,6 +37,22 @@
       "description": "Player told Mara what Hesk saw: Dunstan went into the fog willingly. Pays off when Dunstan is found among the Unmoored (Act II).",
       "default": false,
       "future": true
+    },
+    "saltmarrow_pell_lent_pebble": {
+      "description": "Pell agreed to hand the humming pebble back so the Gull's Beacon could burn it. Stays true even if the player later returns it.",
+      "default": false
+    },
+    "saltmarrow_mara_offered_gull": {
+      "description": "Mara held Dunstan's whittled gull in the fog until it became a Remnant of her memory of him, and gave it to the player for the beacon.",
+      "default": false
+    },
+    "saltmarrow_beacon_burned": {
+      "description": "Which Remnant fed the Gull's Beacon: '' (unlit), 'pebble' (the lullaby — Mara's song, Pell's comfort), 'knot' (Saltmarrow's founding knot) or 'gull' (Mara's memory of her brother Dunstan). The Act I choice; Saltmarrow forgets it for good.",
+      "default": ""
+    },
+    "saltmarrow_mara_saw_beacon_lit": {
+      "description": "Player has spoken with Mara after the Gull's Beacon was relit (one-time aftermath scene).",
+      "default": false
     }
   }
 }
