@@ -6,6 +6,8 @@ extends Node3D
 
 var region_id := ""
 var data: Dictionary = {}
+## Props with an `if` condition: index in data.props -> built node (or null while hidden).
+var _conditional_props: Dictionary = {}
 
 
 func build(id: String) -> void:
@@ -17,10 +19,16 @@ func build(id: String) -> void:
 		add_child(_build_slab(slab))
 	if data.has("water_level"):
 		add_child(_build_water(float(data["water_level"])))
-	for prop: Dictionary in data.get("props", []):
+	var props: Array = data.get("props", [])
+	for i in props.size():
+		var prop: Dictionary = props[i]
+		if prop.has("if"):
+			_conditional_props[i] = null
+			continue
 		var node := _build_prop(prop)
 		if node:
 			add_child(node)
+	refresh_conditional_props()
 	var world := GameState.world
 	for placement: Dictionary in data.get("npcs", []):
 		if not Conditions.evaluate(placement.get("if"), world):
@@ -50,6 +58,32 @@ func build(id: String) -> void:
 		var exit := RegionExit.new()
 		exit.setup(exit_data)
 		add_child(exit)
+
+
+## Adds/removes props whose `if` condition changed. Safe to call any time (e.g. when a
+## flag changes mid-visit); unconditional content is never touched.
+func refresh_conditional_props() -> void:
+	var props: Array = data.get("props", [])
+	for i: int in _conditional_props:
+		var prop: Dictionary = props[i]
+		var want := Conditions.evaluate(prop.get("if"), GameState.world)
+		var node: Node3D = _conditional_props[i]
+		if want and node == null:
+			node = _build_prop(prop)
+			add_child(node)
+			_conditional_props[i] = node
+		elif not want and node != null:
+			node.queue_free()
+			_conditional_props[i] = null
+
+
+## Number of conditional props currently shown (for tests).
+func shown_conditional_props() -> int:
+	var shown := 0
+	for node: Variant in _conditional_props.values():
+		if node != null:
+			shown += 1
+	return shown
 
 
 func spawn_position(spawn: String) -> Vector3:

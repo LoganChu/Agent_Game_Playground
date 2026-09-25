@@ -13,6 +13,7 @@ var dialogue_ui: DialogueUI
 var journal_ui: JournalUI
 
 var _environment: Environment
+var _fog_tween: Tween
 
 
 func _ready() -> void:
@@ -27,6 +28,8 @@ func _ready() -> void:
 	add_child(player)
 	player.focus_changed.connect(hud.set_focus)
 	GameState.region_change_requested.connect(_on_region_change_requested)
+	GameState.world.flag_changed.connect(_on_world_changed.unbind(2))
+	GameState.world.quest_changed.connect(_on_world_changed.unbind(3))
 	var fresh := GameState.region_id.is_empty()
 	if fresh:
 		GameState.new_game()
@@ -62,7 +65,7 @@ func load_region(region_id: String, spawn: String) -> void:
 	var pos: Variant = GameState.pending_player_position
 	GameState.pending_player_position = null
 	player.place_at(pos if pos is Vector3 else region.spawn_position(spawn))
-	_apply_region_mood(region.data)
+	_apply_region_mood(false)
 	hud.show_region_title(str(region.data.get("name", region_id)))
 
 
@@ -95,9 +98,32 @@ func _build_environment() -> void:
 	add_child(sun)
 
 
-func _apply_region_mood(data: Dictionary) -> void:
-	var fog: Dictionary = data.get("fog", {})
-	_environment.fog_density = float(fog.get("density", 0.012))
-	var fog_color := PropFactory.color(str(fog.get("color", "silverfog")))
-	_environment.fog_light_color = fog_color
-	_environment.background_color = fog_color
+## Story changes mid-visit (a relit beacon) can thin the fog and show/hide props.
+func _on_world_changed() -> void:
+	if region == null:
+		return
+	region.refresh_conditional_props()
+	_apply_region_mood(true)
+
+
+func _apply_region_mood(animate: bool) -> void:
+	var fog := RegionMood.fog(region.data, GameState.world)
+	var density := float(fog["density"])
+	var fog_color := PropFactory.color(str(fog["color"]))
+	if _fog_tween:
+		_fog_tween.kill()
+	if not animate or is_equal_approx(density, _environment.fog_density):
+		_environment.fog_density = density
+		_environment.fog_light_color = fog_color
+		_environment.background_color = fog_color
+		return
+	# The Greying pulls back slowly, so the player sees it happen.
+	_fog_tween = create_tween().set_parallel().set_trans(Tween.TRANS_SINE)
+	_fog_tween.tween_property(_environment, "fog_density", density, 4.0)
+	_fog_tween.tween_property(_environment, "fog_light_color", fog_color, 4.0)
+	_fog_tween.tween_property(_environment, "background_color", fog_color, 4.0)
+
+
+## Fog density the current region is heading toward (for tests).
+func target_fog_density() -> float:
+	return float(RegionMood.fog(region.data, GameState.world)["density"]) if region else 0.0

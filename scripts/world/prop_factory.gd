@@ -3,7 +3,7 @@ extends RefCounted
 ## Builds simple flat-shaded low-poly props from primitives. Used for greyboxing and as a
 ## fallback when a region prop has no Blender-made model.
 
-const SHAPES: Array[String] = ["pine", "rock", "house", "post", "crate", "beacon", "dock"]
+const SHAPES: Array[String] = ["pine", "rock", "house", "post", "crate", "beacon", "dock", "beacon_light"]
 
 const PALETTE: Dictionary = {
 	"ember": Color("#F2A541"),
@@ -82,6 +82,8 @@ static func box(size: Vector3) -> BoxMesh:
 
 ## Builds a prop node for `shape`, scaled by `scale`, with a simple static collider.
 static func build(shape: String, tint: String = "", scale: float = 1.0) -> Node3D:
+	if shape == "beacon_light":
+		return _beacon_light(tint, scale)
 	var root := StaticBody3D.new()
 	root.name = shape.capitalize()
 	var collider_size := Vector3.ONE
@@ -138,5 +140,22 @@ static func build(shape: String, tint: String = "", scale: float = 1.0) -> Node3
 	shape_node.shape = box_shape
 	shape_node.position = Vector3(0, collider_size.y * 0.5, 0) if shape != "dock" else Vector3(0, 0.6, 0)
 	root.add_child(shape_node)
+	root.scale = Vector3.ONE * scale
+	return root
+
+
+## A lit beacon's lantern room: glowing glass around the Gull's Beacon lantern plus a warm
+## light. No collider — it sits inside the beacon's own.
+static func _beacon_light(tint: String, scale: float) -> Node3D:
+	var root := Node3D.new()
+	root.name = "BeaconLight"
+	var c := color(tint if tint else "kindle")
+	root.add_child(mesh_instance(cylinder(0.74, 0.74, 0.86, 8), c, Vector3(0, 4.57, 0), true))
+	var light := OmniLight3D.new()
+	light.light_color = c
+	light.light_energy = 2.5
+	light.omni_range = 14.0
+	light.position = Vector3(0, 4.6, 0)
+	root.add_child(light)
 	root.scale = Vector3.ONE * scale
 	return root

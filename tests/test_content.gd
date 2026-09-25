@@ -66,3 +66,16 @@ func test_validator_checks_objects_and_gated_exits() -> void:
 	for needle: String in ["duplicate object id 'gulls_beacon'", "no_such_talk", "object 'shrine' needs a 'prompt'",
 			"no_such_item", "no_such_flag", "needs a 'locked_text'"]:
 		assert_true(report.contains(needle), "report should mention '%s'" % needle)
+
+
+func test_validator_checks_fog_overrides_and_conditional_props() -> void:
+	var db := load_content()
+	var fog: Dictionary = db.regions["saltmarrow"]["fog"]
+	fog["overrides"] = [{"density": 0.001}, {"if": "flag:fog_flag_missing", "density": "thick", "color": "no_such_color"}]
+	db.regions["saltmarrow"]["props"].append({"shape": "crate", "position": [0, 0, 0], "if": "quest:no_such_quest=done"})
+	var validator := ContentValidator.new(db)
+	assert_false(validator.validate(), "validator should fail")
+	var report := validator.report()
+	for needle: String in ["fog override needs an 'if'", "fog_flag_missing", "density must be a number",
+			"no_such_color", "no_such_quest"]:
+		assert_true(report.contains(needle), "report should mention '%s'" % needle)

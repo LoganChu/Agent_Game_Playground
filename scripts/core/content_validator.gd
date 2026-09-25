@@ -161,6 +161,17 @@ func _validate_region(id: String, region: Dictionary) -> void:
 			_err(where, "prop model '%s' does not exist" % model)
 		if model.is_empty() and str(prop.get("shape", "")) not in PropFactory.SHAPES:
 			_err(where, "prop needs 'model' or a 'shape' in %s" % [PropFactory.SHAPES])
+		_ref_condition(where, prop.get("if"))
+	var fog: Dictionary = region.get("fog", {})
+	for override: Variant in fog.get("overrides", []):
+		if not override is Dictionary or not (override as Dictionary).has("if"):
+			_err(where, "fog override needs an 'if' condition")
+			continue
+		_ref_condition(where, override["if"])
+		if override.has("density") and not (override["density"] is float or override["density"] is int):
+			_err(where, "fog override density must be a number")
+		if override.has("color") and not _valid_color(str(override["color"])):
+			_err(where, "fog override has unknown color '%s'" % override["color"])
 	for pickup: Dictionary in region.get("pickups", []):
 		var pid := str(pickup.get("id", ""))
 		if pid.is_empty():
