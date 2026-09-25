@@ -53,3 +53,16 @@ func test_validator_catches_broken_links() -> void:
 	var report := validator.report()
 	for needle: String in ["no_such_dialogue", "missing_knot", "undeclared_flag", "ghost", "dialogue pell: is orphaned"]:
 		assert_true(report.contains(needle), "report should mention '%s'" % needle)
+
+
+func test_validator_checks_objects_and_gated_exits() -> void:
+	var db := load_content()
+	db.regions["gulls_head"]["objects"].append({"id": "gulls_beacon", "prompt": "Again", "dialogue": "no_such_talk"})
+	db.regions["gulls_head"]["objects"].append({"id": "shrine", "dialogue": "gulls_beacon", "if": "item:no_such_item"})
+	db.regions["gulls_head"]["exits"].append({"to": "saltmarrow", "position": [0, 0, 0], "requires": "flag:no_such_flag"})
+	var validator := ContentValidator.new(db)
+	assert_false(validator.validate(), "validator should fail")
+	var report := validator.report()
+	for needle: String in ["duplicate object id 'gulls_beacon'", "no_such_talk", "object 'shrine' needs a 'prompt'",
+			"no_such_item", "no_such_flag", "needs a 'locked_text'"]:
+		assert_true(report.contains(needle), "report should mention '%s'" % needle)

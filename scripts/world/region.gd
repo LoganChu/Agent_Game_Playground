@@ -1,6 +1,7 @@
 class_name Region
 extends Node3D
-## Builds a region from its JSON data: terrain slabs, water, props, NPCs, pickups, exits.
+## Builds a region from its JSON data: terrain slabs, water, props, NPCs, pickups,
+## inspectable objects, exits.
 ## See docs/TECH.md "Region format".
 
 var region_id := ""
@@ -39,6 +40,12 @@ func build(id: String) -> void:
 		pickup.setup(pickup_data)
 		pickup.position = JsonUtil.to_vector3(pickup_data.get("position"))
 		add_child(pickup)
+	for object_data: Dictionary in data.get("objects", []):
+		if not Conditions.evaluate(object_data.get("if"), world):
+			continue
+		var object := Inspectable.new()
+		object.setup(object_data)
+		add_child(object)
 	for exit_data: Dictionary in data.get("exits", []):
 		var exit := RegionExit.new()
 		exit.setup(exit_data)

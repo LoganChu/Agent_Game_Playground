@@ -178,7 +178,22 @@ func _validate_region(id: String, region: Dictionary) -> void:
 				_err(where, "pickup quest_stage must be [quest_id, stage_id]")
 			else:
 				_ref_stage(where, str(pair[0]), str(pair[1]))
+	var object_ids: Dictionary = {}
+	for object: Dictionary in region.get("objects", []):
+		var oid := str(object.get("id", ""))
+		if oid.is_empty():
+			_err(where, "object missing 'id'")
+		elif object_ids.has(oid):
+			_err(where, "duplicate object id '%s'" % oid)
+		object_ids[oid] = true
+		if str(object.get("prompt", "")).is_empty():
+			_err(where, "object '%s' needs a 'prompt'" % oid)
+		_ref_dialogue(where, str(object.get("dialogue", "")))
+		_ref_condition(where, object.get("if"))
 	for exit: Dictionary in region.get("exits", []):
+		_ref_condition(where, exit.get("requires"))
+		if exit.has("requires") and str(exit.get("locked_text", "")).is_empty():
+			_err(where, "exit with 'requires' needs a 'locked_text'")
 		var to := str(exit.get("to", ""))
 		if not db.regions.has(to):
 			_err(where, "exit leads to unknown region '%s'" % to)
