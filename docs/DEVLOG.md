@@ -2,6 +2,55 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-25 09:00 UTC — Day 3: Gull's Head (net-lofts & headland)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2 from GitHub/PyPI).
+  Baseline checks green before starting.
+- **Gull's Head** (ROADMAP #1): new region north of Saltmarrow — boardwalk through four
+  greyed net-lofts to the headland, denser fog (0.045), the Gull's Beacon moved here from
+  the village. Saltmarrow's north end is now a boardwalk gate with two net-loft silhouettes
+  behind it.
+- **Gated exits**: exits accept `requires` (condition) + `locked_text`. The boardwalk gate
+  needs `item:harbor_token`; without it Tam's refusal is toasted. `harbor_token` is no
+  longer `future` — it is now read.
+- **Inspectable objects**: region `objects` start a dialogue with no NPC. The beacon uses it.
+- Content: **Tam Hollis** (Tidewright gate guard), **Old Hesk** (Hushed netmender — first
+  Hushed character on screen), **Remembering Knot** Remnant (Saltmarrow's founding knot),
+  `gulls_beacon` dialogue that advances *A Light for Saltmarrow* to a new stage
+  `feed_the_beacon` and reflects what the player carries/knows. Hesk saw Dunstan leave
+  *laughing*; telling Mara lets her realise he went willingly (2 new flags). Aldous has a
+  new line once you've seen the cradle (warmer if you were gentle with him).
+- Blender: `net_loft.glb` (19 KB) added to `build_props.py`; other models re-export
+  byte-identical.
+- Tests: validator checks objects (unique id, prompt, dialogue ref, condition) and gated
+  exits (condition ref, `locked_text` required) + a new self-test. Smoke test now verifies
+  gated exits refuse travel on a new game and allow it at the end, examines every object,
+  and asserts the beacon stage is reached. 16 tests + smoke + launch pass.
+
+**Decisions**
+- **Beacon moved into its own region** rather than being reachable from the village: it
+  makes the Token matter and gives the Greying v1 a dense-fog test bed.
+- **Stage stops at `feed_the_beacon`** with only a "Not yet." option: the Burning choice is
+  the emotional peak of Act I and deserves its own session with all options wired
+  (pebble/Pell, knot, Mara's memory). Better an honest pause than a rushed choice.
+- The Remembering Knot realises LORE's "village's founding song" option as the founding
+  *knot* (craft instead of song — fits a net-making village and Hesk). LORE updated.
+- Regions stay flat: the player can't climb and slabs can't slope, so the "headland" is
+  marked by moss ground and the beacon, not height. Logged as debt.
+
+**Problems / notes**
+- Smoke test flake-in-waiting found and fixed: `Input.parse_input_event` from a coroutine
+  resumed on a physics frame isn't seen until two process frames later; the journal check
+  now waits two frames.
+- Expected validator warning remains: `a_light_for_saltmarrow` never completes.
+
+**Next run should**
+1. The Burning choice at the Gull's Beacon (ROADMAP #1) — replace "Not yet." in
+   `story/gulls_beacon.json` `waiting`, complete the quest, set `saltmarrow_beacon_burned`,
+   make fog recede via flag-driven region fog.
+2. Then The Greying v1 (fog drain meter), using Gull's Head.
+
 ## 2026-09-24 — Day 2: Quest journal & Satchel
 
 **Did**

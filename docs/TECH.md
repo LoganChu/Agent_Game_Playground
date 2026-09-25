@@ -20,7 +20,7 @@ $GODOT --headless --path . -- --smoke-test                  # automated playthro
 $GODOT --path .                                             # play
 $GODOT --path . -- --region=saltmarrow                      # start in a region (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
-.tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props
+.tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
 ```
 `run_checks.sh` fails on any non-zero exit **or** any `SCRIPT ERROR` / `ERROR:` / `Parse Error`
 in Godot's output (runtime script errors don't change Godot's exit code, so we grep).
@@ -42,7 +42,9 @@ scripts/
     game_state.gd   "GameState"  – current WorldState, region, signals (toast, dialogue_requested…)
     save_system.gd  "SaveSystem" – JSON saves in user://saves/<slot>.json (F5 / F9)
   world/       region.gd (builds a region from data), npc_actor.gd, pickup.gd,
-               region_exit.gd, interactable.gd, prop_factory.gd (procedural low-poly props)
+               region_exit.gd (optionally gated), inspectable.gd (examine → dialogue),
+               interactable.gd, prop_factory.gd (procedural low-poly props)
+               Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code,
                palette-themed. Modal UIs set `GameState.input_locked` while open and refuse
@@ -75,8 +77,16 @@ Every record lives in its own file whose name equals its `id`.
   "npcs":    [{"npc": id, "position": [...], "rotation_y": deg, "if": condition}],
   "pickups": [{"id": unique, "item": id, "position": [...], "count": 1, "if": condition,
                "set": {flag: value}, "quest_stage": [quest, stage]}],
-  "exits":   [{"to": region, "spawn": spawn_name, "position": [...], "prompt": "..."}] }
+  "objects": [{"id": unique, "prompt": "Examine ...", "dialogue": id, "position": [...],
+               "reach": 1.8, "if": condition}],        // inspectables: start a dialogue
+  "exits":   [{"to": region, "spawn": spawn_name, "position": [...], "prompt": "...",
+               "requires": condition, "locked_text": "..."}] }   // gated exits
 ```
+Objects have no visuals of their own (place a prop at the same spot); their dialogue runs
+with no NPC. A gated exit is always shown; while `requires` is false, interacting toasts
+`locked_text` (required with `requires`) instead of travelling.
+The player cannot climb steps: keep walkable slab tops within ~0.05 of each other (no ramps
+exist yet — slabs only rotate on Y).
 Terrain slabs are positioned by their **top surface**. A prop with both `model` and `shape`
 uses the model and falls back to the shape only if the model can't load.
 Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `#hex`.
@@ -129,8 +139,10 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   validator catches deliberately broken links.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit
   tests on fixtures.
-- Smoke test — boots the real main scene, plays intro, visits every region twice, talks to
-  every NPC walking each menu, collects pickups, opens the journal and satchel via real input
+- Smoke test — boots the real main scene, plays intro, checks every gated exit refuses
+  travel on a new game, visits every region twice, talks to every NPC and examines every
+  object walking each menu, collects pickups, checks gated exits now open and the Gull's
+  Beacon quest stage was reached, opens the journal and satchel via real input
   actions, saves/loads and compares state.
 - Add a `test_*.gd` extending `TestCase`; methods named `test_*` run automatically.
 
