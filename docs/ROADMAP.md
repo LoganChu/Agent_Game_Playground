@@ -1,7 +1,7 @@
 # Emberwake — Roadmap
 
 Prioritized top-down within each milestone. Each item should fit in one daily session.
-Legend: **[C]** content · **[S]** systems · **[P]** polish/tech-debt.
+Legend: **[C]** content · **[S]** systems · **[P]** polish/tech-debt · **[A]** art.
 
 ## Milestone 1 — Vertical Slice (Act I: Saltmarrow)
 Goal: 30–45 minutes, playable start to finish: wake → Saltmarrow → relight the Gull's Beacon
@@ -28,35 +28,60 @@ with a meaningful burn choice → consequences visible in the village.
       aftermath lines for Mara/Pell/Hesk/Tam/Aldous; lent Remnants can be returned (Day 4)
 - [x] Engine: flag-driven fog `overrides`, conditional props (`if`) refreshed live (Day 4)
 
+### Art track (owner request, 2026-09-26)
+The owner wants the look upgraded: characters and settings read as generic greybox.
+**Cadence rule:** until the Vertical Slice looks shippable, at least every other session
+must land one **[A]** item below (screenshots before/after in the devlog, via
+`xvfb-run … --screenshot=`). Stay within GAME_DESIGN's art direction (flat-shaded low-poly,
+palette colors, strong silhouettes); every asset from a re-runnable `tools/blender/` script,
+each .glb < 5 MB.
+
 ### Next up
-1. [C] **Aldous's confession** (Act I close): after the beacon is lit, Aldous tells the
+1. [A] **Characters**: a stylized low-poly Blender base body (~1–2k tris, chunky
+   proportions) with per-character variants that sell who they are — Mara (heavy coat,
+   coal-red scarf, tied-back grey hair), Pell (oversized cap, patched jacket, net-needle),
+   Aldous (Keeper robe with the faded stitched ember, bottle), Tam (oilskin, gate pole),
+   Hesk (shawl, net across knees, seated pose), and the Wakebearer player (cloak, glowing
+   ember hand). Simple idle motion (breathing/sway; Hesk's hands mending). Replace the
+   primitive NPC/player bodies; add an optional `model` field to NPC data with the current
+   primitive as fallback.
+2. [C] **Aldous's confession** (Act I close): after the beacon is lit, Aldous tells the
    player the Snuffing was deliberate — sooner/fuller if `saltmarrow_aldous_approach=gentle`,
    grudging (maybe needs a second visit or a Remnant shown) if `pressed`. Reveal only what
    LORE allows (deliberate; a High Keeper; not *why*). Set a flag, hook to Act II (the
    ferry). He also reacts to the player being "too soon" (mystery #2 foreshadow).
-2. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
+3. [A] **Terrain**: replace box slabs with sculpted per-region meshes from Blender (or
+   SurfaceTool) with vertex-colored shingle/sand/grass/rock — a real curved beach at
+   Shingle Point, a harbor basin and stilt-lined waterfront in Saltmarrow, a *raised*
+   headland at Gull's Head with walkable slopes. Keep colliders simple (trimesh or
+   heightmap).
+4. [A] **Saltmarrow dressing kit** (Blender): dock + pilings, smokehouse, beached and moored
+   boats, barrels, drying racks with nets, lanterns on posts, fences, grass/reed clumps,
+   a proper lit-lantern beacon model to replace the procedural `beacon_light`. Then
+   re-dress all three regions so each has a distinct silhouette and landmark.
+5. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
    drains the ember (UI meter); leaving refills. No fail state — at zero you are gently
    walked back out ("you forget why you came"). Gull's Head (before the beacon) is the test
    bed; after the burn its areas should shrink (reuse `fog.overrides` idea).
-3. [P] **Polish/debt pass** (due by session 8 at the latest): shared UI `Theme` resource;
+6. [A] **Atmosphere & lighting**: gradient sky, sun/ambient per region, glow on ember and
+   beacon, stylized water shader (foam line at shores), SSAO; ember-hand point light on the
+   player.
+7. [P] **Polish/debt pass** (due by session 8 at the latest): shared UI `Theme` resource;
    live refresh of NPC/pickup/object `if` conditions (props already refresh); a debug
    `--flags=a=b,c` / `--quest=` CLI arg so screenshots can show late-game states (the lit
    beacon light has not been eyeballed yet — only asserted by the smoke test).
-4. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
+8. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
    stool/second cup prop by Mara; `knot`: half-started nets; `pebble`: Pell's lost-things
    crate without the pebble. Use conditional props.
-5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+9. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow).
-6. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
-7. [S] Settings: volume buses, text size, camera sensitivity/invert, key rebinding
+   Needs the owner to run the game locally and report back.
+10. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
+11. [S] Settings: volume buses, text size, camera sensitivity/invert, key rebinding
     (InputSetup is the hook).
-8. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+12. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-9. [C] Blender: NPC base mesh(es), dock, smokehouse, boat props; a proper lit-lantern
-    model to replace the procedural `beacon_light`.
-10. [P] Terrain: replace slab boxes with a heightmap/mesh per region (Blender or Godot
-    SurfaceTool) with shingle/grass vertex colors.
-11. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
+13. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
 
 ## Milestone 2 — Alpha (Act II begins)
 - [C] Ferry travel system & map screen; Tidewright ferryman NPC.
