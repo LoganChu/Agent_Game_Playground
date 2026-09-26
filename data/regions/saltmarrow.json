@@ -232,6 +232,16 @@
         0,
         -12.5
       ]
+    },
+    {
+      "shape": "signal_lantern",
+      "position": [
+        4.6,
+        0,
+        8.4
+      ],
+      "rotation_y": 180,
+      "if": "flag:saltmarrow_ferry_lantern_hung"
     }
   ],
   "npcs": [

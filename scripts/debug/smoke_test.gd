@@ -6,7 +6,7 @@ extends Node
 ## quicksaves, resets and quickloads, checking state survives. Exits 0 on success.
 
 const MAX_DIALOGUE_STEPS := 200
-const PASSES := 2
+const PASSES := 3
 
 var _failures: PackedStringArray = []
 
@@ -26,7 +26,8 @@ func _run() -> void:
 	_check(player != null and player.find_child("CharacterRig", true, false) != null, "player shows the Wakebearer model")
 	_finish_dialogue(ui, "intro")
 	await _check_gates(main, false)
-	# Two passes over every region so quests started on pass 1 can be finished on pass 2.
+	# Several passes over every region so quests started on one pass can advance on the next
+	# (pass 3 reaches Aldous's confession and Mara's ferry lantern).
 	for pass_index in PASSES:
 		for region_id: String in Content.db.regions:
 			GameState.travel(region_id)
@@ -58,6 +59,7 @@ func _run() -> void:
 			await get_tree().process_frame
 	await _check_gates(main, true)
 	await _check_beacon_lit(main)
+	await _check_act_one_close(main)
 	await _check_journal(main.get("journal_ui"))
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
 	var before := GameState.world.to_dict()
@@ -145,6 +147,19 @@ func _check_journal(journal: JournalUI) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_check(not journal.is_open() and not GameState.input_locked, "Esc closes the journal and unlocks input")
+
+
+## Act I's close: Aldous has confessed (either way), Mara has hung the ferry signal lantern
+## and it shows at the Saltmarrow dock.
+func _check_act_one_close(main: Node) -> void:
+	var world := GameState.world
+	_check(str(world.get_flag("saltmarrow_aldous_confessed")) in ["full", "grudging"], "Aldous confessed")
+	_check(world.quest_stage("across_the_grey") == "await_the_ferry", "ferry quest awaits the ferry")
+	GameState.travel("saltmarrow")
+	for i in 3:
+		await get_tree().physics_frame
+	var region: Region = main.get("region")
+	_check(region.shown_conditional_props() == 1, "ferry signal lantern shows at the dock")
 
 
 func _press(action: String) -> void:

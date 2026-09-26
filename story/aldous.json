@@ -51,6 +51,38 @@
             "goto": "beacon_lit"
           },
           {
+            "text": "I'm ready for the rest of your story.",
+            "if": [
+              "quest:a_light_for_saltmarrow=done",
+              "flag:saltmarrow_aldous_approach=gentle",
+              "flag:saltmarrow_aldous_confessed="
+            ],
+            "goto": "confess_gentle"
+          },
+          {
+            "text": "You said I'd make you talk. So talk.",
+            "if": [
+              "quest:a_light_for_saltmarrow=done",
+              "!flag:saltmarrow_aldous_approach=gentle",
+              "flag:saltmarrow_aldous_confessed=",
+              "!flag:saltmarrow_aldous_balked"
+            ],
+            "set": {
+              "saltmarrow_aldous_balked": true
+            },
+            "goto": "balk"
+          },
+          {
+            "text": "Hold out your ember. \"Look at it, Brother. Then tell me.\"",
+            "if": [
+              "quest:a_light_for_saltmarrow=done",
+              "!flag:saltmarrow_aldous_approach=gentle",
+              "flag:saltmarrow_aldous_confessed=",
+              "flag:saltmarrow_aldous_balked"
+            ],
+            "goto": "confess_grudging"
+          },
+          {
             "text": "What happened at the Hearthspire?",
             "goto": "spire"
           },
@@ -75,6 +107,10 @@
       }
     ],
     "spire": [
+      {
+        "if": "!flag:saltmarrow_aldous_confessed=",
+        "goto": "spire_after"
+      },
       {
         "say": "aldous",
         "text": "It went out. Fire does that. Even very old fire."
@@ -219,14 +255,253 @@
         "text": "Mara's brother. She gave him willingly; I saw her at the gate. That's a kind of courage I never had."
       },
       {
-        "if": "flag:saltmarrow_aldous_approach=gentle",
+        "if": [
+          "flag:saltmarrow_aldous_approach=gentle",
+          "flag:saltmarrow_aldous_confessed="
+        ],
         "say": "aldous",
-        "text": "I promised you the rest of a story. Give me a night to find the bottom of this bottle, and the courage under it."
+        "text": "I promised you the rest of a story. The cork's in the bottle, for once. Sit, if you've the time."
       },
       {
-        "if": "!flag:saltmarrow_aldous_approach=gentle",
+        "if": [
+          "flag:saltmarrow_aldous_approach=gentle",
+          "flag:saltmarrow_aldous_confessed="
+        ],
+        "choice": [
+          {
+            "text": "Sit with him.",
+            "goto": "confess_gentle"
+          },
+          {
+            "text": "Later, Brother.",
+            "goto": "hub"
+          }
+        ]
+      },
+      {
+        "if": [
+          "!flag:saltmarrow_aldous_approach=gentle",
+          "flag:saltmarrow_aldous_confessed="
+        ],
         "say": "aldous",
         "text": "There are things I should tell you. I'm not brave enough yet. Perhaps you'll make me."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "spire_after": [
+      {
+        "say": "aldous",
+        "text": "You've had all of it I can bear to give. The High Keeper put it out, and I held the door."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_confessed=full",
+        "say": "aldous",
+        "text": "And something small and bright went down the stair past me. I think about that more than the rest."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "confess_gentle": [
+      {
+        "say": "narrator",
+        "text": "He sets the bottle down at the far end of the bench, out of reach, and looks at it the way a man looks at a dog he has told to stay."
+      },
+      {
+        "say": "aldous",
+        "text": "I kept the east stair of the Hearthspire. Thirty-one years. Nobody climbs to the flame without a door-warden's say, and on the night of the Snuffing, I was the door."
+      },
+      {
+        "say": "aldous",
+        "text": "It didn't gutter. It didn't starve. Fire that has burned nine hundred years doesn't forget how. It was put out — on purpose — by a hand that had every right to tend it."
+      },
+      {
+        "choice": [
+          {
+            "text": "Whose hand?",
+            "goto": "confess_whose"
+          }
+        ]
+      }
+    ],
+    "confess_whose": [
+      {
+        "say": "aldous",
+        "text": "The High Keeper's. Ours. The one of us who climbed highest and knelt closest."
+      },
+      {
+        "choice": [
+          {
+            "text": "Say the name.",
+            "goto": "confess_name"
+          },
+          {
+            "text": "Why would the High Keeper do that?",
+            "goto": "confess_why"
+          }
+        ]
+      }
+    ],
+    "confess_name": [
+      {
+        "say": "aldous",
+        "text": "No. Names carry, in this fog, and that one is heavy enough to sink a boat. Ask me on Cindermoor, if we're ever both standing there."
+      },
+      {
+        "goto": "confess_why"
+      }
+    ],
+    "confess_why": [
+      {
+        "say": "aldous",
+        "text": "Why, I don't know. That's the truth, and it's the worst of it. I held the door and I didn't ask. Three months and a great deal of bad wine, and I still haven't asked."
+      },
+      {
+        "say": "aldous",
+        "text": "But I'll tell you the part I never told anyone. Something came down the stair past me that night. Down, not up. A light — small and quick, cupped in someone's hands like a moth. I never saw the face."
+      },
+      {
+        "say": "narrator",
+        "text": "His eyes go to your hand, and the ember in it, and away again."
+      },
+      {
+        "say": "aldous",
+        "text": "When I first saw you, I said \"too soon.\" The legends are very sure: the flame wakes someone when it fails. And it hadn't failed. It was put out. So what woke you, Wakebearer?"
+      },
+      {
+        "choice": [
+          {
+            "text": "I don't know.",
+            "goto": "confess_unknown"
+          },
+          {
+            "text": "Something that lit your beacon. That's enough for now.",
+            "goto": "confess_enough"
+          }
+        ]
+      }
+    ],
+    "confess_unknown": [
+      {
+        "say": "aldous",
+        "text": "No. Nor do I. We'll be two people who don't know, then. There are worse fellowships."
+      },
+      {
+        "goto": "confess_end"
+      }
+    ],
+    "confess_enough": [
+      {
+        "say": "aldous",
+        "text": "Ha. Yes. It'll have to be, won't it."
+      },
+      {
+        "goto": "confess_end"
+      }
+    ],
+    "confess_end": [
+      {
+        "say": "aldous",
+        "text": "If you want more than an old man's word, the answers are where the fire was. The Hearthspire, on Cindermoor."
+      },
+      {
+        "say": "aldous",
+        "text": "Nothing crosses to Cindermoor but the Tidewright ferry, and the ferry hasn't run since the Snuffing. Ferrymen won't sail into what they can't see."
+      },
+      {
+        "say": "aldous",
+        "text": "With the Gull lit, they'll see Saltmarrow from the water again. Ask Mara when it's due. She knows the Tidewrights' ways better than I know my own order's."
+      },
+      {
+        "say": "narrator",
+        "text": "He picks at the faded ember stitched on his sleeve until the threads give, and presses it into your palm."
+      },
+      {
+        "say": "aldous",
+        "text": "Take it. I've no right to wear it. Some of my brothers might still open a door for that mark. Most would sooner shut one."
+      },
+      {
+        "set": {
+          "saltmarrow_aldous_confessed": "full"
+        },
+        "give_item": "keepers_sleeve_ember",
+        "quest_start": "across_the_grey"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "balk": [
+      {
+        "say": "aldous",
+        "text": "Make me? Did I say that? I say a great many things."
+      },
+      {
+        "say": "aldous",
+        "text": "You lit a beacon. Lovely. Go and look at what it cost them down at the harbor, and then come and tell me you still want a Keeper's secrets on top."
+      },
+      {
+        "say": "narrator",
+        "text": "He tips the bottle up. It's already empty; he keeps it there anyway, until you step back."
+      },
+      {
+        "end": true
+      }
+    ],
+    "confess_grudging": [
+      {
+        "say": "narrator",
+        "text": "You open your hand. He looks at the ember a long time. The light of it moves in his wet eyes."
+      },
+      {
+        "say": "aldous",
+        "text": "Put that away. …Fine. Fine."
+      },
+      {
+        "say": "aldous",
+        "text": "It didn't go out by accident. It was put out. By the High Keeper. And I was the door-warden on the stair that night, and I let it happen, and I ran."
+      },
+      {
+        "choice": [
+          {
+            "text": "Why did the High Keeper do it?",
+            "goto": "grudging_why"
+          },
+          {
+            "text": "That's all?",
+            "goto": "grudging_why"
+          }
+        ]
+      }
+    ],
+    "grudging_why": [
+      {
+        "say": "aldous",
+        "text": "That's all you'll have from me. I don't know why. I've spent three months making sure I don't."
+      },
+      {
+        "say": "aldous",
+        "text": "If you want more than an old man's word, the answers are where the fire was. The Hearthspire, on Cindermoor."
+      },
+      {
+        "say": "aldous",
+        "text": "Nothing crosses to Cindermoor but the Tidewright ferry, and the ferry hasn't run since the Snuffing. Ferrymen won't sail into what they can't see."
+      },
+      {
+        "say": "aldous",
+        "text": "With the Gull lit, they'll see Saltmarrow from the water again. Ask Mara when it's due. She knows the Tidewrights' ways better than I know my own order's."
+      },
+      {
+        "say": "aldous",
+        "text": "And Wakebearer — whatever you are. You came too soon. Remember I said so."
+      },
+      {
+        "set": {
+          "saltmarrow_aldous_confessed": "grudging"
+        },
+        "quest_start": "across_the_grey"
       },
       {
         "goto": "hub"

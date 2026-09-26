@@ -1,0 +1,18 @@
+{
+  "id": "across_the_grey",
+  "title": "Across the Grey",
+  "region": "saltmarrow",
+  "giver": "aldous",
+  "future": true,
+  "description": "Aldous says the Hearthspire's flame was put out on purpose, by the High Keeper. The answers are on Cindermoor, and only the Tidewright ferry goes there — if it runs again now the Gull's Beacon is lit.",
+  "stages": [
+    {
+      "id": "ask_mara",
+      "text": "Ask Mara whether the Tidewright ferry will put in at Saltmarrow again."
+    },
+    {
+      "id": "await_the_ferry",
+      "text": "Mara has hung the green lantern outside her door. Wait for the ferry's horn."
+    }
+  ]
+}

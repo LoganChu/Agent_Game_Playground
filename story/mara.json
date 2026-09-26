@@ -114,6 +114,11 @@
             "goto": "gull_back"
           },
           {
+            "text": "Aldous says the ferry might run again.",
+            "if": "stage:across_the_grey=ask_mara",
+            "goto": "ferry"
+          },
+          {
             "text": "I'll be going.",
             "end": true
           }
@@ -402,6 +407,41 @@
       {
         "say": "mara",
         "text": "…Though I keep setting out two cups. Habit, I suppose. Whose, I couldn't tell you."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ferry": [
+      {
+        "say": "mara",
+        "text": "Does he. Well. He's not wrong, for once."
+      },
+      {
+        "if": "!flag:saltmarrow_aldous_confessed=",
+        "say": "mara",
+        "text": "He told you something, then. You've the look of someone carrying a Keeper's secret. Don't hand it to me; I've enough to carry."
+      },
+      {
+        "say": "mara",
+        "text": "The Tidewright ferry puts in at our dock when it can see us. It hasn't since the Snuffing. No ferryman sails into what they can't see, and I don't blame them."
+      },
+      {
+        "say": "mara",
+        "text": "Now there's a light on the Gull, they'll see it from the lanes. I'll hang the green lantern on the post outside my door. Old harbor signal: passengers waiting."
+      },
+      {
+        "say": "mara",
+        "text": "When they come, you'll hear the horn. Might be days. Might be longer. The sea doesn't hurry for anyone, even you."
+      },
+      {
+        "set": {
+          "saltmarrow_ferry_lantern_hung": true
+        },
+        "quest_stage": [
+          "across_the_grey",
+          "await_the_ferry"
+        ]
       },
       {
         "goto": "hub"

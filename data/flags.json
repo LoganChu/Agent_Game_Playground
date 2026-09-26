@@ -53,6 +53,18 @@
     "saltmarrow_mara_saw_beacon_lit": {
       "description": "Player has spoken with Mara after the Gull's Beacon was relit (one-time aftermath scene).",
       "default": false
+    },
+    "saltmarrow_aldous_balked": {
+      "description": "After the beacon was lit, a player who had not been gentle with Aldous asked for his story; he refused and sent them away. Unlocks showing him the ember on the next visit.",
+      "default": false
+    },
+    "saltmarrow_aldous_confessed": {
+      "description": "Aldous's Act I confession: '' (untold), 'full' (gentle — the High Keeper put the flame out, a light went down the stair past him, gives the Keeper's sleeve-ember) or 'grudging' (pressed — the bare fact only). Keepers in Act II should know which.",
+      "default": ""
+    },
+    "saltmarrow_ferry_lantern_hung": {
+      "description": "Mara hung the green signal lantern on the Saltmarrow dock-post so the Tidewright ferry knows passengers are waiting (Act II bridge).",
+      "default": false
     }
   }
 }
