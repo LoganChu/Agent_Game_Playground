@@ -3,7 +3,7 @@ extends RefCounted
 ## Builds simple flat-shaded low-poly props from primitives. Used for greyboxing and as a
 ## fallback when a region prop has no Blender-made model.
 
-const SHAPES: Array[String] = ["pine", "rock", "house", "post", "crate", "beacon", "dock", "beacon_light"]
+const SHAPES: Array[String] = ["pine", "rock", "house", "post", "crate", "beacon", "dock", "beacon_light", "signal_lantern"]
 
 const PALETTE: Dictionary = {
 	"ember": Color("#F2A541"),
@@ -132,6 +132,21 @@ static func build(shape: String, tint: String = "", scale: float = 1.0) -> Node3
 				for x: float in [-0.9, 0.9]:
 					root.add_child(mesh_instance(cylinder(0.08, 0.08, 1.6, 5), color("slate"), Vector3(x, 0.0, z)))
 			collider_size = Vector3(2.0, 0.15, 6.0)
+		"signal_lantern":
+			# Harbor signal post: a lantern hung from a crossarm, glowing in its tint (moss green
+			# = "passengers waiting" to the Tidewright ferry).
+			var glow := color(tint if tint else "moss")
+			root.add_child(mesh_instance(cylinder(0.08, 0.11, 2.4, 5), color("driftwood"), Vector3(0, 1.2, 0)))
+			root.add_child(mesh_instance(box(Vector3(0.08, 0.08, 0.7)), color("driftwood"), Vector3(0, 2.3, 0.3)))
+			root.add_child(mesh_instance(cylinder(0.0, 0.2, 0.14, 6), color("ink"), Vector3(0, 2.07, 0.58)))
+			root.add_child(mesh_instance(cylinder(0.14, 0.14, 0.3, 6), glow, Vector3(0, 1.85, 0.58), true))
+			var lamp := OmniLight3D.new()
+			lamp.light_color = glow
+			lamp.light_energy = 1.4
+			lamp.omni_range = 6.0
+			lamp.position = Vector3(0, 1.85, 0.58)
+			root.add_child(lamp)
+			collider_size = Vector3(0.3, 2.4, 0.3)
 		_:
 			root.add_child(mesh_instance(box(Vector3.ONE), color("coal"), Vector3(0, 0.5, 0)))
 	var shape_node := CollisionShape3D.new()

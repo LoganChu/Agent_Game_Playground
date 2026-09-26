@@ -409,8 +409,8 @@ func _check_orphans() -> void:
 	for id: String in db.quests:
 		if not _quests_started.has(id):
 			_err("quest " + id, "is never started by any dialogue")
-		if not _quests_completed.has(id):
-			_warn("quest " + id, "is never completed")
+		if not _quests_completed.has(id) and not bool(db.quests[id].get("future", false)):
+			_warn("quest " + id, "is never completed (mark \"future\" if the payoff isn't written yet)")
 	for id: String in db.dialogues:
 		if not _dialogues_used.has(id):
 			_err("dialogue " + id, "is orphaned (no NPC or game.json references it)")
