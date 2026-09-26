@@ -21,6 +21,9 @@ $GODOT --path .                                             # play
 $GODOT --path . -- --region=saltmarrow                      # start in a region (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
+.tools/bin/blender-py tools/blender/build_characters.py     # rebuild characters (assets/models/characters/)
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
+    -- --screenshot=/abs/out.png [--closeup]                 # art review: every character side by side
 ```
 `run_checks.sh` fails on any non-zero exit **or** any `SCRIPT ERROR` / `ERROR:` / `Parse Error`
 in Godot's output (runtime script errors don't change Godot's exit code, so we grep).
@@ -44,13 +47,14 @@ scripts/
     save_system.gd  "SaveSystem" – JSON saves in user://saves/<slot>.json (F5 / F9)
   world/       region.gd (builds a region from data), npc_actor.gd, pickup.gd,
                region_exit.gd (optionally gated), inspectable.gd (examine → dialogue),
-               interactable.gd, prop_factory.gd (procedural low-poly props)
+               interactable.gd, prop_factory.gd (procedural low-poly props),
+               character_rig.gd (loads a character .glb + procedural idle/walk motion)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code,
                palette-themed. Modal UIs set `GameState.input_locked` while open and refuse
                to open if another modal already holds it.
-  debug/       smoke_test.gd, screenshot.gd
+  debug/       smoke_test.gd, screenshot.gd, character_lineup.gd (scenes/debug/character_lineup.tscn)
   main.gd      root scene script (scenes/main.tscn)
 data/          game.json, flags.json, regions/, npcs/, items/, quests/  (one JSON per record)
 story/         dialogue JSON, one file per conversation
@@ -98,7 +102,10 @@ uses the model and falls back to the shape only if the model can't load.
 Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `#hex`.
 
 ### NPC / Item / Quest
-- NPC: `id, name, color, dialogue, faction?, bio?` — must be placed in exactly one region.
+- NPC: `id, name, color, dialogue, model?, idle?, faction?, bio?` — must be placed in exactly
+  one region. `model` = character scene (see *Characters*); without it the NPC is a primitive
+  figure in its `color`. `idle` = `breathe` (default) | `mend`.
+- `data/game.json` also takes `player_model` (the Wakebearer character scene).
 - Item: `id, name, description, kind (remnant|key|misc), color?, future?`
 - Quest: `id, title, description, stages: [{id, text}], giver?, region?` — first stage is
   entered on `quest_start`.
@@ -136,6 +143,28 @@ of *effects*, and may be gated by `if` (skipped when false):
   `"quest_complete": id`, `"give_item": id`, `"take_item": id` (+ `"count": n`).
 - `"note"` is ignored (writer comments).
 
+## Characters
+Built by `tools/blender/build_characters.py` from one chunky base body (~700–900 tris, ~65 KB
+each) plus per-character costume pieces; palette colors and tonal shades of them only.
+Models face **+Z** in Godot. No skeleton: each model is a node hierarchy that
+`CharacterRig` animates procedurally (breathing, sway, head drift, walk swing driven by the
+player's speed, `mend` hand motion for Hesk):
+```
+Rig (root, may be scaled — Pell is 0.78)
+  LegL, LegR        pivot at hip
+  Torso             pivot at waist
+    Head            pivot at neck
+    ArmL, ArmR      pivot at shoulder; held items are part of the arm; may have rest rotation
+  Stool             optional static extras
+```
+The rig stores each part's rest transform and applies small offsets on top, so rest poses
+(Aldous's stoop, Hesk's hands over the net) are authored in Blender. `test_characters.gd`
+checks every NPC/player model has the parts with the right parents. New character: add a
+`build_<id>()` to the script, run it, set `model` in the NPC's JSON.
+Blender gotcha: bake rotation/scale into each primitive before joining (the script's
+`_finish` does) — joined objects keep only the first object's transform and the rest pose
+then overwrites it (this flipped every arm upward on the first try).
+
 ## Save format
 `user://saves/<slot>.json`: `{version, saved_at, region, spawn, player_position, world:
 WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
@@ -145,9 +174,12 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   validator catches deliberately broken links.
 - `tests/test_burning.gd` — the Act I beacon choice through real story content (each burn
   path, Pell's consent, Mara's gull, returning unburned Remnants, fog thinning).
+- `tests/test_characters.gd` — character models follow the rig contract; the rig poses and
+  returns to rest; missing models fall back; validator catches bad `model`/`idle`.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit
   tests on fixtures.
-- Smoke test — boots the real main scene, plays intro, checks every gated exit refuses
+- Smoke test — boots the real main scene, checks the player and every NPC show their rigged
+  character model, plays intro, checks every gated exit refuses
   travel on a new game, visits every region twice, talks to every NPC and examines every
   object walking each menu, collects pickups, checks gated exits now open, that the menu
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog

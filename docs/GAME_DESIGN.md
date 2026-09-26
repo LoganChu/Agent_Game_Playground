@@ -65,6 +65,7 @@ point. Reference feelings (not IP): tidal villages, lantern festivals, half-reme
   and flattens; relit areas regain saturation.
 - **Characters:** stylized proportions (large heads/hands), readable at distance by silhouette
   and one signature color each.
+  Costumes may use tonal shades (lighter/darker) of palette colors, never new hues.
 - **Palette** ("Ember & Tide"):
 
 | Role | Name | Hex |

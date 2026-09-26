@@ -2,6 +2,64 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-26 09:00 UTC — Day 5: Characters (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **Characters** (ROADMAP [A] #1, the owner's art-track request). New
+  `tools/blender/build_characters.py`: one chunky base body (big head and hands, short
+  legs, simple ink-dot face) plus costume pieces per character, exported to
+  `assets/models/characters/*.glb` (700–900 tris, 62–77 KB each):
+  - **Wakebearer** — deep abyss hooded cloak, ember-clasped collar, the ember glowing in a
+    raised right hand over a scorched cuff.
+  - **Mara** — broad, heavy dark coat with belt and buttons, coal-red scarf with a hanging
+    tail, grey hair in a bun, heavy brows.
+  - **Pell** — child-sized (0.78), oversized slate cap with a coal button, patched ochre
+    jacket, net-needle held point-up, cocky head tilt.
+  - **Aldous** — floor-length faded Keeper robe with the dull stitched ember on the chest,
+    rope belt, grey fringe and beard, green bottle, a forward stoop.
+  - **Tam** — tide oilskin and wide-brimmed sou'wester, tall iron-tipped gate pole.
+  - **Hesk** — seated on a stool, moss shawl, long white plait, a greyed net with cords
+    across her knees, head bowed to the work.
+- **`CharacterRig`** animates the models procedurally (no skeletons): breathing, sway,
+  head drift; a walk swing on the player driven by speed; Hesk's `mend` idle works her
+  hands. Rest poses are authored in Blender and preserved.
+- Data: NPCs gained optional `model` + `idle`; `game.json` gained `player_model`. The
+  primitive bodies remain as the fallback. Validator checks both; player now starts facing
+  away from the camera.
+- Debug: `scenes/debug/character_lineup.tscn` (every character side by side, `--closeup`,
+  `--screenshot=`) for art review.
+- Tests: new `test_characters.gd` (4 tests: rig contract for every model, pose/rest,
+  fallback, validator). Smoke test asserts the player and every NPC show their rigged model.
+  27 tests + smoke + launch pass.
+
+Screenshots (Compatibility renderer, so washed out — see ROADMAP colour-grading item):
+`docs/screenshots/2026-09-26-before-saltmarrow.png` → `…-after-saltmarrow.png`, and
+`docs/screenshots/2026-09-26-character-lineup.png`.
+
+**Decisions**
+- **Procedural rig over skeletal animation.** Six characters with only idle/walk needs
+  don't justify armatures, skin weights and animation tracks per model; a node-hierarchy
+  contract (Rig > Legs, Torso > Head, Arms) keeps the Blender script short, the .glb small,
+  and motion tunable in GDScript. Revisit if characters need gestures or cutscene acting.
+- **Tonal shades of palette colours** are allowed for characters (e.g. `slate -30%` for
+  Mara's coat) — the pure 12-colour palette made every costume look the same.
+- Hesk's shawl is moss rather than silverfog: an all-grey Hushed woman vanished into the fog
+  colour; the greyness now lives in her hair and net.
+- Tri budget came in under the roadmap's 1–2k; that's headroom, not a target.
+
+**Problems / notes**
+- First export had every arm pointing up: joined Blender objects keep the first primitive's
+  rotation, which the rest-pose assignment then overwrote. Fixed by baking rotation/scale
+  per primitive (`_finish`); noted in TECH.
+- NPCs still don't face the player when spoken to, and the ember light doesn't follow the
+  arm; logged in ROADMAP known issues.
+
+**Next run should**
+1. Aldous's confession & Act II hook (ROADMAP #1, content).
+2. Then per the art cadence, Terrain (ROADMAP #2) the session after. Polish/debt pass due
+   by session 8.
+
 ## 2026-09-25 21:00 UTC — Day 4: The Burning
 
 **Did**
