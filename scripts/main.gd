@@ -5,6 +5,10 @@ extends Node3D
 ##   --smoke-test          automated playthrough (scripts/debug/smoke_test.gd), exit code = result
 ##   --screenshot=<png>    save a screenshot after a moment and quit
 ##   --region=<id>         start in another region (debug)
+##   --flags=a=b,c         set flags before play (debug; bare `c` = true, true/false parse)
+##   --quest=<id>[:stage]  start a quest at a stage, or complete it without one (debug);
+##                         comma-separate several. E.g. screenshots of late-game states:
+##                         --flags=intro_seen,saltmarrow_beacon_burned=knot --quest=a_light_for_saltmarrow
 
 var region: Region
 var player: Player
@@ -34,6 +38,9 @@ func _ready() -> void:
 	if fresh:
 		GameState.new_game()
 	load_region(GameState.region_id, GameState.spawn_point)
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--flags=") or arg.begins_with("--quest="):
+			_apply_debug_state(arg)
 	var intro := str(Content.db.game.get("intro_dialogue", ""))
 	if fresh and not intro.is_empty() and not GameState.world.get_flag("intro_seen"):
 		dialogue_ui.open.call_deferred(intro)
@@ -46,6 +53,31 @@ func _ready() -> void:
 			add_child(shot)
 		elif arg.begins_with("--region="):
 			GameState.travel(arg.get_slice("=", 1))
+
+
+## Debug-only world setup from `--flags=` / `--quest=` (see the header comment).
+func _apply_debug_state(arg: String) -> void:
+	var world := GameState.world
+	var is_flags := arg.begins_with("--flags=")
+	for entry: String in arg.substr(arg.find("=") + 1).split(",", false):
+		if is_flags:
+			var id := entry.get_slice("=", 0)
+			var value: Variant = entry.substr(id.length() + 1) if entry.contains("=") else "true"
+			if value == "true" or value == "false":
+				value = value == "true"
+			if not Content.db.flags.has(id):
+				push_warning("--flags: unknown flag '%s'" % id)
+			world.set_flag(id, value)
+		else:
+			var id := entry.get_slice(":", 0)
+			if not Content.db.quests.has(id):
+				push_warning("--quest: unknown quest '%s'" % id)
+				continue
+			if entry.contains(":"):
+				world.start_quest(id, entry.get_slice(":", 1))
+				world.set_quest_stage(id, entry.get_slice(":", 1))
+			else:
+				world.complete_quest(id)
 
 
 func _unhandled_input(event: InputEvent) -> void:
