@@ -4,5 +4,6 @@
   "faction": "tidewrights",
   "color": "coal",
   "dialogue": "mara",
+  "model": "res://assets/models/characters/mara.glb",
   "bio": "Saltmarrow's harbormaster, fifties. Blunt, practical, keeping the village fed. Her brother Dunstan walked into the fog two weeks ago."
 }

@@ -22,6 +22,8 @@ func _run() -> void:
 	var main := get_parent()
 	var ui: DialogueUI = main.get("dialogue_ui")
 	_check(ui.is_open(), "intro dialogue plays on new game")
+	var player := get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
+	_check(player != null and player.find_child("CharacterRig", true, false) != null, "player shows the Wakebearer model")
 	_finish_dialogue(ui, "intro")
 	await _check_gates(main, false)
 	# Two passes over every region so quests started on pass 1 can be finished on pass 2.
@@ -36,6 +38,8 @@ func _run() -> void:
 				var npc := node as NpcActor
 				if npc.is_queued_for_deletion():
 					continue
+				if pass_index == 0 and npc.npc_data.has("model"):
+					_check(npc.find_child("CharacterRig", true, false) != null, "npc %s shows its rigged model" % npc.npc_id)
 				npc.interact()
 				_check(ui.is_open(), "dialogue opens for " + npc.npc_id)
 				_finish_dialogue(ui, npc.npc_id)

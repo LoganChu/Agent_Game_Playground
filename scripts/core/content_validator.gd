@@ -84,6 +84,8 @@ func _validate_game() -> void:
 		_err(where, "start_spawn '%s' not in region '%s'" % [spawn, start_region])
 	if db.game.has("intro_dialogue"):
 		_ref_dialogue(where, str(db.game["intro_dialogue"]))
+	if db.game.has("player_model"):
+		_ref_character_model(where, str(db.game["player_model"]))
 
 
 func _validate_flags() -> void:
@@ -115,6 +117,19 @@ func _validate_npc(id: String, npc: Dictionary) -> void:
 		_ref_dialogue(where, str(npc["dialogue"]))
 	if npc.has("color") and not _valid_color(str(npc["color"])):
 		_err(where, "invalid color '%s' (palette name or #hex)" % npc["color"])
+	if npc.has("model"):
+		_ref_character_model(where, str(npc["model"]))
+	if npc.has("idle") and str(npc["idle"]) not in CharacterRig.STYLES:
+		_err(where, "idle must be one of %s" % [CharacterRig.STYLES])
+
+
+## A character model must exist and be a scene (the rig tolerates missing parts, so the part
+## layout is checked by tests/test_characters.gd instead).
+func _ref_character_model(where: String, path: String) -> void:
+	if path.is_empty() or not ResourceLoader.exists(path):
+		_err(where, "character model '%s' does not exist" % path)
+	elif not path.ends_with(".glb") and not path.ends_with(".tscn"):
+		_err(where, "character model '%s' must be a .glb or .tscn scene" % path)
 
 
 func _validate_quest(id: String, quest: Dictionary) -> void:

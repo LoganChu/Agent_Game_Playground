@@ -4,5 +4,7 @@
   "faction": "none",
   "color": "silverfog",
   "dialogue": "hesk",
+  "model": "res://assets/models/characters/hesk.glb",
+  "idle": "mend",
   "bio": "Saltmarrow's oldest netmender. Refused to leave the lofts when the fog came and is now Hushed: she mends the same net over and over, humming, and knows no one."
 }

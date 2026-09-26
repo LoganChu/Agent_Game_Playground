@@ -11,6 +11,8 @@ const TURN_SPEED := 10.0
 const CAMERA_TURN_SPEED := 2.2
 const MOUSE_SENSITIVITY := 0.005
 const GRAVITY := 20.0
+## Where the ember sits in the Wakebearer model's right hand (model space, rest pose).
+const EMBER_HAND := Vector3(-0.3, 0.85, 0.3)
 
 var focus: Interactable = null
 
@@ -19,6 +21,7 @@ var _camera_pitch: Node3D
 var _camera: Camera3D
 var _visual: Node3D
 var _sensor: Area3D
+var _rig: CharacterRig
 
 
 func _ready() -> void:
@@ -46,6 +49,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
 	move_and_slide()
+	if _rig:
+		_rig.move_speed = Vector2(velocity.x, velocity.z).length()
 	if direction.length_squared() > 0.01:
 		var yaw := atan2(direction.x, direction.z)
 		_visual.rotation.y = lerp_angle(_visual.rotation.y, yaw, TURN_SPEED * delta)
@@ -105,27 +110,36 @@ func _build_body() -> void:
 	add_child(shape)
 	_visual = Node3D.new()
 	_visual.name = "Visual"
+	_visual.rotation.y = PI  # models face +Z; start facing away from the camera
 	add_child(_visual)
-	# Cloak, head and the ember in the right hand — the warmest thing on screen.
-	_visual.add_child(PropFactory.mesh_instance(PropFactory.cylinder(0.18, 0.45, 1.1, 6), PropFactory.color("abyss"), Vector3(0, 0.55, 0)))
-	var head := SphereMesh.new()
-	head.radius = 0.27
-	head.height = 0.54
-	head.radial_segments = 8
-	head.rings = 4
-	_visual.add_child(PropFactory.mesh_instance(head, PropFactory.color("bone"), Vector3(0, 1.3, 0)))
-	var ember := SphereMesh.new()
-	ember.radius = 0.09
-	ember.height = 0.18
-	ember.radial_segments = 6
-	ember.rings = 3
-	_visual.add_child(PropFactory.mesh_instance(ember, PropFactory.color("ember"), Vector3(0.38, 0.8, 0.2), true))
+	# Blender-made Wakebearer (game.json `player_model`); primitive cloak/head/ember fallback.
+	var ember_pos := Vector3(0.38, 0.9, 0.2)
+	var model := CharacterRig.instantiate(str(Content.db.game.get("player_model", "")))
+	if model:
+		model.name = "Model"
+		_visual.add_child(model)
+		_rig = model.get_node("CharacterRig") as CharacterRig
+		ember_pos = EMBER_HAND
+	else:
+		_visual.add_child(PropFactory.mesh_instance(PropFactory.cylinder(0.18, 0.45, 1.1, 6), PropFactory.color("abyss"), Vector3(0, 0.55, 0)))
+		var head := SphereMesh.new()
+		head.radius = 0.27
+		head.height = 0.54
+		head.radial_segments = 8
+		head.rings = 4
+		_visual.add_child(PropFactory.mesh_instance(head, PropFactory.color("bone"), Vector3(0, 1.3, 0)))
+		var ember := SphereMesh.new()
+		ember.radius = 0.09
+		ember.height = 0.18
+		ember.radial_segments = 6
+		ember.rings = 3
+		_visual.add_child(PropFactory.mesh_instance(ember, PropFactory.color("ember"), Vector3(0.38, 0.8, 0.2), true))
 	var light := OmniLight3D.new()
 	light.name = "EmberLight"
 	light.light_color = PropFactory.color("ember")
 	light.light_energy = 0.4
 	light.omni_range = 3.5
-	light.position = Vector3(0.38, 0.9, 0.2)
+	light.position = ember_pos
 	_visual.add_child(light)
 
 

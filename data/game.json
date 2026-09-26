@@ -2,5 +2,6 @@
   "title": "Emberwake",
   "start_region": "shingle_point",
   "start_spawn": "default",
-  "intro_dialogue": "wake_intro"
+  "intro_dialogue": "wake_intro",
+  "player_model": "res://assets/models/characters/wakebearer.glb"
 }
