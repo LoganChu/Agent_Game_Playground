@@ -109,6 +109,25 @@ greyed net-lofts.
   - Aldous felt the beacon catch "like a hand on the back of my neck" and promises the rest
     of his story; he has not told it yet.
 
+- **Established in play (Day 6 — Aldous's confession, Act I close):**
+  - Aldous kept the **east stair** of the Hearthspire as door-warden for thirty-one years;
+    no one climbs to the flame without a door-warden's say. On the night of the Snuffing he
+    was on the stair, let it happen without asking, and fled.
+  - The Firstflame **did not fail; it was put out on purpose by the High Keeper**. Aldous
+    will not say the name ("names carry, in this fog") and does not know — or has avoided
+    learning — *why*. (Do not name Oriel Sayre or the motive before Act II/III.)
+  - Told gently (flag `saltmarrow_aldous_confessed=full`), he adds that **a small light went
+    *down* the stair past him that night, cupped in someone's hands**; he never saw the face
+    (mystery #2 seed). He explains "too soon": the legends say the flame wakes someone when
+    it *fails*, and it hadn't failed. He gives the player the **Keeper's Sleeve-Ember** cut
+    from his robe: some Keepers might open a door for it, most would shut one.
+    Pressed/unasked players get only the bare fact (`grudging`) and "you came too soon".
+  - The Hearthspire is on **Cindermoor**; nothing crosses there but the **Tidewright ferry**,
+    which has not run since the Snuffing (ferrymen won't sail into what they can't see).
+    With the Gull lit it can see Saltmarrow again. Mara hangs the **green lantern** outside
+    her door — the old harbor signal for "passengers waiting" — and the ferry's **horn**
+    will announce it (quest *Across the Grey*, Act II bridge).
+
 ### 2. Thornwold (planned — Alpha)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of
 charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.

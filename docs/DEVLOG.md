@@ -2,6 +2,58 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-26 21:00 UTC — Day 6: Aldous's confession (Act I close)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **Aldous's confession** (ROADMAP #1, content). After the Gull's Beacon is lit:
+  - **Gentle** (`saltmarrow_aldous_approach=gentle`): he offers on the spot ("the cork's in
+    the bottle, for once") or later from the hub. Full account: he kept the Hearthspire's
+    east stair; the flame was put out on purpose by the High Keeper (unnamed — "names carry,
+    in this fog"); he doesn't know why and never asked; **a small light went *down* the
+    stair past him, cupped in someone's hands**; and "too soon" explained — the flame wakes
+    someone when it *fails*, and it hadn't. He gives the **Keeper's Sleeve-Ember** (new
+    `future` item for Act II Keepers). `saltmarrow_aldous_confessed=full`.
+  - **Pressed / never asked**: he refuses once (go see what it cost them) — new flag
+    `saltmarrow_aldous_balked` — and on the next visit the player can hold out their ember;
+    he gives only the bare fact and "you came too soon". `…confessed=grudging`.
+  - Either way he points at Cindermoor and the Tidewright ferry → new quest **Across the
+    Grey** (`future`, Act II bridge). Mara explains the ferry hasn't run since the Snuffing
+    and hangs the **green signal lantern** outside her door (new `signal_lantern` prop,
+    conditional on `saltmarrow_ferry_lantern_hung`); stage "wait for the ferry's horn".
+  - After confessing, "What happened at the Hearthspire?" gets a short recap instead.
+- **Systems**: `--flags=a=b,c` / `--quest=id[:stage]` debug args (from the polish item) so
+  late-game states can be screenshotted; validator accepts `future` on quests.
+- **Tests**: new `test_confession.gd` (6 tests: hidden before the beacon, gentle full path
+  + sleeve-ember + recap, deferring, pressed/unasked two-visit grudging path, Mara's lantern,
+  lantern prop). Smoke test runs a third region pass and asserts the confession, the ferry
+  stage and the lantern at Saltmarrow. 33 tests + smoke + launch pass.
+- LORE: new canon section (Day 6); TECH/ROADMAP updated.
+
+Screenshot: `docs/screenshots/2026-09-26-ferry-lantern.png` (Saltmarrow after the burn,
+via `--flags`/`--quest`; the lantern is right of the player by Mara's crates).
+
+**Decisions**
+- **Reveal "a High Keeper", not the name or the motive.** LORE's mystery #1 is the
+  long-term payoff; the stair light seeds mystery #2 without saying whose hands. Grudging
+  players miss the stair light — the gentle choice from Day 1 now pays off in *information*
+  as well as a key item.
+- **The "pressed" gate is a second visit, not a Remnant check**: after the burn the player
+  may hold no Remnant at all, so "show him your ember" is always possible and on-theme.
+- **Across the Grey is an intentionally unfinishable quest** (`future: true`) — it is the
+  Act I → Act II bridge. It's the only open thread; pay it off (ferry arrives) before
+  opening further hooks.
+- Lantern moved from the dock to Mara's door: at the dock it sat behind the camera and no
+  player would ever see it.
+
+**Problems / notes**
+- First cut of `--flags` truncated values at the second `=` (`get_slice`); fixed.
+- The moss glow reads nearly white in the Compatibility renderer (known issue logged).
+
+**Next run should**
+1. Per the art cadence, **Terrain** (ROADMAP [A] #1).
+2. Polish/debt pass is due by session 8 (ROADMAP #5), then the Greying v1.
+
 ## 2026-09-26 09:00 UTC — Day 5: Characters (art track)
 
 **Did**

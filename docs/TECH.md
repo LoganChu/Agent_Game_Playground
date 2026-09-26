@@ -19,6 +19,8 @@ $GODOT --headless --path . -s res://tests/run_tests.gd      # unit + content tes
 $GODOT --headless --path . -- --smoke-test                  # automated playthrough
 $GODOT --path .                                             # play
 $GODOT --path . -- --region=saltmarrow                      # start in a region (debug)
+$GODOT --path . -- --flags=intro_seen,saltmarrow_beacon_burned=knot \
+    --quest=a_light_for_saltmarrow,across_the_grey:await_the_ferry  # late-game state (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py     # rebuild characters (assets/models/characters/)
@@ -91,7 +93,8 @@ Every record lives in its own file whose name equals its `id`.
 Fog and conditional props (`if`) are re-evaluated **live** whenever a flag or quest changes
 (`main.gd` → `Region.refresh_conditional_props()` + `RegionMood.fog()`; fog changes tween
 over 4 s). NPCs, pickups, objects and exits still only re-evaluate on region load.
-Shape `beacon_light` = glowing lantern room + OmniLight for the Gull's Beacon (no collider).
+Shape `signal_lantern` = post with a hanging lantern glowing in its `color` (default moss) +
+OmniLight (Mara's ferry signal). Shape `beacon_light` = glowing lantern room + OmniLight for the Gull's Beacon (no collider).
 Objects have no visuals of their own (place a prop at the same spot); their dialogue runs
 with no NPC. A gated exit is always shown; while `requires` is false, interacting toasts
 `locked_text` (required with `requires`) instead of travelling.
@@ -107,8 +110,9 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   figure in its `color`. `idle` = `breathe` (default) | `mend`.
 - `data/game.json` also takes `player_model` (the Wakebearer character scene).
 - Item: `id, name, description, kind (remnant|key|misc), color?, future?`
-- Quest: `id, title, description, stages: [{id, text}], giver?, region?` — first stage is
-  entered on `quest_start`.
+- Quest: `id, title, description, stages: [{id, text}], giver?, region?, future?` — first
+  stage is entered on `quest_start`. `future: true` silences the "never completed" warning
+  for a quest whose ending isn't written yet (e.g. *Across the Grey*, the Act II bridge).
 
 ### Flags (`data/flags.json`)
 Every flag must be declared with a `description` (and optional `default`). The validator
@@ -174,6 +178,8 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   validator catches deliberately broken links.
 - `tests/test_burning.gd` — the Act I beacon choice through real story content (each burn
   path, Pell's consent, Mara's gull, returning unburned Remnants, fog thinning).
+- `tests/test_confession.gd` — Aldous's confession (gentle/full vs. pressed/grudging with a
+  second visit), the *Across the Grey* hook and Mara's ferry lantern.
 - `tests/test_characters.gd` — character models follow the rig contract; the rig poses and
   returns to rest; missing models fall back; validator catches bad `model`/`idle`.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit
@@ -183,7 +189,7 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   travel on a new game, visits every region twice, talks to every NPC and examines every
   object walking each menu, collects pickups, checks gated exits now open, that the menu
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog
-  thinned), opens the journal and satchel via real input
+  thinned), that a third pass reached Aldous's confession and Mara's ferry lantern, opens the journal and satchel via real input
   actions, saves/loads and compares state.
 - Add a `test_*.gd` extending `TestCase`; methods named `test_*` run automatically.
 

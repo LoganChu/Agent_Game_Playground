@@ -30,6 +30,11 @@ with a meaningful burn choice → consequences visible in the village.
 - [x] [A] **Characters**: Blender base body + Wakebearer, Mara, Pell, Aldous, Tam, Hesk
       (seated, mending); procedural idle/walk `CharacterRig`; NPC `model`/`idle` fields,
       `player_model`; character lineup debug scene (Day 5)
+- [x] **Aldous's confession** (Act I close): gentle → full account after the beacon (High
+      Keeper, the light down the stair, "too soon" explained, Keeper's Sleeve-Ember);
+      pressed/unasked → refused once, then the bare fact after showing the ember. Quest
+      *Across the Grey* (Act II bridge) → Mara hangs the green ferry lantern (Day 6)
+- [x] Engine: `signal_lantern` prop, quest `future` flag, `--flags=` / `--quest=` debug args (Day 6)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -40,46 +45,46 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [C] **Aldous's confession** (Act I close): after the beacon is lit, Aldous tells the
-   player the Snuffing was deliberate — sooner/fuller if `saltmarrow_aldous_approach=gentle`,
-   grudging (maybe needs a second visit or a Remnant shown) if `pressed`. Reveal only what
-   LORE allows (deliberate; a High Keeper; not *why*). Set a flag, hook to Act II (the
-   ferry). He also reacts to the player being "too soon" (mystery #2 foreshadow).
-2. [A] **Terrain**: replace box slabs with sculpted per-region meshes from Blender (or
+1. [A] **Terrain**: replace box slabs with sculpted per-region meshes from Blender (or
    SurfaceTool) with vertex-colored shingle/sand/grass/rock — a real curved beach at
    Shingle Point, a harbor basin and stilt-lined waterfront in Saltmarrow, a *raised*
    headland at Gull's Head with walkable slopes. Keep colliders simple (trimesh or
    heightmap).
-3. [A] **Saltmarrow dressing kit** (Blender): dock + pilings, smokehouse, beached and moored
+2. [A] **Saltmarrow dressing kit** (Blender): dock + pilings, smokehouse, beached and moored
    boats, barrels, drying racks with nets, lanterns on posts, fences, grass/reed clumps,
    a proper lit-lantern beacon model to replace the procedural `beacon_light`. Then
    re-dress all three regions so each has a distinct silhouette and landmark.
-4. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
+3. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
    drains the ember (UI meter); leaving refills. No fail state — at zero you are gently
    walked back out ("you forget why you came"). Gull's Head (before the beacon) is the test
    bed; after the burn its areas should shrink (reuse `fog.overrides` idea).
-5. [A] **Atmosphere & lighting**: gradient sky, sun/ambient per region, glow on ember and
+4. [A] **Atmosphere & lighting**: gradient sky, sun/ambient per region, glow on ember and
    beacon, stylized water shader (foam line at shores), SSAO; ember-hand point light on the
    player.
-6. [P] **Polish/debt pass** (due by session 8 at the latest): shared UI `Theme` resource;
-   live refresh of NPC/pickup/object `if` conditions (props already refresh); a debug
-   `--flags=a=b,c` / `--quest=` CLI arg so screenshots can show late-game states (the lit
-   beacon light has not been eyeballed yet — only asserted by the smoke test).
-7. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
+5. [P] **Polish/debt pass** (due by session 8 at the latest): shared UI `Theme` resource;
+   live refresh of NPC/pickup/object `if` conditions (props already refresh); screenshot
+   the lit beacon light with the new `--flags`/`--quest` args (still only asserted by the
+   smoke test); dedupe the `_play`/`_run` dialogue-driving helpers in `test_burning.gd` and
+   `test_confession.gd` into `TestCase`.
+6. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
    stool/second cup prop by Mara; `knot`: half-started nets; `pebble`: Pell's lost-things
-   crate without the pebble. Use conditional props.
-8. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+   crate without the pebble. Use conditional props. Also: Pell/Tam could remark on the
+   green ferry lantern; Mara could notice the Keeper's sleeve-ember if the player carries it.
+7. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow).
    Needs the owner to run the game locally and report back.
-9. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
-10. [S] Settings: volume buses, text size, camera sensitivity/invert, key rebinding
+8. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
+9. [S] Settings: volume buses, text size, camera sensitivity/invert, key rebinding
     (InputSetup is the hook).
-11. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+10. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-12. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
+11. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
 
 ## Milestone 2 — Alpha (Act II begins)
-- [C] Ferry travel system & map screen; Tidewright ferryman NPC.
+- [C] **Ferry arrives** (pays off *Across the Grey*, flag `saltmarrow_ferry_lantern_hung`):
+  the horn, a Tidewright ferryman NPC at the Saltmarrow dock, Act I→II transition; the
+  ferry travel system & map screen. Keepers met later should react to
+  `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (item is `future`).
 - [C] Thornwold region (forest, shifting paths), 3–4 NPCs, beacon + burn choice.
 - [C] Glasswater Fen region (Unmoored), the right-to-forget storyline; Dunstan Tollen.
 - [S] Day/night cycle & tides; NPC schedules.
@@ -99,6 +104,8 @@ each .glb < 5 MB.
 - [P] Store assets, trailer capture tooling, crash-free week.
 
 ## Known issues / tech debt
+- The ferry signal lantern's moss glow reads almost white in the Compatibility renderer;
+  check it with the colour-grading item.
 - Region terrain is box slabs.
 - Character follow-ups (fold into later [A]/[S] items): NPCs don't turn to face the player
   (ROADMAP "Interaction polish"); the ember light is a fixed point in the player's model
