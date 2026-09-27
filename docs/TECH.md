@@ -22,6 +22,9 @@ $GODOT --path . -- --region=saltmarrow                      # start in a region 
 $GODOT --path . -- --flags=intro_seen,saltmarrow_beacon_burned=knot \
     --quest=a_light_for_saltmarrow,across_the_grey:await_the_ferry  # late-game state (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
+    --camera=0,26,34:0,0,0 --screenshot=/abs/out.png       # fixed overview camera (eye:target)
+$GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py     # rebuild characters (assets/models/characters/)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
@@ -42,6 +45,7 @@ scripts/
     input_setup.gd        default input actions registered in code
     journal_model.gd      JournalModel — ordered view data for the quest journal + satchel
     region_mood.gd        RegionMood — region fog after flag-driven overrides
+    terrain_field.gd      TerrainField — sculpted ground heights, walkability, reachability
     json_util.gd, layers.gd
   autoload/    singletons (registered in project.godot)
     content.gd      "Content"    – the loaded ContentDatabase (validates in debug builds)
@@ -50,7 +54,8 @@ scripts/
   world/       region.gd (builds a region from data), npc_actor.gd, pickup.gd,
                region_exit.gd (optionally gated), inspectable.gd (examine → dialogue),
                interactable.gd, prop_factory.gd (procedural low-poly props),
-               character_rig.gd (loads a character .glb + procedural idle/walk motion)
+               character_rig.gd (loads a character .glb + procedural idle/walk motion),
+               terrain_builder.gd (TerrainField → flat-shaded vertex-coloured mesh + collider)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code,
@@ -78,10 +83,12 @@ Every record lives in its own file whose name equals its `id`.
   "fog": {"density": 0.014, "color": "silverfog",
           "overrides": [{"if": condition, "density": 0.007, "color": "..."}]},  // first match wins
   "spawn_points": {"default": [x,y,z], ...},    // "default" required
-  "terrain": [{"size": [w,h,d], "position": [x,top_y,z], "color": "moss", "rotation_y": 0}],
+  "ground": {...},                              // sculpted terrain — see "Ground" below
+  "terrain": [{"size": [w,h,d], "position": [x,top_y,z], "color": "moss", "rotation_y": 0}],  // legacy slabs (absolute y)
   "props":   [{"model": "res://assets/models/x.glb", "collider": [w,h,d],   // or
                "shape": "pine|rock|house|post|crate|beacon|dock", "color": "...",
-               "position": [...], "rotation_y": deg, "scale": 1.0, "if": condition}],
+               "position": [...], "rotation_y": deg, "scale": 1.0, "if": condition,
+               "snap": true}],                          // false = absolute y (docks, stilts in water)
   "npcs":    [{"npc": id, "position": [...], "rotation_y": deg, "if": condition}],
   "pickups": [{"id": unique, "item": id, "position": [...], "count": 1, "if": condition,
                "set": {flag: value}, "quest_stage": [quest, stage]}],
@@ -98,11 +105,47 @@ OmniLight (Mara's ferry signal). Shape `beacon_light` = glowing lantern room + O
 Objects have no visuals of their own (place a prop at the same spot); their dialogue runs
 with no NPC. A gated exit is always shown; while `requires` is false, interacting toasts
 `locked_text` (required with `requires`) instead of travelling.
-The player cannot climb steps: keep walkable slab tops within ~0.05 of each other (no ramps
-exist yet — slabs only rotate on Y).
-Terrain slabs are positioned by their **top surface**. A prop with both `model` and `shape`
+Legacy terrain slabs are positioned by their **top surface** (absolute); the player can't
+climb steps between slabs. All three Act I regions use `ground` instead. A prop with both `model` and `shape`
 uses the model and falls back to the shape only if the model can't load.
 Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `#hex`.
+
+### Ground (sculpted terrain)
+**Decision (Day 7):** terrain is generated in Godot from region data, not modelled in
+Blender. Heights must be known at runtime (to snap content onto the ground, and for the
+validator's "can the player reach it" check), and keeping it in JSON lets content sessions
+reshape a region without touching a Blender script. Blender stays the tool for props and
+characters.
+```jsonc
+"ground": {
+  "bounds": [x_min, z_min, x_max, z_max],   // grid extent; keep all land well inside it
+  "cell": 1.0, "base": -1.6,                // grid spacing; seabed height
+  "seed": 3, "roughness": 0.06,             // per-vertex height jitter (faceted look)
+  "ragged": 1.2, "ragged_scale": 5.0,       // coastline wobble (m) on rect/ellipse edges
+  "wade_depth": 0.35,                       // deeper than water_level - this = shore wall
+  "land": [                                 // height = max over features
+    {"rect": [x0,z0,x1,z1], "height": 0.3, "falloff": 3},
+    {"ellipse": [cx,cz,rx,rz], "height": 2.8, "falloff": 1.2, "ragged": 0.5},
+    {"path": [[x,z,h], ...], "width": 4, "falloff": 1.2}      // ramps/spits; h interpolates
+  ],
+  "colors": {"ground": "moss", "shore": "driftwood", "shore_height": 0.35,
+             "seabed": "slate", "cliff": "slate", "cliff_slope": 0.9},
+  "paint": [{"rect"|"ellipse"|"path": ..., "width": 2, "color": "driftwood"}],  // first wins
+  "note": "free text"
+}
+```
+Each feature's influence is 1 inside and smoothsteps to 0 over `falloff` metres; a small
+falloff makes cliffs (coloured `cliff` above `cliff_slope` rise/m, unwalkable above ~0.84).
+Triangle colour order: paint → cliff → seabed (below water) → shore band → ground.
+**With `ground`, every position's y is an offset above the ground** (spawns, NPCs, pickups,
+objects, exits, props unless `"snap": false`). The collider is the same grid with sea
+vertices raised `WALL_HEIGHT` above the water, so the coastline is the edge of the playable
+area. A wide seabed plane hides where the grid ends.
+The validator builds each field and errors if a spawn/NPC/pickup/object/exit can't be
+reached on foot from the default spawn (flood fill over walkable cells), if walkable ground
+touches the bounds, or on malformed features. Tune shapes with `tools/debug/terrain_map.gd`
+(ASCII map: `#` reachable, `^` too steep, `~` sea, `@` content) and overview screenshots
+with `--camera=`.
 
 ### NPC / Item / Quest
 - NPC: `id, name, color, dialogue, model?, idle?, faction?, bio?` — must be placed in exactly
@@ -180,12 +223,17 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   path, Pell's consent, Mara's gull, returning unburned Remnants, fog thinning).
 - `tests/test_confession.gd` — Aldous's confession (gentle/full vs. pressed/grudging with a
   second visit), the *Across the Grey* hook and Mara's ferry lantern.
+- `tests/test_terrain.gd` — TerrainField heights, mesh/triangle agreement, ramp/cliff/sea
+  reachability, colour rules, mesh faces up + shore-wall collider, ground-relative placement,
+  validator ground checks.
 - `tests/test_characters.gd` — character models follow the rig contract; the rig poses and
   returns to rest; missing models fall back; validator catches bad `model`/`idle`.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit
   tests on fixtures.
 - Smoke test — boots the real main scene, checks the player and every NPC show their rigged
-  character model, plays intro, checks every gated exit refuses
+  character model, plays intro, checks the player lands on the ground in every region and NPCs
+  stand on it, walks up the Gull's Head ramp and into its shore wall with real
+  input + physics, checks every gated exit refuses
   travel on a new game, visits every region twice, talks to every NPC and examines every
   object walking each menu, collects pickups, checks gated exits now open, that the menu
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog

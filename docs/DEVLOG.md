@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-27 09:00 UTC — Day 7: Terrain (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **Sculpted terrain** (ROADMAP [A] #1). Regions take a `ground` block: a height grid built
+  from `land` features (rect / ellipse / path-ramp, each with a smoothstep `falloff`,
+  max-combined over a seabed), per-vertex `roughness`, and `ragged` coastlines (smooth noise
+  on the signed edge distance). New `TerrainField` (pure logic: heights, walkability,
+  flood-fill reachability) and `TerrainBuilder` (flat-shaded, vertex-coloured mesh coloured
+  by paint zones → cliff slope → seabed → shore band → ground; trimesh collider in which
+  sea vertices become an invisible **shore wall**; a wide seabed plane so the grid edge
+  never shows).
+- **Ground-relative placement**: with `ground`, every y in the region is an offset above the
+  surface; props can opt out (`"snap": false`) for the dock and a stilt house in the water.
+- **Regions re-sculpted** (legacy slabs removed; still supported by the engine):
+  - *Shingle Point*: a curved beach shelving into the sea, a spit hooking round to the east
+    (finally a "point"), dunes rising to the north, the slate outcrop with the humming
+    pebble raised on it.
+  - *Saltmarrow*: village terrace with two low hills, the harbor basin to the south-east
+    enclosed by a breakwater spit, one stilt house moved onto the harbor edge standing in
+    the water, a causeway neck north to the loft yard.
+  - *Gull's Head*: the net-loft flats, and the headland raised to a 2.8 m cliff-edged
+    tableland reached by a single ramp between the gate posts.
+- **Validator**: every spawn, NPC, pickup, object and exit must be reachable on foot from the
+  default spawn; walkable ground must not touch the grid edge; malformed features and bad
+  colours are errors. It caught a real bug on the first try (the ramp met the headland
+  0.9 m short, stranding the beacon).
+- **Debug tools**: `tools/debug/terrain_map.gd` prints an ASCII walkability map per region;
+  `--camera=x,y,z:tx,ty,tz` for fixed overview screenshots.
+- **Tests**: new `test_terrain.gd` (7 tests). The smoke test now checks the player lands on
+  the ground at each spawn and NPCs stand on it, then **walks the player up the Gull's Head
+  ramp with real input and physics** (reaches y≈2.75 on the headland) and into the shore
+  wall (stays dry). 40 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-09-27-before-gulls-head.png` →
+`…-after-gulls-head.png`, `…-gulls-head-ramp.png`, `…-saltmarrow-overview.png`,
+`…-shingle-point-overview.png` (Compatibility renderer, washed out as usual).
+
+**Decisions**
+- **Terrain in Godot from data, not Blender .glb.** Heights are needed at runtime (snapping,
+  the reachability check) and content sessions can reshape a region in JSON. Blender stays
+  for props/characters. Recorded in TECH "Ground".
+- **Shore wall instead of invisible boxes**: raising sea vertices in the collider makes the
+  coastline itself the play boundary, with no extra data to maintain.
+- **Max-combined features** (no "dig"): simple and predictable; the harbor is made by
+  leaving a gap in the land rather than carving it.
+- Moved one Saltmarrow stilt house from inland (9, −4) to the harbor edge, per the
+  roadmap's "stilt-lined waterfront". No NPC depended on it.
+
+**Problems / notes**
+- First build rendered the ground invisible (triangles wound counter-clockwise → culled);
+  a test now asserts every ground normal faces up.
+- The dock is over the sea behind the shore wall, so it isn't walkable yet — added to the
+  polish item (needed before the ferry arrives).
+
+**Next run should**
+1. **Polish/debt pass** (ROADMAP #1) — it's due (session 8 is the deadline), and includes
+   making the dock walkable.
+2. Then content (Saltmarrow after the burn, or the ferry payoff) and the dressing kit.
+
 ## 2026-09-26 21:00 UTC — Day 6: Aldous's confession (Act I close)
 
 **Did**

@@ -35,6 +35,12 @@ with a meaningful burn choice → consequences visible in the village.
       pressed/unasked → refused once, then the bare fact after showing the ember. Quest
       *Across the Grey* (Act II bridge) → Mara hangs the green ferry lantern (Day 6)
 - [x] Engine: `signal_lantern` prop, quest `future` flag, `--flags=` / `--quest=` debug args (Day 6)
+- [x] [A] **Terrain**: data-driven sculpted ground (`ground` in region JSON → `TerrainField`
+      + `TerrainBuilder`): faceted vertex-coloured mesh, ragged coastlines, cliffs, shore-wall
+      collider, ground-relative placement. Shingle Point is a curved beach with a spit and
+      dunes; Saltmarrow has a harbor basin inside a breakwater with a stilt house in the
+      water and a causeway to the loft yard; Gull's Head's headland is a 2.8 m cliff
+      tableland reached by one ramp. Validator: everything reachable on foot (Day 7)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -45,11 +51,12 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **Terrain**: replace box slabs with sculpted per-region meshes from Blender (or
-   SurfaceTool) with vertex-colored shingle/sand/grass/rock — a real curved beach at
-   Shingle Point, a harbor basin and stilt-lined waterfront in Saltmarrow, a *raised*
-   headland at Gull's Head with walkable slopes. Keep colliders simple (trimesh or
-   heightmap).
+1. [P] **Polish/debt pass** (due now — session 8 at the latest): shared UI `Theme` resource;
+   live refresh of NPC/pickup/object `if` conditions (props already refresh); screenshot
+   the lit beacon light with the new `--flags`/`--quest` args (still only asserted by the
+   smoke test); dedupe the `_play`/`_run` dialogue-driving helpers in `test_burning.gd` and
+   `test_confession.gd` into `TestCase`; make the Saltmarrow dock walkable (a `pier` zone
+   in `ground` that suppresses the shore wall under it — needed for the ferry payoff).
 2. [A] **Saltmarrow dressing kit** (Blender): dock + pilings, smokehouse, beached and moored
    boats, barrels, drying racks with nets, lanterns on posts, fences, grass/reed clumps,
    a proper lit-lantern beacon model to replace the procedural `beacon_light`. Then
@@ -61,11 +68,11 @@ each .glb < 5 MB.
 4. [A] **Atmosphere & lighting**: gradient sky, sun/ambient per region, glow on ember and
    beacon, stylized water shader (foam line at shores), SSAO; ember-hand point light on the
    player.
-5. [P] **Polish/debt pass** (due by session 8 at the latest): shared UI `Theme` resource;
-   live refresh of NPC/pickup/object `if` conditions (props already refresh); screenshot
-   the lit beacon light with the new `--flags`/`--quest` args (still only asserted by the
-   smoke test); dedupe the `_play`/`_run` dialogue-driving helpers in `test_burning.gd` and
-   `test_confession.gd` into `TestCase`.
+5. [A] **Terrain follow-ups** (fold into dressing/atmosphere sessions): shore foam line
+   where ground meets water; paint reads weakly in the Compatibility renderer (walkway vs.
+   slate) — pick stronger contrasts after the Vulkan colour check; a second Saltmarrow
+   stilt row along the harbor edge once the dressing kit exists; camera can clip into the
+   Gull's Head cliffs when orbiting close.
 6. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
    stool/second cup prop by Mara; `knot`: half-started nets; `pebble`: Pell's lost-things
    crate without the pebble. Use conditional props. Also: Pell/Tam could remark on the
@@ -106,15 +113,13 @@ each .glb < 5 MB.
 ## Known issues / tech debt
 - The ferry signal lantern's moss glow reads almost white in the Compatibility renderer;
   check it with the colour-grading item.
-- Region terrain is box slabs.
+- The Saltmarrow dock sits over the sea behind the shore wall, so it can't be walked on yet
+  (polish item #1).
 - Character follow-ups (fold into later [A]/[S] items): NPCs don't turn to face the player
   (ROADMAP "Interaction polish"); the ember light is a fixed point in the player's model
   space rather than riding the arm; no facial expressions / talk motion during dialogue;
   models are ~700–900 tris — room for more silhouette detail (Mara's coat collar, Tam's
   boots) within the 1–2k budget.
-- Terrain slabs can't make slopes/steps (Y rotation only) and the player can't climb, so
-  every region is flat; the Gull's Head headland should be raised once ramps exist
-  (fold into the terrain item).
 - Smoke test: parsed input needs two process frames when resuming from a physics frame;
   keep the double await in `_check_journal`.
 - Region NPCs/pickups/objects do not refresh live when flags change mid-visit (only on
