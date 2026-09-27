@@ -9,55 +9,17 @@ var _db: ContentDatabase
 func _state_at_beacon() -> WorldState:
 	if _db == null:
 		_db = load_content()
-	var state := WorldState.new()
-	for flag_id: String in _db.flags:
-		state.flags[flag_id] = _db.flag_default(flag_id)
+	var state := fresh_state(_db)
 	state.start_quest(QUEST, "speak_to_aldous")
 	state.set_quest_stage(QUEST, "feed_the_beacon")
 	return state
 
 
-## Runs `dialogue` choosing options by exact text, in order; lines are skipped.
-## Returns every option text that was offered along the way.
+## Plays `dialogue` with `picks`; returns every option text that was offered.
 func _play(state: WorldState, dialogue: String, picks: Array[String]) -> Array[String]:
 	var offered: Array[String] = []
-	var runner := DialogueRunner.new(_db, state)
-	var ev := runner.start(dialogue)
-	var guard := 0
-	while ev["type"] != "end" and guard < 200:
-		guard += 1
-		if ev["type"] != "choices":
-			ev = runner.next()
-			continue
-		var texts: Array[String] = []
-		for option: Dictionary in ev["options"]:
-			texts.append(str(option["text"]))
-		offered.append_array(texts)
-		var want: String = picks.pop_front() if not picks.is_empty() else ""
-		var index := texts.find(want)
-		if index < 0:
-			# Leave via the last option (every menu's way out).
-			index = texts.size() - 1
-		ev = runner.choose(index)
+	play_dialogue(_db, state, dialogue, picks, offered)
 	return offered
-
-
-func _lines(state: WorldState, dialogue: String, picks: Array[String]) -> String:
-	var out: PackedStringArray = []
-	var runner := DialogueRunner.new(_db, state)
-	var ev := runner.start(dialogue)
-	var guard := 0
-	while ev["type"] != "end" and guard < 200:
-		guard += 1
-		if ev["type"] == "line":
-			out.append(str(ev["text"]))
-			ev = runner.next()
-		else:
-			var texts: Array = (ev["options"] as Array).map(func(o: Dictionary) -> String: return str(o["text"]))
-			var want: String = picks.pop_front() if not picks.is_empty() else ""
-			var index := texts.find(want)
-			ev = runner.choose(index if index >= 0 else texts.size() - 1)
-	return "\n".join(out)
 
 
 func test_empty_handed_beacon_only_offers_not_yet() -> void:
@@ -80,7 +42,7 @@ func test_burning_the_knot_completes_the_quest() -> void:
 	assert_eq(state.get_flag("saltmarrow_beacon_burned"), "knot")
 	assert_eq(state.item_count("remembering_knot"), 0)
 	assert_eq(state.item_count("humming_pebble"), 1, "only the chosen Remnant burns")
-	assert_true(_lines(state, "hesk", []).contains("forgotten what I was mending"), "Hesk loses the knot")
+	assert_true(play_dialogue(_db, state, "hesk", []).contains("forgotten what I was mending"), "Hesk loses the knot")
 
 
 func test_pell_must_agree_before_a_given_pebble_can_burn() -> void:
@@ -98,7 +60,7 @@ func test_pell_must_agree_before_a_given_pebble_can_burn() -> void:
 	_play(state, "gulls_beacon", ["Set the humming pebble in the cradle.", "Burn the lullaby."])
 	assert_eq(state.get_flag("saltmarrow_beacon_burned"), "pebble")
 	assert_eq(state.quest_state(QUEST), "done")
-	assert_true(_lines(state, "pell", ["The beacon's lit."]).contains("just… pocket"), "Pell misses the pebble")
+	assert_true(play_dialogue(_db, state, "pell", ["The beacon's lit."]).contains("just… pocket"), "Pell misses the pebble")
 
 
 func test_mara_can_give_her_memory_of_dunstan() -> void:
@@ -111,7 +73,7 @@ func test_mara_can_give_her_memory_of_dunstan() -> void:
 	assert_eq(state.item_count("dunstans_gull"), 1)
 	_play(state, "gulls_beacon", ["Set Dunstan's whittled gull in the cradle.", "Burn Mara's memory of Dunstan."])
 	assert_eq(state.get_flag("saltmarrow_beacon_burned"), "gull")
-	var after := _lines(state, "mara", [])
+	var after := play_dialogue(_db, state, "mara", [])
 	assert_true(after.contains("Tollens end with me"), "Mara no longer remembers a brother")
 	assert_eq(state.get_flag("saltmarrow_mara_saw_beacon_lit"), true)
 	assert_false(_play(state, "mara", []).has("\"What isn't\" — who's missing?"), "she can't tell of Dunstan now")
