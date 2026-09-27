@@ -2,7 +2,7 @@ extends SceneTree
 ## Prints an ASCII map of each region's sculpted ground for tuning `ground` data:
 ##   godot --headless --path . -s res://tools/debug/terrain_map.gd [-- <region_id>]
 ## '#' reachable from the default spawn, '+' walkable but unreachable, '^' too steep,
-## '~' sea (behind the shore wall), '@' an NPC/pickup/object/exit/spawn. North (-z) is up.
+## '~' sea (behind the shore wall), '=' reachable pier deck, '@' an NPC/pickup/object/exit/spawn. North (-z) is up.
 
 
 func _init() -> void:
@@ -34,7 +34,8 @@ func _init() -> void:
 				if marks.has(c):
 					line += "@"
 				elif reach.has(c):
-					line += "#"
+					var mid := field.vertex_xz(ix, iz) + Vector2(field.cell, field.cell) * 0.5
+					line += "=" if field.pier_deck(mid.x, mid.y) > -INF and field.is_wet(field.vertex_height(ix, iz)) else "#"
 				elif field.is_cell_walkable(ix, iz):
 					line += "+"
 				elif field.is_wet(field.vertex_height(ix, iz)):

@@ -185,7 +185,19 @@
         "color": "slate"
       }
     ],
-    "ragged": 1.8
+    "ragged": 1.8,
+    "piers": [
+      {
+        "rect": [
+          5,
+          12,
+          7,
+          18
+        ],
+        "deck": 0.275,
+        "note": "The harbor dock (dock prop at 6,-0.4,15 has its deck top at 0.275)."
+      }
+    ]
   },
   "props": [
     {
@@ -243,7 +255,7 @@
       "position": [
         6,
         -0.4,
-        16
+        15
       ],
       "rotation_y": 0,
       "snap": false
@@ -366,11 +378,11 @@
     {
       "npc": "mara",
       "position": [
-        6,
+        7.8,
         0,
-        11
+        10.4
       ],
-      "rotation_y": 180
+      "rotation_y": 210
     },
     {
       "npc": "aldous",

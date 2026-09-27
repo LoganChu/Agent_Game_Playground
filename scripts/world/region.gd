@@ -99,17 +99,18 @@ func spawn_position(spawn: String) -> Vector3:
 	return place(spawns.get(spawn, spawns.get("default", [0, 1, 0])))
 
 
-## Ground height at x/z (0 for a legacy slab region).
+## Height the player stands at over x/z — the ground or a pier deck (0 for a legacy slab
+## region).
 func ground_y(x: float, z: float) -> float:
-	return field.height_at(x, z) if field else 0.0
+	return field.surface_at(x, z) if field else 0.0
 
 
 ## Converts a data position to a local one: with sculpted ground, y is added to the ground
-## height beneath it unless `snap` is false.
+## (or pier deck) height beneath it unless `snap` is false.
 func place(value: Variant, snap: bool = true) -> Vector3:
 	var pos := JsonUtil.to_vector3(value)
 	if field and snap:
-		pos.y += field.height_at(pos.x, pos.z)
+		pos.y += field.surface_at(pos.x, pos.z)
 	return pos
 
 

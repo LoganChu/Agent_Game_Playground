@@ -26,6 +26,8 @@ var ragged_scale := 5.0  ## metres between wobble lattice points
 var seed_value := 0
 var land: Array = []
 var paint: Array = []
+## Walkable decks over the water: [{"rect": [x0,z0,x1,z1], "deck": absolute height}].
+var piers: Array = []
 var colors: Dictionary = {}
 var cols := 0  ## vertices along x
 var rows := 0  ## vertices along z
@@ -51,6 +53,10 @@ static func from_data(ground: Dictionary, water: float = -INF) -> TerrainField:
 	field.seed_value = int(ground.get("seed", 0))
 	field.land = ground.get("land", [])
 	field.paint = ground.get("paint", [])
+	for pier: Variant in ground.get("piers", []):
+		# Malformed piers are dropped here; the validator reports them.
+		if pier is Dictionary and pier.get("rect") is Array and (pier["rect"] as Array).size() == 4:
+			field.piers.append(pier)
 	field.colors = ground.get("colors", {})
 	field._build()
 	return field
@@ -75,12 +81,32 @@ func vertex_height(ix: int, iz: int) -> float:
 
 
 ## Height of the collision surface at a vertex: underwater vertices deeper than the wading
-## depth become an invisible wall so the shoreline is the edge of the playable area.
+## depth become an invisible wall so the shoreline is the edge of the playable area —
+## except under a pier, where the collider is raised to the deck instead.
 func collision_height(ix: int, iz: int) -> float:
 	var h := vertex_height(ix, iz)
+	var p := vertex_xz(ix, iz)
+	var deck := pier_deck(p.x, p.y)
+	if deck > -INF:
+		return maxf(h, deck)
 	if is_wet(h):
 		return water_level + WALL_HEIGHT
 	return h
+
+
+## Deck height of the highest pier covering (x, z), or -INF. Pier rects should lie on grid
+## lines: the walkable collider only spans the vertices inside the rect.
+func pier_deck(x: float, z: float) -> float:
+	var deck := -INF
+	for pier: Dictionary in piers:
+		if TerrainField.shape_distance(pier, Vector2(x, z)) <= 0.001:
+			deck = maxf(deck, float(pier.get("deck", 0.0)))
+	return deck
+
+
+## Height the player stands at over (x, z): the ground, or a pier deck above it.
+func surface_at(x: float, z: float) -> float:
+	return maxf(height_at(x, z), pier_deck(x, z))
 
 
 func is_wet(h: float) -> bool:
@@ -152,15 +178,17 @@ func color_name(x: float, z: float, h: float, slope: float) -> String:
 	return str(colors.get("ground", "moss"))
 
 
-## Walkability of the cell whose min corner is (ix, iz): dry, and no edge steeper than the
-## player can climb.
+## Walkability of the cell whose min corner is (ix, iz): dry (or decked by a pier), and no
+## edge of the collision surface steeper than the player can climb.
 func is_cell_walkable(ix: int, iz: int) -> bool:
 	if ix < 0 or iz < 0 or ix >= cols - 1 or iz >= rows - 1:
 		return false
+	var hs: Array[float] = []
 	for corner: Vector2i in [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]:
-		if is_wet(vertex_height(ix + corner.x, iz + corner.y)):
+		var p := vertex_xz(ix + corner.x, iz + corner.y)
+		if is_wet(vertex_height(ix + corner.x, iz + corner.y)) and pier_deck(p.x, p.y) == -INF:
 			return false
-	var hs := [vertex_height(ix, iz), vertex_height(ix + 1, iz), vertex_height(ix, iz + 1), vertex_height(ix + 1, iz + 1)]
+		hs.append(collision_height(ix + corner.x, iz + corner.y))
 	var limit := MAX_WALK_SLOPE * cell
 	return absf(hs[0] - hs[1]) <= limit and absf(hs[2] - hs[3]) <= limit \
 		and absf(hs[0] - hs[2]) <= limit and absf(hs[1] - hs[3]) <= limit \

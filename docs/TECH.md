@@ -131,6 +131,7 @@ characters.
   "colors": {"ground": "moss", "shore": "driftwood", "shore_height": 0.35,
              "seabed": "slate", "cliff": "slate", "cliff_slope": 0.9},
   "paint": [{"rect"|"ellipse"|"path": ..., "width": 2, "color": "driftwood"}],  // first wins
+  "piers": [{"rect": [x0,z0,x1,z1], "deck": 0.275}],  // walkable decks over water (absolute y)
   "note": "free text"
 }
 ```
@@ -141,6 +142,12 @@ Triangle colour order: paint → cliff → seabed (below water) → shore band �
 objects, exits, props unless `"snap": false`). The collider is the same grid with sea
 vertices raised `WALL_HEIGHT` above the water, so the coastline is the edge of the playable
 area. A wide seabed plane hides where the grid ends.
+**Piers** (Day 8) make a dock walkable: collider vertices inside a pier rect are raised to
+the `deck` height instead of the shore wall, and those cells count as walkable, so the wall
+still rises along the pier's sides and end. `Region.place`/`ground_y` use the deck over a
+pier (`TerrainField.surface_at`), so content can stand on it. A pier has no visuals — put a
+`dock` prop (`"snap": false`) over it. Its rect must lie on grid lines (the collider only
+spans the vertices inside it), its deck must be above the water, and it must be reachable.
 The validator builds each field and errors if a spawn/NPC/pickup/object/exit can't be
 reached on foot from the default spawn (flood fill over walkable cells), if walkable ground
 touches the bounds, or on malformed features. Tune shapes with `tools/debug/terrain_map.gd`

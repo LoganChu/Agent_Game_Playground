@@ -108,8 +108,8 @@ func _check_gates(main: Node, expect_open: bool) -> void:
 
 
 ## Sculpted ground: the player lands on it at every region's spawn, NPCs stand on it, the
-## Gull's Head ramp can be walked up with real input and physics, and the shore wall stops
-## the player wading out to sea.
+## Gull's Head ramp can be walked up with real input and physics, the shore wall stops
+## the player wading out to sea, and the Saltmarrow dock can be walked out onto.
 func _check_ground(main: Node) -> void:
 	var player: Player = get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
 	for region_id: String in Content.db.regions:
@@ -140,6 +140,20 @@ func _check_ground(main: Node) -> void:
 	var shore := player.global_position
 	print("Smoke: sea walk reached ", shore)
 	_check(shore.y > region.ground_y(0, 15) - 0.6 and shore.z < 22.0, "shore wall stops the player wading out (reached %s)" % shore)
+	# The Saltmarrow dock is a pier: walkable out over the harbor, walled at its sides.
+	GameState.travel("saltmarrow")
+	for i in 3:
+		await get_tree().physics_frame
+	region = main.get("region")
+	player.place_at(Vector3(6, region.ground_y(6, 8) + 0.2, 8))
+	await _hold("move_back", 150)  # +Z: down the walkway and out along the dock
+	var dock := player.global_position
+	print("Smoke: dock walk reached ", dock)
+	_check(dock.z > 16.5 and absf(dock.y - region.ground_y(dock.x, dock.z)) < 0.2, "player walks out along the Saltmarrow dock (reached %s)" % dock)
+	await _hold("move_right", 90)  # +X: off the side of the dock
+	var side := player.global_position
+	print("Smoke: dock side walk reached ", side)
+	_check(side.x < 7.6 and side.y > 0.0, "the dock's sides are walled (reached %s)" % side)
 	camera_yaw.rotation.y = 0.0
 
 

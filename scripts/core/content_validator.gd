@@ -266,6 +266,7 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 		var colors: Dictionary = ground.get("colors", {})
 		if colors.has(color_key) and not _valid_color(str(colors[color_key])):
 			_err(where, "ground.colors.%s is not a palette color" % color_key)
+	var piers_ok := _validate_piers(where, ground, float(region.get("water_level", -INF)))
 	var field := TerrainField.from_data(ground, float(region.get("water_level", -INF)))
 	var spawn: Vector3 = JsonUtil.to_vector3(region.get("spawn_points", {}).get("default", [0, 0, 0]))
 	var reachable := field.reachable_from(spawn.x, spawn.z)
@@ -293,6 +294,42 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 			_err(where, "%s at %s is outside ground.bounds" % [spot[0], pos])
 		elif not field.near_reachable(reachable, pos.x, pos.z, float(spot[2])):
 			_err(where, "%s at %s can't be reached on foot from the default spawn" % [spot[0], pos])
+	if not piers_ok:
+		return
+	for pier: Dictionary in ground.get("piers", []):
+		var r: Array = pier["rect"]
+		var mid := Vector2((float(r[0]) + float(r[2])) * 0.5, (float(r[1]) + float(r[3])) * 0.5)
+		if not field.near_reachable(reachable, mid.x, mid.y, 0.1):
+			_err(where, "pier %s can't be walked onto from the default spawn (does it touch land?)" % [r])
+
+
+## Piers: a grid-aligned `rect` and a numeric `deck` above the water. Returns false if any
+## is malformed (the reachability check is skipped then).
+func _validate_piers(where: String, ground: Dictionary, water: float) -> bool:
+	var piers: Variant = ground.get("piers", [])
+	if not piers is Array:
+		_err(where, "ground.piers must be an array")
+		return false
+	var ok := true
+	var b: Array = ground["bounds"]
+	var cell := maxf(0.25, float(ground.get("cell", 1.0)))
+	for pier: Variant in piers:
+		var r: Variant = pier.get("rect") if pier is Dictionary else null
+		var deck: Variant = pier.get("deck") if pier is Dictionary else null
+		if not r is Array or (r as Array).size() != 4 or not (deck is float or deck is int):
+			_err(where, "ground.piers entries need a 'rect' [x0,z0,x1,z1] and a numeric 'deck'")
+			ok = false
+			continue
+		for i in 4:
+			var offset := (float(r[i]) - float(b[i % 2])) / cell
+			if absf(offset - roundf(offset)) > 0.001:
+				_err(where, "pier rect %s must lie on the ground grid (multiples of cell from bounds)" % [r])
+				ok = false
+				break
+		if water > -INF and float(pier["deck"]) <= water:
+			_err(where, "pier deck %s is not above the water" % pier["deck"])
+			ok = false
+	return ok
 
 
 func _validate_dialogue(id: String, dialogue: Dictionary) -> void:

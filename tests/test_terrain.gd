@@ -117,3 +117,40 @@ func test_validator_checks_ground() -> void:
 	var edge_validator := ContentValidator.new(edge)
 	assert_false(edge_validator.validate(), "tiny bounds should fail")
 	assert_true(edge_validator.report().contains("reaches the edge of ground.bounds"), "edge check")
+
+
+func test_pier_decks_the_sea() -> void:
+	var data := _island()
+	# The plateau's south shore is around z=12; a pier runs out from it to z=18.
+	data["piers"] = [{"rect": [-1, 9, 1, 18], "deck": 0.4}]
+	var field := TerrainField.from_data(data, -0.25)
+	var reach := field.reachable_from(0, 5)
+	assert_true(field.near_reachable(reach, 0, 17.5, 0.1), "pier end reachable on foot")
+	assert_false(field.near_reachable(reach, 3, 17.5, 0.5), "sea beside the pier still walled")
+	assert_eq(field.surface_at(0, 16), 0.4, "surface over the pier is the deck")
+	assert_true(field.height_at(0, 16) < -0.25, "rendered ground under the pier stays seabed")
+	var c := field.cell_of(0, 16)
+	assert_eq(field.collision_height(c.x, c.y), 0.4, "collider raised to the deck, not the wall")
+	var side := field.cell_of(3, 16)
+	assert_eq(field.collision_height(side.x, side.y), -0.25 + TerrainField.WALL_HEIGHT, "wall beside the pier")
+
+
+func test_validator_checks_piers() -> void:
+	var db := load_content()
+	var ground: Dictionary = db.regions["saltmarrow"]["ground"]
+	ground["piers"] = [
+		{"rect": [5.5, 12, 7, 18], "deck": 0.3},  # off-grid
+		{"rect": [-20, 20, -18, 22], "deck": 0.3},  # out at sea, touches no land
+		{"rect": [0, 0, 1, 1], "deck": -1.0},  # under water
+		{"rect": [0, 0], "deck": 0.3},
+	]
+	var validator := ContentValidator.new(db)
+	assert_false(validator.validate(), "validator should fail")
+	var report := validator.report()
+	for needle: String in ["must lie on the ground grid", "not above the water", "need a 'rect'"]:
+		assert_true(report.contains(needle), "report should mention '%s'" % needle)
+	var sea := load_content()
+	sea.regions["saltmarrow"]["ground"]["piers"] = [{"rect": [-20, 20, -18, 22], "deck": 0.3}]
+	var sea_validator := ContentValidator.new(sea)
+	assert_false(sea_validator.validate(), "a pier out at sea should fail")
+	assert_true(sea_validator.report().contains("can't be walked onto"), "unreachable pier reported")
