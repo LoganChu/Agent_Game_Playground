@@ -41,6 +41,9 @@ with a meaningful burn choice → consequences visible in the village.
       dunes; Saltmarrow has a harbor basin inside a breakwater with a stilt house in the
       water and a causeway to the loft yard; Gull's Head's headland is a 2.8 m cliff
       tableland reached by one ramp. Validator: everything reachable on foot (Day 7)
+- [x] **Polish/debt pass**: walkable piers (Saltmarrow dock), live refresh of conditional
+      NPCs/pickups/objects, shared `UiTheme` with a text-scale hook, TestCase dialogue
+      helpers, lit-beacon screenshot (Day 8)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -51,12 +54,10 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [P] **Polish/debt pass** (due now — session 8 at the latest): shared UI `Theme` resource;
-   live refresh of NPC/pickup/object `if` conditions (props already refresh); screenshot
-   the lit beacon light with the new `--flags`/`--quest` args (still only asserted by the
-   smoke test); dedupe the `_play`/`_run` dialogue-driving helpers in `test_burning.gd` and
-   `test_confession.gd` into `TestCase`; make the Saltmarrow dock walkable (a `pier` zone
-   in `ground` that suppresses the shore wall under it — needed for the ferry payoff).
+1. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
+   stool/second cup prop by Mara; `knot`: half-started nets; `pebble`: Pell's lost-things
+   crate without the pebble. Use conditional props/NPCs (both refresh live since Day 8).
+   Also: Pell/Tam could remark on the green ferry lantern; Mara could notice the Keeper's sleeve-ember if the player carries it.
 2. [A] **Saltmarrow dressing kit** (Blender): dock + pilings, smokehouse, beached and moored
    boats, barrels, drying racks with nets, lanterns on posts, fences, grass/reed clumps,
    a proper lit-lantern beacon model to replace the procedural `beacon_light`. Then
@@ -73,19 +74,15 @@ each .glb < 5 MB.
    slate) — pick stronger contrasts after the Vulkan colour check; a second Saltmarrow
    stilt row along the harbor edge once the dressing kit exists; camera can clip into the
    Gull's Head cliffs when orbiting close.
-6. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
-   stool/second cup prop by Mara; `knot`: half-started nets; `pebble`: Pell's lost-things
-   crate without the pebble. Use conditional props. Also: Pell/Tam could remark on the
-   green ferry lantern; Mara could notice the Keeper's sleeve-ember if the player carries it.
-7. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+6. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow).
    Needs the owner to run the game locally and report back.
-8. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
-9. [S] Settings: volume buses, text size, camera sensitivity/invert, key rebinding
-    (InputSetup is the hook).
-10. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+7. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
+8. [S] Settings: volume buses, text size (`UiTheme.set_text_scale`), camera
+   sensitivity/invert, key rebinding (InputSetup is the hook).
+9. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-11. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
+10. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
 
 ## Milestone 2 — Alpha (Act II begins)
 - [C] **Ferry arrives** (pays off *Across the Grey*, flag `saltmarrow_ferry_lantern_hung`):
@@ -113,8 +110,6 @@ each .glb < 5 MB.
 ## Known issues / tech debt
 - The ferry signal lantern's moss glow reads almost white in the Compatibility renderer;
   check it with the colour-grading item.
-- The Saltmarrow dock sits over the sea behind the shore wall, so it can't be walked on yet
-  (polish item #1).
 - Character follow-ups (fold into later [A]/[S] items): NPCs don't turn to face the player
   (ROADMAP "Interaction polish"); the ember light is a fixed point in the player's model
   space rather than riding the arm; no facial expressions / talk motion during dialogue;
@@ -122,12 +117,10 @@ each .glb < 5 MB.
   boots) within the 1–2k budget.
 - Smoke test: parsed input needs two process frames when resuming from a physics frame;
   keep the double await in `_check_journal`.
-- Region NPCs/pickups/objects do not refresh live when flags change mid-visit (only on
-  region load); props and fog do.
 - The smoke test's menu walk always burns whichever Remnant is listed first (currently the
   pebble); the other burn paths are covered by `test_burning.gd` unit tests only.
-- UI is built in code with per-widget theme overrides; extract a shared `Theme` resource
-  (palette, fonts, sizes) before the pause/settings menus so text-size settings apply
-  everywhere at once.
+- The HUD key hint ("[J] Journal [I] Satchel") is overlapped by the dialogue panel's
+  bottom-left corner; hide it while dialogue is open (fold into Interaction polish).
+- Next polish/debt pass due by session 16 (Day 8 was the last).
 - Journal quest order relies on `WorldState.quests` insertion order (Dictionary order is
   preserved through JSON saves); if save migration ever rebuilds that dict, keep the order.

@@ -2,6 +2,59 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-27 21:00 UTC — Day 8: Polish & tech-debt pass
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **Walkable dock (piers).** New `ground.piers: [{rect, deck}]`: collider vertices inside a
+  pier are raised to the deck instead of the shore wall, and those cells count as walkable,
+  so the wall still rises along the pier's sides and end. `Region.place`/`ground_y` stand
+  content on the deck (`TerrainField.surface_at`) — ready for the ferryman. Saltmarrow's dock
+  moved 1 m inland so it meets the walkway, and Mara stepped aside (7.8, 10.4) instead of
+  blocking its head. Validator: pier rects on grid lines, deck above water, pier reachable.
+  `terrain_map.gd` draws decks as `=`.
+- **Live refresh for conditional NPCs, pickups and objects** (props and fog already did):
+  `Region` tracks every `if` entry of any kind (and all pickups, which vanish once
+  collected) and `refresh_conditional()` adds/removes them when a flag or quest changes.
+  Unblocks "Saltmarrow after the burn" (people appearing/leaving mid-visit).
+- **Shared UI Theme** (`UiTheme`): palette colours, font sizes and the ink/ember panel in one
+  `Theme` set on each UI root; widgets choose type variations (SPEAKER, HEADING, HINT,
+  HUD_TOAST…). `UiTheme.set_text_scale()` rescales every font live — the hook for the text
+  size setting. ~35 per-widget overrides removed.
+- **Tests**: `fresh_state`/`play_dialogue` helpers moved into `TestCase` (three copies of the
+  dialogue driver in the burning/confession tests collapsed into one). New tests: pier
+  decks + pier validation (`test_terrain.gd`), `test_ui_theme.gd`. Smoke test now walks the
+  player out along the dock with real input (reaches z≈17.8 on the deck at y 0.275) and
+  sideways into its wall, and checks conditional NPC/pickup/object probes appear and vanish
+  live through the real flag signals (verified it fails with the refresh disabled).
+  44 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-09-27-beacon-lit.png` (the lit lantern room, via
+`--flags`/`--quest` + `--camera` — closes that polish item), `…-saltmarrow-dock.png`,
+`…-themed-dialogue.png`.
+
+**Decisions**
+- **Piers are terrain data, not a prop collider.** The shore wall lives in the terrain
+  collider, so only the terrain can open a hole in it; and the validator's on-foot
+  reachability needs to know the deck is there. The dock *visual* stays a separate prop so
+  the coming Blender dressing kit can replace it without touching terrain.
+- Panels unified to one style (dialogue was 0.92 alpha / radius 6, journal 0.96 / 8 → both
+  0.94 / 8). Layout spacings stay local to each UI; only look-and-feel moved to the theme.
+- Pickups are now always tracked by the conditional refresh, so a pickup whose `if`
+  becomes true mid-visit appears without re-entering the region.
+
+**Problems / notes**
+- `git checkout <file>` while testing a deliberate break reverted an uncommitted edit —
+  caught by the diff before committing. (Commit before sabotage-testing.)
+- The HUD's "[J] Journal [I] Satchel" hint sits under the dialogue panel's bottom-left
+  corner (visible in the dialogue screenshot) — small, logged.
+
+**Next run should**
+1. Content is due (last content was Day 6): **Saltmarrow after the burn** (ROADMAP #2) now
+   that conditional NPCs refresh live — or go straight for the dressing kit if the art
+   cadence rule demands it (Day 7 was art, so content first is within the rule).
+2. Then the Saltmarrow dressing kit ([A]).
+
 ## 2026-09-27 09:00 UTC — Day 7: Terrain (art track)
 
 **Did**
