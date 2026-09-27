@@ -1,11 +1,14 @@
 class_name Region
 extends Node3D
-## Builds a region from its JSON data: terrain slabs, water, props, NPCs, pickups,
-## inspectable objects, exits.
-## See docs/TECH.md "Region format".
+## Builds a region from its JSON data: sculpted ground (or legacy terrain slabs), water,
+## props, NPCs, pickups, inspectable objects, exits.
+## With `ground`, every position's y is an offset above the ground surface (props may opt
+## out with `"snap": false`). See docs/TECH.md "Region format" and "Ground".
 
 var region_id := ""
 var data: Dictionary = {}
+## The sculpted ground, or null for a legacy slab-only region.
+var field: TerrainField = null
 ## Props with an `if` condition: index in data.props -> built node (or null while hidden).
 var _conditional_props: Dictionary = {}
 
@@ -15,6 +18,9 @@ func build(id: String) -> void:
 	data = Content.db.get_region(id)
 	name = "Region_" + id
 	add_to_group("region")
+	if data.has("ground"):
+		field = TerrainField.from_data(data["ground"], float(data.get("water_level", -INF)))
+		add_child(TerrainBuilder.build(field))
 	for slab: Dictionary in data.get("terrain", []):
 		add_child(_build_slab(slab))
 	if data.has("water_level"):
@@ -36,7 +42,7 @@ func build(id: String) -> void:
 		var npc_id := str(placement.get("npc", ""))
 		var actor := NpcActor.new()
 		actor.setup(npc_id, Content.db.get_npc(npc_id))
-		actor.position = JsonUtil.to_vector3(placement.get("position"))
+		actor.position = place(placement.get("position"))
 		actor.rotation_degrees.y = float(placement.get("rotation_y", 0.0))
 		add_child(actor)
 	for pickup_data: Dictionary in data.get("pickups", []):
@@ -46,17 +52,19 @@ func build(id: String) -> void:
 			continue
 		var pickup := Pickup.new()
 		pickup.setup(pickup_data)
-		pickup.position = JsonUtil.to_vector3(pickup_data.get("position"))
+		pickup.position = place(pickup_data.get("position"))
 		add_child(pickup)
 	for object_data: Dictionary in data.get("objects", []):
 		if not Conditions.evaluate(object_data.get("if"), world):
 			continue
 		var object := Inspectable.new()
 		object.setup(object_data)
+		object.position = place(object_data.get("position"))
 		add_child(object)
 	for exit_data: Dictionary in data.get("exits", []):
 		var exit := RegionExit.new()
 		exit.setup(exit_data)
+		exit.position = place(exit_data.get("position"))
 		add_child(exit)
 
 
@@ -88,7 +96,21 @@ func shown_conditional_props() -> int:
 
 func spawn_position(spawn: String) -> Vector3:
 	var spawns: Dictionary = data.get("spawn_points", {})
-	return JsonUtil.to_vector3(spawns.get(spawn, spawns.get("default", [0, 1, 0])))
+	return place(spawns.get(spawn, spawns.get("default", [0, 1, 0])))
+
+
+## Ground height at x/z (0 for a legacy slab region).
+func ground_y(x: float, z: float) -> float:
+	return field.height_at(x, z) if field else 0.0
+
+
+## Converts a data position to a local one: with sculpted ground, y is added to the ground
+## height beneath it unless `snap` is false.
+func place(value: Variant, snap: bool = true) -> Vector3:
+	var pos := JsonUtil.to_vector3(value)
+	if field and snap:
+		pos.y += field.height_at(pos.x, pos.z)
+	return pos
 
 
 func _build_slab(slab: Dictionary) -> StaticBody3D:
@@ -135,7 +157,7 @@ func _build_prop(prop: Dictionary) -> Node3D:
 				node.add_child(_box_collider(JsonUtil.to_vector3(prop["collider"])))
 	if node == null:
 		node = PropFactory.build(str(prop.get("shape", "crate")), str(prop.get("color", "")), float(prop.get("scale", 1.0)))
-	node.position = JsonUtil.to_vector3(prop.get("position"))
+	node.position = place(prop.get("position"), bool(prop.get("snap", true)))
 	node.rotation_degrees.y = float(prop.get("rotation_y", 0.0))
 	return node
 

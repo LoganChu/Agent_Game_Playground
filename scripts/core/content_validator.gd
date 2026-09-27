@@ -227,6 +227,72 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		var target_spawns: Dictionary = db.get_region(to).get("spawn_points", {})
 		if not target_spawns.has(str(exit.get("spawn", "default"))):
 			_err(where, "exit spawn '%s' not in region '%s'" % [exit.get("spawn", "default"), to])
+	if region.has("ground"):
+		_validate_ground(where, region)
+
+
+## Sculpted ground: well-formed features, and every spawn/NPC/pickup/object/exit stands on
+## ground the player can walk to from the default spawn (no stranded content).
+func _validate_ground(where: String, region: Dictionary) -> void:
+	var ground: Variant = region["ground"]
+	if not ground is Dictionary:
+		_err(where, "ground must be an object")
+		return
+	var b: Variant = ground.get("bounds")
+	if not b is Array or (b as Array).size() != 4 or float(b[2]) <= float(b[0]) or float(b[3]) <= float(b[1]):
+		_err(where, "ground.bounds must be [x_min, z_min, x_max, z_max]")
+		return
+	for key: String in ["land", "paint"]:
+		for feature: Variant in ground.get(key, []):
+			if not feature is Dictionary:
+				_err(where, "ground.%s entries must be objects" % key)
+				continue
+			var shape_keys := 0
+			for shape_key: String in ["rect", "ellipse", "path"]:
+				if feature.has(shape_key):
+					shape_keys += 1
+					var arr: Variant = feature[shape_key]
+					var ok := arr is Array and (arr as Array).size() >= (2 if shape_key == "path" else 4)
+					if ok and shape_key == "path":
+						for point: Variant in arr:
+							ok = ok and point is Array and (point as Array).size() >= 2
+					if not ok:
+						_err(where, "ground.%s has a malformed '%s'" % [key, shape_key])
+			if shape_keys != 1:
+				_err(where, "ground.%s entries need exactly one of rect/ellipse/path" % key)
+			if key == "paint" and not _valid_color(str(feature.get("color", ""))):
+				_err(where, "ground.paint has unknown color '%s'" % feature.get("color", ""))
+	for color_key: String in ["ground", "shore", "seabed", "cliff"]:
+		var colors: Dictionary = ground.get("colors", {})
+		if colors.has(color_key) and not _valid_color(str(colors[color_key])):
+			_err(where, "ground.colors.%s is not a palette color" % color_key)
+	var field := TerrainField.from_data(ground, float(region.get("water_level", -INF)))
+	var spawn: Vector3 = JsonUtil.to_vector3(region.get("spawn_points", {}).get("default", [0, 0, 0]))
+	var reachable := field.reachable_from(spawn.x, spawn.z)
+	if reachable.is_empty():
+		_err(where, "default spawn is not on walkable ground")
+		return
+	for cell: Vector2i in reachable:
+		if cell.x <= 0 or cell.y <= 0 or cell.x >= field.cols - 2 or cell.y >= field.rows - 2:
+			_err(where, "walkable ground reaches the edge of ground.bounds at %s (widen bounds)" % field.vertex_xz(cell.x, cell.y))
+			break
+	var spots: Array = []  # [label, position, reach]
+	for spawn_name: String in region.get("spawn_points", {}):
+		spots.append(["spawn '%s'" % spawn_name, region["spawn_points"][spawn_name], 0.5])
+	for placement: Dictionary in region.get("npcs", []):
+		spots.append(["npc '%s'" % placement.get("npc", ""), placement.get("position"), 1.4])
+	for pickup: Dictionary in region.get("pickups", []):
+		spots.append(["pickup '%s'" % pickup.get("id", ""), pickup.get("position"), 1.4])
+	for object: Dictionary in region.get("objects", []):
+		spots.append(["object '%s'" % object.get("id", ""), object.get("position"), float(object.get("reach", 1.8))])
+	for exit: Dictionary in region.get("exits", []):
+		spots.append(["exit to '%s'" % exit.get("to", ""), exit.get("position"), 1.4])
+	for spot: Array in spots:
+		var pos := JsonUtil.to_vector3(spot[1])
+		if not field.contains(pos.x, pos.z):
+			_err(where, "%s at %s is outside ground.bounds" % [spot[0], pos])
+		elif not field.near_reachable(reachable, pos.x, pos.z, float(spot[2])):
+			_err(where, "%s at %s can't be reached on foot from the default spawn" % [spot[0], pos])
 
 
 func _validate_dialogue(id: String, dialogue: Dictionary) -> void:
