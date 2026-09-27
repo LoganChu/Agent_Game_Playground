@@ -97,9 +97,10 @@ Every record lives in its own file whose name equals its `id`.
   "exits":   [{"to": region, "spawn": spawn_name, "position": [...], "prompt": "...",
                "requires": condition, "locked_text": "..."}] }   // gated exits
 ```
-Fog and conditional props (`if`) are re-evaluated **live** whenever a flag or quest changes
-(`main.gd` → `Region.refresh_conditional_props()` + `RegionMood.fog()`; fog changes tween
-over 4 s). NPCs, pickups, objects and exits still only re-evaluate on region load.
+Fog and conditional props, NPCs, pickups and objects (`if`) are re-evaluated **live**
+whenever a flag or quest changes (`main.gd` → `Region.refresh_conditional()` +
+`RegionMood.fog()`; fog changes tween over 4 s). Exits are always present; their
+`requires` is checked on interaction.
 Shape `signal_lantern` = post with a hanging lantern glowing in its `color` (default moss) +
 OmniLight (Mara's ferry signal). Shape `beacon_light` = glowing lantern room + OmniLight for the Gull's Beacon (no collider).
 Objects have no visuals of their own (place a prop at the same spot); their dialogue runs

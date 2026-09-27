@@ -220,6 +220,40 @@ func _check_act_one_close(main: Node) -> void:
 		await get_tree().physics_frame
 	var region: Region = main.get("region")
 	_check(region.shown_conditional_props() == 1, "ferry signal lantern shows at the dock")
+	await _check_live_refresh(region)
+
+
+## Conditional NPCs, pickups and objects appear/disappear live when a flag changes mid-visit
+## (via main.gd's world-changed hook). Probes are added with a scratch condition, then
+## removed again so the rest of the run is unaffected.
+func _check_live_refresh(region: Region) -> void:
+	var world := GameState.world
+	var flag := "saltmarrow_pell_lent_pebble"
+	var before: Variant = world.get_flag(flag)
+	world.set_flag(flag, false)
+	var probes: Array[Dictionary] = [
+		{"kind": "npc", "data": {"npc": "pell", "position": [2, 0, 4], "if": "flag:" + flag}, "node": null},
+		{"kind": "pickup", "data": {"id": "smoke_probe", "item": "harbor_token", "position": [3, 0, 4], "if": "flag:" + flag}, "node": null},
+		{"kind": "object", "data": {"id": "smoke_probe", "dialogue": "mara", "position": [4, 0, 4], "if": "flag:" + flag}, "node": null},
+	]
+	region._conditional.append_array(probes)
+	var groups := ["npcs", "pickups", "inspectables"]
+	var counts := groups.map(func(g: String) -> int: return _live_in_group(g))
+	world.set_flag(flag, true)
+	await get_tree().process_frame
+	for i in groups.size():
+		_check(_live_in_group(groups[i]) == counts[i] + 1, "live refresh adds a conditional %s" % groups[i])
+	world.set_flag(flag, false)
+	await get_tree().process_frame
+	for i in groups.size():
+		_check(_live_in_group(groups[i]) == counts[i], "live refresh removes a conditional %s" % groups[i])
+	for probe in probes:
+		region._conditional.erase(probe)
+	world.set_flag(flag, before)
+
+
+func _live_in_group(group: String) -> int:
+	return get_tree().get_nodes_in_group(group).filter(func(n: Node) -> bool: return not n.is_queued_for_deletion()).size()
 
 
 func _press(action: String) -> void:

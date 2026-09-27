@@ -130,11 +130,12 @@ func _build_environment() -> void:
 	add_child(sun)
 
 
-## Story changes mid-visit (a relit beacon) can thin the fog and show/hide props.
+## Story changes mid-visit (a relit beacon) can thin the fog and show/hide conditional
+## props, NPCs, pickups and objects.
 func _on_world_changed() -> void:
 	if region == null:
 		return
-	region.refresh_conditional_props()
+	region.refresh_conditional()
 	_apply_region_mood(true)
 
 

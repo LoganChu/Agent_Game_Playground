@@ -5,12 +5,16 @@ extends Node3D
 ## With `ground`, every position's y is an offset above the ground surface (props may opt
 ## out with `"snap": false`). See docs/TECH.md "Region format" and "Ground".
 
+## Region data key per content kind.
+const KINDS := {"prop": "props", "npc": "npcs", "pickup": "pickups", "object": "objects"}
+
 var region_id := ""
 var data: Dictionary = {}
 ## The sculpted ground, or null for a legacy slab-only region.
 var field: TerrainField = null
-## Props with an `if` condition: index in data.props -> built node (or null while hidden).
-var _conditional_props: Dictionary = {}
+## Content with an `if` condition, re-evaluated live: [{kind, data, node}] where kind is
+## prop | npc | pickup | object and node is the built node, or null while hidden.
+var _conditional: Array[Dictionary] = []
 
 
 func build(id: String) -> void:
@@ -25,42 +29,14 @@ func build(id: String) -> void:
 		add_child(_build_slab(slab))
 	if data.has("water_level"):
 		add_child(_build_water(float(data["water_level"])))
-	var props: Array = data.get("props", [])
-	for i in props.size():
-		var prop: Dictionary = props[i]
-		if prop.has("if"):
-			_conditional_props[i] = null
-			continue
-		var node := _build_prop(prop)
-		if node:
-			add_child(node)
-	refresh_conditional_props()
-	var world := GameState.world
-	for placement: Dictionary in data.get("npcs", []):
-		if not Conditions.evaluate(placement.get("if"), world):
-			continue
-		var npc_id := str(placement.get("npc", ""))
-		var actor := NpcActor.new()
-		actor.setup(npc_id, Content.db.get_npc(npc_id))
-		actor.position = place(placement.get("position"))
-		actor.rotation_degrees.y = float(placement.get("rotation_y", 0.0))
-		add_child(actor)
-	for pickup_data: Dictionary in data.get("pickups", []):
-		if world.is_collected(str(pickup_data.get("id", ""))):
-			continue
-		if not Conditions.evaluate(pickup_data.get("if"), world):
-			continue
-		var pickup := Pickup.new()
-		pickup.setup(pickup_data)
-		pickup.position = place(pickup_data.get("position"))
-		add_child(pickup)
-	for object_data: Dictionary in data.get("objects", []):
-		if not Conditions.evaluate(object_data.get("if"), world):
-			continue
-		var object := Inspectable.new()
-		object.setup(object_data)
-		object.position = place(object_data.get("position"))
-		add_child(object)
+	for kind: String in KINDS:
+		for entry: Dictionary in data.get(KINDS[kind], []):
+			if entry.has("if") or kind == "pickup":
+				# Pickups also disappear once collected, so they're always tracked.
+				_conditional.append({"kind": kind, "data": entry, "node": null})
+			else:
+				add_child(_build(kind, entry))
+	refresh_conditional()
 	for exit_data: Dictionary in data.get("exits", []):
 		var exit := RegionExit.new()
 		exit.setup(exit_data)
@@ -68,30 +44,59 @@ func build(id: String) -> void:
 		add_child(exit)
 
 
-## Adds/removes props whose `if` condition changed. Safe to call any time (e.g. when a
-## flag changes mid-visit); unconditional content is never touched.
-func refresh_conditional_props() -> void:
-	var props: Array = data.get("props", [])
-	for i: int in _conditional_props:
-		var prop: Dictionary = props[i]
-		var want := Conditions.evaluate(prop.get("if"), GameState.world)
-		var node: Node3D = _conditional_props[i]
+## Adds/removes content whose `if` condition changed (and collected pickups). Safe to call
+## any time (e.g. when a flag changes mid-visit); unconditional content is never touched.
+func refresh_conditional() -> void:
+	var world := GameState.world
+	for entry: Dictionary in _conditional:
+		var entry_data: Dictionary = entry["data"]
+		var want := Conditions.evaluate(entry_data.get("if"), world)
+		if entry["kind"] == "pickup" and world.is_collected(str(entry_data.get("id", ""))):
+			want = false
+		var node: Node3D = entry["node"] if is_instance_valid(entry["node"]) else null
+		if node != null and node.is_queued_for_deletion():
+			node = null
 		if want and node == null:
-			node = _build_prop(prop)
-			add_child(node)
-			_conditional_props[i] = node
+			node = _build(entry["kind"], entry_data)
+			if node:
+				add_child(node)
 		elif not want and node != null:
 			node.queue_free()
-			_conditional_props[i] = null
+			node = null
+		entry["node"] = node
 
 
 ## Number of conditional props currently shown (for tests).
 func shown_conditional_props() -> int:
 	var shown := 0
-	for node: Variant in _conditional_props.values():
-		if node != null:
+	for entry: Dictionary in _conditional:
+		if entry["kind"] == "prop" and is_instance_valid(entry["node"]):
 			shown += 1
 	return shown
+
+
+func _build(kind: String, entry: Dictionary) -> Node3D:
+	match kind:
+		"prop":
+			return _build_prop(entry)
+		"npc":
+			var npc_id := str(entry.get("npc", ""))
+			var actor := NpcActor.new()
+			actor.setup(npc_id, Content.db.get_npc(npc_id))
+			actor.position = place(entry.get("position"))
+			actor.rotation_degrees.y = float(entry.get("rotation_y", 0.0))
+			return actor
+		"pickup":
+			var pickup := Pickup.new()
+			pickup.setup(entry)
+			pickup.position = place(entry.get("position"))
+			return pickup
+		"object":
+			var object := Inspectable.new()
+			object.setup(entry)
+			object.position = place(entry.get("position"))
+			return object
+	return null
 
 
 func spawn_position(spawn: String) -> Vector3:
