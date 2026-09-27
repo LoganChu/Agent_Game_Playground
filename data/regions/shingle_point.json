@@ -25,41 +25,104 @@
       -10
     ]
   },
-  "terrain": [
-    {
-      "size": [
-        36,
-        1,
-        30
-      ],
-      "position": [
-        0,
-        0,
-        0
-      ],
-      "color": "driftwood"
+  "ground": {
+    "bounds": [
+      -32,
+      -36,
+      32,
+      26
+    ],
+    "cell": 1.0,
+    "base": -1.6,
+    "seed": 11,
+    "roughness": 0.07,
+    "note": "A curved shingle beach shelving gently into the sea with a spit (the Point) hooking round to the east, grassy dunes rising to the north, a slate outcrop to the north-west.",
+    "land": [
+      {
+        "ellipse": [
+          0,
+          0,
+          18,
+          13
+        ],
+        "height": 0.25,
+        "falloff": 6
+      },
+      {
+        "ellipse": [
+          0,
+          -17,
+          21,
+          8
+        ],
+        "height": 0.8,
+        "falloff": 4
+      },
+      {
+        "ellipse": [
+          -12,
+          -10,
+          5,
+          4
+        ],
+        "height": 1.4,
+        "falloff": 1.8
+      },
+      {
+        "path": [
+          [
+            13,
+            -4,
+            0.25
+          ],
+          [
+            19,
+            3,
+            0.2
+          ],
+          [
+            20,
+            11,
+            0.15
+          ],
+          [
+            16,
+            16,
+            0.1
+          ]
+        ],
+        "width": 3,
+        "falloff": 3,
+        "ragged": 0.8
+      }
+    ],
+    "colors": {
+      "ground": "moss",
+      "shore": "driftwood",
+      "shore_height": 0.8,
+      "seabed": "slate",
+      "cliff": "slate"
     },
-    {
-      "size": [
-        10,
-        1,
-        8
-      ],
-      "position": [
-        -12,
-        0.4,
-        -10
-      ],
-      "color": "slate"
-    }
-  ],
+    "paint": [
+      {
+        "ellipse": [
+          -12,
+          -10,
+          4.5,
+          3.5
+        ],
+        "color": "slate"
+      }
+    ],
+    "ragged": 1.8
+  },
   "props": [
     {
       "model": "res://assets/models/rock_cluster.glb",
       "shape": "rock",
       "position": [
         -14,
-        0.4,
+        0,
         -12
       ],
       "scale": 1.4,
@@ -74,7 +137,7 @@
       "shape": "rock",
       "position": [
         -9,
-        0.4,
+        0,
         -8
       ],
       "collider": [
@@ -174,7 +237,7 @@
       "item": "humming_pebble",
       "position": [
         -11,
-        0.4,
+        0,
         -10
       ],
       "quest_stage": [
