@@ -25,6 +25,7 @@ func _run() -> void:
 	var player := get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
 	_check(player != null and player.find_child("CharacterRig", true, false) != null, "player shows the Wakebearer model")
 	_finish_dialogue(ui, "intro")
+	await _check_ground(main)
 	await _check_gates(main, false)
 	# Several passes over every region so quests started on one pass can advance on the next
 	# (pass 3 reaches Aldous's confession and Mara's ferry lantern).
@@ -104,6 +105,51 @@ func _check_gates(main: Node, expect_open: bool) -> void:
 			var now: Region = main.get("region")
 			var arrived := now != null and now.region_id == target
 			_check(arrived == expect_open, "exit %s -> %s %s travel" % [region_id, target, "allows" if expect_open else "refuses"])
+
+
+## Sculpted ground: the player lands on it at every region's spawn, NPCs stand on it, the
+## Gull's Head ramp can be walked up with real input and physics, and the shore wall stops
+## the player wading out to sea.
+func _check_ground(main: Node) -> void:
+	var player: Player = get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
+	for region_id: String in Content.db.regions:
+		GameState.travel(region_id)
+		for i in 30:
+			await get_tree().physics_frame
+		var region: Region = main.get("region")
+		if region.field == null:
+			continue
+		var p := player.global_position
+		_check(player.is_on_floor() and absf(p.y - region.ground_y(p.x, p.z)) < 0.25, "player stands on the ground at %s spawn" % region_id)
+		for node in get_tree().get_nodes_in_group("npcs"):
+			var npc := node as NpcActor
+			_check(absf(npc.position.y - region.ground_y(npc.position.x, npc.position.z)) < 0.01, "npc %s stands on the ground" % npc.npc_id)
+	GameState.travel("gulls_head")
+	for i in 3:
+		await get_tree().physics_frame
+	var region: Region = main.get("region")
+	var camera_yaw: Node3D = player.get("_camera_yaw")
+	camera_yaw.rotation.y = 0.0  # move_forward = -Z: from the lofts up the ramp to the beacon
+	player.place_at(Vector3(0, region.ground_y(0, 0) + 0.2, 0))
+	await _hold("move_forward", 150)
+	var top := player.global_position
+	print("Smoke: ramp walk reached ", top)
+	_check(top.z < -8.0 and top.y > 2.3, "player walks up the Gull's Head ramp (reached %s)" % top)
+	player.place_at(Vector3(0, region.ground_y(0, 15) + 0.2, 15))
+	await _hold("move_back", 120)  # +Z: straight out to sea
+	var shore := player.global_position
+	print("Smoke: sea walk reached ", shore)
+	_check(shore.y > region.ground_y(0, 15) - 0.6 and shore.z < 22.0, "shore wall stops the player wading out (reached %s)" % shore)
+	camera_yaw.rotation.y = 0.0
+
+
+func _hold(action: String, frames: int) -> void:
+	Input.action_press(action)
+	for i in frames:
+		await get_tree().physics_frame
+	Input.action_release(action)
+	for i in 10:
+		await get_tree().physics_frame
 
 
 ## By the end of pass two the menu walk has fed the Gull's Beacon: check the quest, the
