@@ -58,8 +58,11 @@ scripts/
                terrain_builder.gd (TerrainField → flat-shaded vertex-coloured mesh + collider)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
-  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code,
-               palette-themed. Modal UIs set `GameState.input_locked` while open and refuse
+  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code.
+               ui_theme.gd: the one shared `Theme` (palette colours, font sizes, panel box)
+               set on each UI root; widgets pick looks via `theme_type_variation`
+               (UiTheme.SPEAKER, HINT, HUD_TOAST…), not per-widget overrides.
+               `UiTheme.set_text_scale(s)` rescales every font live (settings hook). Modal UIs set `GameState.input_locked` while open and refuse
                to open if another modal already holds it.
   debug/       smoke_test.gd, screenshot.gd, character_lineup.gd (scenes/debug/character_lineup.tscn)
   main.gd      root scene script (scenes/main.tscn)

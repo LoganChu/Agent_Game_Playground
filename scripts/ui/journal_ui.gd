@@ -148,8 +148,11 @@ func _show_entry(index: int) -> void:
 		if int(entry["count"]) > 1:
 			_subheading.text += "  ·  carrying %d" % int(entry["count"])
 		lines.append(str(entry["description"]))
-	_subheading.add_theme_color_override("font_color",
-			PropFactory.color("ember" if entry.get("remnant", false) else "silverfog"))
+	# Remnants are called out in ember; everything else uses the theme's subheading colour.
+	if entry.get("remnant", false):
+		_subheading.add_theme_color_override("font_color", PropFactory.color("ember"))
+	else:
+		_subheading.remove_theme_color_override("font_color")
 	_body.text = "\n".join(lines)
 
 
@@ -157,6 +160,7 @@ func _build() -> void:
 	_root = Control.new()
 	_root.name = "JournalRoot"
 	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_root.theme = UiTheme.get_theme()
 	add_child(_root)
 	var shade := ColorRect.new()
 	shade.color = Color(PropFactory.color("ink"), 0.55)
@@ -173,13 +177,6 @@ func _build() -> void:
 	panel.offset_right = 0
 	panel.offset_top = 0
 	panel.offset_bottom = 0
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(PropFactory.color("ink"), 0.96)
-	style.border_color = PropFactory.color("ember")
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(8)
-	style.set_content_margin_all(20)
-	panel.add_theme_stylebox_override("panel", style)
 	_root.add_child(panel)
 
 	var outer := VBoxContainer.new()
@@ -196,8 +193,6 @@ func _build() -> void:
 		button.toggle_mode = true
 		button.button_group = group
 		button.focus_mode = Control.FOCUS_NONE
-		button.add_theme_font_size_override("font_size", 20)
-		button.add_theme_color_override("font_pressed_color", PropFactory.color("ember"))
 		button.pressed.connect(func() -> void: open(i as Tab))
 		tabs.add_child(button)
 		_tab_buttons.append(button)
@@ -206,7 +201,7 @@ func _build() -> void:
 	tabs.add_child(spacer)
 	var hint := Label.new()
 	hint.text = "[Esc] close"
-	hint.add_theme_color_override("font_color", PropFactory.color("silverfog"))
+	hint.theme_type_variation = UiTheme.HINT
 	tabs.add_child(hint)
 
 	var split := HBoxContainer.new()
@@ -221,15 +216,11 @@ func _build() -> void:
 	split.add_child(left)
 	_list = ItemList.new()
 	_list.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_list.add_theme_font_size_override("font_size", 19)
-	_list.add_theme_color_override("font_color", PropFactory.color("bone"))
-	_list.add_theme_color_override("font_selected_color", PropFactory.color("kindle"))
 	_list.item_selected.connect(_show_entry)
 	left.add_child(_list)
 	_empty = Label.new()
 	_empty.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_empty.add_theme_color_override("font_color", PropFactory.color("silverfog"))
-	_empty.add_theme_font_size_override("font_size", 18)
+	_empty.theme_type_variation = UiTheme.HINT
 	left.add_child(_empty)
 
 	var right := VBoxContainer.new()
@@ -237,17 +228,12 @@ func _build() -> void:
 	right.add_theme_constant_override("separation", 6)
 	split.add_child(right)
 	_heading = Label.new()
-	_heading.add_theme_font_size_override("font_size", 28)
-	_heading.add_theme_color_override("font_color", PropFactory.color("ember"))
+	_heading.theme_type_variation = UiTheme.HEADING
 	right.add_child(_heading)
 	_subheading = Label.new()
-	_subheading.add_theme_font_size_override("font_size", 16)
+	_subheading.theme_type_variation = UiTheme.SUBHEADING
 	right.add_child(_subheading)
 	_body = RichTextLabel.new()
 	_body.bbcode_enabled = true
 	_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_body.add_theme_color_override("default_color", PropFactory.color("bone"))
-	_body.add_theme_font_size_override("normal_font_size", 20)
-	_body.add_theme_font_size_override("italics_font_size", 20)
-	_body.add_theme_constant_override("line_separation", 6)
 	right.add_child(_body)

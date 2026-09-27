@@ -108,26 +108,16 @@ func _build() -> void:
 	_panel.offset_left = 80
 	_panel.offset_right = -80
 	_panel.offset_bottom = -24
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(PropFactory.color("ink"), 0.92)
-	style.border_color = PropFactory.color("ember")
-	style.set_border_width_all(2)
-	style.set_corner_radius_all(6)
-	style.set_content_margin_all(16)
-	_panel.add_theme_stylebox_override("panel", style)
+	_panel.theme = UiTheme.get_theme()
 	add_child(_panel)
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 8)
 	_panel.add_child(vbox)
 	_name_label = Label.new()
-	_name_label.add_theme_color_override("font_color", PropFactory.color("ember"))
-	_name_label.add_theme_font_size_override("font_size", 22)
+	_name_label.theme_type_variation = UiTheme.SPEAKER
 	vbox.add_child(_name_label)
 	_text_label = RichTextLabel.new()
 	_text_label.fit_content = true
 	_text_label.bbcode_enabled = true
-	_text_label.add_theme_color_override("default_color", PropFactory.color("bone"))
-	_text_label.add_theme_font_size_override("normal_font_size", 20)
 	_text_label.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	vbox.add_child(_text_label)
 	_choices_box = VBoxContainer.new()
@@ -135,5 +125,5 @@ func _build() -> void:
 	_continue_hint = Label.new()
 	_continue_hint.text = "[E] continue"
 	_continue_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_continue_hint.add_theme_color_override("font_color", PropFactory.color("silverfog"))
+	_continue_hint.theme_type_variation = UiTheme.HINT
 	vbox.add_child(_continue_hint)
