@@ -104,6 +104,8 @@ Fog and conditional props, NPCs, pickups and objects (`if`) are re-evaluated **l
 whenever a flag or quest changes (`main.gd` → `Region.refresh_conditional()` +
 `RegionMood.fog()`; fog changes tween over 4 s). Exits are always present; their
 `requires` is checked on interaction.
+Shapes `stool` (Dunstan's stool), `cups` (half-crate with two cups), `net_rack` (drying frame
+with a whole net) and `net_frame` (a net begun from the middle) are small dressing props (Day 9).
 Shape `signal_lantern` = post with a hanging lantern glowing in its `color` (default moss) +
 OmniLight (Mara's ferry signal). Shape `beacon_light` = glowing lantern room + OmniLight for the Gull's Beacon (no collider).
 Objects have no visuals of their own (place a prop at the same spot); their dialogue runs
@@ -234,6 +236,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   path, Pell's consent, Mara's gull, returning unburned Remnants, fog thinning).
 - `tests/test_confession.gd` — Aldous's confession (gentle/full vs. pressed/grudging with a
   second visit), the *Across the Grey* hook and Mara's ferry lantern.
+- `tests/test_aftermath.gd` — Saltmarrow after the burn: which conditional props each burn
+  shows, the stool/nets/lost-things inspectables per state, Pell's ferry ask, Tam's fare,
+  Mara and the sleeve-ember.
 - `tests/test_terrain.gd` — TerrainField heights, mesh/triangle agreement, ramp/cliff/sea
   reachability, colour rules, mesh faces up + shore-wall collider, ground-relative placement,
   validator ground checks.
@@ -248,7 +253,8 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   travel on a new game, visits every region twice, talks to every NPC and examines every
   object walking each menu, collects pickups, checks gated exits now open, that the menu
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog
-  thinned), that a third pass reached Aldous's confession and Mara's ferry lantern, opens the journal and satchel via real input
+  thinned), that a third pass reached Aldous's confession and Mara's ferry lantern (and that
+  Saltmarrow's burn-specific dressing matches the burn — `Region.shown_conditional_props(shape)`), opens the journal and satchel via real input
   actions, saves/loads and compares state.
 - Add a `test_*.gd` extending `TestCase`; methods named `test_*` run automatically.
 

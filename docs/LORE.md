@@ -128,6 +128,28 @@ greyed net-lofts.
     her door — the old harbor signal for "passengers waiting" — and the ferry's **horn**
     will announce it (quest *Across the Grey*, Act II bridge).
 
+- **Established in play (Day 9 — Saltmarrow after the burn):**
+  - **Dunstan's stool** stands by Mara's door, a big man's dent worn into the seat; Mara
+    sweeps round it. If she knows he chose to go, it is set square to the harbor, facing
+    north. If her gull was lent and handed back, the whittled gull sits on it, beak north.
+    After the `gull` burn two cups stand beside it every morning, one left full and cold, and
+    nobody can say whose the dent is.
+  - With the fog pushed back, Saltmarrow's **nets dry on frames** in the village again. Every
+    Saltmarrow net begins at the same corner with the founding knot (a gull's feather tied
+    into the first mesh for luck). After the `knot` burn nets are begun in the middle and
+    worked outward, and have no first knot.
+  - **Pell's lost things** live in a sailcloth-lined crate on Shingle Point. A given pebble
+    sits in a nest of unpicked wool; after the pebble burn (if Pell lent it) the nest is
+    empty and Pell keeps it clear — "DONT MOVE THE NEST" — without knowing why.
+  - **Tidewright fares:** Tidewrights don't sell a crossing, "not the old way": a passenger
+    pays **the lanes a deed**, and the ferry's crew weighs it (a mended hull, a drowned
+    man's name carried home). Relighting the Gull weighs heavily — though after the `knot`
+    burn some Tidewrights (net-makers too) will resent its cost.
+  - **Tidewrights distrust Keepers** ("the Spire went dark on the Keepers' watch"). Keepers
+    are buried in their robes; a cut sleeve means something (Mara, on the sleeve-ember).
+  - **Pell asked to come on the ferry** (flag `saltmarrow_pell_ferry_ask`: promised /
+    refused / undecided — the ferry's arrival must honour it).
+
 ### 2. Thornwold (planned — Alpha)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of
 charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.

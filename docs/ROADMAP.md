@@ -44,6 +44,13 @@ with a meaningful burn choice → consequences visible in the village.
 - [x] **Polish/debt pass**: walkable piers (Saltmarrow dock), live refresh of conditional
       NPCs/pickups/objects, shared `UiTheme` with a text-scale hook, TestCase dialogue
       helpers, lit-beacon screenshot (Day 8)
+- [x] **Saltmarrow after the burn**: Dunstan's stool by Mara's door (+ two cups after the
+      `gull` burn; the returned gull sits on it), drying nets in the village (begun from the
+      middle after the `knot` burn), Pell's lost-things crate on Shingle Point (an empty,
+      guarded nest after the `pebble` burn; green glass once the lantern is up); Pell asks to
+      come on the ferry (`saltmarrow_pell_ferry_ask`), Tam explains Tidewright deed-fares
+      (and minds the knot), Mara reads the sleeve-ember. New prop shapes `stool`, `cups`,
+      `net_rack`, `net_frame` (Day 9)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -54,38 +61,37 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [C] **Saltmarrow after the burn**: small world changes per burn — e.g. `gull`: Dunstan's
-   stool/second cup prop by Mara; `knot`: half-started nets; `pebble`: Pell's lost-things
-   crate without the pebble. Use conditional props/NPCs (both refresh live since Day 8).
-   Also: Pell/Tam could remark on the green ferry lantern; Mara could notice the Keeper's sleeve-ember if the player carries it.
-2. [A] **Saltmarrow dressing kit** (Blender): dock + pilings, smokehouse, beached and moored
+1. [A] **Saltmarrow dressing kit** (Blender): dock + pilings, smokehouse, beached and moored
    boats, barrels, drying racks with nets, lanterns on posts, fences, grass/reed clumps,
    a proper lit-lantern beacon model to replace the procedural `beacon_light`. Then
    re-dress all three regions so each has a distinct silhouette and landmark.
-3. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
+2. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
    drains the ember (UI meter); leaving refills. No fail state — at zero you are gently
    walked back out ("you forget why you came"). Gull's Head (before the beacon) is the test
    bed; after the burn its areas should shrink (reuse `fog.overrides` idea).
-4. [A] **Atmosphere & lighting**: gradient sky, sun/ambient per region, glow on ember and
+3. [A] **Atmosphere & lighting**: gradient sky, sun/ambient per region, glow on ember and
    beacon, stylized water shader (foam line at shores), SSAO; ember-hand point light on the
    player.
-5. [A] **Terrain follow-ups** (fold into dressing/atmosphere sessions): shore foam line
+4. [A] **Terrain follow-ups** (fold into dressing/atmosphere sessions): shore foam line
    where ground meets water; paint reads weakly in the Compatibility renderer (walkway vs.
    slate) — pick stronger contrasts after the Vulkan colour check; a second Saltmarrow
    stilt row along the harbor edge once the dressing kit exists; camera can clip into the
    Gull's Head cliffs when orbiting close.
-6. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow).
    Needs the owner to run the game locally and report back.
-7. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
-8. [S] Settings: volume buses, text size (`UiTheme.set_text_scale`), camera
+6. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
+7. [S] Settings: volume buses, text size (`UiTheme.set_text_scale`), camera
    sensitivity/invert, key rebinding (InputSetup is the hook).
-9. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+8. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-10. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
+9. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
 
 ## Milestone 2 — Alpha (Act II begins)
-- [C] **Ferry arrives** (pays off *Across the Grey*, flag `saltmarrow_ferry_lantern_hung`):
+- [C] **Ferry arrives** (pays off *Across the Grey*, flag `saltmarrow_ferry_lantern_hung`).
+  Must honour `saltmarrow_pell_ferry_ask` (promised → Pell on the dock with a bundle and
+  Mara to face; refused → Pell's "bring me something lost"; undecided → Pell asks, loudly),
+  and the Tidewright deed-fare (Tam, Day 9: the lit Gull pays; knot-burn crews resent it):
   the horn, a Tidewright ferryman NPC at the Saltmarrow dock, Act I→II transition; the
   ferry travel system & map screen. Keepers met later should react to
   `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (item is `future`).
@@ -122,5 +128,9 @@ each .glb < 5 MB.
 - The HUD key hint ("[J] Journal [I] Satchel") is overlapped by the dialogue panel's
   bottom-left corner; hide it while dialogue is open (fold into Interaction polish).
 - Next polish/debt pass due by session 16 (Day 8 was the last).
+- The new dressing shapes (`stool`, `cups`, `net_rack`, `net_frame`) are procedural stand-ins;
+  replace them with Blender models in the dressing kit.
+- Inspectables have no visual cue until the prompt appears; with more of them now (stool,
+  nets, lost things), consider a subtle highlight/glint (fold into Interaction polish).
 - Journal quest order relies on `WorldState.quests` insertion order (Dictionary order is
   preserved through JSON saves); if save migration ever rebuilds that dict, keep the order.

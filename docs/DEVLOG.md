@@ -2,6 +2,67 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-28 09:00 UTC — Day 9: Saltmarrow after the burn (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **Saltmarrow after the burn** (ROADMAP [C] #1). The Act I choice now shows in the world,
+  not only in dialogue:
+  - **Dunstan's stool** (the one Mara's `lit_gull` scene mentions) now exists by her door,
+    with an inspectable that tracks what she knows: a stranger's dent → "Dunstan's stool" →
+    set square facing north once she knows he chose → the returned whittled gull sitting on
+    it. After the `gull` burn, **two cups** appear beside it (one full and cold), and the
+    description no longer names anyone.
+  - **Drying nets** appear in the village once the beacon is lit (the lofts are reachable
+    again). Normally whole nets, each begun at the same corner with the founding knot; after
+    the `knot` burn they're **begun from the middle** (small patches on bare frames), and
+    someone has tried and cut away a corner knot seven times.
+  - **Pell's lost things** (the crates next to Pell on Shingle Point) are now inspectable: the
+    pebble in its wool nest, or the nest pressed to its shape while you carry it, or — after
+    the `pebble` burn, if Pell lent it — an empty nest nothing may touch ("DONT MOVE THE
+    NEST"). A green glass chip marked FERRY appears once the lantern is up.
+  - **Ferry-lantern reactions:** Pell begs to come on the ferry — promise / refuse / defer,
+    recorded in the new `future` flag `saltmarrow_pell_ferry_ask` for the ferry's arrival.
+    Tam explains **Tidewright deed-fares** (you pay the lanes a deed; the lit Gull weighs)
+    and warns knot-burners that net-making crews may resent the cost.
+  - **Mara reads the Keeper's sleeve-ember** once (new flag `saltmarrow_mara_saw_sleeve_ember`):
+    Keepers are buried in those robes; hide it from Tidewrights, who blame the Keepers.
+- **Engine:** procedural prop shapes `stool`, `cups`, `net_rack`, `net_frame`;
+  `Region.shown_conditional_props(shape)` filters by shape.
+- **Tests:** new `test_aftermath.gd` (9 tests: per-burn conditional dressing, the new shapes
+  build, stool/nets/lost-things per state, Pell's three answers and one-time ask, Tam's fare
+  with/without the knot line, Mara's one-time sleeve-ember). The smoke test now checks the
+  lantern, beacon light and burn-specific nets/cups by shape — its old "exactly one
+  conditional prop" check broke as soon as the nets existed. 53 tests + smoke + launch pass.
+- LORE: Day 9 canon (stool, nets and the founding knot, Pell's nest, Tidewright deed-fares,
+  Tidewright/Keeper distrust, Pell's ferry ask). TECH/ROADMAP updated.
+
+Screenshots: `docs/screenshots/2026-09-28-gull-two-cups.png` (gull burn: stool + two cups by
+Mara), `…-knot-net-frames.png` (knot burn) vs. `…-drying-nets.png` (any other burn).
+
+**Decisions**
+- **One prop per burn, plus one inspectable that reads the flags**, rather than three
+  separate objects per burn: fewer ids, and one dialogue per thing keeps each description's
+  whole history (before/after, told/untold) readable in one file.
+- The stool is always present (it was already canon in Mara's dialogue); only the cups are
+  burn-gated. Nets come out after *any* burn, since the lofts reopen either way.
+- Pell's ask is recorded now so that the ferry arrival has a real choice to honour; its
+  payoff is logged under Milestone 2's "Ferry arrives".
+- New dressing is procedural (like the signal lantern) so this content session didn't
+  depend on the art pipeline; Blender versions belong to the dressing kit next.
+
+**Problems / notes**
+- The first gull screenshot put the camera inside a house's roof (the slate house at
+  13, 5); moved the camera.
+- The ALSA "Unknown PCM default"/`ERR_CANT_OPEN` lines in Xvfb screenshot runs are the
+  sandbox having no sound device — harmless, and not part of `run_checks.sh`.
+
+**Next run should**
+1. **Art is due** (cadence rule: Day 7 was the last [A]): the **Saltmarrow dressing kit**
+   (ROADMAP #1) — include Blender versions of the stool, cups and net racks/frames.
+2. Then The Greying v1 ([S]) or the ferry's arrival ([C], Alpha) — the ferry must honour
+   `saltmarrow_pell_ferry_ask`.
+
 ## 2026-09-27 21:00 UTC — Day 8: Polish & tech-debt pass
 
 **Did**
