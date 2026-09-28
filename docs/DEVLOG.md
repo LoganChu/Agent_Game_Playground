@@ -2,6 +2,77 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-28 21:00 UTC — Day 10: Saltmarrow dressing kit (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **Dressing kit** (ROADMAP [A] #1, art was due under the cadence rule): new
+  `tools/blender/build_dressing.py` → 22 models in `assets/models/dressing/` (5–57 KB each):
+  dock (planks, pilings, braces, ladder, mooring posts, bollard, rope coil), a moored
+  single-masted fishing boat, rowboat, upturned rowboat on trestles, smokehouse (stone
+  plinth, tarred boards, glowing roof vent, fish under the eave, woodpile), barrel and a
+  barrel cluster, crate, lantern post, signal lantern (moss glass), fence section, drying
+  rack with a lattice net and cork line / bare frame with a middle-begun patch (+ pine-net
+  variants), Dunstan's stool, the two cups, driftwood log, **wreck ribs**, reeds, dune grass,
+  and the lit lantern room for the Gull's Beacon (glass, flame core, mullions, gallery rail).
+  Boat hulls are lofted from V cross-sections; rails and the foredeck follow the hull line.
+  Every model is joined by material with its transform baked before export.
+- **Every procedural stand-in in Act I replaced** (dock, crates, stilt houses, signal lantern,
+  stool, cups, net racks/frames, beacon light) with the same footprint and heights, and all
+  three regions **re-dressed** so each has its own silhouette:
+  - *Saltmarrow*: harbor with the fishing boat and a rowboat by the dock, smokehouse by the
+    walkway, lantern posts, barrels, a fenced patch west, reeds on the shore, grass on the
+    hills.
+  - *Shingle Point*: the **wreck** at the neck of the spit (landmark), an upturned rowboat,
+    driftwood logs, dune grass and reeds.
+  - *Gull's Head*: cliff-edge fences either side of the ramp top, drying racks and barrels in
+    the loft yard, a hauled-up rowboat, the lit lantern room when the beacon burns.
+- **Engine:** `light` on model props (`{color, energy, range, offset}` → OmniLight3D), since
+  Blender exports no lights; validator rejects it on shape-only props and requires it on a
+  model standing in for a self-lit shape (`PropFactory.LIT_SHAPES`). Art-review scene
+  `scenes/debug/prop_lineup.tscn` (`--only=`, `--camera=`).
+- **Tests:** `test_dressing.gd` (4 tests: every kit model loads, < 5 MB, ≤ 16 mesh nodes,
+  sane bounds, stands on its origin; dock deck/beacon glass heights; model props get their
+  light; light validation). 57 tests + smoke + launch pass. The smoke test's dock walk and
+  burn-dressing checks run against the new models unchanged.
+- LORE: Day 10 set-dressing canon (smokehouse, harbor boats, lantern posts; the Shingle Point
+  wreck left as an explicitly *open* hook). TECH/ROADMAP updated.
+
+Screenshots (`docs/screenshots/2026-09-28-dressing-*.png`): `before-saltmarrow` vs.
+`after-saltmarrow`, `before-shingle` vs. `shingle-wreck`, `harbor`, `mara-door-lantern`
+(gull burn + ferry lantern: stool, cups, signal lantern, dock, rowboat), `gulls-head-beacon`
+(lit lantern room + fences), `kit-lineup`.
+
+**Decisions**
+- **A separate `build_dressing.py`** rather than growing `build_props.py`: the kit is 22
+  pieces with its own helpers (beams, nets, hulls, merging); it imports `build_props` for
+  the palette and primitives so there is still one palette. `build_dressing.py name …`
+  rebuilds single pieces.
+- **Lights live in region data, not in the .glb.** glTF light import changes units between
+  Blender and Godot and has no range; an explicit `light` field is predictable and
+  testable. Only the ferry lantern and the beacon have real lights; street lanterns and the
+  smokehouse vent are emissive only, to keep the light budget for the atmosphere pass.
+- **Replacement models keep their shape's dimensions**, and the region entries keep `shape`
+  as the fallback, so the conditional-prop tests and the smoke test didn't need changing.
+- **Tint variants are separate exports** (`_pine` nets) instead of a material-override hook,
+  for now (logged).
+
+**Problems / notes**
+- The first moored-boat pass had its foredeck and stripes wider than the pointed bow (boxes
+  placed by eye); rebuilt them from the hull's own stations.
+- Joined beams kept their quaternion rotation mode, so the upturned boat's `rotation_euler`
+  flip silently skipped the gunwale rail (a red arc floating over the beach). Fixed by
+  resetting the joined object's rotation mode; caught in a close-up screenshot, not by
+  tests.
+- An over-broad slice while refactoring the hull code deleted four builders; the next
+  Blender run failed loudly (`NameError`) and they were restored before anything was
+  committed.
+
+**Next run should**
+1. **The Greying v1** ([S], ROADMAP #1) — systems are due; or the ferry's arrival ([C],
+   Alpha) if content feels more urgent (last content: Day 9, so either is within the rules).
+2. Art is next due by Day 12: Atmosphere & lighting (ROADMAP #2).
+
 ## 2026-09-28 09:00 UTC — Day 9: Saltmarrow after the burn (content)
 
 **Did**

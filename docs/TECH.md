@@ -27,8 +27,11 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py     # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup]                 # art review: every character side by side
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
+    -- --screenshot=/abs/out.png [--only=dock,wreck] [--camera=…]  # art review: the dressing kit
 ```
 `run_checks.sh` fails on any non-zero exit **or** any `SCRIPT ERROR` / `ERROR:` / `Parse Error`
 in Godot's output (runtime script errors don't change Godot's exit code, so we grep).
@@ -64,7 +67,7 @@ scripts/
                (UiTheme.SPEAKER, HINT, HUD_TOAST…), not per-widget overrides.
                `UiTheme.set_text_scale(s)` rescales every font live (settings hook). Modal UIs set `GameState.input_locked` while open and refuse
                to open if another modal already holds it.
-  debug/       smoke_test.gd, screenshot.gd, character_lineup.gd (scenes/debug/character_lineup.tscn)
+  debug/       smoke_test.gd, screenshot.gd, character_lineup.gd, prop_lineup.gd (art-review scenes in scenes/debug/)
   main.gd      root scene script (scenes/main.tscn)
 data/          game.json, flags.json, regions/, npcs/, items/, quests/  (one JSON per record)
 story/         dialogue JSON, one file per conversation
@@ -91,7 +94,8 @@ Every record lives in its own file whose name equals its `id`.
   "props":   [{"model": "res://assets/models/x.glb", "collider": [w,h,d],   // or
                "shape": "pine|rock|house|post|crate|beacon|dock", "color": "...",
                "position": [...], "rotation_y": deg, "scale": 1.0, "if": condition,
-               "snap": true}],                          // false = absolute y (docks, stilts in water)
+               "snap": true,                            // false = absolute y (docks, stilts in water)
+               "light": {"color": "kindle", "energy": 1.0, "range": 6, "offset": [x,y,z]}}],  // model props only
   "npcs":    [{"npc": id, "position": [...], "rotation_y": deg, "if": condition}],
   "pickups": [{"id": unique, "item": id, "position": [...], "count": 1, "if": condition,
                "set": {flag: value}, "quest_stage": [quest, stage]}],
@@ -108,6 +112,11 @@ Shapes `stool` (Dunstan's stool), `cups` (half-crate with two cups), `net_rack` 
 with a whole net) and `net_frame` (a net begun from the middle) are small dressing props (Day 9).
 Shape `signal_lantern` = post with a hanging lantern glowing in its `color` (default moss) +
 OmniLight (Mara's ferry signal). Shape `beacon_light` = glowing lantern room + OmniLight for the Gull's Beacon (no collider).
+**`light`** (Day 10) adds an OmniLight3D at `offset` (model space) to a **model** prop. Blender
+exports no lights; procedural shapes build their own, so the validator rejects `light` on a
+shape-only prop, and requires it on a model prop whose `shape` is one of
+`PropFactory.LIT_SHAPES` (`signal_lantern`, `beacon_light`) — otherwise the model version
+would go dark.
 Objects have no visuals of their own (place a prop at the same spot); their dialogue runs
 with no NPC. A gated exit is always shown; while `requires` is false, interacting toasts
 `locked_text` (required with `requires`) instead of travelling.
@@ -203,6 +212,25 @@ of *effects*, and may be gated by `if` (skipped when false):
   `"quest_complete": id`, `"give_item": id`, `"take_item": id` (+ `"count": n`).
 - `"note"` is ignored (writer comments).
 
+## Dressing kit (Day 10)
+`tools/blender/build_dressing.py` builds the set-dressing models into `assets/models/dressing/`
+(dock, rowboat, rowboat_upturned, moored_boat, smokehouse, barrel(s), crate, lantern_post,
+signal_lantern, fence, stool, cups, net_rack/net_frame (+ `_pine` variants, since a model
+prop can't be tinted), driftwood_log, wreck, reeds, grass, beacon_lit). It reuses
+`build_props.py`'s palette and primitives and adds tonal shades (`mat(name, shade)`), beams
+and rods between two points, net lattices, and a lofted boat hull (`hull_stations` → `hull`,
+`gunwale`, `deck`). Before export every mesh is **joined by material and its transform
+baked** (`merge_by_material`), so a net's strands are one draw call and every mesh sits at the
+model origin.
+**Replacement rule:** a model that replaces a procedural shape keeps that shape's footprint
+and key heights (dock deck top 0.675; beacon glass 4.14–5.0; lantern glass centre
+(0, 1.85, 0.58) in Godot space), so region data swaps `shape` for `model` without moving
+anything. Region entries keep `shape` as the fallback — tests and the smoke test find
+conditional props by it (`Region.shown_conditional_props(shape)`). Boats are placed with
+`"snap": false`: `moored_boat`'s origin is the waterline; `rowboat` sits on its keel.
+`tests/test_dressing.gd` loads every kit model (< 5 MB, ≤ 16 mesh nodes, sane bounds, standing
+on its origin), checks the dock/beacon heights, model-prop lights and the light validation.
+
 ## Characters
 Built by `tools/blender/build_characters.py` from one chunky base body (~700–900 tris, ~65 KB
 each) plus per-character costume pieces; palette colors and tonal shades of them only.
@@ -239,6 +267,7 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - `tests/test_aftermath.gd` — Saltmarrow after the burn: which conditional props each burn
   shows, the stool/nets/lost-things inspectables per state, Pell's ferry ask, Tam's fare,
   Mara and the sleeve-ember.
+- `tests/test_dressing.gd` — the Blender dressing kit (see *Dressing kit*).
 - `tests/test_terrain.gd` — TerrainField heights, mesh/triangle agreement, ramp/cliff/sea
   reachability, colour rules, mesh faces up + shore-wall collider, ground-relative placement,
   validator ground checks.

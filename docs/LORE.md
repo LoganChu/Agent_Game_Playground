@@ -150,6 +150,18 @@ greyed net-lofts.
   - **Pell asked to come on the ferry** (flag `saltmarrow_pell_ferry_ask`: promised /
     refused / undecided — the ferry's arrival must honour it).
 
+- **Established in the world (Day 10 — set dressing, no dialogue yet):**
+  - Saltmarrow has a tarred plank **smokehouse** beside the walkway (fish hung under its
+    eave, a woodpile, embers glowing in the roof vent), **lanterns on crook posts** along the
+    walkway, a plank **dock** with a ladder and mooring posts, one single-masted **fishing
+    boat** moored in the harbor basin and a rowboat tied off the dock; an upturned rowboat
+    waits for tarring on the west shore.
+  - On **Shingle Point**, at the neck of the spit, lie the **ribs of an old boat** half-buried
+    in the shingle, its stem post still standing. Nobody has said whose boat it was — an
+    open hook for a later session (no canon about it yet).
+  - The Gull's Head headland has weathered **fences** at the cliff edge either side of the
+    ramp; the loft yard has drying racks and a hauled-up rowboat.
+
 ### 2. Thornwold (planned — Alpha)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of
 charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.

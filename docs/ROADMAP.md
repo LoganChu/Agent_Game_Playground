@@ -51,6 +51,14 @@ with a meaningful burn choice → consequences visible in the village.
       come on the ferry (`saltmarrow_pell_ferry_ask`), Tam explains Tidewright deed-fares
       (and minds the knot), Mara reads the sleeve-ember. New prop shapes `stool`, `cups`,
       `net_rack`, `net_frame` (Day 9)
+- [x] [A] **Saltmarrow dressing kit** (Blender, `build_dressing.py`, 22 models): dock with
+      pilings/ladder, moored fishing boat, rowboat, upturned rowboat, smokehouse, barrels,
+      crate, lantern posts, fences, drying racks/frames with lattice nets, stool, cups,
+      signal lantern, lit-beacon lantern room, driftwood logs, wreck ribs, reeds, grass.
+      Every procedural stand-in in Act I replaced; all three regions re-dressed with a
+      landmark each (Saltmarrow harbor + smokehouse, the Shingle Point wreck, Gull's Head
+      cliff fences + lit lantern room). Engine: `light` on model props (validated); prop
+      lineup art scene (Day 10)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -61,22 +69,22 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **Saltmarrow dressing kit** (Blender): dock + pilings, smokehouse, beached and moored
-   boats, barrels, drying racks with nets, lanterns on posts, fences, grass/reed clumps,
-   a proper lit-lantern beacon model to replace the procedural `beacon_light`. Then
-   re-dress all three regions so each has a distinct silhouette and landmark.
-2. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
+1. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
    drains the ember (UI meter); leaving refills. No fail state — at zero you are gently
    walked back out ("you forget why you came"). Gull's Head (before the beacon) is the test
    bed; after the burn its areas should shrink (reuse `fog.overrides` idea).
-3. [A] **Atmosphere & lighting**: gradient sky, sun/ambient per region, glow on ember and
-   beacon, stylized water shader (foam line at shores), SSAO; ember-hand point light on the
-   player.
-4. [A] **Terrain follow-ups** (fold into dressing/atmosphere sessions): shore foam line
-   where ground meets water; paint reads weakly in the Compatibility renderer (walkway vs.
-   slate) — pick stronger contrasts after the Vulkan colour check; a second Saltmarrow
-   stilt row along the harbor edge once the dressing kit exists; camera can clip into the
-   Gull's Head cliffs when orbiting close.
+2. [A] **Atmosphere & lighting** (art due again by Day 12): gradient sky, sun/ambient per
+   region, glow on ember and beacon, stylized water shader (foam line at shores), SSAO;
+   ember-hand point light on the player. The kit's lantern glass and smokehouse embers are
+   emissive but unlit — decide which lanterns earn a real light (budget) here.
+3. [A] **Terrain follow-ups** (fold into atmosphere sessions): shore foam line where ground
+   meets water; paint reads weakly in the Compatibility renderer (walkway vs. slate) — pick
+   stronger contrasts after the Vulkan colour check; a second Saltmarrow stilt row along the
+   harbor edge; camera can clip into the Gull's Head cliffs when orbiting close.
+4. [A] **Dressing follow-ups**: replace the last procedural pieces (Saltmarrow's pine at
+   (-17, -3), Shingle Point's rock at (12, 4), the gate posts) with kit models; a Blender
+   stilt-house variant or two (slate walls, a Mara's-house with a porch for the stool) so
+   the village isn't one house repeated; Gull's Head net-lofts could carry lattice nets.
 5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow).
    Needs the owner to run the game locally and report back.
@@ -128,8 +136,14 @@ each .glb < 5 MB.
 - The HUD key hint ("[J] Journal [I] Satchel") is overlapped by the dialogue panel's
   bottom-left corner; hide it while dialogue is open (fold into Interaction polish).
 - Next polish/debt pass due by session 16 (Day 8 was the last).
-- The new dressing shapes (`stool`, `cups`, `net_rack`, `net_frame`) are procedural stand-ins;
-  replace them with Blender models in the dressing kit.
+- Model props can't be tinted (the `color` field only affects procedural shapes), so tint
+  variants are separate exports (`net_rack_pine`). If variants multiply, add a material
+  override hook (e.g. recolour surfaces named `Tint*`).
+- Model-prop colliders are one box each: the wreck's box keeps the player out of its ribs,
+  and the upturned boat/trestles are one block. Fine for now; revisit with trimesh or
+  compound colliders if exploring around props matters.
+- Kit lantern glass (kindle) and the lit beacon glass read nearly white in the Compatibility
+  renderer, like the moss signal glow — include in the colour-grading item.
 - Inspectables have no visual cue until the prompt appears; with more of them now (stool,
   nets, lost things), consider a subtle highlight/glint (fold into Interaction polish).
 - Journal quest order relies on `WorldState.quests` insertion order (Dictionary order is
