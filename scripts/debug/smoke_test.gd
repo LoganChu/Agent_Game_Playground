@@ -176,7 +176,7 @@ func _check_beacon_lit(main: Node) -> void:
 	for i in 3:
 		await get_tree().physics_frame
 	var region: Region = main.get("region")
-	_check(region.shown_conditional_props() == 1, "beacon light shows once lit")
+	_check(region.shown_conditional_props("beacon_light") == 1, "beacon light shows once lit")
 	var base := float((region.data.get("fog", {}) as Dictionary).get("density", 0.0))
 	var target: float = main.call("target_fog_density")
 	_check(target < base, "fog override thins Gull's Head")
@@ -219,7 +219,12 @@ func _check_act_one_close(main: Node) -> void:
 	for i in 3:
 		await get_tree().physics_frame
 	var region: Region = main.get("region")
-	_check(region.shown_conditional_props() == 1, "ferry signal lantern shows at the dock")
+	_check(region.shown_conditional_props("signal_lantern") == 1, "ferry signal lantern shows at the dock")
+	# Saltmarrow after the burn: nets are out drying, and the dressing matches the burn.
+	var burned := str(world.get_flag("saltmarrow_beacon_burned"))
+	_check(region.shown_conditional_props("net_frame") == (2 if burned == "knot" else 0), "net frames only after the knot burn")
+	_check(region.shown_conditional_props("net_rack") == (0 if burned == "knot" else 2), "whole nets drying unless the knot burned")
+	_check(region.shown_conditional_props("cups") == (1 if burned == "gull" else 0), "two cups only after the gull burn")
 	await _check_live_refresh(region)
 
 

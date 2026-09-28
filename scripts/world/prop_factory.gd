@@ -3,7 +3,7 @@ extends RefCounted
 ## Builds simple flat-shaded low-poly props from primitives. Used for greyboxing and as a
 ## fallback when a region prop has no Blender-made model.
 
-const SHAPES: Array[String] = ["pine", "rock", "house", "post", "crate", "beacon", "dock", "beacon_light", "signal_lantern"]
+const SHAPES: Array[String] = ["pine", "rock", "house", "post", "crate", "beacon", "dock", "beacon_light", "signal_lantern", "stool", "cups", "net_rack", "net_frame"]
 
 const PALETTE: Dictionary = {
 	"ember": Color("#F2A541"),
@@ -147,6 +147,37 @@ static func build(shape: String, tint: String = "", scale: float = 1.0) -> Node3
 			lamp.position = Vector3(0, 1.85, 0.58)
 			root.add_child(lamp)
 			collider_size = Vector3(0.3, 2.4, 0.3)
+		"stool":
+			# Three-legged driftwood stool; the darker disc is a big man's dent worn into the seat.
+			var wood := color(tint if tint else "driftwood")
+			for i: int in 3:
+				var a := TAU * i / 3.0
+				root.add_child(mesh_instance(cylinder(0.035, 0.045, 0.42, 4), wood.darkened(0.15), Vector3(cos(a) * 0.15, 0.21, sin(a) * 0.15)))
+			root.add_child(mesh_instance(cylinder(0.24, 0.22, 0.07, 7), wood, Vector3(0, 0.45, 0)))
+			root.add_child(mesh_instance(cylinder(0.14, 0.14, 0.01, 7), wood.darkened(0.25), Vector3(0, 0.485, 0)))
+			collider_size = Vector3(0.45, 0.5, 0.45)
+		"cups":
+			# An upturned half-crate with two cups set out on it.
+			root.add_child(mesh_instance(box(Vector3(0.5, 0.36, 0.4)), color("driftwood").darkened(0.1), Vector3(0, 0.18, 0)))
+			var cup := color(tint if tint else "bone")
+			for x: float in [-0.11, 0.12]:
+				root.add_child(mesh_instance(cylinder(0.05, 0.04, 0.1, 6), cup, Vector3(x, 0.41, 0.02)))
+			collider_size = Vector3(0.5, 0.36, 0.4)
+		"net_rack", "net_frame":
+			# Drying frame: two posts and a crossbar. `net_rack` hangs a whole net; `net_frame`
+			# holds a net begun from the middle — a small patch with no edge to start from.
+			var wood := color("driftwood")
+			for x: float in [-1.1, 1.1]:
+				root.add_child(mesh_instance(cylinder(0.06, 0.08, 1.8, 5), wood, Vector3(x, 0.9, 0)))
+			root.add_child(mesh_instance(box(Vector3(2.5, 0.08, 0.08)), wood, Vector3(0, 1.76, 0)))
+			var net := color(tint if tint else "slate")
+			if shape == "net_rack":
+				root.add_child(mesh_instance(box(Vector3(2.0, 1.3, 0.03)), net, Vector3(0, 1.05, 0)))
+				root.add_child(mesh_instance(box(Vector3(2.0, 0.06, 0.05)), color("coal"), Vector3(0, 0.42, 0)))
+			else:
+				root.add_child(mesh_instance(box(Vector3(0.02, 0.5, 0.02)), net, Vector3(0, 1.47, 0)))
+				root.add_child(mesh_instance(box(Vector3(0.7, 0.55, 0.03)), net, Vector3(0, 0.95, 0)))
+			collider_size = Vector3(2.4, 1.8, 0.2)
 		_:
 			root.add_child(mesh_instance(box(Vector3.ONE), color("coal"), Vector3(0, 0.5, 0)))
 	var shape_node := CollisionShape3D.new()

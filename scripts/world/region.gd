@@ -66,10 +66,12 @@ func refresh_conditional() -> void:
 		entry["node"] = node
 
 
-## Number of conditional props currently shown (for tests).
-func shown_conditional_props() -> int:
+## Number of conditional props currently shown, optionally only those of `shape` (for tests).
+func shown_conditional_props(shape: String = "") -> int:
 	var shown := 0
 	for entry: Dictionary in _conditional:
+		if shape and str(entry["data"].get("shape", "")) != shape:
+			continue
 		if entry["kind"] == "prop" and is_instance_valid(entry["node"]):
 			shown += 1
 	return shown
