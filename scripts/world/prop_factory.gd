@@ -5,6 +5,9 @@ extends RefCounted
 
 const SHAPES: Array[String] = ["pine", "rock", "house", "post", "crate", "beacon", "dock", "beacon_light", "signal_lantern", "stool", "cups", "net_rack", "net_frame"]
 
+## Shapes that carry their own OmniLight3D (a model standing in for one needs a `light`).
+const LIT_SHAPES: Array[String] = ["beacon_light", "signal_lantern"]
+
 const PALETTE: Dictionary = {
 	"ember": Color("#F2A541"),
 	"kindle": Color("#F4D58D"),

@@ -163,11 +163,25 @@ func _build_prop(prop: Dictionary) -> Node3D:
 			node.scale = Vector3.ONE * float(prop.get("scale", 1.0))
 			if prop.has("collider"):
 				node.add_child(_box_collider(JsonUtil.to_vector3(prop["collider"])))
+			if prop.has("light"):
+				node.add_child(build_light(prop["light"]))
 	if node == null:
 		node = PropFactory.build(str(prop.get("shape", "crate")), str(prop.get("color", "")), float(prop.get("scale", 1.0)))
 	node.position = place(prop.get("position"), bool(prop.get("snap", true)))
 	node.rotation_degrees.y = float(prop.get("rotation_y", 0.0))
 	return node
+
+
+## An OmniLight3D from a prop's `light` field: {color, energy, range, offset}. Only model
+## props use it — procedural shapes (signal_lantern, beacon_light) build their own light.
+static func build_light(spec: Dictionary) -> OmniLight3D:
+	var light := OmniLight3D.new()
+	light.name = "PropLight"
+	light.light_color = PropFactory.color(str(spec.get("color", "kindle")))
+	light.light_energy = float(spec.get("energy", 1.0))
+	light.omni_range = float(spec.get("range", 6.0))
+	light.position = JsonUtil.to_vector3(spec.get("offset", [0, 0, 0]))
+	return light
 
 
 func _box_collider(size: Vector3) -> StaticBody3D:

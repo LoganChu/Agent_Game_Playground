@@ -97,6 +97,27 @@ func _validate_flags() -> void:
 			_err("data/flags.json", "flag '%s' must be snake_case" % id)
 
 
+## `light` is only for model props, and a model standing in for a shape that lights itself
+## (signal_lantern, beacon_light) must bring its own, or the lit version goes dark.
+func _check_prop_light(where: String, prop: Dictionary, model: String) -> void:
+	var shape := str(prop.get("shape", ""))
+	if not prop.has("light"):
+		if not model.is_empty() and shape in PropFactory.LIT_SHAPES:
+			_err(where, "model prop standing in for '%s' needs a 'light'" % shape)
+		return
+	if model.is_empty():
+		_err(where, "prop 'light' needs a 'model' (shape '%s' builds its own)" % shape)
+	if not prop["light"] is Dictionary:
+		_err(where, "prop 'light' must be an object {color, energy, range, offset}")
+		return
+	var light: Dictionary = prop["light"]
+	if light.has("color") and not _valid_color(str(light["color"])):
+		_err(where, "prop light has unknown color '%s'" % light["color"])
+	for key: String in ["energy", "range"]:
+		if light.has(key) and not (light[key] is float or light[key] is int):
+			_err(where, "prop light %s must be a number" % key)
+
+
 func _valid_color(value: String) -> bool:
 	return PropFactory.PALETTE.has(value) or Color.html_is_valid(value)
 
@@ -176,6 +197,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 			_err(where, "prop model '%s' does not exist" % model)
 		if model.is_empty() and str(prop.get("shape", "")) not in PropFactory.SHAPES:
 			_err(where, "prop needs 'model' or a 'shape' in %s" % [PropFactory.SHAPES])
+		_check_prop_light(where, prop, model)
 		_ref_condition(where, prop.get("if"))
 	var fog: Dictionary = region.get("fog", {})
 	for override: Variant in fog.get("overrides", []):
