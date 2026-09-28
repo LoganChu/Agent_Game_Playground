@@ -197,6 +197,7 @@ def merge_by_material() -> None:
         bpy.ops.object.select_all(action="DESELECT")
         joined.select_set(True)
         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+        joined.rotation_mode = "XYZ"  # beams use quaternions; later rotation_euler edits must apply
 
 
 def export(name: str) -> None:
@@ -277,7 +278,7 @@ def build_rowboat_upturned() -> None:
 
 
 def build_moored_boat() -> None:
-    """A single-masted Tidewright-style fishing boat (5.4 m), origin at the WATERLINE: place it
+    """A single-masted Saltmarrow fishing boat (5.4 m), origin at the WATERLINE: place it
     with `"snap": false` at the water level. Sail furled along the boom."""
     reset()
     st = hull_stations(5.4, 0.95, 0.95, 0.55, stations=9)
