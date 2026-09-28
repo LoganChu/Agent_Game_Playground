@@ -119,6 +119,17 @@
             "goto": "ferry"
           },
           {
+            "text": "Show Mara the Keeper's sleeve-ember.",
+            "if": [
+              "item:keepers_sleeve_ember",
+              "!flag:saltmarrow_mara_saw_sleeve_ember"
+            ],
+            "set": {
+              "saltmarrow_mara_saw_sleeve_ember": true
+            },
+            "goto": "sleeve_ember"
+          },
+          {
             "text": "I'll be going.",
             "end": true
           }
@@ -442,6 +453,27 @@
           "across_the_grey",
           "await_the_ferry"
         ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "sleeve_ember": [
+      {
+        "say": "narrator",
+        "text": "Mara turns the scrap of robe to the light. The stitched ember on it has faded almost to pink."
+      },
+      {
+        "say": "mara",
+        "text": "That's off a Keeper's sleeve. They're buried in those robes, sleeves and all. He cut it off himself?"
+      },
+      {
+        "say": "mara",
+        "text": "Then whatever he told you, he meant it. First thing Aldous Wren's meant since he washed up here."
+      },
+      {
+        "say": "mara",
+        "text": "Keep it out of sight on the ferry. Tidewrights don't love Keepers. They'll say the Spire went dark on the Keepers' watch, and they won't be wrong."
       },
       {
         "goto": "hub"

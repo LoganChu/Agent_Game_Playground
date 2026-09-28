@@ -257,5 +257,18 @@
       ],
       "prompt": "Follow the boardwalk to Saltmarrow"
     }
+  ],
+  "objects": [
+    {
+      "id": "shingle_lost_things",
+      "prompt": "Look through Pell's lost things",
+      "dialogue": "pells_lost_things",
+      "position": [
+        5.3,
+        0,
+        1.5
+      ],
+      "reach": 1.8
+    }
   ]
 }

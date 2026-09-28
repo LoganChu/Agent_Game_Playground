@@ -1,0 +1,76 @@
+{
+  "id": "dunstans_stool",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "goto": "gull_burned"
+      },
+      {
+        "if": [
+          "flag:saltmarrow_mara_offered_gull",
+          "quest:a_light_for_saltmarrow=done",
+          "!item:dunstans_gull"
+        ],
+        "goto": "gull_home"
+      },
+      {
+        "if": "flag:saltmarrow_mara_knows_dunstan_chose",
+        "goto": "chose"
+      },
+      {
+        "if": "flag:saltmarrow_mara_told_of_dunstan",
+        "goto": "told"
+      },
+      {
+        "say": "narrator",
+        "text": "A low driftwood stool beside the harbormaster's door, a deep dent worn into its seat. Someone big sat here for a lot of years."
+      }
+    ],
+    "told": [
+      {
+        "say": "narrator",
+        "text": "Dunstan's stool; it has to be. The dent is a big man's shape."
+      },
+      {
+        "say": "narrator",
+        "text": "Mara has swept round it, not under it. It hasn't moved in two weeks."
+      }
+    ],
+    "chose": [
+      {
+        "say": "narrator",
+        "text": "Dunstan's stool. Someone has wiped it down and set it square to the harbor, facing north, the way he walked."
+      },
+      {
+        "say": "narrator",
+        "text": "Waiting, or ready to be put away. You can't tell which, and you suspect Mara can't either."
+      }
+    ],
+    "gull_home": [
+      {
+        "say": "narrator",
+        "text": "Dunstan's stool. A thumb-sized whittled gull sits on the seat now, its beak turned north."
+      },
+      {
+        "say": "narrator",
+        "text": "Mara has put it where he'll see it first."
+      }
+    ],
+    "gull_burned": [
+      {
+        "say": "narrator",
+        "text": "Two cups stand on an upturned crate beside the stool: one drained, one full and long cold, a skin grown over it."
+      },
+      {
+        "say": "narrator",
+        "text": "The dent in the seat is a big man's shape. Nobody in Saltmarrow could tell you whose."
+      },
+      {
+        "if": "flag:saltmarrow_mara_knows_dunstan_chose",
+        "say": "narrator",
+        "text": "The stool is still set square to the harbor, facing north. Mara wipes it down every morning and couldn't tell you why."
+      }
+    ]
+  }
+}

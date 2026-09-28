@@ -65,6 +65,15 @@
     "saltmarrow_ferry_lantern_hung": {
       "description": "Mara hung the green signal lantern on the Saltmarrow dock-post so the Tidewright ferry knows passengers are waiting (Act II bridge).",
       "default": false
+    },
+    "saltmarrow_pell_ferry_ask": {
+      "description": "What the player told Pell on seeing the green ferry lantern: '' (not asked), 'promised' (Pell may come on the ferry), 'refused' (Pell stays; asks for something lost brought back) or 'undecided' (Pell will ask again when the horn sounds). Pays off when the ferry arrives (Act II).",
+      "default": "",
+      "future": true
+    },
+    "saltmarrow_mara_saw_sleeve_ember": {
+      "description": "Player showed Mara the Keeper's sleeve-ember Aldous cut from his robe; she warned them Tidewrights don't love Keepers.",
+      "default": false
     }
   }
 }

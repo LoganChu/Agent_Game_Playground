@@ -47,6 +47,11 @@
             "goto": "hesk"
           },
           {
+            "text": "Mara's hung the green lantern.",
+            "if": "flag:saltmarrow_ferry_lantern_hung",
+            "goto": "ferry_fare"
+          },
+          {
             "text": "Thanks, Tam.",
             "end": true
           }
@@ -84,6 +89,28 @@
         "if": "flag:saltmarrow_beacon_burned=knot",
         "say": "tam",
         "text": "Hesk's stopped humming. The lofts are quiet as a church. I don't know if that's better."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ferry_fare": [
+      {
+        "say": "tam",
+        "text": "Saw it go up. The whole gate crew stood and stared at it like it was a sunrise."
+      },
+      {
+        "say": "tam",
+        "text": "You'll want to know how it goes, with us. Tidewrights don't sell a crossing, not the old way. You pay the lanes a deed, and the ferry's crew weighs it."
+      },
+      {
+        "say": "tam",
+        "text": "Most folk bring a mended hull, or a drowned man's name carried home. You brought the Gull back. That'll weigh."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "tam",
+        "text": "Mind, some of the crew'll ask what it cost. Tidewrights tie nets too. Don't expect them all to thank you for the knot."
       },
       {
         "goto": "hub"

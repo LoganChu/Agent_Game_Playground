@@ -1,0 +1,33 @@
+{
+  "id": "drying_nets",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "goto": "knot_burned"
+      },
+      {
+        "say": "narrator",
+        "text": "Nets hang out to dry for the first time since the Snuffing, tarred and new-mended. Every one begins at the same corner, with the same small, stubborn knot."
+      },
+      {
+        "say": "narrator",
+        "text": "Someone has tied a gull's feather into the first mesh of each, for luck."
+      }
+    ],
+    "knot_burned": [
+      {
+        "say": "narrator",
+        "text": "New nets hang on the frames, or the middles of them do. Each was begun in the centre and worked outward. None of them has a first knot."
+      },
+      {
+        "say": "narrator",
+        "text": "They'll hold fish just the same."
+      },
+      {
+        "say": "narrator",
+        "text": "At the corner of one frame someone has tried to tie something seven times, and cut it away seven times. The cut ends are still hanging there."
+      }
+    ]
+  }
+}

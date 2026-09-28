@@ -372,6 +372,74 @@
       ],
       "rotation_y": 180,
       "if": "flag:saltmarrow_ferry_lantern_hung"
+    },
+    {
+      "shape": "stool",
+      "position": [
+        9.6,
+        0,
+        8.6
+      ],
+      "rotation_y": 20,
+      "note": "Dunstan's stool by Mara's door (named in her lit_gull scene)."
+    },
+    {
+      "shape": "cups",
+      "position": [
+        10.3,
+        0,
+        9.1
+      ],
+      "rotation_y": -15,
+      "if": "flag:saltmarrow_beacon_burned=gull"
+    },
+    {
+      "shape": "net_rack",
+      "position": [
+        8,
+        0,
+        -4
+      ],
+      "rotation_y": 90,
+      "if": [
+        "quest:a_light_for_saltmarrow=done",
+        "!flag:saltmarrow_beacon_burned=knot"
+      ]
+    },
+    {
+      "shape": "net_rack",
+      "position": [
+        8,
+        0,
+        -0.5
+      ],
+      "rotation_y": 90,
+      "color": "pine",
+      "if": [
+        "quest:a_light_for_saltmarrow=done",
+        "!flag:saltmarrow_beacon_burned=knot"
+      ]
+    },
+    {
+      "shape": "net_frame",
+      "position": [
+        8,
+        0,
+        -4
+      ],
+      "rotation_y": 90,
+      "if": "flag:saltmarrow_beacon_burned=knot"
+    },
+    {
+      "shape": "net_frame",
+      "position": [
+        8,
+        0,
+        -0.5
+      ],
+      "rotation_y": 90,
+      "color": "pine",
+      "if": "flag:saltmarrow_beacon_burned=knot"
     }
   ],
   "npcs": [
@@ -425,6 +493,31 @@
       "prompt": "Go north through the net-lofts",
       "requires": "item:harbor_token",
       "locked_text": "Tam blocks the boardwalk: \"Not without the harbormaster's say-so.\""
+    }
+  ],
+  "objects": [
+    {
+      "id": "saltmarrow_dunstans_stool",
+      "prompt": "Look at the worn stool",
+      "dialogue": "dunstans_stool",
+      "position": [
+        9.9,
+        0,
+        8.8
+      ],
+      "reach": 1.4
+    },
+    {
+      "id": "saltmarrow_drying_nets",
+      "prompt": "Look at the drying nets",
+      "dialogue": "drying_nets",
+      "position": [
+        7.2,
+        0,
+        -2.25
+      ],
+      "reach": 1.8,
+      "if": "quest:a_light_for_saltmarrow=done"
     }
   ]
 }

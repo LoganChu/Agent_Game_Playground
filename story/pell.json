@@ -93,6 +93,14 @@
             "goto": "lit"
           },
           {
+            "text": "Mara's hung a green lantern by her door.",
+            "if": [
+              "flag:saltmarrow_ferry_lantern_hung",
+              "flag:saltmarrow_pell_ferry_ask="
+            ],
+            "goto": "ferry_lantern"
+          },
+          {
             "text": "See you, Pell.",
             "end": true
           }
@@ -360,6 +368,84 @@
       {
         "say": "pell",
         "text": "Weird. Everything's so quiet at night now."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ferry_lantern": [
+      {
+        "say": "pell",
+        "text": "I SAW! Green means the ferry! Green means passengers waiting! I've never seen it lit. Not once, not ever."
+      },
+      {
+        "say": "pell",
+        "text": "Mara says it used to come every fortnight, and there was a horn. She did it for me. HOOOOM. She's bad at it."
+      },
+      {
+        "say": "pell",
+        "text": "…You're going on it, aren't you. To Cindermoor."
+      },
+      {
+        "say": "pell",
+        "text": "Take me. I can mend nets. I can find things. I'm small, I don't take up a whole seat."
+      },
+      {
+        "choice": [
+          {
+            "text": "When the ferry comes, you can come.",
+            "set": {
+              "saltmarrow_pell_ferry_ask": "promised"
+            },
+            "goto": "ferry_promised"
+          },
+          {
+            "text": "You belong here, Pell. Mara needs you.",
+            "set": {
+              "saltmarrow_pell_ferry_ask": "refused"
+            },
+            "goto": "ferry_refused"
+          },
+          {
+            "text": "Ask me again when you hear the horn.",
+            "set": {
+              "saltmarrow_pell_ferry_ask": "undecided"
+            },
+            "goto": "ferry_undecided"
+          }
+        ]
+      }
+    ],
+    "ferry_promised": [
+      {
+        "say": "pell",
+        "text": "You mean it? You MEAN it. I'm packing. I've got a LOT of lost things to pack."
+      },
+      {
+        "say": "pell",
+        "text": "Don't tell Mara yet. I'll tell her. Later. Much later."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ferry_refused": [
+      {
+        "say": "pell",
+        "text": "…Yeah. Somebody has to find things here."
+      },
+      {
+        "say": "pell",
+        "text": "Fine. FINE. Bring me something back, then. Something lost. Something good."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ferry_undecided": [
+      {
+        "say": "pell",
+        "text": "That's a grown-up yes that means no. Or a grown-up no that means yes. I'll ask. I'll be LOUD."
       },
       {
         "goto": "hub"

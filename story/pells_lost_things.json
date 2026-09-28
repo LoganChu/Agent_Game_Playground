@@ -1,0 +1,59 @@
+{
+  "id": "pells_lost_things",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A crate lined with old sailcloth: Pell's lost things, sorted with great seriousness. Buttons by colour. A doll's arm. A key that has forgotten its lock. One brass hinge, and a whole door-handle."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_pebble_fate=given",
+          "!item:humming_pebble",
+          "!flag:saltmarrow_beacon_burned=pebble"
+        ],
+        "say": "narrator",
+        "text": "In the middle, in a nest of unpicked wool, sits the humming pebble. It hums, low, the song nobody can finish."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_pebble_fate=given",
+          "item:humming_pebble"
+        ],
+        "say": "narrator",
+        "text": "In the middle is a nest of unpicked wool, pressed into the shape of the pebble in your pocket."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_beacon_burned=pebble",
+          "flag:saltmarrow_pell_lent_pebble"
+        ],
+        "goto": "empty_nest"
+      },
+      {
+        "if": "flag:saltmarrow_ferry_lantern_hung",
+        "goto": "green_glass"
+      }
+    ],
+    "empty_nest": [
+      {
+        "say": "narrator",
+        "text": "In the middle is a nest of unpicked wool with nothing in it. Everything else in the crate has been pushed back from it, carefully, to leave it room."
+      },
+      {
+        "say": "narrator",
+        "text": "A scrap of sailcloth is tucked into the side. In Pell's big letters: DONT MOVE THE NEST. It doesn't say why."
+      },
+      {
+        "if": "flag:saltmarrow_ferry_lantern_hung",
+        "goto": "green_glass"
+      }
+    ],
+    "green_glass": [
+      {
+        "say": "narrator",
+        "text": "On top sits a new treasure: a chip of green bottle-glass, polished smooth. FERRY is scratched into the cloth beside it."
+      }
+    ]
+  }
+}
