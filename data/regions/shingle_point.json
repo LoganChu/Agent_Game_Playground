@@ -172,15 +172,22 @@
       ]
     },
     {
+      "model": "res://assets/models/dressing/crate.glb",
       "shape": "crate",
       "position": [
         5,
         0,
         1
       ],
-      "rotation_y": 20
+      "rotation_y": 20,
+      "collider": [
+        0.8,
+        0.8,
+        0.8
+      ]
     },
     {
+      "model": "res://assets/models/dressing/crate.glb",
       "shape": "crate",
       "position": [
         5.6,
@@ -188,7 +195,12 @@
         2.1
       ],
       "rotation_y": -10,
-      "scale": 0.8
+      "scale": 0.8,
+      "collider": [
+        0.8,
+        0.8,
+        0.8
+      ]
     },
     {
       "model": "res://assets/models/pine_tree.glb",
@@ -218,6 +230,176 @@
         3,
         0.6
       ]
+    },
+    {
+      "model": "res://assets/models/dressing/wreck.glb",
+      "position": [
+        15.2,
+        -0.2,
+        8.6
+      ],
+      "rotation_y": 25,
+      "collider": [
+        2.8,
+        1.8,
+        6.4
+      ],
+      "note": "Landmark: an old boat's ribs in the shingle, stem post still standing."
+    },
+    {
+      "model": "res://assets/models/dressing/rowboat_upturned.glb",
+      "position": [
+        -6,
+        0,
+        4
+      ],
+      "rotation_y": 20,
+      "collider": [
+        1.4,
+        0.9,
+        3.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        8,
+        0,
+        -3
+      ],
+      "rotation_y": 30,
+      "collider": [
+        2.4,
+        0.4,
+        0.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        -12,
+        0,
+        2
+      ],
+      "rotation_y": -40,
+      "collider": [
+        2.4,
+        0.4,
+        0.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        19,
+        0,
+        12
+      ],
+      "rotation_y": 80,
+      "collider": [
+        2.4,
+        0.4,
+        0.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -8,
+        0,
+        -18
+      ],
+      "rotation_y": 32
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -3,
+        0,
+        -20
+      ],
+      "rotation_y": 237
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        6,
+        0,
+        -19
+      ],
+      "rotation_y": 246
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        10,
+        0,
+        -16
+      ],
+      "rotation_y": 50
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -12,
+        0,
+        -16
+      ],
+      "rotation_y": 228
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        2,
+        0,
+        -23
+      ],
+      "rotation_y": 82
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -17,
+        0,
+        -19
+      ],
+      "rotation_y": 23
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -20,
+        0,
+        -14
+      ],
+      "rotation_y": 314
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        22,
+        0,
+        -13
+      ],
+      "rotation_y": 343
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -15,
+        0,
+        9
+      ],
+      "rotation_y": 261
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        21,
+        0,
+        16
+      ],
+      "rotation_y": 104
     }
   ],
   "npcs": [

@@ -192,21 +192,33 @@
       ]
     },
     {
+      "model": "res://assets/models/dressing/crate.glb",
       "shape": "crate",
       "position": [
         -2.4,
         0,
         7
+      ],
+      "collider": [
+        0.8,
+        0.8,
+        0.8
       ]
     },
     {
+      "model": "res://assets/models/dressing/crate.glb",
       "shape": "crate",
       "position": [
         2.3,
         0,
         4.5
       ],
-      "scale": 0.8
+      "scale": 0.8,
+      "collider": [
+        0.8,
+        0.8,
+        0.8
+      ]
     },
     {
       "shape": "post",
@@ -284,13 +296,181 @@
       ]
     },
     {
+      "model": "res://assets/models/dressing/beacon_lit.glb",
       "shape": "beacon_light",
       "position": [
         0,
         0,
         -15
       ],
-      "if": "quest:a_light_for_saltmarrow=done"
+      "if": "quest:a_light_for_saltmarrow=done",
+      "light": {
+        "color": "kindle",
+        "energy": 2.5,
+        "range": 14.0,
+        "offset": [
+          0,
+          4.6,
+          0
+        ]
+      }
+    },
+    {
+      "model": "res://assets/models/dressing/fence.glb",
+      "position": [
+        -3.8,
+        0,
+        -8.3
+      ],
+      "rotation_y": 0,
+      "collider": [
+        3.0,
+        1.0,
+        0.2
+      ],
+      "note": "Cliff-edge fences either side of the ramp top."
+    },
+    {
+      "model": "res://assets/models/dressing/fence.glb",
+      "position": [
+        3.6,
+        0,
+        -8.3
+      ],
+      "rotation_y": 180,
+      "collider": [
+        3.0,
+        1.0,
+        0.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/net_rack.glb",
+      "position": [
+        8,
+        0,
+        5
+      ],
+      "rotation_y": 90,
+      "collider": [
+        2.4,
+        1.8,
+        0.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/net_rack_pine.glb",
+      "position": [
+        -8.5,
+        0,
+        -1
+      ],
+      "rotation_y": 90,
+      "collider": [
+        2.4,
+        1.8,
+        0.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/barrels.glb",
+      "position": [
+        7.5,
+        0,
+        13
+      ],
+      "rotation_y": -20,
+      "collider": [
+        1.5,
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/rowboat.glb",
+      "position": [
+        -10.3,
+        0,
+        14
+      ],
+      "rotation_y": 100,
+      "collider": [
+        1.4,
+        0.8,
+        3.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -5,
+        0,
+        -17
+      ],
+      "rotation_y": 155
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        4,
+        0,
+        -12
+      ],
+      "rotation_y": 164
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        6,
+        0,
+        -16
+      ],
+      "rotation_y": 246
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -6,
+        0,
+        -12
+      ],
+      "rotation_y": 114
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -2,
+        0,
+        -19
+      ],
+      "rotation_y": 278
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -11,
+        0,
+        6
+      ],
+      "rotation_y": 174
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        11,
+        0,
+        -2
+      ],
+      "rotation_y": 302
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        11.5,
+        0,
+        16
+      ],
+      "rotation_y": 104
     }
   ],
   "npcs": [
