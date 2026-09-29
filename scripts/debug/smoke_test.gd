@@ -26,6 +26,7 @@ func _run() -> void:
 	_check(player != null and player.find_child("CharacterRig", true, false) != null, "player shows the Wakebearer model")
 	_finish_dialogue(ui, "intro")
 	await _check_ground(main)
+	await _check_greying(main)
 	await _check_gates(main, false)
 	# Several passes over every region so quests started on one pass can advance on the next
 	# (pass 3 reaches Aldous's confession and Mara's ferry lantern).
@@ -157,6 +158,44 @@ func _check_ground(main: Node) -> void:
 	camera_yaw.rotation.y = 0.0
 
 
+## The Greying before the burn: walking up into the Gull's Head fog drains the ember and
+## shows the meter; when it runs out the player is turned back to clear ground, refilled.
+func _check_greying(main: Node) -> void:
+	var player: Player = get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
+	var walker: GreyingWalker = main.get("greying")
+	var hud: Hud = main.get("hud")
+	GameState.travel("gulls_head")
+	for i in 3:
+		await get_tree().physics_frame
+	var region: Region = main.get("region")
+	_check(region.shown_greying() > 0, "Gull's Head shows Greying fog before the burn")
+	var camera_yaw: Node3D = player.get("_camera_yaw")
+	camera_yaw.rotation.y = 0.0
+	player.place_at(Vector3(0, region.ground_y(0, 6) + 0.2, 6))
+	for i in 10:
+		await get_tree().physics_frame
+	walker.meter.refill()
+	await _hold("move_forward", 240)
+	print("Smoke: walked into the Greying to ", player.global_position, " depth ", walker.depth, " ember ", walker.meter.ember)
+	_check(walker.depth > 0.5, "the headland lies deep in the Greying (depth %s)" % walker.depth)
+	_check(walker.meter.ember < 0.95, "the Greying drains the ember (%s)" % walker.meter.ember)
+	_check(hud.is_meter_shown(), "ember meter shows in the Greying")
+	walker.meter.drain_scale = 60.0
+	var guard := 0
+	while not walker.turning_back and guard < 300:
+		guard += 1
+		await get_tree().physics_frame
+	_check(walker.turning_back and GameState.input_locked, "an empty ember turns the player back")
+	await walker.turned_back
+	walker.meter.drain_scale = 1.0
+	for i in 5:
+		await get_tree().physics_frame
+	var p := player.global_position
+	print("Smoke: turned back to ", p)
+	_check(region.greying_depth(p.x, p.z) < Greying.CLEAR_DEPTH and p.z > 3.0, "turned back to clear ground (%s)" % p)
+	_check(walker.meter.ember > 0.99 and not GameState.input_locked, "ember refilled and input returned")
+
+
 func _hold(action: String, frames: int) -> void:
 	Input.action_press(action)
 	for i in frames:
@@ -177,6 +216,7 @@ func _check_beacon_lit(main: Node) -> void:
 		await get_tree().physics_frame
 	var region: Region = main.get("region")
 	_check(region.shown_conditional_props("beacon_light") == 1, "beacon light shows once lit")
+	_check(region.greying_depth(0, -13) < Greying.CLEAR_DEPTH and region.shown_greying() > 0, "the Greying leans back off the headland, pockets remain")
 	var base := float((region.data.get("fog", {}) as Dictionary).get("density", 0.0))
 	var target: float = main.call("target_fog_density")
 	_check(target < base, "fog override thins Gull's Head")
