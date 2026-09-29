@@ -212,6 +212,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 			_err(where, "fog override density must be a number")
 		if override.has("color") and not _valid_color(str(override["color"])):
 			_err(where, "fog override has unknown color '%s'" % override["color"])
+	_check_region_light(where, region)
 	for pickup: Dictionary in region.get("pickups", []):
 		var pid := str(pickup.get("id", ""))
 		if pid.is_empty():
@@ -255,6 +256,35 @@ func _validate_region(id: String, region: Dictionary) -> void:
 	_validate_greying(where, region)
 	if region.has("ground"):
 		_validate_ground(where, region)
+
+
+## Region `light` (RegionMood.light): known keys, palette/#hex colours, numeric values;
+## each override needs an `if`.
+func _check_region_light(where: String, region: Dictionary) -> void:
+	if not region.has("light"):
+		return
+	if not region["light"] is Dictionary:
+		_err(where, "light must be an object")
+		return
+	var light: Dictionary = region["light"]
+	var blocks: Array = [light]
+	for override: Variant in light.get("overrides", []):
+		if not override is Dictionary or not (override as Dictionary).has("if"):
+			_err(where, "light override needs an 'if' condition")
+			continue
+		_ref_condition(where, override["if"])
+		blocks.append(override)
+	for block: Dictionary in blocks:
+		for key: String in block:
+			if key in ["note", "overrides", "if"]:
+				continue
+			if not RegionMood.LIGHT_DEFAULTS.has(key):
+				_err(where, "light has unknown key '%s'" % key)
+			elif key in RegionMood.LIGHT_COLOR_KEYS:
+				if not _valid_color(str(block[key])):
+					_err(where, "light %s has unknown color '%s'" % [key, block[key]])
+			elif not (block[key] is float or block[key] is int):
+				_err(where, "light %s must be a number" % key)
 
 
 ## Greying areas: well-formed shapes and numbers, and no spawn point in the fog (the player

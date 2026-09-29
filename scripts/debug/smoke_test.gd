@@ -220,8 +220,10 @@ func _check_beacon_lit(main: Node) -> void:
 	var base := float((region.data.get("fog", {}) as Dictionary).get("density", 0.0))
 	var target: float = main.call("target_fog_density")
 	_check(target < base, "fog override thins Gull's Head")
-	var env: Environment = main.get("_environment")
-	_check(is_equal_approx(env.fog_density, target), "fog applied on region load")
+	var atmosphere: Atmosphere = main.get("atmosphere")
+	_check(is_equal_approx(atmosphere.environment.fog_density, target), "fog applied on region load")
+	var light := RegionMood.light(region.data, world)
+	_check(is_equal_approx(atmosphere.sun.light_energy, float(light["sun_energy"])), "region light applied on region load")
 
 
 ## Opens both journal tabs via the real input actions and checks they mirror world state.

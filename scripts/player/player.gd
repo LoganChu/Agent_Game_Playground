@@ -13,7 +13,7 @@ const MOUSE_SENSITIVITY := 0.005
 const GRAVITY := 20.0
 ## Where the ember sits in the Wakebearer model's right hand (model space, rest pose).
 const EMBER_HAND := Vector3(-0.3, 0.85, 0.3)
-const EMBER_LIGHT_ENERGY := 0.4
+const EMBER_LIGHT_ENERGY := 0.6
 
 var focus: Interactable = null
 
@@ -24,6 +24,9 @@ var _visual: Node3D
 var _sensor: Area3D
 var _rig: CharacterRig
 var _ember_light: OmniLight3D
+## Ember strength (1 = full; the Greying drains it) and the flicker clock.
+var _ember := 1.0
+var _flicker_time := 0.0
 
 
 func _ready() -> void:
@@ -82,8 +85,22 @@ func place_at(pos: Vector3) -> void:
 
 ## Dims the ember-hand light as the Greying drains the ember (1 = full).
 func set_ember(value: float) -> void:
-	if _ember_light:
-		_ember_light.light_energy = EMBER_LIGHT_ENERGY * lerpf(0.3, 1.0, clampf(value, 0.0, 1.0))
+	_ember = clampf(value, 0.0, 1.0)
+	_update_ember_light()
+
+
+## The ember breathes: a slow, uneven flicker on top of its strength.
+func _process(delta: float) -> void:
+	_flicker_time += delta
+	_update_ember_light()
+
+
+func _update_ember_light() -> void:
+	if _ember_light == null:
+		return
+	var t := _flicker_time
+	var flicker := 1.0 + 0.08 * sin(t * 2.3) + 0.05 * sin(t * 5.7 + 1.3) + 0.03 * sin(t * 11.0)
+	_ember_light.light_energy = EMBER_LIGHT_ENERGY * lerpf(0.3, 1.0, _ember) * flicker
 
 
 func _respawn_point() -> Vector3:

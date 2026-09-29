@@ -16,21 +16,13 @@ var hud: Hud
 var dialogue_ui: DialogueUI
 var journal_ui: JournalUI
 var greying: GreyingWalker
-
-var _environment: Environment
-var _fog_tween: Tween
-## The region mood's fog density (tweened); the Greying under the player adds to it.
-var _mood_density := 0.0
-## Smoothed Greying depth under the player, for the environment look.
-var _greying_look := 0.0
-
-## Extra environment fog density and lost saturation at full Greying depth.
-const GREYING_FOG_DENSITY := 0.05
-const GREYING_DESATURATE := 0.45
+var atmosphere: Atmosphere
 
 
 func _ready() -> void:
-	_build_environment()
+	atmosphere = Atmosphere.new()
+	atmosphere.name = "Atmosphere"
+	add_child(atmosphere)
 	hud = Hud.new()
 	add_child(hud)
 	dialogue_ui = DialogueUI.new()
@@ -121,31 +113,6 @@ func _on_region_change_requested(region_id: String, spawn: String) -> void:
 	load_region.call_deferred(region_id, spawn)
 
 
-func _build_environment() -> void:
-	_environment = Environment.new()
-	_environment.background_mode = Environment.BG_COLOR
-	_environment.background_color = PropFactory.color("silverfog")
-	_environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	_environment.ambient_light_color = PropFactory.color("silverfog")
-	_environment.ambient_light_energy = 0.25
-	_environment.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	_environment.fog_enabled = true
-	_environment.fog_light_color = PropFactory.color("silverfog")
-	_environment.fog_density = 0.012
-	_environment.fog_sky_affect = 0.6
-	_environment.adjustment_enabled = true
-	var world_env := WorldEnvironment.new()
-	world_env.environment = _environment
-	add_child(world_env)
-	var sun := DirectionalLight3D.new()
-	sun.name = "Sun"
-	sun.light_color = PropFactory.color("kindle")
-	sun.light_energy = 0.6
-	sun.shadow_enabled = true
-	sun.rotation_degrees = Vector3(-50, -35, 0)
-	add_child(sun)
-
-
 ## Story changes mid-visit (a relit beacon) can thin the fog and show/hide conditional
 ## props, NPCs, pickups and objects.
 func _on_world_changed() -> void:
@@ -156,37 +123,14 @@ func _on_world_changed() -> void:
 
 
 func _apply_region_mood(animate: bool) -> void:
-	var fog := RegionMood.fog(region.data, GameState.world)
-	var density := float(fog["density"])
-	var fog_color := PropFactory.color(str(fog["color"]))
-	if _fog_tween:
-		_fog_tween.kill()
-	if not animate or is_equal_approx(density, _mood_density):
-		_set_mood_density(density)
-		_environment.fog_light_color = fog_color
-		_environment.background_color = fog_color
-		return
-	# The Greying pulls back slowly, so the player sees it happen.
-	_fog_tween = create_tween().set_parallel().set_trans(Tween.TRANS_SINE)
-	_fog_tween.tween_method(_set_mood_density, _mood_density, density, 4.0)
-	_fog_tween.tween_property(_environment, "fog_light_color", fog_color, 4.0)
-	_fog_tween.tween_property(_environment, "background_color", fog_color, 4.0)
-
-
-func _set_mood_density(value: float) -> void:
-	_mood_density = value
-	_apply_greying_look()
+	var world := GameState.world
+	# The Greying pulls back slowly when the story changes it, so the player sees it happen.
+	atmosphere.apply_mood(RegionMood.fog(region.data, world), RegionMood.light(region.data, world), animate)
 
 
 ## Standing in the Greying thickens the fog around the player and drains the colour.
 func _process(delta: float) -> void:
-	_greying_look = move_toward(_greying_look, greying.depth, delta * 0.8)
-	_apply_greying_look()
-
-
-func _apply_greying_look() -> void:
-	_environment.fog_density = _mood_density + _greying_look * GREYING_FOG_DENSITY
-	_environment.adjustment_saturation = 1.0 - _greying_look * GREYING_DESATURATE
+	atmosphere.follow_greying(greying.depth, delta)
 
 
 ## Fog density the current region is heading toward (for tests).
