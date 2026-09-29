@@ -13,6 +13,7 @@ const MOUSE_SENSITIVITY := 0.005
 const GRAVITY := 20.0
 ## Where the ember sits in the Wakebearer model's right hand (model space, rest pose).
 const EMBER_HAND := Vector3(-0.3, 0.85, 0.3)
+const EMBER_LIGHT_ENERGY := 0.4
 
 var focus: Interactable = null
 
@@ -22,6 +23,7 @@ var _camera: Camera3D
 var _visual: Node3D
 var _sensor: Area3D
 var _rig: CharacterRig
+var _ember_light: OmniLight3D
 
 
 func _ready() -> void:
@@ -76,6 +78,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func place_at(pos: Vector3) -> void:
 	global_position = pos
 	velocity = Vector3.ZERO
+
+
+## Dims the ember-hand light as the Greying drains the ember (1 = full).
+func set_ember(value: float) -> void:
+	if _ember_light:
+		_ember_light.light_energy = EMBER_LIGHT_ENERGY * lerpf(0.3, 1.0, clampf(value, 0.0, 1.0))
 
 
 func _respawn_point() -> Vector3:
@@ -137,10 +145,11 @@ func _build_body() -> void:
 	var light := OmniLight3D.new()
 	light.name = "EmberLight"
 	light.light_color = PropFactory.color("ember")
-	light.light_energy = 0.4
+	light.light_energy = EMBER_LIGHT_ENERGY
 	light.omni_range = 3.5
 	light.position = ember_pos
 	_visual.add_child(light)
+	_ember_light = light
 
 
 func _build_camera() -> void:

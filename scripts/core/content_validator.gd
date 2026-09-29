@@ -23,6 +23,9 @@ var _items_obtainable: Dictionary = {}
 var _items_used: Dictionary = {}
 var _dialogues_used: Dictionary = {}
 var _npcs_placed: Dictionary = {}
+## False while the region being validated has a malformed Greying area (its geometric
+## checks are skipped then, the malformed area is reported instead).
+var _greying_ok := true
 
 
 func _init(p_db: ContentDatabase) -> void:
@@ -249,8 +252,76 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		var target_spawns: Dictionary = db.get_region(to).get("spawn_points", {})
 		if not target_spawns.has(str(exit.get("spawn", "default"))):
 			_err(where, "exit spawn '%s' not in region '%s'" % [exit.get("spawn", "default"), to])
+	_validate_greying(where, region)
 	if region.has("ground"):
 		_validate_ground(where, region)
+
+
+## Greying areas: well-formed shapes and numbers, and no spawn point in the fog (the player
+## is turned back to clear ground, and a spawn is the last resort).
+func _validate_greying(where: String, region: Dictionary) -> void:
+	var areas: Variant = region.get("greying", [])
+	_greying_ok = false
+	if not areas is Array:
+		_err(where, "greying must be a list of areas")
+		return
+	var errors_before := errors.size()
+	for area: Variant in areas:
+		if not area is Dictionary:
+			_err(where, "greying entries must be objects")
+			continue
+		for key: String in (area as Dictionary):
+			if key not in ["rect", "ellipse", "strength", "falloff", "height", "if", "note"]:
+				_err(where, "greying area has unknown key '%s'" % key)
+		var shapes := 0
+		for shape_key: String in ["rect", "ellipse"]:
+			if area.has(shape_key):
+				shapes += 1
+				var arr: Variant = area[shape_key]
+				if not arr is Array or (arr as Array).size() != 4:
+					_err(where, "greying area has a malformed '%s'" % shape_key)
+		if shapes != 1:
+			_err(where, "greying areas need exactly one of rect/ellipse")
+		for num: Array in [["strength", 0.0, 1.0], ["falloff", 0.0, 50.0], ["height", 0.1, 20.0]]:
+			if area.has(num[0]):
+				var v: Variant = area[num[0]]
+				if not (v is float or v is int) or float(v) < float(num[1]) or float(v) > float(num[2]):
+					_err(where, "greying %s must be a number in [%s, %s]" % num)
+		_ref_condition(where, area.get("if"))
+	_greying_ok = errors.size() == errors_before
+	if not _greying_ok:
+		return
+	var all := Greying.all_areas(region)
+	for spawn_name: String in region.get("spawn_points", {}):
+		var pos := JsonUtil.to_vector3(region["spawn_points"][spawn_name])
+		if Greying.depth_at(all, Vector2(pos.x, pos.z)) >= Greying.CLEAR_DEPTH:
+			_err(where, "spawn '%s' lies in the Greying (spawns must be clear)" % spawn_name)
+
+
+## Everything the player must reach can be reached spending at most
+## Greying.MAX_ONE_WAY_EMBER, with every area present (worst case), so they can always get
+## there and walk back out before the ember runs out.
+func _validate_greying_budget(where: String, region: Dictionary, field: TerrainField, reachable: Dictionary, spots: Array) -> void:
+	var areas := Greying.all_areas(region)
+	if areas.is_empty() or not _greying_ok:
+		return
+	var cost := Greying.ember_cost_map(field, reachable, areas)
+	for spot: Array in spots:
+		var pos := JsonUtil.to_vector3(spot[1])
+		var radius := float(spot[2])
+		var best := INF
+		var c := field.cell_of(pos.x, pos.z)
+		var r := int(ceil(radius / field.cell)) + 1
+		for dz in range(-r, r + 1):
+			for dx in range(-r, r + 1):
+				var n := c + Vector2i(dx, dz)
+				if not cost.has(n):
+					continue
+				var centre := field.vertex_xz(n.x, n.y) + Vector2(field.cell, field.cell) * 0.5
+				if centre.distance_to(Vector2(pos.x, pos.z)) <= radius + field.cell * 0.71:
+					best = minf(best, float(cost[n]))
+		if best != INF and best > Greying.MAX_ONE_WAY_EMBER:
+			_err(where, "%s at %s costs %.2f ember to reach through the Greying (max %.2f)" % [spot[0], pos, best, Greying.MAX_ONE_WAY_EMBER])
 
 
 ## Sculpted ground: well-formed features, and every spawn/NPC/pickup/object/exit stands on
@@ -316,6 +387,7 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 			_err(where, "%s at %s is outside ground.bounds" % [spot[0], pos])
 		elif not field.near_reachable(reachable, pos.x, pos.z, float(spot[2])):
 			_err(where, "%s at %s can't be reached on foot from the default spawn" % [spot[0], pos])
+	_validate_greying_budget(where, region, field, reachable, spots)
 	if not piers_ok:
 		return
 	for pier: Dictionary in ground.get("piers", []):

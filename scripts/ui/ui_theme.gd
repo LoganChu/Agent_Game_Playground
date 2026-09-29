@@ -13,6 +13,7 @@ const HUD_PROMPT := &"HudPromptLabel"  ## "[E] Talk to Mara"
 const HUD_TITLE := &"HudTitleLabel"  ## region name on arrival
 const HUD_KEYS := &"HudKeysLabel"  ## "[J] Journal [I] Satchel"
 const HUD_TOAST := &"HudToastLabel"  ## "Got: Harbormaster's Token"
+const HUD_METER := &"HudMeterLabel"  ## "Ember" over the Greying meter
 
 ## Base font sizes at text scale 1.0: [theme type, theme item, size].
 const FONT_SIZES: Array = [
@@ -30,6 +31,7 @@ const FONT_SIZES: Array = [
 	[HUD_TITLE, &"font_size", 40],
 	[HUD_KEYS, &"font_size", 15],
 	[HUD_TOAST, &"font_size", 18],
+	[HUD_METER, &"font_size", 16],
 ]
 const DEFAULT_FONT_SIZE := 20
 
@@ -96,6 +98,19 @@ static func _build() -> Theme:
 	_label_variation(theme, HUD_TITLE, kindle, 8)
 	_label_variation(theme, HUD_KEYS, bone, 5)
 	_label_variation(theme, HUD_TOAST, kindle, 6)
+	_label_variation(theme, HUD_METER, kindle, 5)
+
+	# The ember meter (HUD, while in the Greying).
+	var bar_bg := StyleBoxFlat.new()
+	bar_bg.bg_color = Color(ink, 0.8)
+	bar_bg.border_color = Color(silverfog, 0.6)
+	bar_bg.set_border_width_all(1)
+	bar_bg.set_corner_radius_all(4)
+	theme.set_stylebox(&"background", &"ProgressBar", bar_bg)
+	var bar_fill := StyleBoxFlat.new()
+	bar_fill.bg_color = ember
+	bar_fill.set_corner_radius_all(4)
+	theme.set_stylebox(&"fill", &"ProgressBar", bar_fill)
 	return theme
 
 

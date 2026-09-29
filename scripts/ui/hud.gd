@@ -1,12 +1,22 @@
 class_name Hud
 extends CanvasLayer
-## Interaction prompt, region title card and toast notifications.
+## Interaction prompt, region title card, toast notifications, and the Greying: the ember
+## meter, a grey wash as the ember wanes, and the full-screen fade when it runs out.
 
 const TOAST_SECONDS := 3.0
+## Seconds the ember meter lingers once full and out of the fog.
+const METER_LINGER := 1.5
+## Strongest grey wash over the screen, at an empty ember.
+const WASH_ALPHA := 0.35
 
 var _prompt: Label
 var _title: Label
 var _toasts: VBoxContainer
+var _meter: Control
+var _meter_bar: ProgressBar
+var _wash: ColorRect
+var _fade: ColorRect
+var _meter_idle := 0.0
 
 
 func _ready() -> void:
@@ -21,6 +31,29 @@ func set_focus(target: Interactable) -> void:
 		_prompt.show()
 	else:
 		_prompt.hide()
+
+
+## Updates the ember meter and grey wash (GreyingWalker.ember_changed).
+func set_ember(ember: float, depth: float) -> void:
+	_meter_bar.value = ember * 100.0
+	var active := depth >= Greying.CLEAR_DEPTH or ember < 1.0
+	_meter_idle = 0.0 if active else _meter_idle + get_physics_process_delta_time()
+	var want := 1.0 if _meter_idle < METER_LINGER else 0.0
+	_meter.modulate.a = move_toward(_meter.modulate.a, want, get_physics_process_delta_time() * 3.0)
+	_meter.visible = _meter.modulate.a > 0.0
+	_wash.color.a = WASH_ALPHA * (1.0 - ember) * (1.0 if depth >= Greying.CLEAR_DEPTH else ember)
+
+
+## True while the ember meter is on screen.
+func is_meter_shown() -> bool:
+	return _meter.visible
+
+
+## Fades the whole screen to fog (`alpha` 1) or back (0); await the result.
+func fade_screen(alpha: float, seconds: float) -> Signal:
+	var tween := create_tween()
+	tween.tween_property(_fade, "color:a", alpha, seconds)
+	return tween.finished
 
 
 func show_region_title(text: String) -> void:
@@ -51,6 +84,14 @@ func _build() -> void:
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.theme = UiTheme.get_theme()
 	add_child(root)
+	var fog := PropFactory.color("silverfog")
+	_wash = ColorRect.new()
+	_wash.name = "GreyingWash"
+	_wash.color = Color(fog, 0.0)
+	_wash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_wash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(_wash)
+	_build_meter(root)
 	_prompt = _make_label(UiTheme.HUD_PROMPT)
 	_prompt.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	_prompt.offset_top = -300
@@ -81,6 +122,39 @@ func _build() -> void:
 	_toasts.offset_top = 20
 	_toasts.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	root.add_child(_toasts)
+	# Last, so the turn-back fade covers everything.
+	_fade = ColorRect.new()
+	_fade.name = "GreyingFade"
+	_fade.color = Color(fog, 0.0)
+	_fade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(_fade)
+
+
+## "Ember" and a bar, top-left; shown only in or just out of the Greying.
+func _build_meter(root: Control) -> void:
+	var box := VBoxContainer.new()
+	box.name = "EmberMeter"
+	box.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	box.offset_left = 24
+	box.offset_top = 20
+	box.custom_minimum_size = Vector2(220, 0)
+	box.add_theme_constant_override(&"separation", 4)
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var label := _make_label(UiTheme.HUD_METER)
+	label.text = "Ember"
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	box.add_child(label)
+	_meter_bar = ProgressBar.new()
+	_meter_bar.show_percentage = false
+	_meter_bar.custom_minimum_size = Vector2(220, 12)
+	_meter_bar.value = 100.0
+	_meter_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(_meter_bar)
+	box.modulate.a = 0.0
+	box.visible = false
+	_meter = box
+	root.add_child(box)
 
 
 func _make_label(variation: StringName) -> Label:

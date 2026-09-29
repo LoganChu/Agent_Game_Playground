@@ -1,7 +1,7 @@
 class_name Region
 extends Node3D
 ## Builds a region from its JSON data: sculpted ground (or legacy terrain slabs), water,
-## props, NPCs, pickups, inspectable objects, exits.
+## props, NPCs, pickups, inspectable objects, exits, and Greying fog areas.
 ## With `ground`, every position's y is an offset above the ground surface (props may opt
 ## out with `"snap": false`). See docs/TECH.md "Region format" and "Ground".
 
@@ -15,6 +15,10 @@ var field: TerrainField = null
 ## Content with an `if` condition, re-evaluated live: [{kind, data, node}] where kind is
 ## prop | npc | pickup | object and node is the built node, or null while hidden.
 var _conditional: Array[Dictionary] = []
+## Greying areas whose `if` currently holds (see Greying); drives the ember drain.
+var greying_areas: Array[Dictionary] = []
+## Shown fog per area index in data.greying: index -> GreyingFog.
+var _greying_fog: Dictionary = {}
 
 
 func build(id: String) -> void:
@@ -36,7 +40,7 @@ func build(id: String) -> void:
 				_conditional.append({"kind": kind, "data": entry, "node": null})
 			else:
 				add_child(_build(kind, entry))
-	refresh_conditional()
+	refresh_conditional(false)
 	for exit_data: Dictionary in data.get("exits", []):
 		var exit := RegionExit.new()
 		exit.setup(exit_data)
@@ -46,8 +50,10 @@ func build(id: String) -> void:
 
 ## Adds/removes content whose `if` condition changed (and collected pickups). Safe to call
 ## any time (e.g. when a flag changes mid-visit); unconditional content is never touched.
-func refresh_conditional() -> void:
+## Greying areas that come or go fade over a few seconds when `animate`.
+func refresh_conditional(animate: bool = true) -> void:
 	var world := GameState.world
+	_refresh_greying(world, animate)
 	for entry: Dictionary in _conditional:
 		var entry_data: Dictionary = entry["data"]
 		var want := Conditions.evaluate(entry_data.get("if"), world)
@@ -64,6 +70,42 @@ func refresh_conditional() -> void:
 			node.queue_free()
 			node = null
 		entry["node"] = node
+
+
+func _refresh_greying(world: WorldState, animate: bool) -> void:
+	greying_areas = Greying.active_areas(data, world)
+	var areas: Array = data.get("greying", [])
+	for i in areas.size():
+		var want := greying_areas.has(areas[i])
+		var fog: GreyingFog = _greying_fog.get(i)
+		if want and fog == null:
+			fog = GreyingFog.new()
+			fog.setup(areas[i], fog_surface)
+			add_child(fog)
+			if animate:
+				fog.fade(true)
+			_greying_fog[i] = fog
+		elif not want and fog != null:
+			if animate:
+				fog.fade(false)
+			else:
+				fog.queue_free()
+			_greying_fog.erase(i)
+
+
+## Fog depth (0..1) of the Greying at x/z right now.
+func greying_depth(x: float, z: float) -> float:
+	return Greying.depth_at(greying_areas, Vector2(x, z))
+
+
+## Height the Greying lies on at x/z: the ground, or the water where the ground is below it.
+func fog_surface(x: float, z: float) -> float:
+	return maxf(ground_y(x, z), float(data.get("water_level", -INF)))
+
+
+## Number of Greying fog areas currently shown (for tests).
+func shown_greying() -> int:
+	return _greying_fog.size()
 
 
 ## Number of conditional props currently shown, optionally only those of `shape` (for tests).
