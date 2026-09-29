@@ -34,6 +34,14 @@ held back the **Greying**, a silver sea-fog that makes things *forgotten*.
 Folk legend: when the flame fails, it "wakes" someone — puts an ember in a living hand.
 Wakebearers are said to be able to walk the fog without forgetting, as long as their ember
 burns. The last recorded Wakebearer was **Isolde Vane**, 300 years ago.
+- *Canon (Day 11, the Greying as gameplay):* the ember is not bottomless. In the fog it
+  wanes; thick fog (the dark Gull's Head headland) spends it in well under half a minute.
+  When it gutters, the Wakebearer does not become Hushed — they simply **forget why they
+  came** and find themselves back at the fog's edge, the ember slowly warming again. They
+  remember everything but the errand. (Hook for later: why the ember always "walks them
+  back" — something in it knows the way out. Do not explain yet.)
+- Relit beacons leave **pockets** of Greying behind: on Gull's Head, a lip of fog on the
+  seaward edge of the headland and a thinning bank on the water west of the lofts.
 
 ## Factions
 | Faction | Who | Want | Attitude to player |

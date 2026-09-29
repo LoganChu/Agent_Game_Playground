@@ -24,6 +24,8 @@ $GODOT --path . -- --flags=intro_seen,saltmarrow_beacon_burned=knot \
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --camera=0,26,34:0,0,0 --screenshot=/abs/out.png       # fixed overview camera (eye:target)
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --flags=intro_seen \
+    --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py     # rebuild characters (assets/models/characters/)
@@ -48,6 +50,8 @@ scripts/
     input_setup.gd        default input actions registered in code
     journal_model.gd      JournalModel — ordered view data for the quest journal + satchel
     region_mood.gd        RegionMood — region fog after flag-driven overrides
+    greying.gd            Greying — fog-area depth, active areas, ember-cost map (validator)
+    ember_meter.gd        EmberMeter — ember drain/refill in the Greying
     terrain_field.gd      TerrainField — sculpted ground heights, walkability, reachability
     json_util.gd, layers.gd
   autoload/    singletons (registered in project.godot)
@@ -59,6 +63,8 @@ scripts/
                interactable.gd, prop_factory.gd (procedural low-poly props),
                character_rig.gd (loads a character .glb + procedural idle/walk motion),
                terrain_builder.gd (TerrainField → flat-shaded vertex-coloured mesh + collider)
+               greying_fog.gd (one Greying area's fog layers), greying_walker.gd (ember drain +
+               turn-back; a child of main)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code.
@@ -88,6 +94,8 @@ Every record lives in its own file whose name equals its `id`.
   "water_level": -0.25,                         // optional water plane height
   "fog": {"density": 0.014, "color": "silverfog",
           "overrides": [{"if": condition, "density": 0.007, "color": "..."}]},  // first match wins
+  "greying": [{"rect"|"ellipse": [...], "strength": 1, "falloff": 2, "height": 2.4,
+               "if": condition, "note": "..."}],        // fog areas that drain the ember — see "The Greying"
   "spawn_points": {"default": [x,y,z], ...},    // "default" required
   "ground": {...},                              // sculpted terrain — see "Ground" below
   "terrain": [{"size": [w,h,d], "position": [x,top_y,z], "color": "moss", "rotation_y": 0}],  // legacy slabs (absolute y)
@@ -124,6 +132,30 @@ Legacy terrain slabs are positioned by their **top surface** (absolute); the pla
 climb steps between slabs. All three Act I regions use `ground` instead. A prop with both `model` and `shape`
 uses the model and falls back to the shape only if the model can't load.
 Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `#hex`.
+
+### The Greying (Day 11)
+`greying` areas are the fog as a *place* (region `fog` is only the ambient mood). Depth at a
+point = the area's `strength` (0..1, default 1) inside its `rect`/`ellipse`, smoothstepping to
+0 over `falloff` m outside; overlapping areas take the deepest (`Greying.depth_at`). Areas
+with `if` come and go live (`Region.refresh_conditional`, fading over 4 s) — Gull's Head's
+headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets appear after.
+- **Look:** `GreyingFog` = 5 stacked translucent layers over the area (`height` m tall)
+  hugging `max(ground, water)`, each vertex's alpha baked from the same depth function,
+  animated by `assets/shaders/greying_fog.gdshader` (value noise, swell, near-camera fade;
+  no textures/depth buffer, so it works in Compatibility). Standing in it also thickens the
+  environment fog (+0.05 × depth) and desaturates (−45 % × depth), smoothed in `main.gd`.
+- **Ember:** `GreyingWalker` (child of main) samples depth under the player each physics
+  frame and steps an `EmberMeter` (full → empty in `Greying.DRAIN_SECONDS` = 24 s at depth 1,
+  refills in 4 s in the clear). **Paused while `GameState.input_locked`** (dialogue, journal).
+  The HUD shows an "Ember" bar top-left while in or just out of the fog, a grey wash as it
+  wanes, and dims the ember-hand light (`Player.set_ember`). No fail state: when it empties,
+  the screen fades to fog, the player is put back on the **last clear ground they stood on**
+  (else the default spawn), refilled, and toasted "You forget why you came." Not saved.
+- **Validator:** well-formed areas (known keys, one shape, numbers in range); **no spawn
+  point in any area**; and, with every area present (worst case), every spawn/NPC/pickup/
+  object/exit must be reachable from clear ground spending ≤ `MAX_ONE_WAY_EMBER` (0.45)
+  — a Dijkstra over walkable cells (`Greying.ember_cost_map`), so content can never be
+  stranded in fog the player can't get into and back out of.
 
 ### Ground (sculpted terrain)
 **Decision (Day 7):** terrain is generated in Godot from region data, not modelled in
@@ -268,6 +300,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   shows, the stool/nets/lost-things inspectables per state, Pell's ferry ask, Tam's fare,
   Mara and the sleeve-ember.
 - `tests/test_dressing.gd` — the Blender dressing kit (see *Dressing kit*).
+- `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
+  EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
+  (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).
 - `tests/test_terrain.gd` — TerrainField heights, mesh/triangle agreement, ramp/cliff/sea
   reachability, colour rules, mesh faces up + shore-wall collider, ground-relative placement,
   validator ground checks.
@@ -278,7 +313,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - Smoke test — boots the real main scene, checks the player and every NPC show their rigged
   character model, plays intro, checks the player lands on the ground in every region and NPCs
   stand on it, walks up the Gull's Head ramp and into its shore wall with real
-  input + physics, checks every gated exit refuses
+  input + physics, walks from clear ground up into the Greying (depth, drain, meter shown),
+  lets the ember run out (sped up) and checks the turn-back to clear ground, checks every
+  gated exit refuses
   travel on a new game, visits every region twice, talks to every NPC and examines every
   object walking each menu, collects pickups, checks gated exits now open, that the menu
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog

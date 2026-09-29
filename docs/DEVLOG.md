@@ -2,6 +2,70 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-29 09:00 UTC — Day 11: The Greying v1 (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **The Greying v1** (ROADMAP [S] #1). The fog is now a place, not only a mood:
+  - Region data `greying`: areas (`rect`/`ellipse`, `strength`, `falloff`, `height`, `if`).
+    Pure logic in `Greying` (depth with smoothstep falloff, deepest area wins; active areas
+    by condition) and `EmberMeter` (24 s to empty at full depth, 4 s to refill).
+  - **Look:** `GreyingFog` builds five stacked translucent layers per area, hugging the
+    ground or the water, alpha baked per vertex from the same depth function the gameplay
+    uses, animated by a small texture-free shader (value-noise drift, slow swell, fade near
+    the camera). Standing in it thickens the environment fog and drains colour (smoothed).
+  - **Ember:** `GreyingWalker` samples depth under the player each physics frame; drain is
+    paused whenever a modal UI holds input (dialogue, journal). HUD: "Ember" bar top-left
+    (only in/near fog), a grey wash as it wanes, and the ember-hand light dims.
+  - **No fail state:** at zero the screen fades to fog, the player is set back on the last
+    clear ground they stood on, refilled, and toasted "You forget why you came."
+  - **Gull's Head** is the test bed: before the burn the headland is drowned (the beacon in
+    the thickest fog), a half-strength spill runs down the ramp over the northern lofts, and
+    a bank sits on the water to the west. After the burn they fade out over 4 s, leaving a
+    lip of fog on the headland's seaward edge and a thinner bank further out.
+  - **Validator:** areas well-formed; no spawn inside any area; and — with every area
+    present — every spawn/NPC/pickup/object/exit reachable from clear ground for ≤ 0.45
+    ember one way (Dijkstra over the terrain's walkable cells), so fog can never strand
+    content. The dark headland's beacon costs ≈ 0.1.
+- Debug: screenshot args `--at=x,z[,yaw]` (place the player) and `--settle=N`.
+- **Tests:** `test_greying.gd` (7 tests) + a smoke check that walks up into the fog with real
+  input, sees drain and the meter, lets the ember run out (sped up), and checks the turn-back
+  and refill; the beacon check now also asserts the fog left the headland. 64 tests + smoke +
+  launch pass.
+- LORE: Wakebearer canon — the ember wanes in fog; when it gutters you forget the errand and
+  find yourself at the fog's edge (hook: the ember "knows the way out"); relit beacons leave
+  pockets.
+
+Screenshots (`docs/screenshots/2026-09-29-greying-*.png`): `gulls-head-before` vs.
+`gulls-head-after` (overview), `from-the-lofts` (the headland hazed beyond Hesk; meter
+lingering after a walk), `in-the-fog` (at the dark beacon: desaturated, meter draining).
+
+**Decisions**
+- **Areas, not FogVolumes.** Godot's volumetric fog is Forward+-only; the sandbox (and some
+  players' machines) run Compatibility. Mesh layers + one shader work everywhere, and baking
+  alpha from `Greying.area_depth` means what you see is exactly where the ember drains.
+- **`if` per area** (like props/NPCs) instead of `fog.overrides`-style replacement: the
+  after-burn pockets are different shapes, not thinner versions of the same ones, and
+  conditional areas fade live through the existing `refresh_conditional` path.
+- **The ember isn't saved** — it refills in seconds, and a save can't be made mid-turn-back
+  (input is locked). Keeps the save format unchanged.
+- **Drain pauses during dialogue**, so conversations in fog (the beacon choice) never cost
+  ember; the budget validator only counts walking.
+
+**Problems / notes**
+- First smoke run: the walk into the fog stopped at the ramp's foot (depth 0.34); lengthened
+  the walk. Validator crashed on a deliberately malformed area (index out of range) before
+  reporting it — geometric Greying checks now skip regions whose areas are malformed.
+- A long `--settle` under llvmpipe (slow frames, real-time physics) drained the ember and
+  turned the player back before the shot — keep `--settle` short for fog screenshots.
+- Fog layers barely read in the far overview under the pre-burn global fog (logged).
+
+**Next run should**
+1. **Atmosphere & lighting** ([A], ROADMAP #1) — art is due by Day 12 under the cadence rule.
+2. Content is due by Day 13: the ferry's arrival (Alpha) or a smaller Act I thread
+   (e.g. an NPC reacting to being turned back by the Greying, Greying v2 pockets on
+   Saltmarrow/Shingle Point).
+
 ## 2026-09-28 21:00 UTC — Day 10: Saltmarrow dressing kit (art track)
 
 **Did**

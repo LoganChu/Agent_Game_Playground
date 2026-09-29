@@ -59,6 +59,12 @@ with a meaningful burn choice → consequences visible in the village.
       landmark each (Saltmarrow harbor + smokehouse, the Shingle Point wreck, Gull's Head
       cliff fences + lit lantern room). Engine: `light` on model props (validated); prop
       lineup art scene (Day 10)
+- [x] [S] **The Greying v1**: region `greying` areas (rect/ellipse, strength, falloff,
+      `if`) with ground-hugging shader fog layers, thicker/desaturated environment inside;
+      the ember drains with depth (paused in dialogue/menus), HUD "Ember" bar + grey wash +
+      dimming ember light; at zero a fade and "You forget why you came." back on the last
+      clear ground. Gull's Head headland drowned until the beacon burns, pockets after.
+      Validator: no spawn in fog, every reachable spot ≤ 0.45 ember one way (Day 11)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -69,25 +75,28 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [S] **The Greying, v1**: fog volumes/areas with a local fog shader; standing in fog
-   drains the ember (UI meter); leaving refills. No fail state — at zero you are gently
-   walked back out ("you forget why you came"). Gull's Head (before the beacon) is the test
-   bed; after the burn its areas should shrink (reuse `fog.overrides` idea).
-2. [A] **Atmosphere & lighting** (art due again by Day 12): gradient sky, sun/ambient per
+1. [A] **Atmosphere & lighting** (art due by Day 12 — i.e. next session): gradient sky, sun/ambient per
    region, glow on ember and beacon, stylized water shader (foam line at shores), SSAO;
    ember-hand point light on the player. The kit's lantern glass and smokehouse embers are
    emissive but unlit — decide which lanterns earn a real light (budget) here.
-3. [A] **Terrain follow-ups** (fold into atmosphere sessions): shore foam line where ground
+2. [A] **Terrain follow-ups** (fold into atmosphere sessions): shore foam line where ground
    meets water; paint reads weakly in the Compatibility renderer (walkway vs. slate) — pick
    stronger contrasts after the Vulkan colour check; a second Saltmarrow stilt row along the
    harbor edge; camera can clip into the Gull's Head cliffs when orbiting close.
-4. [A] **Dressing follow-ups**: replace the last procedural pieces (Saltmarrow's pine at
+3. [A] **Dressing follow-ups**: replace the last procedural pieces (Saltmarrow's pine at
    (-17, -3), Shingle Point's rock at (12, 4), the gate posts) with kit models; a Blender
    stilt-house variant or two (slate walls, a Mara's-house with a porch for the stool) so
    the village isn't one house repeated; Gull's Head net-lofts could carry lattice nets.
-5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow).
    Needs the owner to run the game locally and report back.
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+   Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
+   pushing fog back in a small radius around the player; paths that fade in thick fog
+   (LORE: "a road forgets where it goes"); a Hushed NPC drifting in a pocket; audio cue
+   (muffling low-pass + heartbeat-ish ember crackle) with the audio item; colourblind-safe
+   meter check with the accessibility item. Consider a story flag when the player is first
+   turned back (an NPC remarks on it).
 6. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
 7. [S] Settings: volume buses, text size (`UiTheme.set_text_scale`), camera
    sensitivity/invert, key rebinding (InputSetup is the hook).
@@ -136,6 +145,15 @@ each .glb < 5 MB.
 - The HUD key hint ("[J] Journal [I] Satchel") is overlapped by the dialogue panel's
   bottom-left corner; hide it while dialogue is open (fold into Interaction polish).
 - Next polish/debt pass due by session 16 (Day 8 was the last).
+- The Greying's fog layers barely read from far overviews under the pre-burn global fog
+  (0.045) in the Compatibility renderer; up close they read fine. Re-judge with the Vulkan
+  colour check and the atmosphere pass (maybe lower Gull's Head's global density now that
+  the local fog carries the mood).
+- `GreyingWalker` returns the player to the last clear ground they *stood* on; if a future
+  region spawns the player inside a pocket via a save, they go to the default spawn
+  (validator keeps spawns clear, but saved positions aren't checked).
+- Last content session: Day 9 (the Greying's Gull's Head placement is data, not story);
+  content is due by Day 13 at the latest.
 - Model props can't be tinted (the `color` field only affects procedural shapes), so tint
   variants are separate exports (`net_rack_pine`). If variants multiply, add a material
   override hook (e.g. recolour surfaces named `Tint*`).
