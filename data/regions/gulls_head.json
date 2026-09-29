@@ -13,6 +13,26 @@
       }
     ]
   },
+  "light": {
+    "note": "Before the burn the headland is drained: a cold, weak sun and a slate sky. Relit, the light warms.",
+    "sun_color": "silverfog",
+    "sun_energy": 0.6,
+    "sun_pitch": -48,
+    "sun_yaw": -20,
+    "ambient_color": "silverfog",
+    "ambient_energy": 0.38,
+    "sky_top": "slate",
+    "sky_horizon": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "sun_color": "#F5C77E",
+        "sun_energy": 1.15,
+        "ambient_energy": 0.32,
+        "sky_top": "tide"
+      }
+    ]
+  },
   "greying": [
     {
       "note": "Before the burn: the headland is drowned in it; the beacon stands in the thickest fog.",

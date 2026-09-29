@@ -13,6 +13,24 @@
       }
     ]
   },
+  "light": {
+    "note": "Morning on the beach where the Wakebearer wakes: a low, pale sun through the mist.",
+    "sun_color": "kindle",
+    "sun_energy": 1.0,
+    "sun_pitch": -30,
+    "sun_yaw": -60,
+    "ambient_color": "silverfog",
+    "ambient_energy": 0.32,
+    "sky_top": "tide",
+    "sky_horizon": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "sun_energy": 1.15,
+        "sun_color": "#F5CF88"
+      }
+    ]
+  },
   "spawn_points": {
     "default": [
       0,

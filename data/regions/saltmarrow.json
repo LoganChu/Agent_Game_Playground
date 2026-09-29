@@ -13,6 +13,25 @@
       }
     ]
   },
+  "light": {
+    "note": "Greyed village light; after the beacon burns the sun comes through warmer.",
+    "sun_color": "kindle",
+    "sun_energy": 1.0,
+    "sun_pitch": -42,
+    "sun_yaw": -35,
+    "ambient_color": "silverfog",
+    "ambient_energy": 0.3,
+    "sky_top": "tide",
+    "sky_horizon": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "sun_energy": 1.2,
+        "sun_color": "#F5C77E",
+        "ambient_energy": 0.34
+      }
+    ]
+  },
   "spawn_points": {
     "default": [
       0,
