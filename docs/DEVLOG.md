@@ -2,6 +2,67 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-29 21:00 UTC — Day 12: Atmosphere & lighting (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **Atmosphere & lighting** (ROADMAP [A] #1; art was due under the cadence rule):
+  - **Region light moods.** New `light` block per region (sun colour/energy/pitch/yaw,
+    ambient colour/energy, sky top/horizon) with `if` overrides like fog, resolved by
+    `RegionMood.light` and validated (known keys, palette/#hex colours, numbers, `if`).
+  - **`Atmosphere` node** (child of main) owns the environment and sun, replacing
+    `main.gd`'s inline environment. Story changes tween the *whole* mood over 4 s — fog, sun,
+    ambient and sky together — and the Greying look now lives there too.
+  - **Sky:** a texture-free sky shader: tide→silverfog gradient, a sun halo, slow flat cloud
+    bands near the horizon (heavier in thicker fog).
+  - **Grading:** a touch more contrast and saturation; **glow** on emissives only (ember,
+    lantern and beacon glass, windows, the smokehouse vent); **SSAO** on (Forward+ only).
+  - **Ember:** the ember-hand light is a bit stronger and breathes (layered sine flicker);
+    it still dims with the Greying.
+  - **Water:** `WaterBuilder` bakes the sea's depth over the sculpted ground into vertex
+    colour; the water shader gives shallow→deep colour, faceted swell that calms towards the
+    shore, a ragged **foam line** where the sea meets land and a broken wash line rolling in.
+    A skirt to the horizon shares the grid's edge vertices, so the swell opens no cracks.
+  - **Act I moods:** Shingle Point a low morning sun; Saltmarrow greyed village light;
+    **Gull's Head cold and drained** (silverfog sun at 0.6, slate sky) until the beacon burns.
+    After the burn every Act I region's sun warms (`#F5C77E`/`#F5CF88`) and strengthens.
+- **Tests:** `test_atmosphere.gd` (6 tests: light defaults/types, the burn warms every Act I
+  region, validator light checks, water depth baking, water mesh foam/skirt/inland skip,
+  Atmosphere applying a mood + the Greying). Smoke test now also checks the region light is
+  applied on load. 70 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-09-29-atmosphere-*.png`): `before-saltmarrow` vs.
+`after-saltmarrow` (same camera), `before-gulls-head` vs. `gulls-head-dark` (the cold, drained
+headland) vs. `gulls-head-relit`, `harbor-water` (deep water, shallows, shore foam at the
+dock), `shingle-ember` (the ember warming the sand).
+
+**Decisions**
+- **Depth baked from the terrain, not read from the depth buffer.** Screen-depth foam needs
+  Forward+ (and breaks on transparent layering); we already know the ground height
+  everywhere, so a half-metre water grid with baked depth gives the same foam in every
+  renderer and is unit-testable.
+- **One mood tween instead of per-property tweens**: `Atmosphere` blends two resolved mood
+  snapshots, so new mood keys only need adding to `_resolve`/`_show`.
+- **Light budget:** real OmniLights only for the ember, the ferry lantern and the lit beacon.
+  By day, glow on the emissive glass is enough for street lanterns; they earn real lights
+  when day/night lands (logged).
+- **Region light is data, not canon** — but it follows LORE's rule that relit places regain
+  warmth and colour, so no LORE change.
+
+**Problems / notes**
+- First sky pass used the azimuth angle for cloud noise and showed a hard seam where it
+  wraps; switched to a polar mapping of the view direction.
+- Clouds first reached the zenith and read as blotches; narrowed the band to the horizon.
+- Everything is still judged in the Compatibility renderer (washed out, no SSAO); the Vulkan
+  colour check (ROADMAP #4) now also covers glow/grading/SSAO/water.
+
+**Next run should**
+1. **Content** ([C], due by Day 13 — i.e. next session): the ferry's arrival (Alpha) or a
+   smaller Act I thread (an NPC reacting to the player being turned back by the Greying,
+   Greying v2 pockets on Saltmarrow/Shingle Point).
+2. Art next due by Day 14: terrain & atmosphere follow-ups (piling foam, paint contrast,
+   second stilt row) or the dressing follow-ups.
+
 ## 2026-09-29 09:00 UTC — Day 11: The Greying v1 (systems)
 
 **Did**

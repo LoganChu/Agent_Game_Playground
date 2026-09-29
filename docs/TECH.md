@@ -49,7 +49,7 @@ scripts/
     dialogue_runner.gd    DialogueRunner — steps JSON dialogue, applies effects
     input_setup.gd        default input actions registered in code
     journal_model.gd      JournalModel — ordered view data for the quest journal + satchel
-    region_mood.gd        RegionMood — region fog after flag-driven overrides
+    region_mood.gd        RegionMood — region fog and light after flag-driven overrides
     greying.gd            Greying — fog-area depth, active areas, ember-cost map (validator)
     ember_meter.gd        EmberMeter — ember drain/refill in the Greying
     terrain_field.gd      TerrainField — sculpted ground heights, walkability, reachability
@@ -64,7 +64,8 @@ scripts/
                character_rig.gd (loads a character .glb + procedural idle/walk motion),
                terrain_builder.gd (TerrainField → flat-shaded vertex-coloured mesh + collider)
                greying_fog.gd (one Greying area's fog layers), greying_walker.gd (ember drain +
-               turn-back; a child of main)
+               turn-back; a child of main), atmosphere.gd (environment, sky, sun; mood
+               tweens; a child of main), water_builder.gd (sea mesh with baked shore depth)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code.
@@ -94,6 +95,10 @@ Every record lives in its own file whose name equals its `id`.
   "water_level": -0.25,                         // optional water plane height
   "fog": {"density": 0.014, "color": "silverfog",
           "overrides": [{"if": condition, "density": 0.007, "color": "..."}]},  // first match wins
+  "light": {"sun_color": "kindle", "sun_energy": 1.0, "sun_pitch": -42, "sun_yaw": -35,
+            "ambient_color": "silverfog", "ambient_energy": 0.3, "sky_top": "tide",
+            "sky_horizon": "silverfog", "note": "...",
+            "overrides": [{"if": condition, <any light key>...}]},  // see "Atmosphere"
   "greying": [{"rect"|"ellipse": [...], "strength": 1, "falloff": 2, "height": 2.4,
                "if": condition, "note": "..."}],        // fog areas that drain the ember — see "The Greying"
   "spawn_points": {"default": [x,y,z], ...},    // "default" required
@@ -156,6 +161,31 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
   object/exit must be reachable from clear ground spending ≤ `MAX_ONE_WAY_EMBER` (0.45)
   — a Dijkstra over walkable cells (`Greying.ember_cost_map`), so content can never be
   stranded in fog the player can't get into and back out of.
+
+### Atmosphere & water (Day 12)
+`Atmosphere` (child of main) owns the `WorldEnvironment` and the sun. A region's mood =
+`RegionMood.fog` + `RegionMood.light` (every key optional, defaults in
+`RegionMood.LIGHT_DEFAULTS`; overrides first-match like fog, validated: known keys, palette/#hex
+colours, numbers, `if` required). Story changes tween the **whole mood** (fog, sun colour/
+energy/angle, ambient, sky) over 4 s, so a relit beacon visibly warms the light; region loads
+apply it instantly. The Greying look (thicker fog, −45 % saturation at full depth) is layered
+on top by `follow_greying`.
+- **Sky:** `assets/shaders/sky.gdshader` — zenith→horizon gradient from `sky_top`/`sky_horizon`,
+  a sun halo (no disc), slow flat cloud bands near the horizon (polar noise, no seam), heavier
+  in thicker fog. Keep `sky_horizon` ≈ the fog colour so the sea melts into it.
+- **Grading:** Filmic, contrast ×1.08, saturation ×1.12; **glow** above HDR 1.0 (softlight), so
+  only emissive materials bloom (ember, lantern/beacon glass, smokehouse vent, windows);
+  **SSAO** is on but Forward+-only (a no-op in Compatibility screenshots).
+- **Light budget decision:** real lights only for the ember hand (breathing flicker, dims
+  with the Greying), the ferry signal lantern and the lit beacon. Street lanterns, windows and
+  the smokehouse vent are emissive + glow only — enough by day; revisit with day/night.
+- **Water:** `WaterBuilder` builds a half-metre grid over the ground bounds (cells well inland
+  skipped) plus a skirt out to 300 m sharing the grid's edge vertices (no T-junction cracks
+  when the swell moves them). Each vertex's `COLOR.r` = water depth over the ground / 1.2 m.
+  `assets/shaders/water.gdshader`: shallow (tide+moss) → deep (abyss) colour, faceted normals
+  from derivatives, swell that grows with depth (so the shoreline stays put), a ragged foam
+  band at depth≈0 and a broken wash line moving in. No depth buffer → same in Compatibility.
+  Foam follows the *ground* only; piers, pilings and boats get none (yet).
 
 ### Ground (sculpted terrain)
 **Decision (Day 7):** terrain is generated in Godot from region data, not modelled in
@@ -303,6 +333,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).
+- `tests/test_atmosphere.gd` — region light defaults/overrides (the burn warms every Act I
+  region), validator light checks, water depth baking (land 0, sea 1, shallows exist), water
+  mesh (shore foam vertices, skirt, inland cells skipped), Atmosphere applying a mood + Greying.
 - `tests/test_terrain.gd` — TerrainField heights, mesh/triangle agreement, ramp/cliff/sea
   reachability, colour rules, mesh faces up + shore-wall collider, ground-relative placement,
   validator ground checks.
@@ -319,7 +352,7 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   travel on a new game, visits every region twice, talks to every NPC and examines every
   object walking each menu, collects pickups, checks gated exits now open, that the menu
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog
-  thinned), that a third pass reached Aldous's confession and Mara's ferry lantern (and that
+  thinned, the region light applied), that a third pass reached Aldous's confession and Mara's ferry lantern (and that
   Saltmarrow's burn-specific dressing matches the burn — `Region.shown_conditional_props(shape)`), opens the journal and satchel via real input
   actions, saves/loads and compares state.
 - Add a `test_*.gd` extending `TestCase`; methods named `test_*` run automatically.

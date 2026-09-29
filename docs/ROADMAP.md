@@ -65,6 +65,12 @@ with a meaningful burn choice → consequences visible in the village.
       dimming ember light; at zero a fade and "You forget why you came." back on the last
       clear ground. Gull's Head headland drowned until the beacon burns, pockets after.
       Validator: no spawn in fog, every reachable spot ≤ 0.45 ember one way (Day 11)
+- [x] [A] **Atmosphere & lighting**: region `light` moods (sun/ambient/sky, story overrides —
+      Gull's Head cold and drained until the beacon burns, every Act I region warmer after),
+      tweened with the fog by a new `Atmosphere` node; gradient sky shader with cloud bands
+      and sun halo; glow on emissives; SSAO (Forward+); breathing ember-hand light; stylized
+      water with depth baked from the ground (shallow→deep, faceted swell, shore foam line).
+      Light budget decided: ember, ferry lantern, beacon only (Day 12)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -75,20 +81,22 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **Atmosphere & lighting** (art due by Day 12 — i.e. next session): gradient sky, sun/ambient per
-   region, glow on ember and beacon, stylized water shader (foam line at shores), SSAO;
-   ember-hand point light on the player. The kit's lantern glass and smokehouse embers are
-   emissive but unlit — decide which lanterns earn a real light (budget) here.
-2. [A] **Terrain follow-ups** (fold into atmosphere sessions): shore foam line where ground
-   meets water; paint reads weakly in the Compatibility renderer (walkway vs. slate) — pick
-   stronger contrasts after the Vulkan colour check; a second Saltmarrow stilt row along the
-   harbor edge; camera can clip into the Gull's Head cliffs when orbiting close.
+1. [C] **Content is due by Day 13** (last: Day 9) — the ferry's arrival (Alpha, top of
+   Milestone 2) or a smaller Act I thread (an NPC remarking on the player being turned back
+   by the Greying; Greying v2 pockets on Saltmarrow/Shingle Point).
+2. [A] **Terrain & atmosphere follow-ups** (art next due by Day 14): paint reads weakly in
+   the Compatibility renderer (walkway vs. slate) — pick stronger contrasts after the Vulkan
+   colour check; a second Saltmarrow stilt row along the harbor edge; camera can clip into
+   the Gull's Head cliffs when orbiting close; foam rings around pilings/boats (water foam
+   follows the ground only); the debug lineup scenes still build their own old-style
+   environment — reuse `Atmosphere` there.
 3. [A] **Dressing follow-ups**: replace the last procedural pieces (Saltmarrow's pine at
    (-17, -3), Shingle Point's rock at (12, 4), the gate posts) with kit models; a Blender
    stilt-house variant or two (slate walls, a Mara's-house with a porch for the stool) so
    the village isn't one house repeated; Gull's Head net-lofts could carry lattice nets.
 4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
-   renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow).
+   renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
+   the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
 5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
@@ -146,14 +154,15 @@ each .glb < 5 MB.
   bottom-left corner; hide it while dialogue is open (fold into Interaction polish).
 - Next polish/debt pass due by session 16 (Day 8 was the last).
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog
-  (0.045) in the Compatibility renderer; up close they read fine. Re-judge with the Vulkan
-  colour check and the atmosphere pass (maybe lower Gull's Head's global density now that
-  the local fog carries the mood).
+  (0.045) in the Compatibility renderer; up close they read fine. The Day 12 cold light helps
+  Gull's Head read as drained; re-judge the density with the Vulkan colour check.
+- Day/night isn't in yet: the sky has one sun per region mood. When day/night lands, it
+  should drive `Atmosphere` (sun angle/colour) and give street lanterns real lights at night.
 - `GreyingWalker` returns the player to the last clear ground they *stood* on; if a future
   region spawns the player inside a pocket via a save, they go to the default spawn
   (validator keeps spawns clear, but saved positions aren't checked).
-- Last content session: Day 9 (the Greying's Gull's Head placement is data, not story);
-  content is due by Day 13 at the latest.
+- Last content session: Day 9 (the Greying's Gull's Head placement and Day 12's light moods
+  are data, not story); content is due by Day 13 at the latest.
 - Model props can't be tinted (the `color` field only affects procedural shapes), so tint
   variants are separate exports (`net_rack_pine`). If variants multiply, add a material
   override hook (e.g. recolour surfaces named `Tint*`).
