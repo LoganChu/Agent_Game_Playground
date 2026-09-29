@@ -32,7 +32,7 @@ func build(id: String) -> void:
 	for slab: Dictionary in data.get("terrain", []):
 		add_child(_build_slab(slab))
 	if data.has("water_level"):
-		add_child(_build_water(float(data["water_level"])))
+		add_child(WaterBuilder.build(field, float(data["water_level"])))
 	for kind: String in KINDS:
 		for entry: Dictionary in data.get(KINDS[kind], []):
 			if entry.has("if") or kind == "pickup":
@@ -177,22 +177,6 @@ func _build_slab(slab: Dictionary) -> StaticBody3D:
 	shape.position = Vector3(0, -size.y * 0.5, 0)
 	body.add_child(shape)
 	return body
-
-
-func _build_water(level: float) -> MeshInstance3D:
-	var plane := PlaneMesh.new()
-	plane.size = Vector2(400, 400)
-	var mi := MeshInstance3D.new()
-	mi.name = "Water"
-	mi.mesh = plane
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = PropFactory.color("tide")
-	mat.albedo_color.a = 0.85
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.roughness = 0.3
-	mi.material_override = mat
-	mi.position.y = level
-	return mi
 
 
 func _build_prop(prop: Dictionary) -> Node3D:
