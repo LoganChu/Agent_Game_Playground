@@ -165,28 +165,49 @@
       ]
     },
     {
+      "model": "res://assets/models/rock_cluster.glb",
       "shape": "rock",
       "position": [
         12,
         0,
         4
       ],
-      "scale": 1.2
+      "scale": 1.2,
+      "rotation_y": 200,
+      "collider": [
+        1.6,
+        1.0,
+        1.6
+      ]
     },
     {
+      "model": "res://assets/models/dressing/gate_post.glb",
       "shape": "post",
       "position": [
         -2,
         0,
         -11
+      ],
+      "rotation_y": 180,
+      "collider": [
+        0.3,
+        1.6,
+        0.3
       ]
     },
     {
+      "model": "res://assets/models/dressing/gate_post.glb",
       "shape": "post",
       "position": [
         2,
         0,
         -11
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.3,
+        1.6,
+        0.3
       ]
     },
     {

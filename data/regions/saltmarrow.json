@@ -235,7 +235,7 @@
       ]
     },
     {
-      "model": "res://assets/models/stilt_house.glb",
+      "model": "res://assets/models/dressing/house_tall.glb",
       "shape": "house",
       "position": [
         12.5,
@@ -245,7 +245,7 @@
       "rotation_y": 200,
       "collider": [
         2.6,
-        3.6,
+        5.6,
         2.2
       ],
       "snap": false
@@ -266,19 +266,46 @@
       ]
     },
     {
-      "model": "res://assets/models/stilt_house.glb",
+      "model": "res://assets/models/dressing/house_porch.glb",
       "shape": "house",
       "position": [
         13,
         0,
         5
       ],
-      "rotation_y": -95,
+      "rotation_y": -45,
       "collider": [
         2.6,
         3.6,
         2.2
-      ]
+      ],
+      "colliders": [
+        {
+          "size": [
+            2.5,
+            1.9,
+            1.1
+          ],
+          "offset": [
+            0,
+            0,
+            1.85
+          ]
+        },
+        {
+          "size": [
+            1.1,
+            0.9,
+            1.0
+          ],
+          "offset": [
+            0,
+            0,
+            2.9
+          ]
+        }
+      ],
+      "note": "Mara's house: the porch steps come down by Dunstan's stool."
     },
     {
       "model": "res://assets/models/dressing/dock.glb",
@@ -350,13 +377,20 @@
       ]
     },
     {
+      "model": "res://assets/models/pine_tree.glb",
       "shape": "pine",
       "position": [
         -17,
         0,
         -3
       ],
-      "scale": 0.9
+      "scale": 0.9,
+      "rotation_y": 40,
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
     },
     {
       "model": "res://assets/models/net_loft.glb",
@@ -391,19 +425,64 @@
       ]
     },
     {
+      "model": "res://assets/models/dressing/house_tall.glb",
+      "shape": "house",
+      "position": [
+        -9.5,
+        -0.6,
+        13.2
+      ],
+      "rotation_y": 185,
+      "collider": [
+        2.6,
+        5.6,
+        2.2
+      ],
+      "note": "Second stilt row: houses standing in the west shallows, doors to the shore."
+    },
+    {
+      "model": "res://assets/models/stilt_house.glb",
+      "shape": "house",
+      "position": [
+        -14.5,
+        -0.6,
+        12.8
+      ],
+      "rotation_y": 170,
+      "collider": [
+        2.6,
+        3.6,
+        2.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/gate_post.glb",
       "shape": "post",
       "position": [
         -1.8,
         0,
         -12.5
+      ],
+      "rotation_y": 180,
+      "collider": [
+        0.3,
+        1.6,
+        0.3
       ]
     },
     {
+      "model": "res://assets/models/dressing/gate_post.glb",
       "shape": "post",
       "position": [
         1.8,
         0,
         -12.5
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.3,
+        1.6,
+        0.3
       ]
     },
     {
@@ -561,7 +640,16 @@
       "rotation_y": 8,
       "scale": 0.8,
       "snap": false,
-      "note": "Moored in the harbor basin, east of the ferry's berth; origin at the waterline."
+      "note": "Moored in the harbor basin, east of the ferry's berth; origin at the waterline.",
+      "float": {
+        "bob": 0.05,
+        "roll": 2.0,
+        "period": 4.5,
+        "foam": [
+          0.9,
+          2.6
+        ]
+      }
     },
     {
       "model": "res://assets/models/dressing/rowboat.glb",
@@ -572,7 +660,17 @@
       ],
       "rotation_y": 4,
       "snap": false,
-      "note": "Tied off the west side of the dock (the ferry berths on the east)."
+      "note": "Tied off the west side of the dock (the ferry berths on the east).",
+      "float": {
+        "bob": 0.04,
+        "roll": 2.5,
+        "period": 3.6,
+        "foam": [
+          0.6,
+          1.45
+        ],
+        "foam_y": 0.2
+      }
     },
     {
       "model": "res://assets/models/dressing/rowboat_upturned.glb",
@@ -832,7 +930,16 @@
           -1.2
         ]
       },
-      "note": "The Tidewright ferry Slow Mercy alongside the dock (port side and boarding plank toward the dock); origin at the waterline. The light is its green masthead lantern."
+      "note": "The Tidewright ferry Slow Mercy alongside the dock (port side and boarding plank toward the dock); origin at the waterline. The light is its green masthead lantern.",
+      "float": {
+        "bob": 0.04,
+        "roll": 0.8,
+        "period": 6.0,
+        "foam": [
+          1.55,
+          4.4
+        ]
+      }
     },
     {
       "model": "res://assets/models/dressing/bundle.glb",
@@ -857,7 +964,8 @@
         0,
         10.4
       ],
-      "rotation_y": 210
+      "rotation_y": 10,
+      "note": "Looks out over the harbor where Dunstan's boat used to come in; turns to whoever talks to her."
     },
     {
       "npc": "aldous",

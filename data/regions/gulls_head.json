@@ -308,19 +308,33 @@
       ]
     },
     {
+      "model": "res://assets/models/dressing/gate_post.glb",
       "shape": "post",
       "position": [
         -1.8,
         0,
         -3
+      ],
+      "rotation_y": 180,
+      "collider": [
+        0.3,
+        1.6,
+        0.3
       ]
     },
     {
+      "model": "res://assets/models/dressing/gate_post.glb",
       "shape": "post",
       "position": [
         1.8,
         0,
         -3
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.3,
+        1.6,
+        0.3
       ]
     },
     {
