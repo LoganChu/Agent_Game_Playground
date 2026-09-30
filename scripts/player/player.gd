@@ -27,6 +27,8 @@ var _ember_light: OmniLight3D
 ## Ember strength (1 = full; the Greying drains it) and the flicker clock.
 var _ember := 1.0
 var _flicker_time := 0.0
+## Where the NPC we're talking to stands (the Wakebearer turns to it while input is locked).
+var _talk_to: Variant = null
 
 
 func _ready() -> void:
@@ -59,6 +61,8 @@ func _physics_process(delta: float) -> void:
 	if direction.length_squared() > 0.01:
 		var yaw := atan2(direction.x, direction.z)
 		_visual.rotation.y = lerp_angle(_visual.rotation.y, yaw, TURN_SPEED * delta)
+	elif _talk_to != null:
+		_face_talk_target(delta)
 	# Safety net: never fall forever through a gap in the terrain.
 	if global_position.y < -30.0:
 		global_position = _respawn_point()
@@ -75,6 +79,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		_camera_pitch.rotation.x = clampf(_camera_pitch.rotation.x - motion.relative.y * MOUSE_SENSITIVITY, deg_to_rad(-60), deg_to_rad(-5))
 	elif event.is_action_pressed("interact") and focus and is_instance_valid(focus):
 		get_viewport().set_input_as_handled()
+		if focus is NpcActor:
+			_talk_to = focus.global_position
 		focus.interact()
 
 
@@ -101,6 +107,16 @@ func _update_ember_light() -> void:
 	var t := _flicker_time
 	var flicker := 1.0 + 0.08 * sin(t * 2.3) + 0.05 * sin(t * 5.7 + 1.3) + 0.03 * sin(t * 11.0)
 	_ember_light.light_energy = EMBER_LIGHT_ENERGY * lerpf(0.3, 1.0, _ember) * flicker
+
+
+## Turns the Wakebearer towards the NPC being talked to; stops once the dialogue has closed.
+func _face_talk_target(delta: float) -> void:
+	if not GameState.input_locked:
+		_talk_to = null
+		return
+	var to := (_talk_to as Vector3) - global_position
+	if Vector2(to.x, to.z).length_squared() > 0.0001:
+		_visual.rotation.y = lerp_angle(_visual.rotation.y, atan2(to.x, to.z), minf(1.0, TURN_SPEED * 0.6 * delta))
 
 
 func _respawn_point() -> Vector3:

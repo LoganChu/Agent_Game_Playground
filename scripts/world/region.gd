@@ -189,8 +189,12 @@ func _build_prop(prop: Dictionary) -> Node3D:
 			node.scale = Vector3.ONE * float(prop.get("scale", 1.0))
 			if prop.has("collider"):
 				node.add_child(_box_collider(JsonUtil.to_vector3(prop["collider"])))
+			for extra: Dictionary in prop.get("colliders", []):
+				node.add_child(_box_collider(JsonUtil.to_vector3(extra["size"]), JsonUtil.to_vector3(extra.get("offset", [0, 0, 0]))))
 			if prop.has("light"):
 				node.add_child(build_light(prop["light"]))
+			if prop.get("float") is Dictionary:
+				node = FloatingProp.wrap(node, prop["float"], float(prop.get("scale", 1.0)))
 	if node == null:
 		node = PropFactory.build(str(prop.get("shape", "crate")), str(prop.get("color", "")), float(prop.get("scale", 1.0)))
 	node.position = place(prop.get("position"), bool(prop.get("snap", true)))
@@ -210,12 +214,13 @@ static func build_light(spec: Dictionary) -> OmniLight3D:
 	return light
 
 
-func _box_collider(size: Vector3) -> StaticBody3D:
+## A box collider standing on the model's origin (+ `offset`, model space; y lifts the base).
+func _box_collider(size: Vector3, offset := Vector3.ZERO) -> StaticBody3D:
 	var body := StaticBody3D.new()
 	var shape := CollisionShape3D.new()
 	var box := BoxShape3D.new()
 	box.size = size
 	shape.shape = box
-	shape.position = Vector3(0, size.y * 0.5, 0)
+	shape.position = offset + Vector3(0, size.y * 0.5, 0)
 	body.add_child(shape)
 	return body

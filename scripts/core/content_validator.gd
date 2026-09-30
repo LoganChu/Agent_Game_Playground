@@ -137,6 +137,50 @@ func _check_prop_light(where: String, prop: Dictionary, model: String) -> void:
 			_err(where, "prop light %s must be a number" % key)
 
 
+## `colliders` (model props only): extra boxes [{size: [w,h,d], offset: [x,y,z]}] beside the
+## single `collider`, for models that aren't one block (Mara's porch and steps).
+func _check_prop_colliders(where: String, prop: Dictionary, model: String) -> void:
+	if not prop.has("colliders"):
+		return
+	if model.is_empty():
+		_err(where, "prop 'colliders' needs a 'model' (shapes build their own)")
+	if not prop["colliders"] is Array:
+		_err(where, "prop 'colliders' must be a list of {size, offset}")
+		return
+	for entry: Variant in prop["colliders"]:
+		if not entry is Dictionary or not _is_vector((entry as Dictionary).get("size")) \
+				or ((entry as Dictionary).has("offset") and not _is_vector(entry["offset"])):
+			_err(where, "prop collider must be {size: [w,h,d], offset: [x,y,z]}")
+
+
+## `float` (model props only; FloatingProp): known keys, numbers, `foam` = [rx, rz] > 0.
+func _check_prop_float(where: String, prop: Dictionary, model: String) -> void:
+	if not prop.has("float"):
+		return
+	if model.is_empty():
+		_err(where, "prop 'float' needs a 'model'")
+	if not prop["float"] is Dictionary:
+		_err(where, "prop 'float' must be an object {bob, roll, period, foam, foam_y}")
+		return
+	var spec: Dictionary = prop["float"]
+	for key: String in spec:
+		if key not in FloatingProp.KEYS:
+			_err(where, "prop float has unknown key '%s'" % key)
+	for key: String in ["bob", "roll", "period", "foam_y"]:
+		if spec.has(key) and not (spec[key] is float or spec[key] is int):
+			_err(where, "prop float %s must be a number" % key)
+	if spec.has("foam"):
+		var foam: Variant = spec["foam"]
+		if not (foam is Array and (foam as Array).size() == 2 and (foam as Array).all(
+				func(v: Variant) -> bool: return (v is float or v is int) and float(v) > 0.0)):
+			_err(where, "prop float foam must be [rx, rz] (positive numbers)")
+
+
+func _is_vector(value: Variant) -> bool:
+	return value is Array and (value as Array).size() == 3 \
+			and (value as Array).all(func(v: Variant) -> bool: return v is float or v is int)
+
+
 func _valid_color(value: String) -> bool:
 	return PropFactory.PALETTE.has(value) or Color.html_is_valid(value)
 
@@ -159,6 +203,8 @@ func _validate_npc(id: String, npc: Dictionary) -> void:
 		_err(where, "invalid color '%s' (palette name or #hex)" % npc["color"])
 	if npc.has("model"):
 		_ref_character_model(where, str(npc["model"]))
+	if npc.has("faces_player") and not npc["faces_player"] is bool:
+		_err(where, "faces_player must be true or false")
 	if npc.has("idle") and str(npc["idle"]) not in CharacterRig.STYLES:
 		_err(where, "idle must be one of %s" % [CharacterRig.STYLES])
 
@@ -223,6 +269,8 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		if model.is_empty() and str(prop.get("shape", "")) not in PropFactory.SHAPES:
 			_err(where, "prop needs 'model' or a 'shape' in %s" % [PropFactory.SHAPES])
 		_check_prop_light(where, prop, model)
+		_check_prop_colliders(where, prop, model)
+		_check_prop_float(where, prop, model)
 		_ref_condition(where, prop.get("if"))
 	var fog: Dictionary = region.get("fog", {})
 	for override: Variant in fog.get("overrides", []):
