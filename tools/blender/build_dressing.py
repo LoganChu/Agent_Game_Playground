@@ -555,6 +555,66 @@ def build_grass() -> None:
     export("grass")
 
 
+def build_ferry() -> None:
+    """The Tidewright ferry *Slow Mercy* (9 m), origin at the WATERLINE like moored_boat:
+    broad tide-blue hull with a bone stripe, a plank deckhouse aft with a slate roof and
+    moss-green windows, one mast with a furled sail and the green masthead lantern, a
+    bone horn on the deckhouse roof, fenders and a boarding plank on the port side (+X)."""
+    reset()
+    st = hull_stations(9.0, 1.6, 1.3, 0.8, stations=11, transom=0.7)
+    hull("Hull", st, 1.3, 0.8, mat("tide", -0.25))
+    gunwale("Rail", st, mat("driftwood", -0.35), thick=0.1)
+    gunwale("Stripe", st, mat("bone", -0.1), thick=0.08, drop=0.2)
+    gunwale("Boot", st, mat("abyss", -0.1), thick=0.12, drop=0.62)
+    deck("Deck", st, 10, mat("driftwood", -0.1), below=0.12)
+    # Deckhouse aft: planked walls, slate roof, a door forward and moss-green windows.
+    box("House", (2.0, 2.2, 1.35), (0, 2.1, 0.68), mat("driftwood", -0.35))
+    bp.prism("HouseRoof", 2.3, 2.5, 0.45, (0, 2.1, 2.03), mat("slate", -0.25))
+    box("HouseDoor", (0.6, 0.05, 1.05), (0, 0.98, 0.68), mat("ink", 0.2))
+    for x in (-1.01, 1.01):
+        for y in (1.6, 2.6):
+            box("Window", (0.04, 0.45, 0.35), (x, y, 1.35), mat("moss", 0.1, emissive=True))
+    # The horn: a long bone horn on a post on the roof, flaring to the bow.
+    rod("HornPost", (0.55, 2.6, 2.2), (0.55, 2.6, 2.6), 0.04, mat("ink", 0.2))
+    rod("Horn", (0.55, 3.1, 2.62), (0.55, 1.9, 2.72), 0.05, mat("bone", -0.1), verts=6, r_end=0.2)
+    # Mast, boom, furled sail, stays and the green lantern at the masthead.
+    rod("Mast", (0, -1.2, 0.6), (0, -1.2, 7.4), 0.1, mat("driftwood", -0.25), r_end=0.07)
+    rod("Yard", (-1.4, -1.2, 6.2), (1.4, -1.2, 6.2), 0.05, mat("driftwood", -0.25))
+    rod("Sail", (-1.3, -1.12, 6.05), (1.3, -1.12, 6.05), 0.17, mat("driftwood", 0.2), verts=6, r_end=0.12)
+    beam("Stay", (0, -1.2, 7.3), (0, -4.6, 1.3), 0.025, mat("ink", 0.2))
+    beam("Stay", (0, -1.2, 7.3), (0, 4.5, 0.95), 0.025, mat("ink", 0.2))
+    for x in (-1.45, 1.45):
+        beam("Shroud", (0, -1.2, 6.9), (x, -0.9, 0.95), 0.02, mat("ink", 0.2))
+    cyl("LanternCap", 0.18, 0.05, 0.14, 6, (0, -1.2, 7.55), mat("ink", 0.2))
+    cyl("LanternGlass", 0.12, 0.12, 0.2, 6, (0, -1.2, 7.35), mat("moss", 0.1, emissive=True))
+    box("Pennant", (0.02, 0.6, 0.2), (0, -0.85, 7.25), mat("bone", -0.1))
+    # Cargo and gear on the foredeck: crates, a coil, barrels.
+    box("Crate", (0.6, 0.6, 0.5), (-0.6, -2.6, 0.7), mat("driftwood", -0.25))
+    box("Crate", (0.5, 0.5, 0.4), (-0.55, -2.0, 0.7), mat("driftwood", -0.25))
+    cyl("Coil", 0.3, 0.3, 0.12, 8, (0.6, -2.4, 0.7), mat("driftwood", 0.2))
+    cyl("Barrel", 0.24, 0.24, 0.6, 8, (0.7, 0.3, 0.7), mat("driftwood", -0.25))
+    # Fenders along the port side (the dock side) and the boarding plank.
+    for y in (-2.2, -0.5, 1.2, 2.9):
+        cyl("Fender", 0.13, 0.13, 0.45, 6, (1.68, y, 0.2), mat("ink", 0.2))
+    beam("Plank", (1.4, 0.2, 0.9), (2.9, 0.2, 0.55), 0.06, mat("driftwood", 0.2), width=0.55)
+    export("ferry")
+
+
+def build_bundle() -> None:
+    """Pell's travelling bundle: a sailcloth sack tied off with cord, a net-needle poking out
+    and a tin cup hung from the knot. ~0.5 m tall."""
+    reset()
+    cloth = mat("bone", -0.15)
+    cyl("Sack", 0.2, 0.24, 0.3, 7, (0, 0, 0), cloth)
+    cyl("SackTop", 0.24, 0.08, 0.16, 7, (0, 0, 0.3), cloth)
+    cyl("Tie", 0.09, 0.09, 0.05, 6, (0, 0, 0.42), mat("coal", -0.1))
+    cyl("Ears", 0.1, 0.02, 0.1, 5, (0, 0, 0.46), cloth)
+    box("Patch", (0.12, 0.02, 0.1), (0.05, -0.22, 0.14), mat("tide", 0.0))
+    beam("Needle", (-0.08, 0.02, 0.3), (-0.14, 0.04, 0.62), 0.03, mat("driftwood", 0.2), width=0.04)
+    cyl("Cup", 0.05, 0.045, 0.08, 6, (0.14, -0.1, 0.33), mat("slate", 0.2))
+    export("bundle")
+
+
 # --- Gull's Head ---------------------------------------------------------------------------
 
 def build_beacon_lit() -> None:
@@ -577,7 +637,8 @@ def build_beacon_lit() -> None:
 
 BUILDERS = [build_dock, build_rowboat, build_rowboat_upturned, build_moored_boat, build_smokehouse, build_barrel,
             build_barrels, build_crate, build_lantern_post, build_signal_lantern, build_fence, build_stool, build_cups,
-            build_net_racks, build_driftwood_log, build_wreck, build_reeds, build_grass, build_beacon_lit]
+            build_net_racks, build_driftwood_log, build_wreck, build_reeds, build_grass, build_beacon_lit,
+            build_ferry, build_bundle]
 
 if __name__ == "__main__":
     only = [a for a in sys.argv[1:] if not a.startswith("-")]

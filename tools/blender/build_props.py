@@ -24,6 +24,7 @@ PALETTE = {
     "moss": "#5E8C61",
     "pine": "#2F5D50",
     "tide": "#3D7EA6",
+    "abyss": "#1F3A5F",
     "slate": "#6B7280",
     "driftwood": "#C9B28F",
     "silverfog": "#C7CCD4",

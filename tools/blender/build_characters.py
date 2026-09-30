@@ -413,10 +413,55 @@ def build_hesk() -> None:
     assemble(b, "hesk")
 
 
+def build_oda() -> None:
+    """Oda Farrow, Tidewright ferry-master (sixties): long abyss greatcoat over a bone
+    gansey, pine watch cap, a white braid, the ferry's hand-scale for weighing deeds hanging
+    from her left hand and a bone speaking-horn slung at her hip."""
+    reset_scene()
+    b = Body(build=1.1)
+    coat = material("abyss", -0.05)
+    skin = material("driftwood", -0.05)
+    base_body(b, skin, material("ink", 0.2), material("ink", 0.05), material("bone", -0.2), sleeves=coat)
+    t = b.parts["Torso"]
+    # Greatcoat: open over the gansey, long skirts, wide collar, brass buttons down each edge.
+    t.append(limb((0, 0.02, 0.22), (0, 0.02, b.waist + 0.1), 0.38, 0.29, coat, verts=8))
+    for x in (0.2, -0.2):
+        t.append(block((0.1, 0.06, 0.6), (x, -0.23, b.shoulder - 0.3), coat, rot=(0, 0, -0.1 if x > 0 else 0.1)))
+        for z in (0.95, 1.08):
+            t.append(ball(0.022, (x * 0.8, -0.28, z), material("ember", -0.4), segments=4, rings=3))
+    t.append(ring(0.2, b.shoulder + 0.04, 0.12, coat))                                        # collar
+    t.append(ring(0.29, b.waist + 0.04, 0.05, material("ink", 0.1)))                          # belt
+    # The horn: a curved bone speaking-horn slung on the right hip from a cord.
+    t.append(limb((-0.3, -0.05, b.waist - 0.02), (-0.3, -0.12, b.waist - 0.32), 0.07, 0.025, material("bone", 0.0), verts=6))
+    t.append(limb((0.15, -0.2, b.shoulder), (-0.3, -0.08, b.waist - 0.02), 0.012, 0.012, material("driftwood", -0.3), verts=4))
+    h = b.parts["Head"]
+    cap = material("pine", -0.05)
+    h.append(ball(0.25, (0, 0.03, b.head + 0.08), cap, scale=(1.02, 1.02, 0.72)))
+    h.append(ring(0.25, b.head + 0.02, 0.07, material("pine", 0.15)))                       # turned-up cuff
+    hair = material("bone", 0.1)
+    h.append(limb((0, 0.22, b.head - 0.02), (0.02, 0.28, b.head - 0.42), 0.06, 0.035, hair, verts=5))  # braid
+    for ex in (0.075, -0.075):
+        h.append(block((0.08, 0.03, 0.02), (ex, -0.21, b.head + 0.07), hair))                 # white brows
+    # The deed-scale: a small brass balance hanging from the left hand, pans at rest.
+    hand = b.hand("L")
+    brass = material("ember", -0.35)
+    arm = b.parts["ArmL"]
+    arm.append(limb(hand + Vector((0, -0.05, -0.02)), hand + Vector((0, -0.05, -0.22)), 0.012, 0.012, brass, verts=4))
+    arm.append(block((0.3, 0.02, 0.02), hand + Vector((0, -0.05, -0.23)), brass))
+    for px in (0.14, -0.14):
+        arm.append(limb(hand + Vector((px, -0.05, -0.23)), hand + Vector((px, -0.05, -0.36)), 0.006, 0.006, brass, verts=4))
+        arm.append(limb(hand + Vector((px, -0.05, -0.38)), hand + Vector((px, -0.05, -0.36)), 0.07, 0.07, brass, verts=6))
+    b.arm_rest["ArmL"] = (math.radians(-30), 0, math.radians(6))
+    b.arm_rest["ArmR"] = (0, 0, math.radians(-8))
+    b.head_rest = (math.radians(-4), 0, 0)  # chin up, reading the weather
+    assemble(b, "oda")
+
+
+BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda]
+
 if __name__ == "__main__":
-    build_wakebearer()
-    build_mara()
-    build_pell()
-    build_aldous()
-    build_tam()
-    build_hesk()
+    import sys
+    only = [a for a in sys.argv[1:] if not a.startswith("-")]
+    for build in BUILDERS:
+        if not only or build.__name__.removeprefix("build_") in only:
+            build()
