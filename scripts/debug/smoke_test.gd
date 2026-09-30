@@ -6,9 +6,11 @@ extends Node
 ## quicksaves, resets and quickloads, checking state survives. Exits 0 on success.
 
 const MAX_DIALOGUE_STEPS := 200
-const PASSES := 3
+const PASSES := 5
 
 var _failures: PackedStringArray = []
+## Recap text of the end-of-act card, once it has been shown.
+var _act_end_recap := ""
 
 
 func _ready() -> void:
@@ -29,7 +31,9 @@ func _run() -> void:
 	await _check_greying(main)
 	await _check_gates(main, false)
 	# Several passes over every region so quests started on one pass can advance on the next
-	# (pass 3 reaches Aldous's confession and Mara's ferry lantern).
+	# (pass 3 reaches Aldous's confession and Mara's ferry lantern, and the horn sounds on
+	# arriving elsewhere; passes 4–5 meet the ferry, settle Pell with Mara and take passage,
+	# ending Act I).
 	for pass_index in PASSES:
 		for region_id: String in Content.db.regions:
 			GameState.travel(region_id)
@@ -37,6 +41,10 @@ func _run() -> void:
 				await get_tree().physics_frame
 			var region: Region = main.get("region")
 			_check(region != null and region.region_id == region_id, "region %s loaded" % region_id)
+			if ui.is_open():
+				# A region arrival event (the ferry's horn) is playing.
+				_finish_dialogue(ui, "arrival event in " + region_id)
+				await get_tree().process_frame
 			for node in get_tree().get_nodes_in_group("npcs"):
 				var npc := node as NpcActor
 				if npc.is_queued_for_deletion():
@@ -47,6 +55,7 @@ func _run() -> void:
 				_check(ui.is_open(), "dialogue opens for " + npc.npc_id)
 				_finish_dialogue(ui, npc.npc_id)
 				await get_tree().process_frame
+				await _close_act_end_card(main)
 			for node in get_tree().get_nodes_in_group("inspectables"):
 				var object := node as Inspectable
 				if object.is_queued_for_deletion():
@@ -251,17 +260,37 @@ func _check_journal(journal: JournalUI) -> void:
 	_check(not journal.is_open() and not GameState.input_locked, "Esc closes the journal and unlocks input")
 
 
-## Act I's close: Aldous has confessed (either way), Mara has hung the ferry signal lantern
-## and it shows at the Saltmarrow dock.
+## The end-of-act card shows (deferred) after the dialogue that ends an act: record it and
+## close it the way a player would.
+func _close_act_end_card(main: Node) -> void:
+	await get_tree().process_frame
+	var card: ActEndCard = main.get("act_end_card")
+	if card.is_open():
+		_check(GameState.input_locked, "the act-end card holds input")
+		_act_end_recap = card.recap_text()
+		card.close()
+		await get_tree().process_frame
+
+
+## Act I's close: Aldous has confessed (either way), Mara has hung the ferry signal lantern,
+## the horn sounded, the Slow Mercy is at the Saltmarrow dock with Oda and Pell on it, and
+## taking passage ended the act with a recap of the player's choices.
 func _check_act_one_close(main: Node) -> void:
 	var world := GameState.world
 	_check(str(world.get_flag("saltmarrow_aldous_confessed")) in ["full", "grudging"], "Aldous confessed")
-	_check(world.quest_stage("across_the_grey") == "await_the_ferry", "ferry quest awaits the ferry")
+	_check(world.get_flag("saltmarrow_ferry_arrived") == true, "the ferry's horn sounded")
+	_check(world.get_flag("saltmarrow_ferry_passage") == true, "Oda gave passage")
+	_check(world.quest_stage("across_the_grey") == "evening_tide", "ferry quest waits for the evening tide")
+	_check(str(world.get_flag("saltmarrow_pell_crossing")) in ["aboard", "stayed", "let_down"], "Pell's crossing settled")
+	_check(not _act_end_recap.is_empty(), "the Act I end card showed a recap")
+	_check(_act_end_recap.contains("Gull's Beacon burns"), "the recap names the burn")
 	GameState.travel("saltmarrow")
 	for i in 3:
 		await get_tree().physics_frame
 	var region: Region = main.get("region")
 	_check(region.shown_conditional_props("signal_lantern") == 1, "ferry signal lantern shows at the dock")
+	var names: Array = get_tree().get_nodes_in_group("npcs").map(func(n: Node) -> String: return (n as NpcActor).npc_id)
+	_check(names.has("oda") and names.has("pell"), "Oda and Pell on the Saltmarrow dock")
 	# Saltmarrow after the burn: nets are out drying, and the dressing matches the burn.
 	var burned := str(world.get_flag("saltmarrow_beacon_burned"))
 	_check(region.shown_conditional_props("net_frame") == (2 if burned == "knot" else 0), "net frames only after the knot burn")
