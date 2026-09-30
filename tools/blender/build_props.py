@@ -183,10 +183,15 @@ def build_net_loft() -> None:
     for x in (-1.4, 1.4):
         box("Rail", (0.08, 2.2, 0.08), (x, 0, 2.3), material("driftwood"))
     prism("Roof", 3.6, 2.8, 0.9, (0, 0, 3.0), material("slate"))
-    # Hanging nets: thin silverfog sheets, slightly staggered.
+    # Hanging nets: lattice nets (the dressing kit's `net`) staggered along the rails.
+    import build_dressing as bd  # lazy: build_dressing imports this module
+    bd._materials.clear()  # its cache may hold materials from a scene reset since
     for i, x in enumerate((-0.9, 0.0, 0.9)):
-        box(f"Net{i}", (0.7, 0.03, 1.0 + 0.15 * i), (x, -0.2 + 0.25 * i, 1.35), material("silverfog"))
+        bd.net(f"Net{i}", 0.7, 1.0 + 0.15 * i, (x, -0.2 + 0.25 * i, 1.85 - 0.075 * i), bd.mat("silverfog", -0.1 * i),
+               spacing=0.12, strand=0.024, sag=0.06)
+        box(f"NetBar{i}", (0.8, 0.05, 0.05), (x, -0.2 + 0.25 * i, 2.33), material("driftwood"))
     box("Ladder", (0.5, 0.06, 1.2), (0.9, -1.3, 0.0), material("driftwood"))
+    bd.merge_by_material()  # the net strands become one mesh per material
     export("net_loft")
 
 
