@@ -53,6 +53,11 @@ func _run() -> void:
 					_check(npc.find_child("CharacterRig", true, false) != null, "npc %s shows its rigged model" % npc.npc_id)
 				npc.interact()
 				_check(ui.is_open(), "dialogue opens for " + npc.npc_id)
+				if pass_index == 0 and npc.npc_id == "mara":
+					# Mara looks out over the harbor; talking, she turns to the player (west of her).
+					for i in 30:
+						await get_tree().process_frame
+					_check(npc.body_yaw() < -0.5, "mara turns to face the player (yaw %.2f)" % npc.body_yaw())
 				_finish_dialogue(ui, npc.npc_id)
 				await get_tree().process_frame
 				await _close_act_end_card(main)
