@@ -9,6 +9,7 @@ extends Node3D
 ##   --quest=<id>[:stage]  start a quest at a stage, or complete it without one (debug);
 ##                         comma-separate several. E.g. screenshots of late-game states:
 ##                         --flags=intro_seen,saltmarrow_beacon_burned=knot --quest=a_light_for_saltmarrow
+##   --act-end=<id>        show that act's end card for the current state (debug/screenshots)
 
 var region: Region
 var player: Player
@@ -17,6 +18,9 @@ var dialogue_ui: DialogueUI
 var journal_ui: JournalUI
 var greying: GreyingWalker
 var atmosphere: Atmosphere
+var act_end_card: ActEndCard
+## Acts whose end the story had already reached (so a card shows once, when it changes).
+var _acts_reached: Dictionary = {}
 
 
 func _ready() -> void:
@@ -29,6 +33,9 @@ func _ready() -> void:
 	add_child(dialogue_ui)
 	journal_ui = JournalUI.new()
 	add_child(journal_ui)
+	act_end_card = ActEndCard.new()
+	add_child(act_end_card)
+	dialogue_ui.closed.connect(_check_act_end)
 	player = Player.new()
 	add_child(player)
 	player.focus_changed.connect(hud.set_focus)
@@ -47,6 +54,7 @@ func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--flags=") or arg.begins_with("--quest="):
 			_apply_debug_state(arg)
+	_acts_reached = ActRecap.reached(Content.db, GameState.world)
 	var intro := str(Content.db.game.get("intro_dialogue", ""))
 	if fresh and not intro.is_empty() and not GameState.world.get_flag("intro_seen"):
 		dialogue_ui.open.call_deferred(intro)
@@ -59,6 +67,10 @@ func _ready() -> void:
 			add_child(shot)
 		elif arg.begins_with("--region="):
 			GameState.travel(arg.get_slice("=", 1))
+		elif arg.begins_with("--act-end="):
+			for act in ActRecap.acts(Content.db):
+				if str(act["id"]) == arg.get_slice("=", 1):
+					act_end_card.show_act.call_deferred(act, ActRecap.lines(act, GameState.world))
 
 
 ## Debug-only world setup from `--flags=` / `--quest=` (see the header comment).
@@ -106,6 +118,36 @@ func load_region(region_id: String, spawn: String) -> void:
 	greying.enter_region(region)
 	_apply_region_mood(false)
 	hud.show_region_title(str(region.data.get("name", region_id)))
+	# A load can jump the story anywhere; only acts ended *in play* get a card.
+	_acts_reached = ActRecap.reached(Content.db, GameState.world)
+	_fire_arrival_event.call_deferred()
+
+
+## Region `events`: on arrival, the first event whose `if` holds sets its flags (which
+## switch it off — validated) and plays its dialogue (e.g. the ferry's horn heard from the
+## beach). Waits for any open dialogue to finish first.
+func _fire_arrival_event() -> void:
+	if region == null or RegionEvents.arrival(region.data, GameState.world).is_empty():
+		return
+	if dialogue_ui.is_open():
+		await dialogue_ui.closed
+		_fire_arrival_event.call_deferred()
+		return
+	var event := RegionEvents.arrival(region.data, GameState.world)
+	if not event.is_empty():
+		dialogue_ui.open(RegionEvents.fire(event, GameState.world))
+
+
+## After each conversation: if it just ended an act, show that act's end card.
+func _check_act_end() -> void:
+	var now := ActRecap.reached(Content.db, GameState.world)
+	for act in ActRecap.acts(Content.db):
+		var id := str(act["id"])
+		if now.has(id) and not _acts_reached.has(id):
+			# Deferred: the closing dialogue unlocks input on a deferred call of its own.
+			act_end_card.show_act.call_deferred(act, ActRecap.lines(act, GameState.world))
+			break
+	_acts_reached = now
 
 
 func _on_region_change_requested(region_id: String, spawn: String) -> void:

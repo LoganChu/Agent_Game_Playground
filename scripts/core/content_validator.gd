@@ -89,6 +89,22 @@ func _validate_game() -> void:
 		_ref_dialogue(where, str(db.game["intro_dialogue"]))
 	if db.game.has("player_model"):
 		_ref_character_model(where, str(db.game["player_model"]))
+	var acts: Variant = db.game.get("act_ends", [])
+	if not acts is Array:
+		_err(where, "act_ends must be a list")
+		return
+	for act: Variant in acts:
+		if not act is Dictionary:
+			_err(where, "act_ends entries must be objects")
+			continue
+		var a: Dictionary = act
+		_require_fields(where + " act_ends", a, ["id", "when", "title", "coda"])
+		_ref_condition(where, a.get("when"))
+		for line: Variant in a.get("recap", []):
+			if not line is Dictionary or str((line as Dictionary).get("text", "")).is_empty():
+				_err(where, "act_ends recap lines need 'text'")
+				continue
+			_ref_condition(where, (line as Dictionary).get("if"))
 
 
 func _validate_flags() -> void:
@@ -190,9 +206,15 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		var npc_id := str(placement.get("npc", ""))
 		if not db.npcs.has(npc_id):
 			_err(where, "places unknown npc '%s'" % npc_id)
-		elif _npcs_placed.has(npc_id):
-			_err(where, "npc '%s' is placed more than once (also in %s)" % [npc_id, _npcs_placed[npc_id]])
-		_npcs_placed[npc_id] = id
+		else:
+			# An NPC may stand in several places only if every placement is conditional
+			# (e.g. Pell on the beach until the ferry comes, then on the dock).
+			var placements: Array = _npcs_placed.get(npc_id, [])
+			placements.append({"region": id, "conditional": placement.has("if")})
+			_npcs_placed[npc_id] = placements
+			if placements.size() > 1 and placements.any(func(p: Dictionary) -> bool: return not p["conditional"]):
+				_err(where, "npc '%s' is placed more than once (also in %s); every placement then needs an 'if'" \
+						% [npc_id, placements[0]["region"]])
 		_ref_condition(where, placement.get("if"))
 	for prop: Dictionary in region.get("props", []):
 		var model := str(prop.get("model", ""))
@@ -253,9 +275,48 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		var target_spawns: Dictionary = db.get_region(to).get("spawn_points", {})
 		if not target_spawns.has(str(exit.get("spawn", "default"))):
 			_err(where, "exit spawn '%s' not in region '%s'" % [exit.get("spawn", "default"), to])
+	_validate_events(where, region)
 	_validate_greying(where, region)
 	if region.has("ground"):
 		_validate_ground(where, region)
+
+
+## Region `events` (arrival events, main.gd): each needs an id, an `if`, a dialogue and a
+## `set` that switches its own `if` off (a `!flag:x` term with x in `set`), so an event can
+## never fire twice.
+func _validate_events(where: String, region: Dictionary) -> void:
+	var events: Variant = region.get("events", [])
+	if not events is Array:
+		_err(where, "events must be a list")
+		return
+	var ids: Dictionary = {}
+	for event: Variant in events:
+		if not event is Dictionary:
+			_err(where, "events entries must be objects")
+			continue
+		var e: Dictionary = event
+		for key: String in e:
+			if key not in ["id", "if", "dialogue", "set", "note"]:
+				_err(where, "event has unknown key '%s'" % key)
+		var eid := str(e.get("id", ""))
+		if eid.is_empty() or ids.has(eid):
+			_err(where, "events need a unique 'id' ('%s')" % eid)
+		ids[eid] = true
+		if not e.has("if"):
+			_err(where, "event '%s' needs an 'if'" % eid)
+		_ref_condition(where, e.get("if"))
+		_ref_dialogue(where, str(e.get("dialogue", "")))
+		var sets: Variant = e.get("set", {})
+		if not sets is Dictionary or (sets as Dictionary).is_empty():
+			_err(where, "event '%s' needs a 'set' that switches it off" % eid)
+			continue
+		var once := false
+		for flag_id: String in (sets as Dictionary):
+			_ref_flag_set(where, flag_id)
+			if ("!flag:" + flag_id) in Conditions.terms(e.get("if")):
+				once = true
+		if not once:
+			_err(where, "event '%s' must read one of its 'set' flags as '!flag:<id>' in its 'if' (fires once)" % eid)
 
 
 ## Region `light` (RegionMood.light): known keys, palette/#hex colours, numeric values;
