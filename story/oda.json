@@ -1,0 +1,350 @@
+{
+  "id": "oda",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:saltmarrow_ferry_deed=",
+        "goto": "first"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "The ferry-master is a square old woman in a sea-dark greatcoat, a brass hand-scale hanging from one fist. She looks at the ember in your hand for a long moment, then up at the Gull."
+      },
+      {
+        "say": "oda",
+        "text": "Oda Farrow. Master of the Slow Mercy, thirty-eight years on the lanes. We saw your light from the Narrows. Whole crew stood at the rail like fools."
+      },
+      {
+        "say": "oda",
+        "text": "You'll know we don't take coin. The lanes want a deed, and I weigh it. That's the fare, the old way."
+      },
+      {
+        "say": "oda",
+        "text": "So. Tell it me. What did you do here?"
+      },
+      {
+        "choice": [
+          {
+            "text": "I relit the Gull's Beacon.",
+            "set": {
+              "saltmarrow_ferry_deed": "claimed"
+            },
+            "goto": "deed_claimed"
+          },
+          {
+            "text": "Saltmarrow relit it. I carried the ember up the hill.",
+            "set": {
+              "saltmarrow_ferry_deed": "shared"
+            },
+            "goto": "deed_shared"
+          },
+          {
+            "text": "Does it matter? I need to cross.",
+            "set": {
+              "saltmarrow_ferry_deed": "brusque"
+            },
+            "goto": "deed_brusque"
+          }
+        ]
+      }
+    ],
+    "deed_claimed": [
+      {
+        "say": "oda",
+        "text": "Plain enough. I like a plain teller."
+      },
+      {
+        "goto": "cost"
+      }
+    ],
+    "deed_shared": [
+      {
+        "say": "oda",
+        "text": "Hah. A Wakebearer who shares the weight. That's new. The lanes like that — they're shared, too."
+      },
+      {
+        "goto": "cost"
+      }
+    ],
+    "deed_brusque": [
+      {
+        "say": "oda",
+        "text": "It matters to the lanes. Might be it'll matter to you, the far side of the fog."
+      },
+      {
+        "goto": "cost"
+      }
+    ],
+    "cost": [
+      {
+        "say": "oda",
+        "text": "A beacon doesn't light for nothing. What did it eat?"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "goto": "cost_pebble"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "goto": "cost_knot"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "goto": "cost_gull"
+      },
+      {
+        "goto": "weigh"
+      }
+    ],
+    "cost_pebble": [
+      {
+        "say": "player",
+        "text": "A lullaby. Saltmarrow's cradle-song. Nobody here can hum it now."
+      },
+      {
+        "say": "oda",
+        "text": "That one? I've heard it sung off this very dock. Went like—"
+      },
+      {
+        "say": "narrator",
+        "text": "She hums. Three notes, four. They go past you like rain off a coat; you reach for them and there is nothing to hold."
+      },
+      {
+        "say": "oda",
+        "text": "…You didn't catch that, did you. None of you will. Burned is burned, for them that stood in the light."
+      },
+      {
+        "say": "oda",
+        "text": "I'll keep it, then. Somebody should."
+      },
+      {
+        "goto": "weigh"
+      }
+    ],
+    "cost_knot": [
+      {
+        "say": "player",
+        "text": "Saltmarrow's founding knot. The first knot of the first net."
+      },
+      {
+        "say": "narrator",
+        "text": "Oda's jaw works. Behind her, a deckhand coiling rope stops coiling."
+      },
+      {
+        "say": "oda",
+        "text": "Every Tidewright net starts with a knot someone taught us. I'll not pretend that sits easy with my crew."
+      },
+      {
+        "say": "oda",
+        "text": "But the Gull's lit, and the lanes can see Saltmarrow again. That weighs more. Barely."
+      },
+      {
+        "goto": "weigh"
+      }
+    ],
+    "cost_gull": [
+      {
+        "say": "player",
+        "text": "A memory of Mara's. Of someone she loved. I— can't recall who."
+      },
+      {
+        "say": "oda",
+        "text": "Mara Tollen's? Then it'll be Dunstan. Her brother. Big laugh, bigger hands. Crewed for me two winters, and sang worse than the horn."
+      },
+      {
+        "say": "narrator",
+        "text": "The name goes past you like a gull past a window. You try to hold it, and there is nothing there to hold."
+      },
+      {
+        "say": "oda",
+        "text": "…You don't know him. None of you do, now. I'll not say it again; it's a cruelty, saying it."
+      },
+      {
+        "set": {
+          "saltmarrow_oda_knew_dunstan": true
+        },
+        "goto": "weigh"
+      }
+    ],
+    "weigh": [
+      {
+        "say": "narrator",
+        "text": "Oda sets something you can't see on one pan of her scale, and waits. The pans rock, and settle level."
+      },
+      {
+        "if": "flag:saltmarrow_ferry_deed=brusque",
+        "say": "oda",
+        "text": "Hm. You tell it poorly. The deed's heavier than the telling, so it'll do."
+      },
+      {
+        "say": "oda",
+        "text": "It weighs. You've a berth on the Slow Mercy."
+      },
+      {
+        "say": "oda",
+        "text": "Not to Cindermoor. Nobody lands on Cindermoor, not since the Spire went dark. The lanes run light to light, and the next light's out. Thornwold. I'll take you that far."
+      },
+      {
+        "quest_stage": [
+          "across_the_grey",
+          "take_passage"
+        ],
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Why only as far as Thornwold?",
+            "goto": "route"
+          },
+          {
+            "text": "Show Oda the Keeper's sleeve-ember.",
+            "if": [
+              "item:keepers_sleeve_ember",
+              "!flag:saltmarrow_oda_saw_sleeve_ember"
+            ],
+            "set": {
+              "saltmarrow_oda_saw_sleeve_ember": true
+            },
+            "goto": "sleeve"
+          },
+          {
+            "text": "About Pell.",
+            "if": "flag:saltmarrow_pell_ferry_ask=promised",
+            "goto": "pell"
+          },
+          {
+            "text": "I'm ready. Take me across.",
+            "if": "stage:across_the_grey=take_passage",
+            "goto": "ready"
+          },
+          {
+            "text": "When do we sail?",
+            "if": "flag:saltmarrow_ferry_passage",
+            "goto": "when"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "route": [
+      {
+        "say": "oda",
+        "text": "Tidewright lanes run beacon to beacon. A lit island is a lane you can steer by. A dark one's a hole in the sea."
+      },
+      {
+        "say": "oda",
+        "text": "Thornwold's beacon went out the night of the Snuffing, same as yours. Pines and bramble, and paths that won't lie still. The charcoal folk are still there, and our lumber camp, what's left of it."
+      },
+      {
+        "say": "oda",
+        "text": "Light Thornwold, and the lane past it opens. That's how you get to Cindermoor. One light at a time, same as anyone."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "sleeve": [
+      {
+        "say": "narrator",
+        "text": "Oda looks at the faded thread for a long time. She does not touch it."
+      },
+      {
+        "say": "oda",
+        "text": "Put that away."
+      },
+      {
+        "say": "oda",
+        "text": "Keepers ride my deck if they pay. They pay twice: once for the crossing, and once for the Spire. It went dark on their watch."
+      },
+      {
+        "say": "oda",
+        "text": "Aldous Wren cut that off himself? Then he's done one honest thing in his life. Keep it in your coat. My crew won't be so thoughtful."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pell": [
+      {
+        "if": "flag:saltmarrow_pell_crossing=",
+        "say": "oda",
+        "text": "The kid on my dock with the bundle says they're crossing with you. Children cross with their kin's leave. That's lane law, old as the lanes."
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=",
+        "say": "oda",
+        "text": "Get Mara Tollen's say, or leave the kid on the dock. I'll not steal a child off an island, even for a Wakebearer."
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=aboard",
+        "say": "oda",
+        "text": "Mara's said yes? Then the kid crosses. I'll put them to coiling rope. Kids who coil rope don't fall overboard."
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=let_down",
+        "say": "oda",
+        "text": "The kid's sat on that bundle an hour, not crying. Hard thing, a promise taken back. The lanes weigh those too, you know."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ready": [
+      {
+        "if": [
+          "flag:saltmarrow_pell_ferry_ask=promised",
+          "flag:saltmarrow_pell_crossing="
+        ],
+        "say": "oda",
+        "text": "Not while that kid's waiting on an answer. Go and get Mara's say, one way or the other."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_pell_ferry_ask=promised",
+          "flag:saltmarrow_pell_crossing="
+        ],
+        "goto": "hub"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda puts two fingers in her mouth and whistles. Aboard the Slow Mercy, somebody starts counting the tide."
+      },
+      {
+        "say": "oda",
+        "text": "Evening tide, then. Say what's left to say. When you step aboard, you're ours till Thornwold."
+      },
+      {
+        "set": {
+          "saltmarrow_ferry_passage": true
+        },
+        "quest_stage": [
+          "across_the_grey",
+          "evening_tide"
+        ]
+      },
+      {
+        "end": true
+      }
+    ],
+    "when": [
+      {
+        "say": "oda",
+        "text": "When the tide's right, and not before. I'll whistle. You'll hear it."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

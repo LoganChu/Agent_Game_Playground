@@ -3,5 +3,74 @@
   "start_region": "shingle_point",
   "start_spawn": "default",
   "intro_dialogue": "wake_intro",
-  "player_model": "res://assets/models/characters/wakebearer.glb"
+  "player_model": "res://assets/models/characters/wakebearer.glb",
+  "act_ends": [
+    {
+      "id": "act1",
+      "when": "flag:saltmarrow_ferry_passage",
+      "title": "Act I — The Wake",
+      "subtitle": "Saltmarrow remembers you. Mostly.",
+      "recap": [
+        {
+          "if": "flag:saltmarrow_beacon_burned=pebble",
+          "text": "The Gull's Beacon burns on Saltmarrow's lullaby. Nobody there will ever hum it again."
+        },
+        {
+          "if": [
+            "flag:saltmarrow_beacon_burned=pebble",
+            "flag:saltmarrow_pell_lent_pebble"
+          ],
+          "text": "Pell gave the pebble up, and keeps an empty nest clear without knowing why."
+        },
+        {
+          "if": "flag:saltmarrow_beacon_burned=knot",
+          "text": "The Gull's Beacon burns on the founding knot. Saltmarrow's nets begin in the middle now, and Hesk has stopped humming."
+        },
+        {
+          "if": "flag:saltmarrow_beacon_burned=gull",
+          "text": "The Gull's Beacon burns on Mara's memory of her brother. She still sets out two cups."
+        },
+        {
+          "if": "flag:saltmarrow_aldous_confessed=full",
+          "text": "Brother Aldous told you all he could bear to, and cut the ember from his sleeve."
+        },
+        {
+          "if": "flag:saltmarrow_aldous_confessed=grudging",
+          "text": "Brother Aldous gave you the bare fact and nothing more."
+        },
+        {
+          "if": [
+            "flag:saltmarrow_mara_knows_dunstan_chose",
+            "!flag:saltmarrow_beacon_burned=gull"
+          ],
+          "text": "Mara knows Dunstan walked into the fog by choice."
+        },
+        {
+          "if": "flag:saltmarrow_mara_message_for_dunstan",
+          "text": "You carry a message for him: the stool is still by the door."
+        },
+        {
+          "if": "flag:saltmarrow_oda_knew_dunstan",
+          "text": "Oda Farrow remembers a man called Dunstan. The name will not stay with you."
+        },
+        {
+          "if": "flag:saltmarrow_pell_crossing=aboard",
+          "text": "Pell is crossing with you, with Mara's leave, to coil rope on the Slow Mercy."
+        },
+        {
+          "if": "flag:saltmarrow_pell_crossing=let_down",
+          "text": "You promised Pell a crossing, then took it back."
+        },
+        {
+          "if": "flag:saltmarrow_pell_crossing=stayed",
+          "text": "Pell stays on Saltmarrow, and sent a pouch for something lost and good."
+        },
+        {
+          "if": "flag:saltmarrow_oda_saw_sleeve_ember",
+          "text": "Oda Farrow has seen the Keeper's sleeve-ember in your hand."
+        }
+      ],
+      "coda": "The Slow Mercy sails for Thornwold on the evening tide. Act II — The Drift — is still being written; every choice you made here will cross with you."
+    }
+  ]
 }

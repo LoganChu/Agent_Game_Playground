@@ -67,13 +67,49 @@
       "default": false
     },
     "saltmarrow_pell_ferry_ask": {
-      "description": "What the player told Pell on seeing the green ferry lantern: '' (not asked), 'promised' (Pell may come on the ferry), 'refused' (Pell stays; asks for something lost brought back) or 'undecided' (Pell will ask again when the horn sounds). Pays off when the ferry arrives (Act II).",
-      "default": "",
-      "future": true
+      "description": "What the player told Pell about the ferry: '' (not asked), 'promised' (Pell may come), 'refused' (Pell stays; asks for something lost brought back) or 'undecided' (Pell asks again, loudly, when the ferry comes). Asked on seeing the green lantern or on the dock when the ferry is in.",
+      "default": ""
     },
     "saltmarrow_mara_saw_sleeve_ember": {
       "description": "Player showed Mara the Keeper's sleeve-ember Aldous cut from his robe; she warned them Tidewrights don't love Keepers.",
       "default": false
+    },
+    "saltmarrow_ferry_arrived": {
+      "description": "The Tidewright ferry Slow Mercy sounded its horn and put in at the Saltmarrow dock (region arrival event after the green lantern was hung). Pell moves from Shingle Point to the dock.",
+      "default": false
+    },
+    "saltmarrow_ferry_deed": {
+      "description": "How the player told Oda Farrow their deed (the Tidewright fare): '' (not yet), 'claimed' (I relit the Gull), 'shared' (Saltmarrow did; I carried the ember) or 'brusque' (just take me across). Tidewrights in Act II should know how the Wakebearer talks about their deeds.",
+      "default": "",
+      "future": true
+    },
+    "saltmarrow_oda_knew_dunstan": {
+      "description": "After the gull burn, Oda Farrow (from off-island) spoke of Dunstan Tollen, who crewed for her; the name would not stay with the Wakebearer. Proof that a burned memory survives off the island (Act II payoff).",
+      "default": false,
+      "future": true
+    },
+    "saltmarrow_oda_saw_sleeve_ember": {
+      "description": "Player showed Oda Farrow the Keeper's sleeve-ember despite Mara's warning; Tidewrights make Keepers pay twice. Act II Tidewrights may be cooler.",
+      "default": false,
+      "future": true
+    },
+    "saltmarrow_pell_crossing": {
+      "description": "How Pell's wish to cross ended when the ferry came: '' (unresolved), 'aboard' (Mara gave leave; Pell crosses on the Slow Mercy), 'stayed' (Pell stays and gave the player a finding pouch) or 'let_down' (promised, then the player told Mara Pell should stay). Act II must honour it.",
+      "default": ""
+    },
+    "saltmarrow_mara_farewell": {
+      "description": "Mara said goodbye to the player after the ferry's horn (one-time scene).",
+      "default": false
+    },
+    "saltmarrow_mara_message_for_dunstan": {
+      "description": "Mara, knowing Dunstan chose the fog, asked the player to tell him the stool is still there, if they see him. Pays off when Dunstan is found among the Unmoored (Act II).",
+      "default": false,
+      "future": true
+    },
+    "saltmarrow_ferry_passage": {
+      "description": "Oda Farrow gave the player a berth on the Slow Mercy for Thornwold, sailing on the evening tide. Ends Act I (the act-end card); Act II starts from it.",
+      "default": false,
+      "future": true
     }
   }
 }

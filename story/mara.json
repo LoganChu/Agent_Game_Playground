@@ -130,6 +130,26 @@
             "goto": "sleeve_ember"
           },
           {
+            "text": "The ferry's in.",
+            "if": [
+              "flag:saltmarrow_ferry_arrived",
+              "!flag:saltmarrow_mara_farewell"
+            ],
+            "set": {
+              "saltmarrow_mara_farewell": true
+            },
+            "goto": "farewell"
+          },
+          {
+            "text": "About Pell and the ferry.",
+            "if": [
+              "flag:saltmarrow_ferry_arrived",
+              "flag:saltmarrow_pell_ferry_ask=promised",
+              "flag:saltmarrow_pell_crossing="
+            ],
+            "goto": "pell_ferry"
+          },
+          {
             "text": "I'll be going.",
             "end": true
           }
@@ -474,6 +494,133 @@
       {
         "say": "mara",
         "text": "Keep it out of sight on the ferry. Tidewrights don't love Keepers. They'll say the Spire went dark on the Keepers' watch, and they won't be wrong."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "farewell": [
+      {
+        "say": "mara",
+        "text": "Heard it. Whole village heard it. Hesk'll have heard it up in the lofts, if she hears anything now."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "mara",
+        "text": "Funny thing. I set out two cups this morning, same as always, and I thought: one of those is for a traveller. That'll be you, then. Drink it before you go. It's cold."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "mara",
+        "text": "There's a tune I've been after all morning. Something to send a boat off with. Can't find it. Never mind; the horn'll do."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "mara",
+        "text": "Tidewrights'll give you grief about the knot. Let them. The nets still hold. That's what nets are for."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_mara_knows_dunstan_chose",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "goto": "farewell_dunstan"
+      },
+      {
+        "goto": "farewell_end"
+      }
+    ],
+    "farewell_dunstan": [
+      {
+        "say": "mara",
+        "text": "And— if you see a big man out there in the fog. Tollen shoulders. Laughs like a dropped anchor."
+      },
+      {
+        "say": "mara",
+        "text": "Tell him the stool's still by the door. Don't tell him to come home. He knows where it is."
+      },
+      {
+        "set": {
+          "saltmarrow_mara_message_for_dunstan": true
+        },
+        "goto": "farewell_end"
+      }
+    ],
+    "farewell_end": [
+      {
+        "say": "mara",
+        "text": "Go on, then. Light the next one. And eat something before you board; Tidewright cooking is a punishment."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pell_ferry": [
+      {
+        "say": "mara",
+        "text": "Pell's told me nothing, which is how I know something's up. That bundle's got my good cup in it."
+      },
+      {
+        "say": "mara",
+        "text": "You promised a child a crossing into the fog. Without asking me."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_pell_lent_pebble",
+          "flag:saltmarrow_beacon_burned=pebble"
+        ],
+        "say": "mara",
+        "text": "The kid gave up that pebble for this village. Doesn't even know what they gave. Maybe that's earned a bit of sea."
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll keep Pell close. You have my word, on the ember.",
+            "set": {
+              "saltmarrow_pell_crossing": "aboard"
+            },
+            "goto": "pell_ferry_yes"
+          },
+          {
+            "text": "You're right. Pell should stay with you.",
+            "set": {
+              "saltmarrow_pell_crossing": "let_down"
+            },
+            "goto": "pell_ferry_no"
+          }
+        ]
+      }
+    ],
+    "pell_ferry_yes": [
+      {
+        "say": "narrator",
+        "text": "Mara looks down the dock for a long while. Pell is pretending very hard not to watch."
+      },
+      {
+        "say": "mara",
+        "text": "Pell's not mine to keep. Never was. Nobody I love ever is, it seems."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "mara",
+        "text": "…Odd. I feel I've said that before, about someone. Can't think who."
+      },
+      {
+        "say": "mara",
+        "text": "Go on, tell the kid before I change my mind. And you bring them back with all their fingers."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pell_ferry_no": [
+      {
+        "say": "mara",
+        "text": "Then you tell the kid. You made the promise. You unmake it."
+      },
+      {
+        "say": "narrator",
+        "text": "She says it without heat, and it lands harder for that."
       },
       {
         "goto": "hub"

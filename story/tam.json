@@ -52,6 +52,11 @@
             "goto": "ferry_fare"
           },
           {
+            "text": "The ferry's in.",
+            "if": "flag:saltmarrow_ferry_arrived",
+            "goto": "ferry_in"
+          },
+          {
             "text": "Thanks, Tam.",
             "end": true
           }
@@ -111,6 +116,19 @@
         "if": "flag:saltmarrow_beacon_burned=knot",
         "say": "tam",
         "text": "Mind, some of the crew'll ask what it cost. Tidewrights tie nets too. Don't expect them all to thank you for the knot."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ferry_in": [
+      {
+        "say": "tam",
+        "text": "Half the gate crew's down the dock pretending to check lines. That's the Slow Mercy. Oda Farrow's. She taught me my first hitch."
+      },
+      {
+        "say": "tam",
+        "text": "If she weighs you light, don't argue. Nobody's ever won an argument with Oda. Not even the sea."
       },
       {
         "goto": "hub"

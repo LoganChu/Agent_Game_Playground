@@ -554,24 +554,25 @@
     {
       "model": "res://assets/models/dressing/moored_boat.glb",
       "position": [
-        10.5,
+        12.8,
         -0.25,
-        17
+        18.8
       ],
       "rotation_y": 8,
       "scale": 0.8,
       "snap": false,
-      "note": "Moored in the harbor basin; origin at the waterline."
+      "note": "Moored in the harbor basin, east of the ferry's berth; origin at the waterline."
     },
     {
       "model": "res://assets/models/dressing/rowboat.glb",
       "position": [
-        8.3,
+        4.0,
         -0.45,
-        13.8
+        15.6
       ],
-      "rotation_y": -6,
-      "snap": false
+      "rotation_y": 4,
+      "snap": false,
+      "note": "Tied off the west side of the dock (the ferry berths on the east)."
     },
     {
       "model": "res://assets/models/dressing/rowboat_upturned.glb",
@@ -810,6 +811,42 @@
         1.5
       ],
       "rotation_y": 79
+    },
+    {
+      "model": "res://assets/models/dressing/ferry.glb",
+      "position": [
+        8.9,
+        -0.25,
+        16.5
+      ],
+      "rotation_y": 180,
+      "snap": false,
+      "if": "flag:saltmarrow_ferry_arrived",
+      "light": {
+        "color": "moss",
+        "energy": 1.2,
+        "range": 8.0,
+        "offset": [
+          0,
+          7.6,
+          -1.2
+        ]
+      },
+      "note": "The Tidewright ferry Slow Mercy alongside the dock (port side and boarding plank toward the dock); origin at the waterline. The light is its green masthead lantern."
+    },
+    {
+      "model": "res://assets/models/dressing/bundle.glb",
+      "position": [
+        5.2,
+        0,
+        13.2
+      ],
+      "rotation_y": 30,
+      "if": [
+        "flag:saltmarrow_ferry_arrived",
+        "flag:saltmarrow_pell_ferry_ask=promised"
+      ],
+      "note": "Pell's travelling bundle at the foot of the dock."
     }
   ],
   "npcs": [
@@ -839,6 +876,28 @@
         -13
       ],
       "rotation_y": -60
+    },
+    {
+      "npc": "pell",
+      "position": [
+        5.7,
+        0,
+        13.4
+      ],
+      "rotation_y": 20,
+      "if": "flag:saltmarrow_ferry_arrived",
+      "note": "On the dock once the ferry is in."
+    },
+    {
+      "npc": "oda",
+      "position": [
+        6.1,
+        0,
+        17.2
+      ],
+      "rotation_y": 0,
+      "if": "flag:saltmarrow_ferry_arrived",
+      "note": "Ferry-master at the dock end, by the boarding plank."
     }
   ],
   "exits": [

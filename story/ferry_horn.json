@@ -1,0 +1,32 @@
+{
+  "id": "ferry_horn",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A sound comes in off the sea: one long low note, then two short, like something very large clearing its throat."
+      },
+      {
+        "say": "narrator",
+        "text": "Out past the harbor wall, through the thinned grey, a green light answers Mara's."
+      },
+      {
+        "say": "player",
+        "text": "The ferry."
+      },
+      {
+        "say": "narrator",
+        "text": "Somewhere far off, a small voice shrieks: \"THE HORN! THAT'S THE HORN!\""
+      },
+      {
+        "quest_stage": [
+          "across_the_grey",
+          "meet_the_ferry"
+        ]
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

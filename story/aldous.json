@@ -87,6 +87,11 @@
             "goto": "spire"
           },
           {
+            "text": "The ferry's come.",
+            "if": "flag:saltmarrow_ferry_arrived",
+            "goto": "ferry"
+          },
+          {
             "text": "Rest easy, Brother.",
             "end": true
           }
@@ -502,6 +507,24 @@
           "saltmarrow_aldous_confessed": "grudging"
         },
         "quest_start": "across_the_grey"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ferry": [
+      {
+        "say": "aldous",
+        "text": "I heard. I'm not coming, before you ask. A Keeper on a Tidewright deck? They'd weigh me and find me light, and they'd be right."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_confessed=full",
+        "say": "aldous",
+        "text": "Keep that sleeve out of sight till Cindermoor. It'll open a door or two there. Not before."
+      },
+      {
+        "say": "aldous",
+        "text": "Thornwold had a beacon-keeper of ours, once. I'll not say the name. Names carry. But if someone in those woods looks at your ember like they've seen one before… be kind to them. Kinder than I'd be."
       },
       {
         "goto": "hub"

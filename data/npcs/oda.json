@@ -1,0 +1,9 @@
+{
+  "id": "oda",
+  "name": "Oda Farrow",
+  "color": "abyss",
+  "dialogue": "oda",
+  "model": "res://assets/models/characters/oda.glb",
+  "faction": "tidewrights",
+  "bio": "Master of the Tidewright ferry Slow Mercy, thirty-eight years on the lanes. Weighs every passenger's deed on a brass hand-scale. Blunt, fair, superstitious about names."
+}

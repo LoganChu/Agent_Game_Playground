@@ -12,7 +12,19 @@
     },
     {
       "id": "await_the_ferry",
-      "text": "Mara has hung the green lantern outside her door. Wait for the ferry's horn."
+      "text": "Mara has hung the green lantern outside her door. Watched harbors never get ferries — go about your business until you hear the horn."
+    },
+    {
+      "id": "meet_the_ferry",
+      "text": "The ferry's horn! A Tidewright ferry has put in at the Saltmarrow dock. Find its master."
+    },
+    {
+      "id": "take_passage",
+      "text": "Oda Farrow of the Slow Mercy has weighed your deed and will take you as far as Thornwold. Settle what's left in Saltmarrow, then tell her you're ready."
+    },
+    {
+      "id": "evening_tide",
+      "text": "You have a berth on the Slow Mercy. She sails for Thornwold on the evening tide. (Act II is still being written.)"
     }
   ]
 }

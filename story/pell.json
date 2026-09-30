@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:saltmarrow_ferry_arrived",
+        "goto": "dock"
+      },
+      {
         "if": "!flag:shingle_met_pell",
         "goto": "first"
       },
@@ -96,7 +100,8 @@
             "text": "Mara's hung a green lantern by her door.",
             "if": [
               "flag:saltmarrow_ferry_lantern_hung",
-              "flag:saltmarrow_pell_ferry_ask="
+              "flag:saltmarrow_pell_ferry_ask=",
+              "!flag:saltmarrow_ferry_arrived"
             ],
             "goto": "ferry_lantern"
           },
@@ -446,6 +451,201 @@
       {
         "say": "pell",
         "text": "That's a grown-up yes that means no. Or a grown-up no that means yes. I'll ask. I'll be LOUD."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dock": [
+      {
+        "if": "!flag:shingle_met_pell",
+        "set": {
+          "shingle_met_pell": true
+        },
+        "say": "pell",
+        "text": "You're the one with the ember! Everybody says. I'm Pell. I find things."
+      },
+      {
+        "if": "flag:saltmarrow_pell_ferry_ask=",
+        "goto": "dock_ask"
+      },
+      {
+        "if": "flag:saltmarrow_pell_ferry_ask=undecided",
+        "goto": "dock_ask_again"
+      },
+      {
+        "if": [
+          "flag:saltmarrow_pell_ferry_ask=promised",
+          "flag:saltmarrow_pell_crossing="
+        ],
+        "goto": "dock_packed"
+      },
+      {
+        "if": [
+          "flag:saltmarrow_pell_ferry_ask=refused",
+          "flag:saltmarrow_pell_crossing="
+        ],
+        "goto": "dock_pouch"
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=aboard",
+        "goto": "dock_aboard"
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=let_down",
+        "goto": "dock_let_down"
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=stayed",
+        "goto": "dock_stayed"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dock_ask": [
+      {
+        "say": "pell",
+        "text": "It CAME. A real ferry, with a horn, and a lady with a SCALE. She weighs people. Not their bodies. Their— doings."
+      },
+      {
+        "say": "pell",
+        "text": "You're going on it. Take me. I can mend nets, I can find things, I'm small. I don't take up a whole seat."
+      },
+      {
+        "choice": [
+          {
+            "text": "Yes. Come with me.",
+            "set": {
+              "saltmarrow_pell_ferry_ask": "promised"
+            },
+            "goto": "dock_yes"
+          },
+          {
+            "text": "No, Pell. You stay.",
+            "set": {
+              "saltmarrow_pell_ferry_ask": "refused"
+            },
+            "goto": "dock_pouch"
+          }
+        ]
+      }
+    ],
+    "dock_ask_again": [
+      {
+        "say": "pell",
+        "text": "HOOOOM. That was the horn. You said ask when I heard the horn. So I'm asking. LOUD."
+      },
+      {
+        "say": "pell",
+        "text": "Can I come? Can I? I'll be good. I'll be mostly good."
+      },
+      {
+        "choice": [
+          {
+            "text": "Yes. Come with me.",
+            "set": {
+              "saltmarrow_pell_ferry_ask": "promised"
+            },
+            "goto": "dock_yes"
+          },
+          {
+            "text": "No, Pell. You stay.",
+            "set": {
+              "saltmarrow_pell_ferry_ask": "refused"
+            },
+            "goto": "dock_pouch"
+          }
+        ]
+      }
+    ],
+    "dock_yes": [
+      {
+        "say": "pell",
+        "text": "YES. Yes yes yes. I already packed. I packed when I heard the horn, just in case."
+      },
+      {
+        "say": "pell",
+        "text": "…Mara doesn't know. You tell her? You're better at words. I'm better at hiding."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dock_packed": [
+      {
+        "say": "narrator",
+        "text": "Pell is sitting on a sailcloth bundle at the foot of the dock, kicking their heels."
+      },
+      {
+        "say": "pell",
+        "text": "Did you tell Mara? You didn't tell Mara. Oda says I can't cross without my kin's say. Mara's the nearest thing I've got to kin."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dock_pouch": [
+      {
+        "say": "pell",
+        "text": "…Yeah. I know. Somebody has to find things here."
+      },
+      {
+        "say": "narrator",
+        "text": "Pell digs in a pocket and holds out a lumpy little pouch of sailcloth, a gull's feather stitched to the flap."
+      },
+      {
+        "say": "pell",
+        "text": "I made it out of the crate lining. It's for the lost thing. Bring me something lost. Something GOOD."
+      },
+      {
+        "give_item": "pells_pouch",
+        "set": {
+          "saltmarrow_pell_crossing": "stayed"
+        }
+      },
+      {
+        "say": "pell",
+        "text": "Don't come back with it empty."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dock_aboard": [
+      {
+        "say": "pell",
+        "text": "SHE SAID YES. Then she went inside and shut the door and I heard her blow her nose. Mara never blows her nose."
+      },
+      {
+        "say": "pell",
+        "text": "Oda says I'm on ropes. I'm going to be the BEST at ropes."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dock_let_down": [
+      {
+        "say": "pell",
+        "text": "You said I could come."
+      },
+      {
+        "say": "pell",
+        "text": "It's fine. It's FINE. Somebody has to find things here."
+      },
+      {
+        "say": "narrator",
+        "text": "Pell doesn't look at you. The bundle stays packed."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dock_stayed": [
+      {
+        "say": "pell",
+        "text": "Remember. Something lost. Something GOOD. Not a sock."
       },
       {
         "goto": "hub"

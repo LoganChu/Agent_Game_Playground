@@ -428,7 +428,9 @@
         0,
         2
       ],
-      "rotation_y": 200
+      "rotation_y": 200,
+      "if": "!flag:saltmarrow_ferry_arrived",
+      "note": "On the beach until the ferry comes; then on the Saltmarrow dock."
     }
   ],
   "pickups": [
@@ -469,6 +471,20 @@
         1.5
       ],
       "reach": 1.8
+    }
+  ],
+  "events": [
+    {
+      "id": "ferry_horn",
+      "if": [
+        "flag:saltmarrow_ferry_lantern_hung",
+        "!flag:saltmarrow_ferry_arrived"
+      ],
+      "set": {
+        "saltmarrow_ferry_arrived": true
+      },
+      "dialogue": "ferry_horn",
+      "note": "The Slow Mercy's horn, heard on arriving anywhere but the watched harbor after Mara hangs the green lantern."
     }
   ]
 }
