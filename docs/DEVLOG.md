@@ -2,6 +2,83 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-30 09:00 UTC — Day 13: The ferry's arrival — Act I ends (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **The ferry's arrival** (ROADMAP [C] #1; content was due by today). Pays off *Across the
+  Grey* and every ferry flag Act I left open:
+  - **The horn.** After Mara hangs the green lantern, arriving on Shingle Point or Gull's Head
+    plays the horn (one long, two short) and a green light answers hers — "watched harbors
+    never get ferries", so it never sounds in Saltmarrow itself. Quest → `meet_the_ferry`.
+  - **The *Slow Mercy*** (new Blender model, 101 KB) berths on the east side of the dock with
+    its boarding plank on the deck and a green masthead light; the fishing boat and rowboat
+    moved to make room.
+  - **Oda Farrow**, Tidewright ferry-master (new character: greatcoat, pine watch cap, white
+    braid, brass deed-scale, bone horn). She weighs the deed — the player tells it as
+    *claimed*, *shared* or *brusque* — then asks what the burn cost: she can still hum the
+    lullaby (it slides off the player "like rain off a coat"), her crew bristles at the
+    knot, and after the gull burn she remembers **Dunstan**, who crewed for her; the name
+    won't stay with the player. Passage only as far as **Thornwold** (lanes run light to
+    light; nobody lands on Cindermoor). She reacts coldly to the sleeve-ember.
+  - **Pell's promise honoured**: Pell moves from the beach to the dock. *Promised* → a packed
+    bundle, and lane law (children cross with their kin's leave) sends the player to Mara:
+    vouch "on the ember" (Pell **aboard**) or side with her (**let_down**). *Refused* → Pell
+    gives the player a **finding pouch** ("something lost, something GOOD"). *Undecided* or
+    never asked → Pell asks, LOUD, on the dock. Oda won't take passage while a promised Pell
+    is unanswered.
+  - **Farewells:** Mara (one line per burn — after the gull burn she offers the traveller the
+    cold second cup; if she knows Dunstan chose the fog she sends word that the stool is
+    still by the door), Aldous won't cross and mentions Thornwold's old Keeper beacon-keeper
+    (unnamed), Tam on Oda.
+  - **Act I end card:** taking passage ("evening tide") shows a full-screen card — *Act I —
+    The Wake* — recapping the player's choices (burn, Pell, Aldous, Dunstan, Oda and the
+    sleeve), then "Keep exploring". The Vertical Slice is now playable start to finish.
+- **Engine:** region **arrival `events`** (`RegionEvents`; validator: every event must switch
+  itself off), **conditional multi-placement** of NPCs, **`act_ends`** in game.json
+  (`ActRecap` + `ActEndCard`, shown only when an act ends *in play*), `--act-end=` debug arg.
+- **Tests:** `test_ferry.gd` (9 tests); `test_dressing.gd` allows the ferry's bigger bounds;
+  smoke test now 5 passes — hears the horn, meets Oda, settles Pell, takes passage and checks
+  and closes the Act I card. 79 tests + smoke + launch pass.
+- LORE: Day 13 canon — the *Slow Mercy* and Oda Farrow, the horn signal, lanes light to light,
+  **the burn rule clarified** (off-islanders keep a burned memory, but it won't take root again
+  in those who lost it), lane law, Keepers pay twice, Mara's message, Aldous's hook.
+
+Screenshots (`docs/screenshots/2026-09-30-ferry-*.png`): `before-harbor` vs. `after-harbor`
+(same camera), `dock` (Pell with the bundle, Mara, the plank), `oda` (Oda at the dock end by
+the *Slow Mercy*), `card` (the Act I end card), `kit` (ferry, bundle and the fishing boat).
+
+**Decisions**
+- **Passage ends Act I, the crossing starts Act II.** Sailing now would land the player
+  nowhere, so taking passage sets `saltmarrow_ferry_passage` and the quest waits at
+  `evening_tide` (still `future`). The card says Act II is being written; play continues in
+  Saltmarrow with a coherent world (the ferry stays in, Oda: "When the tide's right").
+- **The horn as a data-driven arrival event** rather than a timer: there's no clock yet, and
+  "you hear it on coming back" needs no save-format change. Events must switch themselves
+  off, so they can't loop.
+- **Pell appears in two regions** via exclusive `if`s instead of a new "NPC moves" system —
+  the smallest change that keeps NPC data in one place.
+- **Burn rule:** made explicit that burned memories survive off-island but can't be re-taught.
+  It gives Oda her scene and future islands a way to mourn Saltmarrow's losses without
+  undoing any choice.
+- **Card on a snapshot diff:** act ends are compared with a snapshot taken at every region
+  load, so loading a save (or a debug `--flags=`) never pops the card.
+
+**Problems / notes**
+- First smoke run failed: Pell's dock ask came after the Mara visit in the same pass, so a 5th
+  pass was needed to get Mara's leave before Oda would sail.
+- The ferry first had 20 material shades (> 16 mesh nodes); consolidated to 10.
+- NPC rotations: Pell and Oda faced the sea at first (caught in screenshots, fixed). Mara
+  has always stood with her back to the harbor — logged for the art pass.
+- The end card's unlock race: DialogueUI unlocks input on a deferred call, so the card is
+  shown deferred too (otherwise it would open unlocked).
+
+**Next run should**
+1. **Art** ([A], due by Day 14): terrain & atmosphere follow-ups or dressing follow-ups
+   (ROADMAP #2/#3); fold in Mara's rotation and a waterline ring for the ferry.
+2. Then systems: pause menu (with "Return to title" for the end card) or settings/audio.
+   Polish/debt pass due by session 16.
+
 ## 2026-09-29 21:00 UTC — Day 12: Atmosphere & lighting (art track)
 
 **Did**

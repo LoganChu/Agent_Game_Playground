@@ -21,6 +21,9 @@ $GODOT --path .                                             # play
 $GODOT --path . -- --region=saltmarrow                      # start in a region (debug)
 $GODOT --path . -- --flags=intro_seen,saltmarrow_beacon_burned=knot \
     --quest=a_light_for_saltmarrow,across_the_grey:await_the_ferry  # late-game state (debug)
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
+    --flags=intro_seen,saltmarrow_beacon_burned=gull,saltmarrow_ferry_passage \
+    --act-end=act1 --screenshot=/abs/out.png               # show an act's end card (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --camera=0,26,34:0,0,0 --screenshot=/abs/out.png       # fixed overview camera (eye:target)
@@ -28,7 +31,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py     # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [oda …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup]                 # art review: every character side by side
@@ -53,6 +56,8 @@ scripts/
     greying.gd            Greying — fog-area depth, active areas, ember-cost map (validator)
     ember_meter.gd        EmberMeter — ember drain/refill in the Greying
     terrain_field.gd      TerrainField — sculpted ground heights, walkability, reachability
+    region_events.gd      RegionEvents — region arrival events (which fires, applying its flags)
+    act_recap.gd          ActRecap — act_ends in game.json: which acts are reached, recap lines
     json_util.gd, layers.gd
   autoload/    singletons (registered in project.godot)
     content.gd      "Content"    – the loaded ContentDatabase (validates in debug builds)
@@ -68,7 +73,8 @@ scripts/
                tweens; a child of main), water_builder.gd (sea mesh with baked shore depth)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
-  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel) — built in code.
+  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel), act_end_card.gd
+               (full-screen end-of-act card: title, recap, coda, "Keep exploring") — built in code.
                ui_theme.gd: the one shared `Theme` (palette colours, font sizes, panel box)
                set on each UI root; widgets pick looks via `theme_type_variation`
                (UiTheme.SPEAKER, HINT, HUD_TOAST…), not per-widget overrides.
@@ -114,6 +120,7 @@ Every record lives in its own file whose name equals its `id`.
                "set": {flag: value}, "quest_stage": [quest, stage]}],
   "objects": [{"id": unique, "prompt": "Examine ...", "dialogue": id, "position": [...],
                "reach": 1.8, "if": condition}],        // inspectables: start a dialogue
+  "events":  [{"id": unique, "if": condition, "set": {flag: value}, "dialogue": id}],  // arrival events
   "exits":   [{"to": region, "spawn": spawn_name, "position": [...], "prompt": "...",
                "requires": condition, "locked_text": "..."}] }   // gated exits
 ```
@@ -137,6 +144,23 @@ Legacy terrain slabs are positioned by their **top surface** (absolute); the pla
 climb steps between slabs. All three Act I regions use `ground` instead. A prop with both `model` and `shape`
 uses the model and falls back to the shape only if the model can't load.
 Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `#hex`.
+
+### Arrival events & act ends (Day 13)
+- **Region `events`** happen on arriving in a region: after `main.load_region`, the first
+  event whose `if` holds applies its `set` flags and plays its `dialogue` (waiting for any
+  open dialogue first) — `RegionEvents.arrival/fire`. The validator requires `if`, a known
+  dialogue, and a `set` that switches the event off (one of its flags read as `!flag:x` in
+  the `if`), so every event fires once. The ferry's horn (`ferry_horn`) lives on Shingle
+  Point and Gull's Head, not Saltmarrow: you hear it on coming back from somewhere.
+- **NPCs in several places:** an NPC may be placed more than once (any regions) only if every
+  placement has an `if` (Pell: beach until `saltmarrow_ferry_arrived`, then the dock). The
+  conditions are expected to be mutually exclusive; the validator can't prove that.
+- **`act_ends`** in `data/game.json`: `[{id, when, title, subtitle?, recap: [{if?, text}],
+  coda}]`. When a dialogue closes and an act's `when` has *just* become true (compared with
+  a snapshot taken on every region load, so loading a save never shows a card), `main.gd`
+  shows `ActEndCard` with every recap line whose `if` holds. Act I ends on
+  `flag:saltmarrow_ferry_passage`. The card is modal; "Keep exploring" (or Esc) closes it and
+  play continues — the save carries on into Act II.
 
 ### The Greying (Day 11)
 `greying` areas are the fog as a *place* (region `fog` is only the ambient mood). Depth at a
@@ -232,10 +256,10 @@ touches the bounds, or on malformed features. Tune shapes with `tools/debug/terr
 with `--camera=`.
 
 ### NPC / Item / Quest
-- NPC: `id, name, color, dialogue, model?, idle?, faction?, bio?` — must be placed in exactly
-  one region. `model` = character scene (see *Characters*); without it the NPC is a primitive
+- NPC: `id, name, color, dialogue, model?, idle?, faction?, bio?` — must be placed at least
+  once (several placements only if each has an `if`; see *Arrival events*). `model` = character scene (see *Characters*); without it the NPC is a primitive
   figure in its `color`. `idle` = `breathe` (default) | `mend`.
-- `data/game.json` also takes `player_model` (the Wakebearer character scene).
+- `data/game.json` also takes `player_model` (the Wakebearer character scene) and `act_ends`.
 - Item: `id, name, description, kind (remnant|key|misc), color?, future?`
 - Quest: `id, title, description, stages: [{id, text}], giver?, region?, future?` — first
   stage is entered on `quest_start`. `future: true` silences the "never completed" warning
@@ -278,7 +302,9 @@ of *effects*, and may be gated by `if` (skipped when false):
 `tools/blender/build_dressing.py` builds the set-dressing models into `assets/models/dressing/`
 (dock, rowboat, rowboat_upturned, moored_boat, smokehouse, barrel(s), crate, lantern_post,
 signal_lantern, fence, stool, cups, net_rack/net_frame (+ `_pine` variants, since a model
-prop can't be tinted), driftwood_log, wreck, reeds, grass, beacon_lit). It reuses
+prop can't be tinted), driftwood_log, wreck, reeds, grass, beacon_lit, **ferry** (the *Slow Mercy*,
+9 m, origin at the waterline, port side/boarding plank at +X — the one model allowed past the
+8 m bounds in `test_dressing.gd`), **bundle** (Pell's travelling sack)). It reuses
 `build_props.py`'s palette and primitives and adds tonal shades (`mat(name, shade)`), beams
 and rods between two points, net lattices, and a lofted boat hull (`hull_stations` → `hull`,
 `gunwale`, `deck`). Before export every mesh is **joined by material and its transform
@@ -330,6 +356,10 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   shows, the stool/nets/lost-things inspectables per state, Pell's ferry ask, Tam's fare,
   Mara and the sleeve-ember.
 - `tests/test_dressing.gd` — the Blender dressing kit (see *Dressing kit*).
+- `tests/test_ferry.gd` — the ferry's arrival: the horn event fires once and only away from the
+  harbor, Pell/Oda/ferry/bundle placement, Oda weighing the deed per burn, passage and the Act I
+  recap, a promised Pell needing Mara's leave (both answers), Pell's dock ask and the pouch,
+  Mara's farewell and message for Dunstan, validator rules for events and multi-placement.
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).
@@ -352,7 +382,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   travel on a new game, visits every region twice, talks to every NPC and examines every
   object walking each menu, collects pickups, checks gated exits now open, that the menu
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog
-  thinned, the region light applied), that a third pass reached Aldous's confession and Mara's ferry lantern (and that
+  thinned, the region light applied), that a third pass reached Aldous's confession and Mara's ferry lantern, that the horn sounded
+  on arriving elsewhere (arrival events are clicked through), that passes 4–5 met Oda, settled
+  Pell and took passage (the Act I end card showed a recap naming the burn, and was closed) (and that
   Saltmarrow's burn-specific dressing matches the burn — `Region.shown_conditional_props(shape)`), opens the journal and satchel via real input
   actions, saves/loads and compares state.
 - Add a `test_*.gd` extending `TestCase`; methods named `test_*` run automatically.

@@ -71,6 +71,16 @@ with a meaningful burn choice → consequences visible in the village.
       and sun halo; glow on emissives; SSAO (Forward+); breathing ember-hand light; stylized
       water with depth baked from the ground (shallow→deep, faceted swell, shore foam line).
       Light budget decided: ember, ferry lantern, beacon only (Day 12)
+- [x] [C] **The ferry's arrival — Act I ends** (pays off *Across the Grey*): the *Slow Mercy*'s
+      horn heard on arriving at the beach/headland after the green lantern (region arrival
+      events); the ferry (Blender) at the Saltmarrow dock; **Oda Farrow**, Tidewright
+      ferry-master (new character model), weighs the deed (claimed/shared/brusque) and asks
+      what the burn cost (off-islanders still remember a burned memory; it won't stick to
+      those who lost it); passage only to Thornwold. Pell's ask honoured (promised → Mara's
+      leave, aboard/let_down; refused → finding pouch; undecided/unasked → asks loudly on the
+      dock). Mara's farewell (+ a message for Dunstan), Aldous and Tam react. Taking passage
+      shows the **Act I end card** recapping the player's choices. Engine: region `events`,
+      conditional multi-placement of NPCs, `act_ends` + `ActEndCard`, `--act-end=` (Day 13)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -81,10 +91,10 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [C] **Content is due by Day 13** (last: Day 9) — the ferry's arrival (Alpha, top of
-   Milestone 2) or a smaller Act I thread (an NPC remarking on the player being turned back
-   by the Greying; Greying v2 pockets on Saltmarrow/Shingle Point).
-2. [A] **Terrain & atmosphere follow-ups** (art next due by Day 14): paint reads weakly in
+1. [A] **Art is due by Day 14** — pick one: the terrain & atmosphere follow-ups (#2) or the
+   dressing follow-ups (#3). Also worth folding in: Mara stands with her back to the harbor
+   (rotation), and the ferry could use a waterline foam ring / gentle bob.
+2. [A] **Terrain & atmosphere follow-ups**: paint reads weakly in
    the Compatibility renderer (walkway vs. slate) — pick stronger contrasts after the Vulkan
    colour check; a second Saltmarrow stilt row along the harbor edge; camera can clip into
    the Gull's Head cliffs when orbiting close; foam rings around pilings/boats (water foam
@@ -105,7 +115,8 @@ each .glb < 5 MB.
    (muffling low-pass + heartbeat-ish ember crackle) with the audio item; colourblind-safe
    meter check with the accessibility item. Consider a story flag when the player is first
    turned back (an NPC remarks on it).
-6. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots.
+6. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots. (The Act I end
+   card only offers "Keep exploring"; once a pause/title menu exists, add "Return to title".)
 7. [S] Settings: volume buses, text size (`UiTheme.set_text_scale`), camera
    sensitivity/invert, key rebinding (InputSetup is the hook).
 8. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
@@ -113,12 +124,14 @@ each .glb < 5 MB.
 9. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
 
 ## Milestone 2 — Alpha (Act II begins)
-- [C] **Ferry arrives** (pays off *Across the Grey*, flag `saltmarrow_ferry_lantern_hung`).
-  Must honour `saltmarrow_pell_ferry_ask` (promised → Pell on the dock with a bundle and
-  Mara to face; refused → Pell's "bring me something lost"; undecided → Pell asks, loudly),
-  and the Tidewright deed-fare (Tam, Day 9: the lit Gull pays; knot-burn crews resent it):
-  the horn, a Tidewright ferryman NPC at the Saltmarrow dock, Act I→II transition; the
-  ferry travel system & map screen. Keepers met later should react to
+- [C] **The crossing** (Act I→II transition; the arrival itself landed Day 13): Oda's "When do
+  we sail?" becomes casting off on the evening tide once Thornwold exists — narration of
+  leaving Saltmarrow (Mara on the dock with the green lantern; Pell at the rail if
+  `saltmarrow_pell_crossing=aboard`), the quest *Across the Grey* completes, arrive at
+  Thornwold. Ferry travel system & map screen (lanes open beacon to beacon). Honour on
+  Thornwold: `saltmarrow_ferry_deed` (how Tidewrights greet you), `saltmarrow_oda_saw_sleeve_ember`,
+  Pell aboard (a companion who finds things?) or the finding pouch (`pells_pouch`), the
+  unnamed Keeper beacon-keeper Aldous mentioned. Keepers met later should react to
   `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (item is `future`).
 - [C] Thornwold region (forest, shifting paths), 3–4 NPCs, beacon + burn choice.
 - [C] Glasswater Fen region (Unmoored), the right-to-forget storyline; Dunstan Tollen.
@@ -161,8 +174,16 @@ each .glb < 5 MB.
 - `GreyingWalker` returns the player to the last clear ground they *stood* on; if a future
   region spawns the player inside a pocket via a save, they go to the default spawn
   (validator keeps spawns clear, but saved positions aren't checked).
-- Last content session: Day 9 (the Greying's Gull's Head placement and Day 12's light moods
-  are data, not story); content is due by Day 13 at the latest.
+- Last content session: Day 13 (the ferry); content next due by Day 17 at the latest.
+- The Vertical Slice is now playable start to finish (wake → beacon → ferry → Act I card).
+  After the card the player keeps exploring Saltmarrow with passage taken; nothing sails until
+  Act II. Remaining slice work is systems/polish (pause menu, settings, audio, interaction
+  polish) and art.
+- Smoke test now walks 5 passes (the ferry needs Pell's dock ask before Mara's leave); it
+  takes one Pell path per run (whichever the menu walker reaches — currently promised →
+  Mara says yes). Other ferry paths are covered by `test_ferry.gd`.
+- NPCs placed in several regions: the validator only checks each placement is conditional,
+  not that the conditions are mutually exclusive — keep them as exact negations.
 - Model props can't be tinted (the `color` field only affects procedural shapes), so tint
   variants are separate exports (`net_rack_pine`). If variants multiply, add a material
   override hook (e.g. recolour surfaces named `Tint*`).

@@ -170,6 +170,41 @@ greyed net-lofts.
   - The Gull's Head headland has weathered **fences** at the cliff edge either side of the
     ramp; the loft yard has drying racks and a hauled-up rowboat.
 
+- **Established in play (Day 13 — the ferry's arrival, Act I end):**
+  - The Tidewright ferry is the ***Slow Mercy***: broad tide-blue hull, a plank deckhouse, one
+    mast with a green masthead lantern, a bone horn. Her horn signal for "putting in,
+    passengers welcome" is **one long note, then two short**. She came a while after the
+    green lantern went up — "watched harbors never get ferries" — heard first from the beach
+    or the headland (flag `saltmarrow_ferry_arrived`).
+  - Her master is **Oda Farrow** — Tidewright, sixties, thirty-eight years on the lanes, a
+    brass **hand-scale** on which she "weighs" each passenger's deed (the fare). Tam learned
+    his first hitch from her. **Dunstan Tollen crewed for her two winters.** How the player
+    told the deed is remembered (`saltmarrow_ferry_deed`: claimed / shared / brusque).
+  - **Lanes run light to light.** A lit island is a lane you can steer by; a dark one is "a
+    hole in the sea". **Nobody lands on Cindermoor** while the lights between are dark, so the
+    *Slow Mercy* goes only as far as **Thornwold**, whose beacon went out at the Snuffing.
+    Lighting Thornwold opens the next lane — Act II's route to the Spire is one beacon at a time.
+  - **The burn rule, clarified:** a burned memory is taken from the island whose beacon burned
+    it and from whoever stood in that light (the Wakebearer). **People from off-island still
+    carry it** — Oda can hum the lullaby, and remembers Dunstan — but told again, it will not
+    take root in anyone who lost it: the words "go past you like rain off a coat". (Useful
+    later: memories burned on one island survive elsewhere; do not let this undo a burn.)
+  - **Lane law:** children cross with their kin's leave. Pell's wish ended one of three ways
+    (`saltmarrow_pell_crossing`): **aboard** (Mara gave leave — "Pell's not mine to keep";
+    Oda puts Pell to coiling rope), **stayed** (Pell gave the player a sailcloth **finding
+    pouch** with a gull's feather: "bring me something lost, something GOOD"), or **let_down**
+    (promised, then the player sided with Mara; Pell's bundle stays packed).
+  - **Keepers pay twice** on a Tidewright deck — once for the crossing, once for the Spire.
+    Oda may have seen the sleeve-ember (`saltmarrow_oda_saw_sleeve_ember`).
+  - Mara, if she knows Dunstan chose the fog (and still remembers him), sends word: "the
+    stool's still by the door. Don't tell him to come home. He knows where it is."
+    (`saltmarrow_mara_message_for_dunstan`, for when Dunstan is found among the Unmoored.)
+  - Aldous will not cross ("they'd weigh me and find me light"). He says **Thornwold once had
+    a Keeper as its beacon-keeper** — unnamed ("names carry") — who might recognise an ember.
+    Open hook for Act II; no canon yet on who, or whether they live.
+  - Oda gives the player a berth "on the evening tide" (`saltmarrow_ferry_passage`): **Act I
+    ends there.** The crossing itself opens Act II.
+
 ### 2. Thornwold (planned — Alpha)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of
 charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
