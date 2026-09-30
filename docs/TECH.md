@@ -33,6 +33,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py [oda …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
+.tools/bin/blender-py tools/blender/build_village.py [house_tall house_porch gate_post]  # village buildings (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup]                 # art review: every character side by side
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -70,7 +71,8 @@ scripts/
                terrain_builder.gd (TerrainField → flat-shaded vertex-coloured mesh + collider)
                greying_fog.gd (one Greying area's fog layers), greying_walker.gd (ember drain +
                turn-back; a child of main), atmosphere.gd (environment, sky, sun; mood
-               tweens; a child of main), water_builder.gd (sea mesh with baked shore depth)
+               tweens; a child of main), water_builder.gd (sea mesh with baked shore depth),
+               floating_prop.gd (a prop's `float`: bob/roll + waterline foam ring)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel), act_end_card.gd
@@ -144,6 +146,22 @@ Legacy terrain slabs are positioned by their **top surface** (absolute); the pla
 climb steps between slabs. All three Act I regions use `ground` instead. A prop with both `model` and `shape`
 uses the model and falls back to the shape only if the model can't load.
 Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `#hex`.
+
+**Model prop extras (Day 14)** — both validated, model props only:
+- `"colliders": [{"size": [w,h,d], "offset": [x,y,z]}]` — extra boxes beside the single
+  `collider` (model space, base at `offset.y`), for models that aren't one block: Mara's
+  `house_porch` has the house box plus one for the porch and one for its steps.
+- `"float": {"bob": 0.05, "roll": 1.5, "period": 4.5, "foam": [rx, rz], "foam_y": 0}` wraps
+  the model in a `FloatingProp`: it bobs `bob` m and rolls `roll`° (half that in pitch) over a
+  `period`-second swell, phase from its position; `foam` adds a flat, level ring of
+  vertex-alpha foam around the hull (inner radii across/along it, before `scale`) at `foam_y`
+  above the origin (the waterline). Used by the ferry, the fishing boat and the rowboat.
+  Colliders ride along with the model (a few cm; harmless).
+- The village kit (`build_village.py`, Day 14): `house_tall` (two storeys, slate/tarred
+  boards, pine shingles) and `house_porch` (Mara's) share `stilt_house`'s 2.6 × 2.2 m walls on
+  a 1.0 m deck, so the stilt house's `collider` fits them (`house_tall` is 5.6 m tall);
+  `gate_post` replaces the procedural `post`. Every Act I prop is now a Blender model
+  (`test_village.gd` guards it).
 
 ### Arrival events & act ends (Day 13)
 - **Region `events`** happen on arriving in a region: after `main.load_region`, the first
@@ -256,9 +274,11 @@ touches the bounds, or on malformed features. Tune shapes with `tools/debug/terr
 with `--camera=`.
 
 ### NPC / Item / Quest
-- NPC: `id, name, color, dialogue, model?, idle?, faction?, bio?` — must be placed at least
+- NPC: `id, name, color, dialogue, model?, idle?, faces_player?, faction?, bio?` — must be placed at least
   once (several placements only if each has an `if`; see *Arrival events*). `model` = character scene (see *Characters*); without it the NPC is a primitive
-  figure in its `color`. `idle` = `breathe` (default) | `mend`.
+  figure in its `color`. `idle` = `breathe` (default) | `mend`. While talking, an NPC's body
+  eases round to face the player and back to its placed `rotation_y` after (the Wakebearer
+  turns to it too); `"faces_player": false` opts out (Hesk keeps mending).
 - `data/game.json` also takes `player_model` (the Wakebearer character scene) and `act_ends`.
 - Item: `id, name, description, kind (remnant|key|misc), color?, future?`
 - Quest: `id, title, description, stages: [{id, text}], giver?, region?, future?` — first

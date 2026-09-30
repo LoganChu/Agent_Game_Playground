@@ -2,6 +2,73 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-09-30 21:00 UTC — Day 14: Village kit & harbor life (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green.
+- **Dressing follow-ups** (ROADMAP [A] #1, art was due by today):
+  - New Blender script `tools/blender/build_village.py` (into the dressing kit):
+    **`house_tall`**, a narrow two-storey stilt house (slate-blue planked ground floor, a
+    jettied upper floor in tarred boards, a steep pine-shingled roof, tide-blue shutters, a
+    stovepipe, a side ladder); **`house_porch`**, Mara's house (warm planked walls, coal
+    roof, a front porch with rails and steps down, a window box of moss, a lantern hook, a
+    net drying over the rail); **`gate_post`** (a leaning post with coal-red lashings, a cork
+    float on a line, stones at its foot).
+  - **Net-lofts** now carry lattice nets (the kit's `net`) instead of flat sheets.
+  - **No procedural stand-ins left in Act I:** Saltmarrow's last pine, Shingle Point's rock
+    and every gate post (all three regions) are Blender models.
+  - **Saltmarrow re-dressed:** Mara's house is the porch house, its steps coming down by
+    Dunstan's stool; the harbor-edge house is the tall one; a **second stilt row** stands in
+    the west shallows (a tall house and a stilt house, doors to the shore). Four identical
+    houses became three kinds.
+  - **Harbor life:** the ferry, the fishing boat and the rowboat **bob and roll** on a slow
+    swell (out of step with each other) with a **foam ring** where the hull meets the water
+    (new prop field `float`, `FloatingProp`).
+  - **Mara looks out over the harbor** (she stood with her back to it), and **every NPC now
+    turns to face the player while talking**, easing back to their placed facing after; the
+    Wakebearer turns to them too. Hushed Hesk doesn't look up from her net
+    (`"faces_player": false`).
+- **Engine:** prop `colliders` (extra boxes; the porch and its steps), prop `float`, NPC
+  `faces_player` — all validated.
+- **Tests:** `test_village.gd` (9 tests: no procedural props left in Act I, house variants in
+  use, houses stand on the ground, porch colliders, validator checks, boats float + bob within
+  amplitude, foam ring fades outward, NPC facing maths/easing, Hesk keeps mending). Smoke test
+  now checks Mara actually turns to the player in the running game. 88 tests + smoke + launch
+  pass.
+
+Screenshots (`docs/screenshots/2026-09-30-village-*.png`): `before-overview` vs.
+`after-overview` (same camera), `before-mara` vs. `after-mara` (the porch house; Mara now
+faces the harbor), `stilt-row` (the new houses in the west shallows), `boat-foam` (ferry and
+fishing boat with foam rings, the tall harbor house), `lofts-gate` (Gull's Head gate posts and
+lattice nets), `kit` (the new models).
+
+**Decisions**
+- **Houses keep the stilt house's wall box and deck** so one `collider` fits every variant and
+  swapping a house is a one-line data change. The porch reaches out in front, so it gets its
+  own boxes via `colliders` rather than a bigger box that would stick out behind.
+- **Foam as a ring mesh, not in the water shader:** the water's foam comes from depth baked
+  from the ground, which knows nothing about boats. A level vertex-alpha ring works in every
+  renderer, can breathe with the bob, and costs one draw call per boat.
+- **Turning is visual only:** the NPC's body turns, not its node, so placement data, the
+  interaction area and saves don't change. Mara could face the sea without being rude.
+- **Hesk opts out** — she's Hushed and "knows no one"; not looking up fits her better.
+- Kept the new models under the dressing test's 16-mesh budget by folding near-identical
+  shades (first builds had 18 and 25 material groups).
+
+**Problems / notes**
+- The first harbor screenshot showed a stale import (a removed rope coil still visible);
+  re-importing fixed it. Always `--import` after re-running a Blender script.
+- House side walls (±X) are flat colour (boards only front and back) — logged.
+- The camera can now clip into the tall houses when orbiting close, like the Gull's Head
+  cliffs — a camera collision ray is logged under the terrain/atmosphere follow-ups.
+
+**Next run should**
+1. The **polish/debt pass is due by session 16** (Day 8 was the last): the next session or
+   the one after. Good candidates: camera collision (cliffs + tall houses), HUD key hint
+   under the dialogue panel, the lineup scenes reusing `Atmosphere`.
+2. Systems: the **pause menu** (with "Return to title" for the Act I card) or settings.
+3. Art next due by Day 16; content by Day 17.
+
 ## 2026-09-30 09:00 UTC — Day 13: The ferry's arrival — Act I ends (content)
 
 **Did**

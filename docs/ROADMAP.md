@@ -81,6 +81,15 @@ with a meaningful burn choice → consequences visible in the village.
       dock). Mara's farewell (+ a message for Dunstan), Aldous and Tam react. Taking passage
       shows the **Act I end card** recapping the player's choices. Engine: region `events`,
       conditional multi-placement of NPCs, `act_ends` + `ActEndCard`, `--act-end=` (Day 13)
+- [x] [A] **Village kit & harbor life** (dressing follow-ups): Blender `house_tall` (two
+      storeys, slate and tarred boards, pine shingles, shutters) and `house_porch` (Mara's
+      house: porch, steps down by Dunstan's stool, window box, a net over the rail) and
+      `gate_post` (lashed post with a cork float); lattice nets on the net-lofts. The last
+      procedural stand-ins are gone (Saltmarrow pine, Shingle Point rock, every gate post). A
+      second stilt row stands in Saltmarrow's west shallows. Boats bob and roll on the swell
+      with a waterline foam ring (`float`); extra prop `colliders`. Mara looks out over the
+      harbor and every NPC turns to face the player while talking (and back after; Hesk keeps
+      mending — `faces_player`); the Wakebearer turns to them too (Day 14)
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -91,19 +100,20 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **Art is due by Day 14** — pick one: the terrain & atmosphere follow-ups (#2) or the
-   dressing follow-ups (#3). Also worth folding in: Mara stands with her back to the harbor
-   (rotation), and the ferry could use a waterline foam ring / gentle bob.
-2. [A] **Terrain & atmosphere follow-ups**: paint reads weakly in
+1. [S] **Pause menu**: resume, save, load, settings, quit. Multiple save slots. (The Act I
+   end card only offers "Keep exploring"; once a pause/title menu exists, add "Return to
+   title".)
+2. [A] **Art next due by Day 16** — **Terrain & atmosphere follow-ups**: paint reads weakly in
    the Compatibility renderer (walkway vs. slate) — pick stronger contrasts after the Vulkan
-   colour check; a second Saltmarrow stilt row along the harbor edge; camera can clip into
-   the Gull's Head cliffs when orbiting close; foam rings around pilings/boats (water foam
-   follows the ground only); the debug lineup scenes still build their own old-style
-   environment — reuse `Atmosphere` there.
-3. [A] **Dressing follow-ups**: replace the last procedural pieces (Saltmarrow's pine at
-   (-17, -3), Shingle Point's rock at (12, 4), the gate posts) with kit models; a Blender
-   stilt-house variant or two (slate walls, a Mara's-house with a porch for the stool) so
-   the village isn't one house repeated; Gull's Head net-lofts could carry lattice nets.
+   colour check; camera can clip into the Gull's Head cliffs (and now the tall houses) when
+   orbiting close — a camera collision ray; foam rings around the dock pilings and the
+   stilt-house legs in the water (static `float` with bob 0, or a per-piling ring list); the
+   debug lineup scenes still build their own old-style environment — reuse `Atmosphere`
+   there.
+3. [A] **Dressing follow-ups (small)**: house side walls (±X) are flat — boards on all four
+   faces; a Gull's Head variant of the net-loft with a broken rail (Hushed, neglected);
+   Aldous's house (the stilt house at (-9,-3)) could get a Keeper touch (a cold brazier, an
+   ember-hook by the door) now that his secret is out.
 4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -115,13 +125,12 @@ each .glb < 5 MB.
    (muffling low-pass + heartbeat-ish ember crackle) with the audio item; colourblind-safe
    meter check with the accessibility item. Consider a story flag when the player is first
    turned back (an NPC remarks on it).
-6. [S] Pause menu: resume, save, load, settings, quit. Multiple save slots. (The Act I end
-   card only offers "Keep exploring"; once a pause/title menu exists, add "Return to title".)
-7. [S] Settings: volume buses, text size (`UiTheme.set_text_scale`), camera
+6. [S] Settings: volume buses, text size (`UiTheme.set_text_scale`), camera
    sensitivity/invert, key rebinding (InputSetup is the hook).
-8. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+7. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-9. [S] Interaction polish: face NPC when talking, camera framing during dialogue.
+8. [S] Interaction polish: camera framing during dialogue; hide the HUD key hint while
+   dialogue is open; inspectable glint. (Facing while talking landed Day 14.)
 
 ## Milestone 2 — Alpha (Act II begins)
 - [C] **The crossing** (Act I→II transition; the arrival itself landed Day 13): Oda's "When do
@@ -154,8 +163,7 @@ each .glb < 5 MB.
 ## Known issues / tech debt
 - The ferry signal lantern's moss glow reads almost white in the Compatibility renderer;
   check it with the colour-grading item.
-- Character follow-ups (fold into later [A]/[S] items): NPCs don't turn to face the player
-  (ROADMAP "Interaction polish"); the ember light is a fixed point in the player's model
+- Character follow-ups (fold into later [A]/[S] items): the ember light is a fixed point in the player's model
   space rather than riding the arm; no facial expressions / talk motion during dialogue;
   models are ~700–900 tris — room for more silhouette detail (Mara's coat collar, Tam's
   boots) within the 1–2k budget.
@@ -175,6 +183,7 @@ each .glb < 5 MB.
   region spawns the player inside a pocket via a save, they go to the default spawn
   (validator keeps spawns clear, but saved positions aren't checked).
 - Last content session: Day 13 (the ferry); content next due by Day 17 at the latest.
+- Last art session: Day 14 (village kit); art next due by Day 16 under the cadence rule.
 - The Vertical Slice is now playable start to finish (wake → beacon → ferry → Act I card).
   After the card the player keeps exploring Saltmarrow with passage taken; nothing sails until
   Act II. Remaining slice work is systems/polish (pause menu, settings, audio, interaction
@@ -187,9 +196,14 @@ each .glb < 5 MB.
 - Model props can't be tinted (the `color` field only affects procedural shapes), so tint
   variants are separate exports (`net_rack_pine`). If variants multiply, add a material
   override hook (e.g. recolour surfaces named `Tint*`).
-- Model-prop colliders are one box each: the wreck's box keeps the player out of its ribs,
-  and the upturned boat/trestles are one block. Fine for now; revisit with trimesh or
-  compound colliders if exploring around props matters.
+- Model-prop colliders are boxes (one `collider`, plus `colliders` since Day 14): the wreck's
+  box keeps the player out of its ribs, and the upturned boat/trestles are one block; Mara's
+  porch steps are a block too (the player can't climb onto the porch). Revisit with trimesh
+  colliders if exploring around props matters.
+- Floating boats' colliders bob with the model (a few cm). Harmless while nobody walks on a
+  boat; when boarding the ferry becomes playable, keep the deck collider static.
+- NPC turn-to-face only rotates the body; the name label and interaction area stay put
+  (fine: both are round). The turn is purely visual and not saved.
 - Kit lantern glass (kindle) and the lit beacon glass read nearly white in the Compatibility
   renderer, like the moss signal glow — include in the colour-grading item.
 - Inspectables have no visual cue until the prompt appears; with more of them now (stool,
