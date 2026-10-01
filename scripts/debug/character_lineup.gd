@@ -1,6 +1,8 @@
 extends Node3D
 ## Art-review scene: every character model side by side (player first), animated by their
-## rigs, lit like the game. Saves a screenshot and quits when given one:
+## rigs, lit like the game
+## (`Atmosphere` in a region's mood: `--mood=<region>`, default Saltmarrow). Saves a
+## screenshot and quits when given one:
 ##   xvfb-run -a godot --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
 ##       -- --screenshot=/abs/out.png [--closeup]
 ## `--closeup` frames the heads and hands instead of the full bodies.
@@ -9,22 +11,7 @@ const SPACING := 1.3
 
 
 func _ready() -> void:
-	var env := Environment.new()
-	env.background_mode = Environment.BG_COLOR
-	env.background_color = PropFactory.color("silverfog")
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = PropFactory.color("silverfog")
-	env.ambient_light_energy = 0.25
-	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	var world_env := WorldEnvironment.new()
-	world_env.environment = env
-	add_child(world_env)
-	var sun := DirectionalLight3D.new()
-	sun.light_color = PropFactory.color("kindle")
-	sun.light_energy = 0.6
-	sun.shadow_enabled = true
-	sun.rotation_degrees = Vector3(-50, -35, 0)
-	add_child(sun)
+	LineupLight.add_to(self)
 	add_child(PropFactory.mesh_instance(PropFactory.box(Vector3(14, 0.2, 5)), PropFactory.color("driftwood"), Vector3(0, -0.1, 0)))
 
 	var paths: Array[String] = [str(Content.db.game.get("player_model", ""))]

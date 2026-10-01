@@ -1,6 +1,8 @@
 extends Node3D
 ## Art-review scene: every dressing-kit model (assets/models/dressing/) in a labelled grid,
-## lit like the lineup. Saves a screenshot and quits when given one:
+## lit like the game
+## (`Atmosphere` in a region's mood: `--mood=<region>`, default Saltmarrow). Saves a
+## screenshot and quits when given one:
 ##   xvfb-run -a godot --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
 ##       -- --screenshot=/abs/out.png [--only=dock,wreck] [--camera=x,y,z:tx,ty,tz]
 
@@ -10,22 +12,7 @@ const CELL := Vector2(3.6, 4.2)
 
 
 func _ready() -> void:
-	var env := Environment.new()
-	env.background_mode = Environment.BG_COLOR
-	env.background_color = PropFactory.color("silverfog")
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = PropFactory.color("silverfog")
-	env.ambient_light_energy = 0.3
-	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	var world_env := WorldEnvironment.new()
-	world_env.environment = env
-	add_child(world_env)
-	var sun := DirectionalLight3D.new()
-	sun.light_color = PropFactory.color("kindle")
-	sun.light_energy = 0.7
-	sun.shadow_enabled = true
-	sun.rotation_degrees = Vector3(-50, -35, 0)
-	add_child(sun)
+	LineupLight.add_to(self)
 
 	var only: PackedStringArray = []
 	for arg in OS.get_cmdline_user_args():
