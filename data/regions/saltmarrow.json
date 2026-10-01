@@ -220,7 +220,7 @@
   },
   "props": [
     {
-      "model": "res://assets/models/stilt_house.glb",
+      "model": "res://assets/models/dressing/house_wren.glb",
       "shape": "house",
       "position": [
         -9,
@@ -232,7 +232,46 @@
         2.6,
         3.6,
         2.2
-      ]
+      ],
+      "colliders": [
+        {
+          "size": [
+            0.7,
+            0.8,
+            0.7
+          ],
+          "offset": [
+            -1.25,
+            0,
+            2.0
+          ]
+        }
+      ],
+      "note": "The Wrens' old house (Aldous's family's): salt-grey, a cold Keeper's brazier at the steps, an ember-hook by the door."
+    },
+    {
+      "model": "res://assets/models/dressing/ember_sign_wrapped.glb",
+      "shape": "ember_sign",
+      "position": [
+        -9,
+        0,
+        -3
+      ],
+      "rotation_y": 15,
+      "if": "flag:saltmarrow_aldous_confessed=",
+      "note": "On the ember-hook, wrapped in sailcloth while Aldous keeps his secret. Same position and turn as the house: the model sits on its hook."
+    },
+    {
+      "model": "res://assets/models/dressing/ember_sign.glb",
+      "shape": "ember_sign",
+      "position": [
+        -9,
+        0,
+        -3
+      ],
+      "rotation_y": 15,
+      "if": "!flag:saltmarrow_aldous_confessed=",
+      "note": "Uncovered once Aldous has told the truth about the Hearthspire. Same position and turn as the house: the model sits on its hook."
     },
     {
       "model": "res://assets/models/dressing/house_tall.glb",
@@ -248,10 +287,32 @@
         5.6,
         2.2
       ],
-      "snap": false
+      "snap": false,
+      "wading": [
+        [
+          -1.1,
+          -0.9,
+          0.13
+        ],
+        [
+          1.1,
+          -0.9,
+          0.13
+        ],
+        [
+          -1.1,
+          0.9,
+          0.13
+        ],
+        [
+          1.1,
+          0.9,
+          0.13
+        ]
+      ]
     },
     {
-      "model": "res://assets/models/stilt_house.glb",
+      "model": "res://assets/models/dressing/house_stilt.glb",
       "shape": "house",
       "position": [
         -12,
@@ -316,7 +377,49 @@
         15
       ],
       "rotation_y": 0,
-      "snap": false
+      "snap": false,
+      "wading": [
+        [
+          -0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          -0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          0.95,
+          0.15
+        ],
+        [
+          0.95,
+          0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          2.8,
+          0.15
+        ],
+        [
+          0.95,
+          2.8,
+          0.15
+        ]
+      ]
     },
     {
       "model": "res://assets/models/dressing/crate.glb",
@@ -438,10 +541,32 @@
         5.6,
         2.2
       ],
-      "note": "Second stilt row: houses standing in the west shallows, doors to the shore."
+      "note": "Second stilt row: houses standing in the west shallows, doors to the shore.",
+      "wading": [
+        [
+          -1.1,
+          -0.9,
+          0.13
+        ],
+        [
+          1.1,
+          -0.9,
+          0.13
+        ],
+        [
+          -1.1,
+          0.9,
+          0.13
+        ],
+        [
+          1.1,
+          0.9,
+          0.13
+        ]
+      ]
     },
     {
-      "model": "res://assets/models/stilt_house.glb",
+      "model": "res://assets/models/dressing/house_stilt.glb",
       "shape": "house",
       "position": [
         -14.5,
@@ -453,6 +578,28 @@
         2.6,
         3.6,
         2.2
+      ],
+      "wading": [
+        [
+          -1.1,
+          -0.9,
+          0.13
+        ],
+        [
+          1.1,
+          -0.9,
+          0.13
+        ],
+        [
+          -1.1,
+          0.9,
+          0.13
+        ],
+        [
+          1.1,
+          0.9,
+          0.13
+        ]
       ]
     },
     {
@@ -1055,6 +1202,17 @@
       ],
       "reach": 1.8,
       "if": "quest:a_light_for_saltmarrow=done"
+    },
+    {
+      "id": "saltmarrow_wrens_door",
+      "prompt": "Look at the Wrens' door",
+      "dialogue": "wrens_door",
+      "position": [
+        -9.65,
+        0,
+        -1.0
+      ],
+      "reach": 1.5
     }
   ]
 }

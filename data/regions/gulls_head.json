@@ -231,7 +231,7 @@
       ]
     },
     {
-      "model": "res://assets/models/net_loft.glb",
+      "model": "res://assets/models/dressing/net_loft_broken.glb",
       "shape": "house",
       "color": "silverfog",
       "position": [
@@ -244,7 +244,8 @@
         3.2,
         3.8,
         2.6
-      ]
+      ],
+      "note": "Left to the Greying: snapped rail, holed roof, nets fallen. Hesk's loft across the yard is the one still mended."
     },
     {
       "model": "res://assets/models/net_loft.glb",
@@ -263,7 +264,7 @@
       ]
     },
     {
-      "model": "res://assets/models/net_loft.glb",
+      "model": "res://assets/models/dressing/net_loft_broken.glb",
       "shape": "house",
       "color": "silverfog",
       "position": [
@@ -276,7 +277,8 @@
         3.2,
         3.8,
         2.6
-      ]
+      ],
+      "note": "Left to the Greying: snapped rail, holed roof, nets fallen. Hesk's loft across the yard is the one still mended."
     },
     {
       "model": "res://assets/models/dressing/crate.glb",

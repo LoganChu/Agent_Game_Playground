@@ -1,0 +1,61 @@
+{
+  "id": "wrens_door",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:saltmarrow_aldous_confessed=full",
+        "goto": "told_full"
+      },
+      {
+        "if": "flag:saltmarrow_aldous_confessed=grudging",
+        "goto": "told_grudging"
+      },
+      {
+        "say": "narrator",
+        "text": "The Wrens' old house. The boards have gone salt-grey, two are missing from the side, and every shutter is closed."
+      },
+      {
+        "say": "narrator",
+        "text": "By the door an iron hook holds something round, wrapped in sailcloth and tied off at the neck with red cord. At the foot of the steps stands a three-legged iron brazier, full of grey ash."
+      },
+      {
+        "if": "flag:saltmarrow_met_aldous",
+        "say": "narrator",
+        "text": "Brother Aldous sits with his back to both of them."
+      }
+    ],
+    "told_full": [
+      {
+        "say": "narrator",
+        "text": "The sailcloth is folded on the step. On the hook hangs a disc of bone-white enamel ringed in iron, an ember painted on each face: the Keepers' mark."
+      },
+      {
+        "if": "item:keepers_sleeve_ember",
+        "say": "narrator",
+        "text": "The same ember as the one he cut from his sleeve for you. Different hands, same pattern."
+      },
+      {
+        "say": "narrator",
+        "text": "Someone has rubbed the salt off it. The paint is chipped, but the ember faces the road now."
+      },
+      {
+        "say": "narrator",
+        "text": "In the brazier the ash has been raked smooth. Not lit. Raked, the way you'd make up a bed for someone expected."
+      }
+    ],
+    "told_grudging": [
+      {
+        "say": "narrator",
+        "text": "The sailcloth lies in a heap under the hook. The Keepers' ember hangs bare: a disc of bone-white enamel ringed in iron, crusted with salt, its paint flaking."
+      },
+      {
+        "say": "narrator",
+        "text": "Aldous hasn't cleaned it. He hasn't covered it again, either."
+      },
+      {
+        "say": "narrator",
+        "text": "The brazier's ash is grey all the way down."
+      }
+    ]
+  }
+}
