@@ -97,6 +97,15 @@ with a meaningful burn choice → consequences visible in the village.
       save slots + quicksave; HUD key hint hides under modals; ember meter no longer flashes
       on load; lineup scenes lit by `Atmosphere` (Day 15)
 
+- [x] [A] **Dressing follow-ups: the Wrens' house, broken lofts, wading foam**: every house
+      planked on all four faces (side walls were flat); a new planked `house_stilt` retires
+      the flat `stilt_house.glb`; **`house_wren`**, Aldous's family house (bleached boards,
+      patched slate roof, boarded window, a cold Keeper's brazier, an ember-hook) with an
+      **ember sign that follows the confession** (wrapped in sailcloth → uncovered) and a
+      `wrens_door` inspectable (untold / grudging / full, + the sleeve-ember); Gull's Head's
+      **`net_loft_broken`** ×2 (Hesk's loft stays whole); prop **`wading`** foam rings round
+      the dock pilings and the stilts in the shallows (Day 16)
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -106,33 +115,32 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **Art due next session (Day 16)** — **Dressing follow-ups (small)**: house side walls
-   (±X) are flat — boards on all four faces; a Gull's Head variant of the net-loft with a
-   broken rail (Hushed, neglected); Aldous's house (the stilt house at (-9,-3)) could get a
-   Keeper touch (a cold brazier, an ember-hook by the door) now that his secret is out.
-   Also from terrain/atmosphere: foam rings around the dock pilings and stilt-house legs in
-   the water (static `float` with bob 0, or a per-piling ring list); paint contrast in the
-   Compatibility renderer (walkway vs. slate).
-2. [C] **Content due by Day 17**: begin *The crossing* (see Milestone 2) once Thornwold has
-   a greybox, or a small Act I side thread that pays off an open flag.
-3. [S] **Settings** in the pause menu: volume buses, text size (`UiTheme.set_text_scale`),
+1. [C] **Content due next session (Day 17)**: begin *The crossing* (see Milestone 2) once
+   Thornwold has a greybox, or a small Act I side thread that pays off an open flag (e.g.
+   Aldous reacting to the player reading his ember sign; Tam and the broken lofts).
+2. [S] **Settings** in the pause menu: volume buses, text size (`UiTheme.set_text_scale`),
    camera sensitivity/invert, key rebinding (InputSetup is the hook); persisted to
    `user://settings.cfg` (not in saves).
-4. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu.
-5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes"); a Hushed NPC drifting in a pocket; audio cue
    (muffling low-pass + heartbeat-ish ember crackle) with the audio item; colourblind-safe
    meter check with the accessibility item. Consider a story flag when the player is first
    turned back (an NPC remarks on it).
-7. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+6. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
+7. [A] **Art, next due by Day 18** — small dressing follow-ups: paint contrast in the
+   Compatibility renderer (walkway vs. slate); Saltmarrow's two greyed net-lofts by the
+   boardwalk gate could take the broken variant (or a half-mended one after the burn);
+   Aldous still stands — a bench by the Wrens' steps (LORE says he sits on one) wants a
+   seated idle like Hesk's; a lit-window variant for nights once day/night exists.
 8. [S] Interaction polish: camera framing during dialogue; inspectable glint; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
@@ -185,8 +193,8 @@ each .glb < 5 MB.
 - `GreyingWalker` returns the player to the last clear ground they *stood* on; if a future
   region spawns the player inside a pocket via a save, they go to the default spawn
   (validator keeps spawns clear, but saved positions aren't checked).
-- Last content session: Day 13 (the ferry); content next due by Day 17 at the latest.
-- Last art session: Day 14 (village kit); art next due by Day 16 (next run) under the cadence rule.
+- Last content session: Day 13 (the ferry); content is due **next run (Day 17)**.
+- Last art session: Day 16 (Wrens' house, broken lofts, wading foam); art next due by Day 18.
 - Camera blockers are mesh-bounds boxes: a tree's blocker is its whole canopy box, so the
   camera pulls in a little early beside pines. Fine for now; per-part shapes if it bothers.
 - Pause pauses the whole tree; anything that must run under the menu (HUD, smoke test) sets
@@ -218,3 +226,7 @@ each .glb < 5 MB.
   nets, lost things), consider a subtle highlight/glint (fold into Interaction polish).
 - Journal quest order relies on `WorldState.quests` insertion order (Dictionary order is
   preserved through JSON saves); if save migration ever rebuilds that dict, keep the order.
+- `wading` foam rings are static (no breathing like the boats' rings) and are dropped per leg
+  where the ground is above the water; a leg standing exactly at the tide line gets none.
+- The ember signs are separate props positioned by sharing the house's origin; if the Wrens'
+  house ever moves, move both signs with it (`test_wrens_and_lofts.gd` checks they match).

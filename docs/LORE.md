@@ -117,6 +117,17 @@ greyed net-lofts.
   - Aldous felt the beacon catch "like a hand on the back of my neck" and promises the rest
     of his story; he has not told it yet.
 
+- **Established in play (Day 16 — the Wrens' old house, set dressing):**
+  - The house Aldous sits beside is **the Wrens' old house** (his family's), salt-grey and
+    shuttered. A **Keeper's brazier** (iron, three-legged) stands cold at its steps; by the
+    door an **ember-hook** holds the Keepers' sign — a bone-white enamel disc with an ember
+    painted on each face. Until he confesses it hangs **wrapped in sailcloth**, tied with red
+    cord. After a `full` confession it is uncovered, cleaned and turned to face the road, and
+    the brazier's ash is raked (not lit: he has no ember to light it); after a `grudging` one
+    the sacking lies under the hook and nothing is cleaned. Keepers mark their houses this way.
+  - Two of Gull's Head's four net-lofts are **falling down** (holed roofs, snapped rails,
+    fallen nets); the one Hesk sits by is still mended.
+
 - **Established in play (Day 6 — Aldous's confession, Act I close):**
   - Aldous kept the **east stair** of the Hearthspire as door-warden for thirty-one years;
     no one climbs to the flame without a door-warden's say. On the night of the Snuffing he

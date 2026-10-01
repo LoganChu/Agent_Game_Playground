@@ -2,6 +2,68 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-01 21:00 UTC — Day 16: The Wrens' house, broken lofts, wading foam (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green (94 tests).
+- **Dressing follow-ups** (ROADMAP [A] #1, art was due today under the cadence rule):
+  - **Houses planked on all four faces.** `_boards` in `build_village.py` now boards the ±X
+    sides too (they were flat colour); Mara's porch house swapped its side slabs for corner
+    posts; the tall house got corner posts.
+  - **`house_stilt`** — a planked, shuttered, coal-shingled remake of the plain stilt house
+    (same footprint and heights; steps with stringers down from the door). It retires
+    `build_props`' flat-walled `stilt_house.glb` (builder and file removed).
+  - **`house_wren`** — *the Wrens' old house*, which Aldous sits beside: bleached,
+    salt-grey boards with two missing from the side, a patched slate roof, shutters closed,
+    a side window boarded with a cross of planks, a **cold Keeper's brazier** at the steps
+    (grey ash, dead coals) and an **ember-hook** by the door.
+  - **The ember sign follows the story.** Two small models on the hook — `ember_sign_wrapped`
+    (sailcloth, red cord) until `saltmarrow_aldous_confessed` is set, then `ember_sign` (a
+    bone-white disc with the Keepers' ember on each face). A new inspectable, **"Look at the
+    Wrens' door"** (`story/wrens_door.json`), reads three ways: untold (wrapped, cold), grudging
+    (the sacking dropped under the hook, nothing cleaned), full (cleaned, facing the road, the
+    ash *raked* "the way you'd make up a bed for someone expected"), plus a line if you carry
+    his sleeve-ember. Canon added to LORE.
+  - **`net_loft_broken`** for Gull's Head: holed plank roof with a slipped strip, snapped
+    rail, missing floor and wall boards, one net hanging by a corner, one heaped on the floor,
+    a ladder short two rungs. Two of the four lofts use it; Hesk's loft stays mended.
+  - **Wading foam:** new prop field `wading: [[x, z, r], ...]` — small level foam rings round
+    legs and pilings in the sea, one mesh per prop, kept only where the ground under the leg
+    is below the water. On the dock's 8 pilings and the three houses in the shallows.
+- **Tests:** `test_wrens_and_lofts.gd` (9: boards on both sides of every house, stilt house
+  retired, Wrens' house by Aldous with both signs sharing its origin, exactly one sign per
+  confession state, the door text per state, broken lofts + Hesk's whole one, wading foam on
+  the water only over the sea, ring mesh, validator). `test_village`/`test_aftermath` updated.
+  103 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-01-wrens-*.png`): `before-wren` vs `after-wren` (same
+camera), `after-wren-told` (the uncovered sign and raked brazier after a full confession),
+`before-lofts` vs `after-lofts` (Gull's Head), `after-dock` (foam round the pilings), `kit`.
+
+**Decisions**
+- **Story-swappable details as separate props sharing the building's origin.** The sign
+  models are built where the hook is relative to the house, so data places them with the
+  house's own position/turn and only `if` differs — no maths in data, no new engine feature.
+- **One inspectable for hook + brazier**, not two: they're half a metre apart and two prompts
+  would fight each other (and Aldous's) for the nearest-interactable slot.
+- **No light on the brazier.** It's cold on purpose (the Keepers' fire is out), and the light
+  budget (ember, ferry lantern, beacon) stands.
+- **Wading rings are filtered by the terrain at build time** instead of hand-listing only wet
+  legs, so houses can be moved without breaking the foam. Static rings: the legs don't bob.
+- Retired `stilt_house.glb` rather than keep two versions of the same house.
+
+**Problems / notes**
+- `house_wren` first exported 19 material groups (budget 16); folded near-identical shades.
+- The board-coverage test first counted vertex heights (boards are vertical, so all the same);
+  it counts board edges along the wall now.
+
+**Next run should**
+1. **Content is due (Day 17)**: a small Act I side thread paying off open flags, or the
+   Thornwold greybox + *The crossing*. A cheap hook from today: Aldous noticing you read his
+   sign (the `wrens_door` text could set a flag he answers).
+2. Systems after that: settings (text size, volumes, camera) with a persisted settings file;
+   a title screen.
+
 ## 2026-10-01 09:00 UTC — Day 15: Polish pass — camera, pause menu, save slots
 
 **Did**

@@ -32,10 +32,10 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --flags=intro_seen \
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
-.tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, stilt house, beacon, net-loft)
+.tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py [oda …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
-.tools/bin/blender-py tools/blender/build_village.py [house_tall house_porch gate_post]  # village buildings (same kit dir)
+.tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head]  # art review: every character side by side
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -176,11 +176,22 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   vertex-alpha foam around the hull (inner radii across/along it, before `scale`) at `foam_y`
   above the origin (the waterline). Used by the ferry, the fishing boat and the rowboat.
   Colliders ride along with the model (a few cm; harmless).
-- The village kit (`build_village.py`, Day 14): `house_tall` (two storeys, slate/tarred
-  boards, pine shingles) and `house_porch` (Mara's) share `stilt_house`'s 2.6 × 2.2 m walls on
-  a 1.0 m deck, so the stilt house's `collider` fits them (`house_tall` is 5.6 m tall);
-  `gate_post` replaces the procedural `post`. Every Act I prop is now a Blender model
-  (`test_village.gd` guards it).
+- The village kit (`build_village.py`, Days 14 & 16): `house_stilt` (the plain cottage),
+  `house_wren` (Aldous's family house: bleached boards, a cold Keeper's brazier at the steps,
+  an ember-hook by the door), `house_tall` (two storeys, slate/tarred boards, pine shingles)
+  and `house_porch` (Mara's) share one 2.6 × 2.2 m wall box on a 1.0 m deck, so the same
+  `collider` [2.6, 3.6, 2.2] fits them (`house_tall` is 5.6 m tall); every house is planked on
+  all four faces (`_boards`). `gate_post` replaces the procedural `post`. `net_loft_broken`
+  (Gull's Head) keeps `net_loft`'s frame and collider. `ember_sign` / `ember_sign_wrapped` are
+  modelled **at the hook's spot relative to `house_wren`'s origin**, so a region places them
+  with the house's own `position` and `rotation_y` and only the `if` differs (a pattern for
+  any story-swappable detail on a building). The old flat-walled `stilt_house.glb` was
+  retired on Day 16. Every Act I prop is a Blender model (`test_village.gd` guards it).
+- `"wading": [[x, z, radius], ...]` (model props, not with `float`) — small level foam rings
+  round legs and pilings standing in the sea (model space before `scale`; one mesh for all
+  rings, `FloatingProp.wading_mesh`). At build time a ring is kept only if the ground under
+  it is below `water_level`, so a house straddling the tide line gets rings on its wet legs
+  only. Used by the dock and the houses in Saltmarrow's shallows.
 
 ### Arrival events & act ends (Day 13)
 - **Region `events`** happen on arriving in a region: after `main.load_region`, the first
@@ -395,6 +406,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   shows, the stool/nets/lost-things inspectables per state, Pell's ferry ask, Tam's fare,
   Mara and the sleeve-ember.
 - `tests/test_dressing.gd` — the Blender dressing kit (see *Dressing kit*).
+- `tests/test_wrens_and_lofts.gd` — houses planked on every side, the retired stilt house,
+  the Wrens' house and its ember sign per confession (+ the `wrens_door` inspectable), Gull's
+  Head's broken lofts (Hesk's stays whole), `wading` foam only over the sea, validator checks.
 - `tests/test_ferry.gd` — the ferry's arrival: the horn event fires once and only away from the
   harbor, Pell/Oda/ferry/bundle placement, Oda weighing the deed per burn, passage and the Act I
   recap, a promised Pell needing Mara's leave (both answers), Pell's dock ask and the pouch,
