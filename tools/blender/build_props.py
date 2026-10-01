@@ -145,20 +145,6 @@ def build_rock_cluster() -> None:
     export("rock_cluster")
 
 
-def build_stilt_house() -> None:
-    reset_scene()
-    for x in (-1.1, 1.1):
-        for y in (-0.9, 0.9):
-            cone("Stilt", 0.09, 0.09, 1.0, 5, (x, y, 0), material("slate"))
-    box("Deck", (3.0, 2.6, 0.12), (0, 0, 1.0), material("driftwood"))
-    box("Walls", (2.6, 2.2, 1.6), (0, 0, 1.12), material("driftwood"))
-    prism("Roof", 3.0, 2.7, 1.1, (0, 0, 2.72), material("coal"))
-    box("Door", (0.6, 0.06, 1.1), (-0.5, -1.12, 1.12), material("ink"))
-    box("Window", (0.5, 0.06, 0.45), (0.6, -1.12, 1.7), material("kindle", emissive=True))
-    box("Chimney", (0.3, 0.3, 0.8), (0.8, 0.6, 3.0), material("slate"))
-    export("stilt_house")
-
-
 def build_gull_beacon() -> None:
     reset_scene()
     cone("Tower", 1.3, 0.9, 4.0, 8, (0, 0, 0), material("slate"))
@@ -198,6 +184,5 @@ def build_net_loft() -> None:
 if __name__ == "__main__":
     build_pine_tree()
     build_rock_cluster()
-    build_stilt_house()
     build_gull_beacon()
     build_net_loft()

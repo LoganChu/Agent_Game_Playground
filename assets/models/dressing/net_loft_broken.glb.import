@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://caxeal30jywpn"
-path="res://.godot/imported/stilt_house.glb-d75e239c1a395ef500ac3a6483cf7b0e.scn"
+uid="uid://bkj41xtc2acsf"
+path="res://.godot/imported/net_loft_broken.glb-bbf2153fffe8b1af820cbe27cc2bc7ca.scn"
 
 [deps]
 
-source_file="res://assets/models/stilt_house.glb"
-dest_files=["res://.godot/imported/stilt_house.glb-d75e239c1a395ef500ac3a6483cf7b0e.scn"]
+source_file="res://assets/models/dressing/net_loft_broken.glb"
+dest_files=["res://.godot/imported/net_loft_broken.glb-bbf2153fffe8b1af820cbe27cc2bc7ca.scn"]
 
 [params]
 
