@@ -13,6 +13,9 @@ const KEYS: Array[String] = ["bob", "roll", "period", "foam", "foam_y", "note"]
 const FOAM_WIDTH := 0.55
 const FOAM_TUCK := 0.85
 const FOAM_SEGMENTS := 28
+## Foam round a leg or piling standing in the sea (`wading`): a narrower ring, fewer segments.
+const WADING_WIDTH := 0.3
+const WADING_SEGMENTS := 10
 
 var bob := 0.05
 var roll := 1.5
@@ -81,28 +84,43 @@ func model_offset() -> float:
 static func foam_mesh(rx: float, rz: float) -> ArrayMesh:
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	_ring(st, Vector3.ZERO, rx, rz, FOAM_WIDTH, FOAM_SEGMENTS, 5)
+	return st.commit()
+
+
+## Small foam rings round the legs of something standing in the sea (a prop's `wading`): one
+## mesh for every ring, each `Vector3(x, radius, z)` (model space, y 0 = the water).
+static func wading_mesh(rings: Array[Vector3]) -> ArrayMesh:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for i in rings.size():
+		var r := rings[i]
+		_ring(st, Vector3(r.x, 0, r.z), r.y, r.y, WADING_WIDTH, WADING_SEGMENTS, 11 + i)
+	return st.commit()
+
+
+static func _ring(st: SurfaceTool, centre: Vector3, rx: float, rz: float, width: float, segments: int, seed: int) -> void:
 	var rng := RandomNumberGenerator.new()
-	rng.seed = 5
+	rng.seed = seed
 	var inner: Array[Vector3] = []
 	var mid: Array[Vector3] = []
 	var outer: Array[Vector3] = []
-	for i in FOAM_SEGMENTS:
-		var a := TAU * i / FOAM_SEGMENTS
+	var band := minf(0.12, width * 0.25)
+	for i in segments:
+		var a := TAU * i / segments
 		var dir := Vector3(cos(a), 0, sin(a))
-		inner.append(Vector3(dir.x * rx * FOAM_TUCK, 0, dir.z * rz * FOAM_TUCK))
-		mid.append(Vector3(dir.x * (rx + 0.12), 0, dir.z * (rz + 0.12)))
-		var w := FOAM_WIDTH * rng.randf_range(0.6, 1.2)
-		outer.append(Vector3(dir.x * (rx + w), 0, dir.z * (rz + w)))
+		inner.append(centre + Vector3(dir.x * rx * FOAM_TUCK, 0, dir.z * rz * FOAM_TUCK))
+		mid.append(centre + Vector3(dir.x * (rx + band), 0, dir.z * (rz + band)))
+		var w := width * rng.randf_range(0.6, 1.2)
+		outer.append(centre + Vector3(dir.x * (rx + w), 0, dir.z * (rz + w)))
 	var white := PropFactory.color("bone")
 	var c_in := Color(white, 0.85)
 	var c_mid := Color(white, 0.6)
 	var c_out := Color(white, 0.0)
-	for i in FOAM_SEGMENTS:
-		var j := (i + 1) % FOAM_SEGMENTS
+	for i in segments:
+		var j := (i + 1) % segments
 		_quad(st, inner[i], inner[j], mid[j], mid[i], c_in, c_mid)
 		_quad(st, mid[i], mid[j], outer[j], outer[i], c_mid, c_out)
-	st.set_normal(Vector3.UP)
-	return st.commit()
 
 
 static func _quad(st: SurfaceTool, a: Vector3, b: Vector3, c: Vector3, d: Vector3, near: Color, far: Color) -> void:

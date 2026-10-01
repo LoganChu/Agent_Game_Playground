@@ -176,6 +176,24 @@ func _check_prop_float(where: String, prop: Dictionary, model: String) -> void:
 			_err(where, "prop float foam must be [rx, rz] (positive numbers)")
 
 
+## `wading` (model props only, not floating ones): foam rings [[x, z, radius], ...] round
+## legs standing in the sea.
+func _check_prop_wading(where: String, prop: Dictionary, model: String) -> void:
+	if not prop.has("wading"):
+		return
+	if model.is_empty():
+		_err(where, "prop 'wading' needs a 'model'")
+	if prop.has("float"):
+		_err(where, "prop 'wading' can't go with 'float' (a floating prop has its own foam)")
+	if not prop["wading"] is Array or (prop["wading"] as Array).is_empty():
+		_err(where, "prop 'wading' must be a list of [x, z, radius]")
+		return
+	for ring: Variant in prop["wading"]:
+		if not (ring is Array and (ring as Array).size() == 3 and (ring as Array).all(
+				func(v: Variant) -> bool: return v is float or v is int) and float(ring[2]) > 0.0):
+			_err(where, "prop wading ring must be [x, z, radius] (radius > 0)")
+
+
 func _is_vector(value: Variant) -> bool:
 	return value is Array and (value as Array).size() == 3 \
 			and (value as Array).all(func(v: Variant) -> bool: return v is float or v is int)
@@ -271,6 +289,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_check_prop_light(where, prop, model)
 		_check_prop_colliders(where, prop, model)
 		_check_prop_float(where, prop, model)
+		_check_prop_wading(where, prop, model)
 		_ref_condition(where, prop.get("if"))
 	var fog: Dictionary = region.get("fog", {})
 	for override: Variant in fog.get("overrides", []):

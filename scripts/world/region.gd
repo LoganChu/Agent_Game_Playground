@@ -205,7 +205,32 @@ func _build_prop(prop: Dictionary) -> Node3D:
 		node = PropFactory.build(str(prop.get("shape", "crate")), str(prop.get("color", "")), float(prop.get("scale", 1.0)))
 	node.position = place(prop.get("position"), bool(prop.get("snap", true)))
 	node.rotation_degrees.y = float(prop.get("rotation_y", 0.0))
+	if prop.get("wading") is Array and not node is FloatingProp:
+		_add_wading_foam(node, prop["wading"], float(prop.get("scale", 1.0)))
 	return node
+
+
+## Foam rings where a prop's legs stand in the sea (`wading`: [[x, z, radius], ...], model
+## space before `scale`). The rings sit level on the water; a leg whose ground is above the
+## water (the tide line runs under the house) gets none. Needs sculpted ground and a sea.
+func _add_wading_foam(node: Node3D, rings: Array, scale_factor: float) -> void:
+	var water := float(data.get("water_level", -INF))
+	if field == null or is_inf(water):
+		return
+	var wet: Array[Vector3] = []
+	for ring: Array in rings:
+		var world := node.transform * Vector3(float(ring[0]), 0, float(ring[1]))
+		if field.height_at(world.x, world.z) < water - 0.02:
+			wet.append(Vector3(float(ring[0]), float(ring[2]), float(ring[1])))
+	if wet.is_empty():
+		return
+	var foam := MeshInstance3D.new()
+	foam.name = "WadingFoam"
+	foam.mesh = FloatingProp.wading_mesh(wet)
+	foam.material_override = FloatingProp.foam_material()
+	foam.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	foam.position.y = (water - node.position.y + 0.03) / scale_factor
+	node.add_child(foam)
 
 
 ## An OmniLight3D from a prop's `light` field: {color, energy, range, offset}. Only model
