@@ -14,6 +14,10 @@ var _act_end_recap := ""
 
 
 func _ready() -> void:
+	# The pause menu check pauses the tree; the run itself must keep going.
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Never touch the player's real saves.
+	SaveSystem.save_dir = "user://smoke_saves"
 	_run.call_deferred()
 
 
@@ -58,6 +62,7 @@ func _run() -> void:
 					for i in 30:
 						await get_tree().process_frame
 					_check(npc.body_yaw() < -0.5, "mara turns to face the player (yaw %.2f)" % npc.body_yaw())
+					_check(not (main.get("hud") as Hud).is_key_hint_shown(), "key hint hides during dialogue")
 				_finish_dialogue(ui, npc.npc_id)
 				await get_tree().process_frame
 				await _close_act_end_card(main)
@@ -77,6 +82,7 @@ func _run() -> void:
 	await _check_beacon_lit(main)
 	await _check_act_one_close(main)
 	await _check_journal(main.get("journal_ui"))
+	await _check_pause_menu(main)
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
 	var before := GameState.world.to_dict()
 	_check(SaveSystem.save_game("smoke_test"), "save succeeds")
@@ -263,6 +269,44 @@ func _check_journal(journal: JournalUI) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_check(not journal.is_open() and not GameState.input_locked, "Esc closes the journal and unlocks input")
+
+
+## Esc pauses; saving into a slot (overwrite asks twice) and loading it back through the
+## menu restores the state; Esc backs out of a page, then resumes.
+func _check_pause_menu(main: Node) -> void:
+	var menu: PauseMenu = main.get("pause_menu")
+	var hud: Hud = main.get("hud")
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(menu.is_open() and get_tree().paused and GameState.input_locked, "Esc opens the pause menu and pauses")
+	_check(not hud.is_key_hint_shown(), "key hint hides under the pause menu")
+	_check(menu.press("Save game") and menu.page == PauseMenu.Page.SAVE, "pause menu opens the save page")
+	_check(menu.press("Slot 1") and SaveSystem.has_save("slot1"), "saving into slot 1")
+	var saved := JSON.stringify(GameState.world.to_dict())
+	_check(menu.press("Slot 1") and menu.press("Slot 1"), "overwriting slot 1 takes a second press")
+	_check(menu.buttons()[0].text.contains(str(main.get("region").data.get("name"))), "slot 1 names the region")
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(menu.is_open() and menu.page == PauseMenu.Page.MAIN, "Esc backs out to the main page")
+	GameState.world.set_flag("intro_seen", false)
+	_check(menu.press("Load game") and menu.page == PauseMenu.Page.LOAD, "pause menu opens the load page")
+	_check(menu.buttons()[0].disabled, "empty quicksave can't be loaded")
+	_check(menu.press("Slot 1"), "loading slot 1")
+	_check(not menu.is_open() and not get_tree().paused, "loading closes the menu and unpauses")
+	for i in 3:
+		await get_tree().physics_frame
+	_check(JSON.stringify(GameState.world.to_dict()) == saved, "slot 1 restores the saved state")
+	_check(not GameState.input_locked, "input unlocked after loading from the menu")
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(not menu.is_open() and not get_tree().paused and not GameState.input_locked, "Esc resumes")
+	DirAccess.remove_absolute(SaveSystem.slot_path("slot1"))
 
 
 ## The end-of-act card shows (deferred) after the dialogue that ends an act: record it and
