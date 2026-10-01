@@ -19,14 +19,14 @@ func test_village_has_house_variants() -> void:
 	for prop: Dictionary in db.get_region("saltmarrow")["props"]:
 		if str(prop.get("shape", "")) == "house":
 			models[str(prop["model"]).get_file()] = true
-	for name: String in ["stilt_house.glb", "house_tall.glb", "house_porch.glb", "net_loft.glb"]:
+	for name: String in ["house_stilt.glb", "house_wren.glb", "house_tall.glb", "house_porch.glb", "net_loft.glb"]:
 		assert_true(models.has(name), "Saltmarrow uses %s" % name)
 
 
 func test_houses_share_the_stilt_house_deck() -> void:
 	# Deck at 1.0 m (so the stilt house's collider fits every variant); the porch reaches out
 	# in front (+Z in Godot) and its steps come down to the ground.
-	for name: String in ["house_tall", "house_porch"]:
+	for name: String in ["house_stilt", "house_wren", "house_tall", "house_porch"]:
 		var node := (load(DIR + name + ".glb") as PackedScene).instantiate() as Node3D
 		var found := false
 		for mi: MeshInstance3D in node.find_children("*", "MeshInstance3D", true, false):
