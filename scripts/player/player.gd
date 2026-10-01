@@ -14,12 +14,20 @@ const GRAVITY := 20.0
 ## Where the ember sits in the Wakebearer model's right hand (model space, rest pose).
 const EMBER_HAND := Vector3(-0.3, 0.85, 0.3)
 const EMBER_LIGHT_ENERGY := 0.6
+## Orbit camera: full distance, the radius of the sphere swept ahead of it (keeps the near
+## plane out of walls and cliffs), and how fast it eases back out after being pushed in.
+const CAMERA_DISTANCE := 7.0
+const CAMERA_PROBE_RADIUS := 0.3
+const CAMERA_RETURN_SPEED := 4.0
 
 var focus: Interactable = null
 
 var _camera_yaw: Node3D
 var _camera_pitch: Node3D
 var _camera: Camera3D
+var _camera_arm: SpringArm3D
+## Current camera distance: snaps in when something blocks, eases back out (no popping).
+var _camera_distance := CAMERA_DISTANCE
 var _visual: Node3D
 var _sensor: Area3D
 var _rig: CharacterRig
@@ -99,6 +107,28 @@ func set_ember(value: float) -> void:
 func _process(delta: float) -> void:
 	_flicker_time += delta
 	_update_ember_light()
+	_update_camera_distance(delta)
+
+
+## How far the camera currently sits behind the pivot (for tests).
+func camera_distance() -> float:
+	return _camera_distance
+
+
+## The spring arm sweeps a sphere toward the full distance on the world and camera layers;
+## the camera jumps in to the hit at once (never through a wall) and eases back out.
+func _update_camera_distance(delta: float) -> void:
+	if _camera_arm == null:
+		return
+	var target := _camera_arm.get_hit_length()
+	_camera_distance = next_camera_distance(_camera_distance, target, delta)
+	_camera.position = Vector3(0, 0, _camera_distance)
+
+
+static func next_camera_distance(current: float, target: float, delta: float) -> float:
+	if target <= current:
+		return target
+	return move_toward(current, target, CAMERA_RETURN_SPEED * delta)
 
 
 func _update_ember_light() -> void:
@@ -195,16 +225,23 @@ func _build_camera() -> void:
 	_camera_pitch.name = "CameraPitch"
 	_camera_pitch.rotation.x = deg_to_rad(-28)
 	_camera_yaw.add_child(_camera_pitch)
+	# The arm only measures (no children); `_update_camera_distance` places the camera.
 	var arm := SpringArm3D.new()
-	arm.spring_length = 7.0
-	arm.margin = 0.3
-	arm.collision_mask = 1 << (Layers.WORLD - 1)
+	arm.name = "CameraArm"
+	arm.spring_length = CAMERA_DISTANCE
+	arm.margin = 0.1
+	var probe := SphereShape3D.new()
+	probe.radius = CAMERA_PROBE_RADIUS
+	arm.shape = probe
+	arm.collision_mask = (1 << (Layers.WORLD - 1)) | (1 << (Layers.CAMERA - 1))
 	arm.add_excluded_object(get_rid())
 	_camera_pitch.add_child(arm)
+	_camera_arm = arm
 	_camera = Camera3D.new()
 	_camera.fov = 55
 	_camera.current = true
-	arm.add_child(_camera)
+	_camera.position = Vector3(0, 0, CAMERA_DISTANCE)
+	_camera_pitch.add_child(_camera)
 
 
 func _build_sensor() -> void:

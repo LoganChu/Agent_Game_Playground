@@ -46,7 +46,9 @@ func test_porch_gets_its_extra_colliders() -> void:
 			porch = prop
 	assert_true(not porch.is_empty(), "Mara's porch house is placed")
 	var node := region._build_prop(porch)
-	var shapes := node.find_children("*", "CollisionShape3D", true, false)
+	# Walk colliders only (the camera blocker over the roof is on its own layer).
+	var shapes := node.find_children("*", "CollisionShape3D", true, false).filter(
+		func(s: Node) -> bool: return (s.get_parent() as CollisionObject3D).get_collision_layer_value(Layers.WORLD))
 	assert_eq(shapes.size(), 1 + (porch["colliders"] as Array).size(), "house + porch + steps colliders")
 	var furthest := 0.0
 	for shape: CollisionShape3D in shapes:

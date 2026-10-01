@@ -5,6 +5,8 @@ extends Node3D
 ## With `ground`, every position's y is an offset above the ground surface (props may opt
 ## out with `"snap": false`). See docs/TECH.md "Region format" and "Ground".
 
+## Models shorter than this get no camera blocker (see `camera_blocker`).
+const CAMERA_BLOCK_MIN_HEIGHT := 2.4
 ## Region data key per content kind.
 const KINDS := {"prop": "props", "npc": "npcs", "pickup": "pickups", "object": "objects"}
 
@@ -191,6 +193,10 @@ func _build_prop(prop: Dictionary) -> Node3D:
 				node.add_child(_box_collider(JsonUtil.to_vector3(prop["collider"])))
 			for extra: Dictionary in prop.get("colliders", []):
 				node.add_child(_box_collider(JsonUtil.to_vector3(extra["size"]), JsonUtil.to_vector3(extra.get("offset", [0, 0, 0]))))
+			if prop.has("collider"):
+				var blocker := camera_blocker(node, JsonUtil.to_vector3(prop["collider"]).y)
+				if blocker:
+					node.add_child(blocker)
 			if prop.has("light"):
 				node.add_child(build_light(prop["light"]))
 			if prop.get("float") is Dictionary:
@@ -212,6 +218,51 @@ static func build_light(spec: Dictionary) -> OmniLight3D:
 	light.omni_range = float(spec.get("range", 6.0))
 	light.position = JsonUtil.to_vector3(spec.get("offset", [0, 0, 0]))
 	return light
+
+
+## A camera-only box over a solid model's mesh bounds *above its walk collider* (model
+## space, from `collider_top` up), so the orbit camera pulls in before it can pass through
+## a roof, an eave or a canopy that the walk collider doesn't cover. Starting at the
+## collider's top keeps the box off the ground, so it never swallows the camera's pivot
+## when the player stands under the eaves. Only for models at least
+## CAMERA_BLOCK_MIN_HEIGHT tall with something above the collider. Null otherwise.
+static func camera_blocker(model: Node3D, collider_top: float) -> StaticBody3D:
+	var bounds := mesh_bounds(model)
+	if bounds.size.y < CAMERA_BLOCK_MIN_HEIGHT or bounds.end.y - collider_top < 0.2:
+		return null
+	var bottom := maxf(bounds.position.y, collider_top)
+	bounds = AABB(Vector3(bounds.position.x, bottom, bounds.position.z), Vector3(bounds.size.x, bounds.end.y - bottom, bounds.size.z))
+	var body := StaticBody3D.new()
+	body.name = "CameraBlocker"
+	body.collision_layer = 0
+	body.set_collision_layer_value(Layers.CAMERA, true)
+	body.collision_mask = 0
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = bounds.size
+	shape.shape = box
+	shape.position = bounds.get_center()
+	body.add_child(shape)
+	return body
+
+
+## Merged AABB of every mesh under `root`, in `root`'s own space (ignoring its transform).
+static func mesh_bounds(root: Node3D) -> AABB:
+	var out := AABB()
+	var first := true
+	var stack: Array = [[root, Transform3D.IDENTITY]]
+	while not stack.is_empty():
+		var item: Array = stack.pop_back()
+		var node: Node = item[0]
+		var xf: Transform3D = item[1]
+		if node is MeshInstance3D and (node as MeshInstance3D).mesh:
+			var box := xf * (node as MeshInstance3D).mesh.get_aabb()
+			out = box if first else out.merge(box)
+			first = false
+		for child in node.get_children():
+			if child is Node3D:
+				stack.append([child, xf * (child as Node3D).transform])
+	return out
 
 
 ## A box collider standing on the model's origin (+ `offset`, model space; y lifts the base).
