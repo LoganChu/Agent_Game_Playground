@@ -2,6 +2,71 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-01 09:00 UTC — Day 15: Polish pass — camera, pause menu, save slots
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green (88 tests).
+- **Polish/debt pass** (due by session 16; Day 8 was the last) plus the top systems item:
+  - **Camera collision.** The orbit camera already had a spring arm, but a bare ray: it let
+    the near plane sit on walls and cliffs, and roofs/eaves weren't in any collider, so the
+    camera slid straight through Mara's porch roof (screenshots `camera-before` vs `-after`,
+    same spot). Now: a new physics layer 4 **`camera`**; every model prop with a `collider`
+    and at least 2.4 m tall gets a camera-only **`CameraBlocker`** box over its mesh bounds
+    *above* its walk collider (roofs, eaves, canopies — the player never touches it); the
+    arm sweeps a 0.3 m sphere, and the camera **snaps in** to a hit but **eases back out**
+    (4 m/s), so it no longer pops. No data changes needed.
+  - **Pause menu** (Esc / P / gamepad Start): pauses the tree, Resume / Save game / Load
+    game / Quit to desktop. **Three manual save slots** (plus the F5 quicksave on the load
+    page), each listed as "Slot 1 — Saltmarrow · 2026-10-01 09:12"; overwriting a used slot
+    and quitting each need a second press. Esc backs out of a page, then resumes. Loading
+    closes the menu and unpauses into the loaded region.
+  - **HUD key hint** ("[J] Journal [I] Satchel [Esc] Menu") hides while any modal holds input —
+    it sat under the dialogue panel's corner (known issue since Day 2).
+  - **Ember meter flash** fixed: it faded in for 1.5 s on every load (its idle timer started
+    at 0). Found in the pause-menu screenshot.
+  - **Lineup scenes** (character + prop art review) are now lit by the game's own
+    `Atmosphere` (sky, sun, glow, grading) via `LineupLight`, `--mood=<region>`; distance fog
+    off so the prop overview stays readable.
+- **Engine:** `SaveSystem.SLOTS`, `slot_label/slot_info/slot_summary`, a `save_dir` var (the
+  smoke test now saves into `user://smoke_saves`, never touching real saves); `pause` input
+  action; `--pause-menu[=save|load]` debug arg for screenshots.
+- **Tests:** `test_polish.gd` (6 tests: house blocker on the camera layer only, starting at
+  the walls' top and reaching the peak; crates/fences/stools get none; every building stops
+  the camera to its peak; snap-in/ease-out maths; slot labels; pause binding). Smoke test
+  checks the key hint hides in dialogue and drives the pause menu: save to slot 1, overwrite
+  confirm, Esc back, load restores state, Esc resumes. 94 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-01-polish-*.png`): `camera-before` vs `camera-after`
+(by Mara's porch: the roof filled the frame), `pause`, `pause-save`, `prop-lineup` and
+`character-lineup` (now in the game's light).
+
+**Decisions**
+- **Camera blockers from mesh bounds, on their own layer**, rather than taller walk colliders
+  or per-prop data: eaves and canopies stick out past the walls, and widening walk colliders
+  would push the player away from doors. Bounds are computed at build time, so new models
+  get it free. Starting the box at the collider's top keeps it off the ground, so the pivot
+  is never inside it (first try used the full bounds and jammed the camera into the player's
+  head under the eaves). The net-lofts' colliders already reach their peak, so they get none.
+- **Pause pauses the tree** (NPCs, water, fog all freeze) as well as locking input. The HUD
+  runs always so the hint hides under the menu; the smoke test runs always so it can drive it.
+- **No settings page yet**: settings (text size, volume, camera sensitivity) is its own item
+  and needs a persisted settings file; the menu has room for it.
+- **No "Return to title"** on the Act I card: there is still no title screen. Logged.
+
+**Problems / notes**
+- Deferred `grab_focus` on menu buttons errored when a page was rebuilt in the same frame
+  (the smoke test presses fast) — focus now checks the button is still in the tree.
+- With a wall right behind the player the camera still sits close behind their head (it
+  can't go through the wall). Fading the player model at very short distances is logged.
+
+**Next run should**
+1. **Art** ([A], due by Day 16 — next run): dressing follow-ups (house side walls, Gull's Head
+   broken net-loft, Aldous's Keeper touches) or the remaining terrain/atmosphere follow-ups
+   (foam rings round pilings, Compatibility paint contrast).
+2. Content is due by Day 17: the crossing / Thornwold opening, or a smaller Act I side thread.
+3. Systems after that: settings (text size, volumes, camera sensitivity/invert) wired into
+   the pause menu with a persisted settings file; a title screen.
+
 ## 2026-09-30 21:00 UTC — Day 14: Village kit & harbor life (art track)
 
 **Did**

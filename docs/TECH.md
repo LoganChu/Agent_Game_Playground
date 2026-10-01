@@ -24,6 +24,8 @@ $GODOT --path . -- --flags=intro_seen,saltmarrow_beacon_burned=knot \
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --flags=intro_seen,saltmarrow_beacon_burned=gull,saltmarrow_ferry_passage \
     --act-end=act1 --screenshot=/abs/out.png               # show an act's end card (debug)
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow --flags=intro_seen \
+    --pause-menu[=save|load] --screenshot=/abs/out.png     # pause menu (on a page) (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --camera=0,26,34:0,0,0 --screenshot=/abs/out.png       # fixed overview camera (eye:target)
@@ -35,7 +37,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_tall house_porch gate_post]  # village buildings (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
-    -- --screenshot=/abs/out.png [--closeup]                 # art review: every character side by side
+    -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head]  # art review: every character side by side
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
     -- --screenshot=/abs/out.png [--only=dock,wreck] [--camera=…]  # art review: the dressing kit
 ```
@@ -63,7 +65,9 @@ scripts/
   autoload/    singletons (registered in project.godot)
     content.gd      "Content"    – the loaded ContentDatabase (validates in debug builds)
     game_state.gd   "GameState"  – current WorldState, region, signals (toast, dialogue_requested…)
-    save_system.gd  "SaveSystem" – JSON saves in user://saves/<slot>.json (F5 / F9)
+    save_system.gd  "SaveSystem" – JSON saves in user://saves/<slot>.json: "quick" (F5 / F9)
+                    and SLOTS slot1..slot3 (pause menu); slot_summary() for menus; `save_dir`
+                    is a var so the smoke test saves elsewhere
   world/       region.gd (builds a region from data), npc_actor.gd, pickup.gd,
                region_exit.gd (optionally gated), inspectable.gd (examine → dialogue),
                interactable.gd, prop_factory.gd (procedural low-poly props),
@@ -76,13 +80,15 @@ scripts/
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel), act_end_card.gd
-               (full-screen end-of-act card: title, recap, coda, "Keep exploring") — built in code.
+               (full-screen end-of-act card: title, recap, coda, "Keep exploring"), pause_menu.gd (Esc/Start:
+               pauses the tree; Resume / Save / Load / Quit, slot pages) — built in code.
                ui_theme.gd: the one shared `Theme` (palette colours, font sizes, panel box)
                set on each UI root; widgets pick looks via `theme_type_variation`
                (UiTheme.SPEAKER, HINT, HUD_TOAST…), not per-widget overrides.
                `UiTheme.set_text_scale(s)` rescales every font live (settings hook). Modal UIs set `GameState.input_locked` while open and refuse
                to open if another modal already holds it.
-  debug/       smoke_test.gd, screenshot.gd, character_lineup.gd, prop_lineup.gd (art-review scenes in scenes/debug/)
+  debug/       smoke_test.gd, screenshot.gd, character_lineup.gd, prop_lineup.gd (art-review scenes in scenes/debug/,
+               lit by the game's Atmosphere through lineup_light.gd, `--mood=<region>`)
   main.gd      root scene script (scenes/main.tscn)
 data/          game.json, flags.json, regions/, npcs/, items/, quests/  (one JSON per record)
 story/         dialogue JSON, one file per conversation
@@ -92,7 +98,20 @@ tests/         run_tests.gd (runner), test_case.gd (base), test_*.gd
 ```
 Scenes are mostly built in code from data so content never requires editing `.tscn` files.
 
-**Physics layers:** 1 world, 2 player, 3 interactable.
+**Physics layers:** 1 world, 2 player, 3 interactable, 4 camera (blocks only the camera arm).
+
+**Camera (Day 15):** the player's orbit camera is placed by a `SpringArm3D` that only
+measures: it sweeps a 0.3 m sphere (`Player.CAMERA_PROBE_RADIUS`) out to 7 m on the world and
+camera layers; the camera jumps in to a hit at once and eases back out at
+`CAMERA_RETURN_SPEED` (`Player.next_camera_distance`). Every model prop with a `collider`
+whose mesh is ≥ `Region.CAMERA_BLOCK_MIN_HEIGHT` (2.4 m) tall gets a `CameraBlocker` (layer 4
+only) over its mesh bounds from the collider's top up — roofs, eaves, canopies. Automatic,
+no data field.
+
+**Pause (Day 15):** `PauseMenu` sets `get_tree().paused` as well as `input_locked`. Nodes that
+must run under it use `PROCESS_MODE_ALWAYS` (the menu, `Hud`, `SmokeTest`). It is the last
+modal added in `main.gd`, so it sees Esc first and ignores it while another modal holds input
+(that modal then closes on the same press).
 
 ## Content formats
 Every record lives in its own file whose name equals its `id`.

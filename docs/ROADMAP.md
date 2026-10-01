@@ -91,6 +91,12 @@ with a meaningful burn choice → consequences visible in the village.
       harbor and every NPC turns to face the player while talking (and back after; Hesk keeps
       mending — `faces_player`); the Wakebearer turns to them too (Day 14)
 
+- [x] [P] **Polish pass: camera, pause menu, save slots**: camera-only blockers over tall
+      props (roofs, eaves, canopies) on a new `camera` layer, sphere-swept spring arm that
+      snaps in and eases out; pause menu (Esc/Start: resume, save, load, quit) with three
+      save slots + quicksave; HUD key hint hides under modals; ember meter no longer flashes
+      on load; lineup scenes lit by `Atmosphere` (Day 15)
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -100,37 +106,36 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [S] **Pause menu**: resume, save, load, settings, quit. Multiple save slots. (The Act I
-   end card only offers "Keep exploring"; once a pause/title menu exists, add "Return to
-   title".)
-2. [A] **Art next due by Day 16** — **Terrain & atmosphere follow-ups**: paint reads weakly in
-   the Compatibility renderer (walkway vs. slate) — pick stronger contrasts after the Vulkan
-   colour check; camera can clip into the Gull's Head cliffs (and now the tall houses) when
-   orbiting close — a camera collision ray; foam rings around the dock pilings and the
-   stilt-house legs in the water (static `float` with bob 0, or a per-piling ring list); the
-   debug lineup scenes still build their own old-style environment — reuse `Atmosphere`
-   there.
-3. [A] **Dressing follow-ups (small)**: house side walls (±X) are flat — boards on all four
-   faces; a Gull's Head variant of the net-loft with a broken rail (Hushed, neglected);
-   Aldous's house (the stilt house at (-9,-3)) could get a Keeper touch (a cold brazier, an
-   ember-hook by the door) now that his secret is out.
-4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+1. [A] **Art due next session (Day 16)** — **Dressing follow-ups (small)**: house side walls
+   (±X) are flat — boards on all four faces; a Gull's Head variant of the net-loft with a
+   broken rail (Hushed, neglected); Aldous's house (the stilt house at (-9,-3)) could get a
+   Keeper touch (a cold brazier, an ember-hook by the door) now that his secret is out.
+   Also from terrain/atmosphere: foam rings around the dock pilings and stilt-house legs in
+   the water (static `float` with bob 0, or a per-piling ring list); paint contrast in the
+   Compatibility renderer (walkway vs. slate).
+2. [C] **Content due by Day 17**: begin *The crossing* (see Milestone 2) once Thornwold has
+   a greybox, or a small Act I side thread that pays off an open flag.
+3. [S] **Settings** in the pause menu: volume buses, text size (`UiTheme.set_text_scale`),
+   camera sensitivity/invert, key rebinding (InputSetup is the hook); persisted to
+   `user://settings.cfg` (not in saves).
+4. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+   "Return to title" on the Act I end card and in the pause menu.
+5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes"); a Hushed NPC drifting in a pocket; audio cue
    (muffling low-pass + heartbeat-ish ember crackle) with the audio item; colourblind-safe
    meter check with the accessibility item. Consider a story flag when the player is first
    turned back (an NPC remarks on it).
-6. [S] Settings: volume buses, text size (`UiTheme.set_text_scale`), camera
-   sensitivity/invert, key rebinding (InputSetup is the hook).
 7. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-8. [S] Interaction polish: camera framing during dialogue; hide the HUD key hint while
-   dialogue is open; inspectable glint. (Facing while talking landed Day 14.)
+8. [S] Interaction polish: camera framing during dialogue; inspectable glint; fade the
+   player model when the camera is pushed in close behind them (a wall at their back).
+   (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
 ## Milestone 2 — Alpha (Act II begins)
 - [C] **The crossing** (Act I→II transition; the arrival itself landed Day 13): Oda's "When do
@@ -171,9 +176,7 @@ each .glb < 5 MB.
   keep the double await in `_check_journal`.
 - The smoke test's menu walk always burns whichever Remnant is listed first (currently the
   pebble); the other burn paths are covered by `test_burning.gd` unit tests only.
-- The HUD key hint ("[J] Journal [I] Satchel") is overlapped by the dialogue panel's
-  bottom-left corner; hide it while dialogue is open (fold into Interaction polish).
-- Next polish/debt pass due by session 16 (Day 8 was the last).
+- Next polish/debt pass due by session 23 (Day 15 was the last).
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog
   (0.045) in the Compatibility renderer; up close they read fine. The Day 12 cold light helps
   Gull's Head read as drained; re-judge the density with the Vulkan colour check.
@@ -183,7 +186,12 @@ each .glb < 5 MB.
   region spawns the player inside a pocket via a save, they go to the default spawn
   (validator keeps spawns clear, but saved positions aren't checked).
 - Last content session: Day 13 (the ferry); content next due by Day 17 at the latest.
-- Last art session: Day 14 (village kit); art next due by Day 16 under the cadence rule.
+- Last art session: Day 14 (village kit); art next due by Day 16 (next run) under the cadence rule.
+- Camera blockers are mesh-bounds boxes: a tree's blocker is its whole canopy box, so the
+  camera pulls in a little early beside pines. Fine for now; per-part shapes if it bothers.
+- Pause pauses the whole tree; anything that must run under the menu (HUD, smoke test) sets
+  `PROCESS_MODE_ALWAYS`. Toast tweens keep running under the menu (HUD is always-on).
+- Save slots have no thumbnails or play time yet (full save system item, Milestone 3).
 - The Vertical Slice is now playable start to finish (wake → beacon → ferry → Act I card).
   After the card the player keeps exploring Saltmarrow with passage taken; nothing sails until
   Act II. Remaining slice work is systems/polish (pause menu, settings, audio, interaction
