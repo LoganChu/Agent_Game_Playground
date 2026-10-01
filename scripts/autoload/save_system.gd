@@ -1,8 +1,8 @@
 extends Node
 ## Autoload "SaveSystem": JSON save files in user://saves/.
 ##
-## Stub for the vertical slice: one quicksave slot, no thumbnails, no migration beyond a
-## version check. See ROADMAP for the full save system.
+## A quicksave slot (F5/F9) plus three manual slots (pause menu). No thumbnails, no
+## migration beyond a version check. See ROADMAP for the full save system.
 
 signal saved(slot: String)
 signal loaded(slot: String)
@@ -10,16 +10,58 @@ signal loaded(slot: String)
 const SAVE_VERSION := 1
 const SAVE_DIR := "user://saves"
 
+## Manual slots offered by the pause menu, in order (the quicksave is "quick").
+const SLOTS: Array[String] = ["slot1", "slot2", "slot3"]
+const QUICK_SLOT := "quick"
+
 ## Nodes in this group provide the player's position: `get_save_position() -> Vector3`.
 const PLAYER_GROUP := "player"
 
+## Where saves go; the smoke test points this elsewhere so it never touches real saves.
+var save_dir := SAVE_DIR
+
 
 func slot_path(slot: String) -> String:
-	return SAVE_DIR.path_join(slot + ".json")
+	return save_dir.path_join(slot + ".json")
 
 
-func has_save(slot: String = "quick") -> bool:
+func has_save(slot: String = QUICK_SLOT) -> bool:
 	return FileAccess.file_exists(slot_path(slot))
+
+
+## Player-facing slot name: "Quicksave" or "Slot 1".
+static func slot_label(slot: String) -> String:
+	if slot == QUICK_SLOT:
+		return "Quicksave"
+	if slot.begins_with("slot"):
+		return "Slot " + slot.substr(4)
+	return slot.capitalize()
+
+
+## What a slot holds, for menus: {} if empty or unreadable, else {region, region_name,
+## saved_at ("2026-10-01 09:12", UTC)}.
+func slot_info(slot: String) -> Dictionary:
+	if not has_save(slot):
+		return {}
+	var errs: Array[String] = []
+	var data: Variant = JsonUtil.load_file(slot_path(slot), errs)
+	if not data is Dictionary:
+		return {}
+	var region := str((data as Dictionary).get("region", ""))
+	var stamp := str((data as Dictionary).get("saved_at", "")).replace("T", " ")
+	return {
+		"region": region,
+		"region_name": str(Content.db.regions.get(region, {}).get("name", region)),
+		"saved_at": stamp.substr(0, 16),
+	}
+
+
+## One line describing a slot for the pause menu: "Slot 1 — Saltmarrow · 2026-10-01 09:12".
+func slot_summary(slot: String) -> String:
+	var info := slot_info(slot)
+	if info.is_empty():
+		return "%s — empty" % slot_label(slot)
+	return "%s — %s · %s" % [slot_label(slot), info["region_name"], info["saved_at"]]
 
 
 func build_save_data() -> Dictionary:
@@ -36,8 +78,8 @@ func build_save_data() -> Dictionary:
 	return data
 
 
-func save_game(slot: String = "quick") -> bool:
-	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
+func save_game(slot: String = QUICK_SLOT) -> bool:
+	DirAccess.make_dir_recursive_absolute(save_dir)
 	var file := FileAccess.open(slot_path(slot), FileAccess.WRITE)
 	if file == null:
 		push_error("Could not write save '%s': %s" % [slot, error_string(FileAccess.get_open_error())])
@@ -45,11 +87,11 @@ func save_game(slot: String = "quick") -> bool:
 	file.store_string(JSON.stringify(build_save_data(), "\t"))
 	file.close()
 	saved.emit(slot)
-	GameState.toast.emit("Game saved")
+	GameState.toast.emit("Game saved" if slot == QUICK_SLOT else "Saved to " + slot_label(slot))
 	return true
 
 
-func load_game(slot: String = "quick") -> bool:
+func load_game(slot: String = QUICK_SLOT) -> bool:
 	var errs: Array[String] = []
 	var data: Variant = JsonUtil.load_file(slot_path(slot), errs)
 	if not data is Dictionary:

@@ -10,6 +10,7 @@ extends Node3D
 ##                         comma-separate several. E.g. screenshots of late-game states:
 ##                         --flags=intro_seen,saltmarrow_beacon_burned=knot --quest=a_light_for_saltmarrow
 ##   --act-end=<id>        show that act's end card for the current state (debug/screenshots)
+##   --pause-menu[=save|load]  open the pause menu (on that page) after loading (screenshots)
 
 var region: Region
 var player: Player
@@ -19,6 +20,7 @@ var journal_ui: JournalUI
 var greying: GreyingWalker
 var atmosphere: Atmosphere
 var act_end_card: ActEndCard
+var pause_menu: PauseMenu
 ## Acts whose end the story had already reached (so a card shows once, when it changes).
 var _acts_reached: Dictionary = {}
 
@@ -35,6 +37,9 @@ func _ready() -> void:
 	add_child(journal_ui)
 	act_end_card = ActEndCard.new()
 	add_child(act_end_card)
+	# After the other modals: it sees Esc first, and passes it on while one of them is open.
+	pause_menu = PauseMenu.new()
+	add_child(pause_menu)
 	dialogue_ui.closed.connect(_check_act_end)
 	player = Player.new()
 	add_child(player)
@@ -67,10 +72,24 @@ func _ready() -> void:
 			add_child(shot)
 		elif arg.begins_with("--region="):
 			GameState.travel(arg.get_slice("=", 1))
+		elif arg.begins_with("--pause-menu"):
+			_open_pause_menu.call_deferred(arg.get_slice("=", 1) if arg.contains("=") else "")
 		elif arg.begins_with("--act-end="):
 			for act in ActRecap.acts(Content.db):
 				if str(act["id"]) == arg.get_slice("=", 1):
 					act_end_card.show_act.call_deferred(act, ActRecap.lines(act, GameState.world))
+
+
+## Debug: opens the pause menu, optionally on a page (use with --flags=intro_seen: it won't
+## open over a dialogue).
+func _open_pause_menu(page: String) -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	pause_menu.open()
+	if page == "save":
+		pause_menu.press("Save game")
+	elif page == "load":
+		pause_menu.press("Load game")
 
 
 ## Debug-only world setup from `--flags=` / `--quest=` (see the header comment).

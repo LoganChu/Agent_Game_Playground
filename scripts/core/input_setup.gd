@@ -15,12 +15,14 @@ const BINDINGS: Dictionary = {
 	"quick_load": [KEY_F9],
 	"journal": [KEY_J],
 	"inventory": [KEY_I],
+	"pause": [KEY_ESCAPE, KEY_P],
 }
 
 const PAD_BUTTONS: Dictionary = {
 	"interact": JOY_BUTTON_A,
 	"journal": JOY_BUTTON_BACK,
 	"inventory": JOY_BUTTON_Y,
+	"pause": JOY_BUTTON_START,
 }
 
 const PAD_AXES: Dictionary = {

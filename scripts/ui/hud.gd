@@ -16,11 +16,15 @@ var _meter: Control
 var _meter_bar: ProgressBar
 var _wash: ColorRect
 var _fade: ColorRect
-var _meter_idle := 0.0
+var _keys: Label
+## Starts "long idle" so the meter doesn't flash up on load.
+var _meter_idle := METER_LINGER
 
 
 func _ready() -> void:
 	layer = 5
+	# Keeps updating under the pause menu (so the key hint hides there too).
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build()
 	GameState.toast.connect(show_toast)
 
@@ -42,6 +46,17 @@ func set_ember(ember: float, depth: float) -> void:
 	_meter.modulate.a = move_toward(_meter.modulate.a, want, get_physics_process_delta_time() * 3.0)
 	_meter.visible = _meter.modulate.a > 0.0
 	_wash.color.a = WASH_ALPHA * (1.0 - ember) * (1.0 if depth >= Greying.CLEAR_DEPTH else ember)
+
+
+## The key hint hides while a modal (dialogue, journal, menu, act card) holds input — the
+## dialogue panel would cover it anyway, and its keys don't apply there.
+func _process(_delta: float) -> void:
+	_keys.visible = not GameState.input_locked
+
+
+## True while the bottom-left key hint is on screen.
+func is_key_hint_shown() -> bool:
+	return _keys.visible
 
 
 ## True while the ember meter is on screen.
@@ -109,12 +124,14 @@ func _build() -> void:
 	_title.modulate.a = 0.0
 	root.add_child(_title)
 	var keys := Label.new()
-	keys.text = "[J] Journal   [I] Satchel"
+	keys.name = "KeyHint"
+	keys.text = "[J] Journal   [I] Satchel   [Esc] Menu"
 	keys.theme_type_variation = UiTheme.HUD_KEYS
 	keys.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	keys.offset_left = 20
 	keys.offset_top = -40
 	root.add_child(keys)
+	_keys = keys
 	_toasts = VBoxContainer.new()
 	_toasts.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	_toasts.offset_left = -420
