@@ -457,7 +457,46 @@ def build_oda() -> None:
     assemble(b, "oda")
 
 
-BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda]
+def build_bram() -> None:
+    """Bram Kettle, foreman of the Tidewright lumber camp on Thornwold (forties): broad, moss
+    wool shirt with the sleeves shoved up, a scarred leather apron, a big coal-brown beard, a
+    pine knit cap, and a felling axe resting on his right shoulder."""
+    reset_scene()
+    b = Body(build=1.25)
+    shirt = material("moss", -0.2)
+    skin = material("driftwood", 0.05)
+    base_body(b, skin, material("slate", -0.35), material("ink", 0.05), shirt, sleeves=shirt)
+    t = b.parts["Torso"]
+    apron = material("coal", -0.55)
+    t.append(block((0.42, 0.05, 0.62), (0, -0.29, b.waist - 0.2), apron))                   # apron skirt
+    t.append(block((0.3, 0.05, 0.3), (0, -0.3, b.waist + 0.22), apron))                     # bib
+    t.append(ring(0.32, b.waist + 0.04, 0.06, material("ink", 0.1)))                        # belt
+    t.append(block((0.16, 0.05, 0.12), (0.18, -0.33, b.waist - 0.08), material("driftwood", -0.4)))  # tally pouch
+    for side in ("L", "R"):
+        hand = b.hand(side)
+        # Bare forearms where the sleeves are shoved up.
+        b.parts["Arm" + side].append(limb(hand + Vector((0, 0, 0.26)), hand + Vector((0, 0, 0.06)), 0.078, 0.072, skin))
+        b.parts["Arm" + side].append(limb(hand + Vector((0, 0, 0.3)), hand + Vector((0, 0, 0.25)), 0.1, 0.1, shirt))  # rolled cuff
+    h = b.parts["Head"]
+    beard = material("coal", -0.4)
+    h.append(ball(0.2, (0, -0.1, b.head - 0.12), beard, scale=(1.05, 0.8, 1.0)))            # beard
+    h.append(block((0.2, 0.04, 0.04), (0, -0.23, b.head - 0.02), beard))                    # moustache
+    cap = material("pine", -0.1)
+    h.append(ball(0.25, (0, 0.02, b.head + 0.09), cap, scale=(1.02, 1.02, 0.68)))
+    h.append(ring(0.25, b.head + 0.03, 0.08, material("pine", 0.1)))                        # rolled brim
+    # The axe on his right shoulder: haft down to the hand, the head behind him.
+    hand = b.hand("R")
+    haft = material("driftwood", -0.1)
+    top = Vector((-b.shoulder_x - 0.02, 0.32, b.shoulder + 0.32))
+    b.parts["ArmR"].append(limb(hand + Vector((0, -0.04, 0.0)), top, 0.03, 0.03, haft, verts=5))
+    b.parts["ArmR"].append(block((0.05, 0.22, 0.16), top + Vector((0, 0.06, 0.02)), material("slate", -0.3)))
+    b.arm_rest["ArmR"] = (math.radians(-55), 0, math.radians(-6))
+    b.arm_rest["ArmL"] = (0, 0, math.radians(10))
+    b.head_rest = (math.radians(3), 0, 0)
+    assemble(b, "bram")
+
+
+BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda, build_bram]
 
 if __name__ == "__main__":
     import sys
