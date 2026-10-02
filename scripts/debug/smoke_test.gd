@@ -6,11 +6,13 @@ extends Node
 ## quicksaves, resets and quickloads, checking state survives. Exits 0 on success.
 
 const MAX_DIALOGUE_STEPS := 200
-const PASSES := 5
+const PASSES := 6
 
 var _failures: PackedStringArray = []
 ## Recap text of the end-of-act card, once it has been shown.
 var _act_end_recap := ""
+## Ferry trips taken by the menu walk ("saltmarrow -> thornwold_landing").
+var _sailings: PackedStringArray = []
 
 
 func _ready() -> void:
@@ -37,7 +39,7 @@ func _run() -> void:
 	# Several passes over every region so quests started on one pass can advance on the next
 	# (pass 3 reaches Aldous's confession and Mara's ferry lantern, and the horn sounds on
 	# arriving elsewhere; passes 4–5 meet the ferry, settle Pell with Mara and take passage,
-	# ending Act I).
+	# ending Act I; pass 6 casts off for Thornwold and meets Bram).
 	for pass_index in PASSES:
 		for region_id: String in Content.db.regions:
 			GameState.travel(region_id)
@@ -49,9 +51,10 @@ func _run() -> void:
 				# A region arrival event (the ferry's horn) is playing.
 				_finish_dialogue(ui, "arrival event in " + region_id)
 				await get_tree().process_frame
+			var sailed := false
 			for node in get_tree().get_nodes_in_group("npcs"):
 				var npc := node as NpcActor
-				if npc.is_queued_for_deletion():
+				if not is_instance_valid(npc) or npc.is_queued_for_deletion():
 					continue
 				if pass_index == 0 and npc.npc_data.has("model"):
 					_check(npc.find_child("CharacterRig", true, false) != null, "npc %s shows its rigged model" % npc.npc_id)
@@ -66,6 +69,16 @@ func _run() -> void:
 				_finish_dialogue(ui, npc.npc_id)
 				await get_tree().process_frame
 				await _close_act_end_card(main)
+				if main.get("region") != region:
+					# Oda sailed (a `travel` effect): this region's nodes are gone.
+					sailed = true
+					_sailings.append("%s -> %s" % [region_id, (main.get("region") as Region).region_id])
+					if ui.is_open():
+						_finish_dialogue(ui, "arrival event after sailing")
+						await get_tree().process_frame
+					break
+			if sailed:
+				continue
 			for node in get_tree().get_nodes_in_group("inspectables"):
 				var object := node as Inspectable
 				if object.is_queued_for_deletion():
@@ -81,6 +94,7 @@ func _run() -> void:
 	await _check_gates(main, true)
 	await _check_beacon_lit(main)
 	await _check_act_one_close(main)
+	await _check_crossing(main)
 	await _check_journal(main.get("journal_ui"))
 	await _check_pause_menu(main)
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
@@ -339,13 +353,36 @@ func _check_act_one_close(main: Node) -> void:
 	var region: Region = main.get("region")
 	_check(region.shown_conditional_props("signal_lantern") == 1, "ferry signal lantern shows at the dock")
 	var names: Array = get_tree().get_nodes_in_group("npcs").map(func(n: Node) -> String: return (n as NpcActor).npc_id)
-	_check(names.has("oda") and names.has("pell"), "Oda and Pell on the Saltmarrow dock")
+	var ferry_home := str(world.get_flag("lanes_ferry_at")) != "thornwold"
+	_check(names.has("oda") == ferry_home, "Oda on the Saltmarrow dock exactly while the ferry is there")
+	_check(names.has("pell") != (world.get_flag("thornwold_pell_landed") == true), "Pell on the Saltmarrow dock unless they crossed")
 	# Saltmarrow after the burn: nets are out drying, and the dressing matches the burn.
 	var burned := str(world.get_flag("saltmarrow_beacon_burned"))
 	_check(region.shown_conditional_props("net_frame") == (2 if burned == "knot" else 0), "net frames only after the knot burn")
 	_check(region.shown_conditional_props("net_rack") == (0 if burned == "knot" else 2), "whole nets drying unless the knot burned")
 	_check(region.shown_conditional_props("cups") == (1 if burned == "gull" else 0), "two cups only after the gull burn")
 	await _check_live_refresh(region)
+
+
+## The crossing: the menu walk cast off with Oda (a `travel` effect carried the player to
+## Thornwold landing, where the landing scene played), *Across the Grey* is done, Bram has
+## given *A Light for Thornwold*, and the Slow Mercy and Oda lie wherever the lane left them.
+func _check_crossing(main: Node) -> void:
+	var world := GameState.world
+	print("Smoke: sailings ", _sailings)
+	_check(_sailings.has("saltmarrow -> thornwold_landing"), "Oda carried the player to Thornwold")
+	_check(world.quest_state("across_the_grey") == WorldState.QUEST_DONE, "the crossing completed Across the Grey")
+	_check(world.get_flag("thornwold_landed") == true, "the landing scene played")
+	_check(world.get_flag("thornwold_met_bram") == true and world.quest_state("a_light_for_thornwold") == WorldState.QUEST_ACTIVE, "Bram gave A Light for Thornwold")
+	var at := str(world.get_flag("lanes_ferry_at"))
+	_check(at in ["thornwold", "saltmarrow"], "the ferry lies at one end of the lane (%s)" % at)
+	GameState.travel("thornwold_landing")
+	for i in 3:
+		await get_tree().physics_frame
+	var names: Array = get_tree().get_nodes_in_group("npcs").map(func(n: Node) -> String: return (n as NpcActor).npc_id)
+	_check(names.has("bram"), "Bram at Thornwold landing")
+	_check(names.has("oda") == (at == "thornwold"), "Oda on the Thornwold jetty exactly while the ferry is there")
+	_check(names.has("pell") == (world.get_flag("thornwold_pell_landed") == true), "Pell at the camp only if they crossed")
 
 
 ## Conditional NPCs, pickups and objects appear/disappear live when a flag changes mid-visit

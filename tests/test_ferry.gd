@@ -114,7 +114,7 @@ func test_passage_ends_act_one_with_a_recap() -> void:
 	var offered: Array[String] = []
 	play_dialogue(_db, state, "oda", [], offered)
 	assert_false(offered.has("I'm ready. Take me across."), "passage taken once")
-	assert_true(offered.has("When do we sail?"))
+	assert_true(offered.has("Cast off for Thornwold."))
 
 
 func test_a_promised_pell_needs_maras_leave() -> void:
