@@ -10,7 +10,9 @@ extends Node3D
 ##                         comma-separate several. E.g. screenshots of late-game states:
 ##                         --flags=intro_seen,saltmarrow_beacon_burned=knot --quest=a_light_for_saltmarrow
 ##   --act-end=<id>        show that act's end card for the current state (debug/screenshots)
-##   --pause-menu[=save|load]  open the pause menu (on that page) after loading (screenshots)
+##   --pause-menu[=save|load|chapters]  open the pause menu (on that page) after loading (screenshots)
+##   --scenario=<id>       start at a story checkpoint from data/scenarios.json (see README);
+##                         --scenario=list prints them and quits
 
 var region: Region
 var player: Player
@@ -55,6 +57,19 @@ func _ready() -> void:
 	var fresh := GameState.region_id.is_empty()
 	if fresh:
 		GameState.new_game()
+	var scenario := _scenario_arg()
+	if not scenario.is_empty():
+		if scenario == "list":
+			_print_scenarios()
+			return
+		var resolved := Scenarios.resolve(scenario)
+		if resolved.is_empty():
+			push_error("--scenario: unknown checkpoint '%s' (try --scenario=list)" % scenario)
+		else:
+			Scenarios.apply(Content.db, GameState.world, resolved)
+			GameState.region_id = str(resolved["region"])
+			GameState.spawn_point = str(resolved.get("spawn", "default"))
+			fresh = not GameState.world.get_flag("intro_seen")
 	load_region(GameState.region_id, GameState.spawn_point)
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--flags=") or arg.begins_with("--quest="):
@@ -80,6 +95,19 @@ func _ready() -> void:
 					act_end_card.show_act.call_deferred(act, ActRecap.lines(act, GameState.world))
 
 
+func _scenario_arg() -> String:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--scenario="):
+			return arg.get_slice("=", 1)
+	return ""
+
+
+func _print_scenarios() -> void:
+	for scenario in Scenarios.all():
+		print("%-18s %s — %s\n%-18s %s" % [scenario["id"], scenario["act"], scenario["title"], "", scenario["description"]])
+	get_tree().quit()
+
+
 ## Debug: opens the pause menu, optionally on a page (use with --flags=intro_seen: it won't
 ## open over a dialogue).
 func _open_pause_menu(page: String) -> void:
@@ -90,6 +118,8 @@ func _open_pause_menu(page: String) -> void:
 		pause_menu.press("Save game")
 	elif page == "load":
 		pause_menu.press("Load game")
+	elif page == "chapters":
+		pause_menu.press("Chapter select")
 
 
 ## Debug-only world setup from `--flags=` / `--quest=` (see the header comment).

@@ -33,6 +33,22 @@ func new_game() -> void:
 	pending_player_position = null
 
 
+## Developer checkpoint (data/scenarios.json): resets the world to that point in the story
+## and loads its region. A checkpoint before the waking narration replays it.
+func start_scenario(id: String) -> bool:
+	var scenario := Scenarios.resolve(id)
+	if scenario.is_empty():
+		push_warning("Unknown scenario '%s'" % id)
+		return false
+	Scenarios.apply(Content.db, world, scenario)
+	travel(str(scenario["region"]), str(scenario.get("spawn", "default")))
+	var intro := str(Content.db.game.get("intro_dialogue", ""))
+	if not world.get_flag("intro_seen") and not intro.is_empty():
+		dialogue_requested.emit.call_deferred(intro, "")
+	toast.emit("Checkpoint: " + str(scenario["title"]))
+	return true
+
+
 func travel(to_region: String, spawn: String = "default") -> void:
 	region_id = to_region
 	spawn_point = spawn

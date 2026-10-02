@@ -1,0 +1,190 @@
+{
+  "note": "Developer story checkpoints (scripts/core/scenarios.gd). Each content session adds one for what it built. Jump with --scenario=<id>, the pause menu's Chapter select (debug builds), or tools/checkpoints.sh.",
+  "scenarios": [
+    {
+      "id": "new_game",
+      "act": "Act I — The Wake",
+      "title": "Wake on Shingle Point",
+      "region": "shingle_point",
+      "description": "A brand-new game: the waking narration, Pell, and the humming pebble on the beach."
+    },
+    {
+      "id": "saltmarrow",
+      "act": "Act I — The Wake",
+      "title": "Arrive in Saltmarrow",
+      "inherits": "new_game",
+      "region": "saltmarrow",
+      "spawn": "from_beach",
+      "description": "Pebble found and kept (Lost Things done). Meet Mara, Brother Aldous and Tam at the boardwalk gate.",
+      "flags": {
+        "intro_seen": true,
+        "shingle_met_pell": true,
+        "saltmarrow_pebble_fate": "kept"
+      },
+      "quests": {
+        "lost_things": "done"
+      },
+      "items": {
+        "humming_pebble": 1
+      },
+      "collected": [
+        "shingle_humming_pebble"
+      ]
+    },
+    {
+      "id": "gulls_head",
+      "act": "Act I — The Wake",
+      "title": "Past the boardwalk gate",
+      "inherits": "saltmarrow",
+      "region": "gulls_head",
+      "spawn": "from_village",
+      "description": "Mara gave you her Harbormaster's Token and Aldous (treated gently) sent you to the beacon. Old Hesk, the greyed lofts, the Remembering Knot, and the dark headland deep in the Greying.",
+      "flags": {
+        "saltmarrow_met_mara": true,
+        "saltmarrow_mara_told_of_dunstan": true,
+        "saltmarrow_met_aldous": true,
+        "saltmarrow_aldous_approach": "gentle"
+      },
+      "quests": {
+        "a_light_for_saltmarrow": "reach_the_beacon"
+      },
+      "items": {
+        "harbor_token": 1
+      },
+      "shot": "--at=0,8,0"
+    },
+    {
+      "id": "the_burning",
+      "act": "Act I — The Wake",
+      "title": "The Burning",
+      "inherits": "gulls_head",
+      "region": "gulls_head",
+      "description": "You carry the pebble and the knot, and Hesk's word about Dunstan. Walk up the ramp to the Gull's Beacon and choose what Saltmarrow forgets (or fetch Mara's whittled gull from her first).",
+      "flags": {
+        "saltmarrow_hesk_saw_dunstan": true,
+        "saltmarrow_mara_knows_dunstan_chose": true
+      },
+      "quests": {
+        "a_light_for_saltmarrow": "feed_the_beacon"
+      },
+      "items": {
+        "remembering_knot": 1
+      },
+      "collected": [
+        "gulls_head_knot"
+      ],
+      "shot": "--at=0,-6,0"
+    },
+    {
+      "id": "aftermath_pebble",
+      "act": "Act I — The Wake",
+      "title": "After the burn: the lullaby",
+      "inherits": "the_burning",
+      "region": "saltmarrow",
+      "description": "The Gull's Beacon burned the humming pebble. Saltmarrow after the burn: the light, the drying nets, Mara and Pell.",
+      "flags": {
+        "saltmarrow_beacon_burned": "pebble"
+      },
+      "quests": {
+        "a_light_for_saltmarrow": "done"
+      },
+      "items": {
+        "humming_pebble": 0
+      },
+      "shot": "--at=6,2,0"
+    },
+    {
+      "id": "aftermath_gull",
+      "act": "Act I — The Wake",
+      "title": "After the burn: Mara's brother",
+      "inherits": "the_burning",
+      "region": "saltmarrow",
+      "description": "The beacon burned Mara's memory of Dunstan (the whittled gull). Two cups by the stool; nobody can say whose the dent is.",
+      "flags": {
+        "saltmarrow_beacon_burned": "gull",
+        "saltmarrow_mara_offered_gull": true
+      },
+      "quests": {
+        "a_light_for_saltmarrow": "done"
+      },
+      "shot": "--at=9,4.5,180"
+    },
+    {
+      "id": "aftermath_knot",
+      "act": "Act I — The Wake",
+      "title": "After the burn: the founding knot",
+      "inherits": "the_burning",
+      "region": "saltmarrow",
+      "description": "The beacon burned the founding knot: nets begun in the middle, Hesk silent. Mara's aftermath scene is waiting, and Aldous is ready to tell the rest of his story.",
+      "flags": {
+        "saltmarrow_beacon_burned": "knot"
+      },
+      "quests": {
+        "a_light_for_saltmarrow": "done"
+      },
+      "items": {
+        "remembering_knot": 0
+      },
+      "shot": "--at=6,2,0"
+    },
+    {
+      "id": "ferry_arrived",
+      "act": "Act I — The Wake",
+      "title": "The ferry's arrival",
+      "inherits": "aftermath_knot",
+      "region": "saltmarrow",
+      "description": "Aldous confessed in full (you carry his sleeve-ember), Mara hung the green lantern and the Slow Mercy has put in. Talk to Oda Farrow at the dock end; Pell was promised a crossing.",
+      "flags": {
+        "saltmarrow_mara_saw_beacon_lit": true,
+        "saltmarrow_aldous_confessed": "full",
+        "saltmarrow_ferry_lantern_hung": true,
+        "saltmarrow_ferry_arrived": true,
+        "saltmarrow_pell_ferry_ask": "promised"
+      },
+      "quests": {
+        "across_the_grey": "meet_the_ferry"
+      },
+      "items": {
+        "keepers_sleeve_ember": 1
+      },
+      "shot": "--at=5,8,180"
+    },
+    {
+      "id": "act_one_end",
+      "act": "Act I — The Wake",
+      "title": "The evening tide",
+      "inherits": "ferry_arrived",
+      "region": "saltmarrow",
+      "spawn": "from_ferry",
+      "description": "Deed weighed, Mara gave Pell leave, passage taken (Act I's end). Ask Oda to cast off for the crossing to Thornwold.",
+      "flags": {
+        "saltmarrow_ferry_deed": "claimed",
+        "saltmarrow_pell_crossing": "aboard",
+        "saltmarrow_mara_farewell": true,
+        "saltmarrow_ferry_passage": true
+      },
+      "quests": {
+        "across_the_grey": "evening_tide"
+      },
+      "shot": "--at=5,8,180"
+    },
+    {
+      "id": "thornwold",
+      "act": "Act II — The Drift",
+      "title": "Thornwold Landing",
+      "inherits": "act_one_end",
+      "region": "thornwold_landing",
+      "spawn": "from_ferry",
+      "description": "Just ashore after the crossing, with Pell along. Meet Bram Kettle at the lumber camp and look at the bramble wall across the cart road.",
+      "flags": {
+        "lanes_ferry_at": "thornwold",
+        "thornwold_landed": true,
+        "thornwold_pell_landed": true
+      },
+      "quests": {
+        "across_the_grey": "done"
+      },
+      "shot": "--at=2,4,0"
+    }
+  ]
+}

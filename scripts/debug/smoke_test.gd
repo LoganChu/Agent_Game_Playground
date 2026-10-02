@@ -97,6 +97,7 @@ func _run() -> void:
 	await _check_crossing(main)
 	await _check_journal(main.get("journal_ui"))
 	await _check_pause_menu(main)
+	await _check_chapter_select(main)
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
 	var before := GameState.world.to_dict()
 	_check(SaveSystem.save_game("smoke_test"), "save succeeds")
@@ -321,6 +322,25 @@ func _check_pause_menu(main: Node) -> void:
 	await get_tree().process_frame
 	_check(not menu.is_open() and not get_tree().paused and not GameState.input_locked, "Esc resumes")
 	DirAccess.remove_absolute(SaveSystem.slot_path("slot1"))
+
+
+## Debug builds: the pause menu's Chapter select jumps to a story checkpoint (Thornwold
+## Landing): the menu closes, the world resets to that point and its region loads.
+func _check_chapter_select(main: Node) -> void:
+	var menu: PauseMenu = main.get("pause_menu")
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(menu.press("Chapter select") and menu.page == PauseMenu.Page.CHAPTERS, "pause menu opens Chapter select")
+	_check(menu.buttons().size() == Scenarios.all().size() + 1, "every checkpoint is listed")
+	_check(menu.press("Thornwold Landing"), "jumping to the Thornwold checkpoint")
+	for i in 3:
+		await get_tree().physics_frame
+	var region: Region = main.get("region")
+	var world := GameState.world
+	_check(region != null and region.region_id == "thornwold_landing", "the checkpoint's region loads")
+	_check(world.get_flag("lanes_ferry_at") == "thornwold" and world.quest_state("a_light_for_thornwold") == WorldState.QUEST_INACTIVE, "the world is reset to the checkpoint")
+	_check(not menu.is_open() and not get_tree().paused and not GameState.input_locked, "jumping closes the menu")
 
 
 ## The end-of-act card shows (deferred) after the dialogue that ends an act: record it and

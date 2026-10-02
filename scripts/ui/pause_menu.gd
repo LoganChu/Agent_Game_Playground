@@ -2,13 +2,14 @@ class_name PauseMenu
 extends CanvasLayer
 ## Esc / Start: pauses the world and offers Resume, Save, Load and Quit. Save and Load list
 ## the manual slots (SaveSystem.SLOTS; Load also the F5 quicksave) with region and time.
-## Overwriting a used slot and quitting each ask for a second press. Modal: holds
+## Overwriting a used slot and quitting each ask for a second press. Debug builds add
+## "Chapter select (dev)": jump to any story checkpoint in data/scenarios.json. Modal: holds
 ## `GameState.input_locked`, and only opens when nothing else does.
 
 signal opened
 signal closed
 
-enum Page { MAIN, SAVE, LOAD }
+enum Page { MAIN, SAVE, LOAD, CHAPTERS }
 
 var page: Page = Page.MAIN
 
@@ -98,6 +99,8 @@ func _show_page(which: Page) -> void:
 			_add("Resume", close)
 			_add("Save game", _show_page.bind(Page.SAVE))
 			_add("Load game", _show_page.bind(Page.LOAD))
+			if OS.is_debug_build():
+				_add("Chapter select (dev)", _show_page.bind(Page.CHAPTERS))
 			_add("Quit to desktop", _quit)
 		Page.SAVE:
 			_title.text = "Save game"
@@ -109,6 +112,20 @@ func _show_page(which: Page) -> void:
 			for slot: String in [SaveSystem.QUICK_SLOT] + SaveSystem.SLOTS:
 				var button := _add(SaveSystem.slot_summary(slot), _load.bind(slot))
 				button.disabled = not SaveSystem.has_save(slot)
+			_add("Back", _show_page.bind(Page.MAIN))
+		Page.CHAPTERS:
+			_title.text = "Chapter select (dev)"
+			_note.text = "Jumps to a story checkpoint. Unsaved progress is lost."
+			var act := ""
+			for scenario in Scenarios.all():
+				if str(scenario["act"]) != act:
+					act = str(scenario["act"])
+					var heading := Label.new()
+					heading.text = act
+					heading.theme_type_variation = UiTheme.HINT
+					_buttons.add_child(heading)
+				var button := _add(str(scenario["title"]), _jump.bind(str(scenario["id"])))
+				button.tooltip_text = str(scenario["description"])
 			_add("Back", _show_page.bind(Page.MAIN))
 	for button in buttons():
 		if not button.disabled:
@@ -149,6 +166,12 @@ func _load(slot: String) -> void:
 	close()
 	if not SaveSystem.load_game(slot):
 		GameState.toast.emit("Couldn't load " + SaveSystem.slot_label(slot))
+
+
+## Jumping closes the menu first so the world unpauses into the checkpoint's region.
+func _jump(scenario_id: String) -> void:
+	close()
+	GameState.start_scenario(scenario_id)
 
 
 func _quit() -> void:

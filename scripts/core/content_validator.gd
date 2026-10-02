@@ -49,6 +49,8 @@ func validate() -> bool:
 	for id: String in db.dialogues:
 		_validate_dialogue(id, db.dialogues[id])
 	_check_orphans()
+	for message in Scenarios.validate(db, Scenarios.all()):
+		_err("data/scenarios.json", message)
 	return errors.is_empty()
 
 
