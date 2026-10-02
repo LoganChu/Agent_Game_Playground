@@ -196,6 +196,20 @@ func _check_prop_wading(where: String, prop: Dictionary, model: String) -> void:
 			_err(where, "prop wading ring must be [x, z, radius] (radius > 0)")
 
 
+## `smoke` (model props only): vents [[x, y, z], ...] in model space that smoke rises from.
+func _check_prop_smoke(where: String, prop: Dictionary, model: String) -> void:
+	if not prop.has("smoke"):
+		return
+	if model.is_empty():
+		_err(where, "prop 'smoke' needs a 'model'")
+	if not prop["smoke"] is Array or (prop["smoke"] as Array).is_empty():
+		_err(where, "prop 'smoke' must be a list of [x, y, z] vents")
+		return
+	for vent: Variant in prop["smoke"]:
+		if not _is_vector(vent):
+			_err(where, "prop smoke vent must be [x, y, z]")
+
+
 func _is_vector(value: Variant) -> bool:
 	return value is Array and (value as Array).size() == 3 \
 			and (value as Array).all(func(v: Variant) -> bool: return v is float or v is int)
@@ -292,6 +306,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_check_prop_colliders(where, prop, model)
 		_check_prop_float(where, prop, model)
 		_check_prop_wading(where, prop, model)
+		_check_prop_smoke(where, prop, model)
 		_ref_condition(where, prop.get("if"))
 	var fog: Dictionary = region.get("fog", {})
 	for override: Variant in fog.get("overrides", []):

@@ -199,6 +199,8 @@ func _build_prop(prop: Dictionary) -> Node3D:
 					node.add_child(blocker)
 			if prop.has("light"):
 				node.add_child(build_light(prop["light"]))
+			if prop.get("smoke") is Array:
+				node.add_child(PropSmoke.build(prop["smoke"]))
 			if prop.get("float") is Dictionary:
 				node = FloatingProp.wrap(node, prop["float"], float(prop.get("scale", 1.0)))
 	if node == null:
