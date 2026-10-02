@@ -42,6 +42,10 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/charac
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
     -- --screenshot=/abs/out.png [--only=dock,wreck] [--camera=…]  # art review: the dressing kit
 ```
+```bash
+$GODOT --path . -- --scenario=<id>       # start at a story checkpoint (data/scenarios.json); =list prints them
+tools/checkpoints.sh [ids…]              # screenshot every checkpoint → docs/checkpoints/ + docs/CHECKPOINTS.md
+```
 `run_checks.sh` fails on any non-zero exit **or** any `SCRIPT ERROR` / `ERROR:` / `Parse Error`
 in Godot's output (runtime script errors don't change Godot's exit code, so we grep).
 
@@ -220,6 +224,24 @@ first sailing is the full crossing scene (completes *Across the Grey*), later on
 line. Pell crosses only if `saltmarrow_pell_crossing=aboard` (`thornwold_pell_landed`) and then
 stays on Thornwold. When a ferry/map screen arrives (Milestone 2), it should replace these
 dialogue choices, keeping the flag as the ferry's position.
+
+### Story checkpoints (developer jump points)
+`data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,
+description, region, spawn?, inherits?, flags?, quests?, items?, collected?, shot?}`.
+`inherits` names an earlier checkpoint whose state it builds on (resolved earliest-first,
+later keys win); `quests` maps id → stage or `"done"`; `items` id → count (0 drops an
+inherited one); `collected` = pickup ids already taken; `shot` = extra screenshot args for
+the gallery. Applying resets the world to a new game first (`Scenarios.apply`), so a jump never
+mixes with the current playthrough; a checkpoint without `intro_seen` replays the waking.
+Entry points: `--scenario=<id>` (main.gd), `GameState.start_scenario(id)`, the pause menu's
+**Chapter select (dev)** page (only when `OS.is_debug_build()`), and `tools/checkpoints.sh`
+(gallery: `docs/CHECKPOINTS.md`). Validated with the content (`ContentValidator` → `Scenarios.validate`:
+known region/spawn, earlier `inherits`, declared flags, real quest stages/items/pickups).
+**Rule:** every content session adds a checkpoint for what it built (with a `shot` that frames
+it) and re-runs `tools/checkpoints.sh` for the new ids. Checkpoints are hand-written state,
+not recordings of play: `test_scenarios.gd` checks the late ones still lead on (Oda casts off
+from `act_one_end`, Bram's quest from `thornwold`) and every conversation in each checkpoint's
+region finishes.
 
 ### The Greying (Day 11)
 `greying` areas are the fog as a *place* (region `fog` is only the ambient mood). Depth at a
@@ -433,6 +455,8 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   narration per burn and per Pell outcome, ferry/Oda/Pell placement on both ends of the lane
   (there and back), the landing scene once, Bram per deed/burn (knot grudge), the bramble wall
   advancing *A Light for Thornwold*, Pell on Thornwold, travel validation.
+- `tests/test_scenarios.gd` — story checkpoints: validation, inheritance, reset-then-apply,
+  each burn checkpoint, the story continuing from the late ones, every conversation finishing.
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).

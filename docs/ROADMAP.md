@@ -116,6 +116,10 @@ with a meaningful burn choice → consequences visible in the village.
       (`lanes_ferry_at`). Engine: dialogue `travel` effect. Blender: bramble, log pile, stump,
       charcoal sacks, Bram.
 
+- [x] [S] **Story checkpoints** (owner request, 2026-10-02): `data/scenarios.json`,
+      `--scenario=<id>`, pause menu Chapter select (debug builds), `tools/checkpoints.sh` →
+      `docs/CHECKPOINTS.md` gallery. **Every content session adds a checkpoint for what it built.**
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session

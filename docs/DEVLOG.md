@@ -2,6 +2,30 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-02 17:30 UTC — Owner request: story checkpoints (see progress without playing)
+
+**Did**
+- **Story checkpoints** (`data/scenarios.json`, `Scenarios`): ten named points from waking on
+  Shingle Point to Thornwold Landing (each burn has its own aftermath checkpoint). Each one
+  `inherits` the one before and lists only what changed.
+- Three ways in: **`--scenario=<id>`** (`--scenario=list` prints them); a **Chapter select
+  (dev)** page in the pause menu, debug builds only; and **`tools/checkpoints.sh`**, which
+  screenshots every checkpoint into `docs/checkpoints/` and writes the gallery page
+  **`docs/CHECKPOINTS.md`**. README has a "See the progress" section.
+- Validated with the content (unknown regions/spawns/flags/stages/items/pickups, bad
+  `inherits`). `test_scenarios.gd` (7): reset-then-apply, inheritance, each burn checkpoint,
+  the story carrying on from the late ones, every conversation in each checkpoint's region
+  finishing. The smoke test jumps to Thornwold through the real menu.
+
+**Decisions**
+- **Hand-written state, not recorded saves.** Saves break whenever content changes; a
+  checkpoint is a few validated lines that inherit from each other, so it stays in step with
+  content and the tests catch drift.
+- **Jumping resets to a new game first**, so a jump never mixes into the current playthrough.
+- **Dev-only in the menu** (`OS.is_debug_build()`): players of a release build won't see it.
+- **Rule for future sessions:** each content session adds a checkpoint (with a `shot`) for
+  what it built and re-runs `tools/checkpoints.sh` for it.
+
 ## 2026-10-02 09:00 UTC — Day 17: The crossing — Act II begins on Thornwold
 
 **Did**

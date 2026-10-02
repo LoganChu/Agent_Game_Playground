@@ -20,6 +20,21 @@ On Windows/macOS, install Godot 4.7.2 yourself and open `project.godot`.
 camera · E / Enter / A to talk, pick up and continue · 1–9 or click to choose · F5 quicksave ·
 J / View button journal · I / Y satchel (inventory) · Esc / B close panel · Esc / P / Start pause menu (save slots, load, quit) · F9 quickload.
 
+## See the progress without playing it all
+The story is split into **checkpoints** (`data/scenarios.json`), from waking on the beach to the
+latest content. Three ways in:
+
+- **Just look:** [`docs/CHECKPOINTS.md`](docs/CHECKPOINTS.md) is a one-page gallery with a
+  screenshot and a short "what's here" note for every checkpoint. Rebuild it with
+  `tools/checkpoints.sh` (needs `xvfb-run`).
+- **Play from a checkpoint:** `.tools/bin/godot --path . -- --scenario=thornwold` starts right
+  there, with the earlier choices already made. `--scenario=list` prints every id.
+- **Jump around while playing:** in a debug build (the editor, or running from source), press
+  Esc → **Chapter select (dev)**. It isn't shown in release exports.
+
+Each content session adds a checkpoint for what it built, so the newest content is always one
+jump away.
+
 ## Tests
 ```bash
 tools/run_checks.sh    # import + unit/content tests + smoke playthrough + launch
