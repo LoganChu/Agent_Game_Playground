@@ -322,36 +322,50 @@
       ]
     },
     {
-      "model": "res://assets/models/dressing/house_stilt.glb",
+      "model": "res://assets/models/dressing/bunkhouse.glb",
       "shape": "house",
       "position": [
-        -8,
+        -8.6,
         0,
-        -5
+        -4.6
       ],
-      "rotation_y": 75,
+      "rotation_y": 82,
       "collider": [
-        2.6,
-        3.6,
-        2.2
+        4.6,
+        2.0,
+        3.3
       ],
-      "note": "The camp bunkhouse (a stilt house stand-in until Thornwold gets its own log buildings)."
+      "note": "The camp bunkhouse: saddle-notched logs, a bark roof, the stove going (smoke from its pipe).",
+      "smoke": [
+        [
+          1.3,
+          3.95,
+          -0.6
+        ]
+      ]
     },
     {
-      "model": "res://assets/models/dressing/house_tall.glb",
+      "model": "res://assets/models/dressing/tally_house.glb",
       "shape": "house",
       "position": [
-        -9,
+        -8.8,
         0,
-        1.5
+        1.6
       ],
       "rotation_y": 95,
       "collider": [
-        2.6,
-        5.6,
-        2.2
+        3.0,
+        1.8,
+        2.6
       ],
-      "note": "The camp's store and tally-house."
+      "note": "The camp's tally-house and store: Bram's tally board by the door, a lean-to porch.",
+      "smoke": [
+        [
+          -0.8,
+          3.25,
+          -0.5
+        ]
+      ]
     },
     {
       "model": "res://assets/models/dressing/log_pile.glb",
@@ -380,6 +394,21 @@
         1.2,
         3.3
       ]
+    },
+    {
+      "model": "res://assets/models/dressing/saw_pit.glb",
+      "position": [
+        11.0,
+        0,
+        0.6
+      ],
+      "rotation_y": 80,
+      "collider": [
+        3.4,
+        1.3,
+        1.6
+      ],
+      "note": "The saw trestle: a log half sawn into planks, the pit saw left in the kerf."
     },
     {
       "model": "res://assets/models/dressing/stump.glb",
@@ -524,7 +553,7 @@
       "scale": 1.25
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -14,
@@ -540,7 +569,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -13,
@@ -556,7 +585,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_snag.glb",
       "shape": "pine",
       "position": [
         -9,
@@ -569,10 +598,11 @@
         0.6,
         3,
         0.6
-      ]
+      ],
+      "note": "A Greyed pine at the wall's end: the woods past the brambles are going grey."
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -16,
@@ -588,7 +618,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -15,
@@ -604,7 +634,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -12,
@@ -620,7 +650,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_snag.glb",
       "shape": "pine",
       "position": [
         9,
@@ -633,10 +663,11 @@
         0.6,
         3,
         0.6
-      ]
+      ],
+      "note": "A Greyed pine at the wall's end: the woods past the brambles are going grey."
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         12,
@@ -652,7 +683,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         14,
@@ -668,7 +699,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         15,
@@ -684,7 +715,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         13,
@@ -700,7 +731,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         11,
@@ -716,7 +747,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -5,
@@ -732,7 +763,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         1,
@@ -748,7 +779,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         6,
@@ -764,7 +795,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -2,
@@ -780,7 +811,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         4,
@@ -796,7 +827,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -8,
@@ -812,7 +843,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         9,
@@ -828,7 +859,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         -17,
@@ -844,7 +875,7 @@
       ]
     },
     {
-      "model": "res://assets/models/pine_tree.glb",
+      "model": "res://assets/models/dressing/pine_dark.glb",
       "shape": "pine",
       "position": [
         17,
@@ -939,6 +970,174 @@
         4.5
       ],
       "rotation_y": 90
+    },
+    {
+      "model": "res://assets/models/dressing/charcoal_clamp.glb",
+      "position": [
+        -3.0,
+        0,
+        -22.0
+      ],
+      "rotation_y": 30,
+      "collider": [
+        3.4,
+        1.0,
+        3.4
+      ],
+      "smoke": [
+        [
+          0.599,
+          0.95,
+          -0.253
+        ],
+        [
+          -0.253,
+          0.95,
+          -0.599
+        ],
+        [
+          -0.599,
+          0.95,
+          0.253
+        ]
+      ],
+      "note": "A charcoal clamp smouldering just past the bramble wall, in the Greying where nobody from the camp can go. Someone tends it."
+    },
+    {
+      "model": "res://assets/models/dressing/fallen_trunk.glb",
+      "position": [
+        -11.5,
+        0,
+        -10.5
+      ],
+      "rotation_y": 35,
+      "collider": [
+        4.2,
+        0.7,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/fallen_trunk.glb",
+      "position": [
+        12.0,
+        0,
+        -7.5
+      ],
+      "rotation_y": -110,
+      "collider": [
+        4.2,
+        0.7,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -13.2,
+        0,
+        -6.8
+      ],
+      "rotation_y": 20
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -12,
+        0,
+        -15.5
+      ],
+      "rotation_y": 140
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -15.5,
+        0,
+        2.5
+      ],
+      "rotation_y": 260
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        12.6,
+        0,
+        -12.5
+      ],
+      "rotation_y": 70
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        15,
+        0,
+        -3.5
+      ],
+      "rotation_y": 190
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        13.8,
+        0,
+        3.8
+      ],
+      "rotation_y": 300
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -6.5,
+        0,
+        -18.5
+      ],
+      "rotation_y": 10
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        7.5,
+        0,
+        -17.8
+      ],
+      "rotation_y": 110
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -10.5,
+        0,
+        -19
+      ],
+      "rotation_y": 200
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        10.5,
+        0,
+        -19.5
+      ],
+      "rotation_y": 330
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        16.2,
+        0,
+        -10.5
+      ],
+      "rotation_y": 45
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -16.5,
+        0,
+        -10.5
+      ],
+      "rotation_y": 160
     }
   ],
   "npcs": [
