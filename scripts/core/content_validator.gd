@@ -706,6 +706,16 @@ func _ref_effects(where: String, step: Dictionary) -> void:
 			_err(where, "quest_stage must be [quest_id, stage_id]")
 		else:
 			_ref_stage(where, str(pair[0]), str(pair[1]))
+	if step.has("travel"):
+		var target: Variant = step["travel"]
+		if not target is Array or (target as Array).size() not in [1, 2]:
+			_err(where, "travel must be [region_id] or [region_id, spawn]")
+		elif not db.regions.has(str(target[0])):
+			_err(where, "travel to unknown region '%s'" % target[0])
+		else:
+			var spawn := str(target[1]) if (target as Array).size() > 1 else "default"
+			if not (db.get_region(str(target[0])).get("spawn_points", {}) as Dictionary).has(spawn):
+				_err(where, "travel spawn '%s' not in region '%s'" % [spawn, target[0]])
 	for key: String in ["give_item", "take_item"]:
 		if step.has(key):
 			var item_id := str(step[key])

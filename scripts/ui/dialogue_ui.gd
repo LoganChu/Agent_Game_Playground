@@ -98,6 +98,11 @@ func _close() -> void:
 	# Defer unlocking so the key press that closed dialogue doesn't re-trigger interact.
 	(func() -> void: GameState.input_locked = false).call_deferred()
 	closed.emit()
+	# A `travel` effect (the ferry sailing) moves the player once the scene has been read.
+	if not runner.pending_travel.is_empty():
+		var target := runner.pending_travel
+		runner.pending_travel = []
+		GameState.travel(str(target[0]), str(target[1]))
 
 
 func _build() -> void:

@@ -16,7 +16,7 @@ extends RefCounted
 ## Emitted for every applied effect, so UI can show toasts ("Quest started", "Got item").
 signal effect_applied(kind: String, data: Dictionary)
 
-const EFFECT_KEYS: Array[String] = ["set", "quest_start", "quest_stage", "quest_complete", "give_item", "take_item"]
+const EFFECT_KEYS: Array[String] = ["set", "quest_start", "quest_stage", "quest_complete", "give_item", "take_item", "travel"]
 const SPECIAL_SPEAKERS: Dictionary = {"player": "You", "narrator": ""}
 const MAX_STEPS_PER_ADVANCE := 1000
 
@@ -28,6 +28,9 @@ var _steps: Array = []
 var _index := 0
 var _pending_options: Array = []
 var _running := false
+## Set by a `travel` effect: [region_id, spawn]; whoever runs the dialogue moves the player
+## there once it closes (DialogueUI). Cleared on start().
+var pending_travel: Array = []
 
 
 func _init(p_db: ContentDatabase, p_state: WorldState) -> void:
@@ -46,6 +49,7 @@ func start(id: String, start_knot: String = "start") -> Dictionary:
 		return _end()
 	dialogue_id = id
 	_running = true
+	pending_travel = []
 	if not _jump(start_knot):
 		return _end()
 	return next()
@@ -137,6 +141,10 @@ func apply_effects(step: Dictionary) -> void:
 		var count := int(step.get("count", 1))
 		if state.remove_item(str(step["take_item"]), count):
 			effect_applied.emit("take_item", {"item": str(step["take_item"]), "count": count})
+	if step.has("travel"):
+		var target: Array = step["travel"]
+		pending_travel = [str(target[0]), str(target[1]) if target.size() > 1 else "default"]
+		effect_applied.emit("travel", {"region": pending_travel[0], "spawn": pending_travel[1]})
 
 
 func _jump(target: String) -> bool:
