@@ -39,7 +39,7 @@ func _run() -> void:
 	# Several passes over every region so quests started on one pass can advance on the next
 	# (pass 3 reaches Aldous's confession and Mara's ferry lantern, and the horn sounds on
 	# arriving elsewhere; passes 4–5 meet the ferry, settle Pell with Mara and take passage,
-	# ending Act I; pass 6 casts off for Thornwold and meets Bram).
+	# ending Act I; the last pass casts off for Thornwold — and back — and meets Bram).
 	for pass_index in PASSES:
 		for region_id: String in Content.db.regions:
 			GameState.travel(region_id)

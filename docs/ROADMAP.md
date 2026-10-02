@@ -106,6 +106,16 @@ with a meaningful burn choice → consequences visible in the village.
       **`net_loft_broken`** ×2 (Hesk's loft stays whole); prop **`wading`** foam rings round
       the dock pilings and the stilts in the shallows (Day 16)
 
+- [x] [C] **The crossing — Act II begins** (Day 17): "Cast off for Thornwold." on the evening
+      tide (Mara and the green lantern, Pell per crossing outcome, the crew carrying the burned
+      memory, steering off the Gull astern); *Across the Grey* completes; new region **Thornwold
+      Landing** (cove, lumber camp, jetty, the bramble wall over the cart road, Greying in the
+      woods behind it) with a landing scene; **Bram Kettle** (new character), who weighs the
+      deed and the burn (knot grudge) and gives **A Light for Thornwold**; the bramble wall
+      inspectable; Pell on Thornwold if aboard; the Slow Mercy plies back and forth
+      (`lanes_ferry_at`). Engine: dialogue `travel` effect. Blender: bramble, log pile, stump,
+      charcoal sacks, Bram.
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -115,47 +125,52 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [C] **Content due next session (Day 17)**: begin *The crossing* (see Milestone 2) once
-   Thornwold has a greybox, or a small Act I side thread that pays off an open flag (e.g.
-   Aldous reacting to the player reading his ember sign; Tam and the broken lofts).
+1. [A] **Art, due Day 18 — Thornwold's look**: the camp still borrows Saltmarrow's stilt and
+   tall houses — a log **bunkhouse** and **tally-house** (round logs, bark roof, a stove pipe),
+   a **saw-pit** / trestle, a **charcoal clamp** (smoking earth mound) for the woods edge,
+   denser underbrush and fallen trunks; a darker pine variant so Thornwold's pines differ from
+   Saltmarrow's. Screenshot before/after (`2026-10-02-crossing-*.png` are the "before").
 2. [S] **Settings** in the pause menu: volume buses, text size (`UiTheme.set_text_scale`),
    camera sensitivity/invert, key rebinding (InputSetup is the hook); persisted to
    `user://settings.cfg` (not in saves).
-3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+3. [C] **Into the woods** (next content, by Day 21): what lies past the bramble wall — the
+   shifting paths as a mechanic (paths that fade/re-route in the Greying; trust and
+   misdirection), the charcoal folk (who brings the sacks?), the lantern on the ridge, the
+   beacon-keeper; a Thornwold Remnant or two toward the next burn. Pay off Pell's tally stick
+   and the ember leaning toward the thorns. Small Act I threads still open: Aldous noticing you
+   read his sign; Tam and the broken lofts; Pell's pouch ("something lost, something GOOD")
+   could take a Thornwold find.
+4. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu.
-4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
-   (LORE: "a road forgets where it goes"); a Hushed NPC drifting in a pocket; audio cue
-   (muffling low-pass + heartbeat-ish ember crackle) with the audio item; colourblind-safe
-   meter check with the accessibility item. Consider a story flag when the player is first
-   turned back (an NPC remarks on it).
-6. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+   (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
+   drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
+   audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
+   when the player is first turned back (an NPC remarks on it).
+7. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-7. [A] **Art, next due by Day 18** — small dressing follow-ups: paint contrast in the
-   Compatibility renderer (walkway vs. slate); Saltmarrow's two greyed net-lofts by the
-   boardwalk gate could take the broken variant (or a half-mended one after the burn);
-   Aldous still stands — a bench by the Wrens' steps (LORE says he sits on one) wants a
-   seated idle like Hesk's; a lit-window variant for nights once day/night exists.
-8. [S] Interaction polish: camera framing during dialogue; inspectable glint; fade the
+8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+   vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
+   variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
+   steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
+   nights once day/night exists.
+9. [S] Interaction polish: camera framing during dialogue; inspectable glint; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
 ## Milestone 2 — Alpha (Act II begins)
-- [C] **The crossing** (Act I→II transition; the arrival itself landed Day 13): Oda's "When do
-  we sail?" becomes casting off on the evening tide once Thornwold exists — narration of
-  leaving Saltmarrow (Mara on the dock with the green lantern; Pell at the rail if
-  `saltmarrow_pell_crossing=aboard`), the quest *Across the Grey* completes, arrive at
-  Thornwold. Ferry travel system & map screen (lanes open beacon to beacon). Honour on
-  Thornwold: `saltmarrow_ferry_deed` (how Tidewrights greet you), `saltmarrow_oda_saw_sleeve_ember`,
-  Pell aboard (a companion who finds things?) or the finding pouch (`pells_pouch`), the
-  unnamed Keeper beacon-keeper Aldous mentioned. Keepers met later should react to
-  `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (item is `future`).
-- [C] Thornwold region (forest, shifting paths), 3–4 NPCs, beacon + burn choice.
+- [x] [C] **The crossing** — landed Day 17 (see Done).
+- [S] **Ferry travel system & map screen** (lanes open beacon to beacon): replace Oda's
+  sail/back dialogue choices with a lane map; `lanes_ferry_at` stays the ferry's position.
+  Still to honour on Thornwold: `pells_pouch` (Pell stayed), the beacon-keeper; Keepers met
+  later should react to `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (`future`).
+- [C] Thornwold (forest, shifting paths) beyond the landing: 2–3 more NPCs, beacon + burn choice (landing + Bram since Day 17).
 - [C] Glasswater Fen region (Unmoored), the right-to-forget storyline; Dunstan Tollen.
 - [S] Day/night cycle & tides; NPC schedules.
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
@@ -193,8 +208,8 @@ each .glb < 5 MB.
 - `GreyingWalker` returns the player to the last clear ground they *stood* on; if a future
   region spawns the player inside a pocket via a save, they go to the default spawn
   (validator keeps spawns clear, but saved positions aren't checked).
-- Last content session: Day 13 (the ferry); content is due **next run (Day 17)**.
-- Last art session: Day 16 (Wrens' house, broken lofts, wading foam); art next due by Day 18.
+- Last content session: Day 17 (the crossing, Thornwold Landing); next content due by Day 21.
+- Last art session: Day 16 (Wrens' house, broken lofts, wading foam); art is due **next run (Day 18)** — Thornwold's own buildings.
 - Camera blockers are mesh-bounds boxes: a tree's blocker is its whole canopy box, so the
   camera pulls in a little early beside pines. Fine for now; per-part shapes if it bothers.
 - Pause pauses the whole tree; anything that must run under the menu (HUD, smoke test) sets
@@ -204,7 +219,14 @@ each .glb < 5 MB.
   After the card the player keeps exploring Saltmarrow with passage taken; nothing sails until
   Act II. Remaining slice work is systems/polish (pause menu, settings, audio, interaction
   polish) and art.
-- Smoke test now walks 5 passes (the ferry needs Pell's dock ask before Mara's leave); it
+- Smoke test walks 6 passes since Day 17 (a late pass casts off). It visits every region on every pass,
+  so (from its first pass) it meets Bram on Thornwold *before* the crossing — impossible in play (the landing is only
+  reachable by ferry), harmless for the test; `_check_crossing` checks the sailing itself.
+  A `travel` mid-walk ends that region's walk (nodes are freed).
+- Thornwold Landing has no exits yet: the only way on or off is Oda's ferry. The woods past the
+  bramble wall are walkable but deep Greying (you are turned back) — by design until "Into the
+  woods".
+- Smoke test ferry paths: the ferry needs Pell's dock ask before Mara's leave; the walk
   takes one Pell path per run (whichever the menu walker reaches — currently promised →
   Mara says yes). Other ferry paths are covered by `test_ferry.gd`.
 - NPCs placed in several regions: the validator only checks each placement is conditional,

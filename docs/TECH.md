@@ -36,6 +36,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_characters.py [oda …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
+.tools/bin/blender-py tools/blender/build_thornwold.py [bramble log_pile stump charcoal_sacks]  # Thornwold kit (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head]  # art review: every character side by side
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -210,6 +211,16 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   `flag:saltmarrow_ferry_passage`. The card is modal; "Keep exploring" (or Esc) closes it and
   play continues — the save carries on into Act II.
 
+### The lanes (Day 17)
+The *Slow Mercy* is the only way between islands for now. `lanes_ferry_at` ('' → still at
+Saltmarrow after arriving, `thornwold`, `saltmarrow`) places the ferry prop and Oda in exactly
+one region (Saltmarrow placements read `!flag:lanes_ferry_at=thornwold`, Thornwold's
+`flag:lanes_ferry_at=thornwold` — exact negations). Oda's dialogue sets it and `travel`s; the
+first sailing is the full crossing scene (completes *Across the Grey*), later ones are one
+line. Pell crosses only if `saltmarrow_pell_crossing=aboard` (`thornwold_pell_landed`) and then
+stays on Thornwold. When a ferry/map screen arrives (Milestone 2), it should replace these
+dialogue choices, keeping the flag as the ferry's position.
+
 ### The Greying (Day 11)
 `greying` areas are the fog as a *place* (region `fog` is only the ambient mood). Depth at a
 point = the area's `strength` (0..1, default 1) inside its `rect`/`ellipse`, smoothstepping to
@@ -346,6 +357,11 @@ of *effects*, and may be gated by `if` (skipped when false):
 - `{"goto": "knot"}`, `{"end": true}` — reaching the end of a knot also ends the dialogue.
 - Effects: `"set": {flag: value}`, `"quest_start": id`, `"quest_stage": [id, stage]`,
   `"quest_complete": id`, `"give_item": id`, `"take_item": id` (+ `"count": n`).
+- `"travel": [region_id, spawn?]` (Day 17) — when the dialogue **closes**, the player is moved
+  to that region/spawn (`DialogueRunner.pending_travel` → `DialogueUI._close` →
+  `GameState.travel`). Put it on the last step so the scene finishes first; the destination's
+  arrival `events` then fire as usual. Validated: known region and spawn. Used by Oda's ferry
+  (`sail`, `sail_again`, `back` in `story/oda.json`).
 - `"note"` is ignored (writer comments).
 
 ## Dressing kit (Day 10)
@@ -413,6 +429,10 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   harbor, Pell/Oda/ferry/bundle placement, Oda weighing the deed per burn, passage and the Act I
   recap, a promised Pell needing Mara's leave (both answers), Pell's dock ask and the pouch,
   Mara's farewell and message for Dunstan, validator rules for events and multi-placement.
+- `tests/test_crossing.gd` — the crossing: casting off completes *Across the Grey* and travels,
+  narration per burn and per Pell outcome, ferry/Oda/Pell placement on both ends of the lane
+  (there and back), the landing scene once, Bram per deed/burn (knot grudge), the bramble wall
+  advancing *A Light for Thornwold*, Pell on Thornwold, travel validation.
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).
@@ -437,7 +457,10 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog
   thinned, the region light applied), that a third pass reached Aldous's confession and Mara's ferry lantern, that the horn sounded
   on arriving elsewhere (arrival events are clicked through), that passes 4–5 met Oda, settled
-  Pell and took passage (the Act I end card showed a recap naming the burn, and was closed) (and that
+  Pell and took passage (the Act I end card showed a recap naming the burn, and was closed), that
+  a late pass cast off with Oda to Thornwold (a `travel` mid-walk ends that region's walk; the
+  landing scene is clicked through) and met Bram, and that ferry, Oda and Pell stand where the
+  lane left them (and that
   Saltmarrow's burn-specific dressing matches the burn — `Region.shown_conditional_props(shape)`), opens the journal and satchel via real input
   actions, saves/loads and compares state.
 - Add a `test_*.gd` extending `TestCase`; methods named `test_*` run automatically.

@@ -216,9 +216,46 @@ greyed net-lofts.
   - Oda gives the player a berth "on the evening tide" (`saltmarrow_ferry_passage`): **Act I
     ends there.** The crossing itself opens Act II.
 
-### 2. Thornwold (planned — Alpha)
+### 2. Thornwold (Act II — begun Day 17)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of
 charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
+
+- **Established in play (Day 17 — the crossing and Thornwold Landing):**
+  - **The crossing.** The *Slow Mercy* sails on the evening tide; Mara sees her off from the
+    dock end with the green lantern. On a lane to a dark island Oda steers by keeping the lit
+    beacon **dead astern and counting**; "a dark island's a hole in the sea, but holes have
+    edges — listen for the trees." The ferry's crew are off-islanders, so they still carry
+    Saltmarrow's burned memory (a crewman hums the lullaby; a deckhand ties the founding
+    knot; Oda says Dunstan's name) and it slides off the Wakebearer.
+  - Once one end of a lane is lit, the ferry plies it freely: Oda will run the player back to
+    Saltmarrow and out again. She lies at **Thornwold Landing** a few tides at a time, shipping
+    the camp's charcoal.
+  - **Thornwold Landing**: a stony cove on the south shore under black pines; the Tidewright
+    **lumber camp** (jetty, log piles, bunkhouse, a store and tally-house). The **old cart
+    road** ran from the landing straight up to Thornwold's beacon ("four hours with a loaded
+    cart").
+  - **The bramble wall.** The night of the Snuffing a man-high bramble wall grew across the
+    cart road. Cut back, it is whole by morning, and the road behind it "goes somewhere else".
+    The ruts run straight in under it and don't come out; a cutter's notch for "this way
+    home" points into the thorns. The Wakebearer's ember **leans toward the brambles**, as the
+    Gull's cradle leaned toward the ember (open hook: something past the wall wants the ember
+    — do not explain yet). Three of Bram's cutters went round it and came back not knowing
+    which way they'd gone, or that they'd gone at all.
+  - **Bram Kettle** — foreman of the lumber camp, Tidewright, forties, Saltmarrow-born mother,
+    keeps tallies of everything; signature colour moss. Hears the player's deed from Oda. If
+    the founding knot was burned he holds it against them (`thornwold_bram_knot_grudge`:
+    "every net on the lanes started from that knot, once") but will work with them.
+  - **Thornwold's beacon-keeper** was a Keeper, thirty years at the light, who came down twice
+    a winter for flour and lamp oil and never gave a name ("Keepers don't, up here"); never
+    rode Oda's deck. Nobody has come down since the Snuffing. The charcoal folk say **a lantern
+    goes along the ridge some nights** (Bram: "the charcoal folk say a lot"). Still unnamed;
+    alive or not is open.
+  - **The charcoal folk** live in the woods in the smoke of their clamps — "not Tidewright, not
+    anybody's" — trade charcoal for salt and say the woods like them. Their sacks still turn
+    up on the jetty every few days, full and tied; **nobody sees who brings them** (hook).
+  - If Pell crossed, Bram has them sorting nails ("kids who sort nails don't wander into
+    brambles"); Pell found a cutter's **tally stick** by the sacks whose last notch is only half
+    cut (hook, not an item yet).
 
 ### 3. Glasswater Fen (planned — Alpha)
 A marsh of reed-houses and mirror-still pools where the Unmoored gather. Theme: the right to

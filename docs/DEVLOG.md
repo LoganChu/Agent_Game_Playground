@@ -2,6 +2,77 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-02 09:00 UTC — Day 17: The crossing — Act II begins on Thornwold
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green (103 tests).
+- **Content (due today; last was Day 13):** *The crossing*, the top Milestone 2 item, plus a
+  first region for Act II.
+  - **Casting off.** After passage, Oda's "When do we sail?" became **"Cast off for
+    Thornwold."**: the plank comes in on the evening tide; Mara at the dock end with the green
+    lantern (two cups behind her after the `gull` burn); Pell at the rail coiling rope wrong
+    (aboard), shouting "something GOOD" (stayed), on the packed bundle not waving — then waving
+    (let_down), or running the dock (unresolved). Oda steers with the Gull **dead astern,
+    counting** — "a dark island's a hole in the sea, but holes have edges. Listen for the
+    trees." The crew are off-islanders, so the burned memory is aboard and slides off you (a
+    hummed lullaby / a knot you almost know / Dunstan's name). *Across the Grey* completes.
+  - **Thornwold Landing** (new region): a stony cove under black pines, the Tidewright lumber
+    camp (jetty with the Slow Mercy alongside, log piles, chopping stump, charcoal sacks,
+    bunkhouse and tally-house), the old cart road north to the beacon — stopped by a
+    **bramble wall** that grew across it the night of the Snuffing. Behind it the woods are
+    deep Greying (walkable; you're turned back). A one-time **landing scene** on arrival.
+  - **Bram Kettle** (new character + model), camp foreman: hears your deed from Oda
+    (claimed/shared/brusque), holds the **knot burn** against you (`thornwold_bram_knot_grudge`,
+    future) or hums the lullaby / names Dunstan at you, warns you off the sleeve-ember if Oda
+    saw it, explains the wall, and gives **A Light for Thornwold** (future). Asks: the
+    beacon-keeper (a Keeper, nameless, thirty years; a lantern on the ridge "the charcoal folk
+    say"), the charcoal folk (their sacks arrive and nobody sees who brings them), Pell.
+  - **"Look at the bramble wall"**: ruts running in and not out, a cutter's "this way home"
+    notch pointing into the thorns, your ember leaning toward it → quest stage `past_the_wall`.
+  - **Pell on Thornwold** if aboard (sorting Bram's nails; a half-notched tally stick).
+  - **The ferry plies both ways**: `lanes_ferry_at` places the Slow Mercy and Oda at one end of
+    the lane; Oda runs you back to Saltmarrow and out again (one-line sailings).
+- **Engine:** dialogue effect **`travel: [region, spawn]`** — applied when the dialogue closes
+  (validated: region + spawn exist). Saltmarrow gets a `from_ferry` spawn on the dock.
+- **Blender:** `build_thornwold.py` — `bramble` (arching thorned canes over a lumpy thicket,
+  red hips), `log_pile`, `stump` (axe bitten in, billets), `charcoal_sacks`; `bram` in
+  `build_characters.py` (786 tris: apron, rolled sleeves, beard, axe on the shoulder).
+- **Tests:** `test_crossing.gd` (9). Smoke test: 6 passes; a `travel` mid-walk ends that
+  region's walk; it now sails Saltmarrow → Thornwold → Saltmarrow and checks the crossing,
+  the landing, Bram's quest and where Oda/Pell/the ferry stand. 112 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-02-crossing-*.png`): `overview` (the landing from the
+sea), `camp` (path, stump, log piles, Pell by the sacks, the wall beyond), `bramble`,
+`jetty` (the Slow Mercy alongside, Oda and the player), `characters` (Bram in the lineup).
+
+**Decisions**
+- **Crossing as dialogue + `travel`, not a ferry/map screen yet.** One small engine effect gets
+  Act II started; the map screen stays a Milestone 2 item and can take over the same
+  `lanes_ferry_at` flag.
+- **A return trip now** (rather than a one-way crossing): Saltmarrow still has open things
+  (Pell's pouch, the stool, the sign), and stranding the player on a greybox island would be a
+  soft lock in all but name.
+- **No exit off the landing yet.** The woods past the wall are Greying, which already turns the
+  player back — exactly the fiction ("the road goes somewhere else") — so no fake locked exit.
+- **Bram is a Tidewright, not a Keeper**: Thornwold's Keeper beacon-keeper stays unnamed and
+  unseen (Aldous: "names carry"); kept the pronoun out of it on purpose.
+- Thornwold borrows Saltmarrow's `house_stilt`/`house_tall` as camp buildings for now; their
+  own log buildings are tomorrow's art item.
+
+**Problems / notes**
+- First terrain was a rectangle with a cliff rim; reshaped to ellipses (rounded cove, softer
+  beach) with `terrain_map.gd`, and the north ridge pulled in off the bounds.
+- The bramble's first "core" boxes read as a concrete wall in screenshots; replaced with
+  squashed ico-sphere thicket lumps.
+- The smoke walk talks to Bram before the crossing (it visits every region each pass);
+  impossible in play, noted in ROADMAP.
+
+**Next run should**
+1. **Art is due (Day 18)**: Thornwold's own buildings (log bunkhouse, tally-house, saw-pit,
+   charcoal clamp), underbrush, a darker pine — before/after against today's screenshots.
+2. Systems after that: settings (text size, volumes, camera) with a persisted settings file.
+3. Content by Day 21: *Into the woods* — the shifting paths past the bramble wall.
+
 ## 2026-10-01 21:00 UTC — Day 16: The Wrens' house, broken lofts, wading foam (art track)
 
 **Did**
