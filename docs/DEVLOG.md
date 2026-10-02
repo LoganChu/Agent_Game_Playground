@@ -2,6 +2,63 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-02 21:00 UTC — Day 18: Thornwold's own look (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green (119 tests).
+- **Art (due today under the cadence rule; last art was Day 16):** ROADMAP [A] #1, Thornwold's
+  look. Until now the camp borrowed Saltmarrow's stilt and tall houses and pines.
+  - `build_thornwold.py` gains eight models: **`bunkhouse`** (4.4 × 3.0 m saddle-notched round-log
+    cabin with interlocking corners and pale cut ends, clay chinking, bark-slab gable roof,
+    tin stove pipe, two lit windows with shutters, axe and bucksaw on the wall, woodpile
+    under the eaves, footing stones); **`tally_house`** (smaller log hut with a lean-to porch
+    and **Bram's tally board**: four rows of notched sticks on pegs, the bottom row only three);
+    **`saw_pit`** (X-legged trestles, a log half sawn into planks, the pit saw left in the
+    kerf, sawdust); **`charcoal_clamp`** (turfed earth dome, glowing vents, stake ring, ladder,
+    rake, finished charcoal); **`pine_dark`** (narrower, five drooping deep-green tiers);
+    **`pine_snag`** (a Greyed pine: silvered, bare spars, one last tier); **`underbrush`**
+    (bush lumps, fern fronds, berries); **`fallen_trunk`** (mossy, branch stubs, root plate).
+    Shared helpers `_log_walls` (with door/window cut-outs), `_bark_roof`, `_stove_pipe`.
+  - **Engine: prop `smoke`** — `[[x, y, z], ...]` model-space vents, each a `CPUParticles3D`
+    column of low-poly puffs that swell, drift and fade (`PropSmoke`, validated). The stoves
+    smoke, and so does the clamp.
+  - **Thornwold re-dressed:** the bunkhouse and tally-house replace the borrowed houses (same
+    spots); all 20 pines are `pine_dark` except two `pine_snag`s at the wall's ends; a saw
+    trestle by the log piles; two fallen trunks and twelve underbrush clumps under the pines;
+    and **a charcoal clamp smoking just past the bramble wall**, in the Greying where nobody
+    from the camp can go. Its smoke shows over the thorns from the camp. Canon noted in LORE.
+- **Tests:** `test_thornwold_kit.gd` (6: kit placed, nothing borrowed from Saltmarrow, smoke
+  vents on their models, one emitter per vent, validator, clamp past the wall). Story checkpoint
+  `thornwold` re-shot. 125 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-02-thornwold-*.png`), same cameras before/after:
+`before-camp` vs `after-camp`, `before-buildings` vs `after-buildings`, `before-woods` vs
+`after-woods` (the clamp's smoke over the wall); plus `after-tally`, `after-clamp`, `after-saw`.
+
+**Decisions**
+- **The clamp goes past the wall, not in the camp.** The camp can't see who brings the sacks;
+  a clamp tended by nobody-you-can-reach, smoking in the Greying, makes that hook visible
+  without a line of dialogue, and gives *Into the woods* a landmark to walk toward.
+- **Smoke as CPU particles** rather than static puffs (which read as floating balls in the
+  first try) or a shader: works in both renderers, few draw calls, no new assets.
+- **Log colours lifted** after the first lineup: the first pass (pine/coal at -0.6) read
+  black-and-red striped under Thornwold's cold light; logs are now driftwood/pine mid-shades
+  with pale chinking, roofs pine/slate, no coal red on buildings.
+- Kept each building to one box collider, like the village houses.
+
+**Problems / notes**
+- First export failed the kit test: 22 materials per cabin (> 16 mesh nodes after merge); folded
+  the shades into a shared set. The fallen trunk's root plate dipped below its origin; raised.
+- The tally board isn't inspectable yet (noted under *Into the woods*).
+- The tally-house front sits in its own shadow from most camp angles under Thornwold's
+  low sun; fine, but the tally board is hard to see from the path.
+
+**Next run should**
+1. **Systems:** Settings in the pause menu (volumes, text size, camera sensitivity/invert,
+   rebinding) persisted to `user://settings.cfg`.
+2. Content by Day 21: *Into the woods* — past the bramble wall, toward the smoking clamp.
+3. Art next due by Day 20.
+
 ## 2026-10-02 17:30 UTC — Owner request: story checkpoints (see progress without playing)
 
 **Did**

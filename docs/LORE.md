@@ -253,6 +253,15 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
   - **The charcoal folk** live in the woods in the smoke of their clamps — "not Tidewright, not
     anybody's" — trade charcoal for salt and say the woods like them. Their sacks still turn
     up on the jetty every few days, full and tied; **nobody sees who brings them** (hook).
+  - **The camp's look (Day 18):** the bunkhouse and tally-house are saddle-notched log cabins
+    roofed in bark slabs, stoves going day and night. Bram's **tally board** hangs by the
+    tally-house door — rows of notched sticks on pegs, one count per thing that leaves on the
+    ferry; the bottom row stops short at three. A saw trestle stands by the log piles with a
+    log half sawn into planks. Near the wall's ends the pines are **Greying where they stand**
+    — silvered, needles gone, one ragged green tier left (the woods past the wall are going
+    grey from the inside). **A charcoal clamp smoulders just past the bramble wall**, in the
+    Greying where nobody from the camp can go: someone is tending it (hook — the charcoal
+    folk, or whoever brings the sacks; pay off in *Into the woods*).
   - If Pell crossed, Bram has them sorting nails ("kids who sort nails don't wander into
     brambles"); Pell found a cutter's **tally stick** by the sacks whose last notch is only half
     cut (hook, not an item yet).

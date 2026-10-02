@@ -36,7 +36,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_characters.py [oda …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
-.tools/bin/blender-py tools/blender/build_thornwold.py [bramble log_pile stump charcoal_sacks]  # Thornwold kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head]  # art review: every character side by side
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -197,6 +197,13 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   rings, `FloatingProp.wading_mesh`). At build time a ring is kept only if the ground under
   it is below `water_level`, so a house straddling the tide line gets rings on its wet legs
   only. Used by the dock and the houses in Saltmarrow's shallows.
+- `"smoke": [[x, y, z], ...]` (model props) — smoke vents in model space (before `scale`):
+  each gets a `CPUParticles3D` column of low-poly puffs that swell, drift downwind and fade
+  (`PropSmoke`; preprocessed so it is already standing at load; CPU particles so the
+  Compatibility renderer shows it). Vents: `bunkhouse` (1.3, 3.95, -0.6), `tally_house`
+  (-0.8, 3.25, -0.5), `charcoal_clamp` crown at y 0.95, radius 0.65 (four vents at
+  0.4 + k·90° from +X, Godot z = -Blender y). `test_thornwold_kit.gd` checks vents sit on
+  their model. Keep it to a few vents per region (12–16 particles each).
 
 ### Arrival events & act ends (Day 13)
 - **Region `events`** happen on arriving in a region: after `main.load_region`, the first
@@ -447,6 +454,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - `tests/test_wrens_and_lofts.gd` — houses planked on every side, the retired stilt house,
   the Wrens' house and its ember sign per confession (+ the `wrens_door` inspectable), Gull's
   Head's broken lofts (Hesk's stays whole), `wading` foam only over the sea, validator checks.
+- `tests/test_thornwold_kit.gd` — Thornwold's own kit is placed (no Saltmarrow houses or pines
+  left there), smoke vents on their models, one emitter per vent, validator checks, the clamp
+  past the wall.
 - `tests/test_ferry.gd` — the ferry's arrival: the horn event fires once and only away from the
   harbor, Pell/Oda/ferry/bundle placement, Oda weighing the deed per burn, passage and the Act I
   recap, a promised Pell needing Mara's leave (both answers), Pell's dock ask and the pouch,
