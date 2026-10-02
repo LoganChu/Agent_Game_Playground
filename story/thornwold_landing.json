@@ -1,0 +1,24 @@
+{
+  "id": "thornwold_landing",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Thornwold comes out of the grey all at once: a black wall of pines, a stony cove, a plank jetty stacked with sacks. Nothing burns on the island's height."
+      },
+      {
+        "say": "oda",
+        "text": "Thornwold landing. I'll lie here a few tides; the camp's charcoal wants shipping. When you want Saltmarrow again, find me on the jetty."
+      },
+      {
+        "if": "flag:thornwold_pell_landed",
+        "say": "pell",
+        "text": "It smells like the inside of a resin pot! Can I go and look at everything? I'm going to look at everything."
+      },
+      {
+        "say": "narrator",
+        "text": "Up the slope, past the log piles and a bunkhouse, the old cart road runs north into the pines, and stops at a wall of thorns."
+      }
+    ]
+  }
+}

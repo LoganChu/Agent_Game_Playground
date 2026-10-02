@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:lanes_ferry_at=thornwold",
+        "goto": "thornwold"
+      },
+      {
         "if": "flag:saltmarrow_ferry_deed=",
         "goto": "first"
       },
@@ -226,9 +230,9 @@
             "goto": "ready"
           },
           {
-            "text": "When do we sail?",
+            "text": "Cast off for Thornwold.",
             "if": "flag:saltmarrow_ferry_passage",
-            "goto": "when"
+            "goto": "sail"
           },
           {
             "text": "Not yet.",
@@ -337,13 +341,185 @@
         "end": true
       }
     ],
-    "when": [
+    "sail": [
       {
-        "say": "oda",
-        "text": "When the tide's right, and not before. I'll whistle. You'll hear it."
+        "if": "quest:across_the_grey=done",
+        "goto": "sail_again"
       },
       {
-        "goto": "hub"
+        "say": "narrator",
+        "text": "Oda puts two fingers in her mouth and whistles. The plank comes in, the lines come off the posts, and the Slow Mercy leans away from the dock on the evening tide."
+      },
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "narrator",
+        "text": "Mara stands at the end of the dock with the green lantern held up, and does not wave until you do."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "narrator",
+        "text": "Mara stands at the end of the dock with the green lantern held up. Behind her, by the worn stool, two cups are set out. She waves to you, and only to you."
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=aboard",
+        "say": "narrator",
+        "text": "Pell is at the rail beside you with a coil of rope going wrong in both hands, waving at Mara until the lantern is a green spark."
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=stayed",
+        "say": "narrator",
+        "text": "At the dock's end Pell cups both hands and shouts something across the water. It might be \"something GOOD\"."
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=let_down",
+        "say": "narrator",
+        "text": "Pell sits on the packed bundle at the foot of the dock and doesn't wave. Then, when you have almost gone, does."
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=",
+        "say": "narrator",
+        "text": "Pell runs the length of the dock beside you, waving with both arms, and stops at the very last plank."
+      },
+      {
+        "say": "narrator",
+        "text": "The Gull's Beacon burns on its headland behind you. Oda keeps it dead astern and counts under her breath. The lanes run light to light, and ahead there is no light at all."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "narrator",
+        "text": "Down on the deck a crewman hums while he coils a line: a lullaby, slow, with a turn at the end. You try to keep hold of it and it goes past you like rain off a coat."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "narrator",
+        "text": "A deckhand makes fast a line with a knot you almost know, the way you almost know a word. Then it is only a knot."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "narrator",
+        "text": "Oda says a name to the wind, quietly: an old crewmate's. It does not stay with you."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog closes over the Gull's light. The ember in your hand is the only colour left on the sea."
+      },
+      {
+        "say": "oda",
+        "text": "Steady. A dark island's a hole in the sea, but holes have edges. Listen for the trees."
+      },
+      {
+        "say": "narrator",
+        "text": "And then you can: pines, a long way off, breathing."
+      },
+      {
+        "quest_complete": "across_the_grey",
+        "set": {
+          "lanes_ferry_at": "thornwold"
+        }
+      },
+      {
+        "if": "flag:saltmarrow_pell_crossing=aboard",
+        "set": {
+          "thornwold_pell_landed": true
+        }
+      },
+      {
+        "travel": [
+          "thornwold_landing",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "sail_again": [
+      {
+        "say": "narrator",
+        "text": "Oda casts off without ceremony. One end of the lane is lit now; she steers off the Gull and counts the rest of the way to the pines."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "thornwold"
+        },
+        "travel": [
+          "thornwold_landing",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "thornwold": [
+      {
+        "choice": [
+          {
+            "text": "Who kept Thornwold's beacon?",
+            "goto": "thornwold_keeper"
+          },
+          {
+            "text": "Show Oda the Keeper's sleeve-ember.",
+            "if": [
+              "item:keepers_sleeve_ember",
+              "!flag:saltmarrow_oda_saw_sleeve_ember"
+            ],
+            "set": {
+              "saltmarrow_oda_saw_sleeve_ember": true
+            },
+            "goto": "sleeve_thornwold"
+          },
+          {
+            "text": "Take me back to Saltmarrow.",
+            "goto": "back"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "thornwold_keeper": [
+      {
+        "say": "oda",
+        "text": "A Keeper. Thirty years up at the light, by the camp's count. Never rode my deck, not once. Never left the island, that one."
+      },
+      {
+        "say": "oda",
+        "text": "Ask Bram. He keeps tallies of everything, even the things he says he doesn't believe."
+      },
+      {
+        "goto": "thornwold"
+      }
+    ],
+    "sleeve_thornwold": [
+      {
+        "say": "narrator",
+        "text": "Oda looks at the faded thread for a long time. She does not touch it."
+      },
+      {
+        "say": "oda",
+        "text": "Put that away. Keepers ride my deck if they pay, and they pay twice. On Thornwold, I'd not show it to the camp."
+      },
+      {
+        "goto": "thornwold"
+      }
+    ],
+    "back": [
+      {
+        "say": "oda",
+        "text": "The lane to the Gull's an easy one. Lit at one end; that's all a lane needs."
+      },
+      {
+        "say": "narrator",
+        "text": "The Slow Mercy crosses back on the Gull's light, and Saltmarrow's stilts come up out of the grey one by one."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "saltmarrow"
+        },
+        "travel": [
+          "saltmarrow",
+          "from_ferry"
+        ],
+        "end": true
       }
     ]
   }

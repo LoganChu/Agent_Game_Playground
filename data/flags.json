@@ -108,6 +108,26 @@
     },
     "saltmarrow_ferry_passage": {
       "description": "Oda Farrow gave the player a berth on the Slow Mercy for Thornwold, sailing on the evening tide. Ends Act I (the act-end card); Act II starts from it.",
+      "default": false
+    },
+    "lanes_ferry_at": {
+      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing) or 'saltmarrow' (back at the Saltmarrow dock). Oda and the ferry prop are placed by it; the player travels with her.",
+      "default": ""
+    },
+    "thornwold_landed": {
+      "description": "The player has come ashore at Thornwold landing (one-time arrival scene after the crossing).",
+      "default": false
+    },
+    "thornwold_pell_landed": {
+      "description": "Pell crossed on the Slow Mercy (saltmarrow_pell_crossing=aboard) and stays at Thornwold's lumber camp, sorting Bram's nails. Moves Pell off the Saltmarrow dock.",
+      "default": false
+    },
+    "thornwold_met_bram": {
+      "description": "Player has met Bram Kettle, foreman of the Tidewright lumber camp at Thornwold landing.",
+      "default": false
+    },
+    "thornwold_bram_knot_grudge": {
+      "description": "Bram Kettle (Saltmarrow-born mother, Tidewright) holds the burning of the founding knot against the player. Tidewright net-makers' resentment of the knot burn (LORE); later Tidewrights may share it.",
       "default": false,
       "future": true
     }

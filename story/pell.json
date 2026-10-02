@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_pell_landed",
+        "goto": "thornwold"
+      },
+      {
         "if": "flag:saltmarrow_ferry_arrived",
         "goto": "dock"
       },
@@ -649,6 +653,44 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "thornwold": [
+      {
+        "say": "pell",
+        "text": "Bram's got me sorting nails. Bent ones, straight ones, ones that were bent and got straightened. That last lot's the biggest."
+      },
+      {
+        "say": "pell",
+        "text": "The fog here spits out different things to ours. Pine-smell things. I found a cutter's tally stick by the sacks: somebody's count of something, and the last notch is only half cut."
+      },
+      {
+        "say": "pell",
+        "text": "Mara would say put it back where you found it. So I did. Then I took it again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Stay near the camp, Pell.",
+            "goto": "thornwold_stay"
+          },
+          {
+            "text": "Keep looking. Tell me what you find.",
+            "goto": "thornwold_look"
+          }
+        ]
+      }
+    ],
+    "thornwold_stay": [
+      {
+        "say": "pell",
+        "text": "I KNOW. Everybody says. Bram says it with nails."
+      }
+    ],
+    "thornwold_look": [
+      {
+        "say": "pell",
+        "text": "Course I will. You're the only one here who doesn't think finding things is just picking things up."
       }
     ]
   }

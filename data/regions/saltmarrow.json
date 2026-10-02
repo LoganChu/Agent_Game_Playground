@@ -47,6 +47,11 @@
       1.5,
       0.5,
       -11
+    ],
+    "from_ferry": [
+      6,
+      0.5,
+      15.5
     ]
   },
   "ground": {
@@ -1066,7 +1071,10 @@
       ],
       "rotation_y": 180,
       "snap": false,
-      "if": "flag:saltmarrow_ferry_arrived",
+      "if": [
+        "flag:saltmarrow_ferry_arrived",
+        "!flag:lanes_ferry_at=thornwold"
+      ],
       "light": {
         "color": "moss",
         "energy": 1.2,
@@ -1098,9 +1106,10 @@
       "rotation_y": 30,
       "if": [
         "flag:saltmarrow_ferry_arrived",
-        "flag:saltmarrow_pell_ferry_ask=promised"
+        "flag:saltmarrow_pell_ferry_ask=promised",
+        "!flag:thornwold_pell_landed"
       ],
-      "note": "Pell's travelling bundle at the foot of the dock."
+      "note": "Pell's travelling bundle at the foot of the dock (gone with Pell if they cross)."
     }
   ],
   "npcs": [
@@ -1140,8 +1149,11 @@
         13.4
       ],
       "rotation_y": 20,
-      "if": "flag:saltmarrow_ferry_arrived",
-      "note": "On the dock once the ferry is in."
+      "if": [
+        "flag:saltmarrow_ferry_arrived",
+        "!flag:thornwold_pell_landed"
+      ],
+      "note": "On the dock once the ferry is in (until Pell crosses to Thornwold)."
     },
     {
       "npc": "oda",
@@ -1151,8 +1163,11 @@
         17.2
       ],
       "rotation_y": 0,
-      "if": "flag:saltmarrow_ferry_arrived",
-      "note": "Ferry-master at the dock end, by the boarding plank."
+      "if": [
+        "flag:saltmarrow_ferry_arrived",
+        "!flag:lanes_ferry_at=thornwold"
+      ],
+      "note": "Ferry-master at the dock end, by the boarding plank, whenever the Slow Mercy is at Saltmarrow."
     }
   ],
   "exits": [

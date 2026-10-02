@@ -1,0 +1,18 @@
+{
+  "id": "a_light_for_thornwold",
+  "title": "A Light for Thornwold",
+  "region": "thornwold_landing",
+  "giver": "bram",
+  "future": true,
+  "description": "Thornwold's beacon has been dark since the Snuffing, and while it is, no lane runs on toward Cindermoor. The cart road from the landing used to run straight up to it.",
+  "stages": [
+    {
+      "id": "the_bramble_wall",
+      "text": "Bram Kettle says a bramble wall grew across the old cart road to the beacon in a single night, and the road behind it goes somewhere else every morning. Look at it for yourself, north of the lumber camp."
+    },
+    {
+      "id": "past_the_wall",
+      "text": "The cart road runs straight in under the brambles and doesn't come out, and a cutter's 'this way home' notch points into the thorns. Bram's cutters won't go in. Find another way to Thornwold's beacon. (Thornwold's woods are still being written.)"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "thornwold_bramble",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The bramble wall stands higher than your head: canes as thick as a thumb, arched over and over each other, thorns as long as a finger. A few hips hang on it, red as coals."
+      },
+      {
+        "say": "narrator",
+        "text": "The cart road's ruts run straight in under the canes. They do not come out on the other side, as far as you can see."
+      },
+      {
+        "say": "narrator",
+        "text": "On a pine beside it, a cutter has cut the camp's notch for \"this way home\". It points into the thorns."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember leans toward the brambles, very slightly, the way the Gull's cradle once leaned toward it."
+      },
+      {
+        "if": "stage:a_light_for_thornwold=the_bramble_wall",
+        "quest_stage": [
+          "a_light_for_thornwold",
+          "past_the_wall"
+        ]
+      }
+    ]
+  }
+}

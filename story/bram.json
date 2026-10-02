@@ -1,0 +1,204 @@
+{
+  "id": "bram",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:thornwold_met_bram",
+        "goto": "first"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "A big man in a scarred leather apron sets his axe into the stump, looks at your hand, then past you at the ferry."
+      },
+      {
+        "say": "bram",
+        "text": "Bram Kettle. I run what's left of this camp."
+      },
+      {
+        "if": "flag:saltmarrow_ferry_deed=claimed",
+        "say": "bram",
+        "text": "Oda shouted your deed across the water before the plank was down. Says you told it proud. Relit the Gull, did you? Good."
+      },
+      {
+        "if": "flag:saltmarrow_ferry_deed=shared",
+        "say": "bram",
+        "text": "Oda shouted your deed across the water before the plank was down. Says you gave the credit round: Mara Tollen's harbor, Hesk's lofts. Tidewrights like that."
+      },
+      {
+        "if": "flag:saltmarrow_ferry_deed=brusque",
+        "say": "bram",
+        "text": "Oda shouted your deed across the water before the plank was down. Says you told it like a tally. Suits me. I keep tallies."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "goto": "knot"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "bram",
+        "text": "Oda says Saltmarrow paid for that light with a lullaby. She hummed it at me. Pretty. Why are you looking at me like that?"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "narrator",
+        "text": "He hums a bar of it. It goes past you like rain off a coat."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "bram",
+        "text": "Oda says Mara Tollen paid for that light with her brother. Dunstan. I drank with Dunstan once, on this jetty. Big laugh."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "narrator",
+        "text": "The name slides off you, like rain off a coat."
+      },
+      {
+        "goto": "first_after"
+      }
+    ],
+    "knot": [
+      {
+        "say": "bram",
+        "text": "And you're the one who burned the founding knot."
+      },
+      {
+        "say": "narrator",
+        "text": "He turns his right hand over. There is a net-hitch callus on the side of the first finger, old and hard."
+      },
+      {
+        "say": "bram",
+        "text": "My mother was Saltmarrow-born. Every net on the lanes started from that knot, once, if you followed it back far enough. Now nobody's can."
+      },
+      {
+        "say": "bram",
+        "text": "I'll work with you. I need that beacon lit more than I need to like you."
+      },
+      {
+        "set": {
+          "thornwold_bram_knot_grudge": true
+        },
+        "goto": "first_after"
+      }
+    ],
+    "first_after": [
+      {
+        "if": "flag:saltmarrow_oda_saw_sleeve_ember",
+        "say": "bram",
+        "text": "Oda says you carry a Keeper's sleeve, too. Keep it in your coat on my landing. My cutters have had a hard winter, and they know whose watch it was."
+      },
+      {
+        "say": "bram",
+        "text": "You'll want the beacon. Anybody with a burning hand would. The cart road runs from this landing straight up to it: four hours with a loaded cart."
+      },
+      {
+        "say": "bram",
+        "text": "The night the Spire went dark, a bramble wall grew across that road. One night. Brambles don't grow like that."
+      },
+      {
+        "say": "bram",
+        "text": "We cut it back. Next morning it's whole again, and the road behind it goes somewhere else. Three of my cutters went round it. They came back without knowing which way they'd gone, or that they'd gone at all."
+      },
+      {
+        "say": "bram",
+        "text": "Go and look at it, if you like. Just look."
+      },
+      {
+        "set": {
+          "thornwold_met_bram": true
+        },
+        "quest_start": "a_light_for_thornwold",
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Who kept Thornwold's beacon?",
+            "goto": "keeper"
+          },
+          {
+            "text": "Who are the charcoal folk?",
+            "goto": "charcoal"
+          },
+          {
+            "text": "The cart road runs straight in under the brambles.",
+            "if": "stage:a_light_for_thornwold=past_the_wall",
+            "goto": "wall"
+          },
+          {
+            "text": "About Pell.",
+            "if": "flag:thornwold_pell_landed",
+            "goto": "pell"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "keeper": [
+      {
+        "say": "bram",
+        "text": "A Keeper. Thirty years up at the light. Came down for flour and lamp oil twice a winter and never gave a name. Keepers don't, up here."
+      },
+      {
+        "say": "bram",
+        "text": "Since the Snuffing, nobody's come down. The charcoal folk say a lantern goes along the ridge some nights."
+      },
+      {
+        "say": "bram",
+        "text": "I say the charcoal folk say a lot."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "charcoal": [
+      {
+        "say": "bram",
+        "text": "Burners. They live in the woods, in the smoke off their clamps. Not Tidewright, not anybody's. They trade charcoal for salt and say the woods like them."
+      },
+      {
+        "say": "bram",
+        "text": "Maybe the woods do. Their sacks still turn up on my jetty every few days, full and tied. Nobody sees who brings them."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "wall": [
+      {
+        "say": "bram",
+        "text": "Aye. So the road's still there. It just doesn't want us on it."
+      },
+      {
+        "say": "bram",
+        "text": "Don't go in after dark. And don't go in unless that hand of yours is burning bright."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pell": [
+      {
+        "say": "bram",
+        "text": "The kid? Already been through my tool shed. Found two things I'd lost and one I hadn't."
+      },
+      {
+        "say": "bram",
+        "text": "I've put them to sorting nails. Kids who sort nails don't wander into brambles."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

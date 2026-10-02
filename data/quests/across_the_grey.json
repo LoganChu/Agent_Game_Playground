@@ -3,7 +3,6 @@
   "title": "Across the Grey",
   "region": "saltmarrow",
   "giver": "aldous",
-  "future": true,
   "description": "Aldous says the Hearthspire's flame was put out on purpose, by the High Keeper. The answers are on Cindermoor, and only the Tidewright ferry goes there — if it runs again now the Gull's Beacon is lit.",
   "stages": [
     {
@@ -24,7 +23,7 @@
     },
     {
       "id": "evening_tide",
-      "text": "You have a berth on the Slow Mercy. She sails for Thornwold on the evening tide. (Act II is still being written.)"
+      "text": "You have a berth on the Slow Mercy. She sails for Thornwold on the evening tide: tell Oda when you're ready to cast off."
     }
   ]
 }
