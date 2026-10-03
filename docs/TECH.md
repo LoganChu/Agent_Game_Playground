@@ -37,6 +37,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_woods.py [collier_hut sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head]  # art review: every character side by side
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -414,6 +415,15 @@ conditional props by it (`Region.shown_conditional_props(shape)`). Boats are pla
 `"snap": false`: `moored_boat`'s origin is the waterline; `rowboat` sits on its keel.
 `tests/test_dressing.gd` loads every kit model (< 5 MB, ≤ 16 mesh nodes, sane bounds, standing
 on its origin), checks the dock/beacon heights, model-prop lights and the light validation.
+**Woods kit (Day 20):** `tools/blender/build_woods.py` (same kit dir, same conventions) —
+`collier_hut` (charcoal-burner's cone hut, 3 m across: one hand-built cone mesh whose faces
+carry a patchwork of bark/turf materials, a gabled doorway at -Y, hearth and log seat in
+front), `sack_cart` (handcart, shafts to -X, ~2.6 × 1.3 m), `waymark` / `waymark_lit` (Keeper
+cairn + post with the carved ember; lantern glass centre (0, 1.77, 0.5) in Godot space — give
+`waymark_lit` a `light` there if one is ever wanted; it's emissive-only by the light budget),
+`trail_stake` (pointer along +X, notches on the -X face: `rotation_y` 90 points it to -Z),
+`greyed_brush` and `pine_grey` (same trunk footprint/collider as `pine_dark`). Keep each model
+to a few shades: the kit test caps a model at 16 mesh nodes after the merge by material.
 
 ## Characters
 Built by `tools/blender/build_characters.py` from one chunky base body (~700–900 tris, ~65 KB
@@ -481,6 +491,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - `tests/test_thornwold_kit.gd` — Thornwold's own kit is placed (no Saltmarrow houses or pines
   left there), smoke vents on their models, one emitter per vent, validator checks, the clamp
   past the wall.
+- `tests/test_woods_kit.gd` — the woods kit exists (< 5 MB, base-centred), is placed past the
+  wall (hut and lit waymark held back for *Into the woods*), Greyed growth/cart/waymark stand
+  in the Greying and the trail stake on clear camp ground, the lit waymark's glass glows.
 - `tests/test_ferry.gd` — the ferry's arrival: the horn event fires once and only away from the
   harbor, Pell/Oda/ferry/bundle placement, Oda weighing the deed per burn, passage and the Act I
   recap, a promised Pell needing Mara's leave (both answers), Pell's dock ask and the pouch,

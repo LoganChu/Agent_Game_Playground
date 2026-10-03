@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-03 21:00 UTC — Day 20: The woods kit (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). The local `main` was
+  31 commits behind origin; fast-forwarded before starting. Baseline green (133 tests).
+- **Art (due today under the cadence rule; last art was Day 18):** ROADMAP *Next up* #2, a
+  first kit for the woods past the bramble wall so Day 21's *Into the woods* has it.
+  New script `tools/blender/build_woods.py` (seven models into the dressing kit):
+  - **`collier_hut`** — the charcoal folk's cone hut: a hand-built cone mesh whose faces are a
+    patchwork of bark and turf, crossed pole tops, a gabled doorway with a sacking curtain, a
+    hearth ring with a spit and a log seat, a rake and a sack.
+  - **`sack_cart`** — a two-wheeled handcart with spoked wheels, rails, shafts on the ground,
+    five sacks of charcoal (one lying across), a rope coil, a lantern hook on the tail.
+  - **`waymark`** / **`waymark_lit`** — a Keepers' cairn with a weathered post carved with the
+    ember (a flame in a ring) and an iron arm; the lit one has a Keeper's lantern on the hook.
+  - **`trail_stake`** — a cutter's stake with the camp's "this way home" notches, a red rag and
+    a pointer slat.
+  - **`greyed_brush`**, **`pine_grey`** — undergrowth and pines the Greying has had: silvered,
+    thinned, ragged tiers, bare spars.
+- **Thornwold Landing dressed:** past the wall the pines now go grey from the inside (three
+  deep `pine_dark`s become `pine_grey`, six more Greyed pines and six Greyed brushes deeper
+  in); **the sack cart stands loaded by the clamp**; **the first waymark** stands on the cart
+  road just past the wall, hook empty; **a trail stake** on the camp side points into the
+  thorns. Canon added to LORE (waymarks, the cart, cone huts). The hut and the lit waymark
+  are built but held for *Into the woods*.
+- **Tests:** `test_woods_kit.gd` (4: models exist/small/base-centred; placed past the wall,
+  hut and lit waymark held back; Greyed growth, cart and waymark stand in the Greying and the
+  stake on clear camp ground; the lit waymark glows, the bare one doesn't). Checkpoint
+  `thornwold` re-shot. 137 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-03-woods-*.png`): `kit` (lineup next to `pine_dark`),
+`before-woods` vs `after-woods` (over the wall from the camp), `before-wall` vs `after-wall`,
+`after-cart`, `after-stake`.
+
+**Decisions**
+- **A new script rather than growing `build_thornwold.py`** (480 lines): the woods kit is its
+  own place and will keep growing with Act II.
+- **Greyed growth only inside the Greying**, and tested that way: the gradient dark → grey
+  from the wall inward is the woods' story ("going grey from the inside") told without words.
+- **The waymark's hook is empty for now.** LORE has the charcoal folk seeing "a lantern along
+  the ridge"; lit waymarks are the obvious payoff (someone hanging lanterns), so the lit model
+  waits for the content session that decides who.
+- **Hut as one patchwork mesh:** the first try laid bark slabs as beams over a cone; they
+  stuck out like spikes. A hand-built cone with per-face materials reads as laid slabs and
+  turf and costs one node.
+- Emissive-only lantern glass on `waymark_lit` (light budget unchanged).
+
+**Problems / notes**
+- First export of the hut had 18 mesh nodes (> 16 cap); folded its shades into WOOD/BARK/CLOTH.
+  The Greyed brush's jittered lumps dipped 0.2 m below the origin; raised.
+- Sack necks in `coal` read as red apples at a distance; they're dark driftwood now
+  (`charcoal_sacks.glb` from Day 17 still uses coal-red necks — fine on the jetty, left alone).
+- Woods shots are taken from fixed cameras; the "[E] Talk to Oda Farrow" prompt shows because
+  the player spawns on the jetty by Oda.
+
+**Next run should**
+1. **Content (due by Day 21):** *Into the woods* — ROADMAP *Next up* #1. The art is ready:
+   place `collier_hut`/`waymark_lit` where the story needs them (update `test_woods_kit.gd`).
+2. Title screen after that; art next due by Day 22; polish/debt pass due by session 23.
+
 ## 2026-10-03 09:00 UTC — Day 19: Settings (systems track)
 
 **Did**

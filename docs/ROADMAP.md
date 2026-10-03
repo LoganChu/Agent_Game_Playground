@@ -133,6 +133,12 @@ with a meaningful burn choice → consequences visible in the village.
       swaps, Esc reserved), saved to `user://settings.cfg`; HUD/dialogue key hints follow the
       bindings; the menu list scrolls at large text sizes.
 
+- [x] [A] **Woods kit** (Day 20): `build_woods.py` — the charcoal folk's **collier_hut** (cone
+      of poles, bark and turf) and **sack_cart**, Keepers' **waymark** cairns (bare / lantern
+      hung), a cutter's **trail_stake**, **greyed_brush** and **pine_grey**. Past the bramble
+      wall the woods now go grey from the inside; the sack cart stands loaded by the clamp, the
+      first waymark's hook is empty, and a trail stake points into the thorns.
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -151,9 +157,14 @@ each .glb < 5 MB.
    read his sign; Tam and the broken lofts; Pell's pouch ("something lost, something GOOD")
    could take a Thornwold find. Make Bram's tally board (tally-house door) an inspectable that
    reads the camp's counts — and the short bottom row.
-2. [A] **Art due by Day 20** — pick from item 8 (Saltmarrow follow-ups: Aldous's bench and
-   seated idle, the boardwalk-gate lofts) or a first Thornwold-woods kit for item 1 (Greyed
-   undergrowth, the charcoal folk's sack cart, the ridge lantern) so Day 21's content has it.
+   **Art ready for it (Day 20):** `collier_hut` and `waymark_lit` are built but unplaced (the
+   lit waymark is the natural "lantern on the ridge" payoff); the sack cart, empty waymark,
+   trail stake, Greyed pines/brush already stand past the wall. The woods could be a new
+   region north of the wall (ridge, the cart road's waymarks, the charcoal folk's huts) —
+   `test_woods_kit.gd` expects hut/lit waymark unplaced in Thornwold Landing; update it.
+2. [A] **Art due by Day 22** — item 8 (Saltmarrow follow-ups: Aldous's bench and seated idle,
+   the boardwalk-gate lofts), or whatever *Into the woods* turned out to need (a charcoal-folk
+   character model, the ridge/beacon of Thornwold, shifting-path markers).
 3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
@@ -230,7 +241,7 @@ each .glb < 5 MB.
   prompt only on the next focus change (harmless). Sliders save on leaving the page, not
   per tick; quitting the game from the OS while on the Settings page loses that change.
 - Last content session: Day 17 (the crossing, Thornwold Landing); next content due by Day 21.
-- Last art session: Day 18 (Thornwold's look); next art due by Day 20 (cadence: every other session).
+- Last art session: Day 20 (woods kit); next art due by Day 22 (cadence: every other session).
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
   if a region ever wants dozens, use GPUParticles3D on Forward+ and keep CPU for Compatibility.
 - Thornwold's log buildings use one box collider each (the porch of the tally-house is

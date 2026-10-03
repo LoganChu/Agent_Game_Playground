@@ -265,6 +265,20 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
   - If Pell crossed, Bram has them sorting nails ("kids who sort nails don't wander into
     brambles"); Pell found a cutter's **tally stick** by the sacks whose last notch is only half
     cut (hook, not an item yet).
+- **The woods past the wall (look, Day 20 — seen from the camp, not yet entered):**
+  - Behind the bramble wall the pines go **grey from the inside**: dark at the wall, then
+    fog-coloured deeper in, needles thinning, the undergrowth silvered and bare to the rib.
+  - **The Keepers' waymarks**: the old cart road up to the beacon was marked with stone cairns,
+    each with a weathered post carved with the Keepers' ember (a flame in a ring, as on their
+    house signs) and an iron arm with a **lantern hook**. The first stands just past the wall,
+    its hook **empty**. (Hook: the lantern the charcoal folk see "going along the ridge" could
+    be someone hanging lanterns on the waymarks — a lit waymark model exists for that payoff.)
+  - **The charcoal folk's sack cart** stands loaded beside the clamp past the wall: this is
+    how the sacks reach the jetty. Whoever pulls it is still unseen.
+  - On the camp side a cutter's **trail stake** (the camp's "this way home" notches, a red rag,
+    a pointer slat) aims straight into the thorns, where the road used to go.
+  - The charcoal folk live in **cone huts** of poles, bark slabs and turf beside their clamps
+    (model built; first placed by *Into the woods*).
 
 ### 3. Glasswater Fen (planned — Alpha)
 A marsh of reed-houses and mirror-still pools where the Unmoored gather. Theme: the right to
