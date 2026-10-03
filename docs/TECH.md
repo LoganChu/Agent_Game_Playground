@@ -25,7 +25,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --flags=intro_seen,saltmarrow_beacon_burned=gull,saltmarrow_ferry_passage \
     --act-end=act1 --screenshot=/abs/out.png               # show an act's end card (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow --flags=intro_seen \
-    --pause-menu[=save|load] --screenshot=/abs/out.png     # pause menu (on a page) (debug)
+    --pause-menu[=save|load|chapters|settings|controls] --screenshot=/abs/out.png     # pause menu (on a page) (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --camera=0,26,34:0,0,0 --screenshot=/abs/out.png       # fixed overview camera (eye:target)
@@ -58,6 +58,7 @@ scripts/
     world_state.gd        WorldState — flags, quests, inventory, collected pickups; to/from dict
     conditions.gd         Conditions — tiny condition language (see below)
     dialogue_runner.gd    DialogueRunner — steps JSON dialogue, applies effects
+    game_settings.gd      GameSettings — player settings (user://settings.cfg), see "Settings"
     input_setup.gd        default input actions registered in code
     journal_model.gd      JournalModel — ordered view data for the quest journal + satchel
     region_mood.gd        RegionMood — region fog and light after flag-driven overrides
@@ -436,6 +437,29 @@ Blender gotcha: bake rotation/scale into each primitive before joining (the scri
 `_finish` does) — joined objects keep only the first object's transform and the rest pose
 then overwrites it (this flipped every arm upward on the first try).
 
+## Settings (Day 19)
+`GameSettings.current()` (loaded and applied by `GameState._ready`) holds the player's
+settings; the pause menu's **Settings** and **Controls** pages edit it and save on leaving.
+`user://settings.cfg` (ConfigFile) — never in save games:
+```
+[audio]    Master/Music/Ambience/Effects/Voice = 0..1 (linear; 0 mutes the bus)
+[display]  text_scale = 0.75..2.0   (menu presets 0.85 / 1.0 / 1.25 / 1.5 → UiTheme)
+[camera]   sensitivity = 0.25..2.5, invert_x, invert_y   (Player reads them per event)
+[keys]     <action> = "<key name>"   only rebound actions, e.g. interact = "F"
+```
+- **Audio buses** are created in code (`GameSettings.ensure_bus`, sent to Master) — there is
+  no `default_bus_layout.tres`. The audio-hooks item should play through these buses by name.
+- **Rebinding**: each `InputSetup.REBINDABLE` action's first key in `BINDINGS` is its
+  primary; rebinding replaces it, swaps with whichever action held the new key, and refuses
+  Esc and the menu keys (pause stays Esc/P/Start). Default secondaries (arrows, Enter) stay
+  unless another action claims them. `InputSetup.apply_keys` rebuilds the keyboard events;
+  pad bindings are untouched (not rebindable yet). HUD/dialogue hints use `InputSetup.hint()`.
+- Loading clamps every value and ignores unknown/reserved/duplicate keys, so an old or
+  hand-edited file never breaks the game. Tests use their own instance and path
+  (`GameSettings.set_current`); the smoke test writes `user://smoke_settings.cfg`.
+- Range controls don't emit `value_changed` outside the scene tree (Godot 4.7): tests that
+  drive a menu slider emit it by hand.
+
 ## Save format
 `user://saves/<slot>.json`: `{version, saved_at, region, spawn, player_position, world:
 WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
@@ -467,6 +491,10 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   advancing *A Light for Thornwold*, Pell on Thornwold, travel validation.
 - `tests/test_scenarios.gd` — story checkpoints: validation, inheritance, reset-then-apply,
   each burn checkpoint, the story continuing from the late ones, every conversation finishing.
+- `tests/test_settings.gd` — settings defaults, bus volume/mute, text size presets, camera
+  sensitivity/invert, rebinding (swaps, claimed secondaries, reserved keys), file round trip,
+  bad-file tolerance, the pause menu's Settings and Controls pages (key capture, Esc cancels,
+  reset asks twice, leaving saves). The smoke test rebinds the journal with a real key press.
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).

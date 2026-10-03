@@ -127,6 +127,12 @@ with a meaningful burn choice → consequences visible in the village.
       **underbrush** and **fallen trunks**. Engine: prop **`smoke`** (CPU particle columns from
       model-space vents). Thornwold borrows nothing from Saltmarrow any more.
 
+- [x] [S] **Settings** (Day 19): pause menu **Settings** (Master/Music/Ambience/Effects/Voices
+      volume sliders on code-created buses, text size presets, camera sensitivity, invert
+      left/right and up/down, reset) and **Controls** (rebind every movement/interaction key;
+      swaps, Esc reserved), saved to `user://settings.cfg`; HUD/dialogue key hints follow the
+      bindings; the menu list scrolls at large text sizes.
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -136,10 +142,7 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [S] **Settings** in the pause menu: volume buses, text size (`UiTheme.set_text_scale`),
-   camera sensitivity/invert, key rebinding (InputSetup is the hook); persisted to
-   `user://settings.cfg` (not in saves).
-2. [C] **Into the woods** (next content, by Day 21): what lies past the bramble wall — the
+1. [C] **Into the woods** (next content, by Day 21): what lies past the bramble wall — the
    shifting paths as a mechanic (paths that fade/re-route in the Greying; trust and
    misdirection), the charcoal folk (who brings the sacks? who tends the clamp smoking past
    the wall since Day 18?), the lantern on the ridge, the
@@ -148,27 +151,34 @@ each .glb < 5 MB.
    read his sign; Tam and the broken lofts; Pell's pouch ("something lost, something GOOD")
    could take a Thornwold find. Make Bram's tally board (tally-house door) an inspectable that
    reads the camp's counts — and the short bottom row.
+2. [A] **Art due by Day 20** — pick from item 8 (Saltmarrow follow-ups: Aldous's bench and
+   seated idle, the boardwalk-gate lofts) or a first Thornwold-woods kit for item 1 (Greyed
+   undergrowth, the charcoal folk's sack cart, the ridge lantern) so Day 21's content has it.
 3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
-   "Return to title" on the Act I end card and in the pause menu.
+   "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
+   Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
 4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+   and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
+   that show pad glyphs when a pad was used last.
+6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] Audio hooks: bus layout, footsteps, ambient loop per region, dialogue "voice blips"
+7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
    variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
    steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
    nights once day/night exists.
-8. [S] Interaction polish: camera framing during dialogue; inspectable glint; fade the
+9. [S] Interaction polish: camera framing during dialogue; inspectable glint; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -216,6 +226,9 @@ each .glb < 5 MB.
 - `GreyingWalker` returns the player to the last clear ground they *stood* on; if a future
   region spawns the player inside a pocket via a save, they go to the default spawn
   (validator keeps spawns clear, but saved positions aren't checked).
+- Settings: changing a binding updates the HUD's key hint at once but the "[E] Talk to…"
+  prompt only on the next focus change (harmless). Sliders save on leaving the page, not
+  per tick; quitting the game from the OS while on the Settings page loses that change.
 - Last content session: Day 17 (the crossing, Thornwold Landing); next content due by Day 21.
 - Last art session: Day 18 (Thornwold's look); next art due by Day 20 (cadence: every other session).
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;

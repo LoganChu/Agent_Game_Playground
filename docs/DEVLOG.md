@@ -2,6 +2,63 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-03 09:00 UTC — Day 19: Settings (systems track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Baseline green (125 tests).
+- **Systems:** ROADMAP *Next up* #1, **Settings**, the last big missing piece of the pause menu.
+  - **`GameSettings`** (`scripts/core/game_settings.gd`): volumes for Master/Music/Ambience/
+    Effects/Voice (buses created in code and routed to Master; 0 mutes), text size presets
+    (Small/Normal/Large/Larger → `UiTheme.set_text_scale`), camera sensitivity (25–250%),
+    invert left/right and up/down, rebound keys. Persisted to **`user://settings.cfg`**
+    (ConfigFile), never in saves; loaded and applied by `GameState._ready`. Loading clamps
+    everything and drops unknown, reserved or duplicate keys.
+  - **Rebinding** (`InputSetup`): eleven actions (movement, interact, camera turn, journal,
+    satchel, quicksave/load). The first key of each is its primary; rebinding swaps with
+    whichever action held the key, refuses Esc and P (the menu), and keeps the arrow keys/Enter
+    as secondaries unless another action claims them.
+  - **Pause menu → Settings** (sliders with readouts, value buttons that cycle/toggle, Controls,
+    Reset to defaults — asks twice, Back) and **→ Controls** (pick an action, press a key; Esc
+    cancels and says what was kept; refusals say why). Saved when the settings pages are left
+    or the menu closes. Esc backs out Controls → Settings → main.
+  - The player camera reads sensitivity/invert (mouse drag and stick/Q-R yaw). The HUD key
+    hint, the "[E] Talk to…" prompt and the dialogue "[E] continue" show the bound key.
+  - The menu list now sits in a **scroll box** sized to the screen: at Larger text the Controls
+    page ran off a 720p screen. Focus follows into view.
+  - `--pause-menu=settings|controls` for screenshots.
+- **Tests:** `test_settings.gd` (8: defaults, bus volume/mute, text size, camera, rebinding and
+  the InputMap, file round trip, bad file, the menu pages end to end). The smoke test opens
+  Settings, moves the master slider, rebinds the journal to K **with a real key event**, checks
+  the HUD hint, backs out with Esc and checks the file was written, then resets (it runs on
+  defaults from a scratch `user://smoke_settings.cfg`). 133 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-10-03-settings.png`, `-controls.png`,
+`-controls-larger-text.png` (scrolling at the largest text size).
+
+**Decisions**
+- **A plain class with a static `current()`**, not a fourth autoload: the test runner has no
+  autoloads, and tests need their own instance and file path (`set_current`).
+- **Buses in code** rather than a `default_bus_layout.tres`, so the bus list lives next to the
+  settings that drive it; the audio-hooks item plays through them by name.
+- **Rebind the primary only, keep secondaries.** Arrows/Enter keep working for players who
+  never open the menu; the swap rule means a rebinding can never leave an action unbound.
+- **Pause isn't rebindable** (Esc/P/Start): the one way back to the menu must never be lost.
+- **Gamepad rebinding left out** — pad layout is conventional and the pad has no prompts yet;
+  logged as a follow-up with fullscreen/vsync.
+- Save on leaving the pages rather than per slider tick.
+
+**Problems / notes**
+- Godot 4.7's `Range` doesn't emit `value_changed` outside the scene tree, and the test
+  runner's root isn't in the tree during `_initialize`; tests emit it by hand (TECH notes it).
+- First scroll attempt hid the focused top row: focusing scrolls against the old page's
+  layout. `_focus` now re-checks visibility a frame later.
+
+**Next run should**
+1. **Art (due by Day 20):** ROADMAP *Next up* #2 — ideally a first kit for the woods past the
+   bramble wall, so Day 21's content has it.
+2. **Content by Day 21:** *Into the woods*.
+3. Title screen after that (reuse the Settings/Controls pages).
+
 ## 2026-10-02 21:00 UTC — Day 18: Thornwold's own look (art track)
 
 **Did**
