@@ -10,7 +10,7 @@ extends Node3D
 ##                         comma-separate several. E.g. screenshots of late-game states:
 ##                         --flags=intro_seen,saltmarrow_beacon_burned=knot --quest=a_light_for_saltmarrow
 ##   --act-end=<id>        show that act's end card for the current state (debug/screenshots)
-##   --pause-menu[=save|load|chapters]  open the pause menu (on that page) after loading (screenshots)
+##   --pause-menu[=save|load|chapters|settings|controls]  open the pause menu (on that page) after loading (screenshots)
 ##   --scenario=<id>       start at a story checkpoint from data/scenarios.json (see README);
 ##                         --scenario=list prints them and quits
 
@@ -120,6 +120,10 @@ func _open_pause_menu(page: String) -> void:
 		pause_menu.press("Load game")
 	elif page == "chapters":
 		pause_menu.press("Chapter select")
+	elif page == "settings" or page == "controls":
+		pause_menu.press("Settings")
+		if page == "controls":
+			pause_menu.press("Controls")
 
 
 ## Debug-only world setup from `--flags=` / `--quest=` (see the header comment).

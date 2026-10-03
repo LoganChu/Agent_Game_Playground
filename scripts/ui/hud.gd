@@ -31,7 +31,7 @@ func _ready() -> void:
 
 func set_focus(target: Interactable) -> void:
 	if target and is_instance_valid(target):
-		_prompt.text = "[E] " + target.prompt
+		_prompt.text = InputSetup.hint("interact") + " " + target.prompt
 		_prompt.show()
 	else:
 		_prompt.hide()
@@ -125,13 +125,14 @@ func _build() -> void:
 	root.add_child(_title)
 	var keys := Label.new()
 	keys.name = "KeyHint"
-	keys.text = "[J] Journal   [I] Satchel   [Esc] Menu"
 	keys.theme_type_variation = UiTheme.HUD_KEYS
 	keys.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	keys.offset_left = 20
 	keys.offset_top = -40
 	root.add_child(keys)
 	_keys = keys
+	_update_key_hint()
+	GameSettings.current().changed.connect(_update_key_hint)
 	_toasts = VBoxContainer.new()
 	_toasts.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	_toasts.offset_left = -420
@@ -179,3 +180,8 @@ func _make_label(variation: StringName) -> Label:
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.theme_type_variation = variation
 	return label
+
+
+## Follows the player's key bindings (GameSettings).
+func _update_key_hint() -> void:
+	_keys.text = "%s Journal   %s Satchel   [Esc] Menu" % [InputSetup.hint("journal"), InputSetup.hint("inventory")]

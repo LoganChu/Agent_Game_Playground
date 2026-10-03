@@ -1,7 +1,9 @@
 class_name InputSetup
 extends RefCounted
-## Registers default input actions in code (keeps project.godot readable and gives one place
-## to hook up rebinding later).
+## Registers default input actions in code (keeps project.godot readable) and applies the
+## player's rebound keys (GameSettings). Each keyboard action's first key in BINDINGS is its
+## rebindable primary; the rest are fixed secondaries (arrow keys, Enter), dropped while
+## another action has claimed them as its primary.
 
 const BINDINGS: Dictionary = {
 	"move_forward": [KEY_W, KEY_UP],
@@ -16,6 +18,31 @@ const BINDINGS: Dictionary = {
 	"journal": [KEY_J],
 	"inventory": [KEY_I],
 	"pause": [KEY_ESCAPE, KEY_P],
+}
+
+## Actions the settings page lets the player rebind, in menu order. "pause" stays on
+## Esc/P/Start so the menu can always be reached.
+const REBINDABLE: Array[String] = [
+	"move_forward", "move_back", "move_left", "move_right", "interact", "camera_left",
+	"camera_right", "journal", "inventory", "quick_save", "quick_load",
+]
+
+## Keys a rebinding can't take (Esc backs out of every menu).
+const RESERVED_KEYS: Array[Key] = [KEY_ESCAPE]
+
+const ACTION_LABELS: Dictionary = {
+	"move_forward": "Move forward",
+	"move_back": "Move back",
+	"move_left": "Move left",
+	"move_right": "Move right",
+	"interact": "Interact / talk",
+	"camera_left": "Turn camera left",
+	"camera_right": "Turn camera right",
+	"journal": "Journal",
+	"inventory": "Satchel",
+	"quick_save": "Quicksave",
+	"quick_load": "Quickload",
+	"pause": "Menu",
 }
 
 const PAD_BUTTONS: Dictionary = {
@@ -53,3 +80,55 @@ static func ensure_actions() -> void:
 			pa.axis = PAD_AXES[action][0]
 			pa.axis_value = PAD_AXES[action][1]
 			InputMap.action_add_event(action, pa)
+
+
+## The default primary key of an action (KEY_NONE if it has no keyboard binding).
+static func default_key(action: String) -> Key:
+	var defaults: Array = BINDINGS.get(action, [])
+	return defaults[0] as Key if not defaults.is_empty() else KEY_NONE
+
+
+static func action_label(action: String) -> String:
+	return str(ACTION_LABELS.get(action, action.capitalize()))
+
+
+## "E", "Space", "F5" — physical keycodes are named by their US-layout key.
+static func key_label(keycode: Key) -> String:
+	return OS.get_keycode_string(keycode) if keycode != KEY_NONE else "—"
+
+
+## Replaces the keyboard events of every rebindable action: its primary from `primaries`
+## (action → physical keycode), then its default secondaries that no action uses as a
+## primary. Pad events are left alone.
+static func apply_keys(primaries: Dictionary) -> void:
+	ensure_actions()
+	var claimed := {}
+	for action: String in primaries:
+		claimed[primaries[action]] = true
+	for action: String in REBINDABLE:
+		for ev in InputMap.action_get_events(action):
+			if ev is InputEventKey:
+				InputMap.action_erase_event(action, ev)
+		var primary: Key = primaries.get(action, default_key(action))
+		var wanted: Array[Key] = [primary]
+		for keycode: Key in BINDINGS[action].slice(1):
+			if not claimed.has(keycode) and not wanted.has(keycode):
+				wanted.append(keycode)
+		for keycode in wanted:
+			var key_event := InputEventKey.new()
+			key_event.physical_keycode = keycode
+			InputMap.action_add_event(action, key_event)
+
+
+## The keys currently bound to an action, for hints ("E" — the first keyboard key).
+static func bound_key(action: String) -> Key:
+	if InputMap.has_action(action):
+		for ev in InputMap.action_get_events(action):
+			if ev is InputEventKey:
+				return (ev as InputEventKey).physical_keycode
+	return default_key(action)
+
+
+## "[E]" — a HUD hint for an action's current key.
+static func hint(action: String) -> String:
+	return "[%s]" % key_label(bound_key(action))

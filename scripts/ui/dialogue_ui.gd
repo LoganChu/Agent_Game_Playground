@@ -75,6 +75,7 @@ func _show(event: Dictionary) -> void:
 			_name_label.text = speaker_name
 			_name_label.visible = not speaker_name.is_empty()
 			_text_label.text = str(event.get("text", ""))
+			_continue_hint.text = InputSetup.hint("interact") + " continue"
 			_continue_hint.show()
 		"choices":
 			_continue_hint.hide()
@@ -128,7 +129,7 @@ func _build() -> void:
 	_choices_box = VBoxContainer.new()
 	vbox.add_child(_choices_box)
 	_continue_hint = Label.new()
-	_continue_hint.text = "[E] continue"
+	_continue_hint.text = InputSetup.hint("interact") + " continue"
 	_continue_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_continue_hint.theme_type_variation = UiTheme.HINT
 	vbox.add_child(_continue_hint)

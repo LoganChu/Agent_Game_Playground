@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 	var input := Vector2.ZERO
 	if not GameState.input_locked:
 		input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
-		_camera_yaw.rotation.y += Input.get_axis("camera_right", "camera_left") * CAMERA_TURN_SPEED * delta
+		_camera_yaw.rotation.y += Input.get_axis("camera_right", "camera_left") * CAMERA_TURN_SPEED * GameSettings.current().yaw_factor() * delta
 	var basis_y := Basis(Vector3.UP, _camera_yaw.rotation.y)
 	var direction := basis_y * Vector3(input.x, 0, input.y)
 	var target := direction * SPEED
@@ -82,9 +82,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if GameState.input_locked:
 		return
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		var motion := event as InputEventMouseMotion
-		_camera_yaw.rotation.y -= motion.relative.x * MOUSE_SENSITIVITY
-		_camera_pitch.rotation.x = clampf(_camera_pitch.rotation.x - motion.relative.y * MOUSE_SENSITIVITY, deg_to_rad(-60), deg_to_rad(-5))
+		var turn := GameSettings.current().mouse_turn((event as InputEventMouseMotion).relative, MOUSE_SENSITIVITY)
+		_camera_yaw.rotation.y -= turn.x
+		_camera_pitch.rotation.x = clampf(_camera_pitch.rotation.x - turn.y, deg_to_rad(-60), deg_to_rad(-5))
 	elif event.is_action_pressed("interact") and focus and is_instance_valid(focus):
 		get_viewport().set_input_as_handled()
 		if focus is NpcActor:

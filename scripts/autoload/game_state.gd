@@ -20,6 +20,8 @@ var pending_player_position: Variant = null
 
 func _ready() -> void:
 	InputSetup.ensure_actions()
+	# Loads user://settings.cfg and applies it (volumes, text size, rebound keys).
+	GameSettings.current()
 	world.quest_changed.connect(_on_quest_changed)
 	world.inventory_changed.connect(_on_inventory_changed)
 

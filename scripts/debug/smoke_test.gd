@@ -20,6 +20,11 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Never touch the player's real saves.
 	SaveSystem.save_dir = "user://smoke_saves"
+	# ...nor their settings: run on defaults, write to a scratch file.
+	var settings := GameSettings.current()
+	settings.path = "user://smoke_settings.cfg"
+	settings.reset_values()
+	settings.apply_all()
 	_run.call_deferred()
 
 
@@ -97,6 +102,7 @@ func _run() -> void:
 	await _check_crossing(main)
 	await _check_journal(main.get("journal_ui"))
 	await _check_pause_menu(main)
+	await _check_settings(main)
 	await _check_chapter_select(main)
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
 	var before := GameState.world.to_dict()
@@ -322,6 +328,50 @@ func _check_pause_menu(main: Node) -> void:
 	await get_tree().process_frame
 	_check(not menu.is_open() and not get_tree().paused and not GameState.input_locked, "Esc resumes")
 	DirAccess.remove_absolute(SaveSystem.slot_path("slot1"))
+
+
+## Settings through the menu: a volume slider moves its bus; Controls rebinds the journal to
+## K with a real key press (the HUD hint follows, K opens the journal's action); Esc backs
+## out page by page and leaving saves the file. Back to defaults afterwards.
+func _check_settings(main: Node) -> void:
+	var menu: PauseMenu = main.get("pause_menu")
+	var hud: Hud = main.get("hud")
+	var settings := GameSettings.current()
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(menu.press("Settings") and menu.page == PauseMenu.Page.SETTINGS, "pause menu opens Settings")
+	var master := menu.slider("Master volume")
+	_check(master != null, "Settings has a master volume slider")
+	if master:
+		master.value = 50.0
+		_check(is_equal_approx(AudioServer.get_bus_volume_db(0), linear_to_db(0.5)), "the master slider sets the Master bus")
+	_check(menu.press("Controls") and menu.page == PauseMenu.Page.CONTROLS, "Settings opens Controls")
+	_check(menu.press("Journal"), "picking the journal to rebind")
+	await get_tree().process_frame
+	var key := InputEventKey.new()
+	key.physical_keycode = KEY_K
+	key.pressed = true
+	Input.parse_input_event(key)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(settings.key_for("journal") == KEY_K and menu.capturing.is_empty(), "a key press rebinds the journal to K")
+	_check(InputMap.event_is_action(key, "journal"), "K is the journal key now")
+	_check(not InputMap.event_is_action(key, "move_forward") and menu.page == PauseMenu.Page.CONTROLS, "and nothing else; still on Controls")
+	_check((hud.get("_keys") as Label).text.begins_with("[K] Journal"), "the HUD hint follows the binding")
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(menu.page == PauseMenu.Page.SETTINGS, "Esc backs out of Controls to Settings")
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(menu.page == PauseMenu.Page.MAIN and FileAccess.file_exists(settings.path), "leaving Settings saves them")
+	menu.close()
+	await get_tree().process_frame
+	settings.reset()
+	_check(settings.key_for("journal") == KEY_J and is_equal_approx(AudioServer.get_bus_volume_db(0), linear_to_db(GameSettings.DEFAULT_VOLUME)), "reset to defaults")
+	DirAccess.remove_absolute(settings.path)
 
 
 ## Debug builds: the pause menu's Chapter select jumps to a story checkpoint (Thornwold
