@@ -1,7 +1,8 @@
 class_name GreyingFog
 extends MeshInstance3D
 ## The visible fog of one Greying area: a few translucent layers hugging the ground (or the
-## water), each vertex's alpha baked from `Greying.area_depth`, animated by
+## water), each vertex's alpha baked from `Greying.area_depth` (thinned by any clear areas of
+## light over it), animated by
 ## assets/shaders/greying_fog.gdshader. Built by Region; fades in/out when the story adds
 ## or removes the area.
 
@@ -17,12 +18,13 @@ var area: Dictionary = {}
 var _material: ShaderMaterial
 
 
-## Builds the layers for `area`. `surface` maps x, z → the height the fog lies on.
-func setup(p_area: Dictionary, surface: Callable, color_name: String = "silverfog") -> void:
+## Builds the layers for `area`. `surface` maps x, z → the height the fog lies on; `clears`
+## are the clear areas (lantern light) currently cutting pools out of it.
+func setup(p_area: Dictionary, surface: Callable, clears: Array[Dictionary] = [], color_name: String = "silverfog") -> void:
 	area = p_area
 	name = "GreyingFog"
 	cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	mesh = build_mesh(area, surface)
+	mesh = build_mesh(area, surface, clears)
 	_material = ShaderMaterial.new()
 	_material.shader = SHADER
 	_material.set_shader_parameter("fog_color", PropFactory.color(color_name))
@@ -44,7 +46,7 @@ func _set_opacity(value: float) -> void:
 
 ## The layer mesh: LAYERS stacked grids over the area's bounds; triangles that are clear of
 ## fog at all three corners are dropped.
-static func build_mesh(p_area: Dictionary, surface: Callable) -> ArrayMesh:
+static func build_mesh(p_area: Dictionary, surface: Callable, clears: Array[Dictionary] = []) -> ArrayMesh:
 	var bounds := Greying.area_bounds(p_area)
 	var nx := maxi(1, ceili(bounds.size.x / STEP))
 	var nz := maxi(1, ceili(bounds.size.y / STEP))
@@ -56,7 +58,7 @@ static func build_mesh(p_area: Dictionary, surface: Callable) -> ArrayMesh:
 	for iz in nz + 1:
 		for ix in nx + 1:
 			var p := bounds.position + Vector2(ix * bounds.size.x / nx, iz * bounds.size.y / nz)
-			depths.append(Greying.area_depth(p_area, p))
+			depths.append(Greying.area_depth(p_area, p) * (1.0 - Greying.clearing_at(clears, p)))
 			grounds.append(float(surface.call(p.x, p.y)))
 	var any := false
 	for layer in LAYERS:

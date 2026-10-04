@@ -21,6 +21,8 @@ var _conditional: Array[Dictionary] = []
 var greying_areas: Array[Dictionary] = []
 ## Shown fog per area index in data.greying: index -> GreyingFog.
 var _greying_fog: Dictionary = {}
+## Clear areas (lantern light) the shown fog was last cut around.
+var _greying_clears: Array[Dictionary] = []
 
 
 func build(id: String) -> void:
@@ -76,13 +78,19 @@ func refresh_conditional(animate: bool = true) -> void:
 
 func _refresh_greying(world: WorldState, animate: bool) -> void:
 	greying_areas = Greying.active_areas(data, world)
+	var clears := Greying.clear_areas(greying_areas)
+	if clears != _greying_clears:
+		# The light changed: re-cut every shown fog layer around the new pools.
+		_greying_clears = clears
+		for fog: GreyingFog in _greying_fog.values():
+			fog.mesh = GreyingFog.build_mesh(fog.area, fog_surface, clears)
 	var areas: Array = data.get("greying", [])
 	for i in areas.size():
-		var want := greying_areas.has(areas[i])
+		var want := greying_areas.has(areas[i]) and not Greying.is_clear(areas[i])
 		var fog: GreyingFog = _greying_fog.get(i)
 		if want and fog == null:
 			fog = GreyingFog.new()
-			fog.setup(areas[i], fog_surface)
+			fog.setup(areas[i], fog_surface, clears)
 			add_child(fog)
 			if animate:
 				fog.fade(true)

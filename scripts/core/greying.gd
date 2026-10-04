@@ -5,10 +5,13 @@ extends RefCounted
 ## Region data `greying` is a list of areas:
 ##   {"rect": [x0,z0,x1,z1] | "ellipse": [cx,cz,rx,rz], "strength": 0..1 (default 1),
 ##    "falloff": metres (default 2), "height": metres of visible fog (default 2.4),
-##    "if": condition}
+##    "if": condition, "clear": true}
 ## An area's *depth* at a point is its strength inside the shape, smoothstepping to 0 over
 ## `falloff` outside it; overlapping areas take the deepest. Areas with an `if` come and
 ## go with the story (a relit beacon shrinks them) — see docs/TECH.md "The Greying".
+## A `clear` area is light holding the fog back (a waymark lantern): it draws no fog of its
+## own and scales the fog under it by (1 - its depth), so a full-strength clear area cuts a
+## clear pool out of any fog it overlaps.
 
 ## Seconds for a full ember to drain standing at depth 1.
 const DRAIN_SECONDS := 24.0
@@ -34,11 +37,27 @@ static func active_areas(region_data: Dictionary, state: WorldState) -> Array[Di
 	return out
 
 
-## Every area regardless of its condition (worst case, for validation).
+## Every area regardless of its condition (all fog and all light).
 static func all_areas(region_data: Dictionary) -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
 	out.assign(region_data.get("greying", []))
 	return out
+
+
+## The worst case for the validator: every fog area, but only the clear areas that hold
+## unconditionally (a lantern the story may take away doesn't count).
+static func worst_case_areas(region_data: Dictionary) -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for area: Dictionary in region_data.get("greying", []):
+		if not is_clear(area) or area.get("if") == null:
+			out.append(area)
+	return out
+
+
+## True for an area of light that holds the fog back rather than fog.
+static func is_clear(area: Dictionary) -> bool:
+	var clear: Variant = area.get("clear", false)
+	return clear is bool and clear
 
 
 ## Depth of one area at `p` (x/z), 0..strength.
@@ -55,12 +74,34 @@ static func area_depth(area: Dictionary, p: Vector2) -> float:
 	return strength * (1.0 - smoothstep(0.0, falloff, d))
 
 
-## Fog depth at `p` (x/z) over `areas`: the deepest area wins.
+## Fog depth at `p` (x/z) over `areas`: the deepest fog area wins, then the brightest clear
+## area thins it.
 static func depth_at(areas: Array[Dictionary], p: Vector2) -> float:
 	var depth := 0.0
 	for area: Dictionary in areas:
-		depth = maxf(depth, area_depth(area, p))
-	return depth
+		if not is_clear(area):
+			depth = maxf(depth, area_depth(area, p))
+	if depth <= 0.0:
+		return 0.0
+	return depth * (1.0 - clearing_at(areas, p))
+
+
+## How much the clear areas among `areas` hold the fog back at `p`, 0..1.
+static func clearing_at(areas: Array, p: Vector2) -> float:
+	var light := 0.0
+	for area: Dictionary in areas:
+		if is_clear(area):
+			light = maxf(light, area_depth(area, p))
+	return light
+
+
+## The clear areas among `areas`.
+static func clear_areas(areas: Array[Dictionary]) -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for area: Dictionary in areas:
+		if is_clear(area):
+			out.append(area)
+	return out
 
 
 ## The x/z extent an area's fog can reach (shape + falloff), for building its visual.

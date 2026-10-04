@@ -446,7 +446,7 @@ func _validate_greying(where: String, region: Dictionary) -> void:
 			_err(where, "greying entries must be objects")
 			continue
 		for key: String in (area as Dictionary):
-			if key not in ["rect", "ellipse", "strength", "falloff", "height", "if", "note"]:
+			if key not in ["rect", "ellipse", "strength", "falloff", "height", "if", "clear", "note"]:
 				_err(where, "greying area has unknown key '%s'" % key)
 		var shapes := 0
 		for shape_key: String in ["rect", "ellipse"]:
@@ -462,11 +462,13 @@ func _validate_greying(where: String, region: Dictionary) -> void:
 				var v: Variant = area[num[0]]
 				if not (v is float or v is int) or float(v) < float(num[1]) or float(v) > float(num[2]):
 					_err(where, "greying %s must be a number in [%s, %s]" % num)
+		if area.has("clear") and not area["clear"] is bool:
+			_err(where, "greying clear must be true or false")
 		_ref_condition(where, area.get("if"))
 	_greying_ok = errors.size() == errors_before
 	if not _greying_ok:
 		return
-	var all := Greying.all_areas(region)
+	var all := Greying.worst_case_areas(region)
 	for spawn_name: String in region.get("spawn_points", {}):
 		var pos := JsonUtil.to_vector3(region["spawn_points"][spawn_name])
 		if Greying.depth_at(all, Vector2(pos.x, pos.z)) >= Greying.CLEAR_DEPTH:
@@ -474,10 +476,11 @@ func _validate_greying(where: String, region: Dictionary) -> void:
 
 
 ## Everything the player must reach can be reached spending at most
-## Greying.MAX_ONE_WAY_EMBER, with every area present (worst case), so they can always get
+## Greying.MAX_ONE_WAY_EMBER, with every fog area present and only the unconditional lights
+## (worst case), so they can always get
 ## there and walk back out before the ember runs out.
 func _validate_greying_budget(where: String, region: Dictionary, field: TerrainField, reachable: Dictionary, spots: Array) -> void:
-	var areas := Greying.all_areas(region)
+	var areas := Greying.worst_case_areas(region)
 	if areas.is_empty() or not _greying_ok:
 		return
 	var cost := Greying.ember_cost_map(field, reachable, areas)
