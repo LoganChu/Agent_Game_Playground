@@ -280,6 +280,53 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
   - The charcoal folk live in **cone huts** of poles, bark slabs and turf beside their clamps
     (model built; first placed by *Into the woods*).
 
+- **Established in play (Day 21 — into the woods, part one):**
+  - **The bramble wall parts for the ember.** Held to the thorns, the Wakebearer's ember makes
+    the canes draw back "the way a hand draws back from a stove", opening a gap one person wide
+    onto the cart road (`thornwold_bramble_parted`). It opens again each time the ember comes
+    near and settles shut behind. The brambles also let the colliers' cart by ("they know me —
+    you lift the canes and say who you are").
+  - **The woods past the wall** are a hollow under steep banks, the ridge high to the north.
+    From inside, **the first waymark has a lantern on it** (from the camp its hook is empty —
+    the road "goes somewhere else"). The cart road runs straight north into deep Greying: **the
+    road lies**. A cutter's stake on that side points north too.
+  - **Waymark lanterns** — Keepers' lanterns (iron, scraped horn panes, the ember-in-a-ring
+    punched in the cap) with **no wick: a single coal no bigger than a fingernail, the colour of
+    the Wakebearer's ember**, sits on pale ash inside. Their light pushes the Greying back a
+    stone's throw — ordinary flame barely troubles it — and the ember leans toward them (and
+    they lean back). Lit waymarks lead **west, off the road**, to the colliers' clearing.
+  - **A lantern burns on the ridge** above the woods, on a waymark out of reach (the "lantern
+    along the ridge" the charcoal folk speak of).
+  - **Hob Marl** — the last collier on the near side of the ridge; old, soot to the elbows, a
+    sacking smock gone silver at the hem, a clamp rake. **Half-Hushed**: says things twice, loses
+    the ends of sentences. He tends the clamp the camp sees smoking past the wall and his own in
+    the clearing, and **brings the sacks**: every few nights he pulls the cart down the lanterns
+    to the jetty. **He forgot to take his salt** after the third load — the old trade is a crock
+    of salt by the jetty per load. He calls whoever hangs the lanterns **"the Lamp"**: comes
+    along the ridge at dusk, a lantern going; next morning a waymark that had none is lit. He has
+    never seen the Lamp's face ("you don't ask the Lamp"); the Lamp's light is "proper, like
+    yours". The beacon is up on the ridge, "the Lamp lives by it, I'd say".
+  - **The colliers' clearing**: two cone huts (Hob's, and a cold one with a rake left by the
+    door), a clamp, the floor black with charcoal dust. **The fog stands back from it with no
+    lantern** — "the woods like us: we burn what they drop, never what they grow" (do not explain
+    yet). There were **five hearths** this side of the ridge; the others "went up after the Lamp,
+    one at a time, to ask for a lantern of their own. Or they went home." (open hook)
+  - **Bram's tally board** (by the tally-house door): rows TIMBER, CHARCOAL, FLOUR AND OIL, UP (the
+    Keeper's supplies — stops at the Snuffing) and **SALT** — three notches, then bare wood. Bram had
+    **forgotten Hob existed** since the Snuffing ("not once — that's not like me"): the camp forgets
+    the colliers the way the colliers forget their pay. He sends a crock of salt (*Salt for the
+    Collier*); paid, Hob remembers Bram ("big lad, mother was Saltmarrow") and promises to come in
+    **by daylight, "when the road's a road again"**; Bram cuts a fourth notch (`thornwold_hob_paid`).
+  - **Pell's tally stick is Hob's** count-stick: the half notch is "the night I forgot what I was
+    counting". Hob lets Pell keep it; Pell keeps it *for* him ("finders keep for, not keep";
+    `thornwold_hob_stick`).
+  - *[SECRET — planned answer]* **The Lamp is Thornwold's beacon-keeper**, the unnamed Keeper.
+    Each beacon was lit from the Hearthspire at midwinter; the keeper **saved a coal of the last
+    midwinter's Firstflame** and has been breaking it into slivers for the waymark lanterns, a
+    little more of it gone every night — to keep a road open for the colliers and for whoever
+    came with an ember. The ember leaning toward the brambles (Day 17) is it leaning toward its
+    own kind. When the coal is spent, the lanterns go out. Do not reveal before the ridge.
+
 ### 3. Glasswater Fen (planned — Alpha)
 A marsh of reed-houses and mirror-still pools where the Unmoored gather. Theme: the right to
 forget. The fog is thickest and strangest here.

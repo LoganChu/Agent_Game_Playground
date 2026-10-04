@@ -33,7 +33,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [oda …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [oda hob …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
@@ -156,6 +156,10 @@ Fog and conditional props, NPCs, pickups and objects (`if`) are re-evaluated **l
 whenever a flag or quest changes (`main.gd` → `Region.refresh_conditional()` +
 `RegionMood.fog()`; fog changes tween over 4 s). Exits are always present; their
 `requires` is checked on interaction.
+**Inland regions (Day 21, `thornwold_woods`):** no `water_level`; the walkable floor is the
+`base` height and steep `land` banks (rects along every edge, falloff ≲ 2 m) bound it, so the
+reachable area never touches `ground.bounds`. With no water the colour rules treat `base` as
+the waterline, so set `colors.shore`/`seabed` to the floor colour too.
 Shapes `stool` (Dunstan's stool), `cups` (half-crate with two cups), `net_rack` (drying frame
 with a whole net) and `net_frame` (a net begun from the middle) are small dressing props (Day 9).
 Shape `signal_lantern` = post with a hanging lantern glowing in its `color` (default moss) +
@@ -275,6 +279,15 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
   object/exit must be reachable from clear ground spending ≤ `MAX_ONE_WAY_EMBER` (0.45)
   — a Dijkstra over walkable cells (`Greying.ember_cost_map`), so content can never be
   stranded in fog the player can't get into and back out of.
+- **Lantern light — `clear` areas (Day 21):** an area with `"clear": true` is light holding
+  the fog back (the waymark lanterns past Thornwold's bramble wall, the colliers' clearing). It
+  draws no fog of its own; `depth_at` = (deepest fog area) × (1 − brightest clear area's depth),
+  so a full-strength clear ellipse cuts a pool out of any fog, edged by its falloff. `GreyingFog`
+  bakes the same cut into its layers (triangles fully inside a pool are dropped);
+  `Region._refresh_greying` re-cuts every shown layer when the set of active clear areas changes
+  (no tween yet). Validator: `clear` must be a bool; the worst case
+  (`Greying.worst_case_areas`) is every fog area plus only the **unconditional** clear areas — a
+  lantern the story may take away doesn't count toward the spawn-clear and ember-budget checks.
 
 ### Atmosphere & water (Day 12)
 `Atmosphere` (child of main) owns the `WorldEnvironment` and the sun. A region's mood =
@@ -492,8 +505,14 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   left there), smoke vents on their models, one emitter per vent, validator checks, the clamp
   past the wall.
 - `tests/test_woods_kit.gd` — the woods kit exists (< 5 MB, base-centred), is placed past the
-  wall (hut and lit waymark held back for *Into the woods*), Greyed growth/cart/waymark stand
+  wall (hut and lit waymark only in the woods region), Greyed growth/cart/waymark stand
   in the Greying and the trail stake on clear camp ground, the lit waymark's glass glows.
+- `tests/test_woods.gd` — `clear` areas (pools, edges, light alone is no fog, worst case), the
+  fog layers cut around pools, validator `clear` check, the ember parting the bramble wall
+  (quest gate, travel, stage, parting again), the woods layout (spawns and lit waymarks in clear
+  pools, bare waymarks and the straight road deep, the clearing clear, the ridge lantern out of
+  reach, the arrival scene once and only after the parting), Hob and the Lamp, the tally board
+  and *Salt for the Collier* end to end, the tally stick (only with Pell).
 - `tests/test_ferry.gd` — the ferry's arrival: the horn event fires once and only away from the
   harbor, Pell/Oda/ferry/bundle placement, Oda weighing the deed per burn, passage and the Act I
   recap, a promised Pell needing Mara's leave (both answers), Pell's dock ask and the pouch,
@@ -534,7 +553,8 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   on arriving elsewhere (arrival events are clicked through), that passes 4–5 met Oda, settled
   Pell and took passage (the Act I end card showed a recap naming the burn, and was closed), that
   a late pass cast off with Oda to Thornwold (a `travel` mid-walk ends that region's walk; the
-  landing scene is clicked through) and met Bram, and that ferry, Oda and Pell stand where the
+  landing scene is clicked through) and met Bram, that the bramble wall's menu walk went
+  through the gap into the woods (an inspectable's `travel` also ends the region's walk), and that ferry, Oda and Pell stand where the
   lane left them (and that
   Saltmarrow's burn-specific dressing matches the burn — `Region.shown_conditional_props(shape)`), opens the journal and satchel via real input
   actions, saves/loads and compares state.

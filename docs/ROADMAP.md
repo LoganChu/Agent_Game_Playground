@@ -139,6 +139,17 @@ with a meaningful burn choice → consequences visible in the village.
       wall the woods now go grey from the inside; the sack cart stands loaded by the clamp, the
       first waymark's hook is empty, and a trail stake points into the thorns.
 
+- [x] [C] **Into the woods, part one** (Day 21): the ember **parts the bramble wall** (the
+      bramble dialogue → `travel`); new region **The Woods Past the Wall** (`thornwold_woods`,
+      an inland hollow under banks): the straight cart road runs north into deep Greying (the road
+      lies), **lit waymarks** lead west off it to **the colliers' clearing** (two cone huts, a clamp,
+      sacks); a lantern burns on the ridge out of reach. Engine: Greying **`clear` areas** (lantern
+      light cuts pools out of fog; validator worst case). **Hob Marl** (new character): who brings
+      the sacks and tends the clamp, "the Lamp" who hangs the lanterns, the five hearths. **Bram's
+      tally board** inspectable (the salt row stops at three) and side quest **Salt for the
+      Collier** (Bram had forgotten Hob; a fourth notch). Pell's tally stick is Hob's. Checkpoint
+      `thornwold_woods`.
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -148,23 +159,22 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [C] **Into the woods** (next content, by Day 21): what lies past the bramble wall — the
-   shifting paths as a mechanic (paths that fade/re-route in the Greying; trust and
-   misdirection), the charcoal folk (who brings the sacks? who tends the clamp smoking past
-   the wall since Day 18?), the lantern on the ridge, the
-   beacon-keeper; a Thornwold Remnant or two toward the next burn. Pay off Pell's tally stick
-   and the ember leaning toward the thorns. Small Act I threads still open: Aldous noticing you
-   read his sign; Tam and the broken lofts; Pell's pouch ("something lost, something GOOD")
-   could take a Thornwold find. Make Bram's tally board (tally-house door) an inspectable that
-   reads the camp's counts — and the short bottom row.
-   **Art ready for it (Day 20):** `collier_hut` and `waymark_lit` are built but unplaced (the
-   lit waymark is the natural "lantern on the ridge" payoff); the sack cart, empty waymark,
-   trail stake, Greyed pines/brush already stand past the wall. The woods could be a new
-   region north of the wall (ridge, the cart road's waymarks, the charcoal folk's huts) —
-   `test_woods_kit.gd` expects hut/lit waymark unplaced in Thornwold Landing; update it.
-2. [A] **Art due by Day 22** — item 8 (Saltmarrow follow-ups: Aldous's bench and seated idle,
-   the boardwalk-gate lofts), or whatever *Into the woods* turned out to need (a charcoal-folk
-   character model, the ridge/beacon of Thornwold, shifting-path markers).
+1. [A] **Art due by Day 22** (cadence: every other session; last art Day 20). Best pick now:
+   what the ridge will need — **Thornwold's beacon** (a Keeper-built tower on the ridge, unlike
+   the Gull: timber-and-stone? decide in LORE first), the **Lamp's lantern-pole**/keeper's hut on
+   the ridge, a **cold collier hut** variant (rake by the door, no hearth glow) for the second hut
+   in the clearing; or ROADMAP item 8 (Aldous's bench + seated idle). Hob could use a raking idle
+   (`idle` field) like Hesk's mending.
+2. [C] **Into the woods, part two — the ridge and the Lamp** (next content, by Day 25): the road
+   up from the clearing to the ridge and Thornwold's beacon; **shifting paths** as a mechanic
+   (waymark lanterns that go out or move with the story: `clear` areas with `if` — the engine
+   supports it since Day 21, but the fog re-cut is instant; add a fade); the Lamp (Thornwold's
+   beacon-keeper — see LORE [SECRET — planned answer]: a saved coal of the last midwinter's
+   Firstflame, nearly spent); the four colliers who "went up after the Lamp"; Remnants toward
+   Thornwold's burn (candidates: Hob's count-stick with the half notch — but it's Pell's now,
+   *finders keep for*; the camp's memory of the colliers; the Lamp's own name). Pay off Hob's
+   promise to come in by daylight (after the beacon). Keepers met should react to
+   `saltmarrow_aldous_confessed` and the sleeve-ember. Add a checkpoint.
 3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
@@ -240,7 +250,7 @@ each .glb < 5 MB.
 - Settings: changing a binding updates the HUD's key hint at once but the "[E] Talk to…"
   prompt only on the next focus change (harmless). Sliders save on leaving the page, not
   per tick; quitting the game from the OS while on the Settings page loses that change.
-- Last content session: Day 17 (the crossing, Thornwold Landing); next content due by Day 21.
+- Last content session: Day 21 (into the woods, part one); next content due by Day 25.
 - Last art session: Day 20 (woods kit); next art due by Day 22 (cadence: every other session).
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
   if a region ever wants dozens, use GPUParticles3D on Forward+ and keep CPU for Compatibility.
@@ -259,9 +269,15 @@ each .glb < 5 MB.
   so (from its first pass) it meets Bram on Thornwold *before* the crossing — impossible in play (the landing is only
   reachable by ferry), harmless for the test; `_check_crossing` checks the sailing itself.
   A `travel` mid-walk ends that region's walk (nodes are freed).
-- Thornwold Landing has no exits yet: the only way on or off is Oda's ferry. The woods past the
-  bramble wall are walkable but deep Greying (you are turned back) — by design until "Into the
-  woods".
+- Thornwold Landing has no exits: the ferry, and the bramble wall's dialogue (which `travel`s
+  into `thornwold_woods`) are the ways off. The landing's own strip of woods past the wall is
+  still deep Greying (you are turned back) — the way in is through the gap, by design.
+- The smoke test's menu walk parts the bramble wall on its first pass, before the crossing (it
+  meets Bram early too) — impossible in play, harmless. It always takes "Go through".
+- Lantern `clear` areas re-cut the fog layers instantly when they change; fine while every
+  lantern is unconditional (Day 21). Add a fade before story-driven lanterns land.
+- The woods region is a large hollow (≈ 50 × 50 m walkable) with nothing in its deep Greying but
+  bare waymarks and pines; the ridge content (part two) should give the north half a purpose.
 - Smoke test ferry paths: the ferry needs Pell's dock ask before Mara's leave; the walk
   takes one Pell path per run (whichever the menu walker reaches — currently promised →
   Mara says yes). Other ferry paths are covered by `test_ferry.gd`.

@@ -2,6 +2,82 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-04 09:00 UTC — Day 21: Into the woods, part one (content track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). The local checkout was a
+  detached HEAD behind origin; reset `main` to `origin/main` first. Baseline green (137 tests).
+- **Content (due today; last content was Day 17):** ROADMAP *Next up* #1, *Into the woods* —
+  the first half of it, sized to one session.
+  - **The ember parts the bramble wall.** Once Bram has given *A Light for Thornwold*, the wall's
+    inspect offers "Hold the ember to the thorns": the canes draw back, a gap opens
+    (`thornwold_bramble_parted`), and "Go through." travels into the new region. Later visits
+    open it again.
+  - **New region `thornwold_woods` — The Woods Past the Wall:** an inland hollow under steep
+    banks. The cart road runs straight north into deep Greying (**the road lies**; a cutter's
+    stake on this side points north too, two bare waymarks stand in the fog). **Lit waymarks**
+    lead west off the road, pool to pool, to **the colliers' clearing** (two cone huts, a
+    smoking clamp, sacks, a log pile) where the fog stands back with no lantern at all. The
+    first waymark — empty from the camp — has a lantern from this side. A lantern burns on the
+    ridge, out of reach. One-time arrival scene. The clamp and cart the camp sees past the wall
+    stand at the same spots here.
+  - **Hob Marl** (new Blender character): the last collier this side of the ridge, half-Hushed.
+    He brings the sacks down by the lanterns, tends the clamp, calls whoever hangs the lanterns
+    "the Lamp", and forgot to take his salt after the third load. Asking about the Lamp moves *A
+    Light for Thornwold* to `the_ridge` (still being written).
+  - **Bram's tally board** (inspectable by the tally-house door): TIMBER, CHARCOAL, FLOUR AND
+    OIL, UP — and SALT, three notches then bare wood. Telling Bram about Hob: he'd forgotten Hob
+    existed since the Snuffing. Side quest **Salt for the Collier** — carry the crock to Hob; he
+    remembers Bram, promises to come in by daylight; the board gets a fourth notch.
+  - **Pell's tally stick is Hob's** ("the night I forgot what I was counting"); Pell keeps it
+    *for* him.
+  - Paid off: who brings the sacks, who tends the clamp past the wall, the short bottom row,
+    Pell's half-notched stick, the lantern on the ridge (seen), the empty waymark hook, the
+    collier hut and lit waymark models. LORE gains the canon and a planned [SECRET] answer for the
+    Lamp (the beacon-keeper rationing a saved coal of the last midwinter's Firstflame).
+- **Engine: lantern light in the Greying** — `clear` areas cut pools out of the fog (logic, fog
+  layer meshes, live re-cut, validator worst case = only unconditional lights count).
+- **Tests:** `test_woods.gd` (9). `test_woods_kit.gd` now expects the hut/lit waymark in the
+  woods. Smoke: an inspectable's `travel` ends the region walk like Oda's; asserts the walk went
+  through the wall. Checkpoint **`thornwold_woods`**. 146 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-04-*.png`): `woods-overview` (the road north vs. the
+lanterns west), `woods-arrival` (the wall from inside, the lit first waymark), `woods-clearing`,
+`hob-lineup`.
+
+**Decisions**
+- **A separate region, not the landing's own strip past the wall.** The canon says the road
+  "goes somewhere else": entering through the gap and finding the first waymark *lit* on this
+  side sells that better than walking past the wall in one space, and keeps the landing's
+  Greying as the "you can't just walk in" wall.
+- **Trust and misdirection as layout, not a new system:** the road (and a camp trail stake) point
+  straight into deep fog; the lights lead off it. Story-driven shifting (lanterns that go out or
+  move) is supported by `clear` + `if` and waits for the ridge, where it means something.
+- **`clear` areas instead of carving the fog out of rect strips:** light pushing the Greying back
+  is canon, will be reused (the ember radius idea in *The Greying v2*, a relit beacon's pockets),
+  and keeps region data readable.
+- **The lanterns burn Firstflame coal.** Ordinary fire barely helps against the Greying (canon),
+  so the lanterns had to be something more; shown, not explained. The Lamp is planned as the
+  beacon-keeper, kept unnamed and unseen.
+- **Bram forgot Hob too.** The camp forgetting the colliers mirrors Hob forgetting his pay; it
+  explains "nobody sees who brings them" without the camp being incurious.
+- The woods arrival event also requires `thornwold_bramble_parted` — the smoke test visits regions
+  directly, and an event playing there locked input for the next check.
+
+**Problems / notes**
+- With no `water_level`, ground colour rules treat `base` as the waterline, so the whole floor
+  first rendered as pale "shore"; the region sets `shore`/`seabed` to `pine` (TECH notes it).
+- The first smoke run timed out: the menu walk chose "Go through" at the wall and freed the
+  region mid-loop. Fixed in the smoke test (not in the game).
+- Two lit-waymark lanterns and the exit marker near the spawn read similar in Compatibility
+  screenshots.
+
+**Next run should**
+1. **Art (due by Day 22):** ROADMAP *Next up* #1 — something the ridge needs (Thornwold's beacon,
+   the Lamp's place), a cold hut variant, or Aldous's bench.
+2. **Content by Day 25:** *Into the woods, part two* — the ridge, the Lamp, the beacon and burn.
+3. Polish/debt pass due by session 23; title screen after.
+
 ## 2026-10-03 21:00 UTC — Day 20: The woods kit (art track)
 
 **Did**
