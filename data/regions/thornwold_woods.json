@@ -547,6 +547,36 @@
       "note": "The lantern on the ridge: the highest waymark, lit, out of reach above the woods."
     },
     {
+      "model": "res://assets/models/dressing/thornwold_beacon.glb",
+      "position": [
+        15.0,
+        0,
+        -74.5
+      ],
+      "rotation_y": -15,
+      "collider": [
+        3.4,
+        6.0,
+        3.4
+      ],
+      "note": "Thornwold's beacon, the Ridge Light, dark on the ridge above the woods: a Keeper-built tower of the island's grey stone laced with timber, a horn-paned lantern cage, an iron pine for a vane. Out of reach until the ridge road (Into the woods, part two); thornwold_beacon_lit waits for the burn."
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_lodge.glb",
+      "position": [
+        7.0,
+        0,
+        -75.5
+      ],
+      "rotation_y": -10,
+      "collider": [
+        4.4,
+        2.4,
+        3.0
+      ],
+      "note": "The keeper's lodge beside the beacon: the Lamp's lantern bench under the eave, lanterns on pegs, the chimney cold."
+    },
+    {
       "model": "res://assets/models/dressing/collier_hut.glb",
       "position": [
         -17.5,
@@ -559,10 +589,17 @@
         2.0,
         2.4
       ],
-      "note": "Hob Marl's hut: the one with a fire in it."
+      "note": "Hob Marl's hut: the one with a fire in it (smoke at the peak).",
+      "smoke": [
+        [
+          0.0,
+          2.75,
+          0.0
+        ]
+      ]
     },
     {
-      "model": "res://assets/models/dressing/collier_hut.glb",
+      "model": "res://assets/models/dressing/collier_hut_cold.glb",
       "position": [
         -6.5,
         0,
@@ -574,7 +611,7 @@
         2.0,
         2.4
       ],
-      "note": "A second hut, cold: one of the colliers who went up the ridge."
+      "note": "A second hut, cold: one of the colliers who went up the ridge. Sods slipping, the curtain gone, the rake by the door, his boots left on the seat."
     },
     {
       "model": "res://assets/models/dressing/charcoal_clamp.glb",

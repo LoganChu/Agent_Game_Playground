@@ -5,5 +5,6 @@
   "color": "coal",
   "dialogue": "hob",
   "model": "res://assets/models/characters/hob.glb",
+  "idle": "rake",
   "bio": "The last collier on the near side of Thornwold's ridge, old, soot to the elbows. Tends his clamps in a clearing the fog stands back from and pulls the sack cart down to the jetty by the waymark lanterns. Half-Hushed: says things twice, loses the ends of sentences, forgot he was owed salt."
 }

@@ -3,13 +3,15 @@ extends Node
 ## Procedural idle/walk motion for a Blender-made character (tools/blender/build_characters.py).
 ## The model is a node hierarchy — Rig > LegL, LegR, Torso > Head, ArmL, ArmR — and this
 ## node, added as a child of the model, offsets those parts from their rest pose each frame:
-## breathing and a slow sway always, hands working in the "mend" style, and a leg/arm swing
+## breathing and a slow sway always, hands working in the "mend" style, a slow draw of the
+## clamp rake in the "rake" style (Hob Marl), and a leg/arm swing
 ## while `move_speed` is above zero. No skeletons or animation tracks to maintain.
 
 const PARTS: Array[String] = ["LegL", "LegR", "Torso", "Head", "ArmL", "ArmR"]
-const STYLES: Array[String] = ["breathe", "mend"]
+const STYLES: Array[String] = ["breathe", "mend", "rake"]
 
-## "breathe" (default) or "mend" (seated hands working over a net).
+## "breathe" (default), "mend" (seated hands working over a net) or "rake" (standing, drawing
+## a rake across the ground in slow pulls, leaning into each one).
 var style := "breathe"
 ## Horizontal speed in m/s; drives the walk swing (0 = standing).
 var move_speed := 0.0
@@ -73,7 +75,15 @@ func pose(t: float, walk_phase: float = 0.0, walk: float = 0.0) -> void:
 	_offset("Head", Vector3.ZERO, Vector3(-0.015 * breath, 0.04 * sin(t * 0.37), 0.0))
 	_offset("LegL", Vector3.ZERO, Vector3(0.55 * swing, 0, 0))
 	_offset("LegR", Vector3.ZERO, Vector3(-0.55 * swing, 0, 0))
-	if style == "mend":
+	if style == "rake":
+		# A slow pull every ~3 s: reach out (arms forward, a lean), draw back; eased by walking.
+		var pull := sin(t * 2.1) * (1.0 - walk)
+		_offset("Torso", Vector3(0, abs(swing) * 0.03, 0),
+			Vector3(0.1 + 0.07 * pull + 0.06 * walk, 0.05 * swing, 0.015 * sin(t * 0.6)),
+			Vector3(1.0 + 0.012 * breath, 1.0 + 0.02 * breath, 1.0 + 0.012 * breath))
+		_offset("ArmL", Vector3.ZERO, Vector3(-0.3 * pull - 0.45 * swing, 0, 0.03 * breath))
+		_offset("ArmR", Vector3.ZERO, Vector3(-0.3 * pull + 0.45 * swing, 0, -0.03 * breath))
+	elif style == "mend":
 		# Small alternating pulls of the needle through the mesh.
 		_offset("ArmL", Vector3.ZERO, Vector3(0.12 * sin(t * 3.1), 0.08 * sin(t * 1.55), 0))
 		_offset("ArmR", Vector3.ZERO, Vector3(0.12 * sin(t * 3.1 + PI), -0.08 * sin(t * 1.55 + 0.8), 0))
