@@ -130,7 +130,8 @@ func test_the_woods_road_lies_and_the_lanterns_lead() -> void:
 	var hob: Dictionary = region["npcs"][0]
 	assert_eq(str(hob["npc"]), "hob")
 	assert_true(Greying.depth_at(areas, _xz(hob["position"])) < Greying.CLEAR_DEPTH, "the colliers' clearing is clear")
-	assert_eq(_props(WOODS, "collier_hut").size(), 2, "two huts in the clearing")
+	assert_eq(_props(WOODS, "collier_hut").size() + _props(WOODS, "collier_hut_cold").size(), 2,
+			"two huts in the clearing (Hob's, and a cold one)")
 	# The ridge lantern is seen, not reached.
 	var field := TerrainField.from_data(region["ground"])
 	var spawn: Array = region["spawn_points"]["default"]
