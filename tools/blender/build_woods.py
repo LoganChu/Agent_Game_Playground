@@ -56,12 +56,15 @@ def _sack(loc, rng, lying: bool = False, shade: float = -0.2) -> None:
         cyl("Neck", 0.08, 0.05, 0.12, 5, (x, y, z + 0.54), mat("driftwood", -0.55))
 
 
-def build_collier_hut() -> None:
+def _collier_hut(cold: bool) -> None:
     """A charcoal-burner's hut, the kind the charcoal folk live in beside their clamps: a cone
     of leaning poles (3 m across, ~2.9 m tall) roofed in bark slabs and turf, the pole tops
     crossed at the peak, a low doorway at the front with a sacking curtain, a hearth ring of
-    stones and a log seat outside, a rake and a sack against the wall."""
-    bd.reset()
+    stones and a log seat outside, a rake and a sack against the wall.
+    Cold (a collier who went up the ridge and didn't come back, Day 22): the same hut left —
+    sods silvered and slipped off the cone (bare poles showing), the curtain gone from a dark
+    doorway, the hearth ring kicked apart with no ash or spit, the rake leaning by the door,
+    no sack, a pair of boots set neatly on the seat."""
     rng = random.Random(30)
     radius, height = 1.5, 2.6
     # Few shades, so the merged model stays a handful of draw calls.
@@ -92,20 +95,31 @@ def build_collier_hut() -> None:
     mesh.update()
     cone = bpy.data.objects.new("Cone", mesh)
     bpy.context.collection.objects.link(cone)
-    patch = (mat("pine", -0.5), mat("driftwood", -0.55), mat("moss", -0.5), mat("pine", -0.62))
-    for m in patch:
-        cone.data.materials.append(m)
+    if cold:  # the turf greyed where it lies; slipped slabs leave holes (dark) between poles
+        patch = (mat("pine", -0.5), mat("silverfog", -0.45), mat("silverfog", -0.55), mat("ink", 0.0))
+        for m in patch:
+            cone.data.materials.append(m)
+    else:
+        patch = (mat("pine", -0.5), mat("driftwood", -0.55), mat("moss", -0.5), mat("pine", -0.62))
+        for m in patch:
+            cone.data.materials.append(m)
     for i, poly in enumerate(cone.data.polygons):
         poly.use_smooth = False
         ring = i // sides
         poly.material_index = 2 if ring >= rings - 2 and i % 3 else (i * 7 + ring) % 4 if ring < rings - 2 else 3
+        if cold and ring in (1, 2) and i % 5 == 2:
+            poly.material_index = 3
     # A ridge of sods round the foot where the cone meets the ground.
     for k in range(sides):
         a = (k + 0.5) / sides * math.tau
         if abs(math.atan2(math.sin(a + math.pi / 2), math.cos(a + math.pi / 2))) < 0.4:
             continue  # the doorway
+        if cold and k % 3 == 0:  # slipped off, lying out from the foot
+            box("SlippedSod", (0.6, 0.3, 0.1), (math.cos(a) * (radius + 0.55), math.sin(a) * (radius + 0.55), 0),
+                mat("silverfog", -0.5), a + math.pi / 2 + 0.4)
+            continue
         box("FootSod", (0.6, 0.22, 0.16), (math.cos(a) * (radius + 0.05), math.sin(a) * (radius + 0.05), 0),
-            mat("moss", -0.55), a + math.pi / 2)
+            mat("silverfog", -0.5) if cold else mat("moss", -0.55), a + math.pi / 2)
     # Pole tops crossing at the peak.
     for k in range(5):
         a = k / 5 * math.tau + 0.3
@@ -121,25 +135,46 @@ def build_collier_hut() -> None:
         rod("DoorPole", (sx, door_y - 0.36, 0), (sx, door_y - 0.36, 1.3), 0.05, WOOD, verts=5)
     bd.bp.prism("DoorRoof", 1.0, 1.1, 0.42, (0, door_y + 0.15, 1.2), BARK)
     beam("Lintel", (-0.45, door_y - 0.38, 1.22), (0.45, door_y - 0.38, 1.22), 0.07, WOOD)
-    box("Curtain", (0.34, 0.04, 0.95), (0.13, door_y - 0.37, 0.22), CLOTH)
-    # Hearth ring of stones with a cold spit, and a log seat.
+    if not cold:
+        box("Curtain", (0.34, 0.04, 0.95), (0.13, door_y - 0.37, 0.22), CLOTH)
+    # Hearth ring of stones with a cold spit, and a log seat. Cold: the ring kicked apart.
     hx, hy = 0.9, -2.2
     for k in range(7):
         a = k / 7 * math.tau
-        _lump("HearthStone", (0.13, 0.11, 0.08), (hx + math.cos(a) * 0.4, hy + math.sin(a) * 0.4, 0.04),
+        d = 0.4 + (rng.uniform(0.1, 0.5) if cold and k % 2 else 0.0)
+        _lump("HearthStone", (0.13, 0.11, 0.08), (hx + math.cos(a) * d, hy + math.sin(a) * d, 0.04),
               mat("slate", -0.3), rng)
-    for k in range(3):
-        box("Ash", (0.22, 0.16, 0.03), (hx + rng.uniform(-0.1, 0.1), hy + rng.uniform(-0.1, 0.1), 0), mat("silverfog", -0.4), k)
-    for s in (-0.45, 0.45):
-        rod("SpitPost", (hx + s, hy, 0), (hx + s, hy, 0.6), 0.025, WOOD, verts=4)
-    rod("Spit", (hx - 0.5, hy, 0.58), (hx + 0.5, hy, 0.58), 0.02, mat("ink", 0.0), verts=4)
+    if not cold:
+        for k in range(3):
+            box("Ash", (0.22, 0.16, 0.03), (hx + rng.uniform(-0.1, 0.1), hy + rng.uniform(-0.1, 0.1), 0),
+                mat("silverfog", -0.4), k)
+        for s in (-0.45, 0.45):
+            rod("SpitPost", (hx + s, hy, 0), (hx + s, hy, 0.6), 0.025, WOOD, verts=4)
+        rod("Spit", (hx - 0.5, hy, 0.58), (hx + 0.5, hy, 0.58), 0.02, mat("ink", 0.0), verts=4)
     rod("Seat", (-0.9, -2.4, 0.2), (-0.1, -2.75, 0.2), 0.2, BARK, verts=7)
     rod("SeatTop", (-0.88, -2.41, 0.39), (-0.12, -2.74, 0.39), 0.12, CLOTH, verts=5)
-    # A rake leaning on the hut and a sack at its foot.
-    rod("Rake", (1.45, -0.35, 0.05), (0.95, -0.2, 1.7), 0.03, CLOTH, verts=4)
-    beam("RakeHead", (1.4, -0.6, 0.06), (1.55, -0.1, 0.06), 0.06, mat("slate", -0.3))
-    _sack((-1.35, -0.6, 0), rng, shade=-0.1)
+    if cold:
+        # The rake leaning by the doorway, and a pair of boots set side by side on the seat.
+        rod("Rake", (-0.55, door_y - 0.5, 0.02), (-0.45, door_y - 0.15, 1.75), 0.03, CLOTH, verts=4)
+        beam("RakeHead", (-0.8, door_y - 0.52, 0.04), (-0.3, door_y - 0.52, 0.04), 0.06, mat("slate", -0.3))
+        for k, off in enumerate((-0.12, 0.12)):
+            x, y = -0.5 + off, -2.57 + off * 0.42
+            box("Boot", (0.12, 0.26, 0.1), (x, y - 0.04, 0.45), mat("ink", 0.0), -0.42)
+            box("BootLeg", (0.12, 0.12, 0.24), (x + 0.03, y + 0.05, 0.45), mat("ink", 0.0), -0.42)
+    else:
+        # A rake leaning on the hut and a sack at its foot.
+        rod("Rake", (1.45, -0.35, 0.05), (0.95, -0.2, 1.7), 0.03, CLOTH, verts=4)
+        beam("RakeHead", (1.4, -0.6, 0.06), (1.55, -0.1, 0.06), 0.06, mat("slate", -0.3))
+        _sack((-1.35, -0.6, 0), rng, shade=-0.1)
+
+
+def build_collier_hut() -> None:
+    bd.reset()
+    _collier_hut(False)
     bd.export("collier_hut")
+    bd.reset()
+    _collier_hut(True)
+    bd.export("collier_hut_cold")
 
 
 def _wheel(x: float, y: float, r: float) -> None:
@@ -316,7 +351,7 @@ def build_pine_grey() -> None:
 
 
 BUILDERS = [build_collier_hut, build_sack_cart, build_waymarks, build_trail_stake, build_greyed_brush, build_pine_grey]
-ALIASES = {"waymark": "waymarks", "waymark_lit": "waymarks"}
+ALIASES = {"waymark": "waymarks", "waymark_lit": "waymarks", "collier_hut_cold": "collier_hut"}
 
 if __name__ == "__main__":
     only = {ALIASES.get(a, a) for a in sys.argv[1:] if not a.startswith("-")}
