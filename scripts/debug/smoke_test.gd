@@ -85,13 +85,23 @@ func _run() -> void:
 			if sailed:
 				continue
 			for node in get_tree().get_nodes_in_group("inspectables"):
-				var object := node as Inspectable
-				if object.is_queued_for_deletion():
+				if not is_instance_valid(node) or node.is_queued_for_deletion():
 					continue
+				var object := node as Inspectable
 				object.interact()
 				_check(ui.is_open(), "dialogue opens for object " + object.object_id)
 				_finish_dialogue(ui, object.object_id)
 				await get_tree().process_frame
+				if main.get("region") != region:
+					# The bramble wall parted and the player went through (a `travel` effect).
+					sailed = true
+					_sailings.append("%s -> %s" % [region_id, (main.get("region") as Region).region_id])
+					if ui.is_open():
+						_finish_dialogue(ui, "arrival event after travelling")
+						await get_tree().process_frame
+					break
+			if sailed:
+				continue
 			for node in get_tree().get_nodes_in_group("pickups"):
 				if not node.is_queued_for_deletion():
 					(node as Pickup).interact()
@@ -441,6 +451,7 @@ func _check_crossing(main: Node) -> void:
 	var world := GameState.world
 	print("Smoke: sailings ", _sailings)
 	_check(_sailings.has("saltmarrow -> thornwold_landing"), "Oda carried the player to Thornwold")
+	_check(_sailings.has("thornwold_landing -> thornwold_woods"), "the ember parted the bramble wall and the player went through")
 	_check(world.quest_state("across_the_grey") == WorldState.QUEST_DONE, "the crossing completed Across the Grey")
 	_check(world.get_flag("thornwold_landed") == true, "the landing scene played")
 	_check(world.get_flag("thornwold_met_bram") == true and world.quest_state("a_light_for_thornwold") == WorldState.QUEST_ACTIVE, "Bram gave A Light for Thornwold")

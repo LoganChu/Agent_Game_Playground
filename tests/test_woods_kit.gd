@@ -6,14 +6,14 @@ extends TestCase
 const DIR := "res://assets/models/dressing/"
 const KIT: Array[String] = ["collier_hut", "sack_cart", "waymark", "waymark_lit", "trail_stake", "greyed_brush",
 		"pine_grey"]
-## Built now, placed by *Into the woods*: everything else must already stand in Thornwold.
-const NOT_PLACED_YET: Array[String] = ["collier_hut", "waymark_lit"]
+## Placed past the wall in the woods region (Day 21), not on the landing.
+const WOODS_ONLY: Array[String] = ["collier_hut", "waymark_lit"]
 const MAX_BYTES := 5 * 1024 * 1024
 
 
-func _thornwold_props(model: String) -> Array[Dictionary]:
+func _thornwold_props(model: String, region: String = "thornwold_landing") -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
-	for prop: Dictionary in load_content().get_region("thornwold_landing")["props"]:
+	for prop: Dictionary in load_content().get_region(region)["props"]:
 		if str(prop.get("model", "")) == DIR + model + ".glb":
 			out.append(prop)
 	return out
@@ -48,8 +48,9 @@ func test_kit_models_exist_small_and_stand_on_their_origin() -> void:
 func test_kit_placed_past_the_wall() -> void:
 	for name in KIT:
 		var placed := _thornwold_props(name).size()
-		if name in NOT_PLACED_YET:
-			assert_eq(placed, 0, "%s waits for Into the woods" % name)
+		if name in WOODS_ONLY:
+			assert_eq(placed, 0, "%s stands past the wall, not on the landing" % name)
+			assert_true(_thornwold_props(name, "thornwold_woods").size() >= 1, "the woods use %s" % name)
 		else:
 			assert_true(placed >= 1, "Thornwold uses %s" % name)
 	assert_true(_thornwold_props("pine_grey").size() >= 6, "the deep woods are Greyed pines")
