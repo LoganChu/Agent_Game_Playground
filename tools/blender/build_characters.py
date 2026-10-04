@@ -496,7 +496,53 @@ def build_bram() -> None:
     assemble(b, "bram")
 
 
-BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda, build_bram]
+def build_hob() -> None:
+    """Hob Marl, the last collier on Thornwold's near side (old): stooped and lean, soot to the
+    elbows, a sacking smock belted with rope over an ink shirt, a leather hood pushed back off
+    a bald, soot-smudged head, a grey stubble beard, and a long clamp rake held upright in his
+    left hand. The Greying has had some of him: his smock is silvered at the hem."""
+    reset_scene()
+    b = Body(build=0.9)
+    smock = material("driftwood", -0.45)
+    soot = material("ink", 0.12)
+    skin = material("driftwood", -0.1)
+    base_body(b, skin, material("slate", -0.4), material("ink", 0.0), smock, sleeves=soot)
+    t = b.parts["Torso"]
+    # Sacking smock to the knees, silvered where the fog has had it, belted with rope.
+    t.append(limb((0, 0.0, 0.34), (0, 0.0, b.waist + 0.06), 0.3, 0.26, smock, verts=8))
+    t.append(limb((0, 0.0, 0.3), (0, 0.0, 0.4), 0.31, 0.3, material("silverfog", -0.2), verts=8))
+    t.append(ring(0.27, b.waist + 0.03, 0.04, material("driftwood", -0.15)))                # rope belt
+    t.append(limb((0.12, -0.27, b.waist + 0.02), (0.15, -0.3, b.waist - 0.2), 0.02, 0.02, material("driftwood", -0.15), verts=4))  # rope end
+    t.append(block((0.34, 0.05, 0.36), (0, -0.25, b.waist + 0.2), material("coal", -0.6)))  # scorched bib
+    # Soot to the elbows: dark gauntlets over the forearms and hands.
+    for side in ("L", "R"):
+        hand = b.hand(side)
+        b.parts["Arm" + side].append(ball(0.09, hand, soot, scale=(0.95, 1.05, 1.15), segments=6, rings=4))
+    h = b.parts["Head"]
+    hood = material("coal", -0.65)
+    h.append(ball(0.29, (0, 0.13, b.head - 0.06), hood, scale=(1.0, 0.75, 0.95)))           # hood pushed back
+    h.append(ring(0.2, b.head - 0.2, 0.08, hood))                                           # hood cowl at the neck
+    h.append(ball(0.17, (0, -0.1, b.head - 0.13), material("silverfog", -0.1), scale=(1.05, 0.75, 0.85)))  # grey stubble
+    h.append(block((0.1, 0.03, 0.05), (0.06, -0.225, b.head + 0.12), soot))                 # soot smudge
+    for ex in (0.075, -0.075):
+        h.append(block((0.08, 0.03, 0.025), (ex, -0.215, b.head + 0.075), material("silverfog", 0.0)))  # brows
+    # The clamp rake, upright in his left hand: a long pole and an iron head over his shoulder.
+    hand = b.hand("L")
+    pole = material("driftwood", -0.25)
+    iron = material("slate", -0.45)
+    top = hand + Vector((0.02, -0.06, 1.05))
+    b.parts["ArmL"].append(limb(hand + Vector((0, -0.06, -0.62)), top, 0.022, 0.022, pole, verts=5))
+    b.parts["ArmL"].append(block((0.36, 0.05, 0.04), top, iron))
+    for tx in (-0.15, -0.05, 0.05, 0.15):
+        b.parts["ArmL"].append(block((0.025, 0.025, 0.11), top + Vector((tx, -0.02, -0.07)), iron))
+    b.arm_rest["ArmL"] = (math.radians(-12), 0, math.radians(4))
+    b.arm_rest["ArmR"] = (math.radians(-6), 0, math.radians(-6))
+    b.head_rest = (math.radians(10), 0, 0)  # a stoop: chin down, looking up under his brows
+    assemble(b, "hob")
+
+
+BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda, build_bram,
+            build_hob]
 
 if __name__ == "__main__":
     import sys
