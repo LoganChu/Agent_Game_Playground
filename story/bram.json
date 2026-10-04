@@ -138,6 +138,27 @@
             "goto": "pell"
           },
           {
+            "text": "I went through the brambles.",
+            "if": [
+              "flag:thornwold_bramble_parted",
+              "!flag:thornwold_met_hob"
+            ],
+            "goto": "went_through"
+          },
+          {
+            "text": "I found who brings your sacks: an old collier, Hob Marl.",
+            "if": [
+              "flag:thornwold_met_hob",
+              "quest:salt_for_the_collier=inactive"
+            ],
+            "goto": "hob_found"
+          },
+          {
+            "text": "About Hob Marl.",
+            "if": "quest:salt_for_the_collier=done",
+            "goto": "hob_paid"
+          },
+          {
             "text": "Goodbye.",
             "end": true
           }
@@ -195,6 +216,65 @@
       {
         "say": "bram",
         "text": "I've put them to sorting nails. Kids who sort nails don't wander into brambles."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "went_through": [
+      {
+        "say": "bram",
+        "text": "You went through the brambles. And you came back knowing you'd gone. That's more than my cutters managed."
+      },
+      {
+        "say": "bram",
+        "text": "What's on the other side? No. Don't tell me yet. Tell me when it's something I can put on a board."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hob_found": [
+      {
+        "say": "bram",
+        "text": "Hob Marl."
+      },
+      {
+        "say": "narrator",
+        "text": "He says it again under his breath, like a man patting his pockets."
+      },
+      {
+        "say": "bram",
+        "text": "Old Hob. He came down every few weeks in the old days, black to the elbows, drank my tea and complained about it. I haven't thought of him since the Snuffing. Not once. That's not like me."
+      },
+      {
+        "say": "narrator",
+        "text": "He walks you to the tally-house door and runs his thumb along the bottom row of the board: three notches, then bare wood."
+      },
+      {
+        "say": "bram",
+        "text": "Salt row. A notch every time the crock by the jetty comes back empty. Three times, the first month. Then the sacks kept coming and the crock sat there full. I told myself the burners were being proud."
+      },
+      {
+        "say": "bram",
+        "text": "Take him a crock. Tell him the camp pays what it owes, even what it forgot it owed."
+      },
+      {
+        "give_item": "salt_crock",
+        "quest_start": "salt_for_the_collier"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hob_paid": [
+      {
+        "say": "bram",
+        "text": "There's a fourth notch on the salt row. I cut it this morning, and then I stood there holding the knife like a fool."
+      },
+      {
+        "say": "bram",
+        "text": "Daylight, he said? I'll put the kettle on for him. I'll make the tea badly. He'll complain. Good."
       },
       {
         "goto": "hub"

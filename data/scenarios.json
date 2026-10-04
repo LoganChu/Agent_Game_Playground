@@ -185,6 +185,24 @@
         "across_the_grey": "done"
       },
       "shot": "--at=2,4,0"
+    },
+    {
+      "id": "thornwold_woods",
+      "act": "Act II — The Drift",
+      "title": "Past the bramble wall",
+      "inherits": "thornwold",
+      "region": "thornwold_woods",
+      "spawn": "from_bramble",
+      "description": "Bram met; the ember parted the bramble wall. The straight road into the Greying, the waymark lanterns west to the colliers' clearing, Hob Marl and his clamp. Bram's salt not yet carried.",
+      "flags": {
+        "thornwold_met_bram": true,
+        "thornwold_bramble_parted": true,
+        "thornwold_woods_entered": true
+      },
+      "quests": {
+        "a_light_for_thornwold": "the_lantern_road"
+      },
+      "shot": "--camera=6,9,-12:-8,0,-34"
     }
   ]
 }

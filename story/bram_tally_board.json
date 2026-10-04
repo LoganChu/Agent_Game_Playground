@@ -1,0 +1,41 @@
+{
+  "id": "bram_tally_board",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Bram's tally board: a plank by the tally-house door, rows of pegs, and on every peg a stick notched with a knife. A word is burned into the plank over each row."
+      },
+      {
+        "say": "narrator",
+        "text": "TIMBER: the sticks run the whole width of the board. CHARCOAL: nearly as long, and a fresh notch every few days. FLOUR AND OIL, UP: that row stops dead at the Snuffing."
+      },
+      {
+        "if": "!flag:thornwold_hob_paid",
+        "say": "narrator",
+        "text": "SALT, along the bottom: three notches, then bare wood."
+      },
+      {
+        "if": "flag:thornwold_hob_paid",
+        "say": "narrator",
+        "text": "SALT, along the bottom: three notches, a finger's length of bare wood, and then a fourth, fresh and pale."
+      },
+      {
+        "if": [
+          "!flag:thornwold_met_hob",
+          "!flag:thornwold_hob_paid"
+        ],
+        "say": "narrator",
+        "text": "The charcoal row keeps growing. The salt row doesn't. Somebody has been bringing the camp its charcoal for nothing."
+      },
+      {
+        "if": [
+          "flag:thornwold_met_hob",
+          "!flag:thornwold_hob_paid"
+        ],
+        "say": "narrator",
+        "text": "Three loads paid. Every load since, Hob Marl has pulled his cart home without his salt."
+      }
+    ]
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "id": "hob",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:thornwold_met_hob",
+        "goto": "first"
+      },
+      {
+        "goto": "greet"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "An old man in a sacking smock is raking turf over a smoking vent. He doesn't look up until your ember's light is on his hands. Then he looks at it for a long while."
+      },
+      {
+        "say": "hob",
+        "text": "You're not the Lamp. Lamp's taller. Lamp's... You're not the Lamp."
+      },
+      {
+        "say": "hob",
+        "text": "Hob. Hob Marl. This is my clamp. Was. Is. Somebody has to keep it in, or it burns through to ash, and ash is no good to anybody."
+      },
+      {
+        "say": "hob",
+        "text": "You came up the lanterns? Good. Good. Don't go up the road. The road goes where it likes. The road goes where the lanterns are, when there are lanterns."
+      },
+      {
+        "set": {
+          "thornwold_met_hob": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "greet": [
+      {
+        "if": "!flag:thornwold_hob_paid",
+        "say": "hob",
+        "text": "Up the lanterns again. Good. Good."
+      },
+      {
+        "if": "flag:thornwold_hob_paid",
+        "say": "hob",
+        "text": "Salt-bringer. Mind the vents, they're hot on the windward side."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Who hangs the lanterns?",
+            "goto": "lamp"
+          },
+          {
+            "text": "Do you bring the sacks down to the jetty?",
+            "goto": "sacks"
+          },
+          {
+            "text": "The fog stays out of your clearing.",
+            "goto": "clearing"
+          },
+          {
+            "text": "Where are the other charcoal folk?",
+            "goto": "others"
+          },
+          {
+            "text": "A kid at the camp found a tally stick by your sacks.",
+            "if": [
+              "flag:thornwold_pell_landed",
+              "!flag:thornwold_hob_stick"
+            ],
+            "goto": "stick"
+          },
+          {
+            "text": "Bram Kettle sends your salt.",
+            "if": "item:salt_crock",
+            "goto": "salt"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "lamp": [
+      {
+        "say": "hob",
+        "text": "The Lamp. Comes along the ridge at dusk with a lantern going, and next morning there's a lantern on a waymark that hadn't one. Keeper's way, that: lights on the road."
+      },
+      {
+        "say": "hob",
+        "text": "Never seen a face. Never asked. You don't ask the Lamp. You don't... The Lamp's light is like yours. Proper light. The grey stands off it."
+      },
+      {
+        "say": "narrator",
+        "text": "He points his rake north, past the clearing, at the black line of the ridge above the trees. Up there, very small, a lantern burns on a waymark nobody could reach from here."
+      },
+      {
+        "say": "hob",
+        "text": "Beacon's up there. Top of the road. The Lamp lives by it, I'd say. I'd say, if I knew."
+      },
+      {
+        "if": "stage:a_light_for_thornwold=the_lantern_road",
+        "quest_stage": [
+          "a_light_for_thornwold",
+          "the_ridge"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "sacks": [
+      {
+        "say": "hob",
+        "text": "Every few nights. Load the cart, wait for dark, pull it down the lanterns to the brambles. The brambles let the cart by. They know me. You lift the canes and say who you are."
+      },
+      {
+        "say": "hob",
+        "text": "Leave the sacks by the water, take the salt, come home. That's the trade. Always was."
+      },
+      {
+        "if": "!flag:thornwold_hob_paid",
+        "say": "narrator",
+        "text": "He stops. He looks at his hands, black to the elbow."
+      },
+      {
+        "if": "!flag:thornwold_hob_paid",
+        "say": "hob",
+        "text": "Take the salt. Did I take the salt? I'd remember salt. There's none in the hut. I'd... There's none in the hut."
+      },
+      {
+        "if": "flag:thornwold_hob_paid",
+        "say": "hob",
+        "text": "Salt's in the hut now. Bram Kettle's salt. I've put it on the shelf by the door, where I'll see it going out."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "clearing": [
+      {
+        "say": "hob",
+        "text": "The woods like us. Always have. We burn what they drop, never what they grow, and they keep the grey off our fires."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog stands at the edge of the clearing, close as a held breath, and comes no further, as if it had been asked not to."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "others": [
+      {
+        "say": "hob",
+        "text": "Five hearths, this side of the ridge. Five clamps going. Now there's mine."
+      },
+      {
+        "say": "hob",
+        "text": "They went up after the Lamp, one at a time, to ask for a lantern of their own. Or they went home. I'd know if they'd gone home. I'd..."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks across the clearing at the second hut. Its hearth is cold, and a rake leans by its door where somebody meant to come back for it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "stick": [
+      {
+        "say": "hob",
+        "text": "Half a notch at the end? Ash-wood, with a hole for a thong?"
+      },
+      {
+        "say": "hob",
+        "text": "That's mine. That's my count. That's the night I forgot what I was counting. Stopped with the knife in the wood."
+      },
+      {
+        "say": "hob",
+        "text": "Let the kid keep it. I've started a new one. It's shorter."
+      },
+      {
+        "set": {
+          "thornwold_hob_stick": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "salt": [
+      {
+        "take_item": "salt_crock"
+      },
+      {
+        "say": "narrator",
+        "text": "You hold out the crock. He lifts the lid, licks a black thumb, dips it and tastes."
+      },
+      {
+        "say": "hob",
+        "text": "Salt."
+      },
+      {
+        "say": "narrator",
+        "text": "Something comes back into his face, slowly, the way colour comes back into a coal you blow on."
+      },
+      {
+        "say": "hob",
+        "text": "Bram Kettle. Big lad. Mother was Saltmarrow. He keeps a board. He'll want it on his board."
+      },
+      {
+        "say": "hob",
+        "text": "Tell him Hob Marl had his salt. Tell him... tell him I'll come in by daylight. When the road's a road again."
+      },
+      {
+        "set": {
+          "thornwold_hob_paid": true
+        },
+        "quest_complete": "salt_for_the_collier"
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

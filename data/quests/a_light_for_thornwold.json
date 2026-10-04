@@ -12,7 +12,15 @@
     },
     {
       "id": "past_the_wall",
-      "text": "The cart road runs straight in under the brambles and doesn't come out, and a cutter's 'this way home' notch points into the thorns. Bram's cutters won't go in. Find another way to Thornwold's beacon. (Thornwold's woods are still being written.)"
+      "text": "The cart road runs straight in under the brambles and doesn't come out, and a cutter's 'this way home' notch points into the thorns. Bram's cutters won't go in. Your ember leans toward the canes. Find a way past the wall to Thornwold's beacon."
+    },
+    {
+      "id": "the_lantern_road",
+      "text": "Past the brambles the cart road runs straight on north into the Greying. Lanterns hang on some of the Keepers' waymarks, off the road to the west. Follow the lights, not the road."
+    },
+    {
+      "id": "the_ridge",
+      "text": "Hob Marl, a collier in the clearing past the wall, says the road goes where the lanterns are, and the lanterns are hung by 'the Lamp', who comes along the ridge at dusk. The beacon is up on the ridge. (The ridge is still being written.)"
     }
   ]
 }

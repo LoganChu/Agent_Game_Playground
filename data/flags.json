@@ -47,7 +47,7 @@
       "default": false
     },
     "saltmarrow_beacon_burned": {
-      "description": "Which Remnant fed the Gull's Beacon: '' (unlit), 'pebble' (the lullaby — Mara's song, Pell's comfort), 'knot' (Saltmarrow's founding knot) or 'gull' (Mara's memory of her brother Dunstan). The Act I choice; Saltmarrow forgets it for good.",
+      "description": "Which Remnant fed the Gull's Beacon: '' (unlit), 'pebble' (the lullaby \u2014 Mara's song, Pell's comfort), 'knot' (Saltmarrow's founding knot) or 'gull' (Mara's memory of her brother Dunstan). The Act I choice; Saltmarrow forgets it for good.",
       "default": ""
     },
     "saltmarrow_mara_saw_beacon_lit": {
@@ -59,7 +59,7 @@
       "default": false
     },
     "saltmarrow_aldous_confessed": {
-      "description": "Aldous's Act I confession: '' (untold), 'full' (gentle — the High Keeper put the flame out, a light went down the stair past him, gives the Keeper's sleeve-ember) or 'grudging' (pressed — the bare fact only). Keepers in Act II should know which.",
+      "description": "Aldous's Act I confession: '' (untold), 'full' (gentle \u2014 the High Keeper put the flame out, a light went down the stair past him, gives the Keeper's sleeve-ember) or 'grudging' (pressed \u2014 the bare fact only). Keepers in Act II should know which.",
       "default": ""
     },
     "saltmarrow_ferry_lantern_hung": {
@@ -128,6 +128,28 @@
     },
     "thornwold_bram_knot_grudge": {
       "description": "Bram Kettle (Saltmarrow-born mother, Tidewright) holds the burning of the founding knot against the player. Tidewright net-makers' resentment of the knot burn (LORE); later Tidewrights may share it.",
+      "default": false,
+      "future": true
+    },
+    "thornwold_bramble_parted": {
+      "description": "The Wakebearer held the ember to the bramble wall and the canes drew back from it, opening a gap onto the cart road behind. The way into the woods past the wall (through the bramble wall's dialogue).",
+      "default": false
+    },
+    "thornwold_woods_entered": {
+      "description": "Player has seen the arrival scene in the woods past the bramble wall (one-time).",
+      "default": false
+    },
+    "thornwold_met_hob": {
+      "description": "Player has met Hob Marl, the last collier on the near side of the ridge, in the clearing past the bramble wall. He brings the sacks down by the lanterns.",
+      "default": false
+    },
+    "thornwold_hob_stick": {
+      "description": "Player told Hob Marl that Pell found a tally stick by the sacks; it is his ('the night I forgot what I was counting') and he lets Pell keep it. Pell can be told whose it is.",
+      "default": false,
+      "future": true
+    },
+    "thornwold_hob_paid": {
+      "description": "Player carried Bram's salt crock to Hob Marl: the colliers' first pay since the third load. Bram's tally board gets its fourth salt notch and Hob remembers Bram.",
       "default": false,
       "future": true
     }

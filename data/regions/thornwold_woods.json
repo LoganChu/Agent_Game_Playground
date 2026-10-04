@@ -1,0 +1,1388 @@
+{
+  "id": "thornwold_woods",
+  "name": "The Woods Past the Wall",
+  "description": "Behind the bramble wall the old cart road runs straight north into the Greying. Lanterns hang on some of the Keepers' waymarks, leading off the road to a clearing where a charcoal clamp still smokes.",
+  "fog": {
+    "density": 0.032,
+    "color": "silverfog"
+  },
+  "light": {
+    "note": "Under the trees past the wall: grey, cold and close; the waymark lanterns are the warmest things here.",
+    "sun_color": "silverfog",
+    "sun_energy": 0.7,
+    "sun_pitch": -50,
+    "sun_yaw": -70,
+    "ambient_color": "pine",
+    "ambient_energy": 0.3,
+    "sky_top": "abyss",
+    "sky_horizon": "silverfog"
+  },
+  "greying": [
+    {
+      "rect": [
+        -30,
+        -73,
+        26,
+        -20
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "height": 3.0,
+      "note": "The woods past the bramble wall, the straight cart road with them: deep Greying."
+    },
+    {
+      "ellipse": [
+        -1.8,
+        -18.7,
+        5,
+        5
+      ],
+      "strength": 1.0,
+      "falloff": 2.5,
+      "clear": true,
+      "note": "Lantern light: the first waymark's lantern holds the fog off the gap in the wall."
+    },
+    {
+      "ellipse": [
+        -9,
+        -28,
+        4.5,
+        4.5
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "note": "Lantern light: the second waymark."
+    },
+    {
+      "ellipse": [
+        -15,
+        -37.5,
+        4.5,
+        4.5
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "note": "Lantern light: the third waymark."
+    },
+    {
+      "ellipse": [
+        -13,
+        -47,
+        4.5,
+        4.5
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "note": "Lantern light: the fourth waymark."
+    },
+    {
+      "ellipse": [
+        -12,
+        -56,
+        8,
+        6
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "note": "The colliers' clearing: no lantern, but the fog stands back from it (\"the woods like us\")."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      1.2,
+      0.5,
+      -19.6
+    ],
+    "from_bramble": [
+      1.2,
+      0.5,
+      -19.6
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -34,
+      -78,
+      30,
+      -8
+    ],
+    "cell": 1.0,
+    "base": 0.0,
+    "seed": 23,
+    "roughness": 0.1,
+    "ragged": 1.5,
+    "note": "A wooded hollow: the floor of the woods between steep banks; the brambles at the foot of the south bank, the ridge high to the north. No water here: shore and seabed colours are the woods floor too.",
+    "land": [
+      {
+        "rect": [
+          -34,
+          -14.6,
+          30,
+          -8
+        ],
+        "height": 2.2,
+        "falloff": 1.2,
+        "note": "the bank under the bramble wall"
+      },
+      {
+        "rect": [
+          -34,
+          -78,
+          -27,
+          -8
+        ],
+        "height": 4.5,
+        "falloff": 2.0,
+        "note": "west bank"
+      },
+      {
+        "rect": [
+          23,
+          -78,
+          30,
+          -8
+        ],
+        "height": 4.5,
+        "falloff": 2.0,
+        "note": "east bank"
+      },
+      {
+        "rect": [
+          -34,
+          -78,
+          30,
+          -67
+        ],
+        "height": 6.0,
+        "falloff": 3.0,
+        "note": "the ridge"
+      },
+      {
+        "ellipse": [
+          8,
+          -40,
+          5,
+          4
+        ],
+        "height": 1.0,
+        "falloff": 3.0
+      },
+      {
+        "ellipse": [
+          -23,
+          -30,
+          3,
+          6
+        ],
+        "height": 1.6,
+        "falloff": 2.5
+      }
+    ],
+    "colors": {
+      "ground": "pine",
+      "shore": "pine",
+      "seabed": "pine",
+      "cliff": "slate"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            0,
+            -15,
+            0
+          ],
+          [
+            0,
+            -40,
+            0
+          ],
+          [
+            0.5,
+            -70,
+            0
+          ]
+        ],
+        "width": 2.2,
+        "color": "driftwood",
+        "note": "the old cart road, running straight on north"
+      },
+      {
+        "ellipse": [
+          -12,
+          -56,
+          7,
+          5
+        ],
+        "color": "ink",
+        "note": "the clearing's floor, black with charcoal dust"
+      },
+      {
+        "ellipse": [
+          -3,
+          -22,
+          3,
+          3
+        ],
+        "color": "ink"
+      },
+      {
+        "ellipse": [
+          -6,
+          -58,
+          22,
+          14
+        ],
+        "color": "moss",
+        "note": "green where the fog stands back"
+      },
+      {
+        "ellipse": [
+          -1.8,
+          -18.7,
+          3.2,
+          3.2
+        ],
+        "color": "moss",
+        "note": "green under the lantern light"
+      },
+      {
+        "ellipse": [
+          -9,
+          -28,
+          3.2,
+          3.2
+        ],
+        "color": "moss"
+      },
+      {
+        "ellipse": [
+          -15,
+          -37.5,
+          3.2,
+          3.2
+        ],
+        "color": "moss"
+      },
+      {
+        "ellipse": [
+          -13,
+          -47,
+          3.2,
+          3.2
+        ],
+        "color": "moss"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/bramble.glb",
+      "position": [
+        -6.2,
+        0,
+        -15.6
+      ],
+      "rotation_y": 12,
+      "scale": 1.25,
+      "collider": [
+        3.0,
+        1.9,
+        1.2
+      ],
+      "note": "The bramble wall seen from the woods side. The gap the ember opened closes behind you."
+    },
+    {
+      "model": "res://assets/models/dressing/bramble.glb",
+      "position": [
+        -3.2,
+        0,
+        -16.1
+      ],
+      "rotation_y": -4,
+      "scale": 1.25,
+      "collider": [
+        3.0,
+        1.9,
+        1.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/bramble.glb",
+      "position": [
+        -0.1,
+        0,
+        -16.3
+      ],
+      "rotation_y": 3,
+      "scale": 1.25,
+      "collider": [
+        3.0,
+        1.9,
+        1.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/bramble.glb",
+      "position": [
+        3.0,
+        0,
+        -16.0
+      ],
+      "rotation_y": -6,
+      "scale": 1.25,
+      "collider": [
+        3.0,
+        1.9,
+        1.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/bramble.glb",
+      "position": [
+        6.0,
+        0,
+        -15.4
+      ],
+      "rotation_y": -14,
+      "scale": 1.25,
+      "collider": [
+        3.0,
+        1.9,
+        1.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/bramble.glb",
+      "position": [
+        -9.2,
+        0,
+        -16.4
+      ],
+      "rotation_y": 30,
+      "scale": 1.1,
+      "collider": [
+        3.0,
+        1.9,
+        1.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/bramble.glb",
+      "position": [
+        9.0,
+        0,
+        -15.6
+      ],
+      "rotation_y": -20,
+      "scale": 1.1,
+      "collider": [
+        3.0,
+        1.9,
+        1.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        -1.8,
+        0,
+        -18.7
+      ],
+      "rotation_y": 200,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "The first waymark, where on the landing side its hook is empty. On this side a lantern hangs on it, and the fog stands back."
+    },
+    {
+      "model": "res://assets/models/dressing/charcoal_clamp.glb",
+      "position": [
+        -3.0,
+        0,
+        -22.0
+      ],
+      "rotation_y": 30,
+      "collider": [
+        3.4,
+        1.0,
+        3.4
+      ],
+      "smoke": [
+        [
+          0.599,
+          0.95,
+          -0.253
+        ],
+        [
+          -0.253,
+          0.95,
+          -0.599
+        ],
+        [
+          -0.599,
+          0.95,
+          0.253
+        ]
+      ],
+      "note": "The clamp the camp sees smoking past the wall. Hob Marl tends it on his way down."
+    },
+    {
+      "model": "res://assets/models/dressing/sack_cart.glb",
+      "position": [
+        2.6,
+        0,
+        -23.4
+      ],
+      "rotation_y": 15,
+      "collider": [
+        2.7,
+        1.2,
+        1.3
+      ],
+      "note": "Hob's cart, loaded, waiting for dark and the lanterns."
+    },
+    {
+      "model": "res://assets/models/dressing/trail_stake.glb",
+      "position": [
+        0.9,
+        0,
+        -27.5
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.25,
+        1.2,
+        0.25
+      ],
+      "note": "A cutter's stake on this side too, its 'this way home' notches pointing north up the road: the road lies."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        -9.0,
+        0,
+        -28.0
+      ],
+      "rotation_y": 150,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "A lit waymark off the road: the lanterns lead west and north to the colliers' clearing."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        -15.0,
+        0,
+        -37.5
+      ],
+      "rotation_y": 120,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        -13.0,
+        0,
+        -47.0
+      ],
+      "rotation_y": 90,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/waymark.glb",
+      "position": [
+        1.6,
+        0,
+        -34.0
+      ],
+      "rotation_y": 180,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "A bare waymark on the straight road, deep in the Greying."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark.glb",
+      "position": [
+        1.6,
+        0,
+        -50.0
+      ],
+      "rotation_y": 180,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        10.0,
+        0,
+        -70.0
+      ],
+      "rotation_y": 180,
+      "scale": 1.2,
+      "note": "The lantern on the ridge: the highest waymark, lit, out of reach above the woods."
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut.glb",
+      "position": [
+        -17.5,
+        0,
+        -58.5
+      ],
+      "rotation_y": 60,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "note": "Hob Marl's hut: the one with a fire in it."
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut.glb",
+      "position": [
+        -6.5,
+        0,
+        -60.5
+      ],
+      "rotation_y": -40,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "note": "A second hut, cold: one of the colliers who went up the ridge."
+    },
+    {
+      "model": "res://assets/models/dressing/charcoal_clamp.glb",
+      "position": [
+        -11.0,
+        0,
+        -52.5
+      ],
+      "rotation_y": 0,
+      "collider": [
+        3.4,
+        1.0,
+        3.4
+      ],
+      "smoke": [
+        [
+          0.599,
+          0.95,
+          -0.253
+        ],
+        [
+          -0.253,
+          0.95,
+          -0.599
+        ],
+        [
+          -0.599,
+          0.95,
+          0.253
+        ]
+      ],
+      "note": "Hob's own clamp in the clearing."
+    },
+    {
+      "model": "res://assets/models/dressing/charcoal_sacks.glb",
+      "position": [
+        -15.0,
+        0,
+        -53.0
+      ],
+      "rotation_y": 20,
+      "collider": [
+        1.3,
+        0.9,
+        0.9
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/log_pile.glb",
+      "position": [
+        -20.0,
+        0,
+        -53.0
+      ],
+      "rotation_y": 30,
+      "collider": [
+        1.6,
+        1.2,
+        3.3
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/stump.glb",
+      "position": [
+        -8.6,
+        0,
+        -56.4
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.75,
+        0.6,
+        0.75
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -22.5,
+        0,
+        -57
+      ],
+      "rotation_y": 10,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -20.5,
+        0,
+        -63
+      ],
+      "rotation_y": 40,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -3.0,
+        0,
+        -64
+      ],
+      "rotation_y": 70,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -1.5,
+        0,
+        -56
+      ],
+      "rotation_y": 20,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -19.5,
+        0,
+        -47.5
+      ],
+      "rotation_y": 5,
+      "scale": 1.1,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -5.0,
+        0,
+        -24.0
+      ],
+      "rotation_y": 30,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -13.5,
+        0,
+        -31.5
+      ],
+      "rotation_y": 80,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -20.0,
+        0,
+        -34.0
+      ],
+      "rotation_y": 15,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -8.5,
+        0,
+        -43.0
+      ],
+      "rotation_y": 50,
+      "scale": 1.1,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -18.5,
+        0,
+        -43.5
+      ],
+      "rotation_y": 25,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -12.0,
+        0,
+        -64.5
+      ],
+      "rotation_y": 60,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        6.5,
+        0,
+        -21.5
+      ],
+      "rotation_y": 10,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        9.0,
+        0,
+        -30.0
+      ],
+      "rotation_y": 40,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -4.0,
+        0,
+        -32.0
+      ],
+      "rotation_y": 70,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        5.0,
+        0,
+        -39.0
+      ],
+      "rotation_y": 20,
+      "scale": 1.5,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        12.0,
+        0,
+        -44.0
+      ],
+      "rotation_y": 50,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -5.5,
+        0,
+        -40.5
+      ],
+      "rotation_y": 80,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        4.0,
+        0,
+        -46.5
+      ],
+      "rotation_y": 15,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        9.0,
+        0,
+        -56.0
+      ],
+      "rotation_y": 35,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        16.0,
+        0,
+        -35.0
+      ],
+      "rotation_y": 60,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        18.0,
+        0,
+        -24.0
+      ],
+      "rotation_y": 5,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -20.0,
+        0,
+        -23.0
+      ],
+      "rotation_y": 45,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -24.0,
+        0,
+        -40.0
+      ],
+      "rotation_y": 30,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -3.0,
+        0,
+        -50.5
+      ],
+      "rotation_y": 55,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        4.5,
+        0,
+        -60.0
+      ],
+      "rotation_y": 75,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        15.0,
+        0,
+        -62.0
+      ],
+      "rotation_y": 25,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        19.0,
+        0,
+        -50.0
+      ],
+      "rotation_y": 10,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -23.5,
+        0,
+        -48.5
+      ],
+      "rotation_y": 65,
+      "scale": 1.1,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        2.0,
+        0,
+        -72.0
+      ],
+      "rotation_y": 20,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        18.0,
+        0,
+        -71.0
+      ],
+      "rotation_y": 50,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -10.0,
+        0,
+        -72.5
+      ],
+      "rotation_y": 5,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        4.5,
+        0,
+        -27.5
+      ],
+      "rotation_y": 70,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        -9.5,
+        0,
+        -36.0
+      ],
+      "rotation_y": 20,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        13.0,
+        0,
+        -51.0
+      ],
+      "rotation_y": 40,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        3.5,
+        0,
+        -31.0
+      ],
+      "rotation_y": 30
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -2.0,
+        0,
+        -37.5
+      ],
+      "rotation_y": 150
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        7.0,
+        0,
+        -48.0
+      ],
+      "rotation_y": 260
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        1.0,
+        0,
+        -57.0
+      ],
+      "rotation_y": 80
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        11.0,
+        0,
+        -38.5
+      ],
+      "rotation_y": 200
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        16.0,
+        0,
+        -58.0
+      ],
+      "rotation_y": 320
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -25.0,
+        0,
+        -52.0
+      ],
+      "rotation_y": 10
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        8.0,
+        0,
+        -26.0
+      ],
+      "rotation_y": 110
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -1.0,
+        0,
+        -44.0
+      ],
+      "rotation_y": 300
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -21.0,
+        0,
+        -59.5
+      ],
+      "rotation_y": 260
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -4.0,
+        0,
+        -57.5
+      ],
+      "rotation_y": 20
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -6.0,
+        0,
+        -27.0
+      ],
+      "rotation_y": 140
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -19.0,
+        0,
+        -39.5
+      ],
+      "rotation_y": 70
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -16.5,
+        0,
+        -45.0
+      ],
+      "rotation_y": 200
+    },
+    {
+      "model": "res://assets/models/dressing/fallen_trunk.glb",
+      "position": [
+        7.0,
+        0,
+        -35.5
+      ],
+      "rotation_y": 30,
+      "collider": [
+        4.2,
+        0.7,
+        0.7
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "hob",
+      "position": [
+        -13.8,
+        0,
+        -56.0
+      ],
+      "rotation_y": 40,
+      "note": "By his clamp in the clearing, rake in hand."
+    }
+  ],
+  "objects": [
+    {
+      "id": "woods_waymark_lantern",
+      "prompt": "Look at the lantern on the waymark",
+      "dialogue": "woods_waymark",
+      "position": [
+        -1.8,
+        0,
+        -18.7
+      ],
+      "reach": 1.9
+    }
+  ],
+  "events": [
+    {
+      "id": "woods_arrival",
+      "if": [
+        "flag:thornwold_bramble_parted",
+        "!flag:thornwold_woods_entered"
+      ],
+      "set": {
+        "thornwold_woods_entered": true
+      },
+      "dialogue": "thornwold_woods_arrival"
+    }
+  ],
+  "exits": [
+    {
+      "to": "thornwold_landing",
+      "spawn": "from_woods",
+      "position": [
+        0.6,
+        0,
+        -17.6
+      ],
+      "prompt": "Back through the gap in the brambles"
+    }
+  ]
+}

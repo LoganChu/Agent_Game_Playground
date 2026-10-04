@@ -1,0 +1,28 @@
+{
+  "id": "woods_waymark",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A Keeper's lantern: iron, four panes of scraped horn, the ember in its ring punched through the cap. It hangs from the waymark's arm on a hook worn bright."
+      },
+      {
+        "say": "narrator",
+        "text": "There is no wick in it. On a bed of pale ash inside sits one coal, no bigger than a fingernail, and it is the colour your hand is."
+      },
+      {
+        "say": "narrator",
+        "text": "Ordinary flame barely troubles the Greying. This light pushes it back a stone's throw in every direction."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember leans toward it. Very slightly, its coal leans back."
+      },
+      {
+        "if": "!flag:thornwold_met_hob",
+        "say": "narrator",
+        "text": "The road runs on north, straight and grey. The next lantern is off to the west, nowhere near the road."
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "thornwold_woods_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The canes knit shut behind you with a sound like a long breath let out. The camp goes with it: no saw, no stove, no sea."
+      },
+      {
+        "say": "narrator",
+        "text": "The cart road runs on ahead, straight north, ruts and all, into fog the colour of old ash. The pines along it have gone grey to the needle."
+      },
+      {
+        "say": "narrator",
+        "text": "Beside you stands the first waymark. From the camp its hook was empty. From here a lantern hangs on it, and the fog stands off from its light the way it stands off from your hand."
+      },
+      {
+        "say": "narrator",
+        "text": "Off to the west, away from the road and between the trees, a second lantern glimmers."
+      }
+    ]
+  }
+}

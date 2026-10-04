@@ -671,6 +671,11 @@
       {
         "choice": [
           {
+            "text": "The tally stick is Hob Marl's. A collier, past the wall.",
+            "if": "flag:thornwold_hob_stick",
+            "goto": "thornwold_stick"
+          },
+          {
             "text": "Stay near the camp, Pell.",
             "goto": "thornwold_stay"
           },
@@ -691,6 +696,20 @@
       {
         "say": "pell",
         "text": "Course I will. You're the only one here who doesn't think finding things is just picking things up."
+      }
+    ],
+    "thornwold_stick": [
+      {
+        "say": "pell",
+        "text": "A COLLIER? Past the WALL? You went past the..."
+      },
+      {
+        "say": "pell",
+        "text": "Half a notch. The night he forgot what he was counting. That's the saddest thing anybody's ever told me about a stick."
+      },
+      {
+        "say": "pell",
+        "text": "He said I could keep it? Then I'm keeping it FOR him. Finders keep for, not keep. That's the rule. I just made it the rule."
       }
     ]
   }

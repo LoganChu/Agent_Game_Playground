@@ -1,0 +1,13 @@
+{
+  "id": "salt_for_the_collier",
+  "title": "Salt for the Collier",
+  "region": "thornwold_landing",
+  "giver": "bram",
+  "description": "Bram's tally board says the camp has paid for three loads of charcoal since the Snuffing. The sacks have kept coming; the salt has sat by the jetty untouched.",
+  "stages": [
+    {
+      "id": "carry_the_salt",
+      "text": "Carry Bram's crock of salt through the brambles and along the lanterns to Hob Marl in the colliers' clearing."
+    }
+  ]
+}

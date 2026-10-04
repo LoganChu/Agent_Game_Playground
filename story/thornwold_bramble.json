@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_bramble_parted",
+        "goto": "again"
+      },
+      {
         "say": "narrator",
         "text": "The bramble wall stands higher than your head: canes as thick as a thumb, arched over and over each other, thorns as long as a finger. A few hips hang on it, red as coals."
       },
@@ -24,6 +28,86 @@
           "a_light_for_thornwold",
           "past_the_wall"
         ]
+      },
+      {
+        "if": "quest:a_light_for_thornwold=active",
+        "goto": "lean"
+      }
+    ],
+    "lean": [
+      {
+        "choice": [
+          {
+            "text": "Hold the ember to the thorns.",
+            "goto": "part"
+          },
+          {
+            "text": "Leave it be.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "part": [
+      {
+        "say": "narrator",
+        "text": "You hold out your hand. The nearest canes draw back from the ember the way a hand draws back from a stove: slowly, then all at once."
+      },
+      {
+        "say": "narrator",
+        "text": "Thorns unhook from thorns. A gap opens, the width of one person, and the cart road's ruts run on through it into grey."
+      },
+      {
+        "say": "narrator",
+        "text": "Behind you, at the camp, somebody has stopped sawing."
+      },
+      {
+        "set": {
+          "thornwold_bramble_parted": true
+        }
+      },
+      {
+        "if": "stage:a_light_for_thornwold=past_the_wall",
+        "quest_stage": [
+          "a_light_for_thornwold",
+          "the_lantern_road"
+        ]
+      },
+      {
+        "goto": "go"
+      }
+    ],
+    "again": [
+      {
+        "say": "narrator",
+        "text": "The canes lift away from your ember as you come near, thorns unhooking from thorns, and the gap opens again onto the grey road."
+      },
+      {
+        "goto": "go"
+      }
+    ],
+    "go": [
+      {
+        "choice": [
+          {
+            "text": "Go through.",
+            "travel": [
+              "thornwold_woods",
+              "from_bramble"
+            ],
+            "end": true
+          },
+          {
+            "text": "Not yet.",
+            "goto": "not_yet"
+          }
+        ]
+      }
+    ],
+    "not_yet": [
+      {
+        "say": "narrator",
+        "text": "You lower your hand. The canes settle back over the gap, thorn by thorn, unhurried."
       }
     ]
   }
