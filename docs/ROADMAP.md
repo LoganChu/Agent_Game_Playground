@@ -150,6 +150,14 @@ with a meaningful burn choice → consequences visible in the village.
       Collier** (Bram had forgotten Hob; a fourth notch). Pell's tally stick is Hob's. Checkpoint
       `thornwold_woods`.
 
+- [x] [A] **The ridge kit** (Day 22): `build_ridge.py` — **Thornwold's beacon, the Ridge Light**
+      (square dry-stone tower laced with timber, horn-paned timber lantern cage, iron pine vane,
+      lantern rack with one lantern left; cold and lit variants, ~10 m) and **the keeper's lodge**
+      (the Lamp's lantern bench: an open lantern, a shut iron box, hammer and chisel). Both placed
+      dark on the woods' ridge, out of reach; the lit tower is held for the burn. **`collier_hut_cold`**
+      (greyed, slipping sods, boots left on the seat) replaces the clearing's second hut; Hob's hut
+      smokes. Hob gets a **`rake` idle** (CharacterRig style).
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -159,21 +167,23 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **Art due by Day 22** (cadence: every other session; last art Day 20). Best pick now:
-   what the ridge will need — **Thornwold's beacon** (a Keeper-built tower on the ridge, unlike
-   the Gull: timber-and-stone? decide in LORE first), the **Lamp's lantern-pole**/keeper's hut on
-   the ridge, a **cold collier hut** variant (rake by the door, no hearth glow) for the second hut
-   in the clearing; or ROADMAP item 8 (Aldous's bench + seated idle). Hob could use a raking idle
-   (`idle` field) like Hesk's mending.
-2. [C] **Into the woods, part two — the ridge and the Lamp** (next content, by Day 25): the road
-   up from the clearing to the ridge and Thornwold's beacon; **shifting paths** as a mechanic
+1. [P] **Polish/debt pass — due Day 23** (last: Day 15; never more than 8 sessions). Do first:
+   the **fade for lantern `clear` areas** (item 2 needs it), then from Known issues: Settings
+   sliders saving per change, the "[E]" prompt refreshing on rebind, an inspectable glint, the
+   smoke test's impossible first-pass visits (Bram/the wall before the crossing).
+2. [C] **Into the woods, part two — the ridge and the Lamp** (next content, due by Day 25, after
+   polish on Day 23 and art on Day 24): the road up from the clearing to the ridge (the Ridge Light and the
+   keeper's lodge stand there since Day 22 — `thornwold_beacon_lit` waits for the burn; the
+   ridge top is ≈ 6 m up, unreachable today: add a climbing path or make the ridge its own
+   region); **shifting paths** as a mechanic
    (waymark lanterns that go out or move with the story: `clear` areas with `if` — the engine
    supports it since Day 21, but the fog re-cut is instant; add a fade); the Lamp (Thornwold's
    beacon-keeper — see LORE [SECRET — planned answer]: a saved coal of the last midwinter's
-   Firstflame, nearly spent); the four colliers who "went up after the Lamp"; Remnants toward
-   Thornwold's burn (candidates: Hob's count-stick with the half notch — but it's Pell's now,
-   *finders keep for*; the camp's memory of the colliers; the Lamp's own name). Pay off Hob's
-   promise to come in by daylight (after the beacon). Keepers met should react to
+   Firstflame, nearly spent; the lodge's lantern bench shows the iron box, hammer and chisel);
+   the four colliers who "went up after the Lamp" (the cold hut's boots left on the seat);
+   Remnants toward Thornwold's burn (candidates: Hob's count-stick with the half notch — but
+   it's Pell's now, *finders keep for*; the camp's memory of the colliers; the Lamp's own name).
+   Pay off Hob's promise to come in by daylight (after the beacon). Keepers met should react to
    `saltmarrow_aldous_confessed` and the sleeve-ember. Add a checkpoint.
 3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
@@ -198,7 +208,8 @@ each .glb < 5 MB.
    vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
    variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
    steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
-   nights once day/night exists.
+   nights once day/night exists. (Hob's raking idle landed Day 22 — the seated idle is the
+   same kind of CharacterRig style.)
 9. [S] Interaction polish: camera framing during dialogue; inspectable glint; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
@@ -251,7 +262,7 @@ each .glb < 5 MB.
   prompt only on the next focus change (harmless). Sliders save on leaving the page, not
   per tick; quitting the game from the OS while on the Settings page loses that change.
 - Last content session: Day 21 (into the woods, part one); next content due by Day 25.
-- Last art session: Day 20 (woods kit); next art due by Day 22 (cadence: every other session).
+- Last art session: Day 22 (ridge kit); next art due by Day 24 (cadence: every other session).
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
   if a region ever wants dozens, use GPUParticles3D on Forward+ and keep CPU for Compatibility.
 - Thornwold's log buildings use one box collider each (the porch of the tally-house is

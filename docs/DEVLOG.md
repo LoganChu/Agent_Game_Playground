@@ -2,6 +2,73 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-04 21:00 UTC — Day 22: The ridge kit (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). The checkout was a
+  detached HEAD again; reset `main` to `origin/main`. Baseline green (146 tests).
+- **Art (due today under the cadence rule; last art was Day 20):** ROADMAP *Next up* #1 — what
+  the ridge needs for *Into the woods, part two*. New script `tools/blender/build_ridge.py`:
+  - **`thornwold_beacon` / `thornwold_beacon_lit` — the Ridge Light.** Decided in LORE first: a
+    square, dry-laid tower of grey stone, coursed and staggered, paler quoins, a bark-dark timber
+    lacing band every fourth course; a plank gallery on cantilevered beams; a timber lantern cage
+    with horn panes; a flared bark-shingle roof; **an iron pine** for a vane (the Gull's Beacon
+    wears an iron gull — each beacon wears its island's sign). Iron cradle on a plinth in the
+    cage (ash in it when cold). The ember carved over the door; a **lantern rack** of eight hooks
+    on the flank with one cold lantern left. ~10 m to the vane. Lit = glowing horn panes.
+  - **`keeper_lodge`** — the Lamp's house: stone walls, bark-and-turf roof, cold chimney, ember
+    over the door, and the **lantern bench** under the eave: an open lantern waiting, **a shut
+    iron box, a hammer and a cold chisel** (the planned secret — breaking the saved Firstflame
+    coal into slivers — shown, not said), three cold lanterns on pegs, one peg empty.
+  - **`collier_hut_cold`** (`build_woods.py`, a variant of the hut builder; `collier_hut.glb`
+    rebuilt byte-identical): greyed sods slipping off the cone with dark gaps between the poles,
+    no curtain, the hearth ring kicked apart, the rake by the door, and **a pair of boots set
+    side by side on the log seat**.
+- **Placed:** the cold Ridge Light and the lodge stand on the woods' ridge, seen from the
+  clearing through the fog, out of reach (the lit tower is held for Thornwold's burn); the
+  clearing's second hut is now the cold one; Hob's hut smokes at its peak.
+- **Hob rakes:** new `CharacterRig` style **`rake`** (slow pulls with a forward lean, blended
+  out while walking); `hob.json` `idle: "rake"`.
+- **Tests:** `test_ridge_kit.gd` (6: models exist/small/centred; the Ridge Light is ~10 m and
+  taller than the Gull's; beacon and lodge on the ridge top, unconditional, out of reach, only
+  in the woods, lit tower unplaced; lit glows/cold and lodge don't; warm hut smokes and cold hut
+  doesn't, both in the clearing; Hob's rake pose reaches, leans and draws back).
+  `test_woods.gd` counts both hut models; `test_dressing.gd` lets Thornwold's beacon stand up to
+  11 m. Checkpoint `thornwold_woods` re-shot. 152 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-04-*.png`): `ridge-kit` (lineup: both huts, the lodge,
+the tower cold and lit), `ridge-before` vs `ridge-after` (from the clearing up to the ridge),
+`ridge-close`, `clearing-before` vs `clearing-after` (the cold hut, Hob's smoke).
+
+**Decisions**
+- **Square and tall, not a second Gull's stub.** Saltmarrow builds low against wind;
+  Thornwold has to see over trees. The square plan, timber lacing and horn panes say "the same
+  order, a different island's materials"; the iron vane carrying the island's sign makes the
+  two beacons a pair. Recorded in LORE.
+- **The secret stays a prop.** The lodge shows a box, a hammer and a chisel by an open
+  lantern; nothing glows (the test pins that) and no line explains it before the ridge.
+- **Placed now, reached later.** The ridge has had a single lit waymark since Day 21; putting
+  the tower and lodge there today gives part two its goal on the skyline and lets the content
+  session spend its time on the road, the Lamp and the burn. Both are unconditional; the lit
+  tower waits.
+- **Boots on the seat** — a quiet, concrete hook for the colliers who "went up after the Lamp":
+  nobody climbs a ridge barefoot by choice. Recorded as an open hook in LORE.
+- Quoins were bone-pale at first and the tower read as a checkerboard; toned to light slate.
+
+**Problems / notes**
+- The lodge first exported with 19 materials (> 16 mesh-node cap); folded shades.
+- `bp.prism` doesn't make its object active, so the first lodge roof rotated the wrong object
+  (noted in TECH).
+- The tower's height (10.1 m) broke `test_dressing.gd`'s 7 m sanity bound; it now has its own.
+- From the clearing, the ridge reads through the fog as a pale silhouette in Compatibility
+  screenshots — fine as "dark beacon in the Greying"; re-judge with the Vulkan colour pass.
+
+**Next run should**
+1. **Polish/debt pass (due Day 23):** ROADMAP *Next up* #1 — start with the fade for lantern
+   `clear` areas (part two needs it).
+2. **Art by Day 24**, then **content by Day 25:** *Into the woods, part two* — the road up the
+   ridge to the Ridge Light and the lodge; the Lamp.
+
 ## 2026-10-04 09:00 UTC — Day 21: Into the woods, part one (content track)
 
 **Did**

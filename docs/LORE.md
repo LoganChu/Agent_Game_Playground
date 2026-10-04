@@ -320,6 +320,28 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
   - **Pell's tally stick is Hob's** count-stick: the half notch is "the night I forgot what I was
     counting". Hob lets Pell keep it; Pell keeps it *for* him ("finders keep for, not keep";
     `thornwold_hob_stick`).
+- **The ridge (look, Day 22 — seen from the woods, not yet reached):**
+  - **Thornwold's beacon, the Ridge Light**, stands dark on the ridge above the woods, the tallest
+    thing on the island's skyline. Keepers built it of what Thornwold had: a **square tower of the
+    island's grey stone, dry-laid, laced with bark-dark timber** every few courses and quoined in
+    paler stone (the Gull's Beacon is a round stub — Saltmarrow builds low against wind, Thornwold
+    builds up to see over trees). A plank **gallery** on cantilevered beams at the top; above it a
+    **timber lantern cage with horn panes**, not glass ("glass is a sea-thing"); a bark-shingle roof
+    with a flared eave; for a vane, **an iron pine**, as the Gull's Beacon wears an iron gull — each
+    beacon wears its island's sign. An iron cradle on a stone plinth in the cage, pale ash in it.
+    The Keepers' ember (a ring with a flame) is cut over the door. On the tower's flank a **lantern
+    rack** of eight hooks: seven empty, one cold lantern left — where the waymark lanterns came from.
+  - **The keeper's lodge** beside it: a low stone house roofed in bark and turf, a cold chimney,
+    the ember over a batten door, a shuttered window. Under the eave stands the Lamp's **lantern
+    bench**: a lantern open and waiting, **a small iron box shut tight, a hammer and a cold chisel**
+    laid by it (canon: what for is not said — see the planned answer below); three cold lanterns
+    on pegs by the door, one peg empty; split logs and a bucket.
+  - **The colliers' clearing, warm and cold:** Hob's hut smokes at the peak. The second hut
+    is a collier's who went up the ridge: sods greyed and slipping, bare poles showing, the
+    curtain gone from the doorway, the hearth ring kicked apart, the rake leaning by the door, and
+    **his boots set side by side on the log seat** (hook: who goes up a ridge without boots? Pay off
+    with the four colliers who "went up after the Lamp").
+  - Hob draws his rake over the clearing floor while he talks.
   - *[SECRET — planned answer]* **The Lamp is Thornwold's beacon-keeper**, the unnamed Keeper.
     Each beacon was lit from the Hearthspire at midwinter; the keeper **saved a coal of the last
     midwinter's Firstflame** and has been breaking it into slivers for the waymark lanterns, a

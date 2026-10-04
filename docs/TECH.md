@@ -37,7 +37,8 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
-.tools/bin/blender-py tools/blender/build_woods.py [collier_hut sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge]  # the ridge: Thornwold's beacon + keeper's lodge (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head]  # art review: every character side by side
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -361,7 +362,7 @@ with `--camera=`.
 ### NPC / Item / Quest
 - NPC: `id, name, color, dialogue, model?, idle?, faces_player?, faction?, bio?` — must be placed at least
   once (several placements only if each has an `if`; see *Arrival events*). `model` = character scene (see *Characters*); without it the NPC is a primitive
-  figure in its `color`. `idle` = `breathe` (default) | `mend`. While talking, an NPC's body
+  figure in its `color`. `idle` = `breathe` (default) | `mend` | `rake`. While talking, an NPC's body
   eases round to face the player and back to its placed `rotation_y` after (the Wakebearer
   turns to it too); `"faces_player": false` opts out (Hesk keeps mending).
 - `data/game.json` also takes `player_model` (the Wakebearer character scene) and `act_ends`.
@@ -437,13 +438,21 @@ cairn + post with the carved ember; lantern glass centre (0, 1.77, 0.5) in Godot
 `trail_stake` (pointer along +X, notches on the -X face: `rotation_y` 90 points it to -Z),
 `greyed_brush` and `pine_grey` (same trunk footprint/collider as `pine_dark`). Keep each model
 to a few shades: the kit test caps a model at 16 mesh nodes after the merge by material.
+**Ridge kit (Day 22):** `tools/blender/build_ridge.py` (same kit dir, imports `build_woods` for
+its lumps) — `thornwold_beacon` / `thornwold_beacon_lit` (≈ 4.8 × 10.1 × 5.4 m: the one model
+`test_dressing.gd` lets stand up to 11 m; door and carved ember on -Y, lantern rack on +X,
+lantern cage 6.1–7.5 m with the pane centre ≈ (0, 6.7, 0) for a future `light`; lit = emissive
+kindle panes) and `keeper_lodge` (4.8 × 3.3 × 3.2 m, door right of centre on -Y, lantern bench
+under the eave at -X). `build_woods.py collier_hut` also writes `collier_hut_cold` (same
+footprint). Note `bp.prism` creates its object through the data API and does **not** make it
+active — use its return value (e.g. to rotate it), never `bpy.context.active_object`.
 
 ## Characters
 Built by `tools/blender/build_characters.py` from one chunky base body (~700–900 tris, ~65 KB
 each) plus per-character costume pieces; palette colors and tonal shades of them only.
 Models face **+Z** in Godot. No skeleton: each model is a node hierarchy that
 `CharacterRig` animates procedurally (breathing, sway, head drift, walk swing driven by the
-player's speed, `mend` hand motion for Hesk):
+player's speed, `mend` hand motion for Hesk, `rake` pulls and a forward lean for Hob):
 ```
 Rig (root, may be scaled — Pell is 0.78)
   LegL, LegR        pivot at hip
