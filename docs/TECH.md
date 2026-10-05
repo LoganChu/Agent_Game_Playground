@@ -38,9 +38,9 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
-.tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge]  # the ridge: Thornwold's beacon + keeper's lodge (same kit dir)
+.tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
-    -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head]  # art review: every character side by side
+    -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp]  # art review: every character side by side (+ unplaced models)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
     -- --screenshot=/abs/out.png [--only=dock,wreck] [--camera=…]  # art review: the dressing kit
 ```
@@ -453,7 +453,16 @@ its lumps) — `thornwold_beacon` / `thornwold_beacon_lit` (≈ 4.8 × 10.1 × 5
 lantern cage 6.1–7.5 m with the pane centre ≈ (0, 6.7, 0) for a future `light`; lit = emissive
 kindle panes) and `keeper_lodge` (4.8 × 3.3 × 3.2 m, door right of centre on -Y, lantern bench
 under the eave at -X). `build_woods.py collier_hut` also writes `collier_hut_cold` (same
-footprint). Note `bp.prism` creates its object through the data API and does **not** make it
+footprint). **The way up (Day 24):** `ridge_steps_lower` / `ridge_steps_upper` — one flight of
+the Keepers' log stair each (risers + pegs, rope rail on stakes, the ember cut in the bottom
+stake). A flight climbs along its **+X from the origin (the low end, on the ramp's centreline)
+by exactly the rise its region `path` gives it** (`STAIR_FLIGHTS` in the script: lower 1.85 m
+over 7.5 m, upper 1.6 m over 6 m, the upper placed at `rotation_y` 180 with its rail built on
++Y so it faces south too); `test_ridge_way.gd` mirrors those numbers and checks the ground
+under each placed flight rises the same, so **change the script, the path and the test
+together**. `keeper_ladder` (feet at the origin, leaning back toward Godot -Z, ≈ 3 m up) and
+`keeper_ladder_fallen` (flat along X), `waymark_cap` (the bare waymark with a collier's cap on
+its hook), `sack_dropped` (split, coal spilled toward -X). Note `bp.prism` creates its object through the data API and does **not** make it
 active — use its return value (e.g. to rotate it), never `bpy.context.active_object`.
 
 ## Characters
@@ -473,7 +482,9 @@ Rig (root, may be scaled — Pell is 0.78)
 The rig stores each part's rest transform and applies small offsets on top, so rest poses
 (Aldous's stoop, Hesk's hands over the net) are authored in Blender. `test_characters.gd`
 checks every NPC/player model has the parts with the right parents. New character: add a
-`build_<id>()` to the script, run it, set `model` in the NPC's JSON.
+`build_<id>()` to the script, run it, set `model` in the NPC's JSON. A model built ahead of its
+NPC (the Lamp, `lamp.glb`, Day 24) is still rig-checked (`test_characters.gd` takes every .glb in
+`assets/models/characters/`) and shows at the end of the lineup scene as "(unplaced)".
 Blender gotcha: bake rotation/scale into each primitive before joining (the script's
 `_finish` does) — joined objects keep only the first object's transform and the rest pose
 then overwrites it (this flipped every arm upward on the first try).
@@ -551,6 +562,10 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   pool's triangles while fading either way), the fog node's animated vs instant re-cut, the
   "[E]" prompt re-labelling on a rebind, inspectable glints (default/offset/opt-out, distance
   fade, sane heights, validator).
+- `tests/test_ridge_way.gd` — Day 24: the way up the woods' north bank (kit models small; each
+  stair flight's rise matches the ground under it, step by step; the landing reachable and the
+  ridge top not; ladders stand/lie; the colliers' cap and sack by the stair) and the Lamp's
+  model (one glowing surface, the lantern, on the right arm).
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).

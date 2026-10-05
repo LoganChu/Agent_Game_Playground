@@ -2,6 +2,68 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-05 21:00 UTC — Day 24: The way up (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). The checkout was a
+  detached HEAD and the local `origin/main` ref was **stale (Day 13)** — `git checkout -B main
+  origin/main` briefly put the tree back eleven days. A `git fetch origin main` and a reset to the
+  real head (`bacc3ed`) fixed it; nothing was lost. Next runs: **fetch before resetting `main`**.
+  Baseline green (159 tests).
+- **Art (due today; last art Day 22):** ROADMAP *Next up* #1, all three parts:
+  - **The Keepers' stair up the woods' north bank.** A switchback earth ramp in the region's
+    ground (one `path` land feature: east from the clearing's edge 1.85 m over 7.5 m, a turn, back
+    west 1.6 m over 6 m to a landing at ≈ 3.8 m), painted trodden earth, dressed with two new
+    Blender flights (`ridge_steps_lower/upper`: bark-dark log risers pegged into the ramp, a rope
+    rail sagging between split stakes on the open side, the Keepers' ember cut in the bottom stake).
+  - **The landing under the last pitch**, where the **Keepers' ladder lies fallen**
+    (`keeper_ladder_fallen`: two rungs snapped out, its top end silvered). A standing
+    `keeper_ladder` is built for part two. The ridge top stays unreachable (terrain map + test).
+  - **The colliers' traces:** a bare waymark at the stair's foot with a **collier's felt cap** on
+    its hook where a lantern should be (`waymark_cap`), and a **dropped sack**, split, its charcoal
+    spilled downhill on the turn (`sack_dropped`).
+  - **The Lamp** (`build_characters.py lamp`, ~1.1k tris): stooped under a deep-hooded oilskin cape
+    (the face a shadow — nobody has seen it), a Keeper's robe with the ember stitched *bright*,
+    soot-black hands, a lantern pole with a lit lantern on its crook, two cold lanterns at the belt,
+    the hem and left sleeve gone silver (half-Hushed). Unplaced until part two.
+- Debug: the character lineup now appends models no NPC wears yet ("(unplaced)") and takes
+  `--only=hob,lamp`; `test_characters.gd` rig-checks every model in the characters folder.
+- **Tests:** `test_ridge_way.gd` (6: kit models; each flight's rise matches the ground under it
+  step by step; landing reachable, ridge top not, standing ladder unplaced; ladders stand/lie;
+  cap and sack by the stair; the Lamp's one glowing surface is the lantern on ArmR). 165 tests +
+  smoke + launch pass. Checkpoint `thornwold_woods` re-shot.
+
+Screenshots (`docs/screenshots/2026-10-05-*.png`): `lamp-lineup` (Aldous, Hob, the Lamp, the
+Wakebearer), `stair-before` vs `stair-after` (from the clearing toward the bank), `stair-turn`,
+`stair-landing`.
+
+**Decisions**
+- **Ground carries the climb, models only dress it.** Terrain stays data (Day 7 decision): the
+  walkable stair is a `path` ramp, so reachability, the validator and the ember costs all see it.
+  A flight model is fitted to its straight ramp (climbs exactly its rise along +X from the low
+  end) rather than one prop per step — two entries instead of ~17, and a test keeps the script,
+  the path and the placement in step.
+- **Reachable to the landing, not to the ridge.** Making the ridge top walkable in place would
+  expose the beacon and lodge a session early and the ridge touches the ground bounds (validator).
+  The fallen ladder is the diegetic "not yet": part two stands it. I recommend part two make the
+  ridge **its own region**, reached by climbing (a `travel`, like the bramble wall).
+- **The ladder's fall is left open** in LORE (fell, knocked down, or pulled up from above) — a
+  hook for part two, not an answer.
+- **The Lamp's ember is bright, Aldous's faded**: the Lamp never stopped being a Keeper. The hood
+  hides the face by design (canon: nobody has seen it); the reveal can lower it.
+- The stair sits in deep Greying on purpose — a ~0.2-ember climb — so lanterns on it are the
+  natural first *shifting paths* beat.
+
+**Problems / notes**
+- The fog washes the stair out in Compatibility screenshots (as everything past the wall); the
+  dark risers were darkened after the first shots to read against the trodden-earth paint.
+- The bank's ragged edge buries the uphill ends of some upper risers (reads as cut into the bank).
+
+**Next run should**
+1. **Content (due Day 25):** *Into the woods, part two* — stand the ladder, the ridge (own region),
+   the Lamp, shifting paths, a checkpoint. See ROADMAP *Next up* #1.
+2. Then systems: the title screen.
+
 ## 2026-10-05 09:00 UTC — Day 23: Polish/debt pass two
 
 **Did**

@@ -342,6 +342,24 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
     **his boots set side by side on the log seat** (hook: who goes up a ridge without boots? Pay off
     with the four colliers who "went up after the Lamp").
   - Hob draws his rake over the clearing floor while he talks.
+- **The way up (look, Day 24 — reachable as far as the landing):**
+  - **The Keepers' stair** climbs the woods' north bank from the colliers' clearing: two flights
+    of bark-dark log steps pegged into a built-up earth ramp — east, a turn, then back west — with
+    a rope rail on split stakes along the open side. The Keepers' ember is cut in the bottom stake.
+    It ends at a **landing under the last, steepest pitch**, where the Keepers' **ladder** (two pole
+    rails, rungs lashed with dark cord) **lies fallen**: two rungs snapped out, its top end silvered
+    by the fog. Whether it fell, was knocked down or was pulled down from above is not said (open).
+    Nobody from the woods has been up since; the fog lies on the stair.
+  - **What the colliers left on the way up:** at the stair's foot a bare waymark carries a
+    **collier's felt cap** on its lantern hook where a lantern should be (one of the four who "went
+    up after the Lamp, to ask for a lantern of their own"); on the turn, **a sack of charcoal let
+    fall**, split, the coal spilled downhill, its neck still tied.
+  - **The Lamp (look, decided Day 24; not yet met):** thin and stooped under a **hooded oilskin
+    cape**, the hood up and deep — the face is a shadow in it (nobody has seen it). Under the cape a
+    Keeper's long pale robe with the **ember stitched bright** on the breast (not faded like
+    Aldous's: the Lamp never stopped being a Keeper). Hands **soot-black** from the chisel. Carries a
+    **lantern pole** with a lit Keeper's lantern on its crook, two cold lanterns at the belt to hang.
+    **Half-Hushed**: the cape's hem and the left sleeve gone silver.
   - *[SECRET — planned answer]* **The Lamp is Thornwold's beacon-keeper**, the unnamed Keeper.
     Each beacon was lit from the Hearthspire at midwinter; the keeper **saved a coal of the last
     midwinter's Firstflame** and has been breaking it into slivers for the waymark lanterns, a

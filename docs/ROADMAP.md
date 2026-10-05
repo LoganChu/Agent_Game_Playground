@@ -167,6 +167,16 @@ with a meaningful burn choice → consequences visible in the village.
       where it stands, travellers last) — no more Bram/the wall/Gull's Head before their time —
       and now checks Hob and *Salt for the Collier*.
 
+- [x] [A] **The way up** (Day 24): the **Keepers' stair** up the woods' north bank — a switchback
+      earth ramp in the region's ground (`path`, walkable) dressed with two Blender flights of log
+      steps with a rope rail (`ridge_steps_lower/upper`, each climbing exactly its path's rise) to a
+      **landing under the last pitch**, where the **Keepers' ladder lies fallen** (the standing
+      `keeper_ladder` waits for part two; the ridge top stays unreachable). The colliers' traces: a
+      **felt cap on a waymark** at the stair's foot, a **dropped, split sack** on the turn. **The
+      Lamp** (Blender character, unplaced): hooded oilskin cape over a Keeper's robe with a bright
+      stitched ember, soot-black hands, a lantern pole with a lit lantern, two cold lanterns at the
+      belt, half-Hushed silver hem and sleeve. Character lineup shows unplaced models (`--only=`).
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -176,17 +186,17 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **Art — due Day 24** (cadence: every other session; last Day 22). Best pick: what part
-   two needs on the ridge — a climbable path/stair up the woods' north bank (switchback
-   cut steps, log risers, rope rail), the Lamp as a character (Blender: a beacon-keeper's
-   oilskin, a lantern pole, soot-dark hands, half-Hushed), the four colliers' traces on the
-   ridge road (a dropped sack, a cap on a waymark). Else item 8 (Saltmarrow follow-ups:
-   Aldous's bench + seated idle).
-2. [C] **Into the woods, part two — the ridge and the Lamp** (next content, due by Day 25, after
-   polish on Day 23 and art on Day 24): the road up from the clearing to the ridge (the Ridge Light and the
-   keeper's lodge stand there since Day 22 — `thornwold_beacon_lit` waits for the burn; the
-   ridge top is ≈ 6 m up, unreachable today: add a climbing path or make the ridge its own
-   region); **shifting paths** as a mechanic
+1. [C] **Into the woods, part two — the ridge and the Lamp** (next content, **due Day 25**): the way
+   up exists since Day 24 — the Keepers' stair climbs from the clearing to a landing under the last
+   pitch (≈ 3.8 m), where the ladder lies fallen (`keeper_ladder_fallen`; swap for `keeper_ladder`
+   with `if`, feet at the landing's north edge ≈ (-0.6, -65.6), leaning back to -Z). Recommended:
+   **make the ridge its own region** (`thornwold_ridge`) reached by climbing the stood ladder (an
+   inspectable whose dialogue `travel`s, like the bramble wall) — the woods' ridge top touches the
+   ground bounds, so making it walkable in place needs the bounds/banks reworked. The stair lies
+   in deep Greying (a short climb, ~0.2 ember each way): lanterns on it are a natural first
+   **shifting paths** beat. The Ridge Light and the keeper's lodge stand there since Day 22 —
+   `thornwold_beacon_lit` waits for the burn; the Lamp's model is built (`lamp.glb`, lit lantern
+   on a pole). Who knocked the ladder down is open (LORE). **Shifting paths** as a mechanic
    (waymark lanterns that go out or move with the story: `clear` areas with `if` — supported
    since Day 21, and the fog re-cut fades since Day 23); the Lamp (Thornwold's
    beacon-keeper — see LORE [SECRET — planned answer]: a saved coal of the last midwinter's
@@ -196,32 +206,32 @@ each .glb < 5 MB.
    it's Pell's now, *finders keep for*; the camp's memory of the colliers; the Lamp's own name).
    Pay off Hob's promise to come in by daylight (after the beacon). Keepers met should react to
    `saltmarrow_aldous_confessed` and the sleeve-ember. Add a checkpoint.
-3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+2. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
    variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
    steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
    nights once day/night exists. (Hob's raking idle landed Day 22 — the seated idle is the
    same kind of CharacterRig style.)
-9. [S] Interaction polish: camera framing during dialogue; fade the
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -272,7 +282,9 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 21 (into the woods, part one); next content due by Day 25.
-- Last art session: Day 22 (ridge kit); next art due by Day 24 (cadence: every other session).
+- Last art session: Day 24 (the way up); next art due by Day 26 (cadence: every other session).
+  Good picks: the ridge region's ground and dressing if part two makes one; else Saltmarrow
+  follow-ups (Aldous's bench + seated idle).
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
   if a region ever wants dozens, use GPUParticles3D on Forward+ and keep CPU for Compatibility.
 - Thornwold's log buildings use one box collider each (the porch of the tally-house is
@@ -303,6 +315,11 @@ each .glb < 5 MB.
   re-judge with the colour-grading item (they bloom in Forward+).
 - The woods region is a large hollow (≈ 50 × 50 m walkable) with nothing in its deep Greying but
   bare waymarks and pines; the ridge content (part two) should give the north half a purpose.
+  The stair (Day 24) climbs the bank's east half; its landing is walkable and sits in fog.
+- Stair flights are single models fitted to a straight ramp: if the woods' ground `path` for the
+  stair changes, rebuild the flights to match (`STAIR_FLIGHTS`) — `test_ridge_way.gd` fails if
+  they drift apart. The bank's ragged edge buries the uphill ends of a few upper risers (reads as
+  steps cut into the bank).
 - Smoke test ferry paths: the ferry needs Pell's dock ask before Mara's leave; the walk
   takes one Pell path per run (whichever the menu walker reaches — currently promised →
   Mara says yes). Other ferry paths are covered by `test_ferry.gd`.
