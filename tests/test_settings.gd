@@ -39,6 +39,14 @@ func _slide(menu: PauseMenu, label: String, value: float) -> void:
 		slider.value_changed.emit(slider.value)
 
 
+## What's on disk at SCRATCH right now.
+func _saved() -> GameSettings:
+	var saved := GameSettings.new()
+	saved.path = SCRATCH
+	saved.load_file()
+	return saved
+
+
 func test_defaults() -> void:
 	var settings := _fresh()
 	for bus in GameSettings.BUSES:
@@ -178,6 +186,13 @@ func test_pause_menu_settings_pages() -> void:
 		assert_true(menu.slider(label + " volume") != null, "%s volume slider" % label)
 	_slide(menu, "Music volume", 40.0)
 	assert_true(is_equal_approx(settings.volume("Music"), 0.4), "the slider sets the volume")
+	assert_true(is_equal_approx(_saved().volume("Music"), 0.4), "a slider step saves at once")
+	var music := menu.slider("Music volume")
+	music.drag_started.emit()
+	_slide(menu, "Music volume", 20.0)
+	assert_true(is_equal_approx(_saved().volume("Music"), 0.4), "not saved on every tick of a drag")
+	music.drag_ended.emit(true)
+	assert_true(is_equal_approx(_saved().volume("Music"), 0.2), "saved when the drag is let go")
 	_slide(menu, "Camera sensitivity", 150.0)
 	assert_eq(settings.camera_sensitivity, 1.5, "the slider sets sensitivity")
 	assert_true(menu.press("Text size: Normal"), "text size button")
@@ -199,7 +214,9 @@ func test_pause_menu_settings_pages() -> void:
 	menu.capture_key(KEY_P)
 	assert_eq(settings.key_for("interact"), KEY_G, "P refused")
 	assert_true(menu._note.text.contains("Menu"), "and says why (%s)" % menu._note.text)
-	assert_false(FileAccess.file_exists(SCRATCH), "not saved while on the settings pages")
+	assert_eq(_saved().key_for("interact"), KEY_G, "a rebind saves at once")
+	assert_eq(_saved().text_scale, settings.text_scale, "so does a toggle")
+	assert_false(_saved().invert_y, "and toggling back")
 	menu.press("Back")
 	assert_eq(menu.page, PauseMenu.Page.SETTINGS, "Back from Controls goes to Settings")
 	menu.press("Reset to defaults")

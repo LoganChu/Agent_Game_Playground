@@ -17,6 +17,8 @@ var _meter_bar: ProgressBar
 var _wash: ColorRect
 var _fade: ColorRect
 var _keys: Label
+## What the interaction prompt is showing (re-labelled when the interact key is rebound).
+var _focus: Interactable = null
 ## Starts "long idle" so the meter doesn't flash up on load.
 var _meter_idle := METER_LINGER
 
@@ -30,6 +32,7 @@ func _ready() -> void:
 
 
 func set_focus(target: Interactable) -> void:
+	_focus = target
 	if target and is_instance_valid(target):
 		_prompt.text = InputSetup.hint("interact") + " " + target.prompt
 		_prompt.show()
@@ -182,6 +185,14 @@ func _make_label(variation: StringName) -> Label:
 	return label
 
 
-## Follows the player's key bindings (GameSettings).
+## Follows the player's key bindings (GameSettings): the key hint and the "[E] Talk to…"
+## prompt, which stays up under the pause menu (the player is paused with its focus).
 func _update_key_hint() -> void:
 	_keys.text = "%s Journal   %s Satchel   [Esc] Menu" % [InputSetup.hint("journal"), InputSetup.hint("inventory")]
+	if _prompt and _focus and is_instance_valid(_focus):
+		set_focus(_focus)
+
+
+## The interaction prompt's text ("" when hidden; tests).
+func prompt_text() -> String:
+	return _prompt.text if _prompt.visible else ""

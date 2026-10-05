@@ -5,8 +5,8 @@ extends CanvasLayer
 ## Overwriting a used slot and quitting each ask for a second press. Debug builds add
 ## "Chapter select (dev)": jump to any story checkpoint in data/scenarios.json. Settings
 ## (GameSettings) edit volumes, text size and the camera; Controls rebinds keys (press the
-## action, then the new key; Esc cancels). Settings are saved to user://settings.cfg when
-## their pages are left. Modal: holds `GameState.input_locked`, and only opens when nothing
+## action, then the new key; Esc cancels). Settings are saved to user://settings.cfg as they
+## change (a dragged slider once, when it is let go) and again when their pages are left. Modal: holds `GameState.input_locked`, and only opens when nothing
 ## else does.
 
 signal opened
@@ -107,6 +107,8 @@ func capture_key(keycode: Key) -> void:
 		_note.text = "Kept %s." % InputSetup.key_label(GameSettings.current().key_for(action))
 		return
 	var why := GameSettings.current().rebind(action, keycode)
+	if why.is_empty():
+		_commit_settings()
 	_show_page(Page.CONTROLS)
 	_note.text = why if not why.is_empty() else "%s: %s." % [InputSetup.action_label(action), InputSetup.key_label(keycode)]
 
@@ -246,14 +248,17 @@ func _build_settings() -> void:
 			func(value: float) -> void: settings.set_volume(bus, value / 100.0))
 	_add("Text size: " + settings.text_size_label(), func() -> void:
 		settings.cycle_text_size()
+		_commit_settings()
 		_refresh_settings(0))
 	_add_slider("Camera sensitivity", settings.camera_sensitivity * 100.0, GameSettings.SENSITIVITY_MIN * 100.0,
 		GameSettings.SENSITIVITY_MAX * 100.0, 5.0, "%d%%", func(value: float) -> void: settings.set_camera_sensitivity(value / 100.0))
 	_add("Invert camera left/right: " + _on_off(settings.invert_x), func() -> void:
 		settings.set_invert_x(not settings.invert_x)
+		_commit_settings()
 		_refresh_settings(1))
 	_add("Invert camera up/down: " + _on_off(settings.invert_y), func() -> void:
 		settings.set_invert_y(not settings.invert_y)
+		_commit_settings()
 		_refresh_settings(2))
 	_add("Controls", _show_page.bind(Page.CONTROLS))
 	_add("Reset to defaults", _reset_settings)
@@ -294,9 +299,17 @@ func _add_slider(text: String, value: float, min_value: float, max_value: float,
 	readout.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	readout.text = format % value
 	row.add_child(readout)
+	# Keyboard/pad steps save at once; a mouse drag saves once, when it is let go.
+	slider.drag_started.connect(func() -> void: slider.set_meta(&"dragging", true))
+	slider.drag_ended.connect(func(value_changed: bool) -> void:
+		slider.set_meta(&"dragging", false)
+		if value_changed:
+			_commit_settings())
 	slider.value_changed.connect(func(v: float) -> void:
 		readout.text = format % v
-		on_change.call(v))
+		on_change.call(v)
+		if not slider.get_meta(&"dragging", false):
+			_commit_settings())
 	_buttons.add_child(row)
 	return slider
 
@@ -325,11 +338,18 @@ func _reset_settings() -> void:
 		_note.text = "Press again to put every setting and key back to its default."
 		return
 	GameSettings.current().reset()
+	_commit_settings()
 	_refresh_settings(0)
 	_note.text = "Settings reset."
 
 
-## Leaving the settings pages for anything else (or closing the menu) writes the file.
+## Writes user://settings.cfg after a change on the Settings/Controls pages, so quitting from
+## the OS mid-page loses nothing.
+func _commit_settings() -> void:
+	GameSettings.current().save()
+
+
+## Leaving the settings pages for anything else (or closing the menu) writes the file too.
 func _leave_settings(to: Page) -> void:
 	var in_settings := page == Page.SETTINGS or page == Page.CONTROLS
 	if in_settings and to != Page.SETTINGS and to != Page.CONTROLS:
