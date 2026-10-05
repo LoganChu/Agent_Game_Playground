@@ -1,10 +1,13 @@
 """Builds the ridge kit for Thornwold (Day 22) into the dressing kit: Thornwold's beacon — the
 Ridge Light, a Keeper-built tower of the island's own stone and timber, cold and lit — and the
-keeper's lodge beside it, where the Lamp sits up nights over a lantern bench.
+keeper's lodge beside it, where the Lamp sits up nights over a lantern bench — and (Day 24) the way
+up to them: the Keepers' log stair and ladder on the woods' north bank, and what the colliers who
+climbed it left behind (a cap on a waymark, a dropped sack).
 
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_ridge.py
-    .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon keeper_lodge]
+    .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon keeper_lodge ridge_steps keeper_ladder
+                                                         waymark_cap sack_dropped]
 
 Same conventions as build_dressing/build_woods: origin at the base centre, flat-shaded,
 palette colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -275,8 +278,148 @@ def build_keeper_lodge() -> None:
     bd.export("keeper_lodge")
 
 
-BUILDERS = [build_thornwold_beacon, build_keeper_lodge]
-ALIASES = {"thornwold_beacon_lit": "thornwold_beacon"}
+# --- The way up (Day 24) --------------------------------------------------------------------
+# The Keepers' stair up the woods' north bank: two flights of log steps on a built-up earth
+# ramp (the ground itself is the region's `path` feature — these models only dress it), a turn
+# between them, a landing under the last steep pitch, and a ladder for that pitch. Each flight
+# model climbs along +X from its origin (the low end, on the ramp's centreline) by exactly the
+# rise the region's path gives it, so snapping the origin to the ground puts every step on it.
+STAIR_FLIGHTS = {
+    # name: (length, rise, steps, rail side: -1 = Blender -Y = Godot +Z, the south side when unrotated)
+    "ridge_steps_lower": (7.5, 1.85, 9, -1),
+    "ridge_steps_upper": (6.0, 1.6, 7, 1),   # placed rotated 180°, so its +Y rail faces south too
+}
+
+
+def _stake(x, y, z, h, wood, rng) -> None:
+    """A split stake driven in at (x, y) on ground height z, standing h, leaning a touch."""
+    lean = Vector((rng.uniform(-0.04, 0.04), rng.uniform(-0.04, 0.04), 0))
+    rod("Stake", (x, y, z - 0.15), Vector((x, y, z + h)) + lean, 0.05, wood, verts=5, r_end=0.04)
+
+
+def _flight(length: float, rise: float, steps: int, rail_side: int) -> None:
+    """One flight of the Keepers' stair: `steps` bark-dark log risers across the 2.8 m ramp, each
+    held by two pegs on its downhill face and half sunk into the earth; a rope rail on stakes
+    along one side, sagging between them; the Keepers' ember cut in the bottom stake."""
+    rng = random.Random(51 + steps)
+    LOG, PEG, ROPE = mat("driftwood", -0.55), mat("driftwood", -0.7), mat("driftwood", -0.05)
+    half = 0.9  # the ramp is 2.8 m wide; the rail stands inside its flat top
+    def ground(x: float) -> float:
+        return rise * min(max(x, 0.0), length) / length
+    for i in range(steps):
+        x = length * (i + 0.5) / steps
+        z = ground(x)
+        # The log's top sits ~0.1 m proud of the ramp on its uphill edge (a step, not a lump).
+        rod("Riser", (x, -half + rng.uniform(-0.05, 0.05), z + 0.02), (x, half + rng.uniform(-0.05, 0.05), z + 0.02),
+            0.12, LOG, verts=6, r_end=0.1)
+        for py in (-half + 0.25, half - 0.25):
+            rod("Peg", (x - 0.15, py, z - 0.15), (x - 0.15, py, z + 0.15), 0.035, PEG, verts=4)
+    # The rope rail: a stake every ~2 m on the open side, the rope looped over each top.
+    y = rail_side * (half + 0.2)
+    n = max(2, round(length / 1.9) + 1)
+    tops = []
+    for k in range(n):
+        x = length * k / (n - 1)
+        z = ground(x)
+        _stake(x, y, z, 0.95, PEG, rng)
+        tops.append(Vector((x, y, z + 0.88)))
+    for a, b in zip(tops, tops[1:]):
+        mid = (a + b) / 2 - Vector((0, 0, 0.12))
+        rod("Rope", a, mid, 0.018, ROPE, verts=4)
+        rod("Rope", mid, b, 0.018, ROPE, verts=4)
+    # The carved ember on the bottom stake's outer face, as on the waymark posts.
+    face = y + rail_side * 0.055
+    for k in range(6):
+        a0, a1 = k / 6 * math.tau, (k + 1) / 6 * math.tau
+        beam("Ring", (math.cos(a0) * 0.05, face, 0.6 + math.sin(a0) * 0.05),
+             (math.cos(a1) * 0.05, face, 0.6 + math.sin(a1) * 0.05), 0.015, mat("bone", -0.2))
+    beam("Flame", (0, face, 0.57), (0, face, 0.65), 0.018, mat("ember", -0.2), width=0.03)
+
+
+def build_ridge_steps() -> None:
+    for name, (length, rise, steps, side) in STAIR_FLIGHTS.items():
+        bd.reset()
+        _flight(length, rise, steps, side)
+        bd.export(name)
+
+
+def _ladder(fallen: bool) -> None:
+    """The Keepers' ladder for the last pitch (3.2 m): two peeled pole rails, eight rungs lashed
+    on with dark cord. Standing (`keeper_ladder`): its feet at the origin, leaning back toward
+    +Y (Godot -Z) at ~68° — top ≈ 2.95 m up and 1.2 m back. Fallen (`keeper_ladder_fallen`):
+    lying flat along X, two rungs snapped out of it, the top end silvered by the fog."""
+    rng = random.Random(61)
+    RAIL, RUNG, CORD = mat("driftwood", -0.3), mat("driftwood", -0.15), mat("ink", 0.1)
+    length, half = 3.2, 0.24
+    if fallen:
+        def at(t: float, side: float) -> Vector:  # flat on the ground along X
+            return Vector((t * length - length / 2, side * half, 0.06))
+    else:
+        tilt = math.radians(22)
+        def at(t: float, side: float) -> Vector:
+            return Vector((side * half, t * length * math.sin(tilt), t * length * math.cos(tilt)))
+    for side in (-1, 1):
+        rod("Rail", at(0.0, side), at(0.82, side), 0.055, RAIL, verts=6, r_end=0.05)
+        rod("RailTop", at(0.82, side), at(1.0, side), 0.05, mat("silverfog", -0.3) if fallen else RAIL, verts=6,
+            r_end=0.045)
+    for k in range(8):
+        t = 0.08 + k * 0.12
+        if fallen and k in (3, 5):
+            # snapped: a stub on one rail, the rest gone
+            rod("Rung", at(t, -1), at(t, -1) + (at(t, 1) - at(t, -1)) * 0.3, 0.03, RUNG, verts=5)
+            continue
+        rod("Rung", at(t, -1) + (at(t, -1) - at(t, 1)) * 0.08, at(t, 1) + (at(t, 1) - at(t, -1)) * 0.08,
+            0.032, RUNG, verts=5)
+        for side in (-1, 1):
+            p = at(t, side)
+            cyl("Lashing", 0.065, 0.065, 0.06, 5, p - Vector((0, 0, 0.03)) if not fallen else p, CORD,
+                rng.uniform(0, 1))
+
+
+def build_keeper_ladder() -> None:
+    bd.reset()
+    _ladder(False)
+    bd.export("keeper_ladder")
+    bd.reset()
+    _ladder(True)
+    bd.export("keeper_ladder_fallen")
+
+
+def build_waymark_cap() -> None:
+    """A bare waymark at the foot of the stair with a collier's felt cap hung on its lantern
+    hook where a lantern should be — one of the four who "went up after the Lamp" left it
+    there (asking for a light? marking the way? not said)."""
+    bd.reset()
+    bw._waymark(False)
+    felt, band = mat("driftwood", -0.6), mat("coal", -0.4)
+    # The cap hangs by its band from the hook at (0, -0.5, 2.0): crown down, brim tipped.
+    bw._lump("Cap", (0.15, 0.14, 0.09), (0, -0.5, 1.9), felt, random.Random(71), 0.06, (0.35, 0, 0.2))
+    cyl("CapBand", 0.155, 0.15, 0.04, 7, (0, -0.5, 1.94), band)
+    beam("CapBrim", (0, -0.47, 1.97), (0, -0.66, 1.93), 0.02, felt, width=0.2)
+    bd.export("waymark_cap")
+
+
+def build_sack_dropped() -> None:
+    """A charcoal sack let fall on the stair's turn: lying split along its side, charcoal spilled
+    downhill (-X) in a black fan, the neck cord still tied (whoever carried it up didn't come
+    back down for it)."""
+    bd.reset()
+    rng = random.Random(81)
+    bw._sack((0.15, 0, 0), rng, lying=True, shade=-0.25)
+    box("Split", (0.4, 0.06, 0.12), (0.18, -0.2, 0.14), mat("ink", 0.0), 0.15)
+    for k in range(14):
+        r = rng.uniform(0.15, 0.75)
+        a = rng.uniform(-0.9, 0.9) - math.pi / 2 - 0.3
+        s = rng.uniform(0.04, 0.08)
+        bw._lump("Coal", (s * 1.3, s, s * 0.8), (0.15 + math.cos(a) * r * 0.4 - r * 0.6, math.sin(a) * r * 0.5 - 0.15, s * 0.4),
+                 mat("ink", 0.05), rng, 0.2)
+    bd.export("sack_dropped")
+
+
+BUILDERS = [build_thornwold_beacon, build_keeper_lodge, build_ridge_steps, build_keeper_ladder, build_waymark_cap,
+            build_sack_dropped]
+ALIASES = {"thornwold_beacon_lit": "thornwold_beacon", "ridge_steps_lower": "ridge_steps",
+           "ridge_steps_upper": "ridge_steps", "keeper_ladder_fallen": "keeper_ladder"}
 
 if __name__ == "__main__":
     only = {ALIASES.get(a, a) for a in sys.argv[1:] if not a.startswith("-")}
