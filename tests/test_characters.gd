@@ -8,6 +8,11 @@ func _model_paths() -> Array[String]:
 	var paths: Array[String] = [str(db.game.get("player_model", ""))]
 	for id: String in db.npcs:
 		paths.append(str(db.npcs[id].get("model", "")))
+	# Models built ahead of their content (the Lamp, Day 24) follow the same contract.
+	for file in DirAccess.get_files_at("res://assets/models/characters/"):
+		var path := "res://assets/models/characters/" + file
+		if file.ends_with(".glb") and path not in paths:
+			paths.append(path)
 	return paths
 
 
