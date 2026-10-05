@@ -348,6 +348,9 @@ func _validate_region(id: String, region: Dictionary) -> void:
 			_err(where, "object '%s' needs a 'prompt'" % oid)
 		_ref_dialogue(where, str(object.get("dialogue", "")))
 		_ref_condition(where, object.get("if"))
+		var glint: Variant = object.get("glint", null)
+		if glint != null and not (glint is bool or _is_vector(glint)):
+			_err(where, "object '%s' glint must be false or [x, y, z]" % oid)
 	for exit: Dictionary in region.get("exits", []):
 		_ref_condition(where, exit.get("requires"))
 		if exit.has("requires") and str(exit.get("locked_text", "")).is_empty():

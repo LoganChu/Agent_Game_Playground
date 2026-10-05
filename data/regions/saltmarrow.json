@@ -1204,7 +1204,12 @@
         0,
         8.8
       ],
-      "reach": 1.4
+      "reach": 1.4,
+      "glint": [
+        0,
+        0.8,
+        0
+      ]
     },
     {
       "id": "saltmarrow_drying_nets",
