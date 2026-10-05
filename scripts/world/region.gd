@@ -80,10 +80,12 @@ func _refresh_greying(world: WorldState, animate: bool) -> void:
 	greying_areas = Greying.active_areas(data, world)
 	var clears := Greying.clear_areas(greying_areas)
 	if clears != _greying_clears:
-		# The light changed: re-cut every shown fog layer around the new pools.
+		# The light changed: re-cut every shown fog layer around the new pools (dissolving
+		# from the old cut when `animate`).
+		var before := _greying_clears
 		_greying_clears = clears
 		for fog: GreyingFog in _greying_fog.values():
-			fog.mesh = GreyingFog.build_mesh(fog.area, fog_surface, clears)
+			fog.recut(clears, before, animate)
 	var areas: Array = data.get("greying", [])
 	for i in areas.size():
 		var want := greying_areas.has(areas[i]) and not Greying.is_clear(areas[i])

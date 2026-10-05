@@ -1,5 +1,5 @@
 // The Greying: stacked, ground-hugging fog layers (see scripts/world/greying_fog.gd).
-// Vertex colour alpha carries each vertex's fog depth × layer weight, baked from the same
+// UV2 carries each vertex's fog depth × layer weight (old cut, new cut; COLOR.a = new too), baked from the same
 // Greying.area_depth the gameplay uses, so what you see is where the ember drains.
 // No textures or depth buffer: works in the Compatibility renderer too.
 shader_type spatial;
@@ -7,6 +7,7 @@ render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabl
 
 uniform vec4 fog_color : source_color = vec4(0.78, 0.8, 0.83, 1.0);
 uniform float opacity = 1.0;   // tweened for fade in/out when the story changes the areas
+uniform float recut = 1.0;     // 0 → 1 dissolves the old lantern cut (UV2.x) into the new (UV2.y)
 uniform float drift = 0.12;    // wind speed of the noise, m/s-ish
 
 varying vec3 world_pos;
@@ -32,7 +33,7 @@ void vertex() {
 void fragment() {
 	vec2 p = world_pos.xz * 0.28 + vec2(TIME * drift, TIME * drift * 0.4);
 	float n = value_noise(p) * 0.6 + value_noise(p * 2.3 - vec2(TIME * drift * 0.7)) * 0.4;
-	float a = COLOR.a * opacity * mix(0.35, 1.0, n);
+	float a = mix(UV2.x, UV2.y, recut) * opacity * mix(0.35, 1.0, n);
 	// Fade layers right in front of the camera so walking into the fog doesn't hit a wall.
 	a *= smoothstep(0.4, 4.0, -VERTEX.z);
 	ALBEDO = fog_color.rgb;
