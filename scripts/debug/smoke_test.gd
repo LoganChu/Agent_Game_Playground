@@ -6,13 +6,15 @@ extends Node
 ## quicksaves, resets and quickloads, checking state survives. Exits 0 on success.
 
 const MAX_DIALOGUE_STEPS := 200
-const PASSES := 6
+const PASSES := 9
 
 var _failures: PackedStringArray = []
 ## Recap text of the end-of-act card, once it has been shown.
 var _act_end_recap := ""
 ## Ferry trips taken by the menu walk ("saltmarrow -> thornwold_landing").
 var _sailings: PackedStringArray = []
+## Regions the menu walk has stood in.
+var _walked: Dictionary = {}
 
 
 func _ready() -> void:
@@ -41,71 +43,40 @@ func _run() -> void:
 	await _check_ground(main)
 	await _check_greying(main)
 	await _check_gates(main, false)
-	# Several passes over every region so quests started on one pass can advance on the next
-	# (pass 3 reaches Aldous's confession and Mara's ferry lantern, and the horn sounds on
-	# arriving elsewhere; passes 4–5 meet the ferry, settle Pell with Mara and take passage,
-	# ending Act I; the last pass casts off for Thornwold — and back — and meets Bram).
+	# Several passes over the reachable regions so quests started on one pass can advance on
+	# the next: Saltmarrow's island first (Gull's Head once the token opens its gate), through
+	# the beacon, Aldous's confession, the ferry and passage (ending Act I); then the walk
+	# casts off for Thornwold, meets Bram, parts the bramble wall and meets Hob.
 	for pass_index in PASSES:
-		for region_id: String in Content.db.regions:
+		# Walk only where a player could be: regions reachable on foot from where the last
+		# pass left off (open exits). A sailing or a `travel` effect moves the walk on to the
+		# new place and whatever is reachable from there, never back by teleport.
+		var visited: Dictionary = {}
+		var queue := _reachable((main.get("region") as Region).region_id)
+		while not queue.is_empty():
+			var region_id: String = queue.pop_front()
+			if visited.has(region_id):
+				continue
+			visited[region_id] = true
 			GameState.travel(region_id)
 			for i in 3:
 				await get_tree().physics_frame
 			var region: Region = main.get("region")
 			_check(region != null and region.region_id == region_id, "region %s loaded" % region_id)
+			_walked[region_id] = true
 			if ui.is_open():
 				# A region arrival event (the ferry's horn) is playing.
 				_finish_dialogue(ui, "arrival event in " + region_id)
 				await get_tree().process_frame
-			var sailed := false
-			for node in get_tree().get_nodes_in_group("npcs"):
-				var npc := node as NpcActor
-				if not is_instance_valid(npc) or npc.is_queued_for_deletion():
-					continue
-				if pass_index == 0 and npc.npc_data.has("model"):
-					_check(npc.find_child("CharacterRig", true, false) != null, "npc %s shows its rigged model" % npc.npc_id)
-				npc.interact()
-				_check(ui.is_open(), "dialogue opens for " + npc.npc_id)
-				if pass_index == 0 and npc.npc_id == "mara":
-					# Mara looks out over the harbor; talking, she turns to the player (west of her).
-					for i in 30:
-						await get_tree().process_frame
-					_check(npc.body_yaw() < -0.5, "mara turns to face the player (yaw %.2f)" % npc.body_yaw())
-					_check(not (main.get("hud") as Hud).is_key_hint_shown(), "key hint hides during dialogue")
-				_finish_dialogue(ui, npc.npc_id)
-				await get_tree().process_frame
-				await _close_act_end_card(main)
-				if main.get("region") != region:
-					# Oda sailed (a `travel` effect): this region's nodes are gone.
-					sailed = true
-					_sailings.append("%s -> %s" % [region_id, (main.get("region") as Region).region_id])
-					if ui.is_open():
-						_finish_dialogue(ui, "arrival event after sailing")
-						await get_tree().process_frame
-					break
-			if sailed:
-				continue
-			for node in get_tree().get_nodes_in_group("inspectables"):
-				if not is_instance_valid(node) or node.is_queued_for_deletion():
-					continue
-				var object := node as Inspectable
-				object.interact()
-				_check(ui.is_open(), "dialogue opens for object " + object.object_id)
-				_finish_dialogue(ui, object.object_id)
-				await get_tree().process_frame
-				if main.get("region") != region:
-					# The bramble wall parted and the player went through (a `travel` effect).
-					sailed = true
-					_sailings.append("%s -> %s" % [region_id, (main.get("region") as Region).region_id])
-					if ui.is_open():
-						_finish_dialogue(ui, "arrival event after travelling")
-						await get_tree().process_frame
-					break
-			if sailed:
-				continue
-			for node in get_tree().get_nodes_in_group("pickups"):
-				if not node.is_queued_for_deletion():
-					(node as Pickup).interact()
-			await get_tree().process_frame
+			if await _walk_region(main, ui, region, pass_index):
+				var here := (main.get("region") as Region).region_id
+				queue.clear()
+				if not visited.has(here):
+					queue.append(here)
+				for next: String in _reachable(here):
+					if not visited.has(next) and not queue.has(next):
+						queue.append(next)
+	_check(_walked.size() == Content.db.regions.size(), "the walk reached every region (%s)" % ", ".join(PackedStringArray(_walked.keys())))
 	await _check_gates(main, true)
 	await _check_beacon_lit(main)
 	await _check_act_one_close(main)
@@ -130,6 +101,84 @@ func _run() -> void:
 	else:
 		printerr("SMOKE TEST FAILED:\n  " + "\n  ".join(_failures))
 		get_tree().quit(1)
+
+
+## Regions the player can walk to from `from` right now (itself first): exits whose
+## `requires` holds, followed transitively. Ferry lanes and dialogue `travel`s aren't exits.
+func _reachable(from: String) -> Array[String]:
+	var out: Array[String] = [from]
+	var i := 0
+	while i < out.size():
+		for exit: Dictionary in Content.db.get_region(out[i]).get("exits", []):
+			var to := str(exit.get("to", ""))
+			if not out.has(to) and Conditions.evaluate(exit.get("requires"), GameState.world):
+				out.append(to)
+		i += 1
+	return out
+
+
+## True if dialogue `id` can `travel` the player somewhere.
+func _can_travel(id: String) -> bool:
+	return JSON.stringify(Content.db.dialogues.get(id, {})).contains("\"travel\"")
+
+
+## Talks to every NPC, examines every object and takes every pickup in `region`. Returns
+## true if a dialogue moved the player elsewhere (Oda sailed, the bramble wall let them
+## through), which ends this region's walk: its nodes are gone.
+func _walk_region(main: Node, ui: DialogueUI, region: Region, pass_index: int) -> bool:
+	var region_id := region.region_id
+	# Whoever and whatever can move the player on (Oda's ferry, the bramble wall) comes last,
+	# after the pickups, so the rest of the region gets its turn first.
+	var stay: Array[Node] = []
+	var movers: Array[Node] = []
+	# Objects before people among the movers: the ferry (Oda) is the very last thing.
+	for node in get_tree().get_nodes_in_group("inspectables") + get_tree().get_nodes_in_group("npcs"):
+		var dialogue := str((node as NpcActor).npc_data.get("dialogue", "")) if node is NpcActor else (node as Inspectable).dialogue_id
+		(movers if _can_travel(dialogue) else stay).append(node)
+	for node in stay:
+		await _visit(main, ui, node, pass_index)
+	for node in get_tree().get_nodes_in_group("pickups"):
+		if not node.is_queued_for_deletion():
+			(node as Pickup).interact()
+	await get_tree().process_frame
+	for node in movers:
+		await _visit(main, ui, node, pass_index)
+		if main.get("region") != region:
+			# Oda sailed or the bramble wall let the player through (a `travel` effect):
+			# this region's nodes are gone.
+			_sailings.append("%s -> %s" % [region_id, (main.get("region") as Region).region_id])
+			if ui.is_open():
+				_finish_dialogue(ui, "arrival event after travelling")
+				await get_tree().process_frame
+			return true
+	return false
+
+
+## Talks to an NPC or examines an object, walking its dialogue's menus to the end.
+func _visit(main: Node, ui: DialogueUI, node: Node, pass_index: int) -> void:
+	if not is_instance_valid(node) or node.is_queued_for_deletion():
+		return
+	if node is Inspectable:
+		var object := node as Inspectable
+		object.interact()
+		_check(ui.is_open(), "dialogue opens for object " + object.object_id)
+		_finish_dialogue(ui, object.object_id)
+		await get_tree().process_frame
+		return
+	var npc := node as NpcActor
+	if pass_index == 0 and npc.npc_data.has("model"):
+		_check(npc.find_child("CharacterRig", true, false) != null, "npc %s shows its rigged model" % npc.npc_id)
+	npc.interact()
+	_check(ui.is_open(), "dialogue opens for " + npc.npc_id)
+	if pass_index == 0 and npc.npc_id == "mara":
+		# Mara looks out over the harbor; talking, she turns to the player (west of her).
+		for i in 30:
+			await get_tree().process_frame
+		_check(npc.body_yaw() < -0.5, "mara turns to face the player (yaw %.2f)" % npc.body_yaw())
+		_check(not (main.get("hud") as Hud).is_key_hint_shown(), "key hint hides during dialogue")
+	_finish_dialogue(ui, npc.npc_id)
+	await get_tree().process_frame
+	await _close_act_end_card(main)
 
 
 ## Checks every gated exit in every region: locked exits refuse travel, open ones allow it.
@@ -455,6 +504,8 @@ func _check_crossing(main: Node) -> void:
 	_check(world.quest_state("across_the_grey") == WorldState.QUEST_DONE, "the crossing completed Across the Grey")
 	_check(world.get_flag("thornwold_landed") == true, "the landing scene played")
 	_check(world.get_flag("thornwold_met_bram") == true and world.quest_state("a_light_for_thornwold") == WorldState.QUEST_ACTIVE, "Bram gave A Light for Thornwold")
+	_check(world.get_flag("thornwold_met_hob") == true, "met Hob in the colliers' clearing")
+	_check(world.quest_state("salt_for_the_collier") == WorldState.QUEST_DONE, "carried Bram's salt to Hob (Salt for the Collier)")
 	var at := str(world.get_flag("lanes_ferry_at"))
 	_check(at in ["thornwold", "saltmarrow"], "the ferry lies at one end of the lane (%s)" % at)
 	GameState.travel("thornwold_landing")
