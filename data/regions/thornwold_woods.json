@@ -162,6 +162,43 @@
         "note": "the ridge"
       },
       {
+        "path": [
+          [
+            -1.0,
+            -60.6,
+            0.05
+          ],
+          [
+            6.5,
+            -60.6,
+            1.9
+          ],
+          [
+            8.4,
+            -62.6,
+            2.05
+          ],
+          [
+            6.5,
+            -64.6,
+            2.2
+          ],
+          [
+            0.5,
+            -64.6,
+            3.8
+          ],
+          [
+            -1.5,
+            -64.7,
+            3.85
+          ]
+        ],
+        "width": 2.8,
+        "falloff": 1.0,
+        "note": "the Keepers' stair up the north bank: two flights of log steps, east then back west, to a landing under the last pitch (the ladder lies fallen; the ridge stays out of reach until part two)"
+      },
+      {
         "ellipse": [
           8,
           -40,
@@ -189,6 +226,43 @@
       "cliff": "slate"
     },
     "paint": [
+      {
+        "path": [
+          [
+            -1.0,
+            -60.6,
+            0
+          ],
+          [
+            6.5,
+            -60.6,
+            0
+          ],
+          [
+            8.4,
+            -62.6,
+            0
+          ],
+          [
+            6.5,
+            -64.6,
+            0
+          ],
+          [
+            0.5,
+            -64.6,
+            0
+          ],
+          [
+            -1.5,
+            -64.7,
+            0
+          ]
+        ],
+        "width": 2.0,
+        "color": "driftwood",
+        "note": "the stair's trodden earth between the log steps"
+      },
       {
         "path": [
           [
@@ -545,6 +619,61 @@
       "rotation_y": 180,
       "scale": 1.2,
       "note": "The lantern on the ridge: the highest waymark, lit, out of reach above the woods."
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_steps_lower.glb",
+      "position": [
+        -1.0,
+        0,
+        -60.6
+      ],
+      "rotation_y": 0,
+      "note": "The Keepers' stair up the north bank, first flight: log steps climbing east from the clearing's edge, a rope rail on stakes, the ember cut in the bottom stake. The ground is the region's stair path; the model climbs exactly its rise (1.85 m over 7.5 m)."
+    },
+    {
+      "model": "res://assets/models/dressing/sack_dropped.glb",
+      "position": [
+        8.2,
+        0,
+        -62.5
+      ],
+      "rotation_y": 100,
+      "note": "On the stair's turn: a collier's sack let fall, split, the charcoal spilled downhill. Whoever carried it up didn't come back for it."
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_steps_upper.glb",
+      "position": [
+        6.5,
+        0,
+        -64.6
+      ],
+      "rotation_y": 180,
+      "note": "The stair's second flight, climbing back west (1.6 m over 6 m) to the landing under the last pitch."
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_ladder_fallen.glb",
+      "position": [
+        -0.6,
+        0,
+        -65.0
+      ],
+      "rotation_y": 8,
+      "note": "The Keepers' ladder for the last pitch to the ridge, lying fallen on the landing, two rungs snapped, its top end greyed. The ridge stays out of reach until part two stands it (keeper_ladder.glb: feet at the origin, leaning back to -Z)."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_cap.glb",
+      "position": [
+        -2.8,
+        0,
+        -60.0
+      ],
+      "rotation_y": -45,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "A bare waymark at the foot of the stair: a collier's felt cap hung on the hook where a lantern should be (one of the four who went up after the Lamp)."
     },
     {
       "model": "res://assets/models/dressing/thornwold_beacon.glb",
