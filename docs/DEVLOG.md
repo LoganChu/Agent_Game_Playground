@@ -2,6 +2,74 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-05 09:00 UTC — Day 23: Polish/debt pass two
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again;
+  reset `main` to `origin/main`. Baseline green (152 tests).
+- **Polish/debt (due today; last pass Day 15):** ROADMAP *Next up* #1, all four items plus the
+  first one it named:
+  - **Lantern pools fade.** When the set of lit `clear` areas changes, each fog layer now
+    dissolves from the old cut to the new over 4 s instead of snapping:
+    `GreyingFog.recut(new, old, animate)` bakes both cuts into one mesh (UV2.x old, UV2.y new),
+    keeps every triangle either needs, and the shader mixes them by a tweened `recut`; after
+    the fade the mesh is rebuilt with the new cut only. Region loads stay instant. This
+    unblocks *shifting paths* (lanterns that go out with the story) for part two.
+  - **Settings save as they change**: every toggle, rebind, reset and keyboard slider step
+    writes `user://settings.cfg`; a mouse-dragged slider saves once, when it is let go.
+  - **The "[E] Talk to…" prompt follows a rebind** at once (it stays up under the pause menu,
+    since the player is paused with its focus, so it showed the old key until you moved).
+  - **Inspectables glint**: a faint, camera-facing four-point star (new
+    `assets/shaders/glint.gdshader` + `Glint`) that twinkles every ~3 s, fades in from 11 m and
+    gives way to the prompt inside the object's reach. Data: `glint` offset (default 1.1 m up)
+    or `false`; validated. Dunstan's stool has its glint low (0.8 m).
+  - **The smoke test walks only where a player could be.** Each pass covers the regions
+    reachable on foot (open exits) from where the last left off; a sailing or the bramble wall
+    moves the walk on; whoever can `travel` the player (Oda, the wall) is visited last, objects
+    before people. No more Gull's Head before the token, Bram before the crossing, or the wall
+    parted on pass one. Needed 9 passes (was 6). New checks: every region reached, Hob met,
+    *Salt for the Collier* done.
+- **Tests:** `test_polish_two.gd` (7: re-cut mesh carries both cuts and keeps the pool's
+  triangles either way; animated vs instant re-cut on the node; prompt re-labels on rebind;
+  glint default/offset/opt-out; distance fade; sane heights; validator). `test_settings.gd`
+  checks saving per change and a drag saving once. 159 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-05-*.png`): `glint-stool` (the star over Dunstan's
+stool by Mara's steps, between twinkles), `glint-beacon` (at the Gull's Beacon door in the fog —
+faint, see notes).
+
+**Decisions**
+- **Fade in the shader, not by cross-fading two nodes.** Two translucent copies at partial
+  opacity dip in the middle of the fade and double the draw; one mesh with two alpha channels
+  is exact at both ends. The new alpha also lives in UV2.y because vertex colours are 8-bit
+  and would pop by ~1/255 at the end.
+- **The ember drain follows the light at once**; only the look fades. The drain is already
+  gradual (24 s at full depth), so a lantern going out doesn't punish instantly. Noted in Known
+  issues in case it feels abrupt.
+- **Save per change, but not per drag tick** — writing a ConfigFile 20 times a second while
+  dragging is pointless; `drag_ended` covers the mouse, and keyboard/pad steps are discrete.
+- **The glint is always on, not "until examined".** Examining things again matters (their text
+  changes with the story), so a cue that vanishes would hide content. It stays subtle: low rest
+  brightness, a short twinkle, and it never competes with the prompt.
+- **The smoke walk is driven by the exit graph**, not a hand-kept region order, so new regions
+  join it automatically — and one reachable only some other way fails a check rather than being
+  silently teleported to.
+
+**Problems / notes**
+- First glint was additive and vanished on pale ground in Compatibility; switched to alpha
+  blend with an HDR-bright colour (blooms in Forward+). In deep Greying it is still white on
+  white — re-judge with the colour-grading item.
+- The first smoke rework sailed Oda back and forth (talked to him before Bram and the wall);
+  hence "travellers last".
+- No story lantern changes yet, so the fade has no in-game screenshot; it is covered by tests
+  and will show in part two.
+
+**Next run should**
+1. **Art (due Day 24):** ROADMAP *Next up* #1 — what the ridge needs for part two: the climb
+   up the woods' north bank, the Lamp as a character, traces of the four colliers.
+2. **Content by Day 25:** *Into the woods, part two* (the ridge, the Lamp, shifting paths —
+   now with fading lantern pools).
+
 ## 2026-10-04 21:00 UTC — Day 22: The ridge kit (art track)
 
 **Did**

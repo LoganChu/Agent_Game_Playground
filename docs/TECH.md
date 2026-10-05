@@ -148,7 +148,7 @@ Every record lives in its own file whose name equals its `id`.
   "pickups": [{"id": unique, "item": id, "position": [...], "count": 1, "if": condition,
                "set": {flag: value}, "quest_stage": [quest, stage]}],
   "objects": [{"id": unique, "prompt": "Examine ...", "dialogue": id, "position": [...],
-               "reach": 1.8, "if": condition}],        // inspectables: start a dialogue
+               "reach": 1.8, "glint": [x,y,z] | false, "if": condition}],  // inspectables: start a dialogue
   "events":  [{"id": unique, "if": condition, "set": {flag: value}, "dialogue": id}],  // arrival events
   "exits":   [{"to": region, "spawn": spawn_name, "position": [...], "prompt": "...",
                "requires": condition, "locked_text": "..."}] }   // gated exits
@@ -170,7 +170,12 @@ exports no lights; procedural shapes build their own, so the validator rejects `
 shape-only prop, and requires it on a model prop whose `shape` is one of
 `PropFactory.LIT_SHAPES` (`signal_lantern`, `beacon_light`) — otherwise the model version
 would go dark.
-Objects have no visuals of their own (place a prop at the same spot); their dialogue runs
+**Glint (Day 23):** every object shows a faint four-point star (`Glint`, `assets/shaders/glint.gdshader`:
+camera-facing quad, alpha-blended, HDR-bright, depth-tested, twinkles every ~3 s with a phase
+from its position) at `glint` above its spot (default `Glint.DEFAULT_OFFSET` = 1.1 m up;
+`false` = none). It fades in between 11 and 7 m from the player and out again inside the
+object's `reach`, where the "[E] Examine…" prompt takes over. Validated (`false` or [x,y,z]).
+Objects have no visuals of their own otherwise (place a prop at the same spot); their dialogue runs
 with no NPC. A gated exit is always shown; while `requires` is false, interacting toasts
 `locked_text` (required with `requires`) instead of travelling.
 Legacy terrain slabs are positioned by their **top surface** (absolute); the player can't
@@ -285,8 +290,12 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
   draws no fog of its own; `depth_at` = (deepest fog area) × (1 − brightest clear area's depth),
   so a full-strength clear ellipse cuts a pool out of any fog, edged by its falloff. `GreyingFog`
   bakes the same cut into its layers (triangles fully inside a pool are dropped);
-  `Region._refresh_greying` re-cuts every shown layer when the set of active clear areas changes
-  (no tween yet). Validator: `clear` must be a bool; the worst case
+  `Region._refresh_greying` re-cuts every shown layer when the set of active clear areas changes.
+  **The re-cut fades (Day 23):** `GreyingFog.recut(new, old, animate)` builds one mesh carrying
+  both cuts (UV2.x = alpha under the old lights, UV2.y = under the new; COLOR.a = new too, 8-bit)
+  and keeps every triangle either cut needs; the shader mixes them by `recut`, tweened 0 → 1 over
+  `FADE_SECONDS` (4 s), then the mesh is rebuilt with the new cut only. Region loads re-cut
+  instantly. The *gameplay* depth (ember drain) switches at once — the drain itself is gradual. Validator: `clear` must be a bool; the worst case
   (`Greying.worst_case_areas`) is every fog area plus only the **unconditional** clear areas — a
   lantern the story may take away doesn't count toward the spawn-clear and ember-budget checks.
 
@@ -471,7 +480,9 @@ then overwrites it (this flipped every arm upward on the first try).
 
 ## Settings (Day 19)
 `GameSettings.current()` (loaded and applied by `GameState._ready`) holds the player's
-settings; the pause menu's **Settings** and **Controls** pages edit it and save on leaving.
+settings; the pause menu's **Settings** and **Controls** pages edit it and save **as they
+change** (Day 23: every toggle, rebind, reset and keyboard slider step; a mouse-dragged slider
+once, on `drag_ended`) and again on leaving.
 `user://settings.cfg` (ConfigFile) — never in save games:
 ```
 [audio]    Master/Music/Ambience/Effects/Voice = 0..1 (linear; 0 mutes the bus)
@@ -535,7 +546,11 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - `tests/test_settings.gd` — settings defaults, bus volume/mute, text size presets, camera
   sensitivity/invert, rebinding (swaps, claimed secondaries, reserved keys), file round trip,
   bad-file tolerance, the pause menu's Settings and Controls pages (key capture, Esc cancels,
-  reset asks twice, leaving saves). The smoke test rebinds the journal with a real key press.
+  reset asks twice, saving per change, a drag saving once). The smoke test rebinds the journal with a real key press.
+- `tests/test_polish_two.gd` — Day 23: the fog re-cut mesh carries both cuts (and keeps the
+  pool's triangles while fading either way), the fog node's animated vs instant re-cut, the
+  "[E]" prompt re-labelling on a rebind, inspectable glints (default/offset/opt-out, distance
+  fade, sane heights, validator).
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).
@@ -555,15 +570,20 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   input + physics, walks from clear ground up into the Greying (depth, drain, meter shown),
   lets the ember run out (sped up) and checks the turn-back to clear ground, checks every
   gated exit refuses
-  travel on a new game, visits every region twice, talks to every NPC and examines every
-  object walking each menu, collects pickups, checks gated exits now open, that the menu
+  travel on a new game, then walks 9 passes **only where a player could be** (Day 23): each
+  pass covers the regions reachable on foot (open exits) from where the last one left off;
+  in each it talks to every NPC and examines every object walking each menu and collects
+  pickups — anyone/anything whose dialogue can `travel` (Oda, the bramble wall) last, objects
+  before people — and a travel moves the walk on to the new place (never back by teleport;
+  every region must be reached by the end). It then checks checks gated exits now open, that the menu
   walk relit the Gull's Beacon (quest done, a Remnant burned, beacon light shown, fog
   thinned, the region light applied), that a third pass reached Aldous's confession and Mara's ferry lantern, that the horn sounded
   on arriving elsewhere (arrival events are clicked through), that passes 4–5 met Oda, settled
   Pell and took passage (the Act I end card showed a recap naming the burn, and was closed), that
   a late pass cast off with Oda to Thornwold (a `travel` mid-walk ends that region's walk; the
   landing scene is clicked through) and met Bram, that the bramble wall's menu walk went
-  through the gap into the woods (an inspectable's `travel` also ends the region's walk), and that ferry, Oda and Pell stand where the
+  through the gap into the woods (an inspectable's `travel` also ends the region's walk), met
+  Hob and carried Bram's salt (*Salt for the Collier* done), and that ferry, Oda and Pell stand where the
   lane left them (and that
   Saltmarrow's burn-specific dressing matches the burn — `Region.shown_conditional_props(shape)`), opens the journal and satchel via real input
   actions, saves/loads and compares state.

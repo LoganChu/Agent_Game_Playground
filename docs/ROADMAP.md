@@ -158,6 +158,15 @@ with a meaningful burn choice → consequences visible in the village.
       (greyed, slipping sods, boots left on the seat) replaces the clearing's second hut; Hob's hut
       smokes. Hob gets a **`rake` idle** (CharacterRig style).
 
+- [x] [P] **Polish/debt pass two** (Day 23): lantern `clear` areas **fade** when the light
+      changes (the fog layers dissolve from the old cut to the new over 4 s — story-driven
+      lanterns are now safe); Settings **save per change** (a dragged slider once, when let go);
+      the **"[E]" prompt re-labels** at once on a rebind; inspectables **glint** (a faint
+      twinkling star, data `glint` offset / `false`, fades in with distance and gives way to the
+      prompt); the smoke test **walks only where a player could be** (reachable regions from
+      where it stands, travellers last) — no more Bram/the wall/Gull's Head before their time —
+      and now checks Hob and *Salt for the Collier*.
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -167,17 +176,19 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [P] **Polish/debt pass — due Day 23** (last: Day 15; never more than 8 sessions). Do first:
-   the **fade for lantern `clear` areas** (item 2 needs it), then from Known issues: Settings
-   sliders saving per change, the "[E]" prompt refreshing on rebind, an inspectable glint, the
-   smoke test's impossible first-pass visits (Bram/the wall before the crossing).
+1. [A] **Art — due Day 24** (cadence: every other session; last Day 22). Best pick: what part
+   two needs on the ridge — a climbable path/stair up the woods' north bank (switchback
+   cut steps, log risers, rope rail), the Lamp as a character (Blender: a beacon-keeper's
+   oilskin, a lantern pole, soot-dark hands, half-Hushed), the four colliers' traces on the
+   ridge road (a dropped sack, a cap on a waymark). Else item 8 (Saltmarrow follow-ups:
+   Aldous's bench + seated idle).
 2. [C] **Into the woods, part two — the ridge and the Lamp** (next content, due by Day 25, after
    polish on Day 23 and art on Day 24): the road up from the clearing to the ridge (the Ridge Light and the
    keeper's lodge stand there since Day 22 — `thornwold_beacon_lit` waits for the burn; the
    ridge top is ≈ 6 m up, unreachable today: add a climbing path or make the ridge its own
    region); **shifting paths** as a mechanic
-   (waymark lanterns that go out or move with the story: `clear` areas with `if` — the engine
-   supports it since Day 21, but the fog re-cut is instant; add a fade); the Lamp (Thornwold's
+   (waymark lanterns that go out or move with the story: `clear` areas with `if` — supported
+   since Day 21, and the fog re-cut fades since Day 23); the Lamp (Thornwold's
    beacon-keeper — see LORE [SECRET — planned answer]: a saved coal of the last midwinter's
    Firstflame, nearly spent; the lodge's lantern bench shows the iron box, hammer and chisel);
    the four colliers who "went up after the Lamp" (the cold hut's boots left on the seat);
@@ -210,7 +221,7 @@ each .glb < 5 MB.
    steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
    nights once day/night exists. (Hob's raking idle landed Day 22 — the seated idle is the
    same kind of CharacterRig style.)
-9. [S] Interaction polish: camera framing during dialogue; inspectable glint; fade the
+9. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -249,7 +260,7 @@ each .glb < 5 MB.
   keep the double await in `_check_journal`.
 - The smoke test's menu walk always burns whichever Remnant is listed first (currently the
   pebble); the other burn paths are covered by `test_burning.gd` unit tests only.
-- Next polish/debt pass due by session 23 (Day 15 was the last).
+- Next polish/debt pass due by session 31 (Day 23 was the last).
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog
   (0.045) in the Compatibility renderer; up close they read fine. The Day 12 cold light helps
   Gull's Head read as drained; re-judge the density with the Vulkan colour check.
@@ -258,9 +269,8 @@ each .glb < 5 MB.
 - `GreyingWalker` returns the player to the last clear ground they *stood* on; if a future
   region spawns the player inside a pocket via a save, they go to the default spawn
   (validator keeps spawns clear, but saved positions aren't checked).
-- Settings: changing a binding updates the HUD's key hint at once but the "[E] Talk to…"
-  prompt only on the next focus change (harmless). Sliders save on leaving the page, not
-  per tick; quitting the game from the OS while on the Settings page loses that change.
+- Settings save per change since Day 23, but a slider mid-drag when the OS closes the
+  window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 21 (into the woods, part one); next content due by Day 25.
 - Last art session: Day 22 (ridge kit); next art due by Day 24 (cadence: every other session).
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
@@ -276,17 +286,21 @@ each .glb < 5 MB.
   After the card the player keeps exploring Saltmarrow with passage taken; nothing sails until
   Act II. Remaining slice work is systems/polish (pause menu, settings, audio, interaction
   polish) and art.
-- Smoke test walks 6 passes since Day 17 (a late pass casts off). It visits every region on every pass,
-  so (from its first pass) it meets Bram on Thornwold *before* the crossing — impossible in play (the landing is only
-  reachable by ferry), harmless for the test; `_check_crossing` checks the sailing itself.
-  A `travel` mid-walk ends that region's walk (nodes are freed).
+- Smoke test walks 9 passes since Day 23, each over the regions reachable on foot from where
+  it stands (travellers — Oda, the bramble wall — last). A `travel` mid-walk ends that region's
+  walk (nodes are freed). Oda is always talked to last and the walk never sails back to
+  Saltmarrow (the back trip is covered by `test_crossing.gd`). If content ever adds a region
+  reachable only by a route the walk can't take, the "walk reached every region" check fails —
+  extend `_reachable` rather than teleporting.
 - Thornwold Landing has no exits: the ferry, and the bramble wall's dialogue (which `travel`s
   into `thornwold_woods`) are the ways off. The landing's own strip of woods past the wall is
   still deep Greying (you are turned back) — the way in is through the gap, by design.
-- The smoke test's menu walk parts the bramble wall on its first pass, before the crossing (it
-  meets Bram early too) — impossible in play, harmless. It always takes "Go through".
-- Lantern `clear` areas re-cut the fog layers instantly when they change; fine while every
-  lantern is unconditional (Day 21). Add a fade before story-driven lanterns land.
+- The smoke test's menu walk always takes "Go through" at the bramble wall.
+- Lantern `clear` areas fade their fog re-cut over 4 s (Day 23), but the ember drain follows
+  the new light at once. If a lantern going out under the player feels abrupt, ramp
+  `Greying.depth_at` with the same tween.
+- Inspectable glints read faintly inside deep Greying (white on white in Compatibility);
+  re-judge with the colour-grading item (they bloom in Forward+).
 - The woods region is a large hollow (≈ 50 × 50 m walkable) with nothing in its deep Greying but
   bare waymarks and pines; the ridge content (part two) should give the north half a purpose.
 - Smoke test ferry paths: the ferry needs Pell's dock ask before Mara's leave; the walk
@@ -307,8 +321,6 @@ each .glb < 5 MB.
   (fine: both are round). The turn is purely visual and not saved.
 - Kit lantern glass (kindle) and the lit beacon glass read nearly white in the Compatibility
   renderer, like the moss signal glow — include in the colour-grading item.
-- Inspectables have no visual cue until the prompt appears; with more of them now (stool,
-  nets, lost things), consider a subtle highlight/glint (fold into Interaction polish).
 - Journal quest order relies on `WorldState.quests` insertion order (Dictionary order is
   preserved through JSON saves); if save migration ever rebuilds that dict, keep the order.
 - `wading` foam rings are static (no breathing like the boats' rings) and are dropped per leg
