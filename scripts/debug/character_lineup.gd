@@ -4,10 +4,12 @@ extends Node3D
 ## (`Atmosphere` in a region's mood: `--mood=<region>`, default Saltmarrow). Saves a
 ## screenshot and quits when given one:
 ##   xvfb-run -a godot --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
-##       -- --screenshot=/abs/out.png [--closeup]
+##       -- --screenshot=/abs/out.png [--closeup] [--only=hob,lamp]
+## Character models no NPC uses yet are added last, labelled "(unplaced)".
 ## `--closeup` frames the heads and hands instead of the full bodies.
 
 const SPACING := 1.3
+const UNPLACED_DIR := "res://assets/models/characters/"
 
 
 func _ready() -> void:
@@ -22,6 +24,26 @@ func _ready() -> void:
 		paths.append(str(npc.get("model", "")))
 		styles.append(str(npc.get("idle", "breathe")))
 		names.append(str(npc.get("name", id)))
+	# Character models no NPC wears yet (built ahead of their content), by file name.
+	for file in DirAccess.get_files_at(UNPLACED_DIR):
+		var path := UNPLACED_DIR + file
+		if file.ends_with(".glb") and path not in paths:
+			paths.append(path)
+			styles.append("breathe")
+			names.append(file.get_basename().capitalize() + " (unplaced)")
+	var only := PackedStringArray()
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--only="):
+			only = arg.get_slice("=", 1).split(",")
+	if not only.is_empty():  # keep the listed models (file names without .glb), in that order
+		var keep: Array[int] = []
+		for stem in only:
+			for i in paths.size():
+				if paths[i].get_file().get_basename() == stem:
+					keep.append(i)
+		paths.assign(keep.map(func(i: int) -> String: return paths[i]))
+		styles.assign(keep.map(func(i: int) -> String: return styles[i]))
+		names.assign(keep.map(func(i: int) -> String: return names[i]))
 	var x0 := -SPACING * (paths.size() - 1) * 0.5
 	for i in paths.size():
 		var model := CharacterRig.instantiate(paths[i], styles[i])

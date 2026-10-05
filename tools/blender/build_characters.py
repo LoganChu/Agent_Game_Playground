@@ -541,8 +541,73 @@ def build_hob() -> None:
     assemble(b, "hob")
 
 
+def build_lamp() -> None:
+    """The Lamp, Thornwold's beacon-keeper (old, a Keeper thirty years at the Ridge Light): thin
+    and stooped under a hooded oilskin cape, the hood up and the face lost in its shadow (nobody
+    has seen it — "you don't ask the Lamp"); under the cape a Keeper's long silverfog robe, the
+    ember stitched bright on the breast (not faded like Aldous's); hands soot-black from the
+    chisel; a lantern pole in the right hand with a lit Keeper's lantern on its crook (the light
+    "proper, like yours"); two cold lanterns at the belt to hang. Half-Hushed like Hob: the
+    cape's hem and the left sleeve gone silver."""
+    reset_scene()
+    b = Body(build=0.88)
+    robe = material("silverfog", -0.12)
+    cape = material("driftwood", -0.55)          # oilskin, dark and dull with wax and soot
+    soot = material("ink", 0.1)
+    iron = material("ink", 0.18)
+    base_body(b, material("driftwood", -0.15), robe, material("ink", 0.0), robe, sleeves=cape, face=False)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, 0.05), (0, 0, b.waist + 0.1), 0.33, 0.26, robe, verts=8))           # robe to the ground
+    # The cape: hung from the shoulders to mid-shin, open at the front over the robe.
+    t.append(limb((0, 0.09, 0.3), (0, 0.04, b.shoulder + 0.02), 0.36, 0.27, cape, verts=8))
+    t.append(limb((0, 0.09, 0.22), (0, 0.09, 0.32), 0.37, 0.36, material("silverfog", -0.3), verts=8))  # greyed hem
+    for x in (0.22, -0.22):  # the cape's open front edges, the robe showing between them
+        t.append(block((0.07, 0.05, 0.74), (x, -0.22, b.shoulder - 0.36), cape, rot=(0, 0, -0.08 if x > 0 else 0.08)))
+    t.append(ring(0.27, b.waist + 0.04, 0.05, material("driftwood", -0.4)))                    # belt
+    # The Keepers' ember, stitched bright: a flame diamond on the breast.
+    t.append(block((0.12, 0.02, 0.12), (0, -0.25, b.shoulder - 0.18), material("ember", 0.0), rot=(0, math.radians(45), 0)))
+    t.append(block((0.045, 0.02, 0.11), (0, -0.25, b.shoulder - 0.05), material("ember", 0.0)))
+    # Two cold lanterns hung at the left hip, to go on waymarks.
+    for k, (x, y) in enumerate(((0.3, -0.06), (0.26, 0.12))):
+        z = b.waist - 0.2 - 0.04 * k
+        t.append(limb((x, y, z + 0.18), (x, y, z + 0.1), 0.01, 0.01, iron, verts=4))
+        t.append(limb((x, y, z - 0.06), (x, y, z + 0.1), 0.065, 0.06, material("silverfog", -0.45), verts=6))
+        t.append(limb((x, y, z + 0.1), (x, y, z + 0.15), 0.07, 0.015, iron, verts=6))
+    # The hood, up and deep: the face is a shadow in it.
+    h = b.parts["Head"]
+    hood = cape
+    h.append(ball(0.27, (0, 0.03, b.head + 0.02), hood, scale=(1.0, 1.05, 1.1)))
+    h.append(limb((0, -0.12, b.head + 0.02), (0, -0.26, b.head - 0.01), 0.23, 0.21, hood, verts=8))  # the cowl's lip
+    h.append(ball(0.17, (0, -0.24, b.head - 0.03), material("ink", -0.2), scale=(1.0, 0.45, 1.15)))  # the shadow
+    h.append(limb((0, 0.2, b.head - 0.05), (0, 0.3, b.head - 0.4), 0.09, 0.03, hood, verts=5))  # hood point
+    h.append(ring(0.21, b.head - 0.22, 0.08, hood))
+    # Soot-black hands; the left sleeve silvered where the fog has had it.
+    for side in ("L", "R"):
+        b.parts["Arm" + side].append(ball(0.088, b.hand(side), soot, scale=(0.95, 1.05, 1.15), segments=6, rings=4))
+    sl = b.hand("L") + Vector((0, 0, 0.1))
+    b.parts["ArmL"].append(limb(sl, sl + Vector((0, 0, 0.12)), 0.08, 0.08, material("silverfog", -0.3), verts=6))
+    # The lantern pole: held upright in the right hand, an iron crook at the top and a lit
+    # Keeper's lantern hanging from it, out in front.
+    hand = b.hand("R")
+    pole = material("driftwood", -0.3)
+    arm = b.parts["ArmR"]
+    top = hand + Vector((0, -0.04, 1.2))
+    arm.append(limb(hand + Vector((0, -0.04, -0.6)), top, 0.022, 0.02, pole, verts=5))
+    hook = top + Vector((0, -0.24, 0.06))
+    arm.append(limb(top + Vector((0, 0, -0.04)), hook, 0.015, 0.015, iron, verts=4))
+    arm.append(limb(hook, hook + Vector((0, 0, -0.1)), 0.01, 0.01, iron, verts=4))
+    lamp = hook + Vector((0, 0, -0.33))
+    arm.append(limb(lamp, lamp + Vector((0, 0, 0.02)), 0.075, 0.075, iron, verts=6))
+    arm.append(limb(lamp + Vector((0, 0, 0.02)), lamp + Vector((0, 0, 0.17)), 0.06, 0.06, material("kindle", 0.0, emissive=True), verts=6))
+    arm.append(limb(lamp + Vector((0, 0, 0.17)), lamp + Vector((0, 0, 0.24)), 0.08, 0.015, iron, verts=6))
+    b.arm_rest["ArmR"] = (math.radians(-24), 0, math.radians(-4))
+    b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(5))
+    b.head_rest = (math.radians(14), 0, 0)  # bowed: the hood hangs over the face
+    assemble(b, "lamp")
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda, build_bram,
-            build_hob]
+            build_hob, build_lamp]
 
 if __name__ == "__main__":
     import sys
