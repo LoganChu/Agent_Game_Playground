@@ -60,8 +60,8 @@ func test_the_ridge_light_is_a_landmark() -> void:
 	gull.free()
 
 
-## Seen from the woods but out of reach on the ridge until part two builds the road; the lit
-## tower is held for the burn.
+## Seen from the woods but out of reach on the ridge (the ridge is its own region since Day 25,
+## where both stand again); the lit tower is held for the burn.
 func test_beacon_and_lodge_stand_on_the_ridge_out_of_reach() -> void:
 	var region := load_content().get_region(WOODS)
 	var field := TerrainField.from_data(region["ground"])
@@ -70,7 +70,7 @@ func test_beacon_and_lodge_stand_on_the_ridge_out_of_reach() -> void:
 	for name: String in ["thornwold_beacon", "keeper_lodge"]:
 		var placed := _props(name)
 		assert_eq(placed.size(), 1, "one %s, in the woods" % name)
-		assert_eq(_placed_anywhere(name), 1, "%s stands nowhere else" % name)
+		assert_eq(_placed_anywhere(name), 2, "%s stands in the woods and on the ridge, nowhere else" % name)
 		for prop in placed:
 			var p: Array = prop["position"]
 			assert_true(float(p[2]) < -70.0, "%s is on the ridge (z %.1f)" % [name, float(p[2])])

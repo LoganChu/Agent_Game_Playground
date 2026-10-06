@@ -86,7 +86,11 @@ func test_the_landing_is_reachable_and_the_ridge_is_not() -> void:
 				"nothing on the ridge top is reachable (cell %s)" % xz)
 		if field.height_at(xz.x + 0.5, xz.y + 0.5) >= 4.8:
 			break
-	assert_eq(_props("keeper_ladder").size(), 0, "the standing ladder waits for part two")
+	# Day 25: standing the ladder swaps the fallen one for the standing one, same landing.
+	var stood := _props("keeper_ladder")
+	assert_eq(stood.size(), 1, "one standing ladder")
+	assert_eq(str(stood[0].get("if", "")), "flag:thornwold_ladder_stood", "it stands once the player stands it")
+	assert_eq(str(ladder[0].get("if", "")), "!flag:thornwold_ladder_stood", "and lies until then")
 
 
 func test_ladders_stand_and_lie() -> void:
@@ -106,7 +110,8 @@ func test_the_colliers_traces_are_by_the_stair() -> void:
 		assert_eq(placed.size(), 1, "one %s" % name)
 		for prop in placed:
 			var p: Array = prop["position"]
-			assert_false(prop.has("if"), "%s is there from the start" % name)
+			assert_true(not prop.has("if") or str(prop["if"]) == "!flag:thornwold_stair_lantern_hung",
+					"%s is there from the start (the cap until a lantern is hung in its place)" % name)
 			var d := Vector2(float(p[0]) - float(foot[0]), float(p[2]) - float(foot[2])).length()
 			assert_true(d < 10.0, "%s is by the stair (%.1f m from its foot)" % [name, d])
 	var cap := _bounds("waymark_cap")

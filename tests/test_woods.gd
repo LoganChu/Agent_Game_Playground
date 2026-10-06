@@ -119,11 +119,14 @@ func test_the_woods_road_lies_and_the_lanterns_lead() -> void:
 		assert_true(Greying.depth_at(areas, _xz(region["spawn_points"][spawn])) < Greying.CLEAR_DEPTH, "spawn %s is clear" % spawn)
 	var lit := _props(WOODS, "waymark_lit")
 	assert_true(lit.size() >= 5, "lanterns on the waymarks, and one on the ridge")
+	# Lanterns the story can move (Day 25: the fourth mark's, the stair's) have conditional pools,
+	# which the worst case leaves out; test_ridge_top.gd covers those.
+	var lit_always := lit.filter(func(p: Dictionary) -> bool: return not p.has("if"))
 	var pools := 0
-	for prop in lit:
+	for prop in lit_always:
 		if Greying.depth_at(areas, _xz(prop["position"])) < Greying.CLEAR_DEPTH:
 			pools += 1
-	assert_eq(pools, lit.size() - 1, "every reachable lit waymark stands in its own clear pool")
+	assert_eq(pools, lit_always.size() - 1, "every reachable lit waymark stands in its own clear pool")
 	for prop in _props(WOODS, "waymark"):
 		assert_true(Greying.depth_at(areas, _xz(prop["position"])) > 0.9, "a bare waymark stands in deep fog")
 	assert_true(Greying.depth_at(areas, Vector2(0, -45)) > 0.9, "the straight road runs on into deep fog")

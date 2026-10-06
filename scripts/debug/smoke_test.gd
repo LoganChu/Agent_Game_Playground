@@ -506,6 +506,13 @@ func _check_crossing(main: Node) -> void:
 	_check(world.get_flag("thornwold_met_bram") == true and world.quest_state("a_light_for_thornwold") == WorldState.QUEST_ACTIVE, "Bram gave A Light for Thornwold")
 	_check(world.get_flag("thornwold_met_hob") == true, "met Hob in the colliers' clearing")
 	_check(world.quest_state("salt_for_the_collier") == WorldState.QUEST_DONE, "carried Bram's salt to Hob (Salt for the Collier)")
+	# Day 25: the ladder stood and climbed (an inspectable's `travel`), the Lamp met, a lantern
+	# for the stair (the walk takes the first answer, a new sliver) hung, Ottie's cap to Hob.
+	_check(_sailings.has("thornwold_woods -> thornwold_ridge"), "the Keepers' ladder was stood and climbed to the ridge")
+	_check(world.get_flag("thornwold_ridge_reached") == true, "the ridge arrival scene played")
+	_check(world.get_flag("thornwold_met_lamp") == true and world.quest_stage("a_light_for_thornwold") == "the_lamp", "met the Lamp")
+	_check(world.quest_state("a_lantern_for_the_stair") == WorldState.QUEST_DONE, "hung a lantern on the stair (%s)" % world.get_flag("thornwold_stair_light"))
+	_check(world.get_flag("thornwold_hob_has_cap") == true, "gave Ottie's cap to Hob")
 	var at := str(world.get_flag("lanes_ferry_at"))
 	_check(at in ["thornwold", "saltmarrow"], "the ferry lies at one end of the lane (%s)" % at)
 	GameState.travel("thornwold_landing")
