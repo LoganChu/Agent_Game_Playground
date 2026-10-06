@@ -210,6 +210,19 @@ func _check_prop_smoke(where: String, prop: Dictionary, model: String) -> void:
 			_err(where, "prop smoke vent must be [x, y, z]")
 
 
+## `halo` (model props only): [x, y, z] in model space where a soft lantern glow hangs, with an
+## optional `halo_size` (metres, > 0).
+func _check_prop_halo(where: String, prop: Dictionary, model: String) -> void:
+	if not prop.has("halo"):
+		return
+	if model.is_empty():
+		_err(where, "prop 'halo' needs a 'model'")
+	if not _is_vector(prop["halo"]):
+		_err(where, "prop 'halo' must be [x, y, z]")
+	if prop.has("halo_size") and not ((prop["halo_size"] is float or prop["halo_size"] is int) and float(prop["halo_size"]) > 0.0):
+		_err(where, "prop 'halo_size' must be a number > 0")
+
+
 func _is_vector(value: Variant) -> bool:
 	return value is Array and (value as Array).size() == 3 \
 			and (value as Array).all(func(v: Variant) -> bool: return v is float or v is int)
@@ -307,6 +320,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_check_prop_float(where, prop, model)
 		_check_prop_wading(where, prop, model)
 		_check_prop_smoke(where, prop, model)
+		_check_prop_halo(where, prop, model)
 		_ref_condition(where, prop.get("if"))
 	var fog: Dictionary = region.get("fog", {})
 	for override: Variant in fog.get("overrides", []):
@@ -536,6 +550,10 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 				_err(where, "ground.%s entries need exactly one of rect/ellipse/path" % key)
 			if key == "paint" and not _valid_color(str(feature.get("color", ""))):
 				_err(where, "ground.paint has unknown color '%s'" % feature.get("color", ""))
+			if key == "paint":
+				_ref_condition(where, feature.get("if"))
+			elif feature.has("if"):
+				_err(where, "ground.land can't be conditional (only paint may have an 'if')")
 	for color_key: String in ["ground", "shore", "seabed", "cliff"]:
 		var colors: Dictionary = ground.get("colors", {})
 		if colors.has(color_key) and not _valid_color(str(colors[color_key])):

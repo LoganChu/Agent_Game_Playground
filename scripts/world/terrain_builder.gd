@@ -33,6 +33,14 @@ static func build(field: TerrainField) -> StaticBody3D:
 	return body
 
 
+## Rebuilds the visible ground's colours after the field's paint changed (the collider and the
+## shape stay; only the mesh is regenerated).
+static func recolor(body: StaticBody3D, field: TerrainField) -> void:
+	var mi := body.get_node_or_null("GroundMesh") as MeshInstance3D
+	if mi:
+		mi.mesh = _mesh(field)
+
+
 static func _mesh(field: TerrainField) -> ArrayMesh:
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)

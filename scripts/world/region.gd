@@ -14,6 +14,8 @@ var region_id := ""
 var data: Dictionary = {}
 ## The sculpted ground, or null for a legacy slab-only region.
 var field: TerrainField = null
+## The built ground (recoloured when conditional paint changes).
+var _terrain: StaticBody3D = null
 ## Content with an `if` condition, re-evaluated live: [{kind, data, node}] where kind is
 ## prop | npc | pickup | object and node is the built node, or null while hidden.
 var _conditional: Array[Dictionary] = []
@@ -32,7 +34,9 @@ func build(id: String) -> void:
 	add_to_group("region")
 	if data.has("ground"):
 		field = TerrainField.from_data(data["ground"], float(data.get("water_level", -INF)))
-		add_child(TerrainBuilder.build(field))
+		field.select_paint(GameState.world)
+		_terrain = TerrainBuilder.build(field)
+		add_child(_terrain)
 	for slab: Dictionary in data.get("terrain", []):
 		add_child(_build_slab(slab))
 	if data.has("water_level"):
@@ -58,6 +62,8 @@ func build(id: String) -> void:
 func refresh_conditional(animate: bool = true) -> void:
 	var world := GameState.world
 	_refresh_greying(world, animate)
+	if field and _terrain and field.has_conditional_paint() and field.select_paint(world):
+		TerrainBuilder.recolor(_terrain, field)
 	for entry: Dictionary in _conditional:
 		var entry_data: Dictionary = entry["data"]
 		var want := Conditions.evaluate(entry_data.get("if"), world)
@@ -211,6 +217,8 @@ func _build_prop(prop: Dictionary) -> Node3D:
 				node.add_child(build_light(prop["light"]))
 			if prop.get("smoke") is Array:
 				node.add_child(PropSmoke.build(prop["smoke"]))
+			if prop.get("halo") is Array:
+				node.add_child(LanternHalo.build(JsonUtil.to_vector3(prop["halo"]), float(prop.get("halo_size", LanternHalo.SIZE))))
 			if prop.get("float") is Dictionary:
 				node = FloatingProp.wrap(node, prop["float"], float(prop.get("scale", 1.0)))
 	if node == null:

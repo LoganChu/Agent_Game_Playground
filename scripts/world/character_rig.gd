@@ -4,14 +4,18 @@ extends Node
 ## The model is a node hierarchy — Rig > LegL, LegR, Torso > Head, ArmL, ArmR — and this
 ## node, added as a child of the model, offsets those parts from their rest pose each frame:
 ## breathing and a slow sway always, hands working in the "mend" style, a slow draw of the
-## clamp rake in the "rake" style (Hob Marl), and a leg/arm swing
+## clamp rake in the "rake" style (Hob Marl), the hammer and chisel in the "chisel" style (the
+## Lamp at the lantern bench), and a leg/arm swing
 ## while `move_speed` is above zero. No skeletons or animation tracks to maintain.
 
 const PARTS: Array[String] = ["LegL", "LegR", "Torso", "Head", "ArmL", "ArmR"]
-const STYLES: Array[String] = ["breathe", "mend", "rake"]
+const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel"]
+## The "chisel" beat: two taps, then a pause (seconds).
+const CHISEL_PERIOD := 3.4
 
 ## "breathe" (default), "mend" (seated hands working over a net) or "rake" (standing, drawing
-## a rake across the ground in slow pulls, leaning into each one).
+## a rake across the ground in slow pulls, leaning into each one) or "chisel" (bent over a bench:
+## tap, tap with the left hand, a pause, and now and then the head turns as if listening).
 var style := "breathe"
 ## Horizontal speed in m/s; drives the walk swing (0 = standing).
 var move_speed := 0.0
@@ -83,6 +87,17 @@ func pose(t: float, walk_phase: float = 0.0, walk: float = 0.0) -> void:
 			Vector3(1.0 + 0.012 * breath, 1.0 + 0.02 * breath, 1.0 + 0.012 * breath))
 		_offset("ArmL", Vector3.ZERO, Vector3(-0.3 * pull - 0.45 * swing, 0, 0.03 * breath))
 		_offset("ArmR", Vector3.ZERO, Vector3(-0.3 * pull + 0.45 * swing, 0, -0.03 * breath))
+	elif style == "chisel":
+		var still := 1.0 - walk
+		var tap := chisel_tap(t) * still
+		var listen := chisel_listen(t) * still
+		_offset("Torso", Vector3(0, abs(swing) * 0.03, 0),
+			Vector3(0.16 * still + 0.02 * tap + 0.06 * walk, 0.05 * swing, 0.015 * sin(t * 0.6)),
+			Vector3(1.0 + 0.012 * breath, 1.0 + 0.02 * breath, 1.0 + 0.012 * breath))
+		_offset("Head", Vector3.ZERO, Vector3(0.12 * still - 0.015 * breath, 0.5 * listen, 0.0))
+		# The hammer hand lifts and strikes; the pole hand steadies the chisel, barely moving.
+		_offset("ArmL", Vector3.ZERO, Vector3(-0.55 * still - 0.5 * tap - 0.45 * swing, 0, 0.1 * still))
+		_offset("ArmR", Vector3.ZERO, Vector3(-0.3 * still + 0.02 * tap + 0.45 * swing, 0, -0.06 * still))
 	elif style == "mend":
 		# Small alternating pulls of the needle through the mesh.
 		_offset("ArmL", Vector3.ZERO, Vector3(0.12 * sin(t * 3.1), 0.08 * sin(t * 1.55), 0))
@@ -90,6 +105,26 @@ func pose(t: float, walk_phase: float = 0.0, walk: float = 0.0) -> void:
 	else:
 		_offset("ArmL", Vector3.ZERO, Vector3(-0.45 * swing + 0.02 * breath, 0, 0.03 * breath))
 		_offset("ArmR", Vector3.ZERO, Vector3(0.45 * swing + 0.02 * breath, 0, -0.03 * breath))
+
+
+## The chisel hand's lift at time `t` (0 = resting on the work, 1 = raised): two quick taps at
+## the start of each CHISEL_PERIOD, then a rest.
+static func chisel_tap(t: float) -> float:
+	var p := fmod(t, CHISEL_PERIOD)
+	for start: float in [0.0, 0.42]:
+		var x := (p - start) / 0.32
+		if x >= 0.0 and x <= 1.0:
+			return sin(x * PI) * sin(x * PI)
+	return 0.0
+
+
+## How far the head has turned to listen (0..1): about once in three beats it turns aside,
+## holds, and comes back to the work.
+static func chisel_listen(t: float) -> float:
+	var p := fmod(t, CHISEL_PERIOD * 3.0) - CHISEL_PERIOD * 1.2
+	if p < 0.0 or p > 2.8:
+		return 0.0
+	return smoothstep(0.0, 0.6, p) * (1.0 - smoothstep(2.1, 2.8, p))
 
 
 func _offset(part: String, move: Vector3, euler: Vector3, scale: Vector3 = Vector3.ONE) -> void:

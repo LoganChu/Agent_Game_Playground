@@ -4,9 +4,11 @@ extends Node3D
 ## (`Atmosphere` in a region's mood: `--mood=<region>`, default Saltmarrow). Saves a
 ## screenshot and quits when given one:
 ##   xvfb-run -a godot --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
-##       -- --screenshot=/abs/out.png [--closeup] [--only=hob,lamp]
+##       -- --screenshot=/abs/out.png [--closeup] [--only=hob,lamp] [--pose=1.2] [--turn=90]
 ## Character models no NPC uses yet are added last, labelled "(unplaced)".
-## `--closeup` frames the heads and hands instead of the full bodies.
+## `--closeup` frames the heads and hands instead of the full bodies. `--pose=<seconds>` freezes
+## every rig at that moment of its idle (to compare beats of an idle, e.g. a chisel tap);
+## `--turn=<degrees>` turns every model (90 = seen from its left side).
 
 const SPACING := 1.3
 const UNPLACED_DIR := "res://assets/models/characters/"
@@ -32,9 +34,15 @@ func _ready() -> void:
 			styles.append("breathe")
 			names.append(file.get_basename().capitalize() + " (unplaced)")
 	var only := PackedStringArray()
+	var pose_at := -1.0
+	var turn := 0.0
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--only="):
 			only = arg.get_slice("=", 1).split(",")
+		elif arg.begins_with("--pose="):
+			pose_at = float(arg.get_slice("=", 1))
+		elif arg.begins_with("--turn="):
+			turn = float(arg.get_slice("=", 1))
 	if not only.is_empty():  # keep the listed models (file names without .glb), in that order
 		var keep: Array[int] = []
 		for stem in only:
@@ -51,8 +59,12 @@ func _ready() -> void:
 			push_warning("no model for " + names[i])
 			continue
 		model.position = Vector3(x0 + SPACING * i, 0, 0)
-		model.rotation_degrees.y = 12.0 - 4.0 * i
+		model.rotation_degrees.y = 12.0 - 4.0 * i + turn
 		add_child(model)
+		if pose_at >= 0.0:
+			var rig := model.get_node("CharacterRig") as CharacterRig
+			rig.set_process(false)
+			rig.pose(pose_at)
 		var label := Label3D.new()
 		label.text = names[i]
 		label.font_size = 28

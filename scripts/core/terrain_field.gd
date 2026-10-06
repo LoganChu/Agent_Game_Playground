@@ -25,7 +25,10 @@ var ragged := 1.2  ## metres of coastline wobble on rect/ellipse edges (per-feat
 var ragged_scale := 5.0  ## metres between wobble lattice points
 var seed_value := 0
 var land: Array = []
+## Paint zones in effect: those without an `if`, plus (after `select_paint`) the conditional
+## ones whose condition holds. `all_paint` is every zone in the data.
 var paint: Array = []
+var all_paint: Array = []
 ## Walkable decks over the water: [{"rect": [x0,z0,x1,z1], "deck": absolute height}].
 var piers: Array = []
 var colors: Dictionary = {}
@@ -52,7 +55,8 @@ static func from_data(ground: Dictionary, water: float = -INF) -> TerrainField:
 	field.ragged_scale = maxf(0.5, float(ground.get("ragged_scale", 5.0)))
 	field.seed_value = int(ground.get("seed", 0))
 	field.land = ground.get("land", [])
-	field.paint = ground.get("paint", [])
+	field.all_paint = ground.get("paint", [])
+	field.paint = field.all_paint.filter(func(zone: Variant) -> bool: return zone is Dictionary and not zone.has("if"))
 	for pier: Variant in ground.get("piers", []):
 		# Malformed piers are dropped here; the validator reports them.
 		if pier is Dictionary and pier.get("rect") is Array and (pier["rect"] as Array).size() == 4:
@@ -60,6 +64,22 @@ static func from_data(ground: Dictionary, water: float = -INF) -> TerrainField:
 	field.colors = ground.get("colors", {})
 	field._build()
 	return field
+
+
+## Re-picks the paint zones whose `if` holds in `world` (e.g. the moss under a lantern goes
+## when the lantern is moved). Returns true if the set changed (the ground needs recolouring).
+func select_paint(world: WorldState) -> bool:
+	var want := all_paint.filter(func(zone: Variant) -> bool:
+		return zone is Dictionary and Conditions.evaluate(zone.get("if"), world))
+	if want == paint:
+		return false
+	paint = want
+	return true
+
+
+## True if any paint zone is conditional (the ground may need recolouring when flags change).
+func has_conditional_paint() -> bool:
+	return all_paint.any(func(zone: Variant) -> bool: return zone is Dictionary and zone.has("if"))
 
 
 func _build() -> void:
