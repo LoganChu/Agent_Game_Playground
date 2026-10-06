@@ -56,7 +56,7 @@ def _sack(loc, rng, lying: bool = False, shade: float = -0.2) -> None:
         cyl("Neck", 0.08, 0.05, 0.12, 5, (x, y, z + 0.54), mat("driftwood", -0.55))
 
 
-def _collier_hut(cold: bool) -> None:
+def _collier_hut(cold: bool, cap: bool = False) -> None:
     """A charcoal-burner's hut, the kind the charcoal folk live in beside their clamps: a cone
     of leaning poles (3 m across, ~2.9 m tall) roofed in bark slabs and turf, the pole tops
     crossed at the peak, a low doorway at the front with a sacking curtain, a hearth ring of
@@ -161,6 +161,15 @@ def _collier_hut(cold: bool) -> None:
             x, y = -0.5 + off, -2.57 + off * 0.42
             box("Boot", (0.12, 0.26, 0.1), (x, y - 0.04, 0.45), mat("ink", 0.0), -0.42)
             box("BootLeg", (0.12, 0.12, 0.24), (x + 0.03, y + 0.05, 0.45), mat("ink", 0.0), -0.42)
+        if cap:
+            # Ottie Swale's felt cap, brought down from the stair's waymark by the player: Hob
+            # set it crown-up on the seat beside the boots, brim toward the door.
+            cx, cy = -0.2, -2.71
+            _lump("Cap", (0.15, 0.14, 0.08), (cx, cy, 0.56), mat("driftwood", -0.6), random.Random(71), 0.06,
+                  (0, 0, -0.42))
+            cyl("CapBand", 0.155, 0.15, 0.04, 7, (cx, cy, 0.5), mat("coal", -0.4), -0.42)
+            beam("CapBrim", (cx - 0.02, cy - 0.05, 0.52), (cx - 0.1, cy - 0.22, 0.51), 0.02,
+                 mat("driftwood", -0.6), width=0.2)
     else:
         # A rake leaning on the hut and a sack at its foot.
         rod("Rake", (1.45, -0.35, 0.05), (0.95, -0.2, 1.7), 0.03, CLOTH, verts=4)
@@ -175,6 +184,9 @@ def build_collier_hut() -> None:
     bd.reset()
     _collier_hut(True)
     bd.export("collier_hut_cold")
+    bd.reset()
+    _collier_hut(True, cap=True)
+    bd.export("collier_hut_cold_cap")
 
 
 def _wheel(x: float, y: float, r: float) -> None:
@@ -351,7 +363,8 @@ def build_pine_grey() -> None:
 
 
 BUILDERS = [build_collier_hut, build_sack_cart, build_waymarks, build_trail_stake, build_greyed_brush, build_pine_grey]
-ALIASES = {"waymark": "waymarks", "waymark_lit": "waymarks", "collier_hut_cold": "collier_hut"}
+ALIASES = {"waymark": "waymarks", "waymark_lit": "waymarks", "collier_hut_cold": "collier_hut",
+           "collier_hut_cold_cap": "collier_hut"}
 
 if __name__ == "__main__":
     only = {ALIASES.get(a, a) for a in sys.argv[1:] if not a.startswith("-")}

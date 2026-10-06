@@ -2,12 +2,15 @@
 Ridge Light, a Keeper-built tower of the island's own stone and timber, cold and lit — and the
 keeper's lodge beside it, where the Lamp sits up nights over a lantern bench — and (Day 24) the way
 up to them: the Keepers' log stair and ladder on the woods' north bank, and what the colliers who
-climbed it left behind (a cap on a waymark, a dropped sack).
+climbed it left behind (a cap on a waymark, a dropped sack) — and (Day 26) the ridge top's own
+dressing: grey stone outcrops, silvered heather, and the waymarks of the old Keepers' road going
+on north-east into the fog (one standing bare, one tumbled).
 
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_ridge.py
     .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon keeper_lodge ridge_steps keeper_ladder
-                                                         waymark_cap sack_dropped]
+                                                         waymark_cap sack_dropped ridge_outcrops
+                                                         heather_silver waymark_tumbled]
 
 Same conventions as build_dressing/build_woods: origin at the base centre, flat-shaded,
 palette colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -18,6 +21,7 @@ import random
 import sys
 
 import bpy  # noqa: F401  (must be imported before mathutils when running as the bpy module)
+import bmesh  # noqa: E402
 from mathutils import Vector  # noqa: E402
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -416,10 +420,130 @@ def build_sack_dropped() -> None:
     bd.export("sack_dropped")
 
 
+def _slab(name, size, loc, rot, material, rng, jitter=0.08) -> None:
+    """A rough block of the ridge's stone: a box `size` centred on `loc`, turned by `rot`
+    (euler), each corner nudged so no two slabs are square."""
+    bpy.ops.mesh.primitive_cube_add(size=1.0)
+    obj = bpy.context.active_object
+    obj.name = name
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    for v in bm.verts:
+        v.co.x += rng.uniform(-jitter, jitter)
+        v.co.y += rng.uniform(-jitter, jitter)
+        v.co.z += rng.uniform(-jitter, jitter) * 0.6
+    bm.to_mesh(obj.data)
+    bm.free()
+    obj.scale = size
+    obj.location = loc
+    obj.rotation_euler = rot
+    bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+    bd.bp.finish(obj, material)
+
+
+def _heather(rng, x, y, s=1.0, grey=-0.25) -> None:
+    """One heather tuft: a low silvered cushion of three lumps with short stiff sprigs bristling
+    out of it, a few with a dull purple-grey bloom (the ridge's heather, gone the colour of the
+    fog)."""
+    for k in range(3):
+        a = k / 3 * math.tau + rng.uniform(-0.4, 0.4)
+        bw._lump("Heather", (0.2 * s, 0.18 * s, 0.13 * s),
+                 (x + math.cos(a) * 0.1 * s, y + math.sin(a) * 0.1 * s, 0.07 * s),
+                 mat("silverfog", grey - 0.06 * k), rng, 0.3)
+    for k in range(8):
+        a = k / 8 * math.tau + rng.uniform(-0.3, 0.3)
+        base = Vector((x + math.cos(a) * 0.14 * s, y + math.sin(a) * 0.14 * s, 0.1 * s))
+        tip = base + Vector((math.cos(a) * 0.1 * s, math.sin(a) * 0.1 * s, rng.uniform(0.1, 0.18) * s))
+        rod("Sprig", base, tip, 0.03 * s, mat("silverfog", grey - 0.2), verts=3, r_end=0.012)
+        if k % 3 == 0:
+            beam("Bloom", tuple(tip - (tip - base) * 0.4), tuple(tip), 0.035 * s, mat("slate", 0.25), width=0.05 * s)
+
+
+def build_ridge_outcrops() -> None:
+    """The ridge top's bones showing through the turf. `ridge_outcrop` (~2.4 m tall, 3 m long):
+    grey slabs heaved up on edge and leaning together along the spine (+X), split and stepped,
+    lichen pale on their tops, heather in the lee (-Y). `ridge_outcrop_low` (~0.8 m): a flat
+    shelf of the same stone broken into three, the kind the Lamp's path steps over."""
+    bd.reset()
+    rng = random.Random(91)
+    stone = [mat("slate", sh) for sh in (-0.2, -0.32, -0.1)]
+    for k, (x, h, lean) in enumerate(((-1.1, 1.5, 0.18), (-0.3, 2.4, 0.1), (0.5, 2.0, -0.05), (1.2, 1.2, -0.2))):
+        w = rng.uniform(0.75, 0.95)
+        _slab("Slab", (w, rng.uniform(0.5, 0.75), h), (x, rng.uniform(-0.12, 0.12), h * 0.45),
+              (rng.uniform(-0.08, 0.08), lean, rng.uniform(-0.15, 0.15)), stone[k % 3], rng)
+        box("Lichen", (w * 0.6, 0.35, 0.03), (x - lean * h * 0.5, 0, h * 0.9 - 0.02), mat("silverfog", -0.15),
+            rng.uniform(-0.3, 0.3))
+    for k in range(5):  # fallen blocks at the foot
+        s = rng.uniform(0.25, 0.45)
+        _slab("Block", (s * 1.4, s, s * 0.8), (rng.uniform(-1.6, 1.6), rng.uniform(-0.9, -0.5) * (1 if k % 2 else -1), s * 0.3),
+              (rng.uniform(-0.2, 0.2), rng.uniform(-0.2, 0.2), rng.uniform(0, math.pi)), stone[(k + 1) % 3], rng, 0.05)
+    for k in range(3):
+        _heather(rng, rng.uniform(-1.2, 1.2), -0.75 - rng.uniform(0, 0.3), rng.uniform(0.8, 1.1))
+    bd.export("ridge_outcrop")
+
+    bd.reset()
+    rng = random.Random(92)
+    stone = [mat("slate", sh) for sh in (-0.2, -0.32, -0.1)]
+    for k, (x, y) in enumerate(((-0.75, 0.1), (0.15, -0.15), (0.95, 0.2))):
+        _slab("Shelf", (rng.uniform(0.8, 1.0), rng.uniform(0.9, 1.2), rng.uniform(0.45, 0.7)), (x, y, 0.22),
+              (rng.uniform(-0.1, 0.1), rng.uniform(-0.12, 0.12), rng.uniform(-0.3, 0.3)), stone[k % 3], rng)
+        box("Lichen", (0.4, 0.3, 0.03), (x, y, 0.5), mat("silverfog", -0.15), rng.uniform(0, math.pi))
+    for k in range(2):
+        _heather(rng, rng.uniform(-1.0, 1.0), rng.choice((-0.85, 0.85)), 0.9)
+    bd.export("ridge_outcrop_low")
+
+
+def build_heather_silver() -> None:
+    """A patch of the ridge's heather (~1.6 m across): five tufts of different sizes, silvered
+    by the Greying, a dull bloom here and there — scattered over the plateau in clumps."""
+    bd.reset()
+    rng = random.Random(93)
+    for k in range(5):
+        a = k / 5 * math.tau + rng.uniform(-0.4, 0.4)
+        d = 0.0 if k == 0 else rng.uniform(0.4, 0.7)
+        _heather(rng, math.cos(a) * d, math.sin(a) * d, rng.uniform(0.75, 1.25), (-0.2, -0.3, -0.38)[k % 3])
+    bd.export("heather_silver")
+
+
+def build_waymark_tumbled() -> None:
+    """A waymark of the old Keepers' road far along the spine, where nobody has tended one in
+    years: the cairn half spilled downhill (-X), the post leaning hard (toward -X, ~35 deg) with its
+    arm snapped off and lying in the heather, the carved ember on its face weathered nearly
+    blank. Origin at the cairn's old centre."""
+    bd.reset()
+    rng = random.Random(94)
+    for k in range(9):
+        tier = 0 if k < 5 else 1
+        a = k / (5 if tier == 0 else 4) * math.tau + tier * 0.6
+        d = (0.42, 0.24)[tier]
+        s = (0.26, 0.2)[tier]
+        x, y, z = math.cos(a) * d, math.sin(a) * d, 0.12 + tier * 0.22
+        if k >= 6:  # the top stones rolled off downhill
+            x, y, z = -0.9 - rng.uniform(0, 0.7), rng.uniform(-0.5, 0.5), 0.1
+        bw._lump("Cairn", (s, s * 0.9, s * 0.7), (x, y, z), mat("slate", (-0.15, -0.3, -0.05)[k % 3]), rng)
+    for k in range(4):
+        box("Lichen", (0.16, 0.12, 0.03), (rng.uniform(-0.35, 0.35), rng.uniform(-0.35, 0.35), 0.3),
+            mat("silverfog", -0.15), rng.uniform(0, math.pi))
+    lean = math.radians(35)
+    top = Vector((-math.sin(lean) * 2.2, 0, math.cos(lean) * 2.2))
+    rod("Post", (0, 0, 0), tuple(top), 0.09, mat("silverfog", -0.45), verts=6, r_end=0.07)
+    cyl("PostCap", 0.1, 0.03, 0.1, 6, tuple(top), mat("silverfog", -0.5))
+    stub = Vector((-math.sin(lean) * 2.05, 0, math.cos(lean) * 2.05))
+    beam("ArmStub", tuple(stub), tuple(stub + Vector((0, -0.16, 0.0))), 0.04, mat("ink", 0.2))
+    beam("ArmFallen", (-1.2, -0.85, 0.05), (-0.62, -1.05, 0.04), 0.04, mat("ink", 0.2))
+    beam("Hook", (-1.12, -0.88, 0.05), (-1.1, -1.0, 0.03), 0.02, mat("ink", 0.25))
+    mid = Vector((-math.sin(lean) * 1.45, -0.085, math.cos(lean) * 1.45))
+    beam("Ember", tuple(mid), tuple(mid + Vector((0, 0, 0.1))), 0.018, mat("bone", -0.45), width=0.03)
+    for k in range(3):
+        _heather(rng, rng.uniform(-0.9, 0.6), rng.uniform(-0.9, 0.9), rng.uniform(0.7, 1.0))
+    bd.export("waymark_tumbled")
+
+
 BUILDERS = [build_thornwold_beacon, build_keeper_lodge, build_ridge_steps, build_keeper_ladder, build_waymark_cap,
-            build_sack_dropped]
+            build_sack_dropped, build_ridge_outcrops, build_heather_silver, build_waymark_tumbled]
 ALIASES = {"thornwold_beacon_lit": "thornwold_beacon", "ridge_steps_lower": "ridge_steps",
-           "ridge_steps_upper": "ridge_steps", "keeper_ladder_fallen": "keeper_ladder"}
+           "ridge_steps_upper": "ridge_steps", "keeper_ladder_fallen": "keeper_ladder",
+           "ridge_outcrop": "ridge_outcrops", "ridge_outcrop_low": "ridge_outcrops"}
 
 if __name__ == "__main__":
     only = {ALIASES.get(a, a) for a in sys.argv[1:] if not a.startswith("-")}
