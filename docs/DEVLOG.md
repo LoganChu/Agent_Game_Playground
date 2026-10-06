@@ -2,6 +2,72 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-06 09:00 UTC — Day 25: The ridge and the Lamp (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). This time the checkout
+  was already on `main` at the real head (`aa72197`); fetched first anyway. Baseline green (165).
+- **Content (due today; last content Day 21):** ROADMAP *Next up* #1, *Into the woods, part two*:
+  - **Standing the ladder.** The fallen ladder on the stair's landing is an inspectable
+    (`keeper_ladder`): its top cords were **cut clean from the bank side** (pulled down from above).
+    Stand it (`thornwold_ladder_stood`; the prop swaps to the standing `keeper_ladder` by `if`), then
+    climb — a dialogue `travel`, like the bramble wall.
+  - **`thornwold_ridge`, its own region:** a plateau in deep Greying whose south lip drops sheer to
+    the woods (base -6, unreachable), the ladder's head at the lip, a lit waymark there (the lantern
+    the woods see), the cold Ridge Light (inspectable: the rack, seven hooks empty), the keeper's
+    lodge, the old Keepers' road leaving north-east past a bare waymark. Climbing down (an exit)
+    lands at the colliers' clearing. One-time arrival scene.
+  - **The Lamp** (NPC; Day 24's model): first meeting advances *A Light for Thornwold* to `the_lamp`.
+    A hub: its **lost name**; **the iron box** (the saved midwinter coal, a sliver a night — the planned
+    secret, now told on the ridge as LORE said); **the ladder** ("I put it down… so there'd be no
+    fifth. Hob's the fifth"); **Aldous** — per `saltmarrow_aldous_confessed` (full: the cupped light
+    on the stair; grudging: "leave him the rest"), and with the sleeve-ember it knows the Spire stitch
+    and Wren of the east stair; the coal **went cold on the Spire side** the night of the Snuffing;
+    **the Ridge Light** wants a memory, not the Lamp's.
+  - **Shifting paths — *A Lantern for the Stair*:** ask about the dark stair and choose: a **new
+    sliver** (the coal shrinks; given at once), **move the fourth waymark's lantern** (a new conditional
+    object; its pool and lit prop go, the bare post shows, the fog closes in with Day 23's fade; Hob
+    notices), or **refuse**. Hanging it on the stair-foot waymark takes down the cap and lights the
+    stair (a conditional `clear` pool).
+  - **Ottie Swale's cap** goes to Hob, who sets it by the boots on the cold hut's seat. Hob also
+    hears about the ridge.
+  - 2 items, 1 quest, 11 flags, 7 dialogues; checkpoint **`thornwold_ridge`**.
+- **Tests:** `test_ridge_top.gd` (8). Updated three older tests whose "not yet" assumptions this
+  session retired (beacon/lodge now also on the ridge; the standing ladder placed; the cap and the
+  fourth lantern conditional). Smoke now checks the climb, the Lamp, the stair lantern and the cap.
+  173 tests + smoke + launch pass.
+
+Screenshots: checkpoint `docs/checkpoints/thornwold_ridge.png` (the ridge from the ladder's head);
+`docs/screenshots/2026-10-06-lamp-bench.png` (the Lamp at the bench), `…-stair-dark.png` vs
+`…-stair-lit.png` (the stair before and after the lantern).
+
+**Decisions**
+- **The ridge is its own region** (as Day 24 recommended), with the drop modelled as low base
+  ground nobody can reach — no rework of the woods' bounds, and the woods keep their view of the
+  ridge.
+- **The secret is told, the questions stay.** LORE said reveal the coal on the ridge; I did, and
+  kept open the Lamp's name, why the coal was saved, how long it lasts and where the four went.
+  The new canon (the coal cold on the Spire side, Aldous as the door-warden who never asked) points
+  at mystery #2 without answering it.
+- **A shifting-paths choice with a cost either way**: lighting the stair costs the coal's life or
+  the colliers' road; refusing costs the player the convenience. `thornwold_stair_light` is kept for
+  the burning/lanterns-going-out payoff.
+- **Climbing down lands in the clearing**, not on the landing: a spawn must stand in clear ground
+  and the landing is in fog unless the stair is lit.
+- **Arrival events are gated on the way in** — the ridge's first version fired on the smoke test's
+  new-game teleport and hung it (input locked). Recorded in TECH.
+
+**Problems / notes**
+- The lit/dark stair difference is subtle in Compatibility screenshots, and the stair-foot lantern
+  doesn't read at a distance — on the art list.
+- Paint is static: the fourth waymark keeps its moss when its lantern is moved.
+- The ridge is sparse (procedural rocks, a few pines and brush) — first-pass dressing.
+
+**Next run should**
+1. **Art (due Day 26):** *The ridge, dressed* — the Lamp's chisel idle, Ottie's cap on the seat,
+   the stair lantern reading at a distance, Blender ridge dressing. ROADMAP *Next up* #1.
+2. Then content: **Thornwold's burning** (by Day 28). Systems (title screen) is waiting behind it.
+
 ## 2026-10-05 21:00 UTC — Day 24: The way up (art track)
 
 **Did**

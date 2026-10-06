@@ -161,6 +161,14 @@ whenever a flag or quest changes (`main.gd` → `Region.refresh_conditional()` +
 `base` height and steep `land` banks (rects along every edge, falloff ≲ 2 m) bound it, so the
 reachable area never touches `ground.bounds`. With no water the colour rules treat `base` as
 the waterline, so set `colors.shore`/`seabed` to the floor colour too.
+**A drop at the edge (Day 25, `thornwold_ridge`):** for a high place, make `base` the low ground
+far below (-6) and the walkable top a `land` rect at 0 with a short falloff (2 m → a cliff). The
+low ground is walkable but never *reachable*, so the bounds check (reachable cells only) passes;
+a prop on the drop uses `"snap": false` (the ladder's feet at y -2.95 so its head meets the lip).
+**Arrival events need the way in:** `_check_ground` in the smoke test (and any debug
+`--region=`) teleports into every region on a new game, so an event whose `if` is only
+`!flag:seen` fires there and holds input. Gate it on how the player gets in (the ridge's on
+`flag:thornwold_ladder_stood`, the woods' on the parting).
 Shapes `stool` (Dunstan's stool), `cups` (half-crate with two cups), `net_rack` (drying frame
 with a whole net) and `net_frame` (a net begun from the middle) are small dressing props (Day 9).
 Shape `signal_lantern` = post with a hanging lantern glowing in its `color` (default moss) +
@@ -566,6 +574,12 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   stair flight's rise matches the ground under it, step by step; the landing reachable and the
   ridge top not; ladders stand/lie; the colliers' cap and sack by the stair) and the Lamp's
   model (one glowing surface, the lantern, on the right arm).
+- `tests/test_ridge_top.gd` — Day 25: standing and climbing the ladder (an inspectable `travel`),
+  the ridge layout (spawns in lantern light, deep fog between, the Lamp in the coal's pool, the
+  ladder's head at the lip, the woods below unreachable, climbing down lands clear), the arrival
+  scene (only after the ladder), the Lamp's hub (name, coal, ladder, Ridge Light) and Aldous per
+  confession, *A Lantern for the Stair* three ways (sliver / the fourth mark's lantern moved — its
+  pool closes and Hob notices / refused), the stair's conditional pool, Ottie's cap to Hob.
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).

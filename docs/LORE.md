@@ -366,6 +366,53 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
     little more of it gone every night — to keep a road open for the colliers and for whoever
     came with an ember. The ember leaning toward the brambles (Day 17) is it leaning toward its
     own kind. When the coal is spent, the lanterns go out. Do not reveal before the ridge.
+    **Revealed on the ridge (Day 25)** — see below. Still unanswered: the Lamp's name, how long the coal
+    lasts, why it was saved, and where the four colliers went.
+
+- **Established in play (Day 25 — into the woods, part two: the ridge and the Lamp):**
+  - **The ladder.** Its top cords were **cut clean, from the side that leaned on the bank** — it
+    was pulled down from above. The Wakebearer stands it again (`thornwold_ladder_stood`); two
+    rungs are still missing (a long step). The ridge top is reached by it.
+  - **The ridge top**: a long hump of grey stone and silvered heather in deep Greying, the Ridge
+    Light and the keeper's lodge on it, a lit waymark at the ladder's head (the lantern the woods
+    see), and the **old Keepers' road** leaving north-east along the spine toward the far shore,
+    marked by a bare waymark. The lip drops sheer to the woods.
+  - **The Lamp** works at the lantern bench under the lodge's eave with hammer and cold chisel.
+    It calls itself the Lamp ("it's what I do"); **it had a name and "put it somewhere safe" the
+    winter it went dark** and has lost it (`thornwold_lamp_name_lost` — a Remnant candidate). Thirty
+    winters at the light. Half-Hushed (loses the ends of things). Its ember is stitched bright.
+  - **The iron box (revealed):** every midwinter the beacons were lit from the Spire, the fire
+    passed down the lanes keeper to keeper, and **a coal of it went back up with each keeper** to
+    start the year. The last midwinter the Lamp **saved its coal** without knowing why; when the
+    Spire went dark every coal on every island went to ash in the night — not this one. **A sliver
+    a night, one lantern each**; when the box is empty the lanterns go out one a night, the way
+    they were lit. The ember and the lanterns lean to each other because they are kin ("same fire,
+    near enough"). The **lantern rack** on the tower: seven hooks empty (seven lanterns out on the
+    waymarks), one cold lantern waiting its turn.
+  - **The Lamp put the ladder down.** The colliers came up one at a time, each asking for a lantern
+    of their own; it hadn't enough ("a lantern given to one is a mark gone dark on the road for all
+    the rest"). **The four went on north along the ridge by the old Keepers' road**, looking for a
+    light it couldn't give. The fourth, **Ottie Swale**, hung his felt cap on the waymark at the
+    stair's foot so the next would know he'd gone up. After him the Lamp put the ladder down "so
+    there'd be no fifth. Hob's the fifth. Hob doesn't know he's the fifth." (`thornwold_lamp_ladder_told`)
+  - **The coal went cold on one side** the night of the Snuffing — the side toward the Spire —
+    and has never warmed. Told of Aldous's confession, the Lamp says "Put out. Not went out. Put."
+    With the sleeve-ember it knows the stitch ("Spire stitch") and Aldous: **a Wren, door-warden of
+    the east stair, who let it up to the flame thirty winters and never asked its business**. Told the
+    full story, it fixes on the **light cupped in someone's hands going down the stair** (mystery #2)
+    and asks the player not to tell the colliers. (`thornwold_lamp_heard_of_aldous`)
+  - **The Ridge Light won't take coal**, not even the saved coal: lit from the Spire, and the Spire
+    dark, it wants what the Gull's wanted — **something somebody remembers**. Not the Lamp's ("a
+    keeper can't feed the light with what the keeper is"): Thornwold must give it something — the
+    woods, Hob, the camp. (Thornwold's burning: next content.)
+  - **Shifting paths — the stair lantern** (`thornwold_stair_light`): asked about the dark stair, the
+    Lamp offers **a new sliver** (the coal is "a little smaller"; the end comes sooner), or to **move
+    the fourth waymark's lantern** off the colliers' road (its pool of light closes, Hob walks it
+    blind and notices), or the player **refuses** ("there's few left who'd say it") and the stair stays
+    in the fog. A hung lantern lights the stair to the turn; the cap comes down.
+  - **Ottie's cap goes to Hob**, who knows it by the crooked cord Ottie sewed on himself, and sets
+    it on the cold hut's seat **beside the boots** — the cold hut was Ottie's ("He'll want his boots").
+    Ottie had promised to bring a lantern down for Hob's hut too.
 
 ### 3. Glasswater Fen (planned — Alpha)
 A marsh of reed-houses and mirror-still pools where the Unmoored gather. Theme: the right to
