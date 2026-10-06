@@ -208,6 +208,11 @@
             19.5,
             -18.5,
             0
+          ],
+          [
+            24.0,
+            -23.5,
+            0
           ]
         ],
         "width": 1.6,
@@ -291,7 +296,12 @@
         1.0,
         1.0
       ],
-      "note": "The lantern on the ridge the woods see from below: the waymark at the ladder's top."
+      "note": "The lantern on the ridge the woods see from below: the waymark at the ladder's top.",
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ]
     },
     {
       "model": "res://assets/models/dressing/waymark.glb",
@@ -309,48 +319,253 @@
       "note": "A bare waymark where the old Keepers' road leaves the ridge top north-east along the spine, toward the far shore: the way the four colliers went."
     },
     {
-      "shape": "rock",
-      "color": "slate",
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
       "position": [
         -12.5,
         0,
         2.5
       ],
-      "rotation_y": 20,
-      "scale": 1.4
+      "rotation_y": 110,
+      "scale": 1.2,
+      "collider": [
+        3.6,
+        2.6,
+        1.6
+      ],
+      "note": "The ridge's stone heaved up on edge along the spine, heather in its lee."
     },
     {
-      "shape": "rock",
-      "color": "slate",
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
       "position": [
-        13.0,
+        13.5,
         0,
         3.0
       ],
       "rotation_y": 75,
-      "scale": 1.2
+      "collider": [
+        3.2,
+        2.4,
+        1.4
+      ]
     },
     {
-      "shape": "rock",
-      "color": "slate",
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
       "position": [
-        -3.0,
+        -3.5,
         0,
         -15.5
       ],
-      "rotation_y": 140,
-      "scale": 1.6
+      "rotation_y": 170,
+      "scale": 1.3,
+      "collider": [
+        3.8,
+        2.8,
+        1.7
+      ]
     },
     {
-      "shape": "rock",
-      "color": "slate",
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
       "position": [
         16.5,
         0,
         -3.5
       ],
       "rotation_y": 10,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -9.0,
+        0,
+        9.0
+      ],
+      "rotation_y": 60,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        6.5,
+        0,
+        5.5
+      ],
+      "rotation_y": -35,
+      "scale": 0.9,
+      "collider": [
+        2.6,
+        0.6,
+        1.3
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/waymark.glb",
+      "position": [
+        20.5,
+        0,
+        -20.5
+      ],
+      "rotation_y": 135,
+      "note": "The old Keepers' road climbing on along the spine: the next waymark, bare, at the edge of seeing."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_tumbled.glb",
+      "position": [
+        24.5,
+        0,
+        -24.0
+      ],
+      "rotation_y": 140,
+      "note": "And past it one nobody has tended in years: the cairn spilled, the post leaning, the arm in the heather."
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -7.5,
+        0,
+        10.5
+      ],
+      "rotation_y": 20,
+      "scale": 1.4,
+      "note": "Silvered heather in clumps across the plateau (the Greying has had the colour out of it)."
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        5.0,
+        0,
+        10.5
+      ],
+      "rotation_y": 80,
+      "scale": 1.2
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        9.0,
+        0,
+        7.0
+      ],
+      "rotation_y": 140,
+      "scale": 1.5
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -4.0,
+        0,
+        5.0
+      ],
+      "rotation_y": 200,
+      "scale": 1.1
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -11.0,
+        0,
+        -3.0
+      ],
+      "rotation_y": 10,
+      "scale": 1.4
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -16.0,
+        0,
+        1.0
+      ],
+      "rotation_y": 250,
+      "scale": 1.6
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        11.0,
+        0,
+        -2.0
+      ],
+      "rotation_y": 300,
+      "scale": 1.3
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        17.5,
+        0,
+        1.5
+      ],
+      "rotation_y": 40,
+      "scale": 1.5
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        4.0,
+        0,
+        -12.5
+      ],
+      "rotation_y": 110,
+      "scale": 1.2
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -12.0,
+        0,
+        -12.0
+      ],
+      "rotation_y": 170,
+      "scale": 1.5
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        13.5,
+        0,
+        -11.0
+      ],
+      "rotation_y": 60,
+      "scale": 1.3
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        17.0,
+        0,
+        -17.0
+      ],
+      "rotation_y": 220,
+      "scale": 1.4
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -1.0,
+        0,
+        -8.5
+      ],
+      "rotation_y": 330,
       "scale": 1.0
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        2.5,
+        0,
+        1.0
+      ],
+      "rotation_y": 15,
+      "scale": 1.2
     },
     {
       "model": "res://assets/models/dressing/log_pile.glb",

@@ -246,6 +246,17 @@
     },
     "paint": [
       {
+        "ellipse": [
+          -13,
+          -47,
+          3.4,
+          3.4
+        ],
+        "color": "silverfog",
+        "if": "flag:thornwold_fourth_lantern_taken",
+        "note": "the moss gone grey under the fourth waymark once its lantern is taken to the stair (first, so it wins over the clearing's green)"
+      },
+      {
         "path": [
           [
             -1.0,
@@ -492,7 +503,12 @@
         1.0,
         1.0
       ],
-      "note": "The first waymark, where on the landing side its hook is empty. On this side a lantern hangs on it, and the fog stands back."
+      "note": "The first waymark, where on the landing side its hook is empty. On this side a lantern hangs on it, and the fog stands back.",
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ]
     },
     {
       "model": "res://assets/models/dressing/charcoal_clamp.glb",
@@ -569,7 +585,12 @@
         1.0,
         1.0
       ],
-      "note": "A lit waymark off the road: the lanterns lead west and north to the colliers' clearing."
+      "note": "A lit waymark off the road: the lanterns lead west and north to the colliers' clearing.",
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ]
     },
     {
       "model": "res://assets/models/dressing/waymark_lit.glb",
@@ -583,6 +604,11 @@
         1.0,
         1.0,
         1.0
+      ],
+      "halo": [
+        0,
+        1.76,
+        0.5
       ]
     },
     {
@@ -598,7 +624,12 @@
         1.0,
         1.0
       ],
-      "if": "!flag:thornwold_fourth_lantern_taken"
+      "if": "!flag:thornwold_fourth_lantern_taken",
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ]
     },
     {
       "model": "res://assets/models/dressing/waymark.glb",
@@ -654,7 +685,12 @@
       ],
       "rotation_y": 180,
       "scale": 1.2,
-      "note": "The lantern on the ridge: the highest waymark, lit, out of reach above the woods."
+      "note": "The lantern on the ridge: the highest waymark, lit, out of reach above the woods.",
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ]
     },
     {
       "model": "res://assets/models/dressing/ridge_steps_lower.glb",
@@ -738,7 +774,12 @@
         1.0
       ],
       "if": "flag:thornwold_stair_lantern_hung",
-      "note": "The stair's waymark with the lantern the player hung (the cap gone to Hob)."
+      "note": "The stair's waymark with the lantern the player hung (the cap gone to Hob).",
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ]
     },
     {
       "model": "res://assets/models/dressing/thornwold_beacon.glb",
@@ -805,7 +846,24 @@
         2.0,
         2.4
       ],
-      "note": "A second hut, cold: one of the colliers who went up the ridge. Sods slipping, the curtain gone, the rake by the door, his boots left on the seat."
+      "note": "A second hut, cold: one of the colliers who went up the ridge. Sods slipping, the curtain gone, the rake by the door, his boots left on the seat.",
+      "if": "!flag:thornwold_hob_has_cap"
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut_cold_cap.glb",
+      "position": [
+        -6.5,
+        0,
+        -60.5
+      ],
+      "rotation_y": -40,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "note": "The cold hut once Hob has Ottie Swale's cap: it sits crown-up on the seat by the boots.",
+      "if": "flag:thornwold_hob_has_cap"
     },
     {
       "model": "res://assets/models/dressing/charcoal_clamp.glb",

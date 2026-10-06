@@ -5,5 +5,6 @@
   "color": "bone",
   "dialogue": "lamp",
   "model": "res://assets/models/characters/lamp.glb",
+  "idle": "chisel",
   "bio": "Thornwold's beacon-keeper, thirty years at the Ridge Light, who never gave a name and has since lost it. Stooped under a hooded oilskin cape, the Keeper's ember stitched bright on the robe beneath. Breaks the last coal of the Spire's midwinter fire into slivers for the waymark lanterns, one a night. Half-Hushed: loses the ends of things."
 }
