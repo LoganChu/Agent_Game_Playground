@@ -413,6 +413,15 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
   - **Ottie's cap goes to Hob**, who knows it by the crooked cord Ottie sewed on himself, and sets
     it on the cold hut's seat **beside the boots** — the cold hut was Ottie's ("He'll want his boots").
     Ottie had promised to bring a lantern down for Hob's hut too.
+- **The ridge, dressed (look, Day 26):** the plateau's grey stone breaks through the turf in slabs
+  heaved up on edge along the spine; the heather has gone the colour of the fog. **The old Keepers'
+  road's waymarks go on north-east up the spine past the first bare one: another bare, then one
+  nobody has tended in years — its cairn spilled, its post leaning, its arm lying in the heather.**
+  (Hook for the four colliers' road: the Keepers stopped walking it long before the Snuffing? Or the
+  Greying took the tending out of whoever did. Not said.) The Lamp chisels at the bench in twos —
+  tap, tap — and **stops now and then with its hood turned, as if listening** (for the ladder? for
+  the four? not said). Where the fourth waymark's lantern is taken to the stair, **the moss under it
+  goes grey**.
 
 ### 3. Glasswater Fen (planned — Alpha)
 A marsh of reed-houses and mirror-still pools where the Unmoored gather. Theme: the right to

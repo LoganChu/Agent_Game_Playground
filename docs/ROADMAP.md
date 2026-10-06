@@ -188,6 +188,16 @@ with a meaningful burn choice → consequences visible in the village.
       waymark's lantern moved (its pool closes, Hob notices), or refuse; a hung lantern lights the stair.
       **Ottie Swale's cap** to Hob. Checkpoint `thornwold_ridge`.
 
+- [x] [A] **The ridge, dressed** (Day 26): the Lamp **chisels** at the bench (CharacterRig `chisel`:
+      tap, tap, a rest, the hood turning to listen); **Ottie's cap on the cold hut's seat** by the boots
+      (`collier_hut_cold_cap`, by `thornwold_hob_has_cap`); every lit waymark gets a **lantern halo**
+      (a soft camera-facing glow, no light spent) so the stair-foot lantern and the ridge's read at a
+      distance; the ridge top dressed from Blender — **stone outcrops** (tall and low), **silvered
+      heather** in clumps, and the old Keepers' road's waymarks going on **north-east up the spine**
+      (bare, bare, **tumbled**) — the procedural rocks gone. Engine: **conditional ground paint**
+      (`if` on paint zones; the ground mesh recolours live) — the fourth waymark's moss goes grey when
+      its lantern is taken. Character lineup `--pose=`/`--turn=`.
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -197,15 +207,7 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **The ridge, dressed** (art, **due Day 26** — every other session): the Lamp gets a **`chisel`
-   idle** at the bench (CharacterRig style, like Hob's `rake`: tap, tap, a pause, the hood turning);
-   a **cap-on-the-seat variant** of `collier_hut_cold` shown with `if: flag:thornwold_hob_has_cap`;
-   the stair-foot waymark's hung lantern doesn't read at a distance in screenshots (check its
-   rotation toward the clearing / glow); ridge-top dressing from Blender instead of procedural rocks
-   (stone outcrops, silvered heather tufts, a line of bare waymarks along the old Keepers' road
-   north-east into the fog); the woods' fourth waymark keeps its moss paint when its lantern is moved
-   (paint is static — a conditional paint or a greyed-moss decal). Before/after screenshots.
-2. [C] **Thornwold's burning** (next content, **due by Day 28**): what the Ridge Light burns —
+1. [C] **Thornwold's burning** (next content, **due by Day 28**): what the Ridge Light burns —
    "something somebody remembers", and *not* the Lamp's own (it says so). Candidates in play:
    **Hob's memory of the four colliers** (Ottie's cap on the seat by the boots — burning it frees
    Hob to come in by daylight but the cold hut becomes nobody's), **Pell's/Hob's count-stick** (Pell
@@ -215,32 +217,32 @@ each .glb < 5 MB.
    (Oda). Pay off Hob's daylight promise and the Lamp's coal: with the beacon lit the lanterns can go
    out without stranding anyone (a `thornwold_stair_light=sliver` coal is shorter — make it show).
    Bram, Pell and the Lamp react; checkpoint. Keep the four colliers north along the ridge **open**.
-3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+2. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
    variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
    steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
    nights once day/night exists. (Hob's raking idle landed Day 22 — the seated idle is the
    same kind of CharacterRig style.)
-9. [S] Interaction polish: camera framing during dialogue; fade the
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -290,10 +292,12 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 21 (into the woods, part one); next content due by Day 25.
-- Last art session: Day 24 (the way up); next art due by Day 26 (cadence: every other session).
-  Good picks: the ridge region's ground and dressing if part two makes one; else Saltmarrow
-  follow-ups (Aldous's bench + seated idle).
+- Last content session: Day 25 (the ridge and the Lamp); next content due by Day 29
+  (Thornwold's burning is wanted sooner — Day 27).
+- Last art session: Day 26 (the ridge, dressed); next art due by Day 28 (cadence: every other
+  session) — but Thornwold's burning is due then too: if the burn lands Day 27, Day 28 is art
+  (good picks: the lit Ridge Light seen from the woods after the burn, Saltmarrow follow-ups —
+  Aldous's bench + seated idle; the halo could go on Saltmarrow's lantern posts too).
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
   if a region ever wants dozens, use GPUParticles3D on Forward+ and keep CPU for Compatibility.
 - Thornwold's log buildings use one box collider each (the porch of the tally-house is
@@ -353,3 +357,12 @@ each .glb < 5 MB.
   where the ground is above the water; a leg standing exactly at the tide line gets none.
 - The ember signs are separate props positioned by sharing the house's origin; if the Wrens'
   house ever moves, move both signs with it (`test_wrens_and_lofts.gd` checks they match).
+- Conditional ground paint recolours the whole ground mesh (regenerated in GDScript, a few ms
+  for the woods) when its set changes — fine at story beats; don't drive it from anything per
+  frame. The colour snaps while lantern pools fade over 4 s (usually off-screen: the woods'
+  fourth lantern is moved from the ridge).
+- Lantern halos are depth-tested quads that ignore distance fog on purpose (a lantern reads through
+  it); a halo behind a Greying fog layer still shows through the layer (the layers don't write
+  depth). Reads as "light in the fog", which is the intent — re-judge in Forward+.
+- The tumbled waymark at the far end of the ridge's road is mostly lost in the fog from the
+  plateau (by design, but it barely reads in screenshots).

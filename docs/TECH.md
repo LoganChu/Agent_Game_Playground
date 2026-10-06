@@ -37,10 +37,10 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
-.tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
-.tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped]  # the ridge and the way up (same kit dir)
+.tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
-    -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp]  # art review: every character side by side (+ unplaced models)
+    -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
     -- --screenshot=/abs/out.png [--only=dock,wreck] [--camera=…]  # art review: the dressing kit
 ```
@@ -224,6 +224,12 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   (-0.8, 3.25, -0.5), `charcoal_clamp` crown at y 0.95, radius 0.65 (four vents at
   0.4 + k·90° from +X, Godot z = -Blender y). `test_thornwold_kit.gd` checks vents sit on
   their model. Keep it to a few vents per region (12–16 particles each).
+- `"halo": [x, y, z]`, `"halo_size": 1.8` (model props, Day 26) — a soft camera-facing glow at
+  a lantern's glass (`LanternHalo` + `assets/shaders/lantern_halo.gdshader`: alpha-blended,
+  unshaded, fog-disabled, a slow flame flicker, faint within ~2.5 m of the camera and full from
+  ~9 m) so lanterns read across a clearing or through the fog **without a real light** (the
+  light budget stands: ember, ferry lantern, beacon). Every `waymark_lit` carries one at
+  `[0, 1.76, 0.5]` (its glass centre); `test_ridge_dressed.gd` checks that.
 
 ### Arrival events & act ends (Day 13)
 - **Region `events`** happen on arriving in a region: after `main.load_region`, the first
@@ -352,7 +358,7 @@ characters.
   ],
   "colors": {"ground": "moss", "shore": "driftwood", "shore_height": 0.35,
              "seabed": "slate", "cliff": "slate", "cliff_slope": 0.9},
-  "paint": [{"rect"|"ellipse"|"path": ..., "width": 2, "color": "driftwood"}],  // first wins
+  "paint": [{"rect"|"ellipse"|"path": ..., "width": 2, "color": "driftwood", "if"?: cond}],  // first wins
   "piers": [{"rect": [x0,z0,x1,z1], "deck": 0.275}],  // walkable decks over water (absolute y)
   "note": "free text"
 }
@@ -360,6 +366,13 @@ characters.
 Each feature's influence is 1 inside and smoothsteps to 0 over `falloff` metres; a small
 falloff makes cliffs (coloured `cliff` above `cliff_slope` rise/m, unwalkable above ~0.84).
 Triangle colour order: paint → cliff → seabed (below water) → shore band → ground.
+**Conditional paint (Day 26):** a paint zone may carry an `if`. `TerrainField.paint` holds the
+zones in effect (unconditional ones until `select_paint(world)` runs; `all_paint` is the data);
+`Region` selects before building the ground and, in `refresh_conditional`, re-selects and
+`TerrainBuilder.recolor`s the ground **mesh only** (collider and heights never change) when the
+set changed. Since the first matching zone wins, put a conditional override **before** the zone
+it covers (the woods' grey patch under the fourth waymark sits first, over the clearing's green).
+`land` can't be conditional (the validator says so) — ground shape is fixed per region.
 **With `ground`, every position's y is an offset above the ground** (spawns, NPCs, pickups,
 objects, exits, props unless `"snap": false`). The collider is the same grid with sea
 vertices raised `WALL_HEIGHT` above the water, so the coastline is the edge of the playable
@@ -379,7 +392,10 @@ with `--camera=`.
 ### NPC / Item / Quest
 - NPC: `id, name, color, dialogue, model?, idle?, faces_player?, faction?, bio?` — must be placed at least
   once (several placements only if each has an `if`; see *Arrival events*). `model` = character scene (see *Characters*); without it the NPC is a primitive
-  figure in its `color`. `idle` = `breathe` (default) | `mend` | `rake`. While talking, an NPC's body
+  figure in its `color`. `idle` = `breathe` (default) | `mend` | `rake` | `chisel` (Day 26: the
+  Lamp — bent over the bench, two taps of the left hand per `CHISEL_PERIOD` 3.4 s then a rest,
+  the head turning aside to listen about once in three beats; `chisel_tap`/`chisel_listen` are
+  static so tests can read the beat). While talking, an NPC's body
   eases round to face the player and back to its placed `rotation_y` after (the Wakebearer
   turns to it too); `"faces_player": false` opts out (Hesk keeps mending).
 - `data/game.json` also takes `player_model` (the Wakebearer character scene) and `act_ends`.
@@ -470,7 +486,13 @@ over 7.5 m, upper 1.6 m over 6 m, the upper placed at `rotation_y` 180 with its 
 under each placed flight rises the same, so **change the script, the path and the test
 together**. `keeper_ladder` (feet at the origin, leaning back toward Godot -Z, ≈ 3 m up) and
 `keeper_ladder_fallen` (flat along X), `waymark_cap` (the bare waymark with a collier's cap on
-its hook), `sack_dropped` (split, coal spilled toward -X). Note `bp.prism` creates its object through the data API and does **not** make it
+its hook), `sack_dropped` (split, coal spilled toward -X). **The ridge, dressed (Day 26):**
+`ridge_outcrop` (≈ 3.4 × 2.4 × 1.6 m: slabs on edge along +X, heather in the lee on -Y;
+collider ≈ [3.2, 2.4, 1.4]) and `ridge_outcrop_low` (a broken shelf ≈ 0.7 m high), `heather_silver`
+(a ~1.6 m patch of five silvered tufts; no collider), `waymark_tumbled` (the cairn spilled toward
+-X, the post leaning 35° the same way, its arm in the heather). `collier_hut_cold_cap` = the cold
+hut with Ottie's cap on the seat by the boots (same footprint; shown by flag in place of
+`collier_hut_cold`). Note `bp.prism` creates its object through the data API and does **not** make it
 active — use its return value (e.g. to rotate it), never `bpy.context.active_object`.
 
 ## Characters
@@ -589,6 +611,11 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - `tests/test_terrain.gd` — TerrainField heights, mesh/triangle agreement, ramp/cliff/sea
   reachability, colour rules, mesh faces up + shore-wall collider, ground-relative placement,
   validator ground checks.
+- `tests/test_ridge_dressed.gd` — Day 26: the dressing kit loads (< 5 MB), the Lamp's chisel
+  beat (two taps, a rest, the hood turning) on the real model, the cap hut exactly one of two by
+  flag, halos on every lit waymark, conditional paint (field selection, the woods' fourth waymark
+  greying, the ground mesh recoloured), validator paint/halo checks, ridge outcrops clear of the
+  paths and the old road's waymarks going north-east up out of reach.
 - `tests/test_characters.gd` — character models follow the rig contract; the rig poses and
   returns to rest; missing models fall back; validator catches bad `model`/`idle`.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit

@@ -2,6 +2,72 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-06 21:00 UTC — Day 26: The ridge, dressed (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Checkout was a detached
+  HEAD again; fetched `origin/main` first (`82df173`, Day 25's head), then `checkout -B main`.
+  Baseline green (173 tests).
+- **Art (due today; last art Day 24):** ROADMAP *Next up* #1, all five parts:
+  - **The Lamp chisels.** New CharacterRig style `chisel` (the Lamp's `idle`): bent over the bench,
+    the left hand lifts and strikes twice per 3.4 s beat, then rests; about once in three beats the
+    head turns aside and holds, **as if listening**, then goes back to the work. The pole hand barely
+    moves.
+  - **Ottie's cap on the seat.** `collier_hut_cold_cap` (build_woods.py): the cold hut with the felt
+    cap crown-up on the log seat beside the boots, brim toward the door. It replaces
+    `collier_hut_cold` by `if: flag:thornwold_hob_has_cap` — Day 25's gift now shows in the clearing.
+  - **Lanterns read at a distance.** The stair-foot lantern was a 10 cm emissive cylinder. Rather
+    than spend a light (the budget is ember, ferry lantern, beacon), a new prop field **`halo`**
+    puts a soft camera-facing glow at the glass (`LanternHalo` + `lantern_halo.gdshader`: alpha
+    blended, fog-disabled, a slow flicker, faint close up and full from ~9 m). Every `waymark_lit`
+    in the woods and on the ridge has one. Its rotation was fine.
+  - **The ridge top from Blender** (build_ridge.py): **`ridge_outcrop`** (grey slabs heaved up on
+    edge, lichen on top, heather in the lee) and **`ridge_outcrop_low`** (a broken shelf) replace the
+    four procedural rocks (six placed, kept clear of the trodden paths); **`heather_silver`** patches
+    (14, in clumps); and the **old Keepers' road** goes on north-east up the spine: a second bare
+    `waymark` at the edge of seeing, then **`waymark_tumbled`** (cairn spilled, post leaning 35°,
+    arm lying in the heather), both out of reach. The road's paint runs on to them.
+  - **Conditional ground paint.** Paint zones take an `if`; `TerrainField.select_paint` picks the zones
+    in effect and `Region` recolours the ground mesh (mesh only) when the set changes. The woods'
+    fourth waymark sits inside the clearing's big green zone, so the fix is a **grey patch listed
+    first** (`if: flag:thornwold_fourth_lantern_taken`) rather than an `if` on its own moss.
+- Debug: the character lineup takes `--pose=<s>` (freeze every idle at that moment) and
+  `--turn=<deg>`, to see the beats of an idle side-on.
+- **Tests:** `test_ridge_dressed.gd` (8): kit loads/sizes; the chisel beat and the real model's
+  pose (bent, hand lifts, hood turns); exactly one cold hut per cap state; halos on every lit waymark;
+  conditional paint (fixture + the woods' fourth waymark) and the mesh recolour; validator paint
+  `if`/`land` `if`/halo checks; ridge outcrops off the paths and the road's waymarks going
+  north-east up out of reach. 181 tests + smoke + launch pass. Checkpoints `thornwold_woods` and
+  `thornwold_ridge` re-shot.
+
+Screenshots (`docs/screenshots/2026-10-06-*.png`): `ridge-dressed` (vs. Day 25's
+`docs/checkpoints` shot, now re-shot — compare the procedural rocks in git history), `ridge-road`
+(the old road's waymarks up the spine), `ridge-dressing-lineup`, `lamp-chisel-tap` vs
+`lamp-chisel-listen`, `cap-on-seat`, `stair-lantern-halo` (vs. Day 25's `stair-lit`),
+`fourth-lit` vs `fourth-taken` (the moss gone grey and the lantern's pool closed).
+
+**Decisions**
+- **A halo, not a light.** Real lights stay budgeted; a fog-ignoring billboard says "lantern in the
+  fog" in both renderers at the cost of one quad. It fades out near the camera so it never fogs the
+  view of the glass up close.
+- **Paint conditions recolour, never reshape.** Only `paint` may be conditional (`land` is rejected
+  by the validator) so the collider, reachability and the ember map never depend on flags.
+- **The far waymark is tumbled**, not lit or bare: new canon that the old road hasn't been tended in
+  years, which points at the four colliers' road without saying who stopped walking it (LORE hook).
+- **The listening pause is unexplained on purpose** (LORE): it may pay off with the ladder or the four.
+
+**Problems / notes**
+- Halos show through Greying fog layers (the layers don't write depth). That reads as light in the
+  fog, which is the point; re-judge in Forward+ with the colour pass.
+- The hood's turn (0.5 rad) is hard to see from most angles. A bigger turn would read better;
+  check the hood against the cape for clipping before raising it.
+- The tumbled waymark is mostly lost in the fog from the plateau.
+
+**Next run should**
+1. **Content: Thornwold's burning** (ROADMAP *Next up* #1, due by Day 28). The cap on the seat is
+   now visible, so a burn of Hob's memory of the four has a thing in the world to change.
+2. Then art on Day 28 (Ridge Light lit from the woods; Saltmarrow's bench) or the title screen.
+
 ## 2026-10-06 09:00 UTC — Day 25: The ridge and the Lamp (content)
 
 **Did**
