@@ -20,7 +20,11 @@
     },
     {
       "id": "the_ridge",
-      "text": "Hob Marl, a collier in the clearing past the wall, says the road goes where the lanterns are, and the lanterns are hung by 'the Lamp', who comes along the ridge at dusk. The beacon is up on the ridge. (The ridge is still being written.)"
+      "text": "Hob Marl, a collier in the clearing past the wall, says the road goes where the lanterns are, and the lanterns are hung by 'the Lamp', who comes along the ridge at dusk. The beacon is up on the ridge. The Keepers' stair climbs the north bank from the clearing."
+    },
+    {
+      "id": "the_lamp",
+      "text": "The Lamp, at the lantern bench by the keeper's lodge, is Thornwold's beacon-keeper. The Ridge Light stands cold beside the lodge, and like the Gull's Beacon it will want a memory to burn. Learn what Thornwold can spare. (Thornwold's burning is still being written.)"
     }
   ]
 }

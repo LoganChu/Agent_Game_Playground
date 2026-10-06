@@ -1,0 +1,640 @@
+{
+  "id": "thornwold_ridge",
+  "name": "The Ridge",
+  "description": "The top of Thornwold's ridge above the woods: the Ridge Light standing cold, the keeper's lodge beside it, and the Lamp at the lantern bench under the eave.",
+  "fog": {
+    "density": 0.034,
+    "color": "silverfog"
+  },
+  "light": {
+    "note": "Above the trees but inside the fog: flat grey daylight, a little brighter than the woods; the bench's coal and the waymark lantern are the warm things.",
+    "sun_color": "silverfog",
+    "sun_energy": 0.8,
+    "sun_pitch": -48,
+    "sun_yaw": -70,
+    "ambient_color": "pine",
+    "ambient_energy": 0.32,
+    "sky_top": "abyss",
+    "sky_horizon": "silverfog"
+  },
+  "greying": [
+    {
+      "rect": [
+        -22,
+        -20,
+        22,
+        12
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "height": 3.0,
+      "note": "The ridge top: deep Greying, the fog lying on it thick as fleece."
+    },
+    {
+      "ellipse": [
+        2.0,
+        8.5,
+        5.0,
+        4.0
+      ],
+      "strength": 1.0,
+      "falloff": 2.5,
+      "clear": true,
+      "note": "Lantern light: the waymark at the ladder's top (the lantern the woods see on the ridge)."
+    },
+    {
+      "ellipse": [
+        -6.5,
+        -6.5,
+        6.0,
+        4.5
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "note": "The coal in the iron box on the lantern bench holds the fog off the lodge's door."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      0.5,
+      0.5,
+      9.0
+    ],
+    "from_ladder": [
+      0.5,
+      0.5,
+      9.0
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -30,
+      -26,
+      30,
+      26
+    ],
+    "cell": 1.0,
+    "base": -6.0,
+    "seed": 29,
+    "roughness": 0.1,
+    "ragged": 0.6,
+    "note": "The ridge top: a plateau of grey stone and silvered heather at 0, banks rising along the spine (north, east, west); to the south its lip drops sheer to the woods (base -6), where the ladder stands. The low ground below is never reachable.",
+    "land": [
+      {
+        "rect": [
+          -30,
+          -26,
+          30,
+          12
+        ],
+        "height": 0.0,
+        "falloff": 2.0,
+        "note": "the ridge top; its south edge is the lip over the woods"
+      },
+      {
+        "rect": [
+          -30,
+          -26,
+          30,
+          -19
+        ],
+        "height": 4.0,
+        "falloff": 2.0,
+        "note": "the spine rising north"
+      },
+      {
+        "rect": [
+          -30,
+          -26,
+          -21,
+          12
+        ],
+        "height": 4.0,
+        "falloff": 2.0,
+        "note": "west along the ridge"
+      },
+      {
+        "rect": [
+          21,
+          -26,
+          30,
+          12
+        ],
+        "height": 4.0,
+        "falloff": 2.0,
+        "note": "east along the ridge"
+      },
+      {
+        "ellipse": [
+          10,
+          -1,
+          4,
+          3
+        ],
+        "height": 0.6,
+        "falloff": 2.5
+      },
+      {
+        "ellipse": [
+          -14,
+          -1,
+          3,
+          5
+        ],
+        "height": 0.8,
+        "falloff": 2.5
+      }
+    ],
+    "colors": {
+      "ground": "slate",
+      "shore": "pine",
+      "seabed": "pine",
+      "cliff": "slate"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            0.5,
+            10.5,
+            0
+          ],
+          [
+            -1.5,
+            2,
+            0
+          ],
+          [
+            -5.5,
+            -6.0,
+            0
+          ]
+        ],
+        "width": 1.6,
+        "color": "driftwood",
+        "note": "the Lamp's path from the ladder to the lodge"
+      },
+      {
+        "path": [
+          [
+            -1.5,
+            2,
+            0
+          ],
+          [
+            6.5,
+            -5.5,
+            0
+          ]
+        ],
+        "width": 1.4,
+        "color": "driftwood",
+        "note": "and to the tower door"
+      },
+      {
+        "path": [
+          [
+            8.5,
+            -7.0,
+            0
+          ],
+          [
+            15.5,
+            -14.5,
+            0
+          ],
+          [
+            19.5,
+            -18.5,
+            0
+          ]
+        ],
+        "width": 1.6,
+        "color": "driftwood",
+        "note": "the old Keepers' road going on north-east along the spine"
+      },
+      {
+        "ellipse": [
+          -6.5,
+          -6.5,
+          4.0,
+          3.0
+        ],
+        "color": "moss",
+        "note": "green where the coal holds the fog off"
+      },
+      {
+        "ellipse": [
+          2.0,
+          8.5,
+          3.0,
+          2.5
+        ],
+        "color": "moss",
+        "note": "green under the waymark lantern"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/thornwold_beacon.glb",
+      "position": [
+        8.0,
+        0,
+        -9.0
+      ],
+      "rotation_y": -15,
+      "collider": [
+        3.4,
+        6.0,
+        3.4
+      ],
+      "note": "The Ridge Light, cold: the same model the woods see from below. thornwold_beacon_lit waits for Thornwold's burning."
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_lodge.glb",
+      "position": [
+        -7.0,
+        0,
+        -10.0
+      ],
+      "rotation_y": 10,
+      "collider": [
+        4.4,
+        2.4,
+        3.0
+      ],
+      "note": "The keeper's lodge; the Lamp's lantern bench under the eave, left of the door (the iron box, hammer and chisel)."
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_ladder.glb",
+      "position": [
+        0.0,
+        -2.95,
+        12.9
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "note": "The ladder you stood, its top in the turf of the lip (feet on the pitch below, leaning back toward -Z)."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        3.0,
+        0,
+        7.5
+      ],
+      "rotation_y": 180,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "The lantern on the ridge the woods see from below: the waymark at the ladder's top."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark.glb",
+      "position": [
+        15.5,
+        0,
+        -14.5
+      ],
+      "rotation_y": 130,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "A bare waymark where the old Keepers' road leaves the ridge top north-east along the spine, toward the far shore: the way the four colliers went."
+    },
+    {
+      "shape": "rock",
+      "color": "slate",
+      "position": [
+        -12.5,
+        0,
+        2.5
+      ],
+      "rotation_y": 20,
+      "scale": 1.4
+    },
+    {
+      "shape": "rock",
+      "color": "slate",
+      "position": [
+        13.0,
+        0,
+        3.0
+      ],
+      "rotation_y": 75,
+      "scale": 1.2
+    },
+    {
+      "shape": "rock",
+      "color": "slate",
+      "position": [
+        -3.0,
+        0,
+        -15.5
+      ],
+      "rotation_y": 140,
+      "scale": 1.6
+    },
+    {
+      "shape": "rock",
+      "color": "slate",
+      "position": [
+        16.5,
+        0,
+        -3.5
+      ],
+      "rotation_y": 10,
+      "scale": 1.0
+    },
+    {
+      "model": "res://assets/models/dressing/log_pile.glb",
+      "position": [
+        -1.6,
+        0,
+        -11.5
+      ],
+      "rotation_y": 95,
+      "collider": [
+        1.6,
+        1.2,
+        3.3
+      ],
+      "note": "Split pine for the lodge's cold chimney, stacked and never burned."
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -16.5,
+        0,
+        -14.0
+      ],
+      "rotation_y": 10,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -18.0,
+        0,
+        -4.0
+      ],
+      "rotation_y": 40,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        -17.0,
+        0,
+        6.5
+      ],
+      "rotation_y": 70,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        18.0,
+        0,
+        -12.0
+      ],
+      "rotation_y": 25,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        18.5,
+        0,
+        8.0
+      ],
+      "rotation_y": 55,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        1.0,
+        0,
+        -17.5
+      ],
+      "rotation_y": 5,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        -10.0,
+        0,
+        -17.0
+      ],
+      "rotation_y": 65,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        12.0,
+        0,
+        -17.5
+      ],
+      "rotation_y": 30,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -14.5,
+        0,
+        10.0
+      ],
+      "rotation_y": 15,
+      "scale": 1.1,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        11.5,
+        0,
+        10.5
+      ],
+      "rotation_y": 80,
+      "scale": 1.1,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -9.5,
+        0,
+        5.0
+      ],
+      "rotation_y": 30
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        6.5,
+        0,
+        1.5
+      ],
+      "rotation_y": 150
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        14.0,
+        0,
+        -8.5
+      ],
+      "rotation_y": 260
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -14.0,
+        0,
+        -7.0
+      ],
+      "rotation_y": 80
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        2.5,
+        0,
+        -4.0
+      ],
+      "rotation_y": 200
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -4.5,
+        0,
+        9.5
+      ],
+      "rotation_y": 320
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "lamp",
+      "position": [
+        -7.3,
+        0,
+        -6.8
+      ],
+      "rotation_y": 190,
+      "note": "At the lantern bench under the lodge's eave, bent over the iron box, back to the ladder."
+    }
+  ],
+  "objects": [
+    {
+      "id": "ridge_light",
+      "prompt": "Look at the Ridge Light",
+      "dialogue": "ridge_light",
+      "position": [
+        7.4,
+        0,
+        -6.6
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        1.6,
+        0
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "ridge_arrival",
+      "if": [
+        "flag:thornwold_ladder_stood",
+        "!flag:thornwold_ridge_reached"
+      ],
+      "set": {
+        "thornwold_ridge_reached": true
+      },
+      "dialogue": "thornwold_ridge_arrival"
+    }
+  ],
+  "exits": [
+    {
+      "to": "thornwold_woods",
+      "spawn": "from_ridge",
+      "position": [
+        0.5,
+        0,
+        10.9
+      ],
+      "prompt": "Climb down the ladder"
+    }
+  ]
+}

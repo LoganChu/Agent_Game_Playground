@@ -1,0 +1,61 @@
+{
+  "id": "woods_cap_waymark",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_stair_lantern_hung",
+        "goto": "lit"
+      },
+      {
+        "say": "narrator",
+        "text": "A bare Keepers' waymark at the foot of the stair: a cairn, a post with the ember carved in it, an iron arm with a lantern hook. On the hook, where a lantern should hang, somebody has hung a collier's felt cap, black with charcoal dust."
+      },
+      {
+        "say": "narrator",
+        "text": "Up the bank behind it the log steps climb into the grey and are gone."
+      },
+      {
+        "if": "item:keepers_lantern",
+        "goto": "hang"
+      }
+    ],
+    "hang": [
+      {
+        "choice": [
+          {
+            "text": "Take down the cap and hang the lantern.",
+            "goto": "hung"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "hung": [
+      {
+        "say": "narrator",
+        "text": "You lift the cap off the hook and fold it into your coat. The lantern goes on in its place, and the hook takes the weight as if it had been waiting."
+      },
+      {
+        "say": "narrator",
+        "text": "Light goes up the stair. Not much, a coal's worth, but the fog draws back from the steps the way the brambles drew back from your hand, slowly, then all at once, and the rope rail shows all the way to the turn."
+      },
+      {
+        "set": {
+          "thornwold_stair_lantern_hung": true
+        },
+        "take_item": "keepers_lantern",
+        "give_item": "colliers_cap",
+        "quest_complete": "a_lantern_for_the_stair"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "The lantern you hung burns on the waymark at the foot of the stair, and the steps go up in its light as far as the turn."
+      }
+    ]
+  }
+}

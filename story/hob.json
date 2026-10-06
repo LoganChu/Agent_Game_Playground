@@ -48,6 +48,22 @@
         "text": "Salt-bringer. Mind the vents, they're hot on the windward side."
       },
       {
+        "if": [
+          "flag:thornwold_fourth_lantern_taken",
+          "!flag:thornwold_stair_lantern_hung"
+        ],
+        "say": "hob",
+        "text": "Fourth mark's dark. Dark. Somebody's had the lantern off it. I'll walk it blind. I've walked it blind before. Have I?"
+      },
+      {
+        "if": [
+          "flag:thornwold_fourth_lantern_taken",
+          "flag:thornwold_stair_lantern_hung"
+        ],
+        "say": "hob",
+        "text": "Fourth mark's dark and there's a light on the stair. Lamp's moved it. Lamp's never moved one. I'll walk the fourth blind. I can. I can."
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -82,6 +98,16 @@
             "text": "Bram Kettle sends your salt.",
             "if": "item:salt_crock",
             "goto": "salt"
+          },
+          {
+            "text": "I've been up on the ridge. I met the Lamp.",
+            "if": "flag:thornwold_met_lamp",
+            "goto": "met_lamp"
+          },
+          {
+            "text": "This cap hung on the waymark at the foot of the stair.",
+            "if": "item:colliers_cap",
+            "goto": "cap"
           },
           {
             "text": "Goodbye.",
@@ -227,6 +253,57 @@
           "thornwold_hob_paid": true
         },
         "quest_complete": "salt_for_the_collier"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "met_lamp": [
+      {
+        "say": "hob",
+        "text": "Up the... You stood the ladder? It's been down since... since."
+      },
+      {
+        "say": "hob",
+        "text": "You saw the face? No. No. Nobody does. You don't ask the Lamp."
+      },
+      {
+        "if": "flag:thornwold_lamp_ladder_told",
+        "say": "narrator",
+        "text": "You think of the four who went up asking for a lantern, and of the ladder put down so there'd be no fifth, and you look at the old man raking his clamp, and you don't say it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "cap": [
+      {
+        "take_item": "colliers_cap"
+      },
+      {
+        "say": "narrator",
+        "text": "He takes the cap in both black hands and turns it over, and finds the cord sewn round the band with his thumb."
+      },
+      {
+        "say": "hob",
+        "text": "Ottie's. Ottie Swale. Sewed that cord on himself, crooked, so he'd know it from the others in the dark."
+      },
+      {
+        "say": "hob",
+        "text": "Ottie went up for a lantern. Last of the four. Said he'd bring one down for my hut too. Said he'd..."
+      },
+      {
+        "say": "narrator",
+        "text": "He crosses the clearing to the cold hut and sets the cap on the log seat, beside the boots, the way you'd set a place at a table."
+      },
+      {
+        "say": "hob",
+        "text": "There. He'll want that when he's back. He'll want his boots."
+      },
+      {
+        "set": {
+          "thornwold_hob_has_cap": true
+        }
       },
       {
         "goto": "hub"

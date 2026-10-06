@@ -47,7 +47,7 @@
       "default": false
     },
     "saltmarrow_beacon_burned": {
-      "description": "Which Remnant fed the Gull's Beacon: '' (unlit), 'pebble' (the lullaby \u2014 Mara's song, Pell's comfort), 'knot' (Saltmarrow's founding knot) or 'gull' (Mara's memory of her brother Dunstan). The Act I choice; Saltmarrow forgets it for good.",
+      "description": "Which Remnant fed the Gull's Beacon: '' (unlit), 'pebble' (the lullaby — Mara's song, Pell's comfort), 'knot' (Saltmarrow's founding knot) or 'gull' (Mara's memory of her brother Dunstan). The Act I choice; Saltmarrow forgets it for good.",
       "default": ""
     },
     "saltmarrow_mara_saw_beacon_lit": {
@@ -59,7 +59,7 @@
       "default": false
     },
     "saltmarrow_aldous_confessed": {
-      "description": "Aldous's Act I confession: '' (untold), 'full' (gentle \u2014 the High Keeper put the flame out, a light went down the stair past him, gives the Keeper's sleeve-ember) or 'grudging' (pressed \u2014 the bare fact only). Keepers in Act II should know which.",
+      "description": "Aldous's Act I confession: '' (untold), 'full' (gentle — the High Keeper put the flame out, a light went down the stair past him, gives the Keeper's sleeve-ember) or 'grudging' (pressed — the bare fact only). Keepers in Act II should know which.",
       "default": ""
     },
     "saltmarrow_ferry_lantern_hung": {
@@ -150,6 +150,55 @@
     },
     "thornwold_hob_paid": {
       "description": "Player carried Bram's salt crock to Hob Marl: the colliers' first pay since the third load. Bram's tally board gets its fourth salt notch and Hob remembers Bram.",
+      "default": false,
+      "future": true
+    },
+    "thornwold_ladder_stood": {
+      "description": "The Wakebearer stood the Keepers' fallen ladder back against the last pitch above the stair's landing in the woods. The way up to the ridge (climbing it travels to thornwold_ridge).",
+      "default": false
+    },
+    "thornwold_ridge_reached": {
+      "description": "Player has seen the arrival scene on Thornwold's ridge (one-time, after first climbing the ladder).",
+      "default": false
+    },
+    "thornwold_met_lamp": {
+      "description": "Player has met the Lamp at the lantern bench by the keeper's lodge on the ridge (advances A Light for Thornwold to the_lamp).",
+      "default": false
+    },
+    "thornwold_lamp_coal_told": {
+      "description": "The Lamp showed the player what is in the iron box: the last coal of the Spire's midwinter fire, broken into slivers for the waymark lanterns. When it is spent the lanterns go out.",
+      "default": false,
+      "future": true
+    },
+    "thornwold_lamp_name_lost": {
+      "description": "The Lamp told the player it had another name once and 'put it somewhere' (forgotten). A Remnant candidate for the Ridge Light's burning.",
+      "default": false,
+      "future": true
+    },
+    "thornwold_lamp_ladder_told": {
+      "description": "The Lamp admitted putting the ladder down after the fourth collier came up asking for a lantern, so there would be no fifth. The four went on north along the ridge.",
+      "default": false,
+      "future": true
+    },
+    "thornwold_lamp_heard_of_aldous": {
+      "description": "Player told the Lamp what Brother Aldous confessed in Saltmarrow (reads saltmarrow_aldous_confessed; the Lamp recognises the sleeve-ember's stitching if the player carries it). The coal in the iron box went cold on one side the night of the Snuffing.",
+      "default": false,
+      "future": true
+    },
+    "thornwold_stair_light": {
+      "description": "What the player asked of the Lamp for the dark Keepers' stair: '' (not asked), 'sliver' (the Lamp broke a new sliver off the last coal - it shrinks), 'moved' (take the fourth waymark's lantern off the colliers' road - Hob's road gets darker) or 'refused' (the stair stays dark). Shifting paths: the woods' light follows the choice.",
+      "default": ""
+    },
+    "thornwold_fourth_lantern_taken": {
+      "description": "The player unhooked the lantern from the fourth waymark on the colliers' road (thornwold_stair_light=moved): that waymark goes dark and its pool of clear ground closes up.",
+      "default": false
+    },
+    "thornwold_stair_lantern_hung": {
+      "description": "The player hung a Keeper's lantern on the bare waymark at the foot of the Keepers' stair (taking down the collier's cap that hung there): the stair stands in clear light.",
+      "default": false
+    },
+    "thornwold_hob_has_cap": {
+      "description": "Player gave Hob Marl the felt cap from the stair's waymark: Ottie Swale's, one of the four colliers who went up after the Lamp. Hob keeps it on the cold hut's seat with the boots.",
       "default": false,
       "future": true
     }

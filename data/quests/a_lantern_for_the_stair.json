@@ -1,0 +1,17 @@
+{
+  "id": "a_lantern_for_the_stair",
+  "title": "A Lantern for the Stair",
+  "region": "thornwold_ridge",
+  "giver": "lamp",
+  "description": "The Keepers' stair up the woods' north bank stands in the Greying. The waymark at its foot has a collier's cap on its hook where a lantern should be.",
+  "stages": [
+    {
+      "id": "fetch",
+      "text": "The Lamp says to take the lantern off the fourth waymark on the colliers' road, the last before the clearing. Hob Marl knows that stretch blind. Unhook it and carry it to the stair."
+    },
+    {
+      "id": "hang",
+      "text": "Carry the Keeper's lantern down the ladder and hang it on the bare waymark at the foot of the Keepers' stair, by the colliers' clearing."
+    }
+  ]
+}

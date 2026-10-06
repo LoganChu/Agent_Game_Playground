@@ -1,0 +1,46 @@
+{
+  "id": "woods_fourth_waymark",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The fourth waymark on the colliers' road, the last before the clearing. Its lantern burns on the hook, a coal no bigger than a fingernail on pale ash."
+      },
+      {
+        "choice": [
+          {
+            "text": "Unhook the lantern.",
+            "goto": "take"
+          },
+          {
+            "text": "Leave it be.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "take": [
+      {
+        "say": "narrator",
+        "text": "The hook lets go with a small iron sound. The lantern's warm in your hand, and your ember leans to it."
+      },
+      {
+        "say": "narrator",
+        "text": "Behind you, the fog that stood a stone's throw off begins, without hurry, to close in round the bare post."
+      },
+      {
+        "set": {
+          "thornwold_fourth_lantern_taken": true
+        },
+        "give_item": "keepers_lantern"
+      },
+      {
+        "if": "stage:a_lantern_for_the_stair=fetch",
+        "quest_stage": [
+          "a_lantern_for_the_stair",
+          "hang"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "thornwold_ridge_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You haul yourself over the lip onto turf. The ridge is a long hump of grey stone and silvered heather, the fog lying on it thick as fleece."
+      },
+      {
+        "say": "narrator",
+        "text": "Ahead, the Ridge Light stands up out of the grey, a square tower laced with dark timber, its lantern cage cold. Beside it a low stone lodge, and under the lodge's eave, a light."
+      },
+      {
+        "say": "narrator",
+        "text": "Tap. Tap. Hammer on iron, patient as a clock."
+      }
+    ]
+  }
+}

@@ -203,6 +203,26 @@
         "a_light_for_thornwold": "the_lantern_road"
       },
       "shot": "--camera=6,9,-12:-8,0,-34"
+    },
+    {
+      "id": "thornwold_ridge",
+      "act": "Act II — The Drift",
+      "title": "The ridge and the Lamp",
+      "inherits": "thornwold_woods",
+      "region": "thornwold_ridge",
+      "spawn": "from_ladder",
+      "description": "Hob met and paid; the Keepers' ladder stood and climbed. The ridge top in the Greying: the cold Ridge Light, the keeper's lodge, and the Lamp at the lantern bench. Ask about the iron box, the ladder, Aldous, and a lantern for the stair.",
+      "flags": {
+        "thornwold_met_hob": true,
+        "thornwold_hob_paid": true,
+        "thornwold_ladder_stood": true,
+        "thornwold_ridge_reached": true
+      },
+      "quests": {
+        "a_light_for_thornwold": "the_ridge",
+        "salt_for_the_collier": "done"
+      },
+      "shot": "--camera=5,5,13:-3,1,-7"
     }
   ]
 }

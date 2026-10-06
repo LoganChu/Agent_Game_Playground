@@ -1,0 +1,435 @@
+{
+  "id": "lamp",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_met_lamp",
+        "goto": "greet"
+      },
+      {
+        "say": "narrator",
+        "text": "Under the lodge's eave a stooped figure in a hooded oilskin cape is bent over a bench. Tap. Tap. A hammer on a cold chisel, the chisel's edge set into a small iron box the size of two fists."
+      },
+      {
+        "say": "narrator",
+        "text": "The hood comes round. There is no face in it that you can find, only shadow, and somewhere at the back of the shadow the shine of a lantern on a pole leaning against the wall."
+      },
+      {
+        "say": "lamp",
+        "text": "Proper light. In your hand. Like mine was, when it was..."
+      },
+      {
+        "say": "lamp",
+        "text": "You stood the ladder. Nobody's stood the ladder since I... since."
+      },
+      {
+        "say": "narrator",
+        "text": "On the breast of the robe under the cape a Keeper's ember is stitched in orange thread, bright as the day it was sewn. The hem of the cape and the left sleeve have gone silver, the way the colliers' smocks go."
+      },
+      {
+        "set": {
+          "thornwold_met_lamp": true
+        }
+      },
+      {
+        "if": "stage:a_light_for_thornwold=the_ridge",
+        "quest_stage": [
+          "a_light_for_thornwold",
+          "the_lamp"
+        ]
+      },
+      {
+        "if": "stage:a_light_for_thornwold=the_lantern_road",
+        "quest_stage": [
+          "a_light_for_thornwold",
+          "the_lamp"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "greet": [
+      {
+        "if": "!flag:thornwold_stair_lantern_hung",
+        "say": "lamp",
+        "text": "Back up. Mind the top rung. The top rung's..."
+      },
+      {
+        "if": "flag:thornwold_stair_lantern_hung",
+        "say": "lamp",
+        "text": "There's a light on the stair. I saw it from the gallery. First new light on the bank since the fourth one went up."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Who are you?",
+            "goto": "who"
+          },
+          {
+            "text": "What's in the iron box?",
+            "goto": "box"
+          },
+          {
+            "text": "The ladder was lying on the landing.",
+            "if": "!flag:thornwold_lamp_ladder_told",
+            "goto": "ladder"
+          },
+          {
+            "text": "A Keeper in Saltmarrow told me how the Spire went dark.",
+            "if": [
+              "!flag:saltmarrow_aldous_confessed=",
+              "!flag:thornwold_lamp_heard_of_aldous"
+            ],
+            "goto": "aldous"
+          },
+          {
+            "text": "The stair up the bank is deep in the fog.",
+            "if": [
+              "flag:thornwold_stair_light=",
+              "!flag:thornwold_stair_lantern_hung"
+            ],
+            "goto": "stair"
+          },
+          {
+            "text": "The Ridge Light is cold.",
+            "goto": "beacon"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "who": [
+      {
+        "say": "lamp",
+        "text": "Up here the colliers call me the Lamp. It does. It's what I do, so it does."
+      },
+      {
+        "say": "lamp",
+        "text": "I had another one. A name. I put it somewhere safe, the winter it went dark. Somewhere I'd... I keep meaning to look."
+      },
+      {
+        "say": "narrator",
+        "text": "The hood turns toward the tower, as if the name might be up in the lantern cage with the cold ash."
+      },
+      {
+        "say": "lamp",
+        "text": "Thirty winters I kept that light. Down twice a winter for flour and oil, and back up before the road could change its mind. Keepers don't give names, up here. Now I couldn't if I wanted."
+      },
+      {
+        "set": {
+          "thornwold_lamp_name_lost": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "box": [
+      {
+        "say": "narrator",
+        "text": "A soot-black hand lifts the lid a finger's width. Light comes out of the gap: your colour exactly, steady, warm on the underside of the hood."
+      },
+      {
+        "say": "lamp",
+        "text": "Every midwinter the beacons were lit from the Spire. The fire came down the lanes keeper to keeper, and a coal of it went back up the hill with each of us, to start the year."
+      },
+      {
+        "say": "lamp",
+        "text": "The last midwinter, I didn't use mine. Don't know why. Saved it. Then the Spire went dark, and every coal on every island went to ash in the night. Not this one."
+      },
+      {
+        "say": "narrator",
+        "text": "On the bench lie a hammer and a cold chisel. Along the chisel's edge, grains of light, fine as salt, are going out one by one."
+      },
+      {
+        "say": "lamp",
+        "text": "A sliver a night. One lantern for each. That's the road the colliers walk, and the road you walked. When the box is empty, the lanterns go out, one a night, the way they were lit."
+      },
+      {
+        "say": "lamp",
+        "text": "Yours leans to them. You felt it, at the wall. They're kin. Same fire, near enough."
+      },
+      {
+        "set": {
+          "thornwold_lamp_coal_told": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ladder": [
+      {
+        "say": "lamp",
+        "text": "I put it down."
+      },
+      {
+        "say": "narrator",
+        "text": "The hammer goes still."
+      },
+      {
+        "say": "lamp",
+        "text": "They came up one at a time. Colliers. Good folk, soot to the ears. Each one up the stair and the ladder with a lantern of their own in mind, and their hands out."
+      },
+      {
+        "say": "lamp",
+        "text": "I hadn't enough. You've seen the box. A lantern given to one is a mark gone dark on the road for all the rest."
+      },
+      {
+        "say": "lamp",
+        "text": "So they went on. North, along the ridge, where the old Keepers' road runs to the far shore. Looking for a light I couldn't give them. The fourth one hung his cap on the mark at the bottom, so the next would know he'd gone up."
+      },
+      {
+        "say": "lamp",
+        "text": "After the fourth I put the ladder down. So there'd be no fifth. Hob's the fifth. Hob doesn't know he's the fifth."
+      },
+      {
+        "say": "narrator",
+        "text": "The hood turns to you, and your hand, and stays there."
+      },
+      {
+        "say": "lamp",
+        "text": "You stood it up. Well. You've your own light. Nobody can take that off you but the fog."
+      },
+      {
+        "set": {
+          "thornwold_lamp_ladder_told": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "aldous": [
+      {
+        "if": "item:keepers_sleeve_ember",
+        "goto": "aldous_sleeve"
+      },
+      {
+        "goto": "aldous_told"
+      }
+    ],
+    "aldous_sleeve": [
+      {
+        "say": "narrator",
+        "text": "You hold out the faded ember of thread Aldous cut from his sleeve. The Lamp takes it between two black fingers and turns it to the box's light."
+      },
+      {
+        "say": "lamp",
+        "text": "Spire stitch. Small, close, the flame done in one thread without breaking. They taught that on the stair, to the lamp-boys."
+      },
+      {
+        "say": "lamp",
+        "text": "Wren. Is it Wren? There was a Wren on the east stair. Door-warden. Thirty winters he let me up to the flame and never once asked my business. I liked him for it."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember comes back to you, pressed into your palm the way you'd give a child back something they'd dropped."
+      },
+      {
+        "goto": "aldous_told"
+      }
+    ],
+    "aldous_told": [
+      {
+        "if": "flag:saltmarrow_aldous_confessed=full",
+        "goto": "aldous_full"
+      },
+      {
+        "goto": "aldous_grudging"
+      }
+    ],
+    "aldous_full": [
+      {
+        "say": "narrator",
+        "text": "You tell it as Aldous told it: the High Keeper put the Firstflame out on purpose, and a small light went down the stair past him in the dark, cupped in someone's hands."
+      },
+      {
+        "say": "lamp",
+        "text": "Put out. Not went out. Put."
+      },
+      {
+        "say": "lamp",
+        "text": "I knew. Up here you know. The night of it, the coal in this box went cold down one side. The side toward the Spire. It's never warmed."
+      },
+      {
+        "say": "lamp",
+        "text": "A light going down the stair. Going somewhere..."
+      },
+      {
+        "say": "narrator",
+        "text": "A light going down the stair. Cupped. Going somewhere..."
+      },
+      {
+        "say": "lamp",
+        "text": "Don't tell the colliers. They've enough to forget."
+      },
+      {
+        "set": {
+          "thornwold_lamp_heard_of_aldous": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "aldous_grudging": [
+      {
+        "say": "narrator",
+        "text": "You tell it as Aldous told it, which is not much: the High Keeper put the flame out. That was all he would say, and he said it to the floor."
+      },
+      {
+        "say": "lamp",
+        "text": "Put out. Not went out. Put."
+      },
+      {
+        "say": "lamp",
+        "text": "I knew. Up here you know. The night of it, the coal in this box went cold down one side. The side toward the Spire. It's never warmed."
+      },
+      {
+        "say": "lamp",
+        "text": "Whoever told you that much carried it a long way. Leave him the rest. Some things you can only carry if nobody asks to see them."
+      },
+      {
+        "set": {
+          "thornwold_lamp_heard_of_aldous": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "stair": [
+      {
+        "say": "lamp",
+        "text": "The stair. Yes. The fog's had the bank since the ladder came down. Nobody to light it for."
+      },
+      {
+        "say": "lamp",
+        "text": "I could break you a sliver. It comes off the end, and the end comes sooner. Or..."
+      },
+      {
+        "say": "lamp",
+        "text": "Or take the lantern off the fourth mark, the last before the clearing. Hob knows that stretch blind. He'll mind, but he'll walk it."
+      },
+      {
+        "choice": [
+          {
+            "text": "Break a sliver for the stair.",
+            "goto": "stair_sliver"
+          },
+          {
+            "text": "I'll move the fourth mark's lantern.",
+            "goto": "stair_moved"
+          },
+          {
+            "text": "Keep your coal. I'll climb in the fog.",
+            "goto": "stair_refused"
+          }
+        ]
+      }
+    ],
+    "stair_sliver": [
+      {
+        "say": "narrator",
+        "text": "The Lamp sets the chisel into the gap of the box and taps once. Something no bigger than a fingernail drops onto the bench, and the ash under the waiting lantern takes it."
+      },
+      {
+        "say": "narrator",
+        "text": "The light in the box is a little smaller. You could not say how you know."
+      },
+      {
+        "say": "lamp",
+        "text": "There. Hang it at the bottom, where the cap is. Bring the cap to Hob, if you would. He'll know whose."
+      },
+      {
+        "set": {
+          "thornwold_stair_light": "sliver"
+        },
+        "give_item": "keepers_lantern",
+        "quest_start": "a_lantern_for_the_stair"
+      },
+      {
+        "quest_stage": [
+          "a_lantern_for_the_stair",
+          "hang"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "stair_moved": [
+      {
+        "say": "lamp",
+        "text": "The fourth. Unhook it, don't blow on it. It won't go out for blowing, but it doesn't like it."
+      },
+      {
+        "say": "lamp",
+        "text": "Hang it at the bottom of the stair, where the cap is. Bring the cap to Hob, if you would. He'll know whose."
+      },
+      {
+        "set": {
+          "thornwold_stair_light": "moved"
+        },
+        "quest_start": "a_lantern_for_the_stair"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "stair_refused": [
+      {
+        "say": "lamp",
+        "text": "Good. Good. There's few left who'd say it."
+      },
+      {
+        "say": "narrator",
+        "text": "The hood dips, once, the way a Keeper bows at a door."
+      },
+      {
+        "set": {
+          "thornwold_stair_light": "refused"
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "beacon": [
+      {
+        "say": "lamp",
+        "text": "Cold since the night. I go up the tower every dusk anyway. Habit. Look at the cradle. Come down."
+      },
+      {
+        "say": "lamp",
+        "text": "It won't take coal. Not even this coal. Lit from the Spire it was, and the Spire's dark, so it wants what the Gull's wanted. What you fed the Gull's: something somebody remembers."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned",
+        "say": "lamp",
+        "text": "You've done it once. I can smell it on you. Saltmarrow's got a hole in it the shape of whatever you burned, and a light on the headland."
+      },
+      {
+        "say": "lamp",
+        "text": "Not mine. A keeper can't feed the light with what the keeper is. And there's not much of me left that'd burn."
+      },
+      {
+        "say": "lamp",
+        "text": "Thornwold'll have to give it something. Ask the woods what they can spare. Ask Hob. Ask the camp. Don't ask me."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

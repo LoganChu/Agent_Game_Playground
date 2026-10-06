@@ -1,0 +1,80 @@
+{
+  "id": "keeper_ladder",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_ladder_stood",
+        "goto": "stood"
+      },
+      {
+        "say": "narrator",
+        "text": "The Keepers' ladder lies along the landing where it came down: two peeled pole rails, the rungs lashed on with dark cord. Two rungs are snapped out of the middle. The top end has gone silver in the fog."
+      },
+      {
+        "say": "narrator",
+        "text": "Above you the last pitch of the bank goes up steep as a wall, earth and roots and grey stone, three long strides of it, to the ridge."
+      },
+      {
+        "say": "narrator",
+        "text": "At the top end the cords on the last rung haven't frayed through. They've been cut, clean, and from the side that leaned against the bank."
+      },
+      {
+        "choice": [
+          {
+            "text": "Stand the ladder against the pitch.",
+            "goto": "stand"
+          },
+          {
+            "text": "Leave it lying.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "stand": [
+      {
+        "say": "narrator",
+        "text": "It's heavier than it looks, and wet. You walk it up hand over hand from the foot, rung by rung, until it tips against the bank and its top bites into the turf of the ridge's lip."
+      },
+      {
+        "say": "narrator",
+        "text": "Missing rungs or not, it holds. Somewhere above, very faint, a hammer taps on iron and stops."
+      },
+      {
+        "set": {
+          "thornwold_ladder_stood": true
+        }
+      },
+      {
+        "goto": "up"
+      }
+    ],
+    "stood": [
+      {
+        "say": "narrator",
+        "text": "The ladder leans against the last pitch where you stood it, its top in the ridge's turf. Two rungs missing in the middle: a long step."
+      },
+      {
+        "goto": "up"
+      }
+    ],
+    "up": [
+      {
+        "choice": [
+          {
+            "text": "Climb to the ridge.",
+            "travel": [
+              "thornwold_ridge",
+              "from_ladder"
+            ],
+            "end": true
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ]
+  }
+}
