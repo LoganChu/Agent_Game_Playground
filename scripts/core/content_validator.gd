@@ -211,7 +211,7 @@ func _check_prop_smoke(where: String, prop: Dictionary, model: String) -> void:
 
 
 ## `halo` (model props only): [x, y, z] in model space where a soft lantern glow hangs, with an
-## optional `halo_size` (metres, > 0).
+## optional `halo_size` (metres, > 0), `halo_strength` and `halo_bloom` (0..2).
 func _check_prop_halo(where: String, prop: Dictionary, model: String) -> void:
 	if not prop.has("halo"):
 		return
@@ -221,6 +221,9 @@ func _check_prop_halo(where: String, prop: Dictionary, model: String) -> void:
 		_err(where, "prop 'halo' must be [x, y, z]")
 	if prop.has("halo_size") and not ((prop["halo_size"] is float or prop["halo_size"] is int) and float(prop["halo_size"]) > 0.0):
 		_err(where, "prop 'halo_size' must be a number > 0")
+	for key: String in ["halo_strength", "halo_bloom"]:
+		if prop.has(key) and not ((prop[key] is float or prop[key] is int) and float(prop[key]) >= 0.0 and float(prop[key]) <= 2.0):
+			_err(where, "prop '%s' must be a number in 0..2" % key)
 
 
 func _is_vector(value: Variant) -> bool:
@@ -297,6 +300,12 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_err(where, "spawn_points must contain 'default'")
 	for placement: Dictionary in region.get("npcs", []):
 		var npc_id := str(placement.get("npc", ""))
+		# A placement may pose the NPC differently there (Hob seated at the camp): its own
+		# `model` and `idle` override the NPC's.
+		if placement.has("model"):
+			_ref_character_model(where, str(placement["model"]))
+		if placement.has("idle") and str(placement["idle"]) not in CharacterRig.STYLES:
+			_err(where, "npc '%s' placement idle must be one of %s" % [npc_id, CharacterRig.STYLES])
 		if not db.npcs.has(npc_id):
 			_err(where, "places unknown npc '%s'" % npc_id)
 		else:

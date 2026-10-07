@@ -144,7 +144,7 @@ func _build(kind: String, entry: Dictionary) -> Node3D:
 		"npc":
 			var npc_id := str(entry.get("npc", ""))
 			var actor := NpcActor.new()
-			actor.setup(npc_id, Content.db.get_npc(npc_id))
+			actor.setup(npc_id, placed_npc_data(Content.db.get_npc(npc_id), entry))
 			actor.position = place(entry.get("position"))
 			actor.rotation_degrees.y = float(entry.get("rotation_y", 0.0))
 			return actor
@@ -159,6 +159,16 @@ func _build(kind: String, entry: Dictionary) -> Node3D:
 			object.position = place(entry.get("position"))
 			return object
 	return null
+
+
+## An NPC's data as placed by `entry`: a placement's own `model` and `idle` (a pose for that
+## spot, e.g. Hob seated on the camp bench) override the NPC's.
+static func placed_npc_data(npc: Dictionary, entry: Dictionary) -> Dictionary:
+	var data := npc.duplicate()
+	for key: String in ["model", "idle"]:
+		if entry.has(key):
+			data[key] = entry[key]
+	return data
 
 
 func spawn_position(spawn: String) -> Vector3:
@@ -218,7 +228,8 @@ func _build_prop(prop: Dictionary) -> Node3D:
 			if prop.get("smoke") is Array:
 				node.add_child(PropSmoke.build(prop["smoke"]))
 			if prop.get("halo") is Array:
-				node.add_child(LanternHalo.build(JsonUtil.to_vector3(prop["halo"]), float(prop.get("halo_size", LanternHalo.SIZE))))
+				node.add_child(LanternHalo.build(JsonUtil.to_vector3(prop["halo"]), float(prop.get("halo_size", LanternHalo.SIZE)),
+					float(prop.get("halo_strength", LanternHalo.STRENGTH)), float(prop.get("halo_bloom", 0.0))))
 			if prop.get("float") is Dictionary:
 				node = FloatingProp.wrap(node, prop["float"], float(prop.get("scale", 1.0)))
 	if node == null:

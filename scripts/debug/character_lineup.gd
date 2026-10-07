@@ -5,7 +5,8 @@ extends Node3D
 ## screenshot and quits when given one:
 ##   xvfb-run -a godot --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
 ##       -- --screenshot=/abs/out.png [--closeup] [--only=hob,lamp] [--pose=1.2] [--turn=90]
-## Character models no NPC uses yet are added last, labelled "(unplaced)".
+## Models a region placement poses an NPC in (e.g. `hob_seated`) follow the NPCs; character
+## models no NPC uses yet are added last, labelled "(unplaced)".
 ## `--closeup` frames the heads and hands instead of the full bodies. `--pose=<seconds>` freezes
 ## every rig at that moment of its idle (to compare beats of an idle, e.g. a chisel tap);
 ## `--turn=<degrees>` turns every model (90 = seen from its left side).
@@ -26,6 +27,15 @@ func _ready() -> void:
 		paths.append(str(npc.get("model", "")))
 		styles.append(str(npc.get("idle", "breathe")))
 		names.append(str(npc.get("name", id)))
+	# Poses a region placement gives an NPC there (Hob seated at the camp), after the NPCs.
+	for region_id: String in Content.db.regions:
+		for placement: Dictionary in Content.db.regions[region_id].get("npcs", []):
+			var placed_model := str(placement.get("model", ""))
+			if placed_model.is_empty() or placed_model in paths:
+				continue
+			paths.append(placed_model)
+			styles.append(str(placement.get("idle", "breathe")))
+			names.append("%s (%s)" % [Content.db.npcs.get(str(placement.get("npc", "")), {}).get("name", "?"), placed_model.get_file().get_basename()])
 	# Character models no NPC wears yet (built ahead of their content), by file name.
 	for file in DirAccess.get_files_at(UNPLACED_DIR):
 		var path := UNPLACED_DIR + file

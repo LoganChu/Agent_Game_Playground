@@ -9,6 +9,7 @@ uniform vec4 halo_color : source_color = vec4(0.96, 0.84, 0.55, 1.0);
 uniform float strength = 0.8;
 uniform float near_fade = 2.5;  // metres from the camera where the halo starts to show
 uniform float full_at = 9.0;    // ...and where it is at full strength
+uniform float bloom = 0.0;      // a wide, faint glow over the whole quad: the fog lit round a beacon
 
 varying float phase;
 varying float dist;
@@ -27,5 +28,6 @@ void fragment() {
 	float core = 1.0 - smoothstep(0.0, 0.18, r);
 	float near = smoothstep(near_fade, full_at, dist);
 	ALBEDO = mix(halo_color.rgb, vec3(1.0, 0.95, 0.85), core * 0.6) * 1.6;
-	ALPHA = clamp((glow * 0.8 + core * 0.4) * strength * flicker * mix(0.25, 1.0, near), 0.0, 1.0);
+	float wide = bloom * (1.0 - smoothstep(0.0, 1.0, r)) * (1.0 - smoothstep(0.0, 1.0, r));
+	ALPHA = clamp((glow * 0.8 + core * 0.4 + wide) * strength * flicker * mix(0.25, 1.0, near), 0.0, 1.0);
 }

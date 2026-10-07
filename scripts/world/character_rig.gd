@@ -5,17 +5,22 @@ extends Node
 ## node, added as a child of the model, offsets those parts from their rest pose each frame:
 ## breathing and a slow sway always, hands working in the "mend" style, a slow draw of the
 ## clamp rake in the "rake" style (Hob Marl), the hammer and chisel in the "chisel" style (the
-## Lamp at the lantern bench), and a leg/arm swing
+## Lamp at the lantern bench), a seated rest in the "sit" style (Hob on the camp bench), and a
+## leg/arm swing
 ## while `move_speed` is above zero. No skeletons or animation tracks to maintain.
 
 const PARTS: Array[String] = ["LegL", "LegR", "Torso", "Head", "ArmL", "ArmR"]
-const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel"]
+const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel", "sit"]
 ## The "chisel" beat: two taps, then a pause (seconds).
 const CHISEL_PERIOD := 3.4
+## The "sit" doze: once a cycle the head sinks, holds, and comes up with a start (seconds).
+const DOZE_PERIOD := 11.0
 
 ## "breathe" (default), "mend" (seated hands working over a net) or "rake" (standing, drawing
 ## a rake across the ground in slow pulls, leaning into each one) or "chisel" (bent over a bench:
-## tap, tap with the left hand, a pause, and now and then the head turns as if listening).
+## tap, tap with the left hand, a pause, and now and then the head turns as if listening) or
+## "sit" (a seated model resting: thumbs working the rake pole, and once in a while the head
+## sinks as he dozes off and comes up with a start — Half-Hushed, he loses the thread).
 var style := "breathe"
 ## Horizontal speed in m/s; drives the walk swing (0 = standing).
 var move_speed := 0.0
@@ -98,6 +103,19 @@ func pose(t: float, walk_phase: float = 0.0, walk: float = 0.0) -> void:
 		# The hammer hand lifts and strikes; the pole hand steadies the chisel, barely moving.
 		_offset("ArmL", Vector3.ZERO, Vector3(-0.55 * still - 0.5 * tap - 0.45 * swing, 0, 0.1 * still))
 		_offset("ArmR", Vector3.ZERO, Vector3(-0.3 * still + 0.02 * tap + 0.45 * swing, 0, -0.06 * still))
+	elif style == "sit":
+		# Seated models carry their own bent legs and seat; nothing here walks.
+		var doze := sit_doze(t)
+		var start := sit_start(t)
+		_offset("LegL", Vector3.ZERO, Vector3.ZERO)
+		_offset("LegR", Vector3.ZERO, Vector3.ZERO)
+		_offset("Torso", Vector3(0, 0.01 * start, 0),
+			Vector3(0.02 * breath + 0.06 * doze - 0.05 * start, 0.0, 0.015 * sin(t * 0.6)),
+			Vector3(1.0 + 0.012 * breath, 1.0 + 0.02 * breath, 1.0 + 0.012 * breath))
+		_offset("Head", Vector3.ZERO, Vector3(0.38 * doze - 0.12 * start - 0.015 * breath, 0.04 * sin(t * 0.37) * (1.0 - doze), 0.0))
+		# Thumbs working along the pole: the hands creep a little, out of step.
+		_offset("ArmL", Vector3.ZERO, Vector3(0.04 * sin(t * 0.9) + 0.05 * doze, 0, 0.02 * breath))
+		_offset("ArmR", Vector3.ZERO, Vector3(0.04 * sin(t * 0.9 + 2.0) + 0.05 * doze, 0, -0.02 * breath))
 	elif style == "mend":
 		# Small alternating pulls of the needle through the mesh.
 		_offset("ArmL", Vector3.ZERO, Vector3(0.12 * sin(t * 3.1), 0.08 * sin(t * 1.55), 0))
@@ -125,6 +143,23 @@ static func chisel_listen(t: float) -> float:
 	if p < 0.0 or p > 2.8:
 		return 0.0
 	return smoothstep(0.0, 0.6, p) * (1.0 - smoothstep(2.1, 2.8, p))
+
+
+## How far a sitter has nodded off at time `t` (0 = awake, 1 = chin down): late in each
+## DOZE_PERIOD the head sinks slowly, holds, then snaps back up.
+static func sit_doze(t: float) -> float:
+	var p := fmod(t, DOZE_PERIOD) - DOZE_PERIOD * 0.55
+	if p < 0.0 or p > 4.3:
+		return 0.0
+	return smoothstep(0.0, 2.4, p) * (1.0 - smoothstep(4.0, 4.3, p))
+
+
+## The little start as the sitter wakes (0..1, peaks just after the head comes up).
+static func sit_start(t: float) -> float:
+	var p := fmod(t, DOZE_PERIOD) - DOZE_PERIOD * 0.55 - 4.1
+	if p < 0.0 or p > 0.8:
+		return 0.0
+	return sin(p / 0.8 * PI)
 
 
 func _offset(part: String, move: Vector3, euler: Vector3, scale: Vector3 = Vector3.ONE) -> void:
