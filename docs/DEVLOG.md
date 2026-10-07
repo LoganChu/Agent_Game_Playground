@@ -2,6 +2,68 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-07 21:00 UTC — Day 28: The Ridge Light, lit (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again;
+  checked out `main` and fast-forwarded to `origin/main` (`2ce60a4`, Day 27's head). Baseline green
+  (191 tests + smoke + launch).
+- **Art (due today; last art Day 26):** ROADMAP *Next up* #1, all parts:
+  - **The fire through the horn.** The lit tower's horn panes were an opaque emissive box. A new
+    `build_dressing.horn()` material (emissive palette colour with alpha → glTF `BLEND`, faint
+    emission) lets the cradle's new **fire** show: coal-red coals, five ember tongues leaning in, a
+    kindle heart. The rack's one lantern at the tower's foot now burns too. The cold build is
+    unchanged.
+  - **The light reads from the woods.** Halos take `halo_strength` and `halo_bloom` (a wide faint
+    glow over the whole quad). The woods' skyline tower: 14 m, strength 1, bloom 0.35 — the fog
+    round the cage glows gold and the tower is the warm thing on the skyline (compare
+    `2026-10-07-woods-ridge-after.png` with `2026-10-07-pm-woods-ridge-lit.png`). On the ridge a
+    6 m cage halo joins the beacon's real light.
+  - **Hob sits.** A seated Hob (`hob_seated`: a seated `Body`, the rake across his knees in the
+    static `Stool` part) on a new split-log **`log_bench`** (seat top 0.44 m, the seated-body seat)
+    by the tally-house step, both placed at the same spot. A new `sit` idle: breathing, thumbs
+    creeping on the pole, and late in every 11 s cycle the head sinks — he dozes off — and comes
+    up with a start. Engine: **placement poses** — a region NPC placement's own `model`/`idle`
+    override the NPC's there (`Region.placed_npc_data`, validated), so Hob rakes in the clearing
+    and sits at the camp. The character lineup shows such models as "Name (model)".
+  - **Optional:** halos on every lantern post (Saltmarrow's two, the landing's one) — subtle by
+    day, there for nights later.
+- **Tests:** `test_ridge_lit.gd` (7): the horn is the one see-through material with the fire
+  glowing behind it (and the cold tower has neither), far/ridge halos and their shader params,
+  lantern-post halos, placement pose overrides, Hob on the bench (same spot and facing, seat height,
+  by the step), the doze/start on the real model with the legs still, validator checks. 198 tests +
+  smoke + launch pass. Checkpoint `thornwold_lit` re-shot.
+
+Screenshots (`docs/screenshots/2026-10-07-pm-*.png`): `woods-ridge-lit` (vs. the morning's
+`2026-10-07-woods-ridge-after.png`), `cage-fire` (the fire through the horn from the gallery),
+`hob-on-the-bench`, `hob-seated-lineup` vs `hob-dozing-lineup`, `saltmarrow-post-halos`.
+
+**Decisions**
+- **Bloom, not a beam.** A sweeping lighthouse beam would read further but isn't this world's
+  beacon (a fire in a cage); a halo whose bloom lights the fog round it says "fire in the fog" and
+  costs one quad.
+- **A second model, not a procedural bend.** The rig has no knees; folding a standing model's legs
+  reads as sitting on the floor. A seated build of the same character (as Hesk is built) plus a
+  per-placement pose keeps the rig simple and serves Aldous next.
+- **The bench has no collider** — the NPC sitting on it has one; the bench is a seat, not a wall.
+- **New canon, small:** the rack's lantern burns now (a light at the end of the road for the four —
+  seen, never explained), and Hob dozes on the step (he "sleeps now" after the boots; in the salt-row
+  world it reads as the same old man nodding off). LORE updated.
+
+**Problems / notes**
+- Hob's bench sits in the tally house's shadow (the landing's sun is west); he reads dark from the
+  yard in Compatibility. Logged for the Vulkan colour pass.
+- The sit idle runs the same in both burn outcomes; a salt-row Hob who "counts something on his
+  fingers" could get a counting beat later.
+- `build_dressing.py`'s full rebuild re-exports `thornwold_beacon.glb` byte-identical; `hob.glb`
+  re-exports with a different material order after the `_hob()` refactor (same geometry) — the
+  committed file was kept to avoid binary churn.
+
+**Next run should**
+1. **Content (due by Day 31): the fen lane** — sail north-about to Glasswater Fen (ROADMAP *Next up*
+   #1): new region, arrival scene, one or two Unmoored, Dunstan's thread, checkpoint.
+2. Art next by Day 30: Aldous seated on a bench by the Wrens' steps (cheap now) or the fen's kit.
+
 ## 2026-10-07 09:00 UTC — Day 27: Thornwold's burning (content)
 
 **Did**

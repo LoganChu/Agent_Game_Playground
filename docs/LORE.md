@@ -457,6 +457,13 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
     stranded, so it **stops breaking the coal**. What's left (a thumbnail of light, still cold down the
     Spire side; one night less if a sliver went on the stair) it keeps **"for the four. If they come
     back along the ridge, there should be a light at the end of it that knows their faces."**
+    The rack's one lantern, cold for years, now **burns on its hook at the tower's foot** — the first
+    thing a walker would see coming down the old road (seen, never explained; Day 28).
+  - **Seen at the camp:** Hob sits on a split-log bench by the tally-house step with the rake across
+    his knees and **dozes off and wakes with a start**, over and over, in plain daylight — the first
+    sleep he's let himself have on this side of the ridge (Half-Hushed; never commented on).
+  - **From the woods** the lit Ridge Light reads as a warm smudge in the fog over the trees — the
+    fog round the tower glows; it is the one warm thing on Thornwold's skyline.
   - **Bram** cuts a new row on his board: **LIGHT**, one notch. **Oda**: two lit makes a lane you can
     count on, and the Ridge Light is the start of the next — **north-about to Glasswater Fen**, dark and
     strange, steered with the Ridge Light dead astern ("listen for reeds instead of trees"). Off-island

@@ -33,10 +33,10 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [oda hob …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [oda hob hob_seated …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
-.tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
@@ -229,7 +229,11 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   unshaded, fog-disabled, a slow flame flicker, faint within ~2.5 m of the camera and full from
   ~9 m) so lanterns read across a clearing or through the fog **without a real light** (the
   light budget stands: ember, ferry lantern, beacon). Every `waymark_lit` carries one at
-  `[0, 1.76, 0.5]` (its glass centre); `test_ridge_dressed.gd` checks that.
+  `[0, 1.76, 0.5]` (its glass centre); `test_ridge_dressed.gd` checks that. Day 28: optional
+  `"halo_strength"` (default 0.8) and `"halo_bloom"` (default 0; 0..2, validated) — the bloom adds
+  a wide, faint glow over the whole quad (the fog lit round a beacon). The lit Ridge Light on the
+  woods' skyline uses size 14 / strength 1 / bloom 0.35 (it is ~60 m off); on the ridge a size-6
+  halo beside the real light. Every `lantern_post` carries one at `[0, 1.85, 0.58]`.
 
 ### Arrival events & act ends (Day 13)
 - **Region `events`** happen on arriving in a region: after `main.load_region`, the first
@@ -399,7 +403,14 @@ with `--camera=`.
   the head turning aside to listen about once in three beats; `chisel_tap`/`chisel_listen` are
   static so tests can read the beat). While talking, an NPC's body
   eases round to face the player and back to its placed `rotation_y` after (the Wakebearer
-  turns to it too); `"faces_player": false` opts out (Hesk keeps mending).
+  turns to it too); `"faces_player": false` opts out (Hesk keeps mending). Day 28: `sit` — a
+  seated model resting (legs never swing): breathing, thumbs creeping along whatever is across the
+  knees, and late in every `DOZE_PERIOD` (11 s) the head sinks (`sit_doze`), holds and comes up
+  with a start (`sit_start`).
+- **Placement poses (Day 28):** a region's NPC placement may carry its own `model` and `idle`,
+  which override the NPC's for that spot (`Region.placed_npc_data`; validated like the NPC's). Hob
+  stands raking (`hob`, `rake`) in the clearing and sits on the camp bench (`hob_seated`, `sit`).
+  The character lineup shows such models after the NPCs as "Name (model)".
 - `data/game.json` also takes `player_model` (the Wakebearer character scene) and `act_ends`.
 - Item: `id, name, description, kind (remnant|key|misc), color?, future?`
 - Quest: `id, title, description, stages: [{id, text}], giver?, region?, future?` — first
@@ -494,7 +505,16 @@ collider ≈ [3.2, 2.4, 1.4]) and `ridge_outcrop_low` (a broken shelf ≈ 0.7 m 
 (a ~1.6 m patch of five silvered tufts; no collider), `waymark_tumbled` (the cairn spilled toward
 -X, the post leaning 35° the same way, its arm in the heather). `collier_hut_cold_cap` = the cold
 hut with Ottie's cap on the seat by the boots (same footprint; shown by flag in place of
-`collier_hut_cold`). Note `bp.prism` creates its object through the data API and does **not** make it
+`collier_hut_cold`). **The Ridge Light, lit (Day 28):** the lit tower's horn panes use `build_dressing.horn(name,
+alpha, glow=…)` — an emissive palette material with alpha (glTF `alphaMode: BLEND`, faint emission
+so it doesn't wash to white) — and the cradle holds a fire (coal-red coals, five ember tongues
+leaning in, a kindle heart; all emissive), the rack's one lantern lit; the cold build is unchanged.
+Keep the lit build ≤ 16 materials (the kit cap): reuse `kindle` glow rather than a new shade.
+`build_thornwold.py log_bench`: a split-log bench 1.3 m along X, **seat top 0.44 m** (a seated
+`Body`'s seat; Hob's camp seat, and Aldous's bench later), front at Godot +Z; no collider (the NPC
+sitting on it has one). `build_characters.py hob_seated`: Hob as a seated Body with the rake
+across his knees in the static `Stool` part.
+Note `bp.prism` creates its object through the data API and does **not** make it
 active — use its return value (e.g. to rotate it), never `bpy.context.active_object`.
 
 ## Characters
@@ -625,6 +645,11 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   flag, halos on every lit waymark, conditional paint (field selection, the woods' fourth waymark
   greying, the ground mesh recoloured), validator paint/halo checks, ridge outcrops clear of the
   paths and the old road's waymarks going north-east up out of reach.
+- `tests/test_ridge_lit.gd` — Day 28: the lit tower's horn is the one see-through material and
+  the fire glows behind it (the cold tower has neither), the far halo's size/bloom and the ridge's
+  halo + light, halo parameters reach the shader, lantern posts' halos, placement pose overrides,
+  Hob seated on the bench (same spot/facing, seat top 0.44 m, by the tally-house step), the `sit`
+  doze and start on the real model (legs stay put), validator placement-pose and halo-number checks.
 - `tests/test_characters.gd` — character models follow the rig contract; the rig poses and
   returns to rest; missing models fall back; validator catches bad `model`/`idle`.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit

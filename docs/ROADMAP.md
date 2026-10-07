@@ -210,6 +210,14 @@ with a meaningful burn choice → consequences visible in the village.
       Hob forgets the four (boots), the Lamp stops breaking the coal and keeps the rest "for the four"
       (a stair sliver shows as a night less), Bram's new LIGHT row, Pell, **Oda opens the fen lane**
       (talk only). Smoke walk lights it. Checkpoint `thornwold_lit`.
+- [x] [A] **The Ridge Light, lit** (Day 28): the lit tower's horn panes see-through (new
+      `build_dressing.horn` material, glTF BLEND) with a **fire in the cradle** (coals, ember tongues,
+      a kindle heart) and the rack's one lantern lit; halos take `halo_strength`/`halo_bloom` — the
+      woods' skyline halo is 14 m with a bloom (the fog glows round the tower), the ridge gets a cage
+      halo by its light; **Hob seated** on a new split-log bench (`log_bench`) by the tally-house step
+      (`hob_seated` model, new `sit` idle: thumbs on the pole, dozes off and wakes with a start) via
+      new **placement poses** (a placement's own `model`/`idle`); halos on every lantern post
+      (Saltmarrow ×2, the landing).
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -220,43 +228,38 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **The Ridge Light, lit** (art, **due Day 28**): from the woods the lit tower barely reads
-   (`docs/screenshots/2026-10-07-woods-ridge-after.png`) — a bigger/brighter halo, or the lit model's
-   cage glass and a warm glow on the gallery; a lit pass on the ridge itself (the lantern rack, the
-   cradle's fire visible through the horn); Hob's **seated idle** on the tally-house step (same kind of
-   CharacterRig style as Hesk's mend — would also serve Aldous's bench, item 8). Optionally the halo on
-   Saltmarrow's lantern posts.
-2. [C] **The fen lane — Act II goes on** (next content, due by Day 31): Oda sails north-about with the
+1. [C] **The fen lane — Act II goes on** (next content, due by Day 31): Oda sails north-about with the
    Ridge Light astern to **Glasswater Fen** (new region, LORE §3: reed-houses, mirror pools, the
    Unmoored, the right to forget; Dunstan Tollen's thread — he chose to go). Replace Oda's talk-only
    line with a sailing; arrival scene; one or two Unmoored characters; checkpoint. Keep the four
    colliers and the Lamp's coal open; a salt-row Hob going up the stair after them is a later beat.
-3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+2. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
    variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
    steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
    nights once day/night exists. (Hob's raking idle landed Day 22 — the seated idle is the
-   same kind of CharacterRig style.)
-9. [S] Interaction polish: camera framing during dialogue; fade the
+   same kind of CharacterRig style.) Day 28: `log_bench` + the `sit` idle + placement poses exist —
+   Aldous seated needs only an `aldous_seated` model (a seated Body) and a bench placement.
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -308,7 +311,11 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 27 (Thornwold's burning); next content due by Day 31 (the fen lane).
-- Last art session: Day 26 (the ridge, dressed); next art due Day 28 (*Next up* #1).
+- Last art session: Day 28 (the Ridge Light, lit); next art due Day 30 — candidates: Aldous seated
+  on a bench by the Wrens' steps (*Next up* #7, cheap now), the fen's kit with the fen lane, or the
+  Saltmarrow paint contrast.
+- Hob's camp bench is in the tally house's shadow under the landing's sun (west); he reads dark from
+  the yard in Compatibility. Judge with the Vulkan colour pass; a fill light is not in the budget.
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
   if a region ever wants dozens, use GPUParticles3D on Forward+ and keep CPU for Compatibility.
 - Thornwold's log buildings use one box collider each (the porch of the tally-house is
