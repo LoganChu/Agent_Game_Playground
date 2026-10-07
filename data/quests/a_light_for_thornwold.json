@@ -3,8 +3,7 @@
   "title": "A Light for Thornwold",
   "region": "thornwold_landing",
   "giver": "bram",
-  "future": true,
-  "description": "Thornwold's beacon has been dark since the Snuffing, and while it is, no lane runs on toward Cindermoor. The cart road from the landing used to run straight up to it.",
+  "description": "Thornwold's beacon has been dark since the Snuffing, and while it is, no lane runs on from it. The cart road from the landing used to run straight up to it.",
   "stages": [
     {
       "id": "the_bramble_wall",
@@ -24,7 +23,11 @@
     },
     {
       "id": "the_lamp",
-      "text": "The Lamp, at the lantern bench by the keeper's lodge, is Thornwold's beacon-keeper. The Ridge Light stands cold beside the lodge, and like the Gull's Beacon it will want a memory to burn. Learn what Thornwold can spare. (Thornwold's burning is still being written.)"
+      "text": "The Lamp, at the lantern bench by the keeper's lodge, is Thornwold's beacon-keeper. The Ridge Light stands cold beside the lodge. Ask the Lamp what it will take."
+    },
+    {
+      "id": "feed_the_light",
+      "text": "The Ridge Light won't take coal, not even the Lamp's. Like the Gull's Beacon it wants something somebody remembers, and not the Lamp's own: Thornwold has to give it something. Ask Hob Marl in the clearing, or Bram Kettle at the camp, what they could spare, and carry it up to the cradle."
     }
   ]
 }

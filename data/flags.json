@@ -198,7 +198,28 @@
       "default": false
     },
     "thornwold_hob_has_cap": {
-      "description": "Player gave Hob Marl the felt cap from the stair's waymark: Ottie Swale's, one of the four colliers who went up after the Lamp. Hob keeps it on the cold hut's seat with the boots.",
+      "description": "Player gave Hob Marl the felt cap from the stair's waymark: Ottie Swale's, one of the four colliers who went up after the Lamp. Hob keeps it on the cold hut's seat with the boots. Once Hob gives the boots away (thornwold_boots_away) the cap goes with them.",
+      "default": false,
+      "future": true
+    },
+    "thornwold_boots_away": {
+      "description": "Hob Marl gave Ottie Swale's boots (and the cap, if he had it) to the player as a Remnant of his memory of the four colliers, for the Ridge Light. The cold hut's seat is bare while it is true; returning the unburned boots sets it false again. Stays true if they are burned.",
+      "default": false
+    },
+    "thornwold_salt_row_away": {
+      "description": "Bram Kettle unpegged the SALT row from his tally board and made it a Remnant of the camp's memory of the colliers, for the Ridge Light. The board's bottom pegs are bare while it is true; returning the unburned stick sets it false again. Stays true if it is burned.",
+      "default": false
+    },
+    "thornwold_beacon_burned": {
+      "description": "Which Remnant fed the Ridge Light: '' (unlit), 'boots' (Hob Marl's memory of the four colliers who went up after the Lamp — he stops waiting, the cold hut is nobody's) or 'salt_row' (the lumber camp's memory of the colliers and the salt trade — the camp will never know who brings the charcoal). Thornwold's burning; Thornwold forgets it for good.",
+      "default": ""
+    },
+    "thornwold_hob_came_in": {
+      "description": "After the Ridge Light was lit, a paid Hob Marl kept his promise and came in to the lumber camp by daylight (one-time arrival scene at the landing). Moves Hob from the clearing to the camp; Bram knows him unless the salt row burned.",
+      "default": false
+    },
+    "thornwold_lamp_saw_light": {
+      "description": "Player has spoken with the Lamp after the Ridge Light was lit (one-time aftermath: the lanterns can go out now; what the coal is kept for).",
       "default": false,
       "future": true
     }

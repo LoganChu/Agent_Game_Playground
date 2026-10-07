@@ -449,6 +449,21 @@
     ],
     "thornwold": [
       {
+        "say": "oda",
+        "text": "Two lit. The Gull astern of us one way, the Ridge Light the other. That's a lane you can count on.",
+        "if": "quest:a_light_for_thornwold=done"
+      },
+      {
+        "say": "oda",
+        "text": "And it's the start of another. North-about from here lies Glasswater Fen. Dark, last I heard, and strange with it. Steer with the Ridge Light dead astern and listen for reeds instead of trees. When you've a mind to, and I've a tide.",
+        "if": "quest:a_light_for_thornwold=done"
+      },
+      {
+        "say": "oda",
+        "text": "Off-islanders, my crew. We'll still have what Thornwold burned. Don't ask us to tell you. It slides off.",
+        "if": "flag:thornwold_beacon_burned"
+      },
+      {
         "choice": [
           {
             "text": "Who kept Thornwold's beacon?",

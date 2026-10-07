@@ -4,7 +4,13 @@
   "description": "Behind the bramble wall the old cart road runs straight north into the Greying. Lanterns hang on some of the Keepers' waymarks, leading off the road to a clearing where a charcoal clamp still smokes.",
   "fog": {
     "density": 0.032,
-    "color": "silverfog"
+    "color": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_thornwold=done",
+        "density": 0.02
+      }
+    ]
   },
   "light": {
     "note": "Under the trees past the wall: grey, cold and close; the waymark lanterns are the warmest things here.",
@@ -15,7 +21,16 @@
     "ambient_color": "pine",
     "ambient_energy": 0.3,
     "sky_top": "abyss",
-    "sky_horizon": "silverfog"
+    "sky_horizon": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_thornwold=done",
+        "sun_color": "#E9C489",
+        "sun_energy": 0.95,
+        "ambient_energy": 0.32,
+        "sky_top": "tide"
+      }
+    ]
   },
   "greying": [
     {
@@ -28,7 +43,21 @@
       "strength": 1.0,
       "falloff": 3.0,
       "height": 3.0,
-      "note": "The woods past the bramble wall, the straight cart road with them: deep Greying."
+      "note": "The woods past the bramble wall, the straight cart road with them: deep Greying.",
+      "if": "!quest:a_light_for_thornwold=done"
+    },
+    {
+      "rect": [
+        -30,
+        -73,
+        26,
+        -20
+      ],
+      "strength": 0.4,
+      "falloff": 3.0,
+      "height": 2.2,
+      "note": "After Thornwold's burning the fog leans back: thin under the trees, the road a road again (the lanterns still cut their pools).",
+      "if": "quest:a_light_for_thornwold=done"
     },
     {
       "ellipse": [
@@ -794,7 +823,30 @@
         6.0,
         3.4
       ],
-      "note": "Thornwold's beacon, the Ridge Light, dark on the ridge above the woods: a Keeper-built tower of the island's grey stone laced with timber, a horn-paned lantern cage, an iron pine for a vane. Out of reach until the ridge road (Into the woods, part two); thornwold_beacon_lit waits for the burn."
+      "note": "Thornwold's beacon, the Ridge Light, dark on the ridge above the woods: a Keeper-built tower of the island's grey stone laced with timber, a horn-paned lantern cage, an iron pine for a vane. Out of reach until the ridge road (Into the woods, part two); thornwold_beacon_lit waits for the burn.",
+      "if": "!quest:a_light_for_thornwold=done"
+    },
+    {
+      "model": "res://assets/models/dressing/thornwold_beacon_lit.glb",
+      "position": [
+        15.0,
+        0,
+        -74.5
+      ],
+      "rotation_y": -15,
+      "collider": [
+        3.4,
+        6.0,
+        3.4
+      ],
+      "note": "The Ridge Light lit by Thornwold's burning: gold through the horn panes.",
+      "if": "quest:a_light_for_thornwold=done",
+      "halo": [
+        0,
+        6.85,
+        0
+      ],
+      "halo_size": 5.0
     },
     {
       "model": "res://assets/models/dressing/keeper_lodge.glb",
@@ -847,7 +899,10 @@
         2.4
       ],
       "note": "A second hut, cold: one of the colliers who went up the ridge. Sods slipping, the curtain gone, the rake by the door, his boots left on the seat.",
-      "if": "!flag:thornwold_hob_has_cap"
+      "if": [
+        "!flag:thornwold_hob_has_cap",
+        "!flag:thornwold_boots_away"
+      ]
     },
     {
       "model": "res://assets/models/dressing/collier_hut_cold_cap.glb",
@@ -863,7 +918,26 @@
         2.4
       ],
       "note": "The cold hut once Hob has Ottie Swale's cap: it sits crown-up on the seat by the boots.",
-      "if": "flag:thornwold_hob_has_cap"
+      "if": [
+        "flag:thornwold_hob_has_cap",
+        "!flag:thornwold_boots_away"
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut_cold_empty.glb",
+      "position": [
+        -6.5,
+        0,
+        -60.5
+      ],
+      "rotation_y": -40,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "note": "The cold hut once Hob has given Ottie's boots (and the cap) for the Ridge Light: the seat bare. Nobody's, if they burned.",
+      "if": "flag:thornwold_boots_away"
     },
     {
       "model": "res://assets/models/dressing/charcoal_clamp.glb",
@@ -1633,7 +1707,8 @@
         -56.0
       ],
       "rotation_y": 40,
-      "note": "By his clamp in the clearing, rake in hand."
+      "note": "By his clamp in the clearing, rake in hand.",
+      "if": "!flag:thornwold_hob_came_in"
     }
   ],
   "objects": [

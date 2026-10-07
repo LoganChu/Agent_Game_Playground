@@ -223,6 +223,26 @@
         "salt_for_the_collier": "done"
       },
       "shot": "--camera=5,5,13:-3,1,-7"
+    },
+    {
+      "id": "thornwold_lit",
+      "act": "Act II — The Drift",
+      "title": "The Ridge Light lit",
+      "inherits": "thornwold_ridge",
+      "region": "thornwold_ridge",
+      "spawn": "from_ladder",
+      "description": "Thornwold's burning, the boots path: the Lamp met and asked; Hob gave Ottie's boots (his memory of the four colliers) and they burned in the Ridge Light. The tower gold, the fog leaning back. Go down to the woods and the camp: Hob comes in by daylight, Bram, Pell and Oda after the burn.",
+      "flags": {
+        "thornwold_met_lamp": true,
+        "thornwold_lamp_coal_told": true,
+        "thornwold_lamp_ladder_told": true,
+        "thornwold_boots_away": true,
+        "thornwold_beacon_burned": "boots"
+      },
+      "quests": {
+        "a_light_for_thornwold": "done"
+      },
+      "shot": "--camera=-3,4,11:8,6,-9"
     }
   ]
 }

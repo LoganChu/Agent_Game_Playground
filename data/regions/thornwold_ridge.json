@@ -4,7 +4,13 @@
   "description": "The top of Thornwold's ridge above the woods: the Ridge Light standing cold, the keeper's lodge beside it, and the Lamp at the lantern bench under the eave.",
   "fog": {
     "density": 0.034,
-    "color": "silverfog"
+    "color": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_thornwold=done",
+        "density": 0.018
+      }
+    ]
   },
   "light": {
     "note": "Above the trees but inside the fog: flat grey daylight, a little brighter than the woods; the bench's coal and the waymark lantern are the warm things.",
@@ -15,7 +21,16 @@
     "ambient_color": "pine",
     "ambient_energy": 0.32,
     "sky_top": "abyss",
-    "sky_horizon": "silverfog"
+    "sky_horizon": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_thornwold=done",
+        "sun_color": "#F5C77E",
+        "sun_energy": 1.05,
+        "ambient_energy": 0.34,
+        "sky_top": "tide"
+      }
+    ]
   },
   "greying": [
     {
@@ -28,7 +43,21 @@
       "strength": 1.0,
       "falloff": 3.0,
       "height": 3.0,
-      "note": "The ridge top: deep Greying, the fog lying on it thick as fleece."
+      "note": "The ridge top: deep Greying, the fog lying on it thick as fleece.",
+      "if": "!quest:a_light_for_thornwold=done"
+    },
+    {
+      "rect": [
+        -22,
+        -20,
+        22,
+        12
+      ],
+      "strength": 0.4,
+      "falloff": 3.0,
+      "height": 2.2,
+      "note": "Lit, the Ridge Light holds the fog back to a thin fleece on the ridge top.",
+      "if": "quest:a_light_for_thornwold=done"
     },
     {
       "ellipse": [
@@ -255,7 +284,34 @@
         6.0,
         3.4
       ],
-      "note": "The Ridge Light, cold: the same model the woods see from below. thornwold_beacon_lit waits for Thornwold's burning."
+      "note": "The Ridge Light, cold: the same model the woods see from below. thornwold_beacon_lit waits for Thornwold's burning.",
+      "if": "!quest:a_light_for_thornwold=done"
+    },
+    {
+      "model": "res://assets/models/dressing/thornwold_beacon_lit.glb",
+      "position": [
+        8.0,
+        0,
+        -9.0
+      ],
+      "rotation_y": -15,
+      "collider": [
+        3.4,
+        6.0,
+        3.4
+      ],
+      "note": "The Ridge Light lit by Thornwold's burning: gold through the horn panes.",
+      "if": "quest:a_light_for_thornwold=done",
+      "light": {
+        "color": "kindle",
+        "energy": 2.5,
+        "range": 16.0,
+        "offset": [
+          0,
+          6.8,
+          0
+        ]
+      }
     },
     {
       "model": "res://assets/models/dressing/keeper_lodge.glb",

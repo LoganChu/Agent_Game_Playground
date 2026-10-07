@@ -1,0 +1,63 @@
+{
+  "id": "hob_comes_in",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A cart comes out of the brambles. The canes lift for it and settle behind, and an old man in a sacking smock pulls it down the cart road in plain daylight, sacks roped on the bed, a rake across the top."
+      },
+      {
+        "say": "narrator",
+        "text": "Hob Marl stops at the edge of the camp and looks at the sky as if he'd forgotten it had a colour."
+      },
+      {
+        "say": "hob",
+        "text": "Road's a road. Road's a road. I said I'd come in."
+      },
+      {
+        "say": "narrator",
+        "text": "Bram Kettle is already coming across the yard, wiping his hands. He stops short."
+      },
+      {
+        "say": "bram",
+        "text": "Hob. Hob Marl. Kettle's on. You'll hate it.",
+        "if": "!flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "hob",
+        "text": "I will. I will.",
+        "if": "!flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "bram",
+        "text": "Morning, old-timer. Can I help you?",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "hob",
+        "text": "Salt. Bram Kettle. Big lad. Mother was Saltmarrow. You know me. You... You don't know me.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "narrator",
+        "text": "Bram looks at the old man a long moment, then at you, as if you might explain it. You can't. Not to him.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "bram",
+        "text": "There's salt in the store. Take a crock. Take two. I don't know why. Take them.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "narrator",
+        "text": "Hob leaves the cart by the sacks on the jetty and sits on the tally-house step with his rake across his knees. He doesn't look back at the ridge.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "narrator",
+        "text": "Hob leaves the cart by the sacks on the jetty and sits on the tally-house step with his rake across his knees. Now and then he looks back up at the ridge, at the light, and counts something on his fingers.",
+        "if": "!flag:thornwold_beacon_burned=boots"
+      }
+    ]
+  }
+}

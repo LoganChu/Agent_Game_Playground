@@ -155,8 +155,45 @@
           },
           {
             "text": "About Hob Marl.",
-            "if": "quest:salt_for_the_collier=done",
+            "if": [
+              "quest:salt_for_the_collier=done",
+              "!flag:thornwold_beacon_burned=salt_row"
+            ],
             "goto": "hob_paid"
+          },
+          {
+            "text": "Thornwold's beacon is lit.",
+            "if": "quest:a_light_for_thornwold=done",
+            "goto": "lit"
+          },
+          {
+            "text": "Your salt row. I didn't burn it. Here.",
+            "if": [
+              "quest:a_light_for_thornwold=done",
+              "item:salt_row"
+            ],
+            "take_item": "salt_row",
+            "set": {
+              "thornwold_salt_row_away": false
+            },
+            "goto": "row_back"
+          },
+          {
+            "text": "The Ridge Light wants something remembered.",
+            "if": [
+              "stage:a_light_for_thornwold=feed_the_light",
+              "!flag:thornwold_hob_paid"
+            ],
+            "goto": "light_unpaid"
+          },
+          {
+            "text": "The Ridge Light wants something remembered. Something the camp could spare.",
+            "if": [
+              "stage:a_light_for_thornwold=feed_the_light",
+              "flag:thornwold_hob_paid",
+              "!flag:thornwold_salt_row_away"
+            ],
+            "goto": "light"
           },
           {
             "text": "Goodbye.",
@@ -275,6 +312,152 @@
       {
         "say": "bram",
         "text": "Daylight, he said? I'll put the kettle on for him. I'll make the tea badly. He'll complain. Good."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "light": [
+      {
+        "say": "bram",
+        "text": "Remembered. Like your Gull's. Oda said: a hole in the place, the shape of what went in."
+      },
+      {
+        "say": "narrator",
+        "text": "He walks you to the tally-house door without being asked, and stands in front of the board with his thumbs in his apron."
+      },
+      {
+        "say": "bram",
+        "text": "Timber's the camp. Charcoal's the camp. That's what keeps us. But this..."
+      },
+      {
+        "say": "narrator",
+        "text": "His thumb finds the bottom row: three old notches, bare wood, and the fourth, still pale."
+      },
+      {
+        "say": "bram",
+        "text": "Salt row. Us and the burners. My mother's mother cut notches on this row. And I forgot him once already, Hob, with the row right under my nose. Better to give a thing you've shown you can lose."
+      },
+      {
+        "say": "bram",
+        "text": "We'd not know them after. The sacks would come and we'd not wonder. Hob would come in by daylight and I'd..."
+      },
+      {
+        "say": "narrator",
+        "text": "He doesn't finish."
+      },
+      {
+        "choice": [
+          {
+            "text": "Give it, Bram. For the light.",
+            "goto": "light_given"
+          },
+          {
+            "text": "No. Keep your row.",
+            "goto": "light_kept"
+          }
+        ]
+      }
+    ],
+    "light_given": [
+      {
+        "say": "narrator",
+        "text": "He unpegs the stick and walks it into the pines west of the camp, to where the fog lies in a pocket between the trunks, and stands at its edge holding the salt row out into the grey like a man feeding a horse."
+      },
+      {
+        "say": "narrator",
+        "text": "When he comes back the stick has gone the colour of the fog. He puts it in your hand and wipes his own on his apron, twice."
+      },
+      {
+        "say": "bram",
+        "text": "There. Don't tell me which you burn. I'll know, or I won't."
+      },
+      {
+        "set": {
+          "thornwold_salt_row_away": true
+        },
+        "give_item": "salt_row"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "light_kept": [
+      {
+        "say": "bram",
+        "text": "Good. I'd have done it. I'd rather not have."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "light_unpaid": [
+      {
+        "say": "bram",
+        "text": "Remembered. Like your Gull's."
+      },
+      {
+        "say": "bram",
+        "text": "The camp's got timber and charcoal and a board full of sticks, and none of it's anything I'd miss enough to light a tower. I'd have to be owed something first. Or owe it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "row_back": [
+      {
+        "say": "narrator",
+        "text": "He takes the stick, turns it to the light, and hangs it back on the bottom pegs without a word. Then he stands looking at it."
+      },
+      {
+        "say": "bram",
+        "text": "Well. I'll keep a row I nearly gave. That's a thing to know about yourself."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "He has already seen it. Everyone on the landing has: a point of gold on the ridge above the black pines, where there's been nothing for three months."
+      },
+      {
+        "say": "bram",
+        "text": "Aye. I've cut a new row for it. LIGHT. One notch. I don't know what I'll count on it."
+      },
+      {
+        "say": "bram",
+        "text": "Oda says that's a lane open now, north-about. Tidewright lanes run beacon to beacon."
+      },
+      {
+        "say": "bram",
+        "text": "Hob Marl came in by daylight. Walked out of the brambles with his cart like it was a road. Sat on my step and complained about my tea. Didn't count anything. Didn't look back up at the ridge once.",
+        "if": [
+          "flag:thornwold_hob_came_in",
+          "flag:thornwold_beacon_burned=boots"
+        ]
+      },
+      {
+        "say": "bram",
+        "text": "Odd thing. An old burner came out of the brambles this morning with a cart of charcoal, sat himself on my step and asked for his salt. Knew my name. Knew my mother's. I gave him the salt. Can't think why it was owed.",
+        "if": [
+          "flag:thornwold_hob_came_in",
+          "flag:thornwold_beacon_burned=salt_row"
+        ]
+      },
+      {
+        "say": "bram",
+        "text": "There's bare pegs on the bottom of my board, too. I keep putting my thumb to them.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "bram",
+        "text": "The sacks keep turning up on the jetty, tied and full. I've stopped wondering who brings them. Seems a thing I ought to wonder.",
+        "if": [
+          "flag:thornwold_beacon_burned=salt_row",
+          "!flag:thornwold_hob_came_in"
+        ]
       },
       {
         "goto": "hub"

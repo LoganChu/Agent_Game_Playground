@@ -56,7 +56,7 @@ def _sack(loc, rng, lying: bool = False, shade: float = -0.2) -> None:
         cyl("Neck", 0.08, 0.05, 0.12, 5, (x, y, z + 0.54), mat("driftwood", -0.55))
 
 
-def _collier_hut(cold: bool, cap: bool = False) -> None:
+def _collier_hut(cold: bool, cap: bool = False, boots: bool = True) -> None:
     """A charcoal-burner's hut, the kind the charcoal folk live in beside their clamps: a cone
     of leaning poles (3 m across, ~2.9 m tall) roofed in bark slabs and turf, the pole tops
     crossed at the peak, a low doorway at the front with a sacking curtain, a hearth ring of
@@ -64,7 +64,9 @@ def _collier_hut(cold: bool, cap: bool = False) -> None:
     Cold (a collier who went up the ridge and didn't come back, Day 22): the same hut left —
     sods silvered and slipped off the cone (bare poles showing), the curtain gone from a dark
     doorway, the hearth ring kicked apart with no ash or spit, the rake leaning by the door,
-    no sack, a pair of boots set neatly on the seat."""
+    no sack, a pair of boots set neatly on the seat.
+    Without boots (Day 27, `collier_hut_cold_empty`): Hob gave Ottie's boots (and the cap) to the
+    Ridge Light, or to the player to carry there — the seat is bare and the hut is nobody's."""
     rng = random.Random(30)
     radius, height = 1.5, 2.6
     # Few shades, so the merged model stays a handful of draw calls.
@@ -157,11 +159,11 @@ def _collier_hut(cold: bool, cap: bool = False) -> None:
         # The rake leaning by the doorway, and a pair of boots set side by side on the seat.
         rod("Rake", (-0.55, door_y - 0.5, 0.02), (-0.45, door_y - 0.15, 1.75), 0.03, CLOTH, verts=4)
         beam("RakeHead", (-0.8, door_y - 0.52, 0.04), (-0.3, door_y - 0.52, 0.04), 0.06, mat("slate", -0.3))
-        for k, off in enumerate((-0.12, 0.12)):
+        for k, off in enumerate((-0.12, 0.12) if boots else ()):
             x, y = -0.5 + off, -2.57 + off * 0.42
             box("Boot", (0.12, 0.26, 0.1), (x, y - 0.04, 0.45), mat("ink", 0.0), -0.42)
             box("BootLeg", (0.12, 0.12, 0.24), (x + 0.03, y + 0.05, 0.45), mat("ink", 0.0), -0.42)
-        if cap:
+        if cap and boots:
             # Ottie Swale's felt cap, brought down from the stair's waymark by the player: Hob
             # set it crown-up on the seat beside the boots, brim toward the door.
             cx, cy = -0.2, -2.71
@@ -187,6 +189,9 @@ def build_collier_hut() -> None:
     bd.reset()
     _collier_hut(True, cap=True)
     bd.export("collier_hut_cold_cap")
+    bd.reset()
+    _collier_hut(True, boots=False)
+    bd.export("collier_hut_cold_empty")
 
 
 def _wheel(x: float, y: float, r: float) -> None:
@@ -364,7 +369,7 @@ def build_pine_grey() -> None:
 
 BUILDERS = [build_collier_hut, build_sack_cart, build_waymarks, build_trail_stake, build_greyed_brush, build_pine_grey]
 ALIASES = {"waymark": "waymarks", "waymark_lit": "waymarks", "collier_hut_cold": "collier_hut",
-           "collier_hut_cold_cap": "collier_hut"}
+           "collier_hut_cold_cap": "collier_hut", "collier_hut_cold_empty": "collier_hut"}
 
 if __name__ == "__main__":
     only = {ALIASES.get(a, a) for a in sys.argv[1:] if not a.startswith("-")}

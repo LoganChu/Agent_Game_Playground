@@ -11,12 +11,24 @@
         "text": "TIMBER: the sticks run the whole width of the board. CHARCOAL: nearly as long, and a fresh notch every few days. FLOUR AND OIL, UP: that row stops dead at the Snuffing."
       },
       {
-        "if": "!flag:thornwold_hob_paid",
+        "if": [
+          "!flag:thornwold_hob_paid",
+          "!flag:thornwold_salt_row_away"
+        ],
         "say": "narrator",
         "text": "SALT, along the bottom: three notches, then bare wood."
       },
       {
-        "if": "flag:thornwold_hob_paid",
+        "say": "narrator",
+        "text": "SALT is burned into the plank along the bottom, over a row of bare pegs. Nothing hangs on them.",
+        "if": "flag:thornwold_salt_row_away",
+        "note": "Given to the Ridge Light (or carried by the player until returned)."
+      },
+      {
+        "if": [
+          "flag:thornwold_hob_paid",
+          "!flag:thornwold_salt_row_away"
+        ],
         "say": "narrator",
         "text": "SALT, along the bottom: three notches, a finger's length of bare wood, and then a fourth, fresh and pale."
       },
@@ -35,6 +47,16 @@
         ],
         "say": "narrator",
         "text": "Three loads paid. Every load since, Hob Marl has pulled his cart home without his salt."
+      },
+      {
+        "say": "narrator",
+        "text": "Under the rows someone has started a new one, the word cut fresh and pale into the plank: LIGHT. One notch.",
+        "if": "quest:a_light_for_thornwold=done"
+      },
+      {
+        "say": "narrator",
+        "text": "You look at the bare pegs a long time. You know something hung there. You can't think what. Neither can the board.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
       }
     ]
   }

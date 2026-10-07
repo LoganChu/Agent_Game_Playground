@@ -669,6 +669,36 @@
         "text": "Mara would say put it back where you found it. So I did. Then I took it again."
       },
       {
+        "say": "pell",
+        "text": "There's a LIGHT on the ridge! Bram cut a whole new row for it. I helped. I held the stick.",
+        "if": "quest:a_light_for_thornwold=done"
+      },
+      {
+        "say": "pell",
+        "text": "Your collier came in. Hob. He doesn't count any more. I've still got his stick. Finders keep for. I'll keep it for him till he wants to know what he was counting.",
+        "if": [
+          "flag:thornwold_beacon_burned=boots",
+          "flag:thornwold_hob_came_in",
+          "flag:thornwold_hob_stick"
+        ]
+      },
+      {
+        "say": "pell",
+        "text": "Bram asked me who the old man was. Hob. I told him. He nodded and said 'Hob' like he was learning it. Then he asked me again at supper.",
+        "if": [
+          "flag:thornwold_beacon_burned=salt_row",
+          "flag:thornwold_hob_came_in"
+        ]
+      },
+      {
+        "say": "pell",
+        "text": "I remember him, though. I'm not from here. It doesn't stick to Thornwold but it sticks to me.",
+        "if": [
+          "flag:thornwold_beacon_burned=salt_row",
+          "flag:thornwold_hob_came_in"
+        ]
+      },
+      {
         "choice": [
           {
             "text": "The tally stick is Hob Marl's. A collier, past the wall.",

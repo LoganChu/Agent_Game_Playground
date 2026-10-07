@@ -3,6 +3,14 @@
   "knots": {
     "start": [
       {
+        "if": "quest:a_light_for_thornwold=done",
+        "goto": "lit"
+      },
+      {
+        "if": "stage:a_light_for_thornwold=feed_the_light",
+        "goto": "cradle"
+      },
+      {
         "say": "narrator",
         "text": "The Ridge Light: dry-laid grey stone, laced with timber every few courses, quoined in paler stone. The Keepers' ember is cut over the door. High above, the lantern cage's horn panes are dark, and the iron pine on the roof stands black against the fog."
       },
@@ -28,6 +36,191 @@
         "if": "flag:thornwold_stair_light=sliver",
         "say": "narrator",
         "text": "Seven, and one more from the bench for the stair, and the box a little smaller for it."
+      },
+      {
+        "say": "narrator",
+        "text": "Whatever it wants, the Lamp will know. The Lamp has been up to that cradle every dusk since the Snuffing.",
+        "if": [
+          "flag:thornwold_met_lamp",
+          "stage:a_light_for_thornwold=the_lamp"
+        ]
+      }
+    ],
+    "cradle": [
+      {
+        "say": "narrator",
+        "text": "You go in under the carved ember and up the stair inside the wall, round and round in the dark, and come out in the lantern cage. Horn panes, scraped thin. An iron cradle on a stone plinth, pale ash in it. The fog leans on the panes like a crowd at a window."
+      },
+      {
+        "say": "narrator",
+        "text": "You lift the ember. The cradle leans to it, the way the Gull's did. Empty. Waiting."
+      },
+      {
+        "say": "narrator",
+        "text": "Ottie's boots hang from your hand by their tied laces, cold as the fog they were held in.",
+        "if": "item:otties_boots"
+      },
+      {
+        "say": "narrator",
+        "text": "Bram's salt row is in your satchel: a stick of notches, light, and heavy all the same.",
+        "if": "item:salt_row"
+      },
+      {
+        "say": "narrator",
+        "text": "You have nothing to set in it. Thornwold has to give it something: Hob, in the clearing, or Bram at the camp.",
+        "if": [
+          "!item:otties_boots",
+          "!item:salt_row"
+        ]
+      },
+      {
+        "goto": "waiting"
+      }
+    ],
+    "waiting": [
+      {
+        "say": "narrator",
+        "text": "The cradle waits. Whatever you set in it, Thornwold will never remember again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Set Ottie's boots in the cradle.",
+            "if": "item:otties_boots",
+            "goto": "weigh_boots"
+          },
+          {
+            "text": "Set Bram's salt row in the cradle.",
+            "if": "item:salt_row",
+            "goto": "weigh_salt_row"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "weigh_boots": [
+      {
+        "say": "narrator",
+        "text": "The boots are heavier than boots. In them: Ottie Swale sewing a crooked cord round his cap, Wenna Coll's laugh across the clearing, the Dray brothers arguing over whose rake it was. Five hearths smoking where one smokes now."
+      },
+      {
+        "say": "narrator",
+        "text": "And every night since: an old man setting four places in his head, counting them, and waiting."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn them, and Hob Marl will never have had neighbours. He'll stop waiting. He'll never go up the stair after them. If the four ever come back along the ridge, no one on Thornwold will know their faces."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Hob's memory of the four.",
+            "take_item": "otties_boots",
+            "set": {
+              "thornwold_beacon_burned": "boots"
+            },
+            "goto": "burn_boots"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "weigh_salt_row": [
+      {
+        "say": "narrator",
+        "text": "The stick is notched end to end: years of crocks of salt left by the jetty, and sacks of charcoal tied and left beside them. Bram's mother, and Bram's bad tea, and Hob complaining about it. The camp and the woods keeping faith with each other."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and the camp will never know who the charcoal folk were. The sacks will turn up on the jetty and nobody will wonder. When Hob comes in by daylight, Bram Kettle will look at him like a stranger."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn the camp's memory of the colliers.",
+            "take_item": "salt_row",
+            "set": {
+              "thornwold_beacon_burned": "salt_row"
+            },
+            "goto": "burn_salt_row"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "burn_boots": [
+      {
+        "say": "narrator",
+        "text": "You set the boots in the cradle. For a moment the clearing is full: five clamps smoking, voices across the dust, a felt cap with a crooked cord thrown up in the air and caught. Then the leather takes the flame."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "burn_salt_row": [
+      {
+        "say": "narrator",
+        "text": "You lay the stick in the cradle. The notches catch one at a time, left to right, the way they were cut, the pale fourth one last. Then the wood is light."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "kindle": [
+      {
+        "say": "narrator",
+        "text": "The Ridge Light catches. Gold comes out through the horn panes, softer than glass would let it, and the iron pine on the roof throws its shadow the length of the ridge."
+      },
+      {
+        "say": "narrator",
+        "text": "Below, the woods' fog leans back off the paths, out of the hollows, away from the stair. Not gone. Standing back, the way the colliers say it stands back from them."
+      },
+      {
+        "quest_complete": "a_light_for_thornwold"
+      },
+      {
+        "say": "narrator",
+        "text": "Down in the clearing an old man has stopped in the middle of his raking. He doesn't know why. He goes on.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "narrator",
+        "text": "Down at the landing a big man is standing at his tally board, looking at a row of bare pegs, and can't think what's missing.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "narrator",
+        "text": "North along the spine, where the old Keepers' road goes on past its last waymark, the fog is thinner too. Not thin enough to see where the road ends."
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "The Ridge Light burns gold behind its horn panes. The fog keeps its distance from the ridge."
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, there's a cap with a crooked cord. Then it's only fire. You couldn't say whose.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a row of notches. Then it's only fire.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "narrator",
+        "text": "On the tower's flank the lantern rack still hangs: seven hooks empty, one cold lantern waiting. Nobody's turn now. The road is the beacon's.",
+        "if": "flag:thornwold_met_lamp"
       }
     ]
   }

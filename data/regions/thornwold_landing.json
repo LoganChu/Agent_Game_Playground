@@ -1,14 +1,20 @@
 {
   "id": "thornwold_landing",
   "name": "Thornwold Landing",
-  "description": "A cove under black pines on Thornwold's south shore: the Tidewright lumber camp's jetty, log piles and bunkhouse. The old cart road runs north from the camp toward the island's dark beacon \u2014 and stops at a wall of brambles.",
+  "description": "A cove under black pines on Thornwold's south shore: the Tidewright lumber camp's jetty, log piles and bunkhouse. The old cart road runs north from the camp toward the island's dark beacon — and stops at a wall of brambles.",
   "water_level": -0.25,
   "fog": {
     "density": 0.03,
-    "color": "silverfog"
+    "color": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_thornwold=done",
+        "density": 0.02
+      }
+    ]
   },
   "light": {
-    "note": "A dark island: cold, green-grey light under the pines; Thornwold's beacon is out.",
+    "note": "A dark island: cold, green-grey light under the pines; Thornwold's beacon is out. Lit (Thornwold's burning), the light warms.",
     "sun_color": "silverfog",
     "sun_energy": 0.85,
     "sun_pitch": -38,
@@ -16,7 +22,16 @@
     "ambient_color": "pine",
     "ambient_energy": 0.32,
     "sky_top": "abyss",
-    "sky_horizon": "silverfog"
+    "sky_horizon": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_thornwold=done",
+        "sun_color": "#EFC98C",
+        "sun_energy": 1.0,
+        "ambient_energy": 0.34,
+        "sky_top": "tide"
+      }
+    ]
   },
   "greying": [
     {
@@ -1375,6 +1390,17 @@
       "rotation_y": 200,
       "if": "flag:thornwold_pell_landed",
       "note": "Poking through the charcoal sacks."
+    },
+    {
+      "npc": "hob",
+      "position": [
+        -5.4,
+        0,
+        3.6
+      ],
+      "rotation_y": 120,
+      "if": "flag:thornwold_hob_came_in",
+      "note": "On the tally-house step, rake across his knees, come in by daylight after the Ridge Light was lit."
     }
   ],
   "objects": [
@@ -1413,6 +1439,19 @@
         "thornwold_landed": true
       },
       "dialogue": "thornwold_landing"
+    },
+    {
+      "id": "hob_comes_in",
+      "if": [
+        "quest:a_light_for_thornwold=done",
+        "flag:thornwold_hob_paid",
+        "!flag:thornwold_hob_came_in"
+      ],
+      "set": {
+        "thornwold_hob_came_in": true
+      },
+      "dialogue": "hob_comes_in",
+      "note": "Hob keeps his promise: in by daylight once the road's a road again (the Ridge Light lit, his salt paid)."
     }
   ],
   "exits": []

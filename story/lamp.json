@@ -51,12 +51,32 @@
     ],
     "greet": [
       {
-        "if": "!flag:thornwold_stair_lantern_hung",
+        "if": [
+          "quest:a_light_for_thornwold=done",
+          "!flag:thornwold_lamp_saw_light"
+        ],
+        "goto": "lit"
+      },
+      {
+        "say": "lamp",
+        "text": "It's burning. I keep going up to look at it. Habit. A new habit.",
+        "if": [
+          "flag:thornwold_lamp_saw_light"
+        ]
+      },
+      {
+        "if": [
+          "!flag:thornwold_stair_lantern_hung",
+          "!quest:a_light_for_thornwold=done"
+        ],
         "say": "lamp",
         "text": "Back up. Mind the top rung. The top rung's..."
       },
       {
-        "if": "flag:thornwold_stair_lantern_hung",
+        "if": [
+          "flag:thornwold_stair_lantern_hung",
+          "!quest:a_light_for_thornwold=done"
+        ],
         "say": "lamp",
         "text": "There's a light on the stair. I saw it from the gallery. First new light on the bank since the fourth one went up."
       },
@@ -99,6 +119,11 @@
           {
             "text": "The Ridge Light is cold.",
             "goto": "beacon"
+          },
+          {
+            "text": "What does the Ridge Light want? What could Thornwold spare?",
+            "if": "stage:a_light_for_thornwold=feed_the_light",
+            "goto": "spare"
           },
           {
             "text": "Goodbye.",
@@ -426,6 +451,100 @@
       {
         "say": "lamp",
         "text": "Thornwold'll have to give it something. Ask the woods what they can spare. Ask Hob. Ask the camp. Don't ask me."
+      },
+      {
+        "if": "stage:a_light_for_thornwold=the_lamp",
+        "quest_stage": [
+          "a_light_for_thornwold",
+          "feed_the_light"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "spare": [
+      {
+        "say": "lamp",
+        "text": "Something somebody remembers. Something that'd leave a hole."
+      },
+      {
+        "say": "lamp",
+        "text": "Hob remembers the four. Every night he counts them. That's a thing that'd burn."
+      },
+      {
+        "say": "lamp",
+        "text": "And the camp remembers Hob, now you've reminded it. Bram Kettle's board, the salt row. That'd burn too.",
+        "if": "flag:thornwold_hob_paid"
+      },
+      {
+        "say": "lamp",
+        "text": "And the camp down at the landing. Bram Kettle's board, his salt row. They'd forgotten Hob once already. Remind them, and they'd have something to give.",
+        "if": "!flag:thornwold_hob_paid"
+      },
+      {
+        "say": "lamp",
+        "text": "Don't bring me the woods. Whatever the woods remember, it's theirs, and they've been kind."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "The Lamp is standing at the bench with its hood turned up toward the tower. The chisel lies where it was put down."
+      },
+      {
+        "say": "lamp",
+        "text": "Thirty winters I lit that from a coal off the Spire. Three months I've gone up every dusk to look at the ash. And you come up a ladder I put down, with a hand like that, and..."
+      },
+      {
+        "say": "lamp",
+        "text": "Hob's memory of them. The four.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "lamp",
+        "text": "No fifth, then. Not the way I'd have done it. But no fifth. He'll stop looking up the stair. He won't know there was anyone to look for.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "lamp",
+        "text": "The camp's memory. They'll not know him down there now, and he'll keep the four. He'll still look up the stair.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "lamp",
+        "text": "Leave the ladder stood. If he comes up, I'll not put it down again. I'll tell him what I told you.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "lamp",
+        "text": "The road's the beacon's now. The lanterns can go out, one a night, and nobody's stranded for it. I can stop breaking the coal."
+      },
+      {
+        "say": "narrator",
+        "text": "It lifts the lid of the iron box a finger's width. The light inside is the size of a thumbnail, cold down one side."
+      },
+      {
+        "say": "lamp",
+        "text": "There's a sliver gone that went on your stair. A night less in the box. Last week that was a night of the road. Now it's only a night.",
+        "if": "flag:thornwold_stair_light=sliver"
+      },
+      {
+        "say": "lamp",
+        "text": "It's what it is. More than I thought there'd be, the way the nights were going.",
+        "if": "!flag:thornwold_stair_light=sliver"
+      },
+      {
+        "say": "lamp",
+        "text": "What's left, I'll keep. For the four. If they come back along the ridge, there should be a light at the end of it that knows their faces."
+      },
+      {
+        "set": {
+          "thornwold_lamp_saw_light": true
+        }
       },
       {
         "goto": "hub"

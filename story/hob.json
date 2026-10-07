@@ -38,6 +38,20 @@
     ],
     "greet": [
       {
+        "say": "hob",
+        "text": "Daylight. Proper daylight, on the road. I'd forgotten the colour of it.",
+        "if": "flag:thornwold_hob_came_in"
+      },
+      {
+        "say": "hob",
+        "text": "Light's up on the ridge. See it? The road's a road again. Bram Kettle's waiting on me, I said I'd come in.",
+        "if": [
+          "quest:a_light_for_thornwold=done",
+          "flag:thornwold_hob_paid",
+          "!flag:thornwold_hob_came_in"
+        ]
+      },
+      {
         "if": "!flag:thornwold_hob_paid",
         "say": "hob",
         "text": "Up the lanterns again. Good. Good."
@@ -80,7 +94,8 @@
           },
           {
             "text": "The fog stays out of your clearing.",
-            "goto": "clearing"
+            "goto": "clearing",
+            "if": "!flag:thornwold_hob_came_in"
           },
           {
             "text": "Where are the other charcoal folk?",
@@ -110,6 +125,34 @@
             "goto": "cap"
           },
           {
+            "text": "Who lived in the cold hut?",
+            "if": [
+              "flag:thornwold_beacon_burned=boots",
+              "!flag:thornwold_hob_came_in"
+            ],
+            "goto": "cold_hut"
+          },
+          {
+            "text": "Ottie's boots. I didn't burn them. Here.",
+            "if": [
+              "quest:a_light_for_thornwold=done",
+              "item:otties_boots"
+            ],
+            "take_item": "otties_boots",
+            "set": {
+              "thornwold_boots_away": false
+            },
+            "goto": "boots_back"
+          },
+          {
+            "text": "The Ridge Light wants something remembered. Something Thornwold can spare.",
+            "if": [
+              "stage:a_light_for_thornwold=feed_the_light",
+              "!flag:thornwold_boots_away"
+            ],
+            "goto": "light"
+          },
+          {
             "text": "Goodbye.",
             "end": true
           }
@@ -127,7 +170,8 @@
       },
       {
         "say": "narrator",
-        "text": "He points his rake north, past the clearing, at the black line of the ridge above the trees. Up there, very small, a lantern burns on a waymark nobody could reach from here."
+        "text": "He points his rake north, past the clearing, at the black line of the ridge above the trees. Up there, very small, a lantern burns on a waymark nobody could reach from here.",
+        "if": "!flag:thornwold_hob_came_in"
       },
       {
         "say": "hob",
@@ -187,6 +231,10 @@
     ],
     "others": [
       {
+        "if": "flag:thornwold_beacon_burned=boots",
+        "goto": "others_forgotten"
+      },
+      {
         "say": "hob",
         "text": "Five hearths, this side of the ridge. Five clamps going. Now there's mine."
       },
@@ -196,7 +244,8 @@
       },
       {
         "say": "narrator",
-        "text": "He looks across the clearing at the second hut. Its hearth is cold, and a rake leans by its door where somebody meant to come back for it."
+        "text": "He looks across the clearing at the second hut. Its hearth is cold, and a rake leans by its door where somebody meant to come back for it.",
+        "if": "!flag:thornwold_hob_came_in"
       },
       {
         "goto": "hub"
@@ -268,7 +317,10 @@
         "text": "You saw the face? No. No. Nobody does. You don't ask the Lamp."
       },
       {
-        "if": "flag:thornwold_lamp_ladder_told",
+        "if": [
+          "flag:thornwold_lamp_ladder_told",
+          "!flag:thornwold_beacon_burned=boots"
+        ],
         "say": "narrator",
         "text": "You think of the four who went up asking for a lantern, and of the ladder put down so there'd be no fifth, and you look at the old man raking his clamp, and you don't say it."
       },
@@ -277,6 +329,10 @@
       }
     ],
     "cap": [
+      {
+        "if": "flag:thornwold_beacon_burned=boots",
+        "goto": "cap_forgotten"
+      },
       {
         "take_item": "colliers_cap"
       },
@@ -299,6 +355,146 @@
       {
         "say": "hob",
         "text": "There. He'll want that when he's back. He'll want his boots."
+      },
+      {
+        "set": {
+          "thornwold_hob_has_cap": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "light": [
+      {
+        "say": "hob",
+        "text": "Something remembered. Something remembered."
+      },
+      {
+        "say": "narrator",
+        "text": "He leans on his rake and looks across the clearing at the cold hut, the boots on the seat."
+      },
+      {
+        "say": "hob",
+        "text": "I remember the four. Ottie. Wenna Coll. Abe and Tolly Dray, that never once agreed whose rake it was. Every night I count them. Four. I set the places in my head."
+      },
+      {
+        "say": "hob",
+        "text": "I'd not miss it, would I. If I didn't know them. I'd sleep. I'd come in by daylight and not look up the stair going out."
+      },
+      {
+        "say": "hob",
+        "text": "Take the boots. That's them. That's all of them, in Ottie's boots. Take the cap too, it goes with.",
+        "if": "flag:thornwold_hob_has_cap"
+      },
+      {
+        "say": "hob",
+        "text": "Take the boots. That's them. That's all of them, in Ottie's boots.",
+        "if": "!flag:thornwold_hob_has_cap"
+      },
+      {
+        "choice": [
+          {
+            "text": "Hold them in the fog, Hob. For the light.",
+            "goto": "light_given"
+          },
+          {
+            "text": "No. Keep them. They might come back.",
+            "goto": "light_kept"
+          }
+        ]
+      }
+    ],
+    "light_given": [
+      {
+        "say": "narrator",
+        "text": "He fetches the boots from the seat and carries them to the edge of the clearing, where the fog stands close as a held breath, and holds them out into it by their laces."
+      },
+      {
+        "say": "narrator",
+        "text": "He holds them a long time. His lips move: four names, counted. The leather goes cold, then silver at the toes. When he gives them to you they are heavier than boots."
+      },
+      {
+        "say": "hob",
+        "text": "There. There. Don't tell me when."
+      },
+      {
+        "set": {
+          "thornwold_boots_away": true
+        },
+        "give_item": "otties_boots"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "light_kept": [
+      {
+        "say": "hob",
+        "text": "They might. They might. Ottie said he'd bring a lantern for my hut."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "boots_back": [
+      {
+        "say": "narrator",
+        "text": "He takes the boots in both black hands and doesn't ask why. He carries them back to the cold hut's seat and sets them side by side, toes to the door."
+      },
+      {
+        "say": "hob",
+        "text": "There. Four places. Four."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "cold_hut": [
+      {
+        "say": "hob",
+        "text": "That? Nobody's. Always been nobody's. Somebody built it and went. Burners do."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks at it the way you'd look at a stump: something that was a tree once, that you never saw standing."
+      },
+      {
+        "say": "hob",
+        "text": "Good poles in it. I'll have them for the clamp, come winter."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "others_forgotten": [
+      {
+        "say": "hob",
+        "text": "Others? Just me. Always just me, this side of the ridge. One hearth. One clamp."
+      },
+      {
+        "say": "hob",
+        "text": "I sleep, now. Did I used to not sleep?"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "cap_forgotten": [
+      {
+        "take_item": "colliers_cap"
+      },
+      {
+        "say": "narrator",
+        "text": "He turns the cap over in his black hands and runs a thumb along the crooked cord round the band."
+      },
+      {
+        "say": "hob",
+        "text": "Somebody's. Sewed that cord on himself, whoever he was. Crooked."
+      },
+      {
+        "say": "hob",
+        "text": "I'll put it on the shelf by the salt. Somebody might come for it."
       },
       {
         "set": {
