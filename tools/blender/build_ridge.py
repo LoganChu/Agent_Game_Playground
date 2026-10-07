@@ -121,7 +121,9 @@ def _beacon(lit: bool) -> None:
         beam("RackHook", (rx + 0.07, y, 1.88), (rx + 0.07, y, 1.72), 0.025, IRON)
     ly = -0.88 + 5 * 0.25
     cyl("RackLanternCap", 0.12, 0.02, 0.1, 6, (rx + 0.07, ly, 1.6), IRON)
-    cyl("RackLanternGlass", 0.08, 0.08, 0.2, 6, (rx + 0.07, ly, 1.38), mat("bone", -0.45))  # cold, empty
+    # Cold and empty before the burn; after it the Lamp keeps this one lit, for the four.
+    cyl("RackLanternGlass", 0.08, 0.08, 0.2, 6, (rx + 0.07, ly, 1.38),
+        mat("kindle", 0.0, emissive=True) if lit else mat("bone", -0.45))
     cyl("RackLanternBase", 0.1, 0.1, 0.04, 6, (rx + 0.07, ly, 1.34), IRON)
     # The gallery: beams cantilevered out of the top course, a plank deck, a low rail.
     gz = SHAFT_H
@@ -145,7 +147,8 @@ def _beacon(lit: bool) -> None:
                  tuple(n * gh + t * gh * s + Vector((0, 0, gz + 0.9))), 0.06, WOOD)
     # The lantern cage: corner posts and sills of dark timber, horn panes between.
     cz = gz + 0.14
-    pane = mat("kindle", 0.0, emissive=True) if lit else mat("ink", 0.12)
+    # Lit, the horn glows and lets the fire show through; cold, it is dark and opaque.
+    pane = bd.horn("kindle", 0.3, glow=0.35) if lit else mat("ink", 0.12)
     box("CageSill", (CAGE_HALF * 2 + 0.16, CAGE_HALF * 2 + 0.16, 0.18), (0, 0, cz), TIMBER)
     box("Panes", (CAGE_HALF * 2 - 0.08, CAGE_HALF * 2 - 0.08, CAGE_H - 0.3), (0, 0, cz + 0.18), pane)
     for sx in (-1, 1):
@@ -164,6 +167,18 @@ def _beacon(lit: bool) -> None:
             (math.cos(a) * 0.3, math.sin(a) * 0.3, cz + 0.95), 0.03, IRON, verts=4)
     if not lit:
         cyl("Ash", 0.2, 0.12, 0.12, 6, (0, 0, cz + 0.53), mat("silverfog", -0.15))
+    else:
+        # The fire in the cradle: a bed of red coals, ember tongues leaning together, a kindle
+        # heart — all emissive, seen through the horn.
+        cyl("Coals", 0.24, 0.16, 0.14, 7, (0, 0, cz + 0.53), mat("coal", 0.0, emissive=True))
+        for k in range(5):
+            a = k / 5 * math.tau + 0.3
+            r = 0.1 + 0.04 * (k % 2)
+            h = 0.42 + 0.12 * ((k * 3) % 5) / 4
+            tongue = cyl("Tongue", 0.09, 0.0, h, 4, (math.cos(a) * r, math.sin(a) * r, cz + 0.62),
+                         mat("ember", 0.0, emissive=True), a)
+            tongue.rotation_euler = (math.sin(a) * 0.22, -math.cos(a) * 0.22, 0)  # tips lean in
+        cyl("Heart", 0.1, 0.0, 0.62, 5, (0, 0, cz + 0.62), mat("kindle", 0.0, emissive=True))
     # The roof: a bark-shingle pyramid in two pitches (a flared eave), and the iron pine.
     rz = cz + CAGE_H + 0.04
     cyl("Eave", (CAGE_HALF + 0.75) * math.sqrt(2), (CAGE_HALF + 0.2) * math.sqrt(2), 0.4, 4, (0, 0, rz),

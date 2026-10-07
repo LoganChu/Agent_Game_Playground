@@ -305,6 +305,40 @@ def build_tally_house() -> None:
     bd.export("tally_house")
 
 
+def build_log_bench() -> None:
+    """A split-log bench (1.3 m along X, seat top 0.44 m — a seated character's seat height,
+    see build_characters.Body): a half log laid flat face up on two stub legs, bark on the
+    underside, the flat top worn pale in the middle where people sit. Front is -Y (Godot +Z)."""
+    bd.reset()
+    rng = random.Random(21)
+    bark, wood = mat("pine", -0.45), mat("driftwood", -0.2)
+    for x in (-0.48, 0.48):
+        cyl("Leg", 0.13, 0.12, 0.3, 6, (x, 0.04, 0), bark, rng.uniform(0, 1))
+    # The half log: a 6-sided log cut along its axis, flat face up at 0.44.
+    mesh = bpy.data.meshes.new("Seat")
+    bm = bmesh.new()
+    r, half = 0.17, 0.65
+    ring = [(math.cos(a) * r, math.sin(a) * r) for a in (0.0, -math.pi / 3, -2 * math.pi / 3, -math.pi)]
+    ends = []
+    for x in (-half, half):
+        ends.append([bm.verts.new((x, 0.04 + y, 0.44 + z)) for y, z in ring])
+    bm.faces.new(ends[0][::-1])
+    bm.faces.new(ends[1])
+    for k in range(len(ring) - 1):
+        bm.faces.new((ends[0][k], ends[0][k + 1], ends[1][k + 1], ends[1][k]))
+    bm.faces.new((ends[0][-1], ends[0][0], ends[1][0], ends[1][-1]))  # the flat top
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    bm.to_mesh(mesh)
+    bm.free()
+    seat = bpy.data.objects.new("Seat", mesh)
+    bpy.context.collection.objects.link(seat)
+    seat.data.materials.append(bark)
+    box("Worn", (0.5, 0.3, 0.01), (0.0, 0.04, 0.44), wood)
+    for x in (-0.6, 0.6):
+        box("EndGrain", (0.012, 0.3, 0.1), (x, 0.04, 0.34), mat("driftwood", -0.05))
+    bd.export("log_bench")
+
+
 def build_saw_pit() -> None:
     """The saw trestle where logs become planks: two X-legged trestles carrying a pine log
     (3 m along X), its +X end already sawn into planks that lie stacked beside it, a long
@@ -470,7 +504,7 @@ def build_fallen_trunk() -> None:
     bd.export("fallen_trunk")
 
 
-BUILDERS = [build_bramble, build_log_pile, build_stump, build_charcoal_sacks, build_bunkhouse, build_tally_house,
+BUILDERS = [build_bramble, build_log_pile, build_stump, build_charcoal_sacks, build_bunkhouse, build_tally_house, build_log_bench,
             build_saw_pit, build_charcoal_clamp, build_pine_dark, build_pine_snag, build_underbrush, build_fallen_trunk]
 
 if __name__ == "__main__":

@@ -501,16 +501,34 @@ def build_hob() -> None:
     elbows, a sacking smock belted with rope over an ink shirt, a leather hood pushed back off
     a bald, soot-smudged head, a grey stubble beard, and a long clamp rake held upright in his
     left hand. The Greying has had some of him: his smock is silvered at the hem."""
+    _hob(seated=False)
+
+
+def build_hob_seated() -> None:
+    """Hob come in by daylight, sitting on the bench by the tally-house step with the clamp rake
+    across his knees, both soot-black hands resting on the pole (the "sit" idle moves them). Same
+    man as `hob`; the rake is a static extra (the Stool part) so it stays put while he breathes."""
+    _hob(seated=True)
+
+
+def _hob(seated: bool) -> None:
     reset_scene()
-    b = Body(build=0.9)
+    b = Body(seated=seated, build=0.9)
     smock = material("driftwood", -0.45)
     soot = material("ink", 0.12)
     skin = material("driftwood", -0.1)
+    hem = material("silverfog", -0.2)
     base_body(b, skin, material("slate", -0.4), material("ink", 0.0), smock, sleeves=soot)
     t = b.parts["Torso"]
-    # Sacking smock to the knees, silvered where the fog has had it, belted with rope.
-    t.append(limb((0, 0.0, 0.34), (0, 0.0, b.waist + 0.06), 0.3, 0.26, smock, verts=8))
-    t.append(limb((0, 0.0, 0.3), (0, 0.0, 0.4), 0.31, 0.3, material("silverfog", -0.2), verts=8))
+    if seated:
+        # The smock to the hips, its skirt over his thighs, silvered at the knees.
+        t.append(limb((0, 0.0, b.hip - 0.06), (0, 0.0, b.waist + 0.06), 0.3, 0.26, smock, verts=8))
+        b.parts["LegL"].append(block((0.5, 0.34, 0.05), (-0.12, -0.18, b.hip + 0.07), smock))
+        b.parts["LegL"].append(block((0.5, 0.05, 0.14), (-0.12, -0.36, b.hip - 0.04), hem))
+    else:
+        # Sacking smock to the knees, silvered where the fog has had it.
+        t.append(limb((0, 0.0, 0.34), (0, 0.0, b.waist + 0.06), 0.3, 0.26, smock, verts=8))
+        t.append(limb((0, 0.0, 0.3), (0, 0.0, 0.4), 0.31, 0.3, hem, verts=8))
     t.append(ring(0.27, b.waist + 0.03, 0.04, material("driftwood", -0.15)))                # rope belt
     t.append(limb((0.12, -0.27, b.waist + 0.02), (0.15, -0.3, b.waist - 0.2), 0.02, 0.02, material("driftwood", -0.15), verts=4))  # rope end
     t.append(block((0.34, 0.05, 0.36), (0, -0.25, b.waist + 0.2), material("coal", -0.6)))  # scorched bib
@@ -526,10 +544,24 @@ def build_hob() -> None:
     h.append(block((0.1, 0.03, 0.05), (0.06, -0.225, b.head + 0.12), soot))                 # soot smudge
     for ex in (0.075, -0.075):
         h.append(block((0.08, 0.03, 0.025), (ex, -0.215, b.head + 0.075), material("silverfog", 0.0)))  # brows
-    # The clamp rake, upright in his left hand: a long pole and an iron head over his shoulder.
-    hand = b.hand("L")
     pole = material("driftwood", -0.25)
     iron = material("slate", -0.45)
+    if seated:
+        # The clamp rake across his knees, iron head out past his left knee, tines hanging.
+        z = b.hip + 0.16
+        b.parts["Stool"].append(limb((-0.62, -0.3, z), (0.66, -0.33, z - 0.02), 0.022, 0.022, pole, verts=5))
+        head = Vector((0.7, -0.33, z - 0.02))
+        b.parts["Stool"].append(block((0.05, 0.36, 0.04), head, iron))
+        for ty in (-0.15, -0.05, 0.05, 0.15):
+            b.parts["Stool"].append(block((0.025, 0.025, 0.11), head + Vector((0.0, ty, -0.09)), iron))
+        # Hands forward onto the pole; a stoop, chin down.
+        b.arm_rest["ArmL"] = (math.radians(-42), 0, math.radians(-6))
+        b.arm_rest["ArmR"] = (math.radians(-42), 0, math.radians(6))
+        b.head_rest = (math.radians(14), 0, 0)
+        assemble(b, "hob_seated")
+        return
+    # The clamp rake, upright in his left hand: a long pole and an iron head over his shoulder.
+    hand = b.hand("L")
     top = hand + Vector((0.02, -0.06, 1.05))
     b.parts["ArmL"].append(limb(hand + Vector((0, -0.06, -0.62)), top, 0.022, 0.022, pole, verts=5))
     b.parts["ArmL"].append(block((0.36, 0.05, 0.04), top, iron))
@@ -607,7 +639,7 @@ def build_lamp() -> None:
 
 
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda, build_bram,
-            build_hob, build_lamp]
+            build_hob, build_hob_seated, build_lamp]
 
 if __name__ == "__main__":
     import sys

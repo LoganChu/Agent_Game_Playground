@@ -50,6 +50,23 @@ def mat(name: str, shade: float = 0.0, emissive: bool = False) -> bpy.types.Mate
     return m
 
 
+def horn(name: str, alpha: float, shade: float = 0.0, glow: float = 0.5) -> bpy.types.Material:
+    """Emissive, see-through palette material (exported as glTF alphaMode BLEND): lit horn or
+    glass panes that glow and still let the fire behind them show."""
+    key = (name, round(shade, 3), "horn", round(alpha, 3), round(glow, 3))
+    if key in _materials:
+        return _materials[key]
+    base = mat(name, shade, emissive=True)
+    m = base.copy()
+    m.name = base.name + f"_horn{int(alpha * 100)}"
+    bsdf = m.node_tree.nodes["Principled BSDF"]
+    bsdf.inputs["Alpha"].default_value = alpha
+    bsdf.inputs["Emission Strength"].default_value = glow  # faint, so the fire behind still reads
+    m.surface_render_method = "BLENDED"
+    _materials[key] = m
+    return m
+
+
 def reset() -> None:
     bp.reset_scene()
     _materials.clear()
