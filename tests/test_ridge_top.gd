@@ -106,7 +106,7 @@ func test_the_ridge_layout() -> void:
 	var lodge: Array = _props(RIDGE, "keeper_lodge")[0]["position"]
 	assert_true(_xz(lamp["position"]).distance_to(_xz(lodge)) < 4.0, "the Lamp is at the lodge")
 	assert_eq(_props(RIDGE, "thornwold_beacon").size(), 1, "the Ridge Light stands cold")
-	assert_eq(_props(RIDGE, "thornwold_beacon_lit").size(), 0, "the lit tower waits for the burn")
+	assert_eq(_props(RIDGE, "thornwold_beacon_lit")[0].get("if"), "quest:a_light_for_thornwold=done", "the lit tower waits for the burn")
 	# The lip: the ladder's top at the edge, the woods far below and out of reach.
 	var ladder: Dictionary = _props(RIDGE, "keeper_ladder")[0]
 	assert_false(bool(ladder.get("snap", true)), "the ladder stands on the pitch below the lip (absolute y)")

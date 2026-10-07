@@ -46,7 +46,8 @@ func _run() -> void:
 	# Several passes over the reachable regions so quests started on one pass can advance on
 	# the next: Saltmarrow's island first (Gull's Head once the token opens its gate), through
 	# the beacon, Aldous's confession, the ferry and passage (ending Act I); then the walk
-	# casts off for Thornwold, meets Bram, parts the bramble wall and meets Hob.
+	# casts off for Thornwold, meets Bram, parts the bramble wall, meets Hob, climbs to the Lamp
+	# and lights the Ridge Light.
 	for pass_index in PASSES:
 		# Walk only where a player could be: regions reachable on foot from where the last
 		# pass left off (open exits). A sailing or a `travel` effect moves the walk on to the
@@ -499,20 +500,27 @@ func _check_act_one_close(main: Node) -> void:
 func _check_crossing(main: Node) -> void:
 	var world := GameState.world
 	print("Smoke: sailings ", _sailings)
+	print("Smoke: Thornwold burned ", world.get_flag("thornwold_beacon_burned"), ", Hob came in ", world.get_flag("thornwold_hob_came_in"))
 	_check(_sailings.has("saltmarrow -> thornwold_landing"), "Oda carried the player to Thornwold")
 	_check(_sailings.has("thornwold_landing -> thornwold_woods"), "the ember parted the bramble wall and the player went through")
 	_check(world.quest_state("across_the_grey") == WorldState.QUEST_DONE, "the crossing completed Across the Grey")
 	_check(world.get_flag("thornwold_landed") == true, "the landing scene played")
-	_check(world.get_flag("thornwold_met_bram") == true and world.quest_state("a_light_for_thornwold") == WorldState.QUEST_ACTIVE, "Bram gave A Light for Thornwold")
+	_check(world.get_flag("thornwold_met_bram") == true and world.quest_state("a_light_for_thornwold") != WorldState.QUEST_INACTIVE, "Bram gave A Light for Thornwold")
 	_check(world.get_flag("thornwold_met_hob") == true, "met Hob in the colliers' clearing")
 	_check(world.quest_state("salt_for_the_collier") == WorldState.QUEST_DONE, "carried Bram's salt to Hob (Salt for the Collier)")
 	# Day 25: the ladder stood and climbed (an inspectable's `travel`), the Lamp met, a lantern
 	# for the stair (the walk takes the first answer, a new sliver) hung, Ottie's cap to Hob.
 	_check(_sailings.has("thornwold_woods -> thornwold_ridge"), "the Keepers' ladder was stood and climbed to the ridge")
 	_check(world.get_flag("thornwold_ridge_reached") == true, "the ridge arrival scene played")
-	_check(world.get_flag("thornwold_met_lamp") == true and world.quest_stage("a_light_for_thornwold") == "the_lamp", "met the Lamp")
+	_check(world.get_flag("thornwold_met_lamp") == true, "met the Lamp")
 	_check(world.quest_state("a_lantern_for_the_stair") == WorldState.QUEST_DONE, "hung a lantern on the stair (%s)" % world.get_flag("thornwold_stair_light"))
 	_check(world.get_flag("thornwold_hob_has_cap") == true, "gave Ottie's cap to Hob")
+	# Day 27: Thornwold's burning. The Lamp says what the Ridge Light wants; the walk asks Hob
+	# (objects first, then people — Hob's offer is the first Remnant it meets) and burns it; back
+	# at the landing Hob, paid, comes in by daylight.
+	_check(world.quest_state("a_light_for_thornwold") == WorldState.QUEST_DONE, "the Ridge Light is lit (A Light for Thornwold done)")
+	_check(str(world.get_flag("thornwold_beacon_burned")) in ["boots", "salt_row"], "a Thornwold Remnant was burned (%s)" % world.get_flag("thornwold_beacon_burned"))
+	_check(world.get_flag("thornwold_hob_came_in") == true, "Hob came in by daylight")
 	var at := str(world.get_flag("lanes_ferry_at"))
 	_check(at in ["thornwold", "saltmarrow"], "the ferry lies at one end of the lane (%s)" % at)
 	GameState.travel("thornwold_landing")
@@ -522,6 +530,7 @@ func _check_crossing(main: Node) -> void:
 	_check(names.has("bram"), "Bram at Thornwold landing")
 	_check(names.has("oda") == (at == "thornwold"), "Oda on the Thornwold jetty exactly while the ferry is there")
 	_check(names.has("pell") == (world.get_flag("thornwold_pell_landed") == true), "Pell at the camp only if they crossed")
+	_check(names.has("hob") == (world.get_flag("thornwold_hob_came_in") == true), "Hob on the tally-house step once he's come in")
 
 
 ## Conditional NPCs, pickups and objects appear/disappear live when a flag changes mid-visit

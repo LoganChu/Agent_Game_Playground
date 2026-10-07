@@ -61,7 +61,7 @@ func test_the_ridge_light_is_a_landmark() -> void:
 
 
 ## Seen from the woods but out of reach on the ridge (the ridge is its own region since Day 25,
-## where both stand again); the lit tower is held for the burn.
+## where both stand again); the cold tower gives way to the lit one at Thornwold's burning (Day 27).
 func test_beacon_and_lodge_stand_on_the_ridge_out_of_reach() -> void:
 	var region := load_content().get_region(WOODS)
 	var field := TerrainField.from_data(region["ground"])
@@ -76,8 +76,13 @@ func test_beacon_and_lodge_stand_on_the_ridge_out_of_reach() -> void:
 			assert_true(float(p[2]) < -70.0, "%s is on the ridge (z %.1f)" % [name, float(p[2])])
 			assert_true(field.height_at(float(p[0]), float(p[2])) > 4.0, "%s stands up on the ridge top" % name)
 			assert_false(field.near_reachable(reachable, float(p[0]), float(p[2]), 2.5), "%s is out of reach" % name)
-			assert_false(prop.has("if"), "%s stands unconditionally (the beacon is cold until the burn)" % name)
-	assert_eq(_placed_anywhere("thornwold_beacon_lit"), 0, "the lit Ridge Light waits for Thornwold's burn")
+			if name == "keeper_lodge":
+				assert_false(prop.has("if"), "the lodge stands unconditionally")
+			else:
+				assert_eq(prop.get("if"), "!quest:a_light_for_thornwold=done", "the tower is cold until the burn")
+	assert_eq(_placed_anywhere("thornwold_beacon_lit"), 2, "the lit Ridge Light, by the burn, where the cold one stands")
+	for lit in _props("thornwold_beacon_lit"):
+		assert_eq(lit.get("if"), "quest:a_light_for_thornwold=done", "the lit tower waits for Thornwold's burn")
 
 
 func test_lit_beacon_glows_and_the_cold_one_does_not() -> void:
