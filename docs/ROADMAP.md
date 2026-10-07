@@ -198,6 +198,19 @@ with a meaningful burn choice → consequences visible in the village.
       (`if` on paint zones; the ground mesh recolours live) — the fourth waymark's moss goes grey when
       its lantern is taken. Character lineup `--pose=`/`--turn=`.
 
+- [x] [C] **Thornwold's burning** (Day 27): the Lamp says what the Ridge Light wants (stage
+      `feed_the_light`) and names two things Thornwold could spare — **Hob's memory of the four
+      colliers** (Ottie Swale, Wenna Coll, Abe and Tolly Dray; Hob makes **Ottie's boots** a Remnant
+      at the clearing's edge, the cold hut's seat goes bare — new Blender `collier_hut_cold_empty`) or
+      **the camp's memory of the colliers** (Bram's **SALT row**, offered once Hob is paid; the board's
+      pegs go bare). Weigh/confirm at the cradle; the **lit Ridge Light** on the ridge (the beacon's
+      light) and on the woods' skyline (a halo); fog leans back and light warms in all three Thornwold
+      regions; the unburned Remnant can be returned. **Hob comes in by daylight** (landing event, paid
+      + lit, either order) to the tally-house step — Bram knows him, or doesn't (salt row). Aftermath:
+      Hob forgets the four (boots), the Lamp stops breaking the coal and keeps the rest "for the four"
+      (a stair sliver shows as a night less), Bram's new LIGHT row, Pell, **Oda opens the fen lane**
+      (talk only). Smoke walk lights it. Checkpoint `thornwold_lit`.
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -207,42 +220,43 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [C] **Thornwold's burning** (next content, **due by Day 28**): what the Ridge Light burns —
-   "something somebody remembers", and *not* the Lamp's own (it says so). Candidates in play:
-   **Hob's memory of the four colliers** (Ottie's cap on the seat by the boots — burning it frees
-   Hob to come in by daylight but the cold hut becomes nobody's), **Pell's/Hob's count-stick** (Pell
-   keeps it *for* Hob), **the camp's memory of the colliers** (Bram's SALT row), **the woods' liking**
-   (the clearing that the fog stands back from). Confirm step; light `thornwold_beacon_lit` on both the
-   ridge and the woods' skyline; fog thins (woods `overrides`); the lane on toward Glasswater Fen opens
-   (Oda). Pay off Hob's daylight promise and the Lamp's coal: with the beacon lit the lanterns can go
-   out without stranding anyone (a `thornwold_stair_light=sliver` coal is shorter — make it show).
-   Bram, Pell and the Lamp react; checkpoint. Keep the four colliers north along the ridge **open**.
-2. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+1. [A] **The Ridge Light, lit** (art, **due Day 28**): from the woods the lit tower barely reads
+   (`docs/screenshots/2026-10-07-woods-ridge-after.png`) — a bigger/brighter halo, or the lit model's
+   cage glass and a warm glow on the gallery; a lit pass on the ridge itself (the lantern rack, the
+   cradle's fire visible through the horn); Hob's **seated idle** on the tally-house step (same kind of
+   CharacterRig style as Hesk's mend — would also serve Aldous's bench, item 8). Optionally the halo on
+   Saltmarrow's lantern posts.
+2. [C] **The fen lane — Act II goes on** (next content, due by Day 31): Oda sails north-about with the
+   Ridge Light astern to **Glasswater Fen** (new region, LORE §3: reed-houses, mirror pools, the
+   Unmoored, the right to forget; Dunstan Tollen's thread — he chose to go). Replace Oda's talk-only
+   line with a sailing; arrival scene; one or two Unmoored characters; checkpoint. Keep the four
+   colliers and the Lamp's coal open; a salt-row Hob going up the stair after them is a later beat.
+3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
    variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
    steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
    nights once day/night exists. (Hob's raking idle landed Day 22 — the seated idle is the
    same kind of CharacterRig style.)
-8. [S] Interaction polish: camera framing during dialogue; fade the
+9. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -252,7 +266,7 @@ each .glb < 5 MB.
   sail/back dialogue choices with a lane map; `lanes_ferry_at` stays the ferry's position.
   Still to honour on Thornwold: `pells_pouch` (Pell stayed), the beacon-keeper; Keepers met
   later should react to `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (`future`).
-- [C] Thornwold (forest, shifting paths) beyond the landing: beacon + burn choice (landing + Bram Day 17, woods + Hob Day 21, ridge + the Lamp Day 25). Later: the old Keepers' road north along the ridge — where the four colliers went.
+- [x] [C] Thornwold (forest, shifting paths): landing + Bram (Day 17), woods + Hob (Day 21), ridge + the Lamp (Day 25), the burn (Day 27). Later: the old Keepers' road north along the ridge — where the four colliers went (and whether Hob goes after them).
 - [C] Glasswater Fen region (Unmoored), the right-to-forget storyline; Dunstan Tollen.
 - [S] Day/night cycle & tides; NPC schedules.
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
@@ -279,8 +293,9 @@ each .glb < 5 MB.
   boots) within the 1–2k budget.
 - Smoke test: parsed input needs two process frames when resuming from a physics frame;
   keep the double await in `_check_journal`.
-- The smoke test's menu walk always burns whichever Remnant is listed first (currently the
-  pebble); the other burn paths are covered by `test_burning.gd` unit tests only.
+- The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
+  knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
+  `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
 - Next polish/debt pass due by session 31 (Day 23 was the last).
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog
   (0.045) in the Compatibility renderer; up close they read fine. The Day 12 cold light helps
@@ -292,12 +307,8 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 25 (the ridge and the Lamp); next content due by Day 29
-  (Thornwold's burning is wanted sooner — Day 27).
-- Last art session: Day 26 (the ridge, dressed); next art due by Day 28 (cadence: every other
-  session) — but Thornwold's burning is due then too: if the burn lands Day 27, Day 28 is art
-  (good picks: the lit Ridge Light seen from the woods after the burn, Saltmarrow follow-ups —
-  Aldous's bench + seated idle; the halo could go on Saltmarrow's lantern posts too).
+- Last content session: Day 27 (Thornwold's burning); next content due by Day 31 (the fen lane).
+- Last art session: Day 26 (the ridge, dressed); next art due Day 28 (*Next up* #1).
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
   if a region ever wants dozens, use GPUParticles3D on Forward+ and keep CPU for Compatibility.
 - Thornwold's log buildings use one box collider each (the porch of the tally-house is
@@ -366,3 +377,11 @@ each .glb < 5 MB.
   depth). Reads as "light in the fog", which is the intent — re-judge in Forward+.
 - The tumbled waymark at the far end of the ridge's road is mostly lost in the fog from the
   plateau (by design, but it barely reads in screenshots).
+- Hob comes in by daylight for good once he's at the camp (`thornwold_hob_came_in`): there's no
+  day/night yet, so he never goes home to his clamp. When day/night lands, give him a schedule
+  (camp by day, clearing by night) instead of a one-way move.
+- After the boots burn, the player's own lines still name the four (e.g. the Lamp's ladder story is
+  told before the burn). Like Act I, the burned memory "slides off" only in narration; a pass over
+  later dialogue should keep the player from naming the four to Hob.
+- Oda's `route` line still says the lane past Thornwold leads "to Cindermoor"; the fen lane comes
+  first (LORE Day 27). Reword it when the fen sailing lands.

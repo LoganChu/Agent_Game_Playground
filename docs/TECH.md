@@ -37,7 +37,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
-.tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -239,7 +239,9 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   the `if`), so every event fires once. The ferry's horn (`ferry_horn`) lives on Shingle
   Point and Gull's Head, not Saltmarrow: you hear it on coming back from somewhere.
 - **NPCs in several places:** an NPC may be placed more than once (any regions) only if every
-  placement has an `if` (Pell: beach until `saltmarrow_ferry_arrived`, then the dock). The
+  placement has an `if` (Pell: beach until `saltmarrow_ferry_arrived`, then the dock; Hob:
+  the clearing until `thornwold_hob_came_in`, then the tally-house step — set by the landing's
+  `hob_comes_in` event, Day 27, which needs the Ridge Light lit and Hob paid in either order). The
   conditions are expected to be mutually exclusive; the validator can't prove that.
 - **`act_ends`** in `data/game.json`: `[{id, when, title, subtitle?, recap: [{if?, text}],
   coda}]`. When a dialogue closes and an act's `when` has *just* become true (compared with
@@ -602,6 +604,13 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   scene (only after the ladder), the Lamp's hub (name, coal, ladder, Ridge Light) and Aldous per
   confession, *A Lantern for the Stair* three ways (sliver / the fourth mark's lantern moved — its
   pool closes and Hob notices / refused), the stair's conditional pool, Ottie's cap to Hob.
+- `tests/test_thornwold_burning.gd` — Day 27: the Lamp sending the player to Hob and the camp
+  (`feed_the_light`); Hob's boots and Bram's salt row as Remnants (kept/given, Bram only once Hob is
+  paid), the cold hut's three variants by flag; each burn (weigh/refuse/confirm, what Hob and the
+  board forget, the unburned Remnant returned); the island lit (cold → lit tower in both regions, the
+  ridge's light vs the woods' halo, fog/light overrides in all three regions, the woods' fog leaning
+  back but staying); Hob's daylight arrival event (only paid, once, either order) and his move to the
+  camp; Bram, Pell, Oda and the Lamp after (the stair's sliver showing); the `thornwold_lit` checkpoint.
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).
@@ -639,7 +648,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   a late pass cast off with Oda to Thornwold (a `travel` mid-walk ends that region's walk; the
   landing scene is clicked through) and met Bram, that the bramble wall's menu walk went
   through the gap into the woods (an inspectable's `travel` also ends the region's walk), met
-  Hob and carried Bram's salt (*Salt for the Collier* done), and that ferry, Oda and Pell stand where the
+  Hob and carried Bram's salt (*Salt for the Collier* done), climbed to the Lamp and (Day 27) lit
+  the Ridge Light with the first Remnant it was offered (Hob's boots) and saw Hob come in by daylight
+  (he stands at the landing after), and that ferry, Oda and Pell stand where the
   lane left them (and that
   Saltmarrow's burn-specific dressing matches the burn — `Region.shown_conditional_props(shape)`), opens the journal and satchel via real input
   actions, saves/loads and compares state.

@@ -423,6 +423,45 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
   the four? not said). Where the fourth waymark's lantern is taken to the stair, **the moss under it
   goes grey**.
 
+- **Established in play (Day 27 — Thornwold's burning):**
+  - **What the Ridge Light took.** Like the Gull's, it wants something somebody remembers; the Lamp
+    names two (and keeps a third out of it: "Don't bring me the woods. Whatever the woods remember,
+    it's theirs, and they've been kind" — the woods' liking stays unexplained).
+    - **Hob's memory of the four** — the four colliers are **Ottie Swale, Wenna Coll, and Abe and Tolly
+      Dray** ("that never once agreed whose rake it was"). Hob counts them every night and "sets the
+      places in his head". He held **Ottie's boots** (and the cap, if he had it) out into the fog at the
+      clearing's edge until they went cold and silver (`otties_boots`, a Remnant).
+    - **The camp's memory of the colliers** — Bram's **SALT row**, the bottom stick of the tally board
+      (his mother's mother cut notches on it). Offered only once the camp has remembered Hob (paid):
+      "better to give a thing you've shown you can lose". Bram held it into the fog pocket in the pines
+      west of the camp (`salt_row`, a Remnant).
+  - **The burn** (`thornwold_beacon_burned`): the cradle in the horn-paned cage takes it and the light
+    comes out gold, "softer than glass would let it". The woods' fog **leans back** (thin under the
+    trees, not gone; the lanterns still cut their pools); the ridge top thins to a fleece; every
+    Thornwold region warms. North along the spine the old road's fog is thinner too — not enough to
+    see where it ends (the four stay open).
+    - **boots:** Hob never had neighbours ("Always just me, this side of the ridge"); he sleeps now. The
+      cold hut is **nobody's** ("Good poles in it"), its seat bare for good. Ottie's cap, if brought to
+      him after, is "somebody's" and goes on the shelf by the salt. **No fifth** — the Lamp's wish,
+      "not the way I'd have done it". If the four come back, no one on Thornwold will know them.
+    - **salt_row:** the camp will never know who the charcoal folk were; the board keeps **bare pegs**
+      under SALT that Bram keeps putting his thumb to. Hob keeps the four and **still looks up the
+      stair**; the Lamp will leave the ladder stood and tell him the truth if he comes (hook: Hob may yet
+      be the fifth).
+  - **Hob comes in by daylight** once the light is lit and his salt paid ("Road's a road"): he pulls his
+    cart out of the brambles in plain day and sits on the tally-house step. Bram knows him (boots) — or,
+    after the salt row, greets him as a stranger and gives him two crocks of salt without knowing why.
+    **Pell**, an off-islander, still remembers Hob after the salt-row burn; after the boots Pell keeps
+    Hob's count-stick "till he wants to know what he was counting".
+  - **The Lamp after:** the road is the beacon's now — the lanterns can go out one a night and nobody is
+    stranded, so it **stops breaking the coal**. What's left (a thumbnail of light, still cold down the
+    Spire side; one night less if a sliver went on the stair) it keeps **"for the four. If they come
+    back along the ridge, there should be a light at the end of it that knows their faces."**
+  - **Bram** cuts a new row on his board: **LIGHT**, one notch. **Oda**: two lit makes a lane you can
+    count on, and the Ridge Light is the start of the next — **north-about to Glasswater Fen**, dark and
+    strange, steered with the Ridge Light dead astern ("listen for reeds instead of trees"). Off-island
+    crews still carry what Thornwold burned.
+
 ### 3. Glasswater Fen (planned — Alpha)
 A marsh of reed-houses and mirror-still pools where the Unmoored gather. Theme: the right to
 forget. The fog is thickest and strangest here.

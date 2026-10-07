@@ -2,6 +2,78 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-07 09:00 UTC — Day 27: Thornwold's burning (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again;
+  fetched `origin/main` (`cfee541`, Day 26's head) before `checkout -B main`. My first baseline run
+  overlapped my own edits (meaningless); every later run was on a settled tree.
+- **Content (due today; last content Day 25):** ROADMAP *Next up* #1, *Thornwold's burning*:
+  - **What the light wants.** Asking the Lamp about the cold Ridge Light now moves *A Light for
+    Thornwold* to a new stage, **`feed_the_light`**; a new Lamp question names what Thornwold could
+    spare — Hob's memory of the four, the camp's salt row — and keeps the woods out of it.
+  - **Two Remnants, made on purpose** (like Mara's gull): **Ottie's boots** — Hob names the four
+    (Ottie Swale, Wenna Coll, Abe and Tolly Dray), carries the boots (and the cap) to the clearing's
+    edge and holds them in the fog; the cold hut's seat goes bare (new Blender variant
+    **`collier_hut_cold_empty`**). **The salt row** — Bram unpegs the SALT stick (only once Hob is
+    paid: an unpaid camp has nothing it would miss) and holds it into the fog in the pines; the board's
+    bottom pegs go bare.
+  - **The cradle** (the Ridge Light inspectable): climb into the lantern cage, weigh either Remnant
+    (refuse returns to the cradle), confirm, burn. The quest completes; `thornwold_beacon_burned` =
+    `boots` | `salt_row`. The **lit tower** replaces the cold one on the ridge (with the beacon's light)
+    and on the woods' skyline (a halo, no light); fog overrides and warmer light in all three Thornwold
+    regions; the woods' and the ridge's deep Greying lean back to a thin fleece (strength 0.4 — the
+    lanterns still cut their pools). The unburned Remnant can be given back (Hob sets the boots out
+    again; Bram re-hangs his row).
+  - **Forgetting:** boots — Hob never had neighbours, the hut is nobody's ("good poles in it"), a cap
+    brought later is a stranger's. Salt row — the board's gap for good, Bram no longer knows Hob.
+  - **Hob comes in by daylight** (pays off his Day 21 promise): a landing arrival event once the light
+    is lit *and* his salt is paid, in either order; Hob moves from the clearing to the tally-house
+    step (conditional multi-placement). Bram greets him — or, after the salt row, doesn't know him and
+    gives him salt without knowing why.
+  - **Aftermath:** the **Lamp** stops breaking the coal (the road is the beacon's), keeps the rest
+    "for the four", and a stair sliver shows as "a night less"; **Bram** cuts a LIGHT row; **Pell**
+    (an off-islander) still remembers Hob; **Oda** says the fen lane is open — talk only for now.
+  - 2 items, 5 flags, 1 new dialogue (`hob_comes_in`), 7 dialogues extended; checkpoint
+    **`thornwold_lit`** (boots path).
+- **Tests:** `test_thornwold_burning.gd` (10). Two older tests' "the lit tower waits" assertions now
+  check the lit tower's condition instead. The smoke walk now plays the whole burn in the real scene
+  (it meets Hob's offer first, burns the boots, and Hob comes in) — its Day 25 "stage is the_lamp"
+  check is relaxed and new checks cover the light, the burn and Hob at the camp. 191 tests + smoke +
+  launch pass.
+
+Screenshots: checkpoint `docs/checkpoints/thornwold_lit.png` (the lit tower from the ladder's head);
+`docs/screenshots/2026-10-07-woods-ridge-before.png` vs `…-after.png` (the ridge from the clearing),
+`…-cold-hut-before.png` vs `…-cold-hut-after.png` (boots and cap on the seat, then bare),
+`…-hob-at-camp.png`.
+
+**Decisions**
+- **Two choices, not three.** The ROADMAP listed four candidates. Pell's count-stick needs Pell
+  aboard *and* the stick talk, and "the woods' liking" would explain a mystery LORE keeps closed, so
+  the Lamp itself rules the woods out. Two well-weighed burns with distinct aftermaths beat four thin
+  ones; both cost Hob something different (his past vs. his place in the camp).
+- **The salt row needs Hob paid**: Bram can only give up a memory he has. That also makes the salt
+  quest matter to the burn.
+- **Remnants can be returned**, as in Act I, so the unburned one doesn't sit in the satchel forever
+  and the cold hut can show its boots again. The hut's state is a separate `thornwold_boots_away` flag
+  so props stay simple AND-conditions.
+- **Hob's arrival is an event, not a dialogue effect**, so paying him after the burn still works and
+  an NPC never vanishes mid-conversation.
+- **The fog thins, it doesn't lift** — Thornwold's theme is that the road can't be fully trusted;
+  the lanterns still matter for the moment. The lane to Glasswater Fen is opened in talk only, so the
+  next content session can build the sailing with the region.
+
+**Problems / notes**
+- From the woods the lit tower barely reads in Compatibility (a small gold cage in the fog; the halo
+  is faint at that size). Next art session.
+- Hob moves to the camp for good (no day/night yet). Known issue logged.
+- The player's own lines can still name the four after the boots burn (like Act I; logged).
+
+**Next run should**
+1. **Art (due Day 28):** *The Ridge Light, lit* — make the lit tower read from the woods, a lit pass on
+   the ridge, Hob's seated idle on the step (reusable for Aldous's bench). ROADMAP *Next up* #1.
+2. Then content by Day 31: **the fen lane** — sail to Glasswater Fen.
+
 ## 2026-10-06 21:00 UTC — Day 26: The ridge, dressed (art track)
 
 **Did**
