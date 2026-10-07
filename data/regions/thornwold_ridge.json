@@ -302,6 +302,13 @@
       ],
       "note": "The Ridge Light lit by Thornwold's burning: gold through the horn panes.",
       "if": "quest:a_light_for_thornwold=done",
+      "halo": [
+        0,
+        6.85,
+        0
+      ],
+      "halo_size": 6.0,
+      "halo_bloom": 0.3,
       "light": {
         "color": "kindle",
         "energy": 2.5,

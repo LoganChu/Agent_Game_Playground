@@ -365,6 +365,16 @@
       ]
     },
     {
+      "model": "res://assets/models/dressing/log_bench.glb",
+      "position": [
+        -6.22,
+        0,
+        1.88
+      ],
+      "rotation_y": 95,
+      "note": "A split-log bench by the tally-house step. Empty until Hob comes in by daylight; then his seat (hob_seated sits on it at the same spot)."
+    },
+    {
       "model": "res://assets/models/dressing/tally_house.glb",
       "shape": "house",
       "position": [
@@ -471,6 +481,11 @@
         0.3,
         2.4,
         0.3
+      ],
+      "halo": [
+        0,
+        1.85,
+        0.58
       ]
     },
     {
@@ -1394,13 +1409,15 @@
     {
       "npc": "hob",
       "position": [
-        -5.4,
+        -6.22,
         0,
-        3.6
+        1.88
       ],
-      "rotation_y": 120,
+      "rotation_y": 95,
+      "model": "res://assets/models/characters/hob_seated.glb",
+      "idle": "sit",
       "if": "flag:thornwold_hob_came_in",
-      "note": "On the tally-house step, rake across his knees, come in by daylight after the Ridge Light was lit."
+      "note": "On the bench by the tally-house step, rake across his knees, come in by daylight after the Ridge Light was lit. Seated here (hob_seated, the sit idle): dozes and wakes with a start."
     }
   ],
   "objects": [

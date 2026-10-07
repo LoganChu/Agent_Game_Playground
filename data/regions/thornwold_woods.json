@@ -846,7 +846,9 @@
         6.85,
         0
       ],
-      "halo_size": 5.0
+      "halo_size": 14.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.35
     },
     {
       "model": "res://assets/models/dressing/keeper_lodge.glb",
