@@ -45,12 +45,12 @@ func test_every_model_loads_small_and_upright() -> void:
 		# Merged by material in Blender: a handful of draw calls, not one per strand.
 		assert_true(meshes.size() <= 16, "%s has %d mesh nodes (merge by material)" % [path, meshes.size()])
 		var box := _bounds(node)
-		# The ferry is the one big vessel (9 m hull, 8 m mast) and Thornwold's beacon the one tall
-		# landmark (~10 m to its vane); everything else fits in 8 × 7 m.
+		# The ferry is the one big vessel (9 m hull, 8 m mast) and the beacons on towers and legs the
+		# tall landmarks (~10-11 m to their vanes); everything else fits in 8 × 7 m.
 		var limit := Vector3(8.0, 7.0, 8.0)
 		if path.ends_with("ferry.glb"):
 			limit = Vector3(12.0, 9.0, 12.0)
-		elif path.get_file().begins_with("thornwold_beacon"):
+		elif path.get_file().begins_with("thornwold_beacon") or path.get_file() == "heron_light.glb":
 			limit = Vector3(8.0, 11.0, 8.0)
 		assert_true(box.size.length() > 0.2 and box.size.x < limit.x and box.size.z < limit.z and box.size.y < limit.y, "%s has sane bounds %s" % [path, box])
 		# Boats sit on the waterline; the dock and lantern room are placed at absolute heights.

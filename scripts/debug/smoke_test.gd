@@ -77,6 +77,7 @@ func _run() -> void:
 				for next: String in _reachable(here):
 					if not visited.has(next) and not queue.has(next):
 						queue.append(next)
+	await _sail_the_fen_lane(main, ui)
 	_check(_walked.size() == Content.db.regions.size(), "the walk reached every region (%s)" % ", ".join(PackedStringArray(_walked.keys())))
 	await _check_gates(main, true)
 	await _check_beacon_lit(main)
@@ -121,6 +122,60 @@ func _reachable(from: String) -> Array[String]:
 ## True if dialogue `id` can `travel` the player somewhere.
 func _can_travel(id: String) -> bool:
 	return JSON.stringify(Content.db.dialogues.get(id, {})).contains("\"travel\"")
+
+
+## Day 29: the fen lane opens only once the Ridge Light is lit, late in the walk, and the passes
+## never talk to Oda on Thornwold (the bramble wall moves the walk on first). So sail it here, the
+## way a player would: at the landing, ask Oda for Glasswater Fen by name, walk the fen (Hesper,
+## the rowboat, Corran; the second time the letting post, now Hesper has told of it), and let Oda
+## carry the walk back. Twice.
+func _sail_the_fen_lane(main: Node, ui: DialogueUI) -> void:
+	for trip in 2:
+		_check(str(GameState.world.get_flag("lanes_ferry_at")) == "thornwold", "the ferry lies at Thornwold before sailing to the fen")
+		GameState.travel("thornwold_landing")
+		for i in 3:
+			await get_tree().physics_frame
+		if ui.is_open():
+			_finish_dialogue(ui, "arrival event at the landing")
+			await get_tree().process_frame
+		var oda: NpcActor = null
+		for node in get_tree().get_nodes_in_group("npcs"):
+			if (node as NpcActor).npc_id == "oda" and not node.is_queued_for_deletion():
+				oda = node
+		_check(oda != null, "Oda on the Thornwold jetty to sail north-about")
+		if oda == null:
+			return
+		oda.interact()
+		_check(_choose(ui, "Sail north-about to Glasswater Fen."), "Oda offers the fen lane once the Ridge Light is lit")
+		_finish_dialogue(ui, "oda (sailing to the fen)")
+		for i in 3:
+			await get_tree().physics_frame
+		var region: Region = main.get("region")
+		_check(region.region_id == "glasswater_fen", "Oda sailed to Glasswater Fen")
+		if region.region_id != "glasswater_fen":
+			return
+		_sailings.append("thornwold_landing -> glasswater_fen")
+		_walked[region.region_id] = true
+		if ui.is_open():
+			_finish_dialogue(ui, "arrival event at the fen")
+			await get_tree().process_frame
+		await _walk_region(main, ui, region, trip)
+
+
+## Advances an open dialogue to its next menu and picks the option reading `text`.
+func _choose(ui: DialogueUI, text: String) -> bool:
+	var steps := 0
+	while ui.is_open() and steps < MAX_DIALOGUE_STEPS:
+		if ui.current_event.get("type") == "choices":
+			var options: Array = ui.current_event["options"]
+			for i in options.size():
+				if str((options[i] as Dictionary).get("text", "")) == text:
+					ui.select(i)
+					return true
+			return false
+		ui.advance()
+		steps += 1
+	return false
 
 
 ## Talks to every NPC, examines every object and takes every pickup in `region`. Returns
@@ -522,7 +577,17 @@ func _check_crossing(main: Node) -> void:
 	_check(str(world.get_flag("thornwold_beacon_burned")) in ["boots", "salt_row"], "a Thornwold Remnant was burned (%s)" % world.get_flag("thornwold_beacon_burned"))
 	_check(world.get_flag("thornwold_hob_came_in") == true, "Hob came in by daylight")
 	var at := str(world.get_flag("lanes_ferry_at"))
-	_check(at in ["thornwold", "saltmarrow"], "the ferry lies at one end of the lane (%s)" % at)
+	_check(at in ["thornwold", "saltmarrow", "fen"], "the ferry lies at a lit end of a lane (%s)" % at)
+	# Day 29: the fen lane. Oda sails north-about once the Ridge Light is lit; at the fen the walk
+	# meets Hesper (cups the ember, asks after the rowboat), Corran (the Heron Light), and on a
+	# later pass leaves Mara's word (or its own) on the letting post.
+	_check(_sailings.has("thornwold_landing -> glasswater_fen"), "Oda sailed north-about to Glasswater Fen")
+	_check(_sailings.has("glasswater_fen -> thornwold_landing"), "Oda sailed back from the fen to Thornwold")
+	_check(world.get_flag("fen_landed") == true, "the fen arrival scene played")
+	_check(world.get_flag("fen_met_hesper") == true and str(world.get_flag("fen_ember")) in ["cupped", "bare"], "met Hesper and answered her about the ember (%s)" % world.get_flag("fen_ember"))
+	_check(world.get_flag("fen_met_corran") == true, "met Corran Teal")
+	_check(world.quest_state("a_light_for_glasswater") == WorldState.QUEST_ACTIVE, "Corran told of the Heron Light (A Light for Glasswater)")
+	_check(world.quest_state("the_letting_post") == WorldState.QUEST_DONE, "left word (or nothing) on the letting post (%s)" % world.get_flag("fen_dunstan_word"))
 	GameState.travel("thornwold_landing")
 	for i in 3:
 		await get_tree().physics_frame
