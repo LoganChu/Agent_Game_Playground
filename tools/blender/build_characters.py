@@ -670,7 +670,16 @@ def build_hesper() -> None:
     h.append(ball(0.265, (0, 0.1, b.head + 0.05), shawl, scale=(1.02, 0.92, 1.05)))
     h.append(ring(0.23, b.head - 0.2, 0.1, shawl))
     t.append(ball(0.29, (0, 0.02, b.shoulder - 0.02), shawl, scale=(1.05, 0.85, 0.42)))
-    h.append(block((0.16, 0.04, 0.04), (0, -0.23, b.head + 0.14), material("ink", 0.35)))        # dark hair under the shawl
+    hair = material("ink", 0.35)
+    h.append(block((0.2, 0.05, 0.06), (0, -0.225, b.head + 0.13), hair))                         # dark hair under the shawl
+    for x in (0.16, -0.16):  # two long locks fallen out of the shawl, down past the jaw
+        h.append(limb((x, -0.17, b.head + 0.08), (x * 1.05, -0.2, b.head - 0.22), 0.045, 0.025, hair, verts=4))
+    # The shawl's fringed hem: a point down her back and a ragged fringe at the shoulders.
+    t.append(limb((0, 0.2, b.shoulder - 0.02), (0, 0.24, b.shoulder - 0.48), 0.13, 0.0, shawl, verts=4))
+    for k in range(6):
+        x = -0.24 + k * 0.096
+        t.append(limb((x, -0.12 if abs(x) < 0.15 else 0.0, b.shoulder - 0.08), (x * 1.05, -0.13 if abs(x) < 0.15 else 0.0, b.shoulder - 0.2),
+                      0.018, 0.006, material("silverfog", -0.2), verts=3))
     # Hands folded low in front; a string of small things at the right wrist.
     b.arm_rest["ArmL"] = (math.radians(-28), 0, math.radians(-16))
     b.arm_rest["ArmR"] = (math.radians(-28), 0, math.radians(16))
@@ -700,10 +709,20 @@ def build_corran() -> None:
     t.append(limb((0, 0, b.hip - 0.14), (0, 0, b.waist + 0.06), 0.29, 0.27, smock, verts=8))
     t.append(ring(0.29, b.waist + 0.03, 0.05, material("driftwood", -0.4)))
     # The creel: a reed basket on his back with a strap across the chest.
-    creel = material("driftwood", -0.2)
-    t.append(limb((0, 0.3, b.waist), (0, 0.3, b.waist + 0.38), 0.16, 0.19, creel, verts=6))
-    t.append(limb((0, 0.3, b.waist + 0.38), (0, 0.3, b.waist + 0.41), 0.19, 0.19, material("driftwood", -0.4), verts=6))
-    t.append(limb((0.2, -0.24, b.waist - 0.02), (-0.18, -0.22, b.shoulder), 0.025, 0.025, material("coal", -0.5), verts=4))
+    # (Day 30: bigger and woven so it reads behind him: hoops, a lid, an eel's tail over the rim.)
+    creel = material("driftwood", -0.12)
+    weave = material("driftwood", -0.4)
+    strap = material("coal", -0.5)
+    cz, cy = b.waist - 0.06, 0.33
+    t.append(limb((0, cy, cz), (0, cy + 0.02, cz + 0.5), 0.17, 0.22, creel, verts=7))
+    for k in range(3):
+        z = cz + 0.08 + k * 0.15
+        t.append(limb((0, cy + 0.003 * k, z), (0, cy + 0.003 * k, z + 0.035), 0.185 + 0.035 * k, 0.19 + 0.035 * k, weave, verts=7))
+    t.append(limb((0, cy + 0.03, cz + 0.5), (0, cy + 0.03, cz + 0.55), 0.23, 0.2, weave, verts=7))      # the lid
+    t.append(limb((0.12, cy + 0.12, cz + 0.52), (0.2, cy + 0.2, cz + 0.36), 0.03, 0.005, material("slate", -0.5), verts=4))  # eel tail
+    for x in (0.15, -0.15):  # shoulder straps
+        t.append(limb((x, cy - 0.12, cz + 0.42), (x, -0.2, b.shoulder - 0.02), 0.025, 0.025, strap, verts=4))
+        t.append(limb((x, -0.22, b.shoulder - 0.02), (x * 1.2, -0.24, b.waist + 0.05), 0.025, 0.025, strap, verts=4))
     # The rush hat: a wide, flat cone; a white beard fringe.
     h = b.parts["Head"]
     hat = material("driftwood", 0.05)
@@ -726,8 +745,82 @@ def build_corran() -> None:
     assemble(b, "corran")
 
 
+def _unmoored_seat(b: Body, kind: str) -> None:
+    """What an Unmoored sits on by the pools (the Stool part): a reed tussock or an upturned
+    eel basket, its top at the seated Body's seat."""
+    top = b.hip - 0.04
+    if kind == "tussock":
+        b.parts["Stool"].append(limb((0, 0.0, 0), (0, 0.0, top), 0.3, 0.24, material("moss", -0.45), verts=7))
+        for k in range(7):
+            a = k / 7 * math.tau
+            base = Vector((math.cos(a) * 0.24, math.sin(a) * 0.24 + 0.02, top - 0.08))
+            b.parts["Stool"].append(limb(base, base + Vector((math.cos(a) * 0.14, math.sin(a) * 0.14, 0.2)), 0.03, 0.0,
+                                         material("driftwood", -0.25), verts=3))
+    else:
+        b.parts["Stool"].append(limb((0, 0.02, 0), (0, 0.02, top), 0.26, 0.2, material("driftwood", -0.3), verts=7))
+        for z in (0.1, 0.25):
+            b.parts["Stool"].append(limb((0, 0.02, z), (0, 0.02, z + 0.03), 0.255 - z * 0.2, 0.25 - z * 0.2,
+                                         material("driftwood", -0.5), verts=7))
+
+
+def build_unmoored_shawl() -> None:
+    """One of the Unmoored by Stillhithe's pools (no name, no dialogue): a woman sitting on a
+    reed tussock, a silverfog shawl over her head, her hands in her lap, looking down at the
+    water. Everything about her the colour of the fog but a faded ribbon at her wrist."""
+    reset_scene()
+    b = Body(seated=True, build=0.9)
+    dress = material("silverfog", -0.3)
+    shawl = material("silverfog", -0.1)
+    skin = material("driftwood", 0.15)
+    base_body(b, skin, dress, material("slate", -0.4), dress, sleeves=shawl)
+    t = b.parts["Torso"]
+    t.append(ball(0.31, (0, 0.03, b.shoulder - 0.06), shawl, scale=(1.0, 0.85, 0.65)))
+    t.append(limb((0, 0.2, b.shoulder - 0.05), (0, 0.24, b.shoulder - 0.45), 0.12, 0.0, shawl, verts=4))
+    b.parts["LegL"].append(block((0.52, 0.42, 0.05), (-0.12, -0.19, b.hip + 0.07), dress))        # skirt over the knees
+    b.parts["LegL"].append(block((0.5, 0.05, 0.36), (-0.12, -0.4, b.hip - 0.12), dress))
+    h = b.parts["Head"]
+    h.append(ball(0.26, (0, 0.08, b.head + 0.05), shawl, scale=(1.02, 0.92, 1.05)))
+    h.append(ring(0.22, b.head - 0.2, 0.09, shawl))
+    h.append(block((0.18, 0.04, 0.05), (0, -0.225, b.head + 0.13), material("bone", -0.2)))    # pale hair
+    b.parts["ArmR"].append(ring(0.08, b.hand("R").z + 0.1, 0.03, material("ember", -0.35)))
+    b.arm_rest["ArmL"] = (math.radians(-38), 0, math.radians(-18))  # hands in the lap
+    b.arm_rest["ArmR"] = (math.radians(-38), 0, math.radians(18))
+    b.head_rest = (math.radians(26), 0, 0)  # looking down at the water
+    _unmoored_seat(b, "tussock")
+    assemble(b, "unmoored_shawl")
+
+
+def build_unmoored_coat() -> None:
+    """Another of the Unmoored: a broad man in a long greyed coat, sitting on an upturned eel
+    basket with his forearms on his knees and his head up, watching the fog over the pool as if
+    something might come out of it. Bare-headed, grey stubble, a cup held loosely in both hands."""
+    reset_scene()
+    b = Body(seated=True, build=1.08)
+    coat = material("slate", -0.15)
+    skin = material("driftwood", -0.05)
+    base_body(b, skin, material("silverfog", -0.45), material("ink", 0.05), coat, sleeves=coat)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0.02, b.hip - 0.06), (0, 0.02, b.waist + 0.1), 0.31, 0.28, coat, verts=8))
+    b.parts["LegR"].append(block((0.2, 0.36, 0.05), (-0.13, -0.17, b.hip + 0.07), coat))         # coat skirts over the thighs
+    b.parts["LegL"].append(block((0.2, 0.36, 0.05), (0.13, -0.17, b.hip + 0.07), coat))
+    t.append(ring(0.3, b.waist + 0.04, 0.04, material("silverfog", -0.2)))
+    h = b.parts["Head"]
+    h.append(ball(0.24, (0, 0.04, b.head + 0.06), material("silverfog", -0.15), scale=(1.0, 0.95, 0.75)))  # grey hair
+    h.append(ball(0.17, (0, -0.1, b.head - 0.13), material("silverfog", 0.0), scale=(1.05, 0.75, 0.85)))   # stubble
+    # Forearms on the knees, a cup between the hands (on the right arm).
+    b.arm_rest["ArmL"] = (math.radians(-62), 0, math.radians(-12))
+    b.arm_rest["ArmR"] = (math.radians(-62), 0, math.radians(12))
+    hand = b.hand("R")
+    b.parts["ArmR"].append(limb(hand + Vector((0.13, -0.02, -0.06)), hand + Vector((0.13, -0.02, 0.06)), 0.05, 0.06,
+                                material("bone", -0.3), verts=6))
+    b.head_rest = (math.radians(-4), 0, 0)
+    _unmoored_seat(b, "basket")
+    assemble(b, "unmoored_coat")
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda, build_bram,
-            build_hob, build_hob_seated, build_lamp, build_hesper, build_corran]
+            build_hob, build_hob_seated, build_lamp, build_hesper, build_corran,
+            build_unmoored_shawl, build_unmoored_coat]
 
 if __name__ == "__main__":
     import sys
