@@ -250,13 +250,13 @@
           -9
         ],
         "deck": 0.275,
-        "note": "The west walk (dock prop at -11,-0.4,-10, turned 90)."
+        "note": "The west walk (boardwalk prop at -11,-0.4,-10, turned 90)."
       }
     ]
   },
   "props": [
     {
-      "model": "res://assets/models/dressing/dock.glb",
+      "model": "res://assets/models/dressing/staithe.glb",
       "position": [
         5,
         -0.4,
@@ -306,7 +306,7 @@
           0.15
         ]
       ],
-      "note": "The staithe: a plank landing stage out into the channel, where the Slow Mercy ties up (pier rect [4,8,6,14], deck 0.275). A whittled gull sits on every post."
+      "note": "The staithe: a plank landing stage out into the channel, where the Slow Mercy ties up (pier rect [4,8,6,14], deck 0.275). A whittled gull sits on every post — the big man paid his mooring in them."
     },
     {
       "model": "res://assets/models/dressing/ferry.glb",
@@ -361,7 +361,7 @@
       }
     },
     {
-      "model": "res://assets/models/dressing/dock.glb",
+      "model": "res://assets/models/dressing/boardwalk.glb",
       "position": [
         -11,
         -0.4,
@@ -369,47 +369,47 @@
       ],
       "rotation_y": 90,
       "snap": false,
-      "note": "The west walk: boardwalk across a mirror pool from Stillhithe to the letting post's islet (pier rect [-14,-11,-8,-9]).",
+      "note": "The west walk: a low fen boardwalk across a mirror pool from Stillhithe to the letting post's islet (pier rect [-14,-11,-8,-9]); a plank gone, one sprung.",
       "wading": [
         [
-          -0.95,
-          -2.8,
-          0.15
+          -0.88,
+          -2.4,
+          0.12
         ],
         [
-          0.95,
-          -2.8,
-          0.15
+          0.88,
+          -2.4,
+          0.12
         ],
         [
-          -0.95,
-          -0.95,
-          0.15
+          -0.88,
+          -0.8,
+          0.12
         ],
         [
-          0.95,
-          -0.95,
-          0.15
+          0.88,
+          -0.8,
+          0.12
         ],
         [
-          -0.95,
-          0.95,
-          0.15
+          -0.88,
+          0.8,
+          0.12
         ],
         [
-          0.95,
-          0.95,
-          0.15
+          0.88,
+          0.8,
+          0.12
         ],
         [
-          -0.95,
-          2.8,
-          0.15
+          -0.88,
+          2.4,
+          0.12
         ],
         [
-          0.95,
-          2.8,
-          0.15
+          0.88,
+          2.4,
+          0.12
         ]
       ]
     },
@@ -506,7 +506,7 @@
       "note": "Glasswater's beacon, the Heron Light, cold on its legs out in the mere in the Deeps' fog. Unreachable (no collider)."
     },
     {
-      "model": "res://assets/models/dressing/pine_snag.glb",
+      "model": "res://assets/models/dressing/alder_snag.glb",
       "position": [
         -2.5,
         0,
@@ -521,7 +521,7 @@
       "note": "Dead alders: the fen's trees die standing."
     },
     {
-      "model": "res://assets/models/dressing/pine_snag.glb",
+      "model": "res://assets/models/dressing/alder_snag.glb",
       "position": [
         14.6,
         0,
@@ -535,7 +535,7 @@
       ]
     },
     {
-      "model": "res://assets/models/dressing/pine_snag.glb",
+      "model": "res://assets/models/dressing/alder_snag.glb",
       "position": [
         -18.6,
         0,
@@ -547,21 +547,6 @@
         3.0,
         0.5
       ]
-    },
-    {
-      "model": "res://assets/models/dressing/rowboat_upturned.glb",
-      "position": [
-        14.2,
-        0,
-        -3.9
-      ],
-      "rotation_y": 70,
-      "collider": [
-        1.4,
-        0.8,
-        3.0
-      ],
-      "note": "Corran's eel-punt hauled up and turned over."
     },
     {
       "model": "res://assets/models/dressing/barrels.glb",
@@ -821,6 +806,217 @@
         -5.0
       ],
       "rotation_y": 318
+    },
+    {
+      "model": "res://assets/models/dressing/punt.glb",
+      "position": [
+        17.9,
+        -0.4,
+        -6.2
+      ],
+      "rotation_y": 15,
+      "snap": false,
+      "float": {
+        "bob": 0.02,
+        "roll": 0.5,
+        "period": 6.5,
+        "foam": [
+          0.6,
+          2.3
+        ]
+      },
+      "note": "Corran's eel-punt moored off his landing, a quant pole and a trap lying in her."
+    },
+    {
+      "model": "res://assets/models/dressing/eel_traps.glb",
+      "position": [
+        14.8,
+        0,
+        -4.4
+      ],
+      "rotation_y": 20,
+      "collider": [
+        1.4,
+        0.8,
+        1.2
+      ],
+      "note": "Corran's eel-traps: two in the grass, one stood on end to dry."
+    },
+    {
+      "model": "res://assets/models/dressing/alder_snag.glb",
+      "position": [
+        6.6,
+        0,
+        -1.4
+      ],
+      "rotation_y": 70
+    },
+    {
+      "model": "res://assets/models/dressing/alder_snag.glb",
+      "position": [
+        -12.5,
+        0,
+        -6.5
+      ],
+      "rotation_y": 10
+    },
+    {
+      "model": "res://assets/models/dressing/alder_snag.glb",
+      "position": [
+        4.5,
+        0,
+        -19.0
+      ],
+      "rotation_y": 150
+    },
+    {
+      "model": "res://assets/models/dressing/reed_bed.glb",
+      "position": [
+        -3.1,
+        0,
+        6.8
+      ],
+      "rotation_y": 30,
+      "note": "Reed beds along the pools' edges (no collider)."
+    },
+    {
+      "model": "res://assets/models/dressing/reed_bed.glb",
+      "position": [
+        9.6,
+        0,
+        2.6
+      ],
+      "rotation_y": 80
+    },
+    {
+      "model": "res://assets/models/dressing/reed_bed.glb",
+      "position": [
+        3.6,
+        0,
+        -0.9
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/reed_bed.glb",
+      "position": [
+        -7.5,
+        0,
+        -5.8
+      ],
+      "rotation_y": 150
+    },
+    {
+      "model": "res://assets/models/dressing/reed_bed.glb",
+      "position": [
+        10.3,
+        0,
+        -14.0
+      ],
+      "rotation_y": 100
+    },
+    {
+      "model": "res://assets/models/dressing/reed_bed.glb",
+      "position": [
+        -20.6,
+        0,
+        -11.1
+      ],
+      "rotation_y": 90
+    },
+    {
+      "model": "res://assets/models/dressing/reed_bed.glb",
+      "position": [
+        -4.1,
+        0,
+        -16.9
+      ],
+      "rotation_y": 160
+    },
+    {
+      "model": "res://assets/models/dressing/plank_path.glb",
+      "position": [
+        -0.24,
+        0,
+        -16.68
+      ],
+      "rotation_y": 8.1,
+      "note": "Boards laid on the long walk going in; nobody mends them (no collider)."
+    },
+    {
+      "model": "res://assets/models/dressing/plank_path.glb",
+      "position": [
+        -0.68,
+        0,
+        -19.75
+      ],
+      "rotation_y": 8.1
+    },
+    {
+      "model": "res://assets/models/dressing/plank_path.glb",
+      "position": [
+        -0.56,
+        0,
+        -23.54
+      ],
+      "rotation_y": -15.900000000000006
+    },
+    {
+      "model": "res://assets/models/dressing/plank_path.glb",
+      "position": [
+        0.32,
+        0,
+        -26.62
+      ],
+      "rotation_y": -15.900000000000006
+    },
+    {
+      "model": "res://assets/models/characters/unmoored_shawl.glb",
+      "position": [
+        -9.4,
+        0,
+        -12.8
+      ],
+      "rotation_y": -100,
+      "idle": "still",
+      "collider": [
+        0.7,
+        1.1,
+        0.7
+      ],
+      "note": "An Unmoored woman on a reed tussock by the west pool, looking down into the water. No name, no talk: Stillhithe's one rule."
+    },
+    {
+      "model": "res://assets/models/characters/unmoored_coat.glb",
+      "position": [
+        9.0,
+        0,
+        -12.5
+      ],
+      "rotation_y": 95,
+      "idle": "still",
+      "collider": [
+        0.8,
+        1.1,
+        0.8
+      ],
+      "note": "An Unmoored man on an upturned eel basket, watching the fog over the east pool."
+    },
+    {
+      "model": "res://assets/models/characters/unmoored_shawl.glb",
+      "position": [
+        2.4,
+        0,
+        -16.0
+      ],
+      "rotation_y": 175,
+      "idle": "still",
+      "collider": [
+        0.7,
+        1.1,
+        0.7
+      ],
+      "note": "Another, at the head of the long walk, facing the Deeps."
     }
   ],
   "npcs": [
@@ -906,5 +1102,15 @@
       "note": "First landfall at Glasswater Fen."
     }
   ],
-  "exits": []
+  "exits": [],
+  "water": {
+    "swell": 0.15,
+    "wash": 0.0,
+    "foam": 0.5,
+    "mirror": 0.6,
+    "shallow": "pine",
+    "deep": "ink",
+    "sheen": "silverfog",
+    "note": "Fen water: peat-dark and mirror-still, the sky lying on it at a glancing look; barely a ripple, no wash."
+  }
 }
