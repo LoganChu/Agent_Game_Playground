@@ -53,8 +53,8 @@ func test_every_model_loads_small_and_upright() -> void:
 		elif path.get_file().begins_with("thornwold_beacon") or path.get_file() == "heron_light.glb":
 			limit = Vector3(8.0, 11.0, 8.0)
 		assert_true(box.size.length() > 0.2 and box.size.x < limit.x and box.size.z < limit.z and box.size.y < limit.y, "%s has sane bounds %s" % [path, box])
-		# Boats sit on the waterline; the dock and lantern room are placed at absolute heights.
-		if not path.get_file().get_basename() in ["moored_boat", "ferry", "dock", "beacon_lit"]:
+		# Boats sit on the waterline; the dock (and the fen's staithe/boardwalk) and lantern room are placed at absolute heights.
+		if not path.get_file().get_basename() in ["moored_boat", "ferry", "dock", "beacon_lit", "staithe", "boardwalk"]:
 			assert_true(box.position.y > -0.3, "%s stands on its origin (min y %.2f)" % [path, box.position.y])
 		node.free()
 
