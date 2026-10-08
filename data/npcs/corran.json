@@ -1,0 +1,9 @@
+{
+  "id": "corran",
+  "name": "Corran Teal",
+  "faction": "none",
+  "color": "moss",
+  "dialogue": "corran",
+  "model": "res://assets/models/characters/corran.glb",
+  "bio": "The last of the fen folk on Glasswater, old, an eel-man with a leister and a punt. Stayed when the rest went to the lanes after the Snuffing. Has no patience for the Unmoored, who come to his fen to put things down."
+}

@@ -1,0 +1,9 @@
+{
+  "id": "hesper",
+  "name": "Hesper Vail",
+  "faction": "unmoored",
+  "color": "silverfog",
+  "dialogue": "hesper",
+  "model": "res://assets/models/characters/hesper.glb",
+  "bio": "Warden of Stillhithe's staithe in Glasswater Fen, one of the Unmoored. Walked into the fog on purpose and put something down out on the mere; kept her name and the rule. Meets every boat. Keeps the names people leave with her for when they come back for them."
+}

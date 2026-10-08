@@ -1,0 +1,27 @@
+{
+  "id": "fen_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Slow Mercy noses up a channel no wider than she is, reeds hissing along both sides of her hull. Then the reeds open, and the water goes still."
+      },
+      {
+        "say": "narrator",
+        "text": "Pools, everywhere, flat as poured glass. Each one holds a white sky and a reed and you, and none of them moves."
+      },
+      {
+        "say": "narrator",
+        "text": "A plank staithe; a dyke going north to a hummock of reed houses; and far out on the mere, standing on four long legs in the fog, a lantern room with no light in it."
+      },
+      {
+        "say": "narrator",
+        "text": "On every post of the staithe sits a little wooden gull, wings half open, all facing the same way: out, along the channel, toward the sea."
+      },
+      {
+        "say": "narrator",
+        "text": "A woman in a grey shawl waits at the foot of the staithe, the way people wait for boats they didn't send for. She is looking at your hand."
+      }
+    ]
+  }
+}

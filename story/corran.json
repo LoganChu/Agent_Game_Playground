@@ -1,0 +1,158 @@
+{
+  "id": "corran",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:fen_met_corran",
+        "goto": "first"
+      },
+      {
+        "goto": "greet"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "An old man in thigh-high waders is bent over a tub of eels, counting them back into the water. He has a leister in one fist and a face like a shut door."
+      },
+      {
+        "say": "corran",
+        "text": "Another one. With a light, this time. That's new."
+      },
+      {
+        "say": "corran",
+        "text": "Hiding it for her, are you? Hesper and her manners. Hold it up. Fen's been dark three months; I'd like a look at my own hands.",
+        "if": "flag:fen_ember=cupped"
+      },
+      {
+        "say": "corran",
+        "text": "Corran Teal. Fen-born. Last of the Glasswater folk on Glasswater, since the rest took to the lanes."
+      },
+      {
+        "set": {
+          "fen_met_corran": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "greet": [
+      {
+        "say": "corran",
+        "text": "Eels don't care what anybody forgot. That's what I like about eels."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Why did the fen folk leave?",
+            "goto": "left"
+          },
+          {
+            "text": "What do you make of the Unmoored?",
+            "goto": "unmoored"
+          },
+          {
+            "text": "Tell me about the Heron Light.",
+            "goto": "heron"
+          },
+          {
+            "text": "A big man came here in a rowboat, Hesper says.",
+            "if": "flag:fen_heard_of_dunstan",
+            "goto": "big_man"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "left": [
+      {
+        "say": "corran",
+        "text": "Dark came, and the fog came in off the mere and lay down on the pools, and people started forgetting where the deep channels were. You don't forget a channel in a fen. Not twice."
+      },
+      {
+        "say": "corran",
+        "text": "So they went, on the ferry, while the ferry still ran. My sister too. I stayed. Somebody has to keep the eels honest."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "unmoored": [
+      {
+        "say": "corran",
+        "text": "They come here to put things down. Grief, mostly. Guilt, some. Walk out along the long walk and sit by the pools till it goes."
+      },
+      {
+        "say": "corran",
+        "text": "And it goes somewhere, doesn't it? It doesn't go nowhere. Seventy years I've fished this fen, and since they came the water's gone heavy. Pools never used to hold a face that long."
+      },
+      {
+        "say": "corran",
+        "text": "My fen's filling up with what they've put down. Nobody asks me."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "heron": [
+      {
+        "say": "corran",
+        "text": "Keepers built it on legs, out in the mere, because the fen's got no stone and no ground you'd trust with a tower. You poled out to it. The old keeper lit it every midwinter, off the Spire's fire."
+      },
+      {
+        "say": "corran",
+        "text": "Night the Spire went dark, she poled out to the Heron with her lantern, the way she would. And the light went out, out there. Hers and the beacon's both. Her skiff's still tied to the legs. I saw it on a clear day. There's not been a clear day since."
+      },
+      {
+        "say": "corran",
+        "text": "Nobody poles out to the Heron now. Fog on the mere's the thickest there is. You'd forget which end of the pole goes in the water."
+      },
+      {
+        "if": "quest:a_light_for_glasswater=inactive",
+        "quest_start": "a_light_for_glasswater"
+      },
+      {
+        "say": "corran",
+        "text": "You'll want it lit. 'Course you will; that's what the light in your hand's for. Then you'll want a punt, and somebody who knows the channels in his sleep. Ask me again when I've decided whether I like you."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "big_man": [
+      {
+        "say": "corran",
+        "text": "The whittler? Bought eels off me with a wooden gull. I've no use for wooden gulls. I took it."
+      },
+      {
+        "say": "corran",
+        "text": "Ate like a man who meant to be somewhere. Then he went out on the long walk with a lantern that wasn't lit. I said, your lantern's out. He said, I know. It's for after."
+      },
+      {
+        "say": "narrator",
+        "text": "After what, Corran didn't ask. Nobody asks, here.",
+        "if": "!flag:saltmarrow_hesk_saw_dunstan"
+      },
+      {
+        "say": "narrator",
+        "text": "Old Hesk, on Gull's Head, saw a big man go north with a lantern, laughing, saying he'd come back for his name.",
+        "if": [
+          "flag:saltmarrow_hesk_saw_dunstan",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

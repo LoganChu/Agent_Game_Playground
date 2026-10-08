@@ -1,0 +1,33 @@
+{
+  "id": "fen_rowboat",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A rowboat tied to the staithe's first post: clinker-built and tarred, its stem standing a hand's width proud. Saltmarrow-built. Rain in the bilge, the oars shipped neatly, as if whoever left it meant to come back."
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody has whittled a gull into the top of the stem post, small and quick, wings half open."
+      },
+      {
+        "say": "narrator",
+        "text": "You think of Saltmarrow's harbor, and of Mara's brother, who went north.",
+        "if": [
+          "!flag:saltmarrow_beacon_burned=gull",
+          "flag:saltmarrow_mara_told_of_dunstan"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "It puts you in mind of something on Saltmarrow. A stool by a door? It won't come.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "set": {
+          "fen_rowboat_seen": true
+        }
+      }
+    ]
+  }
+}

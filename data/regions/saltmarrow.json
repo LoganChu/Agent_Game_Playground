@@ -1083,7 +1083,8 @@
       "snap": false,
       "if": [
         "flag:saltmarrow_ferry_arrived",
-        "!flag:lanes_ferry_at=thornwold"
+        "!flag:lanes_ferry_at=thornwold",
+        "!flag:lanes_ferry_at=fen"
       ],
       "light": {
         "color": "moss",
@@ -1175,7 +1176,8 @@
       "rotation_y": 0,
       "if": [
         "flag:saltmarrow_ferry_arrived",
-        "!flag:lanes_ferry_at=thornwold"
+        "!flag:lanes_ferry_at=thornwold",
+        "!flag:lanes_ferry_at=fen"
       ],
       "note": "Ferry-master at the dock end, by the boarding plank, whenever the Slow Mercy is at Saltmarrow."
     }

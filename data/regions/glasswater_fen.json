@@ -1,0 +1,910 @@
+{
+  "id": "glasswater_fen",
+  "name": "Glasswater Staithe",
+  "description": "Glasswater Fen's landing: a plank staithe in a reed channel, a dyke to Stillhithe's reed houses where the Unmoored live in the fog, mirror-still pools, and out on the mere the Heron Light standing dark on its legs.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.045,
+    "color": "silverfog"
+  },
+  "light": {
+    "note": "A dark island under a white sky: flat, shadowless light off the water, everything the colour of fog; the ferry's lantern and the ember are the only warm things.",
+    "sun_color": "silverfog",
+    "sun_energy": 0.75,
+    "sun_pitch": -55,
+    "sun_yaw": -20,
+    "ambient_color": "silverfog",
+    "ambient_energy": 0.4,
+    "sky_top": "slate",
+    "sky_horizon": "silverfog"
+  },
+  "greying": [
+    {
+      "rect": [
+        -32,
+        -40,
+        32,
+        -19
+      ],
+      "strength": 1.0,
+      "falloff": 4.0,
+      "height": 3.0,
+      "note": "The Deeps: the mere north of Stillhithe, where the Unmoored go when they have almost finished forgetting. The long walk runs into it; the Heron Light stands in it."
+    },
+    {
+      "ellipse": [
+        0,
+        -11,
+        10,
+        6
+      ],
+      "strength": 0.35,
+      "falloff": 2.0,
+      "height": 1.6,
+      "note": "Stillhithe lies in a thin Greying like breath on glass: the Unmoored live in it on purpose."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      5,
+      0.5,
+      12
+    ],
+    "from_ferry": [
+      5,
+      0.5,
+      12
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -32,
+      -40,
+      32,
+      24
+    ],
+    "cell": 1.0,
+    "base": -1.6,
+    "seed": 41,
+    "roughness": 0.05,
+    "ragged": 1.4,
+    "note": "A fen: low hummocks a hand above the water joined by a dyke, a path and boardwalks over mirror-still pools; the staithe bank (south), Stillhithe (the Unmoored's hummock, north), Corran's landing (east), the letting post's islet (west), and the long walk north into the Deeps.",
+    "land": [
+      {
+        "ellipse": [
+          3,
+          4,
+          7,
+          4.2
+        ],
+        "height": 0.2,
+        "falloff": 2,
+        "note": "the staithe bank"
+      },
+      {
+        "path": [
+          [
+            2,
+            1,
+            0.2
+          ],
+          [
+            0,
+            -6,
+            0.25
+          ]
+        ],
+        "width": 2.6,
+        "falloff": 1.2,
+        "note": "the dyke to Stillhithe"
+      },
+      {
+        "ellipse": [
+          0,
+          -11,
+          8.5,
+          5
+        ],
+        "height": 0.3,
+        "falloff": 2,
+        "note": "Stillhithe"
+      },
+      {
+        "path": [
+          [
+            7,
+            2,
+            0.15
+          ],
+          [
+            12,
+            -4,
+            0.15
+          ]
+        ],
+        "width": 2.0,
+        "falloff": 1.0,
+        "note": "the path east to Corran's landing"
+      },
+      {
+        "ellipse": [
+          13,
+          -6,
+          4,
+          3
+        ],
+        "height": 0.2,
+        "falloff": 1.5,
+        "note": "Corran's landing"
+      },
+      {
+        "ellipse": [
+          -17,
+          -10,
+          3.2,
+          3
+        ],
+        "height": 0.25,
+        "falloff": 1.5,
+        "note": "the letting post's islet"
+      },
+      {
+        "path": [
+          [
+            0,
+            -15,
+            0.25
+          ],
+          [
+            -1,
+            -22,
+            0.15
+          ],
+          [
+            1,
+            -29,
+            0.1
+          ]
+        ],
+        "width": 1.6,
+        "falloff": 1.0,
+        "note": "the long walk north into the Deeps"
+      }
+    ],
+    "colors": {
+      "ground": "moss",
+      "shore": "pine",
+      "seabed": "abyss",
+      "cliff": "slate"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            5,
+            8,
+            0
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            0,
+            -6,
+            0
+          ],
+          [
+            0,
+            -11,
+            0
+          ],
+          [
+            0,
+            -16,
+            0
+          ],
+          [
+            -1,
+            -22,
+            0
+          ],
+          [
+            1,
+            -29,
+            0
+          ]
+        ],
+        "width": 1.4,
+        "color": "driftwood",
+        "note": "the trodden way from the staithe through Stillhithe and on along the long walk"
+      },
+      {
+        "ellipse": [
+          0,
+          -11,
+          7,
+          4
+        ],
+        "color": "silverfog",
+        "note": "Stillhithe's ground gone the colour of the fog"
+      }
+    ],
+    "piers": [
+      {
+        "rect": [
+          4,
+          8,
+          6,
+          14
+        ],
+        "deck": 0.275,
+        "note": "The staithe (dock prop at 5,-0.4,11)."
+      },
+      {
+        "rect": [
+          -14,
+          -11,
+          -8,
+          -9
+        ],
+        "deck": 0.275,
+        "note": "The west walk (dock prop at -11,-0.4,-10, turned 90)."
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/dock.glb",
+      "position": [
+        5,
+        -0.4,
+        11
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "wading": [
+        [
+          -0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          -0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          0.95,
+          0.15
+        ],
+        [
+          0.95,
+          0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          2.8,
+          0.15
+        ],
+        [
+          0.95,
+          2.8,
+          0.15
+        ]
+      ],
+      "note": "The staithe: a plank landing stage out into the channel, where the Slow Mercy ties up (pier rect [4,8,6,14], deck 0.275). A whittled gull sits on every post."
+    },
+    {
+      "model": "res://assets/models/dressing/ferry.glb",
+      "position": [
+        7.9,
+        -0.25,
+        12.5
+      ],
+      "rotation_y": 180,
+      "snap": false,
+      "if": "flag:lanes_ferry_at=fen",
+      "light": {
+        "color": "moss",
+        "energy": 1.2,
+        "range": 8.0,
+        "offset": [
+          0,
+          7.6,
+          -1.2
+        ]
+      },
+      "float": {
+        "bob": 0.03,
+        "roll": 0.6,
+        "period": 7.0,
+        "foam": [
+          1.55,
+          4.4
+        ]
+      },
+      "note": "The Slow Mercy alongside the staithe while she's at the fen. Masthead lantern lit."
+    },
+    {
+      "model": "res://assets/models/dressing/rowboat.glb",
+      "position": [
+        2.4,
+        -0.45,
+        10.6
+      ],
+      "rotation_y": -12,
+      "snap": false,
+      "note": "Dunstan's rowboat: Saltmarrow-built, tied to the staithe's first post, oars shipped, rain in the bilge.",
+      "float": {
+        "bob": 0.03,
+        "roll": 2.0,
+        "period": 4.2,
+        "foam": [
+          0.6,
+          1.45
+        ],
+        "foam_y": 0.2
+      }
+    },
+    {
+      "model": "res://assets/models/dressing/dock.glb",
+      "position": [
+        -11,
+        -0.4,
+        -10
+      ],
+      "rotation_y": 90,
+      "snap": false,
+      "note": "The west walk: boardwalk across a mirror pool from Stillhithe to the letting post's islet (pier rect [-14,-11,-8,-9]).",
+      "wading": [
+        [
+          -0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          -0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          0.95,
+          0.15
+        ],
+        [
+          0.95,
+          0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          2.8,
+          0.15
+        ],
+        [
+          0.95,
+          2.8,
+          0.15
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/reed_house.glb",
+      "position": [
+        -4.2,
+        0,
+        -12.2
+      ],
+      "rotation_y": 18,
+      "collider": [
+        3.0,
+        3.4,
+        2.6
+      ],
+      "note": "Stillhithe: fen-folk reed houses on short stilts, left empty when the fen folk went to the lanes. The Unmoored sleep in them and mend nothing."
+    },
+    {
+      "model": "res://assets/models/dressing/reed_house.glb",
+      "position": [
+        3.6,
+        0,
+        -14.2
+      ],
+      "rotation_y": -14,
+      "collider": [
+        3.0,
+        3.4,
+        2.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/reed_house.glb",
+      "position": [
+        5.6,
+        0,
+        -8.4
+      ],
+      "rotation_y": -98,
+      "collider": [
+        3.0,
+        3.4,
+        2.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/letting_post.glb",
+      "position": [
+        -17,
+        0,
+        -10.4
+      ],
+      "rotation_y": 90,
+      "collider": [
+        0.5,
+        2.3,
+        0.5
+      ],
+      "if": [
+        "!flag:fen_dunstan_word=mara",
+        "!flag:fen_dunstan_word=own"
+      ],
+      "note": "The letting post: what the Unmoored leave for the ones further in. The whittled gull on the fifth hook is the big man's."
+    },
+    {
+      "model": "res://assets/models/dressing/letting_post_word.glb",
+      "position": [
+        -17,
+        0,
+        -10.4
+      ],
+      "rotation_y": 90,
+      "collider": [
+        0.5,
+        2.3,
+        0.5
+      ],
+      "if": [
+        "!flag:fen_dunstan_word=",
+        "!flag:fen_dunstan_word=none"
+      ],
+      "note": "The letting post with the Wakebearer's word knotted on under the bar (Mara's, or their own)."
+    },
+    {
+      "model": "res://assets/models/dressing/heron_light.glb",
+      "position": [
+        -13,
+        -1.15,
+        -31
+      ],
+      "rotation_y": 28,
+      "snap": false,
+      "note": "Glasswater's beacon, the Heron Light, cold on its legs out in the mere in the Deeps' fog. Unreachable (no collider)."
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        -2.5,
+        0,
+        2.0
+      ],
+      "rotation_y": 40,
+      "collider": [
+        0.5,
+        3.0,
+        0.5
+      ],
+      "note": "Dead alders: the fen's trees die standing."
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        14.6,
+        0,
+        -8.0
+      ],
+      "rotation_y": 200,
+      "collider": [
+        0.5,
+        3.0,
+        0.5
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        -18.6,
+        0,
+        -12.4
+      ],
+      "rotation_y": 120,
+      "collider": [
+        0.5,
+        3.0,
+        0.5
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/rowboat_upturned.glb",
+      "position": [
+        14.2,
+        0,
+        -3.9
+      ],
+      "rotation_y": 70,
+      "collider": [
+        1.4,
+        0.8,
+        3.0
+      ],
+      "note": "Corran's eel-punt hauled up and turned over."
+    },
+    {
+      "model": "res://assets/models/dressing/barrels.glb",
+      "position": [
+        11.4,
+        0,
+        -7.6
+      ],
+      "rotation_y": 15,
+      "collider": [
+        1.5,
+        0.9,
+        1.0
+      ],
+      "note": "Corran's eel tubs."
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        -0.8,
+        0,
+        5.4
+      ],
+      "rotation_y": 25,
+      "note": "A log on the staithe bank where the Unmoored sit to watch for boats."
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -3.8,
+        0,
+        5.6
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        8.6,
+        0,
+        4.2
+      ],
+      "rotation_y": 67
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        9.8,
+        0,
+        1.2
+      ],
+      "rotation_y": 134
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -5.2,
+        0,
+        2.4
+      ],
+      "rotation_y": 201
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -3.4,
+        0,
+        -1.5
+      ],
+      "rotation_y": 268
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        3.6,
+        0,
+        -3.4
+      ],
+      "rotation_y": 335
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -6.2,
+        0,
+        -6.6
+      ],
+      "rotation_y": 42
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        8.2,
+        0,
+        -11.4
+      ],
+      "rotation_y": 109
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -1.8,
+        0,
+        -16.2
+      ],
+      "rotation_y": 176
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        1.8,
+        0,
+        -17.0
+      ],
+      "rotation_y": 243
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -9.4,
+        0,
+        -13.4
+      ],
+      "rotation_y": 310
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -14.4,
+        0,
+        -7.6
+      ],
+      "rotation_y": 17
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -19.8,
+        0,
+        -9.2
+      ],
+      "rotation_y": 84
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        10.4,
+        0,
+        -3.0
+      ],
+      "rotation_y": 151
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        16.4,
+        0,
+        -5.4
+      ],
+      "rotation_y": 218
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        11.2,
+        0,
+        -9.0
+      ],
+      "rotation_y": 285
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        6.2,
+        0,
+        7.4
+      ],
+      "rotation_y": 352
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        -1.0,
+        0,
+        -20.4
+      ],
+      "rotation_y": 59
+    },
+    {
+      "model": "res://assets/models/dressing/reeds.glb",
+      "position": [
+        1.4,
+        0,
+        -24.6
+      ],
+      "rotation_y": 126
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        0.4,
+        0,
+        3.4
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        5.2,
+        0,
+        1.6
+      ],
+      "rotation_y": 53
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -2.6,
+        0,
+        -9.4
+      ],
+      "rotation_y": 106
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        2.0,
+        0,
+        -9.0
+      ],
+      "rotation_y": 159
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -6.6,
+        0,
+        -11.0
+      ],
+      "rotation_y": 212
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -16.0,
+        0,
+        -8.6
+      ],
+      "rotation_y": 265
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        12.0,
+        0,
+        -5.0
+      ],
+      "rotation_y": 318
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "hesper",
+      "position": [
+        3.6,
+        0,
+        6.4
+      ],
+      "rotation_y": 10,
+      "note": "At the staithe's foot: she meets every boat."
+    },
+    {
+      "npc": "corran",
+      "position": [
+        12.6,
+        0,
+        -5.4
+      ],
+      "rotation_y": -30,
+      "note": "At his landing by the eel tubs and the upturned punt, facing the path in."
+    },
+    {
+      "npc": "oda",
+      "position": [
+        5.1,
+        0,
+        13.3
+      ],
+      "rotation_y": 0,
+      "if": "flag:lanes_ferry_at=fen",
+      "note": "At the staithe end by the Slow Mercy's plank."
+    }
+  ],
+  "objects": [
+    {
+      "id": "fen_rowboat",
+      "prompt": "Look at the rowboat",
+      "dialogue": "fen_rowboat",
+      "position": [
+        2.9,
+        0,
+        8.0
+      ],
+      "reach": 2.0,
+      "glint": [
+        -0.4,
+        0.5,
+        2.4
+      ],
+      "note": "Dunstan's rowboat at the staithe's first post."
+    },
+    {
+      "id": "letting_post",
+      "prompt": "Look at the letting post",
+      "dialogue": "letting_post",
+      "position": [
+        -15.8,
+        0,
+        -10.4
+      ],
+      "reach": 1.8,
+      "glint": [
+        -1.2,
+        1.7,
+        0
+      ],
+      "note": "The Unmoored's letting post on its islet past the west walk."
+    }
+  ],
+  "events": [
+    {
+      "id": "fen_arrival",
+      "if": [
+        "flag:lanes_ferry_at=fen",
+        "!flag:fen_landed"
+      ],
+      "set": {
+        "fen_landed": true
+      },
+      "dialogue": "fen_arrival",
+      "note": "First landfall at Glasswater Fen."
+    }
+  ],
+  "exits": []
+}

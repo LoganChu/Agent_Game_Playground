@@ -243,6 +243,25 @@
         "a_light_for_thornwold": "done"
       },
       "shot": "--camera=-3,4,11:8,6,-9"
+    },
+    {
+      "id": "glasswater_fen",
+      "act": "Act II — The Drift",
+      "title": "Glasswater Fen",
+      "inherits": "thornwold_lit",
+      "region": "glasswater_fen",
+      "spawn": "from_ferry",
+      "description": "Oda has sailed north-about from the lit Ridge Light to Glasswater Fen (boots path; Hob came in). Come ashore at the staithe: Hesper Vail of the Unmoored, Dunstan's rowboat, the letting post past the west walk, Corran Teal the eel-man, and the Heron Light dark out on the mere.",
+      "flags": {
+        "lanes_ferry_at": "fen",
+        "thornwold_hob_paid": true,
+        "thornwold_hob_came_in": true,
+        "fen_landed": true
+      },
+      "quests": {
+        "salt_for_the_collier": "done"
+      },
+      "shot": "--camera=9,5,16:-4,2,-12"
     }
   ]
 }

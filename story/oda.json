@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:lanes_ferry_at=fen",
+        "goto": "fen"
+      },
+      {
         "if": "flag:lanes_ferry_at=thornwold",
         "goto": "thornwold"
       },
@@ -481,6 +485,11 @@
             "goto": "sleeve_thornwold"
           },
           {
+            "text": "Sail north-about to Glasswater Fen.",
+            "if": "quest:a_light_for_thornwold=done",
+            "goto": "sail_fen"
+          },
+          {
             "text": "Take me back to Saltmarrow.",
             "goto": "back"
           },
@@ -532,6 +541,130 @@
         },
         "travel": [
           "saltmarrow",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "sail_fen": [
+      {
+        "if": "flag:fen_landed",
+        "goto": "sail_fen_again"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda casts off on the ebb and takes the Slow Mercy north-about, round Thornwold's shoulder, with the Ridge Light dead astern."
+      },
+      {
+        "say": "narrator",
+        "text": "Pell watches from the jetty with a fistful of Bram's nails and doesn't ask to come. Thornwold has given them work, and work is a kind of staying.",
+        "if": "flag:thornwold_pell_landed"
+      },
+      {
+        "say": "narrator",
+        "text": "The gold of the Ridge Light shrinks to a spark, and the spark to a warmth you remember more than see. Oda counts. Then she stops counting, and listens."
+      },
+      {
+        "say": "oda",
+        "text": "Hear that? Like somebody breathing out through their teeth. That's reeds. Reeds, and no wind in them."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog here is different. It doesn't drift. It hangs, as if the sea had stopped to listen too."
+      },
+      {
+        "say": "oda",
+        "text": "Glasswater. Fen folk used to meet every boat with a lantern on a pole. Nobody's met a boat here since the Snuffing, that I've heard."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "fen"
+        },
+        "travel": [
+          "glasswater_fen",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "sail_fen_again": [
+      {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy north-about again with the Ridge Light astern, until the reeds start breathing."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "fen"
+        },
+        "travel": [
+          "glasswater_fen",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "fen": [
+      {
+        "say": "oda",
+        "text": "We'll lie here a tide or two. I don't like water that doesn't move. Water that doesn't move is thinking."
+      },
+      {
+        "choice": [
+          {
+            "text": "That rowboat tied at the staithe...",
+            "if": "flag:fen_rowboat_seen",
+            "goto": "fen_rowboat"
+          },
+          {
+            "text": "Take me back to Thornwold.",
+            "goto": "fen_back"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "fen_rowboat": [
+      {
+        "say": "oda",
+        "text": "Saltmarrow-built. Tollen-built, by the stem: old Tollen cut his stems a hand proud, so you'd know them in the dark. Dunstan's, then."
+      },
+      {
+        "say": "oda",
+        "text": "He crewed for me two winters. Best hand on a line I ever had, and he laughed at weather. I'd not have thought it of him, rowing off into this.",
+        "if": "!flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "narrator",
+        "text": "The name goes past you like rain off a coat.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "oda",
+        "text": "You've a look like I said nothing. That'll be the Gull's burn. Never mind it.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "goto": "fen"
+      }
+    ],
+    "fen_back": [
+      {
+        "say": "oda",
+        "text": "Ridge Light dead ahead, this way. Easier, steering toward a light."
+      },
+      {
+        "say": "narrator",
+        "text": "The reeds close behind the Slow Mercy, and in a while the fog ahead goes faintly gold."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "thornwold"
+        },
+        "travel": [
+          "thornwold_landing",
           "from_ferry"
         ],
         "end": true

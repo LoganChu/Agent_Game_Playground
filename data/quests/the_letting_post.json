@@ -1,0 +1,13 @@
+{
+  "id": "the_letting_post",
+  "title": "The Letting Post",
+  "region": "glasswater_fen",
+  "giver": "hesper",
+  "description": "A Saltmarrow rowboat is tied at Glasswater's staithe, a whittled gull on every post. The man who rowed it came here to put something down.",
+  "stages": [
+    {
+      "id": "leave_word",
+      "text": "Hesper Vail says the big man who rowed to Glasswater went out along the long walk into the Deeps, and hasn't come back for his boat or his name. If you have something for someone further in, the Unmoored hang it on the letting post, on the islet past the west walk. Or you could leave him be."
+    }
+  ]
+}

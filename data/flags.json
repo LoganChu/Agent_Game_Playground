@@ -111,7 +111,7 @@
       "default": false
     },
     "lanes_ferry_at": {
-      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing) or 'saltmarrow' (back at the Saltmarrow dock). Oda and the ferry prop are placed by it; the player travels with her.",
+      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing), 'saltmarrow' (back at the Saltmarrow dock) or 'fen' (at Glasswater Fen's staithe, Day 29). Oda and the ferry prop are placed by it; the player travels with her.",
       "default": ""
     },
     "thornwold_landed": {
@@ -222,6 +222,39 @@
       "description": "Player has spoken with the Lamp after the Ridge Light was lit (one-time aftermath: the lanterns can go out now; what the coal is kept for).",
       "default": false,
       "future": true
+    },
+    "fen_landed": {
+      "description": "The player has come ashore at Glasswater Fen's staithe (one-time arrival scene after the first sailing north-about from Thornwold).",
+      "default": false
+    },
+    "fen_met_hesper": {
+      "description": "Player has met Hesper Vail, Unmoored warden of Stillhithe's staithe.",
+      "default": false
+    },
+    "fen_ember": {
+      "description": "Asked by Hesper to cup the ember on Stillhithe ('it reminds'): 'cupped' (closed their hand over it) or 'bare' (refused). The Unmoored react to it.",
+      "default": ""
+    },
+    "fen_heard_of_dunstan": {
+      "description": "Hesper told the player about the big man who rowed to the fen, paid his mooring in whittled gulls, left his name with her and went out along the long walk into the Deeps. Starts The Letting Post.",
+      "default": false
+    },
+    "fen_rowboat_seen": {
+      "description": "Player has looked at the Saltmarrow rowboat tied at Glasswater's staithe (Oda can then name its builder).",
+      "default": false
+    },
+    "fen_dunstan_word": {
+      "description": "What the player left on the Unmoored's letting post for the big man further in: 'mara' (Mara's word: the stool's still by the door), 'own' (someone from Saltmarrow came looking) or 'none' (left nothing: the right to forget). Pays off when Dunstan is found.",
+      "default": "",
+      "future": true
+    },
+    "fen_hesper_saw_word": {
+      "description": "Hesper has remarked on what the player left (or didn't) on the letting post (one-time).",
+      "default": false
+    },
+    "fen_met_corran": {
+      "description": "Player has met Corran Teal, the last of the fen folk, at his eel landing.",
+      "default": false
     }
   }
 }

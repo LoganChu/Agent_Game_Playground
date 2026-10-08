@@ -1,0 +1,281 @@
+{
+  "id": "hesper",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:fen_met_hesper",
+        "goto": "first"
+      },
+      {
+        "goto": "greet"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "The woman in the shawl doesn't come forward. She keeps her hands folded and her eyes on your ember, and when you come near she turns her face a little aside, the way you'd turn from a fire."
+      },
+      {
+        "say": "hesper",
+        "text": "You'll be the one with the light. We'd heard there was one. Things carry, even here."
+      },
+      {
+        "say": "hesper",
+        "text": "Cup it, would you? It doesn't hurt. It reminds. People come a long way to stop being reminded."
+      },
+      {
+        "choice": [
+          {
+            "text": "Close your hand over the ember.",
+            "set": {
+              "fen_ember": "cupped"
+            },
+            "goto": "cupped"
+          },
+          {
+            "text": "It's not mine to hide.",
+            "set": {
+              "fen_ember": "bare"
+            },
+            "goto": "bare"
+          }
+        ]
+      }
+    ],
+    "cupped": [
+      {
+        "say": "narrator",
+        "text": "You close your fingers. The light comes through them red, the way the sun comes through an eyelid."
+      },
+      {
+        "say": "hesper",
+        "text": "Thank you. That's manners, here. Not everyone has them."
+      },
+      {
+        "goto": "rule"
+      }
+    ],
+    "bare": [
+      {
+        "say": "narrator",
+        "text": "She steps back a pace, no more. Out on the dyke someone who was walking toward you turns round and walks the other way."
+      },
+      {
+        "say": "hesper",
+        "text": "Then keep to the staithe and the walks, and don't hold it up to anyone's face. They've a right not to look."
+      },
+      {
+        "goto": "rule"
+      }
+    ],
+    "rule": [
+      {
+        "say": "hesper",
+        "text": "This is Stillhithe. I'm Hesper. Hesper Vail. That much I kept."
+      },
+      {
+        "say": "hesper",
+        "text": "We keep one rule here, and we keep it hard: nobody asks what you came to put down. Not me, not you, not the eel-man."
+      },
+      {
+        "set": {
+          "fen_met_hesper": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "greet": [
+      {
+        "say": "hesper",
+        "text": "I saw the red cord on the post. That's a kind word, whatever it says. It doesn't pull.",
+        "if": [
+          "flag:fen_dunstan_word=mara",
+          "!flag:fen_hesper_saw_word"
+        ],
+        "set": {
+          "fen_hesper_saw_word": true
+        }
+      },
+      {
+        "say": "hesper",
+        "text": "Somebody remembers you, it says. That's a hook, that is. Some of them will want it. Some will cut the line.",
+        "if": [
+          "flag:fen_dunstan_word=own",
+          "!flag:fen_hesper_saw_word"
+        ],
+        "set": {
+          "fen_hesper_saw_word": true
+        }
+      },
+      {
+        "say": "hesper",
+        "text": "You left nothing on the post. You kept the rule without being told it twice.",
+        "if": [
+          "flag:fen_dunstan_word=none",
+          "!flag:fen_hesper_saw_word"
+        ],
+        "set": {
+          "fen_hesper_saw_word": true
+        }
+      },
+      {
+        "say": "hesper",
+        "text": "Your hand's still shut. Good.",
+        "if": "flag:fen_ember=cupped"
+      },
+      {
+        "say": "hesper",
+        "text": "Still bare, that light. Stand downwind of me, then.",
+        "if": "flag:fen_ember=bare"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Who are the people here?",
+            "goto": "who"
+          },
+          {
+            "text": "Why does the ember trouble you?",
+            "goto": "ember"
+          },
+          {
+            "text": "What's out on the mere?",
+            "goto": "mere"
+          },
+          {
+            "text": "Whose rowboat is that, tied at the staithe?",
+            "if": "!flag:fen_heard_of_dunstan",
+            "goto": "big_man"
+          },
+          {
+            "text": "Where's the letting post?",
+            "if": "stage:the_letting_post=leave_word",
+            "goto": "letting"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "who": [
+      {
+        "say": "hesper",
+        "text": "Unmoored, the lanes call us. As if we'd come loose. We didn't come loose. We untied."
+      },
+      {
+        "say": "hesper",
+        "text": "Fen folk built the houses. They went to the lanes after the dark came, all but the eel-man. We sleep in their houses and mend nothing. Mending's remembering."
+      },
+      {
+        "say": "hesper",
+        "text": "People stay a while on Stillhithe. Then most go further in, to the Deeps, where it's quicker. Nobody follows them with a light."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ember": [
+      {
+        "say": "hesper",
+        "text": "The fog takes things off you. Gently, like taking off a wet coat. Your light puts the coat back on."
+      },
+      {
+        "say": "hesper",
+        "text": "I walked a long way to stop being cold. Don't hand me my coat."
+      },
+      {
+        "say": "narrator",
+        "text": "She says it without heat. She is looking at the reeds, not at you.",
+        "if": "flag:fen_ember=bare"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "mere": [
+      {
+        "say": "hesper",
+        "text": "The Deeps. And the Heron Light on its legs, out where you can hardly see it. The fen folk's beacon. The eel-man will tell you about it if you let him; he's sore about it."
+      },
+      {
+        "say": "hesper",
+        "text": "Don't go far out on the long walk with that light. Not for our sake. For yours. The Deeps take things quicker than you'd think, even from a Wakebearer."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "big_man": [
+      {
+        "say": "hesper",
+        "text": "That's asking. But it's asking about a boat, and a boat's not a thing anyone put down. I'll allow it."
+      },
+      {
+        "say": "hesper",
+        "text": "A big man, rowing backward the way sea-folk do, so he could watch where he'd been. Laughing at nothing. A fortnight back, or a month. Days lie flat here."
+      },
+      {
+        "say": "hesper",
+        "text": "He tied up at the staithe and paid for his mooring in gulls. Whittled them sitting on that log, one a post, till every post had one."
+      },
+      {
+        "say": "hesper",
+        "text": "He told me his name to keep. Said he'd come back for it when he was done with it. I'll not say it to you. It's his.",
+        "if": "!flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "narrator",
+        "text": "You know it anyway. Dunstan Tollen: Mara's brother, who went north with a lantern, laughing.",
+        "if": [
+          "!flag:saltmarrow_beacon_burned=gull",
+          "flag:saltmarrow_mara_told_of_dunstan"
+        ]
+      },
+      {
+        "say": "hesper",
+        "text": "He told me his name to keep, for when he comes back for it.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't say it. Even so, something goes past you like rain off a coat: a name you might have known once, on the island you came from.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "hesper",
+        "text": "Then he went out along the long walk, into the Deeps. He hasn't come back for his boat, or his name."
+      },
+      {
+        "say": "hesper",
+        "text": "If you've something for someone further in, there's the letting post, on the islet past the west walk. Hang it there. If they want it, it goes. If they don't, the fog has it. That's fair to everyone."
+      },
+      {
+        "set": {
+          "fen_heard_of_dunstan": true
+        },
+        "quest_start": "the_letting_post"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "letting": [
+      {
+        "say": "hesper",
+        "text": "Past the west walk, on the islet. Look for the post with hooks. Don't take anything off it that isn't yours."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

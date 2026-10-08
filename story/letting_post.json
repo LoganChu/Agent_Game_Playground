@@ -1,0 +1,110 @@
+{
+  "id": "letting_post",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A silvered post with a crossbar of iron hooks. On the hooks: a child's shoe on its lace, a faded ribbon, a key on a string, a bundle of letters tied up, a spoon, and on the fifth hook a little wooden gull, wings out, turning slowly though there's no wind."
+      },
+      {
+        "say": "narrator",
+        "text": "At its foot, a heap of things nobody took: a cap, a cup, a rag doll, all gone the colour of the fog."
+      },
+      {
+        "if": [
+          "!flag:fen_dunstan_word=",
+          "!flag:fen_dunstan_word=none"
+        ],
+        "goto": "word_left"
+      },
+      {
+        "if": "flag:fen_dunstan_word=none",
+        "goto": "nothing_left"
+      },
+      {
+        "if": "stage:the_letting_post=leave_word",
+        "goto": "leave"
+      }
+    ],
+    "word_left": [
+      {
+        "say": "narrator",
+        "text": "Your strip of sailcloth is still knotted under the bar, the red cord through it. Nobody has taken it. Nobody has let it go grey, either."
+      }
+    ],
+    "nothing_left": [
+      {
+        "say": "narrator",
+        "text": "You left nothing here. The gull turns on its thread."
+      }
+    ],
+    "leave": [
+      {
+        "say": "narrator",
+        "text": "Hesper said: hang it there. If they want it, it goes. If they don't, the fog has it."
+      },
+      {
+        "choice": [
+          {
+            "text": "Tie on Mara's word: the stool's still by the door.",
+            "if": "flag:saltmarrow_mara_message_for_dunstan",
+            "set": {
+              "fen_dunstan_word": "mara"
+            },
+            "goto": "tie_mara"
+          },
+          {
+            "text": "Tie on word of your own: someone from Saltmarrow came looking.",
+            "if": "!flag:saltmarrow_mara_message_for_dunstan",
+            "set": {
+              "fen_dunstan_word": "own"
+            },
+            "goto": "tie_own"
+          },
+          {
+            "text": "Leave nothing. He came here to put things down.",
+            "set": {
+              "fen_dunstan_word": "none"
+            },
+            "goto": "leave_nothing"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "tie_mara": [
+      {
+        "say": "narrator",
+        "text": "You knot a strip of sailcloth under the bar and thread a red cord through it. Nobody here reads, so you say it to the post, low: the stool's still by the door. Don't tell him to come home. He knows where it is."
+      },
+      {
+        "say": "narrator",
+        "text": "It feels like nothing. It feels like setting out a cup."
+      },
+      {
+        "quest_complete": "the_letting_post"
+      }
+    ],
+    "tie_own": [
+      {
+        "say": "narrator",
+        "text": "You knot a strip of sailcloth under the bar and thread a red cord through it, and say it to the post, low: someone from Saltmarrow came looking. Somebody remembers you."
+      },
+      {
+        "quest_complete": "the_letting_post"
+      }
+    ],
+    "leave_nothing": [
+      {
+        "say": "narrator",
+        "text": "You let your hand fall. The gull on its thread turns its back to you, and then its face, and then its back."
+      },
+      {
+        "quest_complete": "the_letting_post"
+      }
+    ]
+  }
+}
