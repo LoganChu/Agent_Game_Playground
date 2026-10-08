@@ -2,6 +2,78 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-08 09:00 UTC — Day 29: The fen lane (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; fetched
+  `origin/main` and fast-forwarded `main` to Day 28's head (`3687f43`). Baseline green (198 tests + smoke +
+  launch).
+- **Content (due by Day 31; last content Day 27):** ROADMAP *Next up* #1, *The fen lane — Act II goes on*:
+  - **The sailing.** Once the Ridge Light is lit, Oda offers "Sail north-about to Glasswater Fen." on
+    Thornwold: the Ridge Light dead astern, the reeds breathing, fog that hangs instead of drifting (later
+    sailings are one line). `lanes_ferry_at` gains `fen`; from the fen Oda runs back to Thornwold only
+    (lanes run light to light). Saltmarrow's ferry/Oda placements now exclude `fen` too.
+  - **New region `glasswater_fen` (Glasswater Staithe):** a plank staithe with a whittled gull on every post,
+    a dyke north to **Stillhithe** (three new Blender **reed houses**, a thin Greying the Unmoored live in on
+    purpose, ground gone fog-coloured), mirror-still pools, a west walk to the **letting post**'s islet,
+    Corran's eel landing, and the **long walk** north into **the Deeps** (deep Greying), where **the Heron
+    Light** stands dark on four legs out in the mere (new Blender model, iron heron vane, the keeper's skiff
+    tied to its legs). Arrival scene `fen_arrival`.
+  - **Hesper Vail** (Unmoored, staithe-warden; new Blender character): asks you to **cup the ember** ("It
+    doesn't hurt. It reminds.") — `fen_ember` cupped/bare; Stillhithe's one rule (nobody asks what you came
+    to put down); the ember "puts the coat back on".
+  - **Corran Teal** (last of the fen folk; new Blender character): why the fen folk left; the Unmoored
+    filling his fen ("pools never used to hold a face that long" — mystery #3, unexplained); **the Heron
+    Light's keeper poled out the night of the Snuffing and the light went out out there**; *A Light for
+    Glasswater* begins (open — he'll pole you out "when I've decided whether I like you").
+  - **Dunstan's thread:** his Saltmarrow rowboat at the staithe (inspectable; Oda knows a Tollen stem),
+    the gulls he paid his mooring in, **the name he left with Hesper to keep**, the long walk "with a lantern
+    that wasn't lit — it's for after". Side quest **The Letting Post**: tie on **Mara's word** (if she sent
+    one), **word of your own**, or **leave nothing** (`fen_dunstan_word`; the post shows a sailcloth knot with
+    a red cord — `letting_post_word`). After the `gull` burn his name slides off the Wakebearer.
+  - 2 NPCs, 2 quests (one open), 8 flags, 5 new dialogues + Oda extended; checkpoint **`glasswater_fen`**.
+- **Blender:** new `tools/blender/build_fen.py` (`reed_house`, `letting_post` + `_word`, `heron_light`);
+  `build_characters.py` gains `hesper` and `corran` (~800 tris each).
+- **Tests:** `test_fen_lane.gd` (9: the sailing only once lit, the lane both ways; the ferry/Oda in exactly
+  one port; the fen's layout — staithe clear, Stillhithe thin, the Deeps deep and walkable into, every NPC
+  and object reachable, the Heron out of reach; Hesper and the ember; the letting post three ways and "not
+  yet"; the gull-burn variant; Corran and the Heron; the models). The smoke walk now **sails the fen lane
+  twice** after its passes (`_sail_the_fen_lane`, choosing Oda's option by text) and checks the beats.
+  `test_dressing` allows the Heron Light's height. 207 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-08-fen-*.png`): `staithe-hesper` (from the staithe: Hesper at its
+foot, Dunstan's rowboat, Oda and the Slow Mercy), `stillhithe` (the reed houses, the Heron Light behind in
+the fog), `letting-post`, `corran`, `folk-lineup` (Hesper, Corran, Oda); checkpoint
+`docs/checkpoints/glasswater_fen.png`.
+
+**Decisions**
+- **Dunstan glimpsed, not met.** Mystery #5's payoff is big; this session lays the trail (boat, gulls, the
+  kept name, "it's for after") and a choice that will matter when he is found. Meeting him belongs in the
+  Deeps, later.
+- **The letting post honours the theme both ways.** Leaving nothing completes the quest as fully as tying
+  on a word: the right to forget is a real answer, and Hesper says so.
+- **Hesper keeps his name** (Hesk's "come back for his name" made literal) — a hook for whether the
+  Wakebearer, the Unmoored or Mara gets to decide what Dunstan remembers.
+- **The Heron Light's quest opens but doesn't advance** (marked `future`): the fen's main line needs the mere
+  (a punt, the Deeps), which is a session of its own. It is the one new open thread; the colliers and the
+  Lamp's coal stay open as planned.
+- **The fen kit was built now, not tomorrow.** A fen of Saltmarrow houses would have read wrong in the
+  checkpoint; three quick models (reed house, letting post, Heron Light) and two characters let tomorrow's
+  art session *dress* instead of *build*.
+- **Smoke walk: a dedicated fen-lane trip instead of more passes.** The passes never reach Thornwold's Oda
+  (the bramble wall moves them on first); choosing her option by its text is how a player gets there too.
+
+**Problems / notes**
+- The first reed-house roof slabs were rotated wrong (splayed like ramps); `beam` from eave to ridge fixed it.
+- The west walk re-uses the Saltmarrow dock model (ladder and bollards); logged for the art pass.
+- `fen_ember` changes lines only; the Unmoored turning away from a bare ember is told, not shown (logged).
+- The fen's flat white light washes out in Compatibility like every foggy region; judge with the Vulkan pass.
+
+**Next run should**
+1. **Art (due Day 30):** *The fen, dressed* (ROADMAP *Next up* #1): a low boardwalk, gulls on the staithe
+   posts, eel traps/punt, alder snags, Unmoored sitting by the pools, a stiller water look.
+2. **Polish/debt pass three by Day 31** (*Next up* #2).
+
 ## 2026-10-07 21:00 UTC — Day 28: The Ridge Light, lit (art track)
 
 **Did**

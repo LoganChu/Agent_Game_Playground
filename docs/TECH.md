@@ -33,11 +33,12 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [oda hob hob_seated …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [oda hob hob_seated hesper corran …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light]  # Glasswater Fen kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -263,6 +264,15 @@ first sailing is the full crossing scene (completes *Across the Grey*), later on
 line. Pell crosses only if `saltmarrow_pell_crossing=aboard` (`thornwold_pell_landed`) and then
 stays on Thornwold. When a ferry/map screen arrives (Milestone 2), it should replace these
 dialogue choices, keeping the flag as the ferry's position.
+**The fen lane (Day 29):** `lanes_ferry_at=fen` puts the ferry and Oda at Glasswater Fen's staithe.
+Saltmarrow's placements now read `!…=thornwold` **and** `!…=fen` (one more `!` term per new
+port — keep them exact negations). Oda offers "Sail north-about to Glasswater Fen." on Thornwold once
+*A Light for Thornwold* is done (first sailing: the full scene, sets `fen_landed` via the fen's
+arrival event; later: one line) and only "Take me back to Thornwold." at the fen — lanes run light to
+light, so the fen connects to Thornwold only. The smoke walk never talks to Oda on Thornwold (the
+bramble wall moves it on first), so `_sail_the_fen_lane` asks her for the fen **by option text**
+(`_choose`) after the passes, walks the fen twice (Hesper starts *The Letting Post* on the first trip,
+the post is answered on the second) and lets Oda sail it back. `test_fen_lane.gd` covers the rest.
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,

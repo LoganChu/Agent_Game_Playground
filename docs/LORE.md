@@ -469,9 +469,71 @@ charcoal-burners and a Tidewright lumber camp. Theme: trust and misdirection.
     strange, steered with the Ridge Light dead astern ("listen for reeds instead of trees"). Off-island
     crews still carry what Thornwold burned.
 
-### 3. Glasswater Fen (planned — Alpha)
+### 3. Glasswater Fen (Act II — begun Day 29)
 A marsh of reed-houses and mirror-still pools where the Unmoored gather. Theme: the right to
 forget. The fog is thickest and strangest here.
+
+- **Established in play (Day 29 — the fen lane):**
+  - **The lane north-about.** With the Ridge Light lit, Oda sails from Thornwold Landing round the
+    island's shoulder, the Ridge Light dead astern, until the reeds "breathe" ("like somebody breathing
+    out through their teeth; reeds, and no wind in them"). The fen's fog **doesn't drift: it hangs**.
+    Fen folk once met every boat with a lantern on a pole. Once one end is lit the ferry plies the lane
+    both ways (`lanes_ferry_at=fen`); Oda doesn't like water that doesn't move ("water that doesn't
+    move is thinking"). Pell, if on Thornwold, stays at the camp ("work is a kind of staying").
+  - **Glasswater Staithe**: a plank landing stage in a reed channel; **a little whittled gull on
+    every post**, all facing out to sea. A dyke runs north to **Stillhithe**, a hummock of **reed
+    houses** on short stilts (bundled reed walls, steep thatch, eel-lines on pegs) that the **fen
+    folk** built and left when they went to the lanes after the Snuffing. The Unmoored sleep in them
+    and **mend nothing ("mending's remembering")**. Stillhithe lies in a **thin Greying on purpose**
+    — the Unmoored live in it — and its ground has gone the colour of the fog. Pools everywhere, flat
+    as poured glass. A **west walk** (boardwalk) crosses a pool to the letting post's islet; Corran's
+    eel landing is east; the **long walk** runs north into **the Deeps** — the mere, deep Greying,
+    where the Unmoored go "when they've almost finished forgetting", because "it's quicker". Nobody
+    follows them with a light. The fen's trees are alders that die standing.
+  - **The Heron Light**, Glasswater's beacon: Keepers built it **out in the mere on four tall timber
+    legs** (the fen has no stone and no ground you'd trust with a tower), X-braced, a plank platform, a
+    horn-paned lantern room, steep reed thatch, and **an iron heron** for a vane (gull, pine, heron —
+    each beacon wears its island's sign). A ladder up one leg. You **poled out** to it. Its keeper (a
+    woman; a Keeper, unnamed) lit it every midwinter from the Spire's fire. **The night of the
+    Snuffing she poled out to it with her lantern and the light went out out there — hers and the
+    beacon's both. Her skiff is still tied to the legs**, half full of water (open: what happened to
+    her). Nobody poles out now; the mere's fog is "the thickest there is — you'd forget which end of
+    the pole goes in the water."
+  - **Hesper Vail** — warden of Stillhithe's staithe, one of the Unmoored (forties): long reed-grey
+    coat, a shawl over her head, a reed-cutter's sickle, a string of small things at her wrist she
+    doesn't look at. Meets every boat. **"That much I kept"** — her name; she put the rest down out on
+    the mere. She asks the Wakebearer to **cup the ember**: "It doesn't hurt. It reminds. People come
+    a long way to stop being reminded" (`fen_ember`: cupped / bare). The ember to the Unmoored: "the
+    fog takes things off you, gently, like taking off a wet coat. Your light puts the coat back on."
+    (Foreshadows the ember holding/returning memory — do not explain.) **Stillhithe's one rule:
+    nobody asks what you came to put down.** "Unmoored," the lanes say — "we didn't come loose. We
+    untied." Unmoored turn their faces from a bare ember.
+  - **Dunstan Tollen came here** (mystery #5 thread). A big man **rowed a Saltmarrow rowboat** to the
+    fen "backward the way sea-folk do, so he could watch where he'd been", laughing at nothing, "a
+    fortnight back, or a month — days lie flat here". He **paid for his mooring in whittled gulls**,
+    one on every staithe post. **He left his name with Hesper "to keep, for when he comes back for
+    it"** (Hesk heard the same: "come back for his name when he was done with it"); she won't say it.
+    He bought eels from Corran with a wooden gull and went out along the long walk **with a lantern
+    that wasn't lit — "It's for after."** He hasn't come back for his boat or his name. His rowboat
+    is Tollen-built ("old Tollen cut his stems a hand proud"); Oda knows it. **After the `gull` burn**
+    the Wakebearer cannot hold his name — it goes past "like rain off a coat" (Oda, an off-islander,
+    still says it).
+  - **The letting post** on its islet: a silvered post with a crossbar of iron hooks where the Unmoored
+    hang what they leave for the ones further in — a child's shoe, a ribbon, a key, letters, a spoon,
+    **a whittled gull on the fifth hook** — "if they want it, it goes; if they don't, the fog has it."
+    A heap of greyed things nobody took at its foot. The Wakebearer left (`fen_dunstan_word`): **Mara's
+    word** ("the stool's still by the door…", tied on with sailcloth and a red cord, spoken to the post
+    — "it doesn't pull"), **word of their own** ("someone from Saltmarrow came looking" — "a hook;
+    some will want it, some will cut the line"), or **nothing** (the right to forget kept). Pays off
+    when Dunstan is found.
+  - **Corran Teal** — the last of the fen folk on Glasswater (old, not Unmoored): thigh waders, a
+    rush hat, an eel-leister, a creel. The fen folk left when the fog lay down on the pools and people
+    began forgetting the deep channels ("you don't forget a channel in a fen — not twice"); his sister
+    went too. He resents the Unmoored: **"It goes somewhere, doesn't it? Since they came the water's
+    gone heavy. Pools never used to hold a face that long. My fen's filling up with what they've put
+    down."** (Foreshadows mystery #3 — the fog is forgotten memory; never explain.) He knows the
+    channels and will take the Wakebearer out to the Heron "when I've decided whether I like you"
+    (*A Light for Glasswater*, open).
 
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
