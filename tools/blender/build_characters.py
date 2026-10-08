@@ -638,8 +638,96 @@ def build_lamp() -> None:
     assemble(b, "lamp")
 
 
+def build_hesper() -> None:
+    """Hesper Vail, warden of Stillhithe's staithe in Glasswater Fen, one of the Unmoored (forties):
+    tall and spare, a long reed-grey coat worn open over a moss shift, a silverfog shawl over her
+    head and shoulders, bare forearms, a reed-cutter's sickle hooked at her belt, and a string of
+    small things at her wrist that she doesn't look at. The fog has had her coat's hem (silvered).
+    She stands with her hands folded low and her head a little turned away (the ember reminds)."""
+    reset_scene()
+    b = Body(build=0.92)
+    coat = material("silverfog", -0.38)
+    shift = material("moss", -0.3)
+    skin = material("driftwood", 0.2)
+    base_body(b, skin, shift, material("ink", 0.1), shift, sleeves=coat)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0.03, 0.12), (0, 0.03, b.waist + 0.12), 0.34, 0.27, coat, verts=8))       # long coat
+    t.append(limb((0, 0.03, 0.08), (0, 0.03, 0.18), 0.35, 0.34, material("silverfog", 0.05), verts=8))  # silvered hem
+    for x in (0.17, -0.17):  # open front edges, the shift between them
+        t.append(block((0.08, 0.05, 0.75), (x, -0.25, b.shoulder - 0.42), coat, rot=(0, 0, -0.06 if x > 0 else 0.06)))
+    t.append(ring(0.26, b.waist + 0.04, 0.04, material("driftwood", -0.35)))                    # cord belt
+    # The reed-cutter's sickle hooked at her left hip: a short handle and a curved iron blade.
+    iron = material("slate", -0.3)
+    t.append(limb((0.26, -0.1, b.waist - 0.02), (0.27, -0.12, b.waist - 0.22), 0.02, 0.02, material("driftwood", -0.3), verts=4))
+    for k in range(4):
+        a0, a1 = k * 0.45, (k + 1) * 0.45
+        t.append(limb((0.27 + math.sin(a0) * 0.12, -0.12 - math.cos(a0) * 0.02, b.waist - 0.22 - (1 - math.cos(a0)) * 0.06),
+                      (0.27 + math.sin(a1) * 0.12, -0.12 - math.cos(a1) * 0.02, b.waist - 0.22 - (1 - math.cos(a1)) * 0.06),
+                      0.012, 0.012, iron, verts=4))
+    # The shawl: over the head and down round the shoulders.
+    h = b.parts["Head"]
+    shawl = material("silverfog", -0.08)
+    h.append(ball(0.265, (0, 0.1, b.head + 0.05), shawl, scale=(1.02, 0.92, 1.05)))
+    h.append(ring(0.23, b.head - 0.2, 0.1, shawl))
+    t.append(ball(0.29, (0, 0.02, b.shoulder - 0.02), shawl, scale=(1.05, 0.85, 0.42)))
+    h.append(block((0.16, 0.04, 0.04), (0, -0.23, b.head + 0.14), material("ink", 0.35)))        # dark hair under the shawl
+    # Hands folded low in front; a string of small things at the right wrist.
+    b.arm_rest["ArmL"] = (math.radians(-28), 0, math.radians(-16))
+    b.arm_rest["ArmR"] = (math.radians(-28), 0, math.radians(16))
+    wrist = b.hand("R") + Vector((0, 0, 0.1))
+    for k, colour in enumerate(("bone", "coal", "ember", "bone")):
+        a = k / 4 * math.tau
+        b.parts["ArmR"].append(ball(0.025, wrist + Vector((math.cos(a) * 0.08, math.sin(a) * 0.08, 0)),
+                                    material(colour, -0.25), segments=4, rings=3))
+    b.head_rest = (math.radians(6), 0, math.radians(14))  # a little turned away
+    assemble(b, "hesper")
+
+
+def build_corran() -> None:
+    """Corran Teal, the last of the fen folk on Glasswater (old, not Unmoored): short and broad in
+    the back, thigh-high waders of tarred leather, a moss smock, a wide rush hat, a white fringe of
+    beard, and an eel-leister (a long pole with a flat iron fork of barbed tines) held upright in his
+    right hand. A creel on his back."""
+    reset_scene()
+    b = Body(build=1.08)
+    smock = material("moss", -0.15)
+    waders = material("ink", 0.12)
+    skin = material("driftwood", -0.02)
+    base_body(b, skin, waders, waders, smock, sleeves=smock)
+    for side, x in (("L", 0.12), ("R", -0.12)):  # the waders' turned-down tops at the thigh
+        b.parts["Leg" + side].append(limb((x, 0, b.hip - 0.12), (x, 0, b.hip - 0.2), 0.115, 0.11, material("coal", -0.6)))
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, b.hip - 0.14), (0, 0, b.waist + 0.06), 0.29, 0.27, smock, verts=8))
+    t.append(ring(0.29, b.waist + 0.03, 0.05, material("driftwood", -0.4)))
+    # The creel: a reed basket on his back with a strap across the chest.
+    creel = material("driftwood", -0.2)
+    t.append(limb((0, 0.3, b.waist), (0, 0.3, b.waist + 0.38), 0.16, 0.19, creel, verts=6))
+    t.append(limb((0, 0.3, b.waist + 0.38), (0, 0.3, b.waist + 0.41), 0.19, 0.19, material("driftwood", -0.4), verts=6))
+    t.append(limb((0.2, -0.24, b.waist - 0.02), (-0.18, -0.22, b.shoulder), 0.025, 0.025, material("coal", -0.5), verts=4))
+    # The rush hat: a wide, flat cone; a white beard fringe.
+    h = b.parts["Head"]
+    hat = material("driftwood", 0.05)
+    h.append(limb((0, 0, b.head + 0.1), (0, 0, b.head + 0.17), 0.45, 0.34, hat, verts=8))
+    h.append(limb((0, 0, b.head + 0.17), (0, 0, b.head + 0.33), 0.26, 0.05, hat, verts=8))
+    h.append(ring(0.25, b.head + 0.17, 0.04, material("moss", -0.4)))
+    h.append(ball(0.17, (0, -0.1, b.head - 0.14), material("bone", 0.05), scale=(1.1, 0.75, 0.8)))
+    # The eel-leister, upright in the right hand: a long pole, a flat fork of barbed iron tines.
+    hand = b.hand("R")
+    pole = material("driftwood", -0.3)
+    iron = material("slate", -0.4)
+    top = hand + Vector((0, -0.05, 1.2))
+    b.parts["ArmR"].append(limb(hand + Vector((0, -0.05, -0.62)), top, 0.024, 0.022, pole, verts=5))
+    b.parts["ArmR"].append(block((0.28, 0.03, 0.05), top, iron))
+    for tx in (-0.12, -0.04, 0.04, 0.12):
+        b.parts["ArmR"].append(block((0.025, 0.025, 0.24), top + Vector((tx, 0, 0.13)), iron))
+    b.arm_rest["ArmR"] = (math.radians(-12), 0, math.radians(-4))
+    b.arm_rest["ArmL"] = (math.radians(-5), 0, math.radians(8))
+    b.head_rest = (math.radians(-3), 0, 0)
+    assemble(b, "corran")
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda, build_bram,
-            build_hob, build_hob_seated, build_lamp]
+            build_hob, build_hob_seated, build_lamp, build_hesper, build_corran]
 
 if __name__ == "__main__":
     import sys
