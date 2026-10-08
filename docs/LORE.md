@@ -489,7 +489,11 @@ forget. The fog is thickest and strangest here.
     as poured glass. A **west walk** (boardwalk) crosses a pool to the letting post's islet; Corran's
     eel landing is east; the **long walk** runs north into **the Deeps** — the mere, deep Greying,
     where the Unmoored go "when they've almost finished forgetting", because "it's quicker". Nobody
-    follows them with a light. The fen's trees are alders that die standing.
+    follows them with a light. The fen's trees are alders that die standing. (Day 30) Some of the
+    Unmoored **sit by the pools all day looking into the water** — a woman on a reed tussock, a man on
+    an upturned eel basket with a cup gone cold — and nobody speaks to them (the one rule). **Boards lie
+    on the long walk going in**, laid by someone who went in; nobody mends them. Corran keeps his
+    **punt** moored off the landing and his **wicker eel-traps** drying on a stake.
   - **The Heron Light**, Glasswater's beacon: Keepers built it **out in the mere on four tall timber
     legs** (the fen has no stone and no ground you'd trust with a tower), X-braced, a plank platform, a
     horn-paned lantern room, steep reed thatch, and **an iron heron** for a vane (gull, pine, heron —

@@ -33,12 +33,12 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [oda hob hob_seated hesper corran …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [oda hob hob_seated hesper corran unmoored_shawl unmoored_coat …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
-.tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light]  # Glasswater Fen kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed]  # Glasswater Fen kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -235,6 +235,11 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   a wide, faint glow over the whole quad (the fog lit round a beacon). The lit Ridge Light on the
   woods' skyline uses size 14 / strength 1 / bloom 0.35 (it is ~60 m off); on the ridge a size-6
   halo beside the real light. Every `lantern_post` carries one at `[0, 1.85, 0.58]`.
+- `"idle": "still"` (Day 30) makes the prop a **figure**: its `model` must be a character model
+  (`assets/models/characters/`, the rig contract) and it is built with `CharacterRig.instantiate` in
+  that idle style — set dressing that breathes (the Unmoored by Stillhithe's pools), no name, no
+  dialogue. Give it a `collider` like any prop; no `float`/`wading` (validated). The character
+  lineup lists figures as "(figure)".
 
 ### Arrival events & act ends (Day 13)
 - **Region `events`** happen on arriving in a region: after `main.load_region`, the first
@@ -353,6 +358,11 @@ on top by `follow_greying`.
   from derivatives, swell that grows with depth (so the shoreline stays put), a ragged foam
   band at depth≈0 and a broken wash line moving in. No depth buffer → same in Compatibility.
   Foam follows the *ground* only; piers, pilings and boats get none (yet).
+- **Region `water` (Day 30)** tunes the shader per region, every key optional (`WaterBuilder.SETTINGS`,
+  validated ranges; `note` allowed): `swell` (× wave height, 0..2), `wash` (the broken foam lines,
+  0..1), `foam` (× shore foam width, 0..2), `mirror` (0..1: a glancing look takes the `sheen` colour,
+  glossier), colours `shallow`, `deep`, `sheen` (palette or #hex). No block = the old sea exactly.
+  Glasswater Fen: `{swell 0.15, wash 0, foam 0.5, mirror 0.6, shallow pine, deep ink, sheen silverfog}`.
 
 ### Ground (sculpted terrain)
 **Decision (Day 7):** terrain is generated in Godot from region data, not modelled in
@@ -524,6 +534,16 @@ Keep the lit build ≤ 16 materials (the kit cap): reuse `kindle` glow rather th
 `Body`'s seat; Hob's camp seat, and Aldous's bench later), front at Godot +Z; no collider (the NPC
 sitting on it has one). `build_characters.py hob_seated`: Hob as a seated Body with the rake
 across his knees in the static `Stool` part.
+**The fen, dressed (Day 30):** `build_fen.py` — `staithe` and `boardwalk` follow the dock's
+replacement rule (2 × 6 m along Godot Z, deck top 0.675, placed at y -0.4 → the 0.275 pier deck; like
+the dock they reach below their origin). The staithe's eight posts each carry a whittled gull facing
+-Y (Godot +Z, out to sea); the boardwalk has nothing over its deck and its piles stand at
+`BOARDWALK_PILES` (mirrored in `test_fen_dressed.gd` and the region's `wading` rings). `plank_path`
+(1 × 3 m along Z, ~7 cm, no collider) lies on the ground; `punt` (origin at the bottom, place at the
+water level − 0.15 with `float`), `eel_traps`, `alder_snag` (same trunk footprint as `pine_snag`),
+`reed_bed` (3.2 m along X, no collider; place on the shoreline, ground ≈ water − 0.1). Characters:
+`unmoored_shawl` / `unmoored_coat` are seated Bodies with their seat (tussock / upturned basket) in
+the static `Stool` part — figure props with the `still` idle.
 Note `bp.prism` creates its object through the data API and does **not** make it
 active — use its return value (e.g. to rotate it), never `bpy.context.active_object`.
 
@@ -660,6 +680,12 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   halo + light, halo parameters reach the shader, lantern posts' halos, placement pose overrides,
   Hob seated on the bench (same spot/facing, seat top 0.44 m, by the tally-house step), the `sit`
   doze and start on the real model (legs stay put), validator placement-pose and halo-number checks.
+- `tests/test_fen_dressed.gd` — Day 30: the staithe (deck height, gulls on the posts), the boardwalk
+  (nothing over the deck, pier width, a foam ring per pile, walkable), boards along the long walk into
+  the fog, Corran's punt afloat and the traps on dry ground, alders and reed beds at the water's edge,
+  the Unmoored figures (dry, reachable, facing the water, off the paths, a `still` rig), the `still`
+  idle on the real model, region `water` reaching the shader (the sea elsewhere unchanged), the pale
+  skiff, validator figure/water checks.
 - `tests/test_characters.gd` — character models follow the rig contract; the rig poses and
   returns to rest; missing models fall back; validator catches bad `model`/`idle`.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit

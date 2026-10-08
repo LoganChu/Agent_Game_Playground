@@ -2,6 +2,77 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-08 21:00 UTC — Day 30: The fen, dressed (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; checked out
+  `main` and fast-forwarded to `origin/main` (`c5b365b`, Day 29's head).
+- **Art (due today; last art Day 28):** ROADMAP *Next up* #1, *The fen, dressed*, all parts:
+  - **The staithe** (`staithe`, new Blender model on the dock's footprint and deck top): silvered planks,
+    every piling rising through the deck as a post with **a whittled gull on it, all facing out to sea**
+    (LORE), a slimed ladder at the channel end, no bollard. The fen no longer borrows the Saltmarrow dock.
+  - **The west walk** is a low fen **`boardwalk`** (2 × 6 m, same deck top): crosswise split planks on two
+    runners, stubby pile pairs (foam rings on each), one plank gone and one sprung — no ladder, bollards
+    or rail.
+  - **The long walk** has boards laid on it going in (`plank_path`, four 3 m runs, no collider, mossed and
+    askew), fading into the Deeps' fog.
+  - **Corran's landing:** a moored, floating **`punt`** (flat-bottomed, raked ends, tarred, a quant pole
+    and a trap lying in her) replaces the upturned Saltmarrow rowboat; **`eel_traps`** (two wicker traps in
+    the grass, one stood on end against a stake).
+  - **Dead alders** (`alder_snag`: crooked dark trunk on a root boss, three limbs silvering at the tips,
+    bracket fungus) replace the three pine snags, plus three more standing in the pools.
+  - **Reed beds** (`reed_bed`, 3 m of reed with buff plumes and bulrushes) along seven pool edges, each
+    placed on the shoreline (the fen's banks drop steeply — the first guesses stood in a metre of water).
+  - **The Unmoored sit by the pools:** two new seated characters, **`unmoored_shawl`** (a woman on a reed
+    tussock, hands in her lap) and **`unmoored_coat`** (a man on an upturned eel basket, a cup in his
+    hands), three placements on Stillhithe's edges facing the water. Engine: **figure props** — a region
+    prop with an `idle` is a character model with a `CharacterRig` (no dialogue; validated: a character
+    model, a known style, no `float`/`wading`). New idle **`still`**: slow shallow breath, quiet hands, the
+    head drifting down to look into the water and, sixteen seconds later, up again — no start, nothing
+    calls them back (unlike Hob's `sit` doze). The character lineup lists figures as "(figure)".
+  - **Mirror-still water:** a region **`water`** block (`swell`, `wash`, `foam`, `mirror`, `shallow`/`deep`/
+    `sheen` colours; validated ranges) tunes the water shader; new `wash_strength` and `mirror` uniforms
+    (a fresnel-ish blend toward the sky colour, glossier). The fen: swell 0.15, no wash, half foam, mirror
+    0.6, pine shallows over ink depths — the pools now lie flat and silver instead of a choppy blue sea.
+  - **The Heron's skiff reads:** pale boards, a bone gunwale and an oar across it, sitting higher — a pale
+    shape at the legs' feet from the long walk.
+  - **Hesper:** two dark locks fallen out of the shawl, its point down her back, a fringe at the shoulders.
+    **Corran:** a bigger woven creel (hoops, a lid, an eel's tail over the rim, two shoulder straps).
+- **Tests:** `test_fen_dressed.gd` (9): the staithe's deck height and gulls, the boardwalk (nothing over the
+  deck, pier width, a foam ring per pile, walkable to the letting post), the boards on the long walk going
+  into the fog, Corran's punt afloat in deep enough water and the traps on dry ground, alders/reed beds at
+  the water's edge, the Unmoored (dry ground, reachable, facing the water, off the trodden way, out of
+  everyone's way, built with a `still` rig), the `still` idle on the real model (head down, legs put), the
+  water settings reaching the shader (and the sea elsewhere unchanged), the pale skiff, validator checks.
+  `test_dressing` exempts the staithe/boardwalk from "stands on its origin" like the dock. 217 tests +
+  smoke + launch pass. Checkpoint `glasswater_fen` re-shot.
+
+Screenshots (`docs/screenshots/2026-10-08-pm-fen-*.png`): `staithe` vs `staithe-before`, `westwalk` vs
+`westwalk-before` (the boardwalk, the mirror pool, the Unmoored by it), `gulls` (on the posts), `unmoored-west`,
+`unmoored-east`, `corran` (punt, traps, alder), `longwalk` (the boards into the fog), `skiff`, `lineup`
+(Hesper, Corran and the two Unmoored in the fen's light).
+
+**Decisions**
+- **Figures are props, not NPCs.** The Unmoored by the pools have nothing to say (Stillhithe's one rule);
+  making them NPCs would put names and "[E] Talk" over them. A prop with an `idle` reuses the rig and the
+  validator and costs nothing at runtime beyond the rig.
+- **`still`, not `sit`.** Hob's doze ends with a start — he's pulled back. The Unmoored aren't: their head
+  goes down to the water and comes up slowly, on its own time.
+- **Water as data, not a second shader.** One water shader with region settings keeps Saltmarrow's sea
+  untouched (defaults = the old look; tested) and lets the Deeps or a future tarn tune their own.
+- **The staithe keeps the dock's deck top and pier rect** (the replacement rule), so nothing walkable moved;
+  the boardwalk stays 2 m wide because piers must lie on the ground grid (the validator said so).
+
+**Problems / notes**
+- The validator rejected a 1.8 m pier rect (piers must sit on the 1 m ground grid); the boardwalk is 2 m.
+- The mirror water reads very pale from above in Compatibility (fog + sheen); the peat-dark shows only
+  looking down steeply. Judge with the Vulkan colour pass (mirror 0.6 may want 0.4 there).
+- The first gull build looked every which way; LORE says they all face out to sea — rebuilt to match.
+
+**Next run should**
+1. **Polish/debt pass three (due Day 31)** — ROADMAP *Next up* #1.
+2. Then *The Heron Light, part one* (content, due by Day 33).
+
 ## 2026-10-08 09:00 UTC — Day 29: The fen lane (content)
 
 **Did**

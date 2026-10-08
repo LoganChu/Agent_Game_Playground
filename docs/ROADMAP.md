@@ -230,6 +230,12 @@ with a meaningful burn choice → consequences visible in the village.
       Hesper, the long walk "with a lantern that wasn't lit — it's for after"; side quest **The Letting Post**:
       tie on Mara's word, your own, or leave nothing (`fen_dunstan_word`). The `gull` burn makes his name slide
       off the Wakebearer. Checkpoint `glasswater_fen`; the smoke walk sails the lane twice.
+- [x] [A] **The fen, dressed** (Day 30): the **staithe** (a whittled gull on every post, all facing out to sea),
+      a low **boardwalk** for the west walk (no ladder/bollards; a plank gone), **boards laid along the long walk**
+      into the fog, Corran's moored **punt** and **eel-traps**, dead **alders** (not pines), **reed beds** along the
+      pools, **the Unmoored sitting by the pools** (`unmoored_shawl`, `unmoored_coat`; engine: **figure props** — a
+      prop with an `idle` — and the new **`still`** idle), **mirror-still water** (region `water`: swell/wash/foam/
+      mirror + colours), the Heron's skiff pale and readable, Hesper's locks and shawl, Corran's woven creel.
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -240,49 +246,45 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **The fen, dressed** (art due Day 30): a low plank **boardwalk** for the west walk and the long walk
-   (no ladder, no bollards), **whittled gulls on the staithe posts**, eel traps and a moored punt at Corran's
-   landing, alder snags (not pines), reed beds along the pools, Unmoored **sitting by the pools** (a
-   Hushed-ish idle, no dialogue) on Stillhithe, the Heron Light's skiff readable at distance, a mirror-still
-   water look for the pools (less swell). Hesper's shawl/hair read; Corran's creel.
-2. [P] **Polish/debt pass three** (due by Day 31; last pass Day 23): candidates — the fen's arrival plays
+1. [P] **Polish/debt pass three** (due Day 31 — next run; last pass Day 23): candidates — the fen's arrival plays
    while the player still stands on the ferry plank (fine) but Hesper's first talk can be skipped by walking
    past (then Corran's "hiding it for her" never shows: fine); `fen_ember` has no effect beyond words yet
    (consider: Unmoored turn their faces away from a bare ember — a `faces_player` override by flag); the
    smoke walk's Thornwold Oda is never visited by the passes (see Known issues); colour pass on the fen's
-   flat white light (the pale shore band, the silverfog paint on Stillhithe); the dock model is re-used for the west walk (wants a low boardwalk with no ladder — art).
-3. [C] **The Heron Light, part one** (next content, due by Day 33): Corran decides he likes you (what tips
+   flat white light (the pale shore band, the silverfog paint on Stillhithe, the mirror water reading very pale
+   from above); the Unmoored figures could turn their faces from a bare ember (a figure `if`/pose by flag).
+2. [C] **The Heron Light, part one** (next content, due by Day 33): Corran decides he likes you (what tips
    it? the ember shown, not cupped? an eel-trap errand?) and poles you out through the channels to the
    Heron Light's legs in the Deeps (a punt `travel`, own region or the mere's edge); the keeper's skiff; what
    happened to her (keep it open-ish); Unmoored further in; Dunstan glimpsed, not met. Keep the four
    colliers and the Lamp's coal open.
-4. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-5. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-6. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-7. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-8. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-9. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
    variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
    steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
    nights once day/night exists. (Hob's raking idle landed Day 22 — the seated idle is the
    same kind of CharacterRig style.) Day 28: `log_bench` + the `sit` idle + placement poses exist —
    Aldous seated needs only an `aldous_seated` model (a seated Body) and a bench placement.
-10. [S] Interaction polish: camera framing during dialogue; fade the
+9. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -322,7 +324,7 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by session 31 (Day 23 was the last) — Day 31 (art Day 30 first).
+- Next polish/debt pass due Day 31 (Day 23 was the last) — the next run.
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog
   (0.045) in the Compatibility renderer; up close they read fine. The Day 12 cold light helps
   Gull's Head read as drained; re-judge the density with the Vulkan colour check.
@@ -334,9 +336,7 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 29 (the fen lane); next content due by Day 33 (the Heron Light, part one).
-- Last art session: Day 28 (the Ridge Light, lit); Day 29 built the fen's first kit (reed house, letting
-  post, Heron Light, Hesper, Corran) inside the content session. Next art due Day 30 — *The fen, dressed*
-  (*Next up* #1); Aldous seated is still cheap (#9).
+- Last art session: Day 30 (the fen, dressed). Next art due Day 32; Aldous seated is still cheap (#8).
 - Hob's camp bench is in the tally house's shadow under the landing's sun (west); he reads dark from
   the yard in Compatibility. Judge with the Vulkan colour pass; a fill light is not in the budget.
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
@@ -358,8 +358,9 @@ each .glb < 5 MB.
   (or teach the walk to prefer an unwalked travel target) rather than adding passes.
 - `fen_ember` (cupped/bare) changes lines only (Hesper, Corran). The Unmoored turning their faces from a bare
   ember is described in text, not shown.
-- The fen's west walk re-uses the Saltmarrow `dock` model (ladder, bollards) turned 90°; replace with a low
-  boardwalk in the fen art pass.
+- Day 30: the fen's mirror water (region `water`, mirror 0.6) reads very pale from above in Compatibility —
+  fog plus sheen; re-judge with the Vulkan colour pass. Figure props (the Unmoored) have a box collider each
+  and no conditions yet (an `if` works like any prop's).
 - Smoke test walks 9 passes since Day 23, each over the regions reachable on foot from where
   it stands (travellers — Oda, the bramble wall — last). A `travel` mid-walk ends that region's
   walk (nodes are freed). Oda is always talked to last and the walk never sails back to
