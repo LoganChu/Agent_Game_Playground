@@ -6,7 +6,8 @@ extends Node3D
 ##   xvfb-run -a godot --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
 ##       -- --screenshot=/abs/out.png [--closeup] [--only=hob,lamp] [--pose=1.2] [--turn=90]
 ## Models a region placement poses an NPC in (e.g. `hob_seated`) follow the NPCs; character
-## models no NPC uses yet are added last, labelled "(unplaced)".
+## figure props (character models as dressing) after them, and models nothing uses yet are
+## added last, labelled "(unplaced)".
 ## `--closeup` frames the heads and hands instead of the full bodies. `--pose=<seconds>` freezes
 ## every rig at that moment of its idle (to compare beats of an idle, e.g. a chisel tap);
 ## `--turn=<degrees>` turns every model (90 = seen from its left side).
@@ -36,6 +37,15 @@ func _ready() -> void:
 			paths.append(placed_model)
 			styles.append(str(placement.get("idle", "breathe")))
 			names.append("%s (%s)" % [Content.db.npcs.get(str(placement.get("npc", "")), {}).get("name", "?"), placed_model.get_file().get_basename()])
+	# Figures: character models stood in a region as set dressing with an idle (the Unmoored).
+	for region_id: String in Content.db.regions:
+		for prop: Dictionary in Content.db.regions[region_id].get("props", []):
+			var figure := str(prop.get("model", ""))
+			if not prop.has("idle") or figure in paths:
+				continue
+			paths.append(figure)
+			styles.append(str(prop["idle"]))
+			names.append(figure.get_file().get_basename().capitalize() + " (figure)")
 	# Character models no NPC wears yet (built ahead of their content), by file name.
 	for file in DirAccess.get_files_at(UNPLACED_DIR):
 		var path := UNPLACED_DIR + file

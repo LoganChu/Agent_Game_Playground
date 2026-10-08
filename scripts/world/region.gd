@@ -40,7 +40,7 @@ func build(id: String) -> void:
 	for slab: Dictionary in data.get("terrain", []):
 		add_child(_build_slab(slab))
 	if data.has("water_level"):
-		add_child(WaterBuilder.build(field, float(data["water_level"])))
+		add_child(WaterBuilder.build(field, float(data["water_level"]), data.get("water", {})))
 	for kind: String in KINDS:
 		for entry: Dictionary in data.get(KINDS[kind], []):
 			if entry.has("if") or kind == "pickup":
@@ -211,8 +211,13 @@ func _build_prop(prop: Dictionary) -> Node3D:
 	var node: Node3D
 	var model := str(prop.get("model", ""))
 	if not model.is_empty() and ResourceLoader.exists(model):
-		var scene := load(model) as PackedScene
-		node = scene.instantiate() as Node3D if scene else null
+		if prop.has("idle"):
+			# A figure: a character model as set dressing (an Unmoored sitting by a pool), no
+			# dialogue, moved by a CharacterRig in its `idle` style.
+			node = CharacterRig.instantiate(model, str(prop["idle"]))
+		else:
+			var scene := load(model) as PackedScene
+			node = scene.instantiate() as Node3D if scene else null
 		if node:
 			node.scale = Vector3.ONE * float(prop.get("scale", 1.0))
 			if prop.has("collider"):

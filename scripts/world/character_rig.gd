@@ -10,17 +10,21 @@ extends Node
 ## while `move_speed` is above zero. No skeletons or animation tracks to maintain.
 
 const PARTS: Array[String] = ["LegL", "LegR", "Torso", "Head", "ArmL", "ArmR"]
-const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel", "sit"]
+const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel", "sit", "still"]
 ## The "chisel" beat: two taps, then a pause (seconds).
 const CHISEL_PERIOD := 3.4
 ## The "sit" doze: once a cycle the head sinks, holds, and comes up with a start (seconds).
 const DOZE_PERIOD := 11.0
+## The "still" drift: the head goes down to the water and slowly up again (seconds).
+const STILL_PERIOD := 16.0
 
 ## "breathe" (default), "mend" (seated hands working over a net) or "rake" (standing, drawing
 ## a rake across the ground in slow pulls, leaning into each one) or "chisel" (bent over a bench:
 ## tap, tap with the left hand, a pause, and now and then the head turns as if listening) or
 ## "sit" (a seated model resting: thumbs working the rake pole, and once in a while the head
-## sinks as he dozes off and comes up with a start — Half-Hushed, he loses the thread).
+## sinks as he dozes off and comes up with a start — Half-Hushed, he loses the thread) or
+## "still" (a seated Unmoored by the pools: slow shallow breath, the hands quiet, the head
+## drifting down to look into the water and, a long while later, up again).
 var style := "breathe"
 ## Horizontal speed in m/s; drives the walk swing (0 = standing).
 var move_speed := 0.0
@@ -116,6 +120,16 @@ func pose(t: float, walk_phase: float = 0.0, walk: float = 0.0) -> void:
 		# Thumbs working along the pole: the hands creep a little, out of step.
 		_offset("ArmL", Vector3.ZERO, Vector3(0.04 * sin(t * 0.9) + 0.05 * doze, 0, 0.02 * breath))
 		_offset("ArmR", Vector3.ZERO, Vector3(0.04 * sin(t * 0.9 + 2.0) + 0.05 * doze, 0, -0.02 * breath))
+	elif style == "still":
+		var slow := sin(t * 0.9)
+		var drift := still_drift(t)
+		_offset("LegL", Vector3.ZERO, Vector3.ZERO)
+		_offset("LegR", Vector3.ZERO, Vector3.ZERO)
+		_offset("Torso", Vector3.ZERO, Vector3(0.012 * slow + 0.04 * drift, 0.0, 0.01 * sin(t * 0.21)),
+			Vector3(1.0 + 0.006 * slow, 1.0 + 0.01 * slow, 1.0 + 0.006 * slow))
+		_offset("Head", Vector3.ZERO, Vector3(0.3 * drift - 0.01 * slow, 0.06 * sin(t * 0.13) * (1.0 - drift), 0.0))
+		_offset("ArmL", Vector3.ZERO, Vector3(0.01 * slow, 0, 0))
+		_offset("ArmR", Vector3.ZERO, Vector3(0.01 * slow, 0, 0))
 	elif style == "mend":
 		# Small alternating pulls of the needle through the mesh.
 		_offset("ArmL", Vector3.ZERO, Vector3(0.12 * sin(t * 3.1), 0.08 * sin(t * 1.55), 0))
@@ -152,6 +166,12 @@ static func sit_doze(t: float) -> float:
 	if p < 0.0 or p > 4.3:
 		return 0.0
 	return smoothstep(0.0, 2.4, p) * (1.0 - smoothstep(4.0, 4.3, p))
+
+
+## How far a "still" sitter's head has drifted down to the water (0..1): a slow swell over
+## STILL_PERIOD — no start, nothing calls them back.
+static func still_drift(t: float) -> float:
+	return 0.5 - 0.5 * cos(t / STILL_PERIOD * TAU)
 
 
 ## The little start as the sitter wakes (0..1, peaks just after the head comes up).

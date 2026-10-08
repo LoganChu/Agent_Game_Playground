@@ -13,6 +13,14 @@ const DEEP := 1.2
 const SUBDIVIDE := 2
 ## How far the skirt reaches past the grid (metres).
 const SKIRT := 300.0
+## A region's `water` settings (all optional) and their allowed ranges: `swell` scales the wave
+## height (0 = mirror-flat), `wash` the broken foam lines washing in, `foam` the shore foam's
+## width, `mirror` how much the surface takes the sky's colour at a glancing look (0..1).
+const SETTINGS := {"swell": Vector2(0.0, 2.0), "wash": Vector2(0.0, 1.0), "foam": Vector2(0.0, 2.0), "mirror": Vector2(0.0, 1.0)}
+## Colour keys (palette names or #hex): `shallow`, `deep`, and `sheen` (the mirrored sky).
+const COLOR_KEYS: Array[String] = ["shallow", "deep", "sheen"]
+const WAVE_HEIGHT := 0.07
+const FOAM_WIDTH := 0.13
 
 
 ## Normalised water depth at x/z: 0 where the ground reaches the water (or rises above it),
@@ -23,22 +31,29 @@ static func depth_at(field: TerrainField, level: float, x: float, z: float) -> f
 	return clampf((level - field.height_at(x, z)) / DEEP, 0.0, 1.0)
 
 
-static func build(field: TerrainField, level: float) -> MeshInstance3D:
+static func build(field: TerrainField, level: float, spec: Dictionary = {}) -> MeshInstance3D:
 	var mi := MeshInstance3D.new()
 	mi.name = "Water"
 	mi.mesh = build_mesh(field, level)
-	mi.material_override = material()
+	mi.material_override = material(spec)
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	mi.position.y = level
 	return mi
 
 
-static func material() -> ShaderMaterial:
+## The water material, tuned by a region's `water` settings (see SETTINGS / COLOR_KEYS).
+static func material(spec: Dictionary = {}) -> ShaderMaterial:
 	var mat := ShaderMaterial.new()
 	mat.shader = SHADER
-	mat.set_shader_parameter("shallow_color", PropFactory.color("tide").lerp(PropFactory.color("moss"), 0.25))
-	mat.set_shader_parameter("deep_color", PropFactory.color("abyss"))
+	var shallow := PropFactory.color(str(spec["shallow"])) if spec.has("shallow") else PropFactory.color("tide").lerp(PropFactory.color("moss"), 0.25)
+	mat.set_shader_parameter("shallow_color", shallow)
+	mat.set_shader_parameter("deep_color", PropFactory.color(str(spec.get("deep", "abyss"))))
 	mat.set_shader_parameter("foam_color", PropFactory.color("bone"))
+	mat.set_shader_parameter("sheen_color", PropFactory.color(str(spec.get("sheen", "silverfog"))))
+	mat.set_shader_parameter("wave_height", WAVE_HEIGHT * float(spec.get("swell", 1.0)))
+	mat.set_shader_parameter("wash_strength", float(spec.get("wash", 1.0)))
+	mat.set_shader_parameter("foam_width", FOAM_WIDTH * float(spec.get("foam", 1.0)))
+	mat.set_shader_parameter("mirror", float(spec.get("mirror", 0.0)))
 	return mat
 
 

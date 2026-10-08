@@ -10,6 +10,9 @@ uniform vec4 deep_color : source_color = vec4(0.12, 0.23, 0.37, 1.0);
 uniform vec4 foam_color : source_color = vec4(0.93, 0.9, 0.84, 1.0);
 uniform float foam_width = 0.13;   // normalised depth covered by the shore foam
 uniform float wave_height = 0.07;  // metres, full height only in deep water
+uniform float wash_strength = 1.0; // the broken foam lines washing in (0 = none: still water)
+uniform vec4 sheen_color : source_color = vec4(0.78, 0.8, 0.83, 1.0);
+uniform float mirror = 0.0;        // 0..1: still water taking the sky's colour at a glancing look
 
 varying vec3 world_pos;
 varying float depth;
@@ -47,9 +50,12 @@ void fragment() {
 	// A second, broken line washing in towards the shore.
 	float wash = fract(depth * 3.5 - TIME * 0.18);
 	float line = smoothstep(0.9, 0.97, wash) * (1.0 - smoothstep(0.15, 0.5, depth)) * step(0.45, n);
-	foam = max(foam, line * 0.8);
+	foam = max(foam, line * 0.8 * wash_strength);
+	// Still water: a glancing look sees the sky (a fresnel-ish blend), nearly black straight down.
+	float glance = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), 3.0);
+	col = mix(col, sheen_color.rgb, mirror * clamp(0.15 + glance * 1.2, 0.0, 0.92));
 	ALBEDO = mix(col, foam_color.rgb, foam);
-	ROUGHNESS = mix(0.22, 0.9, foam);
+	ROUGHNESS = mix(mix(0.22, 0.05, mirror), 0.9, foam);
 	SPECULAR = 0.45;
 	ALPHA = max(mix(0.72, 0.95, smoothstep(0.0, 0.6, depth)), foam);
 }

@@ -330,6 +330,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_check_prop_wading(where, prop, model)
 		_check_prop_smoke(where, prop, model)
 		_check_prop_halo(where, prop, model)
+		_check_prop_figure(where, prop, model)
 		_ref_condition(where, prop.get("if"))
 	var fog: Dictionary = region.get("fog", {})
 	for override: Variant in fog.get("overrides", []):
@@ -342,6 +343,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		if override.has("color") and not _valid_color(str(override["color"])):
 			_err(where, "fog override has unknown color '%s'" % override["color"])
 	_check_region_light(where, region)
+	_check_region_water(where, region)
 	for pickup: Dictionary in region.get("pickups", []):
 		var pid := str(pickup.get("id", ""))
 		if pid.is_empty():
@@ -427,6 +429,46 @@ func _validate_events(where: String, region: Dictionary) -> void:
 				once = true
 		if not once:
 			_err(where, "event '%s' must read one of its 'set' flags as '!flag:<id>' in its 'if' (fires once)" % eid)
+
+
+## A figure prop (`idle` on a prop): a character model (rig contract) and a known idle style.
+func _check_prop_figure(where: String, prop: Dictionary, model: String) -> void:
+	if not prop.has("idle"):
+		return
+	if model.is_empty():
+		_err(where, "prop 'idle' needs a character 'model'")
+		return
+	if not model.begins_with("res://assets/models/characters/"):
+		_err(where, "prop 'idle' needs a character model (assets/models/characters/), not '%s'" % model)
+	if str(prop["idle"]) not in CharacterRig.STYLES:
+		_err(where, "prop idle must be one of %s" % [CharacterRig.STYLES])
+	if prop.has("float") or prop.has("wading"):
+		_err(where, "a figure prop can't 'float' or wade")
+
+
+## Region `water` (WaterBuilder.SETTINGS): known keys with numbers in range, palette colours;
+## needs a `water_level`.
+func _check_region_water(where: String, region: Dictionary) -> void:
+	if not region.has("water"):
+		return
+	if not region["water"] is Dictionary:
+		_err(where, "water must be an object")
+		return
+	if not region.has("water_level"):
+		_err(where, "water settings need a water_level")
+	var spec: Dictionary = region["water"]
+	for key: String in spec:
+		if key == "note":
+			continue
+		if key in WaterBuilder.COLOR_KEYS:
+			if not _valid_color(str(spec[key])):
+				_err(where, "water %s has unknown color '%s'" % [key, spec[key]])
+		elif WaterBuilder.SETTINGS.has(key):
+			var range_: Vector2 = WaterBuilder.SETTINGS[key]
+			if not (spec[key] is float or spec[key] is int) or float(spec[key]) < range_.x or float(spec[key]) > range_.y:
+				_err(where, "water %s must be a number in [%s, %s]" % [key, range_.x, range_.y])
+		else:
+			_err(where, "water has unknown key '%s'" % key)
 
 
 ## Region `light` (RegionMood.light): known keys, palette/#hex colours, numeric values;
