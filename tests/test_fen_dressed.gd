@@ -251,3 +251,81 @@ func test_validator_checks_figures_and_water() -> void:
 	for needle: String in ["needs a character model", "prop idle must be one of", "water swell must be a number",
 			"water has unknown key 'ripple'", "water deep has unknown color"]:
 		assert_true(report.contains(needle), "report should mention '%s'" % needle)
+
+
+func test_the_unmoored_look_away_from_a_bare_ember() -> void:
+	# Hesper: "don't hold it up to anyone's face. They've a right not to look."
+	var figures: Array[Dictionary] = []
+	for prop: Dictionary in _region()["props"]:
+		if prop.has("idle"):
+			figures.append(prop)
+	assert_eq(figures.size(), 3, "three Unmoored by the pools")
+	var db := _content()
+	var bare := fresh_state(db)
+	bare.flags["fen_ember"] = "bare"
+	var cupped := fresh_state(db)
+	cupped.flags["fen_ember"] = "cupped"
+	for figure: Dictionary in figures:
+		var averts: Dictionary = figure.get("averts", {})
+		assert_true(Conditions.evaluate(averts.get("if"), bare), "%s looks away from a bare ember" % figure["note"])
+		assert_false(Conditions.evaluate(averts.get("if"), cupped), "...not from a cupped one")
+		assert_false(Conditions.evaluate(averts.get("if"), fresh_state(db)), "...nor before Hesper has asked")
+
+	# The aim: away from the player, only near, not when they're already behind.
+	var near_right := CharacterRig.avert_aim(Vector3(2, 0, 3), 6.0)
+	assert_eq(near_right.x, 1.0, "near: looks away fully")
+	assert_eq(near_right.y, -1.0, "the player on the right (+X): the head turns to -X")
+	assert_eq(CharacterRig.avert_aim(Vector3(-2, 0, 3), 6.0).y, 1.0, "...and the other way round")
+	assert_eq(CharacterRig.avert_aim(Vector3(0, 0, 9), 6.0).x, 0.0, "far off: no reason to")
+	assert_true(CharacterRig.avert_aim(Vector3(0.1, 0, -3), 6.0).z < 0.01, "behind them: already not looking")
+	assert_eq(CharacterRig.avert_aim(Vector3(0.05, 0, 3), 6.0, 1.0).y, 1.0, "dead ahead: keeps the side it had")
+
+	# On the real model: the head turns from the player and the chin drops, slowly; it comes back
+	# when the player goes; the cupped ember (condition false) changes nothing.
+	var model := CharacterRig.instantiate(CHARS + "unmoored_shawl.glb", "still")
+	var rig := model.find_child("CharacterRig", true, false) as CharacterRig
+	rig._ready()
+	var head := model.find_child("Head", true, false) as Node3D
+	rig.pose(0.0)
+	var rest_forward: Vector3 = _model_basis(head) * Vector3.BACK  # the model faces +Z
+	var player := Vector3(2.5, 0, 2.5)  # in front and to the right
+	rig.step_avert(0.5, true, player)
+	assert_true(rig.avert_amount() > 0.4 and rig.avert_amount() < 0.8, "it comes on slowly, not with a start")
+	for i in 10:
+		rig.step_avert(0.2, true, player)
+	rig.pose(0.0)
+	assert_eq(rig.avert_amount(), 1.0, "turned away")
+	var away: Vector3 = _model_basis(head) * Vector3.BACK
+	assert_true(away.x < rest_forward.x - 0.6, "the face turns from the player (to -X)")
+	assert_true(away.y < rest_forward.y - 0.1, "...and the chin goes down")
+	for i in 20:
+		rig.step_avert(0.2, true, Vector3(0, 0, 20))
+	assert_eq(rig.avert_amount(), 0.0, "the player gone: back to the water")
+	for i in 20:
+		rig.step_avert(0.2, false, player)
+	assert_eq(rig.avert_amount(), 0.0, "a cupped ember: nobody turns")
+	model.free()
+
+
+## A part's basis in its model's space (outside the tree).
+func _model_basis(part: Node3D) -> Basis:
+	var basis := part.transform.basis
+	var node := part.get_parent() as Node3D
+	while node != null and node.get_parent() is Node3D:
+		basis = node.transform.basis * basis
+		node = node.get_parent() as Node3D
+	return basis
+
+
+func test_validator_checks_averts() -> void:
+	var db := load_content()
+	var props: Array = db.regions[FEN]["props"]
+	props.append({"model": DIR + "punt.glb", "position": [0, 0, 0], "averts": {"if": "flag:fen_ember=bare"}})
+	props.append({"model": CHARS + "unmoored_coat.glb", "position": [0, 0, 0], "idle": "still", "averts": {"if": "flag:no_such_flag", "radius": 50, "speed": 2}})
+	props.append({"model": CHARS + "unmoored_coat.glb", "position": [0, 0, 0], "idle": "still", "averts": "flag:fen_ember=bare"})
+	var validator := ContentValidator.new(db)
+	assert_false(validator.validate(), "validator should fail")
+	var report := validator.report()
+	for needle: String in ["'averts' is for figure props", "reads undeclared flag 'no_such_flag'", "averts' radius must be",
+			"averts' has unknown key 'speed'", "figure 'averts' must be"]:
+		assert_true(report.contains(needle), "report should mention '%s'" % needle)

@@ -144,6 +144,12 @@ func test_hesper_asks_for_the_ember_cupped() -> void:
 	# Corran has no time for Hesper's manners.
 	assert_true(_lines(cupped, "corran").contains("Hiding it for her"), "Corran sees the cupped hand")
 	assert_false(_lines(bare, "corran").contains("Hiding it for her"))
+	# Day 31: ...and is glad of a bare one, and knows why the Unmoored turn their faces from it.
+	var bare_corran := _at_the_fen()
+	_lines(bare_corran, "hesper", ["It's not mine to hide."])
+	var told := _lines(bare_corran, "corran", ["What do you make of the Unmoored?"])
+	assert_true(told.contains("Not hiding it") and told.contains("turn their heads from that light"), "Corran on a bare ember and the turned faces")
+	assert_false(_lines(cupped, "corran", ["What do you make of the Unmoored?"]).contains("turn their heads"), "...not to a cupped hand")
 
 
 func test_the_big_man_and_the_letting_post() -> void:
