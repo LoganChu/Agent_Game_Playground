@@ -279,6 +279,16 @@
       "note": "Uncovered once Aldous has told the truth about the Hearthspire. Same position and turn as the house: the model sits on its hook."
     },
     {
+      "model": "res://assets/models/dressing/plank_bench.glb",
+      "position": [
+        -7,
+        0,
+        -1
+      ],
+      "rotation_y": 130,
+      "note": "Aldous's bench by the Wrens' steps: a salt-silvered plank on two piles of slate, an empty bottle under it. He sits on it (aldous_seated at the same spot)."
+    },
+    {
       "model": "res://assets/models/dressing/house_tall.glb",
       "shape": "house",
       "position": [
@@ -501,7 +511,7 @@
       ]
     },
     {
-      "model": "res://assets/models/net_loft.glb",
+      "model": "res://assets/models/dressing/net_loft_broken.glb",
       "shape": "house",
       "color": "silverfog",
       "position": [
@@ -514,10 +524,30 @@
         3.2,
         3.8,
         2.6
-      ]
+      ],
+      "if": "!quest:a_light_for_saltmarrow=done",
+      "note": "By the boardwalk gate, left to the Greying: snapped rail, holed roof, nets fallen (the men with the gate kept people off them)."
     },
     {
-      "model": "res://assets/models/net_loft.glb",
+      "model": "res://assets/models/dressing/net_loft_mended.glb",
+      "shape": "house",
+      "color": "silverfog",
+      "position": [
+        -4,
+        0,
+        -23
+      ],
+      "rotation_y": 10,
+      "collider": [
+        3.2,
+        3.8,
+        2.6
+      ],
+      "if": "quest:a_light_for_saltmarrow=done",
+      "note": "Half-mended after the burn, with the fog pushed back: new boards in the gaps, sailcloth lashed over the roof hole, the rail splinted, a new net hung, more boards waiting. Same spot and collider as the broken one."
+    },
+    {
+      "model": "res://assets/models/dressing/net_loft_broken.glb",
       "shape": "house",
       "color": "silverfog",
       "position": [
@@ -530,7 +560,27 @@
         3.2,
         3.8,
         2.6
-      ]
+      ],
+      "if": "!quest:a_light_for_saltmarrow=done",
+      "note": "By the boardwalk gate, left to the Greying: snapped rail, holed roof, nets fallen (the men with the gate kept people off them)."
+    },
+    {
+      "model": "res://assets/models/dressing/net_loft_mended.glb",
+      "shape": "house",
+      "color": "silverfog",
+      "position": [
+        4.5,
+        0,
+        -22.5
+      ],
+      "rotation_y": -12,
+      "collider": [
+        3.2,
+        3.8,
+        2.6
+      ],
+      "if": "quest:a_light_for_saltmarrow=done",
+      "note": "Half-mended after the burn, with the fog pushed back: new boards in the gaps, sailcloth lashed over the roof hole, the rail splinted, a new net hung, more boards waiting. Same spot and collider as the broken one."
     },
     {
       "model": "res://assets/models/dressing/house_tall.glb",
@@ -1141,7 +1191,10 @@
         0,
         -1
       ],
-      "rotation_y": 130
+      "rotation_y": 130,
+      "model": "res://assets/models/characters/aldous_seated.glb",
+      "idle": "bottle",
+      "note": "On his bench by the Wrens' steps (LORE: he sits on one), the bottle on his thigh. Seated here (aldous_seated, the bottle idle): a swig now and then."
     },
     {
       "npc": "tam",
