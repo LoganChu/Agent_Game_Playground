@@ -5,18 +5,24 @@ extends Node
 ## node, added as a child of the model, offsets those parts from their rest pose each frame:
 ## breathing and a slow sway always, hands working in the "mend" style, a slow draw of the
 ## clamp rake in the "rake" style (Hob Marl), the hammer and chisel in the "chisel" style (the
-## Lamp at the lantern bench), a seated rest in the "sit" style (Hob on the camp bench), and a
-## leg/arm swing
+## Lamp at the lantern bench), a seated rest in the "sit" style (Hob on the camp bench), a swig
+## now and then in the "bottle" style (Aldous on his bench), and a leg/arm swing
 ## while `move_speed` is above zero. No skeletons or animation tracks to maintain.
 
 const PARTS: Array[String] = ["LegL", "LegR", "Torso", "Head", "ArmL", "ArmR"]
-const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel", "sit", "still"]
+const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel", "sit", "still", "bottle"]
 ## The "chisel" beat: two taps, then a pause (seconds).
 const CHISEL_PERIOD := 3.4
 ## The "sit" doze: once a cycle the head sinks, holds, and comes up with a start (seconds).
 const DOZE_PERIOD := 11.0
 ## The "still" drift: the head goes down to the water and slowly up again (seconds).
 const STILL_PERIOD := 16.0
+## The "bottle" swig: once a cycle the bottle comes up, he drinks, and it goes back down (seconds).
+const BOTTLE_PERIOD := 14.0
+## How far the bottle arm comes up and in for the swig, and the head goes back (radians).
+const SWIG_LIFT := 1.35
+const SWIG_IN := 0.45
+const SWIG_HEAD := 0.42
 ## Looking away (a figure's `averts`): how far the head turns from the player (radians), how
 ## much of that the shoulders take, how far the chin drops, and how fast it comes on (1/s).
 const AVERT_YAW := 1.1
@@ -31,7 +37,9 @@ const AVERT_RADIUS := 6.0
 ## "sit" (a seated model resting: thumbs working the rake pole, and once in a while the head
 ## sinks as he dozes off and comes up with a start — Half-Hushed, he loses the thread) or
 ## "still" (a seated Unmoored by the pools: slow shallow breath, the hands quiet, the head
-## drifting down to look into the water and, a long while later, up again).
+## drifting down to look into the water and, a long while later, up again) or "bottle" (a
+## seated Aldous: the bottle turning in his hand on his thigh, and once a cycle a swig — it comes
+## up to his mouth, his head goes back, and down it comes again; the other hand rubs his knee).
 var style := "breathe"
 ## Horizontal speed in m/s; drives the walk swing (0 = standing).
 var move_speed := 0.0
@@ -193,6 +201,17 @@ func pose(t: float, walk_phase: float = 0.0, walk: float = 0.0) -> void:
 		_offset("Head", Vector3.ZERO, Vector3(0.3 * drift - 0.01 * slow, 0.06 * sin(t * 0.13) * (1.0 - drift), 0.0))
 		_offset("ArmL", Vector3.ZERO, Vector3(0.01 * slow, 0, 0))
 		_offset("ArmR", Vector3.ZERO, Vector3(0.01 * slow, 0, 0))
+	elif style == "bottle":
+		var swig := bottle_swig(t)
+		_offset("LegL", Vector3.ZERO, Vector3.ZERO)
+		_offset("LegR", Vector3.ZERO, Vector3.ZERO)
+		_offset("Torso", Vector3.ZERO,
+			Vector3(0.02 * breath - 0.07 * swig, 0.0, 0.015 * sin(t * 0.6)),
+			Vector3(1.0 + 0.012 * breath, 1.0 + 0.02 * breath, 1.0 + 0.012 * breath))
+		_offset("Head", Vector3.ZERO, Vector3(-SWIG_HEAD * swig - 0.015 * breath, 0.05 * sin(t * 0.37) * (1.0 - swig), 0.0))
+		# The bottle hand: turning it a little on his thigh, then up and in to his mouth.
+		_offset("ArmL", Vector3.ZERO, Vector3(-SWIG_LIFT * swig, 0.06 * sin(t * 0.8) * (1.0 - swig), -SWIG_IN * swig))
+		_offset("ArmR", Vector3.ZERO, Vector3(0.05 * sin(t * 1.3), 0, -0.02 * breath))
 	elif style == "mend":
 		# Small alternating pulls of the needle through the mesh.
 		_offset("ArmL", Vector3.ZERO, Vector3(0.12 * sin(t * 3.1), 0.08 * sin(t * 1.55), 0))
@@ -240,6 +259,15 @@ static func sit_doze(t: float) -> float:
 ## STILL_PERIOD — no start, nothing calls them back.
 static func still_drift(t: float) -> float:
 	return 0.5 - 0.5 * cos(t / STILL_PERIOD * TAU)
+
+
+## How far the bottle is up for a swig at time `t` (0 = on his thigh, 1 = at his mouth): late
+## in each BOTTLE_PERIOD it comes up (0.9 s), he drinks (1.4 s), and it goes down slower (1.2 s).
+static func bottle_swig(t: float) -> float:
+	var p := fmod(t, BOTTLE_PERIOD) - BOTTLE_PERIOD * 0.6
+	if p < 0.0 or p > 3.5:
+		return 0.0
+	return smoothstep(0.0, 0.9, p) * (1.0 - smoothstep(2.3, 3.5, p))
 
 
 ## The little start as the sitter wakes (0..1, peaks just after the head comes up).
