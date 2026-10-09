@@ -2,6 +2,61 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-09 09:00 UTC — Day 31: Polish/debt pass three
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; checked out
+  `main` (already at `origin/main`, Day 30's `a46cee7`). Baseline green (219 tests + smoke + launch).
+- **Polish (due today; last pass Day 23):** ROADMAP *Next up* #1.
+  - **`fen_ember` shows, not just tells.** Hesper says "don't hold it up to anyone's face. They've a right
+    not to look" — now they don't: the three **Unmoored by the pools turn their faces away** from a bare
+    ember when you come within 6 m (shoulders, then the head, to the side away from you; the chin drops),
+    slowly, and drift back to the water when you go. Cupped, nobody turns. Engine: figure props take
+    **`averts`** (`{"if": <condition>, "radius"?}`), layered on top of the idle by `CharacterRig` (it finds
+    the player by group and reads the world each frame); validated (figures only, declared flags, radius
+    1..20, no stray keys).
+  - **Corran on a bare ember** (two new conditional lines): glad of it ("Somebody in this fen ought to look
+    at things"), and, asked about the Unmoored, what the turning is — "somebody halfway through putting a
+    thing down, and you've shown them where it was." The cupped path is unchanged. LORE updated.
+  - **The test suite was about to break the gate.** The tests step took **280 s of its 300 s** limit (it
+    timed out once this session with every test passing). The runner now times each test: every validator
+    test spent ~11 s re-validating, 8.6 s of it in `Greying.ember_cost_map` on the woods — a LIFO
+    label-correcting search that re-relaxed cells over and over. Now **Dijkstra on a binary heap: 43 ms**,
+    identical costs on every region (checked against the old search; max difference 6e-6 from the old
+    tolerance). **Suite: 280 s → 26 s.** `run_tests.gd` prints each test's time and the slowest eight.
+  - **Smoke walk** checks the look-away live in the fen (second sailing, before the walk: next to a figure,
+    cupped → no turn, bare → turned, then puts the answer and the player back and lets the screen's grey
+    ease so the later fog checks read exactly).
+- **Tests:** `test_fen_dressed.gd` +2 (the look-away: the condition per answer, the aim, slow easing, the
+  real model's head turning from the player and the chin dropping, nothing when cupped; validator `averts`
+  checks); `test_fen_lane.gd` checks Corran's bare-ember lines; `test_greying.gd` +1 (the heap). 220 tests +
+  smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-09-fen-unmoored-*.png`): `bare` (the Unmoored at the head of the long
+walk with her head turned from the player and down) vs `cupped` (looking out at the Deeps as before).
+
+**Decisions**
+- **Figures only, not Hesper/Corran.** They are NPCs who face you to talk; an aversion on an NPC would fight
+  `faces_player` and the conversation framing. Hesper already "steps back a pace" in words.
+- **Slow, not a flinch.** 1.2/s easing, a turn of the head and a lowered chin: the Unmoored aren't hurt by
+  the ember, they just have a right not to look (LORE). No turn when you're behind them — they're already
+  not looking.
+- **Fix the algorithm, not the timeout.** Raising the 300 s limit would have hidden a 200× slowdown that every
+  new validator test multiplies.
+- The smoke walk's Thornwold Oda gap stays a known issue: `_sail_the_fen_lane` covers the sailing, and
+  reworking pass ordering for one NPC's lore lines isn't worth the risk to the walk.
+
+**Problems / notes**
+- The first smoke placement put the player in a pool (the figures face the water) and the region's
+  out-of-water safety moved them back to the staithe; the check now picks a dry spot beside a figure.
+- Standing in Stillhithe's thin Greying leaves the screen-grey (`Atmosphere._greying_look`) easing across a
+  region change; the next smoke check (Gull's Head fog) read it. Worth knowing for any debug teleport.
+
+**Next run should**
+1. **Art (due Day 32, the every-other-session rule)** — ROADMAP *Next up* #1: Aldous seated on a bench by the
+   Wrens' steps, the greyed net-lofts as the broken variant; the fen's white light if time.
+2. Then *The Heron Light, part one* (content, due by Day 33).
+
 ## 2026-10-08 21:00 UTC — Day 30: The fen, dressed (art track)
 
 **Did**

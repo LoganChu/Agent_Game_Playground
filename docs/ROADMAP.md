@@ -236,6 +236,13 @@ with a meaningful burn choice → consequences visible in the village.
       pools, **the Unmoored sitting by the pools** (`unmoored_shawl`, `unmoored_coat`; engine: **figure props** — a
       prop with an `idle` — and the new **`still`** idle), **mirror-still water** (region `water`: swell/wash/foam/
       mirror + colours), the Heron's skiff pale and readable, Hesper's locks and shawl, Corran's woven creel.
+- [x] [P] **Polish/debt pass three** (Day 31): `fen_ember` shows — **the Unmoored by the pools turn their
+      faces from a bare ember** (figure `averts`: a condition + radius; head and shoulders turn away from the
+      player, the chin drops, slowly; nothing with a cupped hand), and **Corran** is glad of a bare ember and says
+      why they turn. **The test suite went from 280 s to 26 s**: `Greying.ember_cost_map` was a LIFO
+      label-correcting search (8.6 s per validation of the woods), now Dijkstra on a binary heap (43 ms, same
+      costs) — the tests step had crept to within 20 s of the gate's 300 s limit. The runner prints each test's
+      time and the slowest eight. The smoke walk checks the look-away live in the fen.
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -246,14 +253,11 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [P] **Polish/debt pass three** (due Day 31 — next run; last pass Day 23): candidates — the fen's arrival plays
-   while the player still stands on the ferry plank (fine) but Hesper's first talk can be skipped by walking
-   past (then Corran's "hiding it for her" never shows: fine); `fen_ember` has no effect beyond words yet
-   (consider: Unmoored turn their faces away from a bare ember — a `faces_player` override by flag); the
-   smoke walk's Thornwold Oda is never visited by the passes (see Known issues); colour pass on the fen's
-   flat white light (the pale shore band, the silverfog paint on Stillhithe, the mirror water reading very pale
-   from above); the Unmoored figures could turn their faces from a bare ember (a figure `if`/pose by flag).
-2. [C] **The Heron Light, part one** (next content, due by Day 33): Corran decides he likes you (what tips
+1. [A] **Art (due Day 32 — next run; the every-other-session rule)**: Aldous seated on a bench by the Wrens'
+   steps (`aldous_seated` + a `log_bench`-style bench placement — LORE says he sits on one; item 8), and the
+   two greyed net-lofts by the boardwalk gate as the broken variant (half-mended after the burn). If time:
+   the fen's flat white light — the pale shore band, the silverfog paint on Stillhithe (see Known issues).
+2. [C] **The Heron Light, part one** (next content, due by Day 33 — the run after next): Corran decides he likes you (what tips
    it? the ember shown, not cupped? an eel-trap errand?) and poles you out through the channels to the
    Heron Light's legs in the Deeps (a punt `travel`, own region or the mere's edge); the keeper's skiff; what
    happened to her (keep it open-ish); Unmoored further in; Dunstan glimpsed, not met. Keep the four
@@ -324,7 +328,11 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due Day 31 (Day 23 was the last) — the next run.
+- Next polish/debt pass due Day 39 (Day 31 was the last). Candidates: the smoke walk's Thornwold Oda (below);
+  Hesper's first talk can be walked past (then `fen_ember` stays unset and nobody turns — fine, but check
+  it reads); the fen's mirror water/colour with the Vulkan pass.
+- Test time budget: `tools/run_checks.sh` gives each step 300 s. Day 31: tests 26 s, smoke ~45 s, import the
+  longest. The runner prints the slowest tests — check them when adding a validator pass over every region.
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog
   (0.045) in the Compatibility renderer; up close they read fine. The Day 12 cold light helps
   Gull's Head read as drained; re-judge the density with the Vulkan colour check.
@@ -356,11 +364,11 @@ each .glb < 5 MB.
   always moves the walk into the woods first. The fen lane is therefore sailed by `_sail_the_fen_lane` after the
   passes (choosing Oda's option by text). If later lanes open from Thornwold or the fen, extend that helper
   (or teach the walk to prefer an unwalked travel target) rather than adding passes.
-- `fen_ember` (cupped/bare) changes lines only (Hesper, Corran). The Unmoored turning their faces from a bare
-  ember is described in text, not shown.
+- Day 31: `fen_ember` bare turns the Unmoored figures' faces away (`averts`) — figures only; Hesper and Corran
+  are NPCs and still face the player to talk (an NPC `averts` would need to fight `faces_player`).
 - Day 30: the fen's mirror water (region `water`, mirror 0.6) reads very pale from above in Compatibility —
-  fog plus sheen; re-judge with the Vulkan colour pass. Figure props (the Unmoored) have a box collider each
-  and no conditions yet (an `if` works like any prop's).
+  fog plus sheen; re-judge with the Vulkan colour pass. Figure props (the Unmoored) have a box collider each;
+  an `if` works like any prop's, and `averts` (Day 31) turns their heads from the player.
 - Smoke test walks 9 passes since Day 23, each over the regions reachable on foot from where
   it stands (travellers — Oda, the bramble wall — last). A `travel` mid-walk ends that region's
   walk (nodes are freed). Oda is always talked to last and the walk never sails back to

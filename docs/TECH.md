@@ -240,6 +240,14 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   that idle style — set dressing that breathes (the Unmoored by Stillhithe's pools), no name, no
   dialogue. Give it a `collider` like any prop; no `float`/`wading` (validated). The character
   lineup lists figures as "(figure)".
+- `"averts": {"if": <condition>, "radius"?: 6}` (Day 31, figures only) — while the condition holds and
+  the player is within `radius` m (fading out over the next metre), the figure won't look at them: the
+  shoulders (0.25 rad) and head (1.1 rad) turn to the side away from the player and the chin drops, coming
+  on at 1.2/s (deliberate, not startled); none if the player is already behind them. Layered on the idle by
+  `CharacterRig` (`avert_if`/`avert_radius`; it finds the player by the `player` group and reads
+  `GameState.world` each frame; `step_avert` and `avert_aim` are public for tests). Validated: a figure, an
+  `if` that reads declared flags, radius 1..20, no other keys. The fen's three Unmoored avert on
+  `flag:fen_ember=bare`.
 
 ### Arrival events & act ends (Day 13)
 - **Region `events`** happen on arriving in a region: after `main.load_region`, the first
@@ -686,6 +694,11 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   the Unmoored figures (dry, reachable, facing the water, off the paths, a `still` rig), the `still`
   idle on the real model, region `water` reaching the shader (the sea elsewhere unchanged), the pale
   skiff, validator figure/water checks.
+  Day 31 adds the look-away (`averts`: the aim, slow easing, the real model's head turning from the
+  player and the chin dropping; nothing when cupped) and its validator checks.
+- `tests/run_tests.gd` prints each test's time and the slowest eight (Day 31). Keep the suite well
+  inside `run_checks.sh`'s 300 s per step: a validator pass over every region runs once per validator
+  test (~20 of them), so a slow per-region check multiplies. Day 31: 26 s.
 - `tests/test_characters.gd` — character models follow the rig contract; the rig poses and
   returns to rest; missing models fall back; validator catches bad `model`/`idle`.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit

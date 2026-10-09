@@ -511,7 +511,10 @@ forget. The fog is thickest and strangest here.
     fog takes things off you, gently, like taking off a wet coat. Your light puts the coat back on."
     (Foreshadows the ember holding/returning memory — do not explain.) **Stillhithe's one rule:
     nobody asks what you came to put down.** "Unmoored," the lanes say — "we didn't come loose. We
-    untied." Unmoored turn their faces from a bare ember.
+    untied." Unmoored turn their faces from a bare ember (Day 31: shown — the ones by the pools turn
+    their heads away and look down when you come near with it bare). **Corran** is glad of a bare one
+    ("Somebody in this fen ought to look at things") and says what the turning is: "somebody halfway
+    through putting a thing down, and you've shown them where it was."
   - **Dunstan Tollen came here** (mystery #5 thread). A big man **rowed a Saltmarrow rowboat** to the
     fen "backward the way sea-folk do, so he could watch where he'd been", laughing at nothing, "a
     fortnight back, or a month — days lie flat here". He **paid for his mooring in whittled gulls**,
