@@ -26,6 +26,11 @@
       },
       {
         "say": "corran",
+        "text": "Not hiding it, are you? Good. They'll turn their faces off you by the pools for it. Let them. Somebody in this fen ought to look at things.",
+        "if": "flag:fen_ember=bare"
+      },
+      {
+        "say": "corran",
         "text": "Corran Teal. Fen-born. Last of the Glasswater folk on Glasswater, since the rest took to the lanes."
       },
       {
@@ -90,6 +95,11 @@
       {
         "say": "corran",
         "text": "They come here to put things down. Grief, mostly. Guilt, some. Walk out along the long walk and sit by the pools till it goes."
+      },
+      {
+        "say": "corran",
+        "text": "You've seen them turn their heads from that light of yours. That's not manners. That's somebody halfway through putting a thing down, and you've shown them where it was.",
+        "if": "flag:fen_ember=bare"
       },
       {
         "say": "corran",

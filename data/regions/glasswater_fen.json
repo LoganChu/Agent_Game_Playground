@@ -979,6 +979,9 @@
       ],
       "rotation_y": -100,
       "idle": "still",
+      "averts": {
+        "if": "flag:fen_ember=bare"
+      },
       "collider": [
         0.7,
         1.1,
@@ -995,6 +998,9 @@
       ],
       "rotation_y": 95,
       "idle": "still",
+      "averts": {
+        "if": "flag:fen_ember=bare"
+      },
       "collider": [
         0.8,
         1.1,
@@ -1011,6 +1017,9 @@
       ],
       "rotation_y": 175,
       "idle": "still",
+      "averts": {
+        "if": "flag:fen_ember=bare"
+      },
       "collider": [
         0.7,
         1.1,
