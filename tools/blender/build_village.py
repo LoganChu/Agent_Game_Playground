@@ -398,8 +398,110 @@ def build_net_loft_broken() -> None:
     bd.export("net_loft_broken")
 
 
+def build_plank_bench() -> None:
+    """Aldous's bench by the Wrens' steps: one thick salt-silvered plank (1.3 m along X, seat top
+    0.44 m — a seated character's seat height, like log_bench) laid on two piles of flat slate
+    stones, worn darker in the middle where he sits, and an empty green bottle lying on its side
+    under it. Front is -Y (Godot +Z)."""
+    bd.reset()
+    rng = random.Random(61)
+    for x in (-0.48, 0.48):
+        z = 0.0
+        for k, (r, h) in enumerate(((0.2, 0.12), (0.17, 0.1), (0.18, 0.08), (0.15, 0.07))):
+            cyl(f"Stone{k}", r, r * 0.92, h, 5, (x + rng.uniform(-0.03, 0.03), rng.uniform(-0.02, 0.02), z),
+                mat("slate", (-0.15, -0.3)[k % 2]), rng.uniform(0, 1))
+            z += h
+    box("Plank", (1.3, 0.32, 0.07), (0.0, 0.0, 0.37), mat("silverfog", -0.2))
+    box("Worn", (0.48, 0.26, 0.01), (0.0, 0.0, 0.435), mat("driftwood", -0.3))
+    for y in (-0.08, 0.08):  # the grain, split along the plank
+        box("Split", (1.24, 0.012, 0.012), (0.0, y, 0.432), mat("slate", -0.35))
+    # The empty one, under the bench.
+    rod("Bottle", (-0.1, -0.02, 0.06), (0.12, 0.05, 0.06), 0.055, mat("pine", -0.1), verts=6)
+    rod("BottleNeck", (0.12, 0.05, 0.06), (0.21, 0.08, 0.06), 0.025, mat("pine", -0.1), verts=5)
+    bd.export("plank_bench")
+
+
+def build_net_loft_mended() -> None:
+    """A Saltmarrow net-loft by the boardwalk gate, half-mended after the burn: net_loft_broken's
+    frame and footprint (so the same collider fits) with the village at it again. New boards,
+    pale and unweathered, fill the floor gap and the back wall; the roof hole is lashed over
+    with a square of bone sailcloth on two new battens; the snapped rail is splinted with rope
+    (not yet replaced); a new net hangs square from its bar and the fallen one is folded on the
+    floor; the ladder has its two rungs again, new ones. The work isn't finished — a stack of
+    new boards waits by the ladder."""
+    bd.reset()
+    rng = random.Random(53)
+    grey = mat("driftwood", -0.35)
+    pale = mat("silverfog", -0.3)
+    new = mat("driftwood", 0.15)
+    rope = mat("kindle", -0.45)
+    for x in (-1.4, 1.4):
+        for y in (-1.0, 1.0):
+            cyl("Stilt", 0.1, 0.09, 3.0, 5, (x, y, 0), mat("slate", -0.2), rng.uniform(0, 1))
+    beam("Brace", (-1.4, 1.0, 0.15), (1.4, 1.0, 1.15), 0.05, mat("slate", -0.2))
+    for i in range(8):  # floor planks along X; the gap has a new one
+        y = -1.05 + i * 0.3
+        box(f"Floor{i}", (3.2 + rng.uniform(-0.1, 0.05), 0.28, 0.1), (rng.uniform(-0.05, 0.05), y, 1.2),
+            new if i == 5 else (grey, pale)[i % 2])
+    for i in range(10):  # back wall boards, the two gaps filled with new ones
+        x = -1.44 + i * 0.32
+        m = new if i in (3, 4) else (grey, pale)[i % 2]
+        box("BackBoard", (0.3, 0.06, 1.7 + rng.uniform(-0.25, 0.0)), (x, 1.15, 1.32), m)
+    # Rails: the left one whole; the right one's snapped half lifted back and splinted with rope.
+    beam("Rail", (-1.4, -1.05, 2.3), (-1.4, 1.05, 2.3), 0.08, grey)
+    beam("RailStub", (1.4, 1.05, 2.3), (1.4, 0.1, 2.3), 0.08, grey)
+    beam("RailMended", (1.4, -1.05, 2.27), (1.4, 0.12, 2.3), 0.08, grey)
+    beam("Splint", (1.46, -0.35, 2.3), (1.46, 0.45, 2.31), 0.05, new)
+    for y in (-0.25, 0.05, 0.35):
+        cyl("Lashing", 0.07, 0.07, 0.06, 6, (1.43, y, 2.27), rope)
+    # Roof as the broken loft's (eaves 3.0 m at x ±1.8, ridge 3.9 m); the hole on the -X slope
+    # is covered by sailcloth on two new battens, tied at the corners. No slipped strip.
+    for side in (-1, 1):
+        n = 6
+        for i in range(n):
+            f0, f1 = i / n, (i + 1) / n
+            p0 = (side * 1.8 * (1 - f0), 3.0 + 0.9 * f0 + 0.03)
+            p1 = (side * 1.8 * (1 - f1), 3.0 + 0.9 * f1 + 0.03)
+            m = mat("slate", (-0.05, -0.2)[i % 2])
+            if side < 0 and i in (2, 3):
+                beam(f"Roof{side}{i}", (p0[0], 0.75, p0[1]), (p1[0], 0.75, p1[1]), 0.06, m, width=1.4 - 0.4 * (i - 2))
+                continue
+            y_off = rng.uniform(-0.06, 0.06)
+            beam(f"Roof{side}{i}", (p0[0], y_off, p0[1]), (p1[0], y_off, p1[1]), 0.06, m, width=2.9)
+    f0, f1 = 2 / 6, 4 / 6
+    lo = (-1.8 * (1 - f0) - 0.08, 3.0 + 0.9 * f0 + 0.06)
+    hi = (-1.8 * (1 - f1) + 0.08, 3.0 + 0.9 * f1 + 0.1)
+    beam("Sailcloth", (lo[0], -0.45, lo[1]), (hi[0], -0.45, hi[1]), 0.03, mat("bone", -0.12), width=1.5)
+    for y in (-1.15, 0.25):
+        beam("Batten", (lo[0], y, lo[1] + 0.03), (hi[0], y, hi[1] + 0.03), 0.05, new)
+    for y in (-1.2, 0.3):
+        for (x, z) in (lo, hi):
+            cyl("Tie", 0.035, 0.035, 0.08, 5, (x, y, z), rope)
+    for y in (-1.4, 1.4):  # gable rafters
+        beam("Rafter", (-1.8, y, 3.0), (0, y, 3.9), 0.08, grey)
+        beam("Rafter", (1.8, y, 3.0), (0, y, 3.9), 0.08, grey)
+    beam("RidgeBeam", (0, -1.45, 3.9), (0, 1.45, 3.9), 0.1, grey)
+    # Nets: a new one hanging square from its bar; the fallen one folded in a stack.
+    box("NetBar", (0.8, 0.05, 0.05), (-0.9, -0.2, 2.33), grey)
+    bd.net("Hang", 0.7, 0.9, (-0.9, -0.2, 1.88), mat("driftwood", -0.05), spacing=0.12, strand=0.024, sag=0.03)
+    for k in range(3):
+        box(f"Folded{k}", (0.6 - k * 0.06, 0.45 - k * 0.04, 0.07), (0.45, 0.35, 1.25 + k * 0.07),
+            mat("silverfog", -0.15 - 0.08 * k), rot_z=rng.uniform(-0.15, 0.15))
+    # Ladder (+X front corner like net_loft), all four rungs; the middle two are new.
+    for x in (0.7, 1.1):
+        beam("LadderRail", (x, -1.35, 0.0), (x, -1.2, 1.25), 0.05, grey)
+    for i, z in enumerate((0.25, 0.5, 0.75, 1.0)):
+        beam(f"Rung{i}", (0.7, -1.33 + z * 0.12, z), (1.1, -1.33 + z * 0.12, z), 0.04, new if i in (1, 2) else grey)
+    # The rest of the work waiting: new boards stacked under the floor, by the ladder.
+    for k in range(4):
+        box(f"Stack{k}", (1.3, 0.26, 0.05), (-0.2 + rng.uniform(-0.05, 0.05), -0.7, 0.05 * k), new,
+            rot_z=rng.uniform(-0.06, 0.06))
+    bd.export("net_loft_mended")
+
+
 BUILDERS = [build_house_tall, build_house_porch, build_gate_post, build_house_stilt, build_house_wren,
-            build_ember_sign, build_ember_sign_wrapped, build_net_loft_broken]
+            build_ember_sign, build_ember_sign_wrapped, build_net_loft_broken,
+            build_plank_bench, build_net_loft_mended]
 
 if __name__ == "__main__":
     only = [a for a in sys.argv[1:] if not a.startswith("-")]

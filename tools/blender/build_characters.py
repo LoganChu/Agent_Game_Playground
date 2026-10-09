@@ -323,13 +323,34 @@ def build_pell() -> None:
 
 def build_aldous() -> None:
     """Fled Keeper: long faded robe with the stitched ember, rope belt, bottle, a stoop."""
+    _aldous(seated=False)
+
+
+def build_aldous_seated() -> None:
+    """Aldous on the bench by the Wrens' steps (LORE: he sits on one): the robe's skirt over
+    his knees, the bottle held loose on his left thigh, the right hand on his right knee, the
+    stoop deeper sitting down. The "bottle" idle lifts it to his mouth now and then."""
+    _aldous(seated=True)
+
+
+def _aldous(seated: bool) -> None:
     reset_scene()
-    b = Body(build=1.05)
+    b = Body(seated=seated, build=1.05)
     robe = material("silverfog", -0.12)
     skin = material("driftwood", 0.05)
+    hem = material("silverfog", -0.3)
     base_body(b, skin, robe, material("driftwood", -0.45), robe)
     t = b.parts["Torso"]
-    t.append(limb((0, 0, 0.05), (0, 0, b.waist + 0.1), 0.36, 0.27, robe, verts=8))    # hem to the floor
+    if seated:
+        # The robe to the seat, its skirt over his thighs and falling past the knees.
+        t.append(limb((0, 0.02, b.hip - 0.06), (0, 0.02, b.waist + 0.1), 0.34, 0.27, robe, verts=8))
+        for side, x in (("L", 0.12), ("R", -0.12)):
+            leg = b.parts["Leg" + side]
+            leg.append(block((0.24, 0.4, 0.05), (x, -0.18, b.hip + 0.08), robe))
+            leg.append(block((0.24, 0.05, 0.3), (x, -0.4, b.hip - 0.1), robe))
+            leg.append(block((0.24, 0.055, 0.05), (x, -0.4, b.hip - 0.26), hem))           # frayed hem
+    else:
+        t.append(limb((0, 0, 0.05), (0, 0, b.waist + 0.1), 0.36, 0.27, robe, verts=8))    # hem to the floor
     t.append(ring(0.28, b.waist + 0.04, 0.05, material("driftwood", -0.2)))            # rope belt
     t.append(limb((0.12, -0.26, b.waist + 0.02), (0.14, -0.3, b.waist - 0.28), 0.02, 0.015,
                   material("driftwood", -0.2), verts=4))                               # belt tail
@@ -346,6 +367,15 @@ def build_aldous() -> None:
     glass = material("pine", -0.1)
     b.parts["ArmL"].append(limb(hand + Vector((0, -0.07, -0.16)), hand + Vector((0, -0.07, 0.02)), 0.06, 0.06, glass))
     b.parts["ArmL"].append(limb(hand + Vector((0, -0.07, 0.02)), hand + Vector((0, -0.07, 0.12)), 0.03, 0.025, glass))
+    if seated:
+        b.parts["ArmL"].append(ball(0.028, hand + Vector((0, -0.07, 0.13)), material("driftwood", -0.3),
+                                    segments=5, rings=3))                               # cork
+        # Hands down onto the thighs: the bottle stands on the left one.
+        b.arm_rest["ArmL"] = (math.radians(-38), 0, math.radians(-4))
+        b.arm_rest["ArmR"] = (math.radians(-46), 0, math.radians(6))
+        b.head_rest = (math.radians(18), 0, 0)  # the stoop, deeper sitting down
+        assemble(b, "aldous_seated")
+        return
     b.arm_rest["ArmL"] = (math.radians(-20), 0, math.radians(4))
     b.head_rest = (math.radians(12), 0, 0)  # the stoop: head bowed forward
     assemble(b, "aldous")
@@ -818,7 +848,7 @@ def build_unmoored_coat() -> None:
     assemble(b, "unmoored_coat")
 
 
-BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_tam, build_hesk, build_oda, build_bram,
+BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_lamp, build_hesper, build_corran,
             build_unmoored_shawl, build_unmoored_coat]
 
