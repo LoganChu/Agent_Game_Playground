@@ -243,6 +243,13 @@ with a meaningful burn choice → consequences visible in the village.
       label-correcting search (8.6 s per validation of the woods), now Dijkstra on a binary heap (43 ms, same
       costs) — the tests step had crept to within 20 s of the gate's 300 s limit. The runner prints each test's
       time and the slowest eight. The smoke walk checks the look-away live in the fen.
+- [x] [A] **Saltmarrow: Aldous's bench and the gate lofts** (Day 32): **Aldous sits** on a salt-silvered
+      **plank bench** on two slate piles by the Wrens' steps (an empty bottle under it) — `aldous_seated`
+      (robe skirt over the knees, the bottle corked on his left thigh) and a new **`bottle`** idle (a swig
+      every 14 s: the bottle up to his mouth, the head back). The two greyed **net-lofts by the boardwalk
+      gate** are **broken** (`net_loft_broken`) until the Gull is lit and **half-mended** after
+      (`net_loft_mended`, new: pale new boards in the gaps, sailcloth lashed over the roof hole, the rail
+      splinted with rope, a new net hung, the fallen one folded, new rungs, more boards waiting).
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -253,15 +260,14 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [A] **Art (due Day 32 — next run; the every-other-session rule)**: Aldous seated on a bench by the Wrens'
-   steps (`aldous_seated` + a `log_bench`-style bench placement — LORE says he sits on one; item 8), and the
-   two greyed net-lofts by the boardwalk gate as the broken variant (half-mended after the burn). If time:
-   the fen's flat white light — the pale shore band, the silverfog paint on Stillhithe (see Known issues).
-2. [C] **The Heron Light, part one** (next content, due by Day 33 — the run after next): Corran decides he likes you (what tips
+1. [C] **The Heron Light, part one** (next content, due by Day 33 — next run): Corran decides he likes you (what tips
    it? the ember shown, not cupped? an eel-trap errand?) and poles you out through the channels to the
    Heron Light's legs in the Deeps (a punt `travel`, own region or the mere's edge); the keeper's skiff; what
    happened to her (keep it open-ish); Unmoored further in; Dunstan glimpsed, not met. Keep the four
    colliers and the Lamp's coal open.
+2. [A] **Art (due Day 34)**: the fen's flat white light — the pale shore band, the silverfog paint on
+   Stillhithe (see Known issues); or what part one of the Heron Light needs dressed (the legs up close,
+   the keeper's skiff, the channels).
 3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
@@ -282,12 +288,9 @@ each .glb < 5 MB.
 7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
 8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
-   vs. slate); Saltmarrow's two greyed net-lofts by the boardwalk gate could take the broken
-   variant (or a half-mended one after the burn); Aldous still stands — a bench by the Wrens'
-   steps (LORE says he sits on one) wants a seated idle like Hesk's; a lit-window variant for
-   nights once day/night exists. (Hob's raking idle landed Day 22 — the seated idle is the
-   same kind of CharacterRig style.) Day 28: `log_bench` + the `sit` idle + placement poses exist —
-   Aldous seated needs only an `aldous_seated` model (a seated Body) and a bench placement.
+   vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
+   brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
+   them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
 9. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
@@ -344,7 +347,7 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 29 (the fen lane); next content due by Day 33 (the Heron Light, part one).
-- Last art session: Day 30 (the fen, dressed). Next art due Day 32; Aldous seated is still cheap (#8).
+- Last art session: Day 32 (Aldous's bench, the gate lofts). Next art due Day 34.
 - Hob's camp bench is in the tally house's shadow under the landing's sun (west); he reads dark from
   the yard in Compatibility. Judge with the Vulkan colour pass; a fill light is not in the budget.
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;

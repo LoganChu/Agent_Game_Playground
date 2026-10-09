@@ -2,6 +2,55 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-09 21:00 UTC — Day 32: Aldous's bench and the gate lofts (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; checked out
+  `main` (at `origin/main`, Day 31's `253386b`).
+- **Art (due today; last art Day 30):** ROADMAP *Next up* #1, both parts:
+  - **Aldous sits on his bench** (LORE has said so since Day 1; he stood for 31 days). New Blender
+    character **`aldous_seated`** (`build_characters._aldous(seated)` shares everything with the standing
+    model): the robe's skirt over his knees with a frayed hem, the green bottle corked on his left thigh,
+    the right hand on his knee, a deeper stoop. New Blender dressing **`plank_bench`** (`build_village.py`):
+    one salt-silvered plank on two piles of slate, seat top 0.44 m like `log_bench`, worn dark in the
+    middle, and **an empty bottle lying under it**. Placed with Day 28's placement poses (the NPC's
+    Saltmarrow placement takes `model`/`idle`; the NPC itself still stands).
+  - **The `bottle` idle** (`CharacterRig`): breathing, the bottle turning in his hand, the other hand
+    rubbing his knee, and once every 14 s a **swig** — the bottle comes up and in to his mouth, his head
+    goes back, it goes down slower than it came up. `bottle_swig(t)` is static for tests.
+  - **Saltmarrow's gate lofts:** the two by the boardwalk gate were the whole `net_loft` tinted grey. Now
+    **`net_loft_broken`** (Gull's Head's ruin) until the Gull is lit, and after the burn a new
+    **`net_loft_mended`**: the broken loft's frame and footprint with the village at it again — pale new
+    boards in the floor and back-wall gaps, a square of sailcloth lashed over the roof hole on new battens,
+    the snapped rail lifted back and splinted with rope, a new net hung square, the fallen one folded,
+    two new rungs, and a stack of new boards waiting under the floor. Half-mended: work in progress.
+- **Tests:** `test_aldous_bench.gd` (4): Aldous on the bench (same spot/facing, seat height, by the Wrens'
+  house, the NPC still standing), the swig curve and the real model's pose (bottle hand up and in, head
+  back, legs put), the gate lofts by burn state (one per spot, same footprint/collider), the mended loft no
+  bigger than the broken one. `test_aftermath` counts the lofts' conditional shapes; `test_village` wants
+  the broken/mended lofts instead of `net_loft` in Saltmarrow. 224 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-09-pm-*.png`): `aldous-bench` vs `aldous-before` (seated on the
+plank by the Wrens' steps, brazier and ember-hook behind); `lofts-broken` (before the burn) vs
+`lofts-mended` (after) vs `lofts-before` (the old grey whole lofts).
+
+**Decisions**
+- **A plank bench, not the `log_bench`.** Saltmarrow is driftwood and slate; a split pine log is Thornwold.
+- **A swig, not the `sit` doze.** Hob dozes because he hasn't slept; Aldous drinks (LORE: "drinks too
+  much"). Every 14 s is often enough to be seen during a conversation, rare enough not to be comic.
+  It plays whatever the confession state — he doesn't stop drinking because he told you.
+- **Broken before the burn, half-mended after** — not a whole loft. The Gull's light pushed the fog back
+  only days ago; a finished loft would say too much time has passed. The stack of boards says "going on".
+- **Standing `aldous.glb` unchanged** (rebuilt byte-different only in material order; restored).
+
+**Problems / notes**
+- None blocking. The bench's ember-hook/brazier sit just behind him; from the walkway camera the bench
+  is half hidden by his robe — reads as "sitting on something", which is enough.
+
+**Next run should**
+1. **The Heron Light, part one** (content, due Day 33 — ROADMAP *Next up* #1).
+2. Art next due Day 34 (*Next up* #2).
+
 ## 2026-10-09 09:00 UTC — Day 31: Polish/debt pass three
 
 **Did**

@@ -127,6 +127,15 @@ greyed net-lofts.
     the sacking lies under the hook and nothing is cleaned. Keepers mark their houses this way.
   - Two of Gull's Head's four net-lofts are **falling down** (holed roofs, snapped rails,
     fallen nets); the one Hesk sits by is still mended.
+- **Established in the world (Day 32 — set dressing):**
+  - **Aldous's bench** by the Wrens' steps is one salt-silvered plank on two piles of slate, worn dark
+    where he sits; an **empty green bottle** lies under it. He sits there with the other bottle corked on
+    his thigh and **takes a swig now and then**, whatever he's told you (never commented on).
+  - Saltmarrow's two **net-lofts by the boardwalk gate** were let go to the Greying like Gull's Head's
+    (holed roof, snapped rail, nets down). **After the burn** the village starts on them again: new
+    unweathered boards in the gaps, sailcloth lashed over the roof hole, the rail splinted with rope, a
+    new net hung — **half-mended**, more boards stacked under the floor waiting. (Mending's remembering —
+    the fen's saying, turned the other way.)
 
 - **Established in play (Day 6 — Aldous's confession, Act I close):**
   - Aldous kept the **east stair** of the Hearthspire as door-warden for thirty-one years;

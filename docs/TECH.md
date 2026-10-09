@@ -33,9 +33,9 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [oda hob hob_seated hesper corran unmoored_shawl unmoored_coat …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran unmoored_shawl unmoored_coat …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
-.tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken …]  # village buildings (same kit dir)
+.tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed]  # Glasswater Fen kit (same kit dir)
@@ -434,10 +434,15 @@ with `--camera=`.
   turns to it too); `"faces_player": false` opts out (Hesk keeps mending). Day 28: `sit` — a
   seated model resting (legs never swing): breathing, thumbs creeping along whatever is across the
   knees, and late in every `DOZE_PERIOD` (11 s) the head sinks (`sit_doze`), holds and comes up
-  with a start (`sit_start`).
+  with a start (`sit_start`). Day 32: `bottle` — Aldous seated (legs never swing): the bottle turning
+  in his left hand on his thigh, the right hand rubbing his knee, and late in every `BOTTLE_PERIOD`
+  (14 s) a swig (`bottle_swig`, 0..1: up 0.9 s, drink 1.4 s, down 1.2 s) — the bottle arm comes up
+  and in (`SWIG_LIFT`/`SWIG_IN`), the head goes back (`SWIG_HEAD`), the shoulders lean back a little.
 - **Placement poses (Day 28):** a region's NPC placement may carry its own `model` and `idle`,
   which override the NPC's for that spot (`Region.placed_npc_data`; validated like the NPC's). Hob
   stands raking (`hob`, `rake`) in the clearing and sits on the camp bench (`hob_seated`, `sit`).
+  Aldous sits on his plank bench by the Wrens' steps (`aldous_seated`, `bottle`; Day 32) — the NPC
+  keeps the standing `aldous` for anywhere else he might be placed.
   The character lineup shows such models after the NPCs as "Name (model)".
 - `data/game.json` also takes `player_model` (the Wakebearer character scene) and `act_ends`.
 - Item: `id, name, description, kind (remnant|key|misc), color?, future?`
@@ -688,6 +693,10 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   halo + light, halo parameters reach the shader, lantern posts' halos, placement pose overrides,
   Hob seated on the bench (same spot/facing, seat top 0.44 m, by the tally-house step), the `sit`
   doze and start on the real model (legs stay put), validator placement-pose and halo-number checks.
+- `tests/test_aldous_bench.gd` — Day 32: Aldous seated on the plank bench (same spot/facing, seat top
+  0.44 m, by the Wrens' house; the NPC itself still standing), the `bottle` swig curve and pose on the real
+  model (the bottle hand comes up and in, the head goes back, the legs stay put), Saltmarrow's two gate
+  lofts broken before the burn and half-mended after (one model per spot, same footprint and collider).
 - `tests/test_fen_dressed.gd` — Day 30: the staithe (deck height, gulls on the posts), the boardwalk
   (nothing over the deck, pier width, a foam ring per pile, walkable), boards along the long walk into
   the fog, Corran's punt afloat and the traps on dry ground, alders and reed beds at the water's edge,
