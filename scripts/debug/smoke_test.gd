@@ -159,7 +159,48 @@ func _sail_the_fen_lane(main: Node, ui: DialogueUI) -> void:
 		if ui.is_open():
 			_finish_dialogue(ui, "arrival event at the fen")
 			await get_tree().process_frame
+		if trip == 1:
+			# Before the walk: it ends with Oda sailing back (the region's nodes go).
+			await _check_unmoored_look_away(region)
 		await _walk_region(main, ui, region, trip)
+
+
+## Day 31: the Unmoored by the pools turn their faces from a bare ember, live (the rig reads the
+## world and finds the player itself). Cupped, then bare for a moment to see them turn, then the
+## walk's own answer back.
+func _check_unmoored_look_away(region: Region) -> void:
+	var rig: CharacterRig = null
+	var spot := Vector3.ZERO
+	var water := float(region.data.get("water_level", -INF))
+	for node in region.get_children():
+		var found := node.get_node_or_null("CharacterRig") as CharacterRig
+		if found == null or found.avert_if == null or rig != null:
+			continue
+		# Somewhere in front of them or beside them on dry ground (most of them face a pool).
+		for offset: Vector3 in [Vector3(0.8, 0, 2.5), Vector3(2.5, 0, 0.8), Vector3(-2.5, 0, 0.8)]:
+			var at := (node as Node3D).global_transform * offset
+			if region.ground_y(at.x, at.z) > water + 0.1:
+				rig = found
+				spot = at
+				break
+	_check(rig != null, "an Unmoored figure in the fen that would look away")
+	if rig == null:
+		return
+	var player: Player = get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
+	var came_in := player.global_position
+	player.place_at(Vector3(spot.x, region.ground_y(spot.x, spot.z) + 0.2, spot.z))
+	var answer: Variant = GameState.world.get_flag("fen_ember")
+	GameState.world.flags["fen_ember"] = "cupped"
+	await get_tree().create_timer(1.2).timeout
+	_check(rig.avert_amount() == 0.0, "with the ember cupped the Unmoored don't turn away (%.2f)" % rig.avert_amount())
+	GameState.world.flags["fen_ember"] = "bare"
+	await get_tree().create_timer(1.2).timeout
+	_check(rig.avert_amount() > 0.5, "with the ember bare they turn their faces away (%.2f)" % rig.avert_amount())
+	GameState.world.flags["fen_ember"] = answer
+	# Back where the walk came in, and out of Stillhithe's thin Greying long enough for the
+	# screen's grey to ease off (later checks read the fog exactly).
+	player.place_at(came_in)
+	await get_tree().create_timer(1.5).timeout
 
 
 ## Advances an open dialogue to its next menu and picks the option reading `text`.
