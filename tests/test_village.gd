@@ -19,7 +19,8 @@ func test_village_has_house_variants() -> void:
 	for prop: Dictionary in db.get_region("saltmarrow")["props"]:
 		if str(prop.get("shape", "")) == "house":
 			models[str(prop["model"]).get_file()] = true
-	for name: String in ["house_stilt.glb", "house_wren.glb", "house_tall.glb", "house_porch.glb", "net_loft.glb"]:
+	for name: String in ["house_stilt.glb", "house_wren.glb", "house_tall.glb", "house_porch.glb", "net_loft_broken.glb",
+			"net_loft_mended.glb"]:
 		assert_true(models.has(name), "Saltmarrow uses %s" % name)
 
 
