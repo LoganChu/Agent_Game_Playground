@@ -17,6 +17,13 @@ const CHISEL_PERIOD := 3.4
 const DOZE_PERIOD := 11.0
 ## The "still" drift: the head goes down to the water and slowly up again (seconds).
 const STILL_PERIOD := 16.0
+## Looking away (a figure's `averts`): how far the head turns from the player (radians), how
+## much of that the shoulders take, how far the chin drops, and how fast it comes on (1/s).
+const AVERT_YAW := 1.1
+const AVERT_TORSO := 0.25
+const AVERT_CHIN := 0.22
+const AVERT_RATE := 1.2
+const AVERT_RADIUS := 6.0
 
 ## "breathe" (default), "mend" (seated hands working over a net) or "rake" (standing, drawing
 ## a rake across the ground in slow pulls, leaning into each one) or "chisel" (bent over a bench:
@@ -28,12 +35,21 @@ const STILL_PERIOD := 16.0
 var style := "breathe"
 ## Horizontal speed in m/s; drives the walk swing (0 = standing).
 var move_speed := 0.0
+## A condition (Conditions) under which this character won't look at the player: while it
+## holds and the player comes within `avert_radius`, the head turns away and the chin drops
+## (the Unmoored and a bare ember: "they've a right not to look"). null = never.
+var avert_if: Variant = null
+var avert_radius := AVERT_RADIUS
 
 var _parts: Dictionary = {}   # part name -> Node3D
 var _rest: Dictionary = {}    # part name -> Transform3D
 var _time := 0.0
 var _walk_phase := 0.0
 var _walk_blend := 0.0
+var _avert := 0.0       # 0..1, eased
+var _avert_side := 1.0  # which way the head turns: +1 = toward the model's +X, -1 = -X
+var _avert_reach := 1.0 # 0..1: how much turning is needed (none if the player is behind)
+var _player: Node3D = null
 
 
 ## Loads a character model scene and returns an instance with a rig attached, or null if
@@ -75,7 +91,54 @@ func _process(delta: float) -> void:
 	_time += delta
 	_walk_blend = move_toward(_walk_blend, 1.0 if move_speed > 0.3 else 0.0, delta * 5.0)
 	_walk_phase += delta * clampf(move_speed, 0.0, 6.0) * 2.2
+	if avert_if != null:
+		_update_avert(delta)
 	pose(_time, _walk_phase, _walk_blend)
+
+
+func _update_avert(delta: float) -> void:
+	if not is_instance_valid(_player):
+		_player = get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP) as Node3D
+	var holds := Conditions.evaluate(avert_if, GameState.world)
+	step_avert(delta, holds, _player.global_position if _player else null)
+
+
+## One step of looking away (public so tests can drive it): `holds` = the `avert_if` condition,
+## `player` = the player's world position (null = no player).
+func step_avert(delta: float, holds: bool, player: Variant) -> void:
+	var want := 0.0
+	var model := get_parent() as Node3D
+	if holds and player is Vector3 and model:
+		var xform := model.global_transform if model.is_inside_tree() else model.transform
+		var aim := avert_aim(xform.affine_inverse() * (player as Vector3), avert_radius, _avert_side)
+		want = aim.x
+		if want > 0.0:
+			_avert_side = aim.y
+			_avert_reach = aim.z
+	_avert = move_toward(_avert, want, delta * AVERT_RATE)
+
+
+## Where a character looks away to, for the player at `local` (model space, +Z = the way the
+## character faces): x = how much it wants to look away (1 within `radius`, fading to 0 a
+## metre past it), y = the side the head turns to (away from the player; `side` is kept while
+## the player is nearly dead ahead, so the head doesn't flick), z = how far it needs to turn
+## (1 with the player in front, 0 with them behind — it's already not looking).
+static func avert_aim(local: Vector3, radius: float, side: float = 1.0) -> Vector3:
+	var flat := Vector2(local.x, local.z)
+	var distance := flat.length()
+	var want := 1.0 - smoothstep(radius, radius + 1.0, distance)
+	if distance < 0.0001:
+		return Vector3(want, side, 1.0)
+	var angle := atan2(local.x, local.z)
+	if absf(angle) > 0.15:
+		side = -signf(angle)
+	var reach := 1.0 - smoothstep(PI * 0.55, PI * 0.9, absf(angle))
+	return Vector3(want, side, reach)
+
+
+## How far the character is looking away right now (0..1; for tests).
+func avert_amount() -> float:
+	return _avert
 
 
 ## Applies the pose for time `t` (public so tests can drive it deterministically).
@@ -137,6 +200,11 @@ func pose(t: float, walk_phase: float = 0.0, walk: float = 0.0) -> void:
 	else:
 		_offset("ArmL", Vector3.ZERO, Vector3(-0.45 * swing + 0.02 * breath, 0, 0.03 * breath))
 		_offset("ArmR", Vector3.ZERO, Vector3(0.45 * swing + 0.02 * breath, 0, -0.03 * breath))
+	if _avert > 0.0:
+		# On top of the idle: the shoulders and then the head turn away, the chin goes down.
+		var turn := smoothstep(0.0, 1.0, _avert) * _avert_side * _avert_reach
+		_turn("Torso", AVERT_TORSO * turn, 0.0)
+		_turn("Head", AVERT_YAW * turn, AVERT_CHIN * smoothstep(0.0, 1.0, _avert))
 
 
 ## The chisel hand's lift at time `t` (0 = resting on the work, 1 = raised): two quick taps at
@@ -180,6 +248,15 @@ static func sit_start(t: float) -> float:
 	if p < 0.0 or p > 0.8:
 		return 0.0
 	return sin(p / 0.8 * PI)
+
+
+## Turns a part (already posed) by `yaw` about its parent's up axis and `pitch` about its own
+## X (positive = chin down), pivoting on its origin.
+func _turn(part: String, yaw: float, pitch: float) -> void:
+	var node: Node3D = _parts.get(part)
+	if node == null:
+		return
+	node.basis = Basis(Vector3.UP, yaw) * node.basis * Basis(Vector3.RIGHT, pitch)
 
 
 func _offset(part: String, move: Vector3, euler: Vector3, scale: Vector3 = Vector3.ONE) -> void:

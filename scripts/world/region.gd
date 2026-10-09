@@ -215,6 +215,11 @@ func _build_prop(prop: Dictionary) -> Node3D:
 			# A figure: a character model as set dressing (an Unmoored sitting by a pool), no
 			# dialogue, moved by a CharacterRig in its `idle` style.
 			node = CharacterRig.instantiate(model, str(prop["idle"]))
+			if node and prop.get("averts") is Dictionary:
+				# Won't look at the player while the condition holds (a bare ember in the fen).
+				var rig := node.get_node("CharacterRig") as CharacterRig
+				rig.avert_if = prop["averts"].get("if")
+				rig.avert_radius = float(prop["averts"].get("radius", CharacterRig.AVERT_RADIUS))
 		else:
 			var scene := load(model) as PackedScene
 			node = scene.instantiate() as Node3D if scene else null

@@ -434,6 +434,8 @@ func _validate_events(where: String, region: Dictionary) -> void:
 ## A figure prop (`idle` on a prop): a character model (rig contract) and a known idle style.
 func _check_prop_figure(where: String, prop: Dictionary, model: String) -> void:
 	if not prop.has("idle"):
+		if prop.has("averts"):
+			_err(where, "'averts' is for figure props (a prop with an 'idle')")
 		return
 	if model.is_empty():
 		_err(where, "prop 'idle' needs a character 'model'")
@@ -444,6 +446,17 @@ func _check_prop_figure(where: String, prop: Dictionary, model: String) -> void:
 		_err(where, "prop idle must be one of %s" % [CharacterRig.STYLES])
 	if prop.has("float") or prop.has("wading"):
 		_err(where, "a figure prop can't 'float' or wade")
+	if prop.has("averts"):
+		var averts: Variant = prop["averts"]
+		if not averts is Dictionary or not (averts as Dictionary).has("if"):
+			_err(where, "figure 'averts' must be {\"if\": <condition>, \"radius\"?: metres}")
+			return
+		for key: String in averts:
+			if key not in ["if", "radius"]:
+				_err(where, "figure 'averts' has unknown key '%s'" % key)
+		_ref_condition(where + " averts", averts["if"])
+		if averts.has("radius") and not (typeof(averts["radius"]) in [TYPE_INT, TYPE_FLOAT] and float(averts["radius"]) >= 1.0 and float(averts["radius"]) <= 20.0):
+			_err(where, "figure 'averts' radius must be a number of metres in 1..20")
 
 
 ## Region `water` (WaterBuilder.SETTINGS): known keys with numbers in range, palette colours;
