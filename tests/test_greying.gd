@@ -127,3 +127,17 @@ func test_validator_checks_ember_budget() -> void:
 	var report := validator.report()
 	assert_true(report.contains("object 'far_end'") and report.contains("ember to reach through the Greying"), "budget reported:\n" + report)
 	assert_false(report.contains("object 'near'"), "content a short way in is fine")
+
+
+func test_ember_cost_heap_pops_cheapest_first() -> void:
+	# Day 31: ember_cost_map is Dijkstra over a binary heap (it was a LIFO search, 8.6 s on the woods).
+	var heap: Array = []
+	var values := [0.7, 0.1, 0.9, 0.3, 0.3, 0.0, 0.5, 2.0, 0.05]
+	for i in values.size():
+		Greying._heap_push(heap, [values[i], i])
+	var out: Array = []
+	while not heap.is_empty():
+		out.append(float(Greying._heap_pop(heap)[0]))
+	var sorted := values.duplicate()
+	sorted.sort()
+	assert_eq(out, sorted, "the heap gives costs back cheapest first")

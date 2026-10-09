@@ -128,15 +128,60 @@ static func ember_cost_map(field: TerrainField, reachable: Dictionary, areas: Ar
 		if depth[c] < CLEAR_DEPTH:
 			cost[c] = 0.0
 			frontier.append(c)
-	# Label-correcting search; the grid is small (a few thousand cells).
-	while not frontier.is_empty():
-		var c: Vector2i = frontier.pop_back()
+	# Dijkstra with a binary heap of [cost, cell]. (Until Day 31 this was a LIFO label-correcting
+	# search, which re-relaxed cells over and over: 8.6 s on the woods' 2,210 cells.)
+	var heap: Array = []
+	for c: Vector2i in frontier:
+		_heap_push(heap, [0.0, c])
+	var done: Dictionary = {}
+	while not heap.is_empty():
+		var top: Array = _heap_pop(heap)
+		var c: Vector2i = top[1]
+		if done.has(c):
+			continue
+		done[c] = true
 		for step: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
 			var n := c + step
-			if not reachable.has(n):
+			if not reachable.has(n) or done.has(n):
 				continue
 			var through := float(cost[c]) + (float(depth[c]) + float(depth[n])) * 0.5 * step_cost
 			if not cost.has(n) or through < float(cost[n]) - 0.00001:
 				cost[n] = through
-				frontier.append(n)
+				_heap_push(heap, [through, n])
 	return cost
+
+
+## Min-heap helpers for ember_cost_map: `heap` holds [cost, payload] pairs.
+static func _heap_push(heap: Array, entry: Array) -> void:
+	heap.append(entry)
+	var i := heap.size() - 1
+	while i > 0:
+		var parent := (i - 1) >> 1
+		if float(heap[parent][0]) <= float(heap[i][0]):
+			break
+		var swap: Array = heap[parent]
+		heap[parent] = heap[i]
+		heap[i] = swap
+		i = parent
+
+
+static func _heap_pop(heap: Array) -> Array:
+	var top: Array = heap[0]
+	var last: Array = heap.pop_back()
+	if heap.is_empty():
+		return top
+	heap[0] = last
+	var i := 0
+	var n := heap.size()
+	while true:
+		var smallest := i
+		for child: int in [i * 2 + 1, i * 2 + 2]:
+			if child < n and float(heap[child][0]) < float(heap[smallest][0]):
+				smallest = child
+		if smallest == i:
+			break
+		var swap: Array = heap[smallest]
+		heap[smallest] = heap[i]
+		heap[i] = swap
+		i = smallest
+	return top
