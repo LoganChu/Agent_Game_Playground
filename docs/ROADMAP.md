@@ -268,43 +268,49 @@ must land one **[A]** item below (screenshots before/after in the devlog, via
 `xvfb-run … --screenshot=`). Stay within GAME_DESIGN's art direction (flat-shaded low-poly,
 palette colors, strong silhouettes); every asset from a re-runnable `tools/blender/` script,
 each .glb < 5 MB.
+- [x] [A] **The Heron up close** (Day 34): the keeper's skiff as her own prop (`keeper_skiff`, + `_bell`
+      when `fen_skiff_bell=hung`): clinker boards, bone gunwale, half full of still water level with the
+      mere, an oar across her, her lantern on its side in the stern, the stem-post with its worn hole, the
+      painter to the back leg; `heron_light_near` (no block skiff) at the Heron's Legs; the ladder's rungs
+      scraped pale in the middle above the four slimed ones (both models); sedge **tussocks** under the big
+      man and the Unmoored further in; Corran's **knot-cord** at his hip.
 
 ### Next up
-1. [A] **Art (due Day 34 — next run)**: the Heron up close (Day 33 uses the distance model): a proper
-   **keeper's skiff** prop (lantern in the stern, the bell on the bow when `fen_skiff_bell=hung`, an empty
-   bow when kept), **ladder rungs scraped pale** above the slime, tussocks under the Unmoored further in,
-   Corran's **knot-cord** at his belt; or the fen's flat white light (pale shore band, Stillhithe's paint).
-2. [C] **The Heron Light, part two** (content, due by Day 37): who climbs the ladder (keep the keeper's fate
+1. [C] **The Heron Light, part two** (content, due by Day 37 — next run, Day 35): who climbs the ladder (keep the keeper's fate
    open-ish; the bell's carrier); up the ladder on a dry day with a reason; the Heron's burn — what does
    Glasswater offer, given the right to forget? (an Unmoored's put-down thing? Hesper's name? Corran's
    channels?) Honour `fen_skiff_bell`, `fen_dunstan_glimpsed`, `fen_dunstan_word`. Dunstan stays unmet until
    the burn or after. Keep the four colliers and the Lamp's coal open.
-3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+2. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
    brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-9. [S] Interaction polish: camera framing during dialogue; fade the
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
+9. [A] **Fen art follow-ups** (next art due ~Day 38): the fen's flat white light (a pale shore band,
+   Stillhithe's paint, less blue in the water); sedge tussocks under the Unmoored at the fen's pools too
+   (`tussock`, Day 34); the stage meeting the ladder leg (a cleat or a landing step); the shadow acne on
+   the Heron's legs in the Compatibility renderer (zig-zag bands behind the ladder).
 
 ## Milestone 2 — Alpha (Act II begins)
 - [x] [C] **The crossing** — landed Day 17 (see Done).

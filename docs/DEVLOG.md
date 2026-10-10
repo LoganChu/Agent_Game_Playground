@@ -2,6 +2,58 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-10 21:00 UTC — Day 34: The Heron up close (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; checked out
+  `main` (at `origin/main`, Day 33's `b9d89dd`). Baseline green (234 tests + smoke + launch).
+- **Art (due today; last art Day 32):** ROADMAP *Next up* #1, the Heron up close:
+  - **The keeper's skiff** (`build_fen.py`, new `keeper_skiff` + `keeper_skiff_bell`): a real hull (the
+    rowboat's lofted stations, narrower), pale clinker boards with one dark strake, the bone gunwale that
+    reads through the fog, two thwarts, **half full of water** (a flat dark sheet lying level with the
+    mere), the oar across her with its blade over the side, **her lantern on its side in the stern** (cold
+    horn, iron caps and ribs, a ring), a stem-post at the bow with **the hole worn in it**, and the
+    **painter run to the Heron's back-right leg**. The `_bell` variant hangs the little brass bell, green at
+    the lip, from the stem-post. Placed in `heron_mere` at the mud bar's end, low in the water; the bell
+    variant shows only when `fen_skiff_bell=hung` (before the choice the bell is in the trap/satchel).
+  - **`heron_light_near`**: the Heron without the block skiff, for the Heron's Legs; the fen keeps the
+    distance model (the pale block reads from a mile off, Day 30).
+  - **The ladder's rungs scraped pale** (both models): the lowest four stay slime-green; from the fifth up
+    each rung has a pale worn middle, "where boots go" — the dialogue has said so since Day 33.
+  - **Sedge tussocks** (`tussock`): a peat mound with a ring of sedge, flattened and greyed on one side, its
+    middle low enough to stand in; under the big man and the three Unmoored further in.
+  - **Corran's knot-cord** (`build_characters.py`): a tarred cord at the front of his left hip with five pale
+    knots — the cord he counts the channels back on (dialogue since Day 33).
+- **Tests:** `test_heron_close.gd` (6): the near model at the mere / distance model in the fen (bounds), the
+  rungs (one slime surface low, one pale surface above it, middles only, to the top), the skiff by bell
+  state (conditions for undecided/kept/hung; a brass bell at the bow only in the `_bell` model), **the
+  painter lands on the leg** (the builder's `PAINTER_TO` through the placement, < leg radius off the leg's
+  axis), the water in her level with the mere, a tussock under every figure, the knot-cord on Corran's
+  torso. `test_heron_light`/`test_dressing` follow the near model; the smoke walk counts the skiff among
+  the mere's conditional props. 240 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-10-pm-*.png`): `skiff` (from the mud bar), `skiff-bell` (the bow,
+the bell hung, the painter to the leg), `ladder` (the worn rungs from the stage), `tussocks` (the big man
+and an Unmoored on sedge), `corran-cord`; checkpoint `heron_mere` regenerated.
+
+**Decisions**
+- **Two skiff models, not a bell prop.** The bell is a few centimetres at the bow; a separate prop would need
+  placing to the centimetre against a rotated hull. Two variants by condition (the Day 32 loft pattern).
+- **The painter ends inside the leg** rather than with a modelled round turn: a collar at the right height
+  on a slanted leg looked like a floating disc at the first try. The test pins `PAINTER_TO` to the leg so a
+  later move of the skiff or the Heron breaks loudly.
+- **Knot-cord always on**, not only out in the punt: he counts it back every trip; a cord with knots in it
+  is what he'd leave on.
+
+**Problems / notes**
+- Shadow acne on the Heron's legs behind the ladder (zig-zag bands) in the Compatibility renderer;
+  pre-existing, logged under *Fen art follow-ups*.
+- `docs/checkpoints/heron_mere.png.import` was left uncommitted on Day 33; committed now with the others.
+
+**Next run should**
+1. **The Heron Light, part two** (content, due by Day 37 — ROADMAP *Next up* #1).
+2. Polish/debt is next due by Day 39 (last Day 31); art ~Day 38 (*Fen art follow-ups*).
+
 ## 2026-10-10 09:00 UTC — Day 33: The Heron Light, part one (content)
 
 **Did**

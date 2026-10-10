@@ -570,6 +570,10 @@ forget. The fog is thickest and strangest here.
     the bell back on her bow** or **keeps it** (`fen_skiff_bell`: hung / kept). **The ladder:** the rungs
     above the slime are **scraped pale by boots, lately** — somebody climbs it (open). Corran: "I want a dry
     day, and you want a reason."
+    *(Shown, Day 34: the skiff up close — the bell on her bow only once hung back, a hole worn in the
+    stem-post otherwise; the painter runs to the back-right leg; the water in her lies level with the mere's.
+    The worn middles of the rungs run from the fifth rung to the top. Corran wears his knot-cord at the front
+    of his left hip always — he counts it back each trip. The Unmoored further in stand on sedge tussocks.)*
   - **Dunstan glimpsed** (mystery #5): a big man in a fisher's knit gone grey, an unlit lantern in his hand,
     standing on a tussock at the fog's foot looking into the water "the way a man stands on a boat". Called
     by name, he stops, doesn't turn, and steps down into the grey; watched, he goes "as if into a room he
