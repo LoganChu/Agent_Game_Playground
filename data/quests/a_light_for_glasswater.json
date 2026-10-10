@@ -9,6 +9,18 @@
     {
       "id": "the_heron_light",
       "text": "The Heron Light stands dark on four tall legs out in the mere, in the Deeps' fog. Its keeper poled out to it the night of the Snuffing and never came back; her skiff is still tied to the legs. Corran Teal, the last of the fen folk, knows the channels, and will take you out when he's decided whether he likes you."
+    },
+    {
+      "id": "the_far_trap",
+      "text": "Corran still hasn't decided whether he likes you. He wants his far trap lifted: he set it at the end of the long walk, in the Deeps' fog, the week the Unmoored started going in there, and he doesn't walk where they walk."
+    },
+    {
+      "id": "out_to_the_heron",
+      "text": "Corran's far trap held no eels, only the Heron keeper's skiff bell, come half a mile up the long walk through water that doesn't move. He's decided: he'll pole you out to the Heron's legs. Ask him at his landing."
+    },
+    {
+      "id": "at_the_legs",
+      "text": "Corran poled you out through the channels to the Heron Light. It stands on its four legs in a hole in the fog that has always been there; the keeper's skiff is still tied to the legs, and the ladder goes up into the grey. The light is dark. Corran waits in the punt to take you back."
     }
   ]
 }

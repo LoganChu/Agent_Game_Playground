@@ -1,0 +1,115 @@
+{
+  "id": "heron_glimpse",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Out past the legs the fog stands up like a wall. At the foot of it, on a tussock no bigger than a table, a man is standing."
+      },
+      {
+        "say": "narrator",
+        "text": "A big man, in a fisher's knit gone grey with wet. A lantern hangs from his hand. It isn't lit. He is looking down into the water the way the others do, but he's standing up to do it, the way a man stands on a boat."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember's light doesn't reach him. He hasn't seen it.",
+        "if": "flag:fen_ember=bare"
+      },
+      {
+        "choice": [
+          {
+            "text": "Call out: \"Dunstan!\"",
+            "if": [
+              "!flag:saltmarrow_beacon_burned=gull",
+              "flag:saltmarrow_mara_told_of_dunstan"
+            ],
+            "goto": "called"
+          },
+          {
+            "text": "Call out to him.",
+            "if": [
+              "!flag:saltmarrow_beacon_burned=gull",
+              "!flag:saltmarrow_mara_told_of_dunstan"
+            ],
+            "goto": "called"
+          },
+          {
+            "text": "Call out his name.",
+            "if": "flag:saltmarrow_beacon_burned=gull",
+            "goto": "nameless"
+          },
+          {
+            "text": "Say nothing. Watch him.",
+            "goto": "watched"
+          }
+        ]
+      }
+    ],
+    "called": [
+      {
+        "say": "narrator",
+        "text": "Your voice goes out flat across the water and the fog takes the end of it."
+      },
+      {
+        "say": "narrator",
+        "text": "He stops. His head comes up. He doesn't turn."
+      },
+      {
+        "say": "narrator",
+        "text": "After a while he steps down off the tussock into the grey, as easily as off a quay, and the dark lantern goes with him, and he's gone."
+      },
+      {
+        "set": {
+          "fen_dunstan_glimpsed": "called"
+        },
+        "goto": "cord"
+      }
+    ],
+    "nameless": [
+      {
+        "say": "narrator",
+        "text": "You open your mouth to call him, and there's no name in it. You know there was one. Mara said it; Oda said it. It goes past you like rain off a coat."
+      },
+      {
+        "say": "narrator",
+        "text": "By the time you've stopped reaching for it, he has stepped down off the tussock into the grey, and the dark lantern with him."
+      },
+      {
+        "set": {
+          "fen_dunstan_glimpsed": "nameless"
+        },
+        "goto": "cord"
+      }
+    ],
+    "watched": [
+      {
+        "say": "narrator",
+        "text": "You watch. He stands a long while, looking into the water."
+      },
+      {
+        "say": "narrator",
+        "text": "Then he steps down off the tussock into the grey as if into a room he knows, and the dark lantern swings once, and he's gone."
+      },
+      {
+        "set": {
+          "fen_dunstan_glimpsed": "watched"
+        },
+        "goto": "cord"
+      }
+    ],
+    "cord": [
+      {
+        "say": "narrator",
+        "text": "As he goes, something at his belt flicks red. A bit of cord.",
+        "if": "flag:fen_dunstan_word=mara"
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody follows them with a light. That's the rule out here."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

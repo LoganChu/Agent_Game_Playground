@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:fen_punt_out",
+        "goto": "mere"
+      },
+      {
         "if": "!flag:fen_met_corran",
         "goto": "first"
       },
@@ -45,7 +49,18 @@
     "greet": [
       {
         "say": "corran",
-        "text": "Eels don't care what anybody forgot. That's what I like about eels."
+        "text": "Eels don't care what anybody forgot. That's what I like about eels.",
+        "if": "!flag:fen_corran_decided"
+      },
+      {
+        "say": "corran",
+        "text": "Trap's at the end of the long walk. Still there, is it? Thought so.",
+        "if": "stage:a_light_for_glasswater=the_far_trap"
+      },
+      {
+        "say": "corran",
+        "text": "You. Punt's off the landing when you want her.",
+        "if": "flag:fen_corran_decided"
       },
       {
         "goto": "hub"
@@ -70,6 +85,29 @@
             "text": "A big man came here in a rowboat, Hesper says.",
             "if": "flag:fen_heard_of_dunstan",
             "goto": "big_man"
+          },
+          {
+            "text": "Will you take me out to the Heron now?",
+            "if": "stage:a_light_for_glasswater=the_heron_light",
+            "goto": "ask_out"
+          },
+          {
+            "text": "I lifted your far trap.",
+            "if": "item:corrans_trap",
+            "goto": "trap_back"
+          },
+          {
+            "text": "Pole me out to the Heron.",
+            "if": [
+              "flag:fen_corran_decided",
+              "!flag:fen_heron_reached"
+            ],
+            "goto": "pole_out"
+          },
+          {
+            "text": "Pole me out to the Heron again.",
+            "if": "flag:fen_heron_reached",
+            "goto": "pole_again"
           },
           {
             "text": "Goodbye.",
@@ -162,6 +200,300 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "ask_out": [
+      {
+        "say": "corran",
+        "text": "Decided? No. I'll tell you what I have decided."
+      },
+      {
+        "say": "corran",
+        "text": "I've a trap out at the end of the long walk. Set it the week they started going in there, thinking the eels would follow the quiet. Not been out to lift it since."
+      },
+      {
+        "say": "corran",
+        "text": "I don't walk where they walk. You've a light. Lift it and bring it here, and I'll have a look at you while you do."
+      },
+      {
+        "say": "corran",
+        "text": "Cup the thing if you like. It's grey out there either way.",
+        "if": "flag:fen_ember=cupped"
+      },
+      {
+        "say": "corran",
+        "text": "Keep that thing bare out there. You'll want to see the boards.",
+        "if": "flag:fen_ember=bare"
+      },
+      {
+        "set": {
+          "fen_corran_trap_asked": true
+        },
+        "quest_stage": [
+          "a_light_for_glasswater",
+          "the_far_trap"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "trap_back": [
+      {
+        "say": "narrator",
+        "text": "Corran takes the trap and turns it over in his hands. The withies have gone silver, the way the ground has at Stillhithe."
+      },
+      {
+        "say": "corran",
+        "text": "Empty. Three months in the water and not one eel. They won't go into the Deeps now. Can't say I blame them."
+      },
+      {
+        "say": "narrator",
+        "text": "Something knocks about inside. He works two fingers in through the funnel and draws it out on a loop of tarred cord: a little brass bell, green at the lip."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks at it a long time."
+      },
+      {
+        "say": "corran",
+        "text": "That's off her skiff. The keeper's. She kept it on the bow so we'd hear her coming in, in fog. You'd hear that bell before ever you saw her lantern."
+      },
+      {
+        "say": "corran",
+        "text": "Her skiff's tied to the legs, out in the middle of the mere. That's half a mile from where I set that trap. And the water in this fen doesn't move. Not a trap's length. Not in three months."
+      },
+      {
+        "say": "corran",
+        "text": "So who brought it?"
+      },
+      {
+        "say": "corran",
+        "text": "And you walked in there with that thing bare and walked back out again. Good.",
+        "if": "flag:fen_ember=bare"
+      },
+      {
+        "say": "corran",
+        "text": "Walked in there with your hand shut round your light, the way she asked you, and still walked back out. Huh.",
+        "if": "flag:fen_ember=cupped"
+      },
+      {
+        "say": "corran",
+        "text": "Right. I've decided."
+      },
+      {
+        "say": "narrator",
+        "text": "He doesn't say which way. He holds the bell out to you."
+      },
+      {
+        "say": "corran",
+        "text": "I want to know who's been at her skiff. That's hers; it ought to go back where it was, or with somebody who'll ask about it. You, then. Punt's off the landing. Say when."
+      },
+      {
+        "take_item": "corrans_trap",
+        "give_item": "heron_skiff_bell",
+        "set": {
+          "fen_corran_decided": true
+        },
+        "quest_stage": [
+          "a_light_for_glasswater",
+          "out_to_the_heron"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pole_out": [
+      {
+        "say": "narrator",
+        "text": "Corran wades out to the punt and holds her steady for you. You step in; she settles. He stands in the stern with the quant pole and pushes off without a word."
+      },
+      {
+        "say": "narrator",
+        "text": "The reeds close behind you. The channels run between them like corridors, black and so still the punt's wake doesn't spread. It just lies there behind you."
+      },
+      {
+        "say": "corran",
+        "text": "Left at the drowned alder. Right at the second eel stake. Left. Don't talk. I'm counting."
+      },
+      {
+        "say": "narrator",
+        "text": "At every turning he ties a knot in a cord at his belt. A little row of knots swings there. \"So I can count them back,\" he says. \"Out here you'd forget which end of the pole goes in the water.\""
+      },
+      {
+        "say": "narrator",
+        "text": "The fog thickens till the bow is grey. Shapes go by on the tussocks: people, sitting, looking down into the water. Further in than Stillhithe, and further gone. Nobody looks up."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember finds a face for a moment. It turns away, slowly, the way you'd turn from a draught.",
+        "if": "flag:fen_ember=bare"
+      },
+      {
+        "say": "narrator",
+        "text": "And then the fog thins, all at once, as if somebody had cut a hole in it. Four grey legs stand up out of the water, braced, and on top of them, in the white, the Heron Light. Dark."
+      },
+      {
+        "say": "corran",
+        "text": "Fog's stood off the legs since the day it came. Don't ask me why. Keepers knew where to build. Or the fog knows something."
+      },
+      {
+        "set": {
+          "fen_heron_reached": true,
+          "fen_punt_out": true
+        },
+        "quest_stage": [
+          "a_light_for_glasswater",
+          "at_the_legs"
+        ]
+      },
+      {
+        "travel": [
+          "heron_mere",
+          "from_punt"
+        ],
+        "end": true
+      }
+    ],
+    "pole_again": [
+      {
+        "say": "narrator",
+        "text": "Corran poles you out again, left, right, left, tying his knots, and the hole in the fog opens round the Heron's legs the way it did before."
+      },
+      {
+        "set": {
+          "fen_punt_out": true
+        }
+      },
+      {
+        "travel": [
+          "heron_mere",
+          "from_punt"
+        ],
+        "end": true
+      }
+    ],
+    "mere": [
+      {
+        "say": "corran",
+        "text": "I'll be here. Don't you go up that ladder without telling me."
+      },
+      {
+        "goto": "mere_hub"
+      }
+    ],
+    "mere_hub": [
+      {
+        "choice": [
+          {
+            "text": "Why does the fog stand off the legs?",
+            "goto": "mere_fog"
+          },
+          {
+            "text": "Who are the people on the tussocks?",
+            "goto": "mere_unmoored"
+          },
+          {
+            "text": "I saw a man out there. Big, with a lantern that wasn't lit.",
+            "if": [
+              "flag:fen_dunstan_glimpsed",
+              "!flag:fen_dunstan_glimpsed=nameless"
+            ],
+            "goto": "mere_big_man"
+          },
+          {
+            "text": "I saw a man out there. I couldn't hold his name.",
+            "if": "flag:fen_dunstan_glimpsed=nameless",
+            "goto": "mere_nameless"
+          },
+          {
+            "text": "Take me back.",
+            "goto": "pole_back"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "mere_fog": [
+      {
+        "say": "corran",
+        "text": "Told you. Don't ask me."
+      },
+      {
+        "say": "corran",
+        "text": "If you want my guess: it's polite. Same as them by the pools. There's something here it doesn't care to look at either."
+      },
+      {
+        "goto": "mere_hub"
+      }
+    ],
+    "mere_unmoored": [
+      {
+        "say": "corran",
+        "text": "Ones who've nearly finished. At Stillhithe they still sit up and look in the water. Out here they stop sitting up."
+      },
+      {
+        "say": "corran",
+        "text": "Don't light them. Don't speak to them. They walked a long way to get this quiet."
+      },
+      {
+        "goto": "mere_hub"
+      }
+    ],
+    "mere_big_man": [
+      {
+        "say": "corran",
+        "text": "Didn't see. I was counting."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks at the fog where you point, for longer than a man who didn't see anything needs to."
+      },
+      {
+        "say": "corran",
+        "text": "Big, was he. The whittler was big. And his lantern's for after, he said."
+      },
+      {
+        "say": "corran",
+        "text": "After what, I didn't ask. You don't follow them with a light. Not even you."
+      },
+      {
+        "goto": "mere_hub"
+      }
+    ],
+    "mere_nameless": [
+      {
+        "say": "corran",
+        "text": "Can't hold it? Huh. Then it's not yours to hold. Somebody paid it to a fire."
+      },
+      {
+        "say": "corran",
+        "text": "Big, was he. The whittler was big. I'd tell you his name if he'd ever told me it. He told Hesper. She'll not say it."
+      },
+      {
+        "goto": "mere_hub"
+      }
+    ],
+    "pole_back": [
+      {
+        "say": "narrator",
+        "text": "Corran counts the knots back off his cord, right, left, right, and the fog closes and opens again on reeds, and his own landing, and the eel tubs."
+      },
+      {
+        "set": {
+          "fen_punt_out": false
+        }
+      },
+      {
+        "travel": [
+          "glasswater_fen",
+          "from_punt"
+        ],
+        "end": true
       }
     ]
   }

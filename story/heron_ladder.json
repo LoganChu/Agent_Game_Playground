@@ -1,0 +1,36 @@
+{
+  "id": "heron_ladder",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The ladder goes up the front leg into the white, its rungs lashed on with cord. The lowest four are green with slime, slick as soap."
+      },
+      {
+        "say": "narrator",
+        "text": "Above them the rungs are scraped pale in the middle, where boots go. The slime hasn't come back on them."
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody climbs it. Not once, three months ago. Lately.",
+        "if": "!flag:fen_heron_ladder_seen"
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody climbs it, and lately.",
+        "if": "flag:fen_heron_ladder_seen"
+      },
+      {
+        "say": "corran",
+        "text": "Not today. I want a dry day, and you want a reason. Come up it with both.",
+        "if": "!flag:fen_heron_ladder_seen"
+      },
+      {
+        "set": {
+          "fen_heron_ladder_seen": true
+        },
+        "end": true
+      }
+    ]
+  }
+}

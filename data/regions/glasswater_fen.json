@@ -54,6 +54,11 @@
       5,
       0.5,
       12
+    ],
+    "from_punt": [
+      15.6,
+      0.5,
+      -6.8
     ]
   },
   "ground": {
@@ -825,7 +830,8 @@
           2.3
         ]
       },
-      "note": "Corran's eel-punt moored off his landing, a quant pole and a trap lying in her."
+      "note": "Corran's eel-punt moored off his landing, a quant pole and a trap lying in her.",
+      "if": "!flag:fen_punt_out"
     },
     {
       "model": "res://assets/models/dressing/eel_traps.glb",
@@ -1047,7 +1053,8 @@
         -5.4
       ],
       "rotation_y": -30,
-      "note": "At his landing by the eel tubs and the upturned punt, facing the path in."
+      "note": "At his landing by the eel tubs and the upturned punt, facing the path in.",
+      "if": "!flag:fen_punt_out"
     },
     {
       "npc": "oda",
@@ -1121,5 +1128,18 @@
     "deep": "ink",
     "sheen": "silverfog",
     "note": "Fen water: peat-dark and mirror-still, the sky lying on it at a glancing look; barely a ripple, no wash."
-  }
+  },
+  "pickups": [
+    {
+      "id": "fen_corrans_trap",
+      "item": "corrans_trap",
+      "position": [
+        0.8,
+        0,
+        -28.2
+      ],
+      "if": "flag:fen_corran_trap_asked",
+      "note": "Corran's far trap, at the end of the long walk in the Deeps' fog."
+    }
+  ]
 }

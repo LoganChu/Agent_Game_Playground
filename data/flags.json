@@ -255,6 +255,37 @@
     "fen_met_corran": {
       "description": "Player has met Corran Teal, the last of the fen folk, at his eel landing.",
       "default": false
+    },
+    "fen_corran_trap_asked": {
+      "description": "Asked again to be poled out to the Heron, Corran sent the player to lift his far trap at the end of the long walk, in the Deeps' fog, where he won't walk (he doesn't go where the Unmoored go).",
+      "default": false
+    },
+    "fen_corran_decided": {
+      "description": "Corran has decided he likes the player (they lifted his far trap and brought it back; in it, the keeper's skiff bell) and will pole them out to the Heron Light.",
+      "default": false
+    },
+    "fen_punt_out": {
+      "description": "The player is out at the Heron Light's legs in Corran's punt (Corran is there with them, not at his landing). Cleared when he poles them back.",
+      "default": false
+    },
+    "fen_heron_reached": {
+      "description": "Corran has poled the player out through the channels to the Heron Light's legs at least once (the first trip is the full scene).",
+      "default": false
+    },
+    "fen_dunstan_glimpsed": {
+      "description": "At the Heron's legs the player saw a big man with an unlit lantern standing at the edge of the fog on a tussock, looking at the water, before he walked off into it: 'called' (called his name; he stopped, didn't turn, went on), 'watched' (let him go without a word) or 'nameless' (after the gull burn: his name wasn't there to call). Pays off when Dunstan is found.",
+      "default": "",
+      "future": true
+    },
+    "fen_skiff_bell": {
+      "description": "What the player did with the keeper's skiff bell Corran found in his far trap, at her skiff by the Heron's legs: 'hung' (tied it back on her bow) or 'kept' (kept it). For The Heron Light, part two.",
+      "default": "",
+      "future": true
+    },
+    "fen_heron_ladder_seen": {
+      "description": "Player has looked at the Heron Light's ladder: the rungs above the slime scraped clean by boots, recently. Someone climbs it (open; part two).",
+      "default": false,
+      "future": true
     }
   }
 }

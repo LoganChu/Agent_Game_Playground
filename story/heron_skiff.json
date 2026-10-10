@@ -1,0 +1,91 @@
+{
+  "id": "heron_skiff",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The keeper's skiff lies tied to the Heron's back leg, half full of water so still it holds the sky. An oar lies across her thwarts."
+      },
+      {
+        "say": "narrator",
+        "text": "Her lantern is in the stern, on its side. Cold. The horn panes are whole, and when you tip it the oil slops inside: full. She didn't run out."
+      },
+      {
+        "say": "narrator",
+        "text": "Her painter is made fast to the leg with a neat round turn and two half hitches, snugged down. The way you tie up a boat you mean to come back to."
+      },
+      {
+        "say": "narrator",
+        "text": "The little brass bell hangs at her bow again, where it was. It hasn't rung. Nothing out here moves to ring it.",
+        "if": "flag:fen_skiff_bell=hung"
+      },
+      {
+        "say": "narrator",
+        "text": "There's a hole worn smooth in her stem-post where the bell hung. It's in your satchel.",
+        "if": "flag:fen_skiff_bell=kept"
+      },
+      {
+        "if": [
+          "item:heron_skiff_bell",
+          "!flag:fen_skiff_bell"
+        ],
+        "goto": "bell"
+      }
+    ],
+    "bell": [
+      {
+        "say": "narrator",
+        "text": "There's a hole worn smooth in her stem-post, just the size for a loop of tarred cord."
+      },
+      {
+        "choice": [
+          {
+            "text": "Tie the bell back on her bow.",
+            "goto": "hang"
+          },
+          {
+            "text": "Keep the bell.",
+            "goto": "keep"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "hang": [
+      {
+        "say": "narrator",
+        "text": "You thread the cord through the hole and knot it. The bell hangs at the bow where it hung before. It doesn't ring. Nothing out here moves to ring it."
+      },
+      {
+        "say": "narrator",
+        "text": "From the punt, Corran watches you do it, and says nothing, and nods once."
+      },
+      {
+        "take_item": "heron_skiff_bell",
+        "set": {
+          "fen_skiff_bell": "hung"
+        },
+        "end": true
+      }
+    ],
+    "keep": [
+      {
+        "say": "narrator",
+        "text": "You put it away. Somebody carried it half a mile through still water to put it in a trap. You'd like to know who, before it goes back."
+      },
+      {
+        "say": "narrator",
+        "text": "It gives one small knock against your ribs as you straighten, and is quiet."
+      },
+      {
+        "set": {
+          "fen_skiff_bell": "kept"
+        },
+        "end": true
+      }
+    ]
+  }
+}
