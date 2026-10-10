@@ -848,9 +848,49 @@ def build_unmoored_coat() -> None:
     assemble(b, "unmoored_coat")
 
 
+def build_dunstan() -> None:
+    """Dunstan Tollen, glimpsed at the Heron's legs (Day 33): Mara's brother, a big Saltmarrow
+    fisherman, standing on a tussock at the fog's edge looking down into the water. A fisher's knit
+    gansey gone grey with wet over oilskin trousers and sea boots, bare-headed, dark curls and a
+    beard, and a ship's lantern hanging from his left hand — not lit ("It's for after")."""
+    reset_scene()
+    b = Body(build=1.28)
+    knit = material("tide", -0.55)
+    skin = material("driftwood", -0.08)
+    oilskin = material("slate", -0.35)
+    base_body(b, skin, oilskin, material("ink", 0.08), knit, sleeves=knit)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, b.hip - 0.1), (0, 0, b.waist + 0.04), 0.33, 0.31, knit, verts=8))          # the gansey's skirt
+    for z in (b.waist + 0.16, b.waist + 0.28):                                                     # knit ribs
+        t.append(ring(0.325, z, 0.025, material("tide", -0.68)))
+    t.append(ring(0.1, b.neck + 0.0, 0.06, knit))                                                  # roll neck
+    for side, x in (("L", 0.12), ("R", -0.12)):                                                   # boot tops
+        b.parts["Leg" + side].append(limb((x, 0, 0.12), (x, 0, 0.36), 0.095, 0.1, material("ink", 0.04)))
+    h = b.parts["Head"]
+    hair = material("ink", 0.2)
+    h.append(ball(0.25, (0, 0.04, b.head + 0.07), hair, scale=(1.05, 1.0, 0.82)))                 # dark curls
+    for k in range(5):
+        a = k / 5 * math.tau
+        h.append(ball(0.07, (math.cos(a) * 0.2, math.sin(a) * 0.2 + 0.05, b.head + 0.17), hair, segments=5, rings=3))
+    h.append(ball(0.19, (0, -0.1, b.head - 0.13), hair, scale=(1.05, 0.75, 0.95)))                 # beard
+    # The lantern in the left hand, hanging by its bail: a squat ship's lantern, horn panes dark.
+    hand = b.hand("L")
+    brass = material("driftwood", -0.45)
+    lz = hand.z - 0.3
+    b.parts["ArmL"].append(limb(hand + Vector((0, 0, -0.04)), hand + Vector((0, 0, -0.12)), 0.012, 0.012, brass, verts=3))
+    b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz - 0.12)), Vector((hand.x, 0, lz + 0.14)), 0.1, 0.1, material("ink", 0.1), verts=6))
+    b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz + 0.14)), Vector((hand.x, 0, lz + 0.22)), 0.11, 0.03, brass, verts=6))
+    b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz - 0.15)), Vector((hand.x, 0, lz - 0.11)), 0.12, 0.12, brass, verts=6))
+    b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz + 0.22)), hand + Vector((0, 0, -0.12)), 0.015, 0.015, brass, verts=3))
+    b.arm_rest["ArmL"] = (0, 0, math.radians(4))
+    b.arm_rest["ArmR"] = (math.radians(-4), 0, math.radians(-6))
+    b.head_rest = (math.radians(24), 0, 0)  # looking down into the water
+    assemble(b, "dunstan", scale=1.08)
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_lamp, build_hesper, build_corran,
-            build_unmoored_shawl, build_unmoored_coat]
+            build_unmoored_shawl, build_unmoored_coat, build_dunstan]
 
 if __name__ == "__main__":
     import sys
