@@ -262,6 +262,34 @@
         "salt_for_the_collier": "done"
       },
       "shot": "--camera=9,5,16:-4,2,-12"
+    },
+    {
+      "id": "heron_mere",
+      "act": "Act II — The Drift",
+      "title": "Out to the Heron's legs",
+      "inherits": "glasswater_fen",
+      "region": "heron_mere",
+      "spawn": "from_punt",
+      "description": "Hesper met (the ember kept bare); Corran asked for his far trap, it lifted from the end of the long walk and brought back (in it, the keeper's skiff bell), and he has poled you out to the Heron Light. The Foot, the keeper's skiff (hang the bell or keep it), the scraped ladder, a big man at the fog's edge, Corran waiting by the punt.",
+      "flags": {
+        "fen_met_hesper": true,
+        "fen_ember": "bare",
+        "fen_met_corran": true,
+        "fen_corran_trap_asked": true,
+        "fen_corran_decided": true,
+        "fen_heron_reached": true,
+        "fen_punt_out": true
+      },
+      "quests": {
+        "a_light_for_glasswater": "at_the_legs"
+      },
+      "items": {
+        "heron_skiff_bell": 1
+      },
+      "collected": [
+        "fen_corrans_trap"
+      ],
+      "shot": "--camera=7,3.5,10:-2,2,-6"
     }
   ]
 }
