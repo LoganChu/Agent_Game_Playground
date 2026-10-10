@@ -33,7 +33,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran unmoored_shawl unmoored_coat …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran unmoored_shawl unmoored_coat dunstan …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
@@ -286,6 +286,15 @@ light, so the fen connects to Thornwold only. The smoke walk never talks to Oda 
 bramble wall moves it on first), so `_sail_the_fen_lane` asks her for the fen **by option text**
 (`_choose`) after the passes, walks the fen twice (Hesper starts *The Letting Post* on the first trip,
 the post is answered on the second) and lets Oda sail it back. `test_fen_lane.gd` covers the rest.
+
+**Corran's punt (Day 33):** a dialogue `travel` between two regions with a person who goes with you.
+`fen_punt_out` says where Corran and his punt are: true → in `heron_mere` (the Heron's legs; no exits,
+reached only by the punt), false → at his fen landing. His fen placement and punt prop read
+`!flag:fen_punt_out`, the mere's `flag:fen_punt_out`; `corran.json`'s `start` jumps to the `mere` knot
+while it is set. Both ways land on a `from_punt` spawn. In the smoke walk Corran becomes a mover on the
+second fen trip (the far trap is a pickup there once asked; the walk takes pickups before movers), so
+`_walk_the_heron` walks the mere (the skiff, the ladder, the glimpse, then Corran poles back) and has Oda
+sail it back to Thornwold **by option text**. `test_heron_light.gd` covers the rest.
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,

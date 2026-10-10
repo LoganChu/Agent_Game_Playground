@@ -551,6 +551,32 @@ forget. The fog is thickest and strangest here.
     channels and will take the Wakebearer out to the Heron "when I've decided whether I like you"
     (*A Light for Glasswater*, open).
 
+- **The Heron Light, part one (Day 33):**
+  - **What tips Corran:** asked again, he sends the Wakebearer for his **far trap**, set at the end of the
+    long walk the week the Unmoored started going in ("I don't walk where they walk"). It comes back with
+    no eels ("they won't go into the Deeps now") and **the keeper's skiff bell** in it — a little brass
+    bell she kept on the bow "so we'd hear her coming in, in fog". Her skiff is tied to the legs half a mile
+    away **and the fen's water doesn't move**: "So who brought it?" (open). He decides (bare ember: "Good";
+    cupped: "Huh."), gives the bell to the Wakebearer, and will pole them out.
+  - **Out through the channels:** Corran ties a knot in a cord at his belt at every turning, "so I can count
+    them back". Further in than Stillhithe, the Unmoored on the tussocks "stop sitting up". **The fog stands
+    off the Heron's legs** — "since the day it came. Keepers knew where to build. Or the fog knows
+    something"; his guess: "it's polite… there's something here it doesn't care to look at either" (open;
+    never explain).
+  - **The Foot:** a mud hummock south of the legs where the keepers landed, gone fog-coloured; a plank stage
+    to the ladder leg. **The keeper's skiff:** half full of still water, an oar across her; **her lantern in
+    the stern, cold, horn panes whole, still full of oil** — she didn't run out; the painter tied with a round
+    turn and two half hitches, "the way you tie up a boat you mean to come back to". The Wakebearer **ties
+    the bell back on her bow** or **keeps it** (`fen_skiff_bell`: hung / kept). **The ladder:** the rungs
+    above the slime are **scraped pale by boots, lately** — somebody climbs it (open). Corran: "I want a dry
+    day, and you want a reason."
+  - **Dunstan glimpsed** (mystery #5): a big man in a fisher's knit gone grey, an unlit lantern in his hand,
+    standing on a tussock at the fog's foot looking into the water "the way a man stands on a boat". Called
+    by name, he stops, doesn't turn, and steps down into the grey; watched, he goes "as if into a room he
+    knows"; after the `gull` burn the name isn't there to call (`fen_dunstan_glimpsed`). **If Mara's word was
+    tied on the letting post, a bit of red cord flicks at his belt as he goes** — he took it. Corran "didn't
+    see. I was counting," and looks a long time at the fog. Not met; no one follows them with a light.
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)

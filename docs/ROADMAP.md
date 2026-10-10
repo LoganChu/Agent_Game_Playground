@@ -250,6 +250,16 @@ with a meaningful burn choice → consequences visible in the village.
       gate** are **broken** (`net_loft_broken`) until the Gull is lit and **half-mended** after
       (`net_loft_mended`, new: pale new boards in the gaps, sailcloth lashed over the roof hole, the rail
       splinted with rope, a new net hung, the fallen one folded, new rungs, more boards waiting).
+- [x] [C] **The Heron Light, part one** (Day 33): asked again, Corran sends you for his **far trap** at the end
+      of the long walk in the Deeps' fog; in it, no eels — **the keeper's skiff bell**, half a mile from her skiff
+      through water that doesn't move ("So who brought it?"). He decides, gives you the bell, and **poles you out**
+      (knots on a cord at every turning) to a new region, **the Heron's Legs** (`heron_mere`): a hole in the fog
+      round the legs, the Foot (a mud hummock), a plank stage to the ladder, the Unmoored further in on tussocks.
+      **The keeper's skiff** (her lantern full of oil; tied to come back to) — hang the bell back on her bow or
+      keep it (`fen_skiff_bell`); **the ladder** scraped pale by boots, lately; **Dunstan glimpsed** — a big man
+      with an unlit lantern at the fog's foot who steps down into it (called / watched / nameless after the gull
+      burn; a red cord at his belt if Mara's word was left). New Blender character `dunstan`; Corran's punt is a
+      two-way `travel` (`fen_punt_out`); checkpoint `heron_mere`; the smoke walk goes out and back.
 
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
@@ -260,14 +270,15 @@ palette colors, strong silhouettes); every asset from a re-runnable `tools/blend
 each .glb < 5 MB.
 
 ### Next up
-1. [C] **The Heron Light, part one** (next content, due by Day 33 — next run): Corran decides he likes you (what tips
-   it? the ember shown, not cupped? an eel-trap errand?) and poles you out through the channels to the
-   Heron Light's legs in the Deeps (a punt `travel`, own region or the mere's edge); the keeper's skiff; what
-   happened to her (keep it open-ish); Unmoored further in; Dunstan glimpsed, not met. Keep the four
-   colliers and the Lamp's coal open.
-2. [A] **Art (due Day 34)**: the fen's flat white light — the pale shore band, the silverfog paint on
-   Stillhithe (see Known issues); or what part one of the Heron Light needs dressed (the legs up close,
-   the keeper's skiff, the channels).
+1. [A] **Art (due Day 34 — next run)**: the Heron up close (Day 33 uses the distance model): a proper
+   **keeper's skiff** prop (lantern in the stern, the bell on the bow when `fen_skiff_bell=hung`, an empty
+   bow when kept), **ladder rungs scraped pale** above the slime, tussocks under the Unmoored further in,
+   Corran's **knot-cord** at his belt; or the fen's flat white light (pale shore band, Stillhithe's paint).
+2. [C] **The Heron Light, part two** (content, due by Day 37): who climbs the ladder (keep the keeper's fate
+   open-ish; the bell's carrier); up the ladder on a dry day with a reason; the Heron's burn — what does
+   Glasswater offer, given the right to forget? (an Unmoored's put-down thing? Hesper's name? Corran's
+   channels?) Honour `fen_skiff_bell`, `fen_dunstan_glimpsed`, `fen_dunstan_word`. Dunstan stays unmet until
+   the burn or after. Keep the four colliers and the Lamp's coal open.
 3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
@@ -302,7 +313,7 @@ each .glb < 5 MB.
   Still to honour on Thornwold: `pells_pouch` (Pell stayed), the beacon-keeper; Keepers met
   later should react to `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (`future`).
 - [x] [C] Thornwold (forest, shifting paths): landing + Bram (Day 17), woods + Hob (Day 21), ridge + the Lamp (Day 25), the burn (Day 27). Later: the old Keepers' road north along the ridge — where the four colliers went (and whether Hob goes after them).
-- [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); next: the Heron Light out in the mere, the Deeps, Dunstan found.
+- [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); Day 33 out to the Heron's legs (Dunstan glimpsed); next: the Heron's burn, Dunstan found.
 - [S] Day/night cycle & tides; NPC schedules.
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
 - [S] Accessibility: colorblind-safe fog/ember cues, subtitles sizing, no timing gates.
@@ -333,7 +344,9 @@ each .glb < 5 MB.
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
 - Next polish/debt pass due Day 39 (Day 31 was the last). Candidates: the smoke walk's Thornwold Oda (below);
   Hesper's first talk can be walked past (then `fen_ember` stays unset and nobody turns — fine, but check
-  it reads); the fen's mirror water/colour with the Vulkan pass.
+  it reads); the fen's mirror water/colour with the Vulkan pass; Hesper and Oda don't yet remark on the trip out to the
+  Heron, the bell, or the big man (fold into part two); the Heron's boardwalk stage overlaps the ladder leg a
+  little (the model has no collider).
 - Test time budget: `tools/run_checks.sh` gives each step 300 s. Day 31: tests 26 s, smoke ~45 s, import the
   longest. The runner prints the slowest tests — check them when adding a validator pass over every region.
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog

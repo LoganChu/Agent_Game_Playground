@@ -2,6 +2,71 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-10 09:00 UTC — Day 33: The Heron Light, part one (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; checked out
+  `main` (at `origin/main`, Day 32's `be1030a`).
+- **Content (due today; last content Day 29):** ROADMAP *Next up* #1, *The Heron Light, part one*:
+  - **What tips Corran:** a new hub option, "Will you take me out to the Heron now?", gets an errand — his
+    **far trap** at the end of the long walk, in the Deeps' fog, set the week the Unmoored started going in
+    ("I don't walk where they walk"). The trap is a pickup there once asked (`fen_corran_trap_asked`; stage
+    `the_far_trap`). Brought back, it holds no eels and **the keeper's skiff bell** — her skiff is half a mile
+    away and the fen's water doesn't move: "So who brought it?" He decides (bare/cupped lines), gives you
+    the bell (`heron_skiff_bell`), stage `out_to_the_heron`.
+  - **The punt:** "Pole me out to the Heron." — the channels, Corran's knot-cord, the Unmoored further in
+    (one turns from a bare ember), the hole in the fog round the legs — a `travel` to a new region,
+    **the Heron's Legs** (`heron_mere`, stage `at_the_legs`). Corran waits by the punt there with his own talk
+    (why the fog stands off, the ones further in, the big man) and poles you back to a new `from_punt`
+    spawn at his landing; later trips are one line.
+  - **The Heron's Legs:** the Heron Light (the Day 29 model) over a mud hummock, **the Foot**, with a plank
+    stage to the ladder leg and a mud bar to the skiff; four Greying walls leave the legs in a clear hole;
+    three Unmoored on tussocks inside the fog; dead alders, reeds. Three things to look at:
+    **the keeper's skiff** (her lantern full of oil; tied up to come back to; hang the bell back on her bow
+    or keep it — `fen_skiff_bell`), **the ladder** (scraped pale by boots above the slime, lately;
+    `fen_heron_ladder_seen`), and **the big man** at the fog's foot — call his name (he stops, doesn't turn,
+    goes), watch him go, or, after the `gull` burn, find his name isn't there (`fen_dunstan_glimpsed`).
+    If Mara's word was tied on the letting post, a red cord flicks at his belt as he goes.
+  - **Art:** a new Blender character **`dunstan`** (big, a fisher's knit gone grey, oilskins, sea boots, dark
+    curls and beard, an unlit ship's lantern in his left hand, head down to the water), placed as a figure
+    prop with the `breathe` idle; gone once glimpsed.
+  - Checkpoint **`heron_mere`**; LORE (canon above), TECH (the punt's two-way travel), ROADMAP updated.
+- **Tests:** `test_heron_light.gd` (10): the errand, the trap's place in the Deeps, the bell and the decision
+  (bare/cupped/never-asked), poling out and back, where Corran and his punt are, the mere's layout (clear Foot,
+  reachable look-ats, the stage to the ladder, figures out of reach, the big man at the fog's foot), the
+  glimpse three ways + the red cord, the skiff bell, the ladder, the checkpoint. **Smoke walk** follows
+  Corran out on the second fen trip (`_walk_the_heron`), walks the Foot, comes back and has Oda sail it back.
+  234 tests + smoke + launch pass.
+
+Screenshots: `docs/checkpoints/heron_mere.png` (the Foot, Corran by the punt, the Heron dark in its hole in the
+fog, the Unmoored further in), `docs/screenshots/2026-10-10-heron-glimpse.png` (from the Foot's edge: the big man
+at the fog's foot, the stage to the ladder), `…-heron-skiff.png` (at the end of the mud bar by the skiff).
+
+**Decisions**
+- **An errand, not the ember, tips Corran.** The roadmap asked which; the ember answer already colours what he
+  says (and he likes a bare one), but making it the gate would punish the player for honouring Hesper's
+  request. The errand makes them walk where he won't, and the trap brings a new question (the bell) rather
+  than just a yes.
+- **Its own region, reached only by punt.** The Heron sits in the fen's Deeps, which the validator rightly
+  keeps out of walking reach. A small region with no exits keeps the fen's ember budget intact and makes the
+  punt the only way, as LORE says ("you poled out to it").
+- **The fog stands off the legs** (a clear hole): playable without draining the ember, and a quiet mystery
+  that rhymes with the Unmoored turning away. Corran guesses; nobody explains.
+- **Dunstan glimpsed, not met:** he never turns. The red cord pays off the letting post's Mara choice
+  without saying anything; `fen_dunstan_glimpsed` and `fen_skiff_bell` are `future` flags for part two.
+- **Kept open:** what happened to the keeper (her full lantern, the neat hitch), who climbs the ladder, who
+  carried the bell; the four colliers and the Lamp's coal.
+
+**Problems / notes**
+- The Heron's stage overlaps the ladder leg a touch (the model has no collider; it reads as the stage built up
+  to the leg). Validator wants piers on the ground grid — the stage is a whole-metre rect.
+- The heron light model is the distance model; up close the skiff is a plain box. Next art run.
+
+**Next run should**
+1. **Art (due Day 34)** — ROADMAP *Next up* #1: the Heron up close (a keeper's skiff prop with lantern and bell
+   states, scraped rungs, tussocks), or the fen's white light.
+2. Then *The Heron Light, part two* (content, by Day 37).
+
 ## 2026-10-09 21:00 UTC — Day 32: Aldous's bench and the gate lofts (art track)
 
 **Did**
