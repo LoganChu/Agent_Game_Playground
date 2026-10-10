@@ -8,7 +8,7 @@ mere, cold, an iron heron for a vane.
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_fen.py
     .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post heron_light staithe boardwalk
-        plank_path punt eel_traps alder_snag reed_bed]
+        plank_path punt eel_traps alder_snag reed_bed keeper_skiff tussock]
 
 Same conventions as build_dressing/build_ridge: origin at the base centre, flat-shaded,
 palette colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -173,13 +173,16 @@ def _heron(top: Vector, iron) -> None:
     beam("HeronCrest", tuple(head), tuple(head + Vector((0, 0.16, 0.05))), 0.012, iron)
 
 
-def build_heron_light() -> None:
+def _heron_light(near: bool) -> None:
     """Glasswater Fen's beacon, the Heron Light (~11 m to the vane), cold: Keepers built it out in
     the mere where the fen has no stone — four tall silvered timber legs driven into the mere bed
     (standing in ~0.9 m of water when placed at y -1.15), X-braced in two tiers; a plank platform
     at 6.2 m with a rail; a square lantern room with horn panes, dark; a steep reed-thatch roof;
     an iron heron for a vane. A ladder up one leg; a keeper's skiff tied to the legs, half full of
-    water. Cradle inside on an iron plate (ash in it)."""
+    water. Cradle inside on an iron plate (ash in it).
+
+    `near` (Day 34, `heron_light_near`, for the Heron's Legs) leaves the skiff off: up close she is
+    her own prop, `keeper_skiff`. The distance model keeps the block skiff so it reads from the fen."""
     bd.reset()
     LEG, BRACE, PLANK = mat("silverfog", -0.45), mat("silverfog", -0.55), mat("driftwood", -0.4)
     IRON, THATCH = mat("ink", 0.15), mat("driftwood", -0.2)
@@ -229,11 +232,21 @@ def build_heron_light() -> None:
     for s in (-1, 1):
         rod("LadderRail", tuple(a + side * s * 0.5 + Vector((0, -0.25, 0))), tuple(b + side * s * 0.5 + Vector((0, -0.25, 0))),
             0.035, PLANK, verts=4)
+    # Above the slime the rungs are scraped pale in the middle where boots go (Day 34): somebody
+    # climbs it, lately. Each rung is three lengths: dark ends, a pale worn middle.
+    worn = mat("bone", -0.22)
     for k in range(1, 20):
         p = a + (b - a) * (k / 20) + Vector((0, -0.25, 0))
-        beam("Rung", tuple(p - side * 0.5), tuple(p + side * 0.5), 0.04, mat("moss", -0.3) if k < 5 else PLANK)
+        if k < 5:
+            beam("Rung", tuple(p - side * 0.5), tuple(p + side * 0.5), 0.04, mat("moss", -0.3))
+            continue
+        for s0, s1, m in ((-0.5, -0.2, PLANK), (-0.2, 0.2, worn), (0.2, 0.5, PLANK)):
+            beam("Rung", tuple(p + side * s0), tuple(p + side * s1), 0.04, m)
     # The keeper's skiff tied to a back leg, half full of water: pale weathered boards and a bone
     # gunwale so it reads from the shore through the fog (Day 30), an oar left across it.
+    if near:
+        bd.export("heron_light_near")
+        return
     sk = Vector((foot + 1.0, foot - 0.4, 0.8))
     box("Skiff", (0.95, 2.5, 0.34), tuple(sk), mat("driftwood", 0.05), 0.35)
     box("SkiffGunwale", (1.05, 2.6, 0.06), tuple(sk + Vector((0, 0, 0.32))), mat("bone", -0.1), 0.35)
@@ -241,6 +254,104 @@ def build_heron_light() -> None:
     beam("SkiffOar", tuple(sk + Vector((-0.75, -0.3, 0.42))), tuple(sk + Vector((0.6, 0.35, 0.4))), 0.05, mat("bone", -0.1))
     rod("SkiffLine", tuple(sk + Vector((-0.3, 0.6, 0.35))), (foot, foot, 1.3), 0.015, mat("bone", -0.1), verts=3)
     bd.export("heron_light")
+
+
+def build_heron_light() -> None:
+    _heron_light(near=False)
+    _heron_light(near=True)
+
+
+# --- The Heron up close (Day 34) ----------------------------------------------------------
+
+# The keeper's skiff: bow at -Y (Godot +Z), origin at the bottom's centre. The painter runs from
+# the stem to the Heron's back-right leg; PAINTER_TO is where it meets the leg in the skiff's own
+# frame when placed as in heron_mere.json (tests/test_heron_close.gd checks it lands on the leg).
+# Placed at the waterline less 0.27 (half full, she sits low).
+SKIFF = dict(length=2.7, half_beam=0.52, depth=0.4, sheer=0.44)
+PAINTER_TO = Vector((1.0, -1.43, 0.83))
+
+
+def _keeper_skiff(bell: bool) -> None:
+    """The keeper's skiff (2.7 m), tied up the way you tie a boat you mean to come back to: pale
+    weathered clinker boards and a bone gunwale (it reads through the fog), **half full of water
+    so still it holds the sky**, an oar across the thwarts, **her lantern on its side in the
+    stern** (horn panes whole, cold), a stem-post at the bow with a hole worn smooth in it, and the
+    painter made fast to the leg. `bell`: the little brass bell hangs from the stem-post again,
+    green at the lip (`fen_skiff_bell=hung`)."""
+    bd.reset()
+    BOARD, RAIL = mat("driftwood", 0.05), mat("bone", -0.1)
+    st = bd.hull_stations(SKIFF["length"], SKIFF["half_beam"], SKIFF["depth"], SKIFF["sheer"])
+    bd.hull("Hull", st, SKIFF["depth"], SKIFF["sheer"], BOARD)
+    bd.gunwale("Gunwale", st, RAIL, thick=0.06)
+    bd.gunwale("Strake", st, mat("driftwood", -0.25), thick=0.035, drop=0.16)  # one clinker line, darker
+    for y in (-0.35, 0.45):
+        box("Thwart", (SKIFF["half_beam"] * 1.7, 0.2, 0.045), (0, y, SKIFF["sheer"] - 0.1), mat("driftwood", -0.15))
+    # The water in her: a flat dark sheet halfway up, the shape of the hull at that height.
+    wz = SKIFF["sheer"] - SKIFF["depth"] * 0.5
+    pts = [(y, w * 0.72) for y, w, _, _ in st[1:]]
+    verts = [(-w, y, wz) for y, w in pts] + [(w, y, wz) for y, w in reversed(pts)]
+    mesh = bpy.data.meshes.new("Bilge")
+    mesh.from_pydata(verts, [], [tuple(range(len(verts)))])
+    obj = bpy.data.objects.new("Bilge", mesh)
+    bpy.context.collection.objects.link(obj)
+    obj.modifiers.new("Thick", "SOLIDIFY").thickness = 0.03
+    bd.bp.finish(obj, mat("silverfog", -0.35))
+    # The oar across the thwarts, blade over the side.
+    rod("Oar", (-0.5, -0.5, SKIFF["sheer"] - 0.02), (0.75, 0.55, SKIFF["sheer"] + 0.02), 0.025, RAIL)
+    beam("OarBlade", (0.62, 0.44, SKIFF["sheer"] + 0.015), (0.95, 0.72, SKIFF["sheer"] + 0.03), 0.02, RAIL, width=0.13)
+    # Her lantern on its side in the stern: a square frame lying along X, horn panes, a ring handle.
+    lz, ly = SKIFF["sheer"] - 0.12, 1.0
+    frame = mat("ink", 0.2)
+    box("LanternPanes", (0.3, 0.17, 0.17), (0.05, ly, lz), mat("kindle", -0.5))
+    for x in (-0.11, 0.21):
+        box("LanternCap", (0.04, 0.21, 0.21), (x, ly, lz - 0.02), frame)
+    for dy in (-0.09, 0.09):
+        for dz in (0.0, 0.17):
+            beam("LanternRib", (-0.11, ly + dy, lz + dz), (0.21, ly + dy, lz + dz), 0.02, frame)
+    rod("LanternRing", (-0.13, ly, lz + 0.085), (-0.24, ly + 0.05, lz + 0.085), 0.012, frame, verts=4)
+    # The stem-post at the bow, a little proud of the sheer, the hole worn in it (a dark pip).
+    bow = Vector((0, st[0][0] + 0.06, st[0][2]))
+    rod("StemPost", tuple(bow - Vector((0, 0, 0.18))), tuple(bow + Vector((0, -0.03, 0.2))), 0.04, mat("driftwood", -0.3),
+        verts=5)
+    hole = bow + Vector((0, -0.06, 0.12))
+    box("StemHole", (0.04, 0.02, 0.04), tuple(hole), mat("ink", 0.0))
+    if bell:
+        cord = mat("coal", -0.6)
+        rod("BellCord", tuple(hole), tuple(hole + Vector((0, -0.03, -0.1))), 0.008, cord, verts=3)
+        bz = hole + Vector((0, -0.04, -0.12))
+        cyl("Bell", 0.065, 0.035, 0.11, 7, tuple(bz - Vector((0, 0, 0.11))), mat("ember", -0.35))
+        cyl("BellLip", 0.068, 0.068, 0.02, 7, tuple(bz - Vector((0, 0, 0.12))), mat("moss", -0.15))
+    # The painter: from the stem-post up to the leg (it ends inside the leg, where it's made fast).
+    rod("Painter", tuple(bow + Vector((0, 0, 0.05))), tuple(PAINTER_TO), 0.014, RAIL, verts=3)
+    bd.export("keeper_skiff_bell" if bell else "keeper_skiff")
+
+
+def build_keeper_skiff() -> None:
+    _keeper_skiff(bell=False)
+    _keeper_skiff(bell=True)
+
+
+def build_tussock() -> None:
+    """A sedge tussock out in the mere (~1.7 m across, to 0.6 m): a low mound of dark peat just
+    proud of the water, a ring of coarse sedge round it (green going grey and flattened on the
+    side away from the light), dead blades lying over the water. Its middle is low (6 cm) so a
+    figure can stand on it without wading."""
+    bd.reset()
+    rng = random.Random(34)
+    cyl("Mound", 0.85, 0.55, 0.08, 9, (0, 0, -0.02), mat("ink", 0.22))
+    cyl("MoundTop", 0.55, 0.35, 0.04, 9, (0, 0, 0.05), mat("pine", -0.45))
+    SEDGE = (mat("moss", -0.2), mat("moss", -0.4), mat("silverfog", -0.3), mat("driftwood", -0.25))
+    for i in range(30):
+        a = i / 30 * math.tau + rng.uniform(-0.08, 0.08)
+        r = rng.uniform(0.5, 0.78)
+        base = Vector((math.cos(a) * r, math.sin(a) * r, 0.04))
+        out = Vector((math.cos(a), math.sin(a), 0))
+        flat = math.sin(a) > 0.3  # the back (+Y) gone over
+        lean = rng.uniform(0.35, 0.6) if flat else rng.uniform(0.08, 0.28)
+        up = rng.uniform(0.12, 0.2) if flat else rng.uniform(0.32, 0.6)
+        tip = base + out * lean + Vector((rng.uniform(-0.06, 0.06), rng.uniform(-0.06, 0.06), up))
+        rod("Sedge", tuple(base), tuple(tip), 0.045, SEDGE[2 + i % 2] if flat else SEDGE[i % 2], verts=3, r_end=0.0)
+    bd.export("tussock")
 
 
 # --- The fen, dressed (Day 30) -----------------------------------------------------------
@@ -468,8 +579,8 @@ def build_reed_bed() -> None:
 
 
 BUILDERS = [build_reed_house, build_letting_post, build_heron_light, build_staithe, build_boardwalk, build_plank_path,
-            build_punt, build_eel_traps, build_alder_snag, build_reed_bed]
-ALIASES = {"letting_post_word": "letting_post"}
+            build_punt, build_eel_traps, build_alder_snag, build_reed_bed, build_keeper_skiff, build_tussock]
+ALIASES = {"letting_post_word": "letting_post", "heron_light_near": "heron_light", "keeper_skiff_bell": "keeper_skiff"}
 
 if __name__ == "__main__":
     only = {ALIASES.get(a, a) for a in sys.argv[1:] if not a.startswith("-")}
