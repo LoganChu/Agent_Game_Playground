@@ -738,6 +738,16 @@ def build_corran() -> None:
     t = b.parts["Torso"]
     t.append(limb((0, 0, b.hip - 0.14), (0, 0, b.waist + 0.06), 0.29, 0.27, smock, verts=8))
     t.append(ring(0.29, b.waist + 0.03, 0.05, material("driftwood", -0.4)))
+    # (Day 34) The knot-cord at his belt, left hip: a short tarred cord hanging from the belt with
+    # a row of knots in it — one tied at every turning out through the channels, "so I can count
+    # them back".
+    # Front of the hip, clear of his arm, the knots pale so they count from a few metres off.
+    cord, knot = material("coal", -0.6), material("driftwood", -0.25)
+    top = Vector((0.17, -0.29, b.waist + 0.03))
+    low = top + Vector((0.03, -0.05, -0.36))
+    t.append(limb(top, low, 0.014, 0.012, cord, verts=4))
+    for k in range(5):
+        t.append(ball(0.03, top + (low - top) * (0.22 + k * 0.17), knot, segments=5, rings=4))
     # The creel: a reed basket on his back with a strap across the chest.
     # (Day 30: bigger and woven so it reads behind him: hoops, a lid, an eel's tail over the rim.)
     creel = material("driftwood", -0.12)
