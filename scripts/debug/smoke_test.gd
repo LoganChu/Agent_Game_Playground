@@ -163,6 +163,37 @@ func _sail_the_fen_lane(main: Node, ui: DialogueUI) -> void:
 			# Before the walk: it ends with Oda sailing back (the region's nodes go).
 			await _check_unmoored_look_away(region)
 		await _walk_region(main, ui, region, trip)
+		if (main.get("region") as Region).region_id == "heron_mere":
+			await _walk_the_heron(main, ui, trip)
+
+
+## Day 33: the first fen walk asks Corran to take you out and he sends you for his far trap; the
+## second lifts it (a pickup at the end of the long walk), brings it back, and Corran poles the walk
+## out to the Heron's legs (a `travel`, which ends the fen's walk). Walk the Foot — the skiff, the
+## ladder, the big man at the fog's edge, who goes — let Corran pole back, and let Oda carry the walk
+## back to Thornwold as the fen walk would have.
+func _walk_the_heron(main: Node, ui: DialogueUI, trip: int) -> void:
+	var mere: Region = main.get("region")
+	_walked[mere.region_id] = true
+	_check(GameState.world.get_flag("fen_punt_out") == true, "out at the Heron in Corran's punt")
+	_check(mere.shown_conditional_props() == 2, "the punt and the big man at the fog's edge show (%d)" % mere.shown_conditional_props())
+	_check(get_tree().get_nodes_in_group("npcs").any(func(n: Node) -> bool: return (n as NpcActor).npc_id == "corran"),
+			"Corran waits on the Foot")
+	_check(await _walk_region(main, ui, mere, trip), "Corran poles the walk back")
+	_check(str(GameState.world.get_flag("fen_dunstan_glimpsed")) in ["called", "watched", "nameless"], "the big man was glimpsed")
+	_check(str(GameState.world.get_flag("fen_skiff_bell")) in ["hung", "kept"], "the keeper's bell was hung or kept")
+	var fen: Region = main.get("region")
+	_check(fen.region_id == "glasswater_fen" and GameState.world.get_flag("fen_punt_out") == false, "back at Corran's landing")
+	if fen.region_id != "glasswater_fen":
+		return
+	for node in get_tree().get_nodes_in_group("npcs"):
+		if (node as NpcActor).npc_id == "oda" and not node.is_queued_for_deletion():
+			(node as NpcActor).interact()
+			_check(_choose(ui, "Take me back to Thornwold."), "Oda runs back to Thornwold from the fen")
+			_finish_dialogue(ui, "oda (back to Thornwold)")
+	for i in 3:
+		await get_tree().physics_frame
+	_check((main.get("region") as Region).region_id == "thornwold_landing", "Oda sailed the walk back to Thornwold")
 
 
 ## Day 31: the Unmoored by the pools turn their faces from a bare ember, live (the rig reads the
