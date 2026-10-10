@@ -176,7 +176,8 @@ func _walk_the_heron(main: Node, ui: DialogueUI, trip: int) -> void:
 	var mere: Region = main.get("region")
 	_walked[mere.region_id] = true
 	_check(GameState.world.get_flag("fen_punt_out") == true, "out at the Heron in Corran's punt")
-	_check(mere.shown_conditional_props() == 2, "the punt and the big man at the fog's edge show (%d)" % mere.shown_conditional_props())
+	# Day 34: the keeper's skiff is her own prop, with a bare bow until the bell is hung back.
+	_check(mere.shown_conditional_props() == 3, "the punt, the big man at the fog's edge and the bare-bowed skiff show (%d)" % mere.shown_conditional_props())
 	_check(get_tree().get_nodes_in_group("npcs").any(func(n: Node) -> bool: return (n as NpcActor).npc_id == "corran"),
 			"Corran waits on the Foot")
 	_check(await _walk_region(main, ui, mere, trip), "Corran poles the walk back")

@@ -220,7 +220,7 @@
   },
   "props": [
     {
-      "model": "res://assets/models/dressing/heron_light.glb",
+      "model": "res://assets/models/dressing/heron_light_near.glb",
       "position": [
         0,
         -1.15,
@@ -228,7 +228,31 @@
       ],
       "rotation_y": 0,
       "snap": false,
-      "note": "The Heron Light up close: four tall legs in the mere, the ladder up the front-left leg (by the boardwalk's end), the keeper's skiff tied to the back-right leg (by the mud bar). Dark."
+      "note": "The Heron Light up close (the near model: no block skiff; the rungs above the slime scraped pale): four tall legs in the mere, the ladder up the front-left leg (by the boardwalk's end), the keeper's skiff tied to the back-right leg (by the mud bar). Dark."
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_skiff.glb",
+      "position": [
+        3.0,
+        -0.52,
+        -5.6
+      ],
+      "rotation_y": 204,
+      "snap": false,
+      "if": "!flag:fen_skiff_bell=hung",
+      "note": "The keeper's skiff, tied to the Heron's back-right leg at the mud bar's end: half full of still water, her lantern on its side in the stern, the painter made fast; the stem-post bare (the bell is in a trap, then in your satchel)."
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_skiff_bell.glb",
+      "position": [
+        3.0,
+        -0.52,
+        -5.6
+      ],
+      "rotation_y": 204,
+      "snap": false,
+      "if": "flag:fen_skiff_bell=hung",
+      "note": "The same, with the brass bell tied back on her bow (fen_skiff_bell=hung)."
     },
     {
       "model": "res://assets/models/dressing/boardwalk.glb",
@@ -315,6 +339,43 @@
       "idle": "breathe",
       "if": "!flag:fen_dunstan_glimpsed",
       "note": "A big man with an unlit lantern standing on a tussock at the foot of the fog wall, looking down into the water (Dunstan, glimpsed; he walks off into the fog once seen)."
+    },
+    {
+      "model": "res://assets/models/dressing/tussock.glb",
+      "position": [
+        -5,
+        0,
+        -11.5
+      ],
+      "rotation_y": 0,
+      "note": "The big man's tussock at the fog's foot. Sedge tussocks under the figures out in the fog (Day 34)."
+    },
+    {
+      "model": "res://assets/models/dressing/tussock.glb",
+      "position": [
+        -13,
+        0,
+        -6
+      ],
+      "rotation_y": 70
+    },
+    {
+      "model": "res://assets/models/dressing/tussock.glb",
+      "position": [
+        11.6,
+        0,
+        -11.5
+      ],
+      "rotation_y": 150
+    },
+    {
+      "model": "res://assets/models/dressing/tussock.glb",
+      "position": [
+        12.6,
+        0,
+        4.4
+      ],
+      "rotation_y": 230
     },
     {
       "model": "res://assets/models/characters/unmoored_shawl.glb",
