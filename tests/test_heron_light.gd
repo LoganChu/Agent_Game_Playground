@@ -194,7 +194,7 @@ func test_the_heron_mere_layout() -> void:
 	for who: Dictionary in region["npcs"]:
 		assert_true(field.near_reachable(reachable, float(who["position"][0]), float(who["position"][2]), 1.5), "%s can be walked to" % who["npc"])
 	# The Heron up close: the stage runs out to the ladder leg; the skiff is by the mud bar's end.
-	var heron: Dictionary = (region["props"] as Array).filter(func(p: Dictionary) -> bool: return str(p["model"]).ends_with("/heron_light.glb"))[0]
+	var heron: Dictionary = (region["props"] as Array).filter(func(p: Dictionary) -> bool: return str(p["model"]).ends_with("/heron_light_near.glb"))[0]
 	var at := _xz(heron["position"])
 	assert_eq(float(heron["rotation_y"]), 0.0, "the ladder faces the Foot")
 	var ladder_foot := at + Vector2(-1.6, 1.85)  # the model's front-left leg, ladder side

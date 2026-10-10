@@ -50,7 +50,7 @@ func test_every_model_loads_small_and_upright() -> void:
 		var limit := Vector3(8.0, 7.0, 8.0)
 		if path.ends_with("ferry.glb"):
 			limit = Vector3(12.0, 9.0, 12.0)
-		elif path.get_file().begins_with("thornwold_beacon") or path.get_file() == "heron_light.glb":
+		elif path.get_file().begins_with("thornwold_beacon") or path.get_file().begins_with("heron_light"):
 			limit = Vector3(8.0, 11.0, 8.0)
 		assert_true(box.size.length() > 0.2 and box.size.x < limit.x and box.size.z < limit.z and box.size.y < limit.y, "%s has sane bounds %s" % [path, box])
 		# Boats sit on the waterline; the dock (and the fen's staithe/boardwalk) and lantern room are placed at absolute heights.
