@@ -177,7 +177,8 @@ func _walk_the_heron(main: Node, ui: DialogueUI, trip: int) -> void:
 	_walked[mere.region_id] = true
 	_check(GameState.world.get_flag("fen_punt_out") == true, "out at the Heron in Corran's punt")
 	# Day 34: the keeper's skiff is her own prop, with a bare bow until the bell is hung back.
-	_check(mere.shown_conditional_props() == 3, "the punt, the big man at the fog's edge and the bare-bowed skiff show (%d)" % mere.shown_conditional_props())
+	# Day 35: the cold Heron is conditional too (the lit one waits for the burn).
+	_check(mere.shown_conditional_props() == 4, "the cold Heron, the punt, the big man at the fog's edge and the bare-bowed skiff show (%d)" % mere.shown_conditional_props())
 	_check(get_tree().get_nodes_in_group("npcs").any(func(n: Node) -> bool: return (n as NpcActor).npc_id == "corran"),
 			"Corran waits on the Foot")
 	_check(await _walk_region(main, ui, mere, trip), "Corran poles the walk back")
@@ -185,6 +186,10 @@ func _walk_the_heron(main: Node, ui: DialogueUI, trip: int) -> void:
 	_check(str(GameState.world.get_flag("fen_skiff_bell")) in ["hung", "kept"], "the keeper's bell was hung or kept")
 	var fen: Region = main.get("region")
 	_check(fen.region_id == "glasswater_fen" and GameState.world.get_flag("fen_punt_out") == false, "back at Corran's landing")
+	if fen.region_id != "glasswater_fen":
+		return
+	await _light_the_heron(main, ui)
+	fen = main.get("region")
 	if fen.region_id != "glasswater_fen":
 		return
 	for node in get_tree().get_nodes_in_group("npcs"):
@@ -195,6 +200,75 @@ func _walk_the_heron(main: Node, ui: DialogueUI, trip: int) -> void:
 	for i in 3:
 		await get_tree().physics_frame
 	_check((main.get("region") as Region).region_id == "thornwold_landing", "Oda sailed the walk back to Thornwold")
+
+
+## Day 35: the Heron Light, part two, live: tell Hesper about the trip (her little light on the ladder
+## is the reason), have Corran pole the walk out again, climb with him holding the foot, take his
+## knot-cord at the legs and burn it in the cradle; the lit Heron replaces the cold one in the
+## region, and Corran poles back by its light (no cord to count).
+func _light_the_heron(main: Node, ui: DialogueUI) -> void:
+	var hesper := _npc("hesper")
+	_check(hesper != null, "Hesper on the staithe after the trip out")
+	if hesper == null:
+		return
+	hesper.interact()
+	_check(_choose(ui, "I've been out to the Heron."), "Hesper asks about the trip out")
+	_check(_choose(ui, "Goodbye."), "...and lets you go")
+	_finish_dialogue(ui, "hesper (the light on the ladder)")
+	_check(GameState.world.quest_stage("a_light_for_glasswater") == "up_the_ladder", "a reason to climb")
+	var corran := _npc("corran")
+	if corran == null:
+		_check(false, "Corran at his landing")
+		return
+	corran.interact()
+	_check(_choose(ui, "Pole me out to the Heron again."), "Corran poles out again")
+	_finish_dialogue(ui, "corran (out again)")
+	for i in 3:
+		await get_tree().physics_frame
+	var mere: Region = main.get("region")
+	_check(mere.region_id == "heron_mere", "out at the legs again")
+	if mere.region_id != "heron_mere":
+		return
+	var ladder := _object("heron_ladder")
+	ladder.interact()
+	_check(_choose(ui, "Climb."), "Corran holds the foot on a dry day")
+	_finish_dialogue(ui, "the climb")
+	_check(GameState.world.quest_stage("a_light_for_glasswater") == "feed_the_heron", "the cradle wants something held")
+	_npc("corran").interact()
+	_check(_choose(ui, "The Heron wants something somebody here still holds."), "Corran asked for his channels")
+	_check(_choose(ui, "Give it, Corran. For the light."), "...and gives his cord")
+	_check(_choose(ui, "Not yet."), "...and goes on waiting")
+	_finish_dialogue(ui, "corran (the cord)")
+	ladder.interact()
+	_check(_choose(ui, "Set Corran's knot-cord in the cradle."), "the cord set in the cradle")
+	_check(_choose(ui, "Burn Corran's channels."), "...and burned")
+	_finish_dialogue(ui, "the Heron's burning")
+	for i in 3:
+		await get_tree().process_frame
+	_check(GameState.world.quest_state("a_light_for_glasswater") == WorldState.QUEST_DONE, "the Heron Light is lit")
+	# Lit: the cold Heron and the big man gone; the lit Heron, the punt and the skiff show.
+	_check(mere.shown_conditional_props() == 3, "the lit Heron, the punt and the skiff show (%d)" % mere.shown_conditional_props())
+	_check(mere.find_children("*", "OmniLight3D", true, false).size() > 0, "the lit Heron lights the Foot")
+	_npc("corran").interact()
+	_check(_choose(ui, "Take me back."), "Corran poles back by the light")
+	_finish_dialogue(ui, "corran (back by the light)")
+	for i in 3:
+		await get_tree().physics_frame
+	_check((main.get("region") as Region).region_id == "glasswater_fen", "back at the landing, the Heron lit")
+
+
+func _npc(id: String) -> NpcActor:
+	for node in get_tree().get_nodes_in_group("npcs"):
+		if (node as NpcActor).npc_id == id and not node.is_queued_for_deletion():
+			return node
+	return null
+
+
+func _object(id: String) -> Inspectable:
+	for node in get_tree().get_nodes_in_group("inspectables"):
+		if (node as Inspectable).object_id == id and not node.is_queued_for_deletion():
+			return node
+	return null
 
 
 ## Day 31: the Unmoored by the pools turn their faces from a bare ember, live (the rig reads the
@@ -659,7 +733,7 @@ func _check_crossing(main: Node) -> void:
 	_check(world.get_flag("fen_landed") == true, "the fen arrival scene played")
 	_check(world.get_flag("fen_met_hesper") == true and str(world.get_flag("fen_ember")) in ["cupped", "bare"], "met Hesper and answered her about the ember (%s)" % world.get_flag("fen_ember"))
 	_check(world.get_flag("fen_met_corran") == true, "met Corran Teal")
-	_check(world.quest_state("a_light_for_glasswater") == WorldState.QUEST_ACTIVE, "Corran told of the Heron Light (A Light for Glasswater)")
+	_check(world.quest_state("a_light_for_glasswater") == WorldState.QUEST_DONE, "the Heron Light lit (A Light for Glasswater, %s)" % world.get_flag("fen_beacon_burned"))
 	_check(world.quest_state("the_letting_post") == WorldState.QUEST_DONE, "left word (or nothing) on the letting post (%s)" % world.get_flag("fen_dunstan_word"))
 	GameState.travel("thornwold_landing")
 	for i in 3:

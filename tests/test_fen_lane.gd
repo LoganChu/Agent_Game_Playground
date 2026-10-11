@@ -218,7 +218,7 @@ func test_corran_and_the_heron_light() -> void:
 	var text := _lines(state, "corran", ["Tell me about the Heron Light."])
 	assert_true(text.contains("Corran Teal") and text.contains("skiff"), "Corran tells of the keeper who poled out")
 	assert_eq(state.quest_state("a_light_for_glasswater"), WorldState.QUEST_ACTIVE, "A Light for Glasswater begins")
-	assert_true(bool(_db.quests["a_light_for_glasswater"].get("future", false)), "its payoff is a later session's")
+	assert_false(bool(_db.quests["a_light_for_glasswater"].get("future", false)), "it completes since Day 35 (the Heron's burn)")
 	assert_false(_offered(state, "corran").has("A big man came here in a rowboat, Hesper says."), "Corran's whittler waits on Hesper")
 	_lines(state, "hesper", ["Close your hand over the ember.", ROWBOAT])
 	assert_true(_lines(state, "corran", ["A big man came here in a rowboat, Hesper says."]).contains("It's for after"))
