@@ -173,7 +173,7 @@ def _heron(top: Vector, iron) -> None:
     beam("HeronCrest", tuple(head), tuple(head + Vector((0, 0.16, 0.05))), 0.012, iron)
 
 
-def _heron_light(near: bool) -> None:
+def _heron_light(near: bool, lit: bool = False) -> None:
     """Glasswater Fen's beacon, the Heron Light (~11 m to the vane), cold: Keepers built it out in
     the mere where the fen has no stone — four tall silvered timber legs driven into the mere bed
     (standing in ~0.9 m of water when placed at y -1.15), X-braced in two tiers; a plank platform
@@ -182,7 +182,11 @@ def _heron_light(near: bool) -> None:
     water. Cradle inside on an iron plate (ash in it).
 
     `near` (Day 34, `heron_light_near`, for the Heron's Legs) leaves the skiff off: up close she is
-    her own prop, `keeper_skiff`. The distance model keeps the block skiff so it reads from the fen."""
+    her own prop, `keeper_skiff`. The distance model keeps the block skiff so it reads from the fen.
+
+    `lit` (Day 35, `heron_light_lit` / `heron_light_near_lit`, after Glasswater's burning): the horn
+    panes glow and let a fire show through — coals, ember tongues and a kindle heart in the cradle
+    (glass centre ≈ (0, 0, 7.0)), as the Ridge Light's."""
     bd.reset()
     LEG, BRACE, PLANK = mat("silverfog", -0.45), mat("silverfog", -0.55), mat("driftwood", -0.4)
     IRON, THATCH = mat("ink", 0.15), mat("driftwood", -0.2)
@@ -214,13 +218,27 @@ def _heron_light(near: bool) -> None:
     # The lantern room: dark timber frame, horn panes (cold: dark), a cradle on an iron plate.
     rz, rh, rhalf = plat_z + 0.16, 1.4, 0.85
     box("RoomSill", (rhalf * 2 + 0.16, rhalf * 2 + 0.16, 0.16), (0, 0, rz), PLANK)
-    box("Panes", (rhalf * 2 - 0.06, rhalf * 2 - 0.06, rh - 0.3), (0, 0, rz + 0.16), mat("ink", 0.12))
+    pane = bd.horn("kindle", 0.3, glow=0.35) if lit else mat("ink", 0.12)
+    box("Panes", (rhalf * 2 - 0.06, rhalf * 2 - 0.06, rh - 0.3), (0, 0, rz + 0.16), pane)
     for sx in (-1, 1):
         for sy in (-1, 1):
             box("RoomPost", (0.13, 0.13, rh), (sx * rhalf, sy * rhalf, rz), mat("pine", -0.6))
     box("RoomHead", (rhalf * 2 + 0.2, rhalf * 2 + 0.2, 0.14), (0, 0, rz + rh - 0.1), mat("pine", -0.6))
     box("CradlePlate", (0.5, 0.5, 0.06), (0, 0, rz + 0.16), IRON)
-    cyl("Ash", 0.2, 0.12, 0.1, 6, (0, 0, rz + 0.22), mat("silverfog", -0.15))
+    if not lit:
+        cyl("Ash", 0.2, 0.12, 0.1, 6, (0, 0, rz + 0.22), mat("silverfog", -0.15))
+    else:
+        # The fire in the cradle (the Ridge Light's, a size smaller): red coals, ember tongues
+        # leaning together, a kindle heart — all emissive, seen through the horn.
+        cyl("Coals", 0.2, 0.14, 0.12, 7, (0, 0, rz + 0.22), mat("coal", 0.0, emissive=True))
+        for k in range(5):
+            a = k / 5 * math.tau + 0.3
+            r = 0.08 + 0.03 * (k % 2)
+            h = 0.36 + 0.1 * ((k * 3) % 5) / 4
+            tongue = cyl("Tongue", 0.08, 0.0, h, 4, (math.cos(a) * r, math.sin(a) * r, rz + 0.3),
+                         mat("ember", 0.0, emissive=True), a)
+            tongue.rotation_euler = (math.sin(a) * 0.22, -math.cos(a) * 0.22, 0)  # tips lean in
+        cyl("Heart", 0.08, 0.0, 0.52, 5, (0, 0, rz + 0.3), mat("kindle", 0.0, emissive=True))
     # The roof: a steep four-sided reed-thatch pyramid with a shaggy eave.
     roof_z = rz + rh + 0.02
     cyl("Roof", rhalf * 1.95, 0.08, 1.7, 4, (0, 0, roof_z), THATCH, math.pi / 4)
@@ -244,8 +262,9 @@ def _heron_light(near: bool) -> None:
             beam("Rung", tuple(p + side * s0), tuple(p + side * s1), 0.04, m)
     # The keeper's skiff tied to a back leg, half full of water: pale weathered boards and a bone
     # gunwale so it reads from the shore through the fog (Day 30), an oar left across it.
+    suffix = "_lit" if lit else ""
     if near:
-        bd.export("heron_light_near")
+        bd.export("heron_light_near" + suffix)
         return
     sk = Vector((foot + 1.0, foot - 0.4, 0.8))
     box("Skiff", (0.95, 2.5, 0.34), tuple(sk), mat("driftwood", 0.05), 0.35)
@@ -253,12 +272,13 @@ def _heron_light(near: bool) -> None:
     box("SkiffWater", (0.8, 2.2, 0.05), tuple(sk + Vector((0, 0, 0.2))), mat("slate", -0.2), 0.35)
     beam("SkiffOar", tuple(sk + Vector((-0.75, -0.3, 0.42))), tuple(sk + Vector((0.6, 0.35, 0.4))), 0.05, mat("bone", -0.1))
     rod("SkiffLine", tuple(sk + Vector((-0.3, 0.6, 0.35))), (foot, foot, 1.3), 0.015, mat("bone", -0.1), verts=3)
-    bd.export("heron_light")
+    bd.export("heron_light" + suffix)
 
 
 def build_heron_light() -> None:
-    _heron_light(near=False)
-    _heron_light(near=True)
+    for lit in (False, True):
+        _heron_light(near=False, lit=lit)
+        _heron_light(near=True, lit=lit)
 
 
 # --- The Heron up close (Day 34) ----------------------------------------------------------
@@ -580,7 +600,8 @@ def build_reed_bed() -> None:
 
 BUILDERS = [build_reed_house, build_letting_post, build_heron_light, build_staithe, build_boardwalk, build_plank_path,
             build_punt, build_eel_traps, build_alder_snag, build_reed_bed, build_keeper_skiff, build_tussock]
-ALIASES = {"letting_post_word": "letting_post", "heron_light_near": "heron_light", "keeper_skiff_bell": "keeper_skiff"}
+ALIASES = {"letting_post_word": "letting_post", "heron_light_near": "heron_light", "heron_light_lit": "heron_light",
+           "heron_light_near_lit": "heron_light", "keeper_skiff_bell": "keeper_skiff"}
 
 if __name__ == "__main__":
     only = {ALIASES.get(a, a) for a in sys.argv[1:] if not a.startswith("-")}
