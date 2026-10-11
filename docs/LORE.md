@@ -581,6 +581,43 @@ forget. The fog is thickest and strangest here.
     tied on the letting post, a bit of red cord flicks at his belt as he goes** — he took it. Corran "didn't
     see. I was counting," and looks a long time at the fog. Not met; no one follows them with a light.
 
+- **The Heron Light, part two — Glasswater's burning (Day 35):**
+  - **The reason:** back from the legs, Hesper hears about the trip (the bell hung: "where she'd want it, if
+    she comes in"; kept: "don't ring it on my staithe"; Dunstan called: "then he's not finished — it's only
+    weather"; watched: the rule kept where nobody would have seen; nameless: "I could. I'll not") and tells
+    what she's seen: **some nights a small light goes up the Heron's ladder, stays a while, and comes down
+    again — "like somebody sitting up with someone sleeping."** That's the reason; Corran calls the day dry
+    enough ("fog's lifted a hand off the water") and holds the foot.
+  - **The lantern room:** a trapdoor propped open with a peg ("somebody leaves it so"). **The cradle holds no
+    ash: it is heaped with things the Unmoored put down** — a child's shoe, a ribbon, a spoon, a key, a comb,
+    a button, letters folded small — laid in carefully, "the way you'd lay a fire, or put a child down to
+    sleep" (the same sort of things nobody took from the letting post). **On its rim, a whittled gull in
+    Dunstan's hand** (red cord round its neck if Mara's word was left). On the boards **the keeper's coat,
+    folded small and square, the stitched ember on top — "the way you fold a thing you've finished with"**,
+    while her skiff below is tied the way you tie a boat you mean to come back to. "Both of those are true,
+    somehow." (Open: what she did; who carries the put-down things up; the climber is Dunstan, or not only.)
+  - **A beacon won't burn what nobody holds.** The cradle leans to the ember and gives up: the put-down
+    things are cold because nobody remembers them. Only two people in the fen still hold anything —
+    **Hesper, her name** ("I kept it to meet the boats with; somebody ought to say who's meeting them, at a
+    staithe") and **Corran, his channels** (his knot-cord: seventy years of turnings, his sister small in the
+    bow). Both give freely when asked: Hesper says her name out over the pool until the third time it
+    doesn't come back, and lifts a **silvered, lettered reed** from where it went; Corran holds the cord out
+    in the fog until the tar goes silver ("Mind you count them"). Hesper keeps Dunstan's name: "not mine to
+    give." The Wakebearer lifts the cold things out and sets them along the sill first — **they aren't
+    theirs to burn.**
+  - **Glasswater's burning** (`fen_beacon_burned`): **`name`** — Hesper meets the boats without a name; said
+    to her, she looks over her shoulder to see who's meant ("I meet the boats. That's who I am, now. It
+    does."); Corran: "I mind for her." **`channels`** — nobody living knows the deep channels; the fen folk on
+    the lanes can't come home through the Deeps; Corran poles back once by the light ("wherever the gold lies
+    on the water there's a channel under it") and never out again ("It's lit. It doesn't need us."). The
+    unburned Remnant goes back to its owner.
+  - **Lit:** gold through the horn panes, lying on the mere ("the mere holds it the way it holds a face").
+    The hole round the legs opens; the fog leans back off the channels, pools and the long walk — **except
+    over Stillhithe, where it stays thin "as if it had been asked to"** (the Unmoored keep their fog). The
+    keeper's bell **rings once by itself** (on her bow, or in the satchel). **Out at the fog's foot, where the
+    big man stood, a lantern is lit — "It's for after" — and is carried away into the grey.** Dunstan is still
+    not met.
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)

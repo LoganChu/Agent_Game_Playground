@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-11 09:00 UTC — Day 35: The Heron Light, part two — Glasswater's burning (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again, and this time the
+  local `main` was **stale (Day 24)** — fast-forwarded it to `origin/main` (Day 34's `ad93d06`) before working.
+  Baseline green (240 tests + smoke + launch).
+- **Content (due by Day 37; last content Day 33):** ROADMAP *Next up* #1, *The Heron Light, part two*:
+  - **The reason:** a new Hesper option once you've been out ("I've been out to the Heron."): she answers the
+    bell (hung/kept), the big man (called/watched/nameless) and the ladder, then tells of **a small light that
+    goes up the Heron's ladder some nights and comes down again** — stage `up_the_ladder`.
+  - **The dry day:** at the ladder Corran comes along the stage, calls it dry enough, holds the foot. **Climb.**
+  - **The lantern room** (`heron_ladder.json` `climb`): the cradle heaped with **cold put-down things**, a
+    **whittled gull** in Dunstan's hand on its rim (name slides off after the `gull` burn; **Mara's red cord round
+    its neck** if her word was left), **the keeper's coat folded** on the boards. The cradle leans to the ember and
+    gives up: it won't burn what nobody holds. Stage `feed_the_heron`.
+  - **Two new Remnants, both given freely:** **Hesper's name** (`hespers_name` — she says it out over the pool till
+    it doesn't come back; she keeps Dunstan's: "not mine to give") and **Corran's channels** (`corrans_knot_cord`,
+    asked at the legs or the landing). Burn at the cradle (weigh → confirm, the cold things set on the sill
+    first): `fen_beacon_burned` = `name` / `channels`. Kindle: gold on the mere, fog leaning back (not over
+    Stillhithe), the keeper's bell rings once (bow or satchel), **a lantern lit out at the fog's foot and carried
+    away — "for after"**. Aftermath: Hesper nameless / Corran can't find the way out any more (poles back once by
+    the light; "Pole me out again" → `no_channels`); the unburned Remnant goes back to its owner.
+  - **Art:** `build_fen.py` `_heron_light(near, lit)` — `heron_light_lit` and `heron_light_near_lit` (glowing
+    horn panes, coals/tongues/heart in the cradle, as the Ridge Light's). Lit models swap in on
+    `quest:a_light_for_glasswater=done` in both regions (halo 14 m with bloom from the staithe; halo + a kindle
+    light at the legs); fog/light overrides; the deep Greying rects duplicated at 0.45/0.5.
+  - The quest completes (no longer `future`); `fen_skiff_bell`, `fen_dunstan_glimpsed`, `fen_heron_ladder_seen`
+    are now read (not `future`). Checkpoint **`heron_lit`** (name burned, bell hung). LORE canon, TECH, ROADMAP.
+- **Tests:** `test_heron_burning.gd` (10): Hesper's light (one-time, by bell/glimpse, not before the trip), the dry
+  day and climb, the gull honouring the gull burn and Mara's word, both Remnants (asked at the legs: back to the
+  mere's hub), burning the name (bell on the bow, lantern, nameless Hesper, cord returned, Corran still poles),
+  burning the channels (poled back by the light, no more trips, name returned), a kept bell rings in the satchel,
+  lit/cold models and fog in both regions, Stillhithe keeps its fog, the checkpoint. **Smoke walk** now lights the
+  Heron live on the second fen trip (`_light_the_heron`) and checks the lit model's light and props. 250 tests +
+  smoke + launch pass.
+
+Screenshots: `docs/checkpoints/heron_lit.png` (the Foot, the Heron lit over the punt), 
+`docs/screenshots/2026-10-11-heron-lit-room.png` (the fire through the horn), `…-heron-lit-from-fen.png` (from
+the staithe: the lit Heron's halo over Stillhithe).
+
+**Decisions**
+- **The climber stays half-open.** The gull says Dunstan has been up; the put-down things (more than one man's)
+  and the folded coat leave room for the keeper and others. Nobody explains why they carry them up.
+- **"Won't burn what nobody holds"** makes the fen's choice fit its theme: the Unmoored have put everything down,
+  so only the two who refused to (Hesper's one kept thing, Corran's whole fen) can pay. Both offer freely — the
+  right to forget includes giving away.
+- **Stillhithe keeps its fog** after the burn: the Unmoored live in it on purpose; the beacon doesn't take that.
+- **Dunstan still unmet**: the lit lantern pays off "it's for after" without a meeting; finding him is next.
+- **Burn in dialogue, no lantern-room region** (like the Ridge Light's cradle) — the platform isn't walkable.
+
+**Problems / notes**
+- Corran's model keeps the knot-cord after he gives it away (art follow-up, ROADMAP *Next up* #1).
+- The smoke walk always takes the channels path; the name path is unit-tested.
+
+**Next run should**
+1. **Art (due Day 36)** — ROADMAP *Next up* #1: the Heron lit, dressed (the things on the sill, Corran without his
+   cord, gold on the mere), or the *Fen art follow-ups*.
+2. Then *After the Heron* (content, by Day 39). Polish/debt is due by Day 39 too (last Day 31) — if both fall
+   due together, do the polish pass first.
+
 ## 2026-10-10 21:00 UTC — Day 34: The Heron up close (art track)
 
 **Did**

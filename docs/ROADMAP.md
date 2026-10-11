@@ -261,6 +261,18 @@ with a meaningful burn choice → consequences visible in the village.
       burn; a red cord at his belt if Mara's word was left). New Blender character `dunstan`; Corran's punt is a
       two-way `travel` (`fen_punt_out`); checkpoint `heron_mere`; the smoke walk goes out and back.
 
+- [x] [C] **The Heron Light, part two — Glasswater's burning** (Day 35): back from the legs, **Hesper** hears about
+      the trip (bell, big man, ladder) and tells of **a small light that goes up the Heron's ladder some nights**
+      — the reason; Corran calls a **dry day** and holds the foot. **The lantern room:** the cradle heaped with
+      cold **put-down things**, a **whittled gull** (Dunstan's hand; Mara's red cord round it) on the rim, the
+      **keeper's coat folded** on the boards; it won't burn what nobody holds. **Hesper's name** (a silvered,
+      lettered reed) or **Corran's channels** (his knot-cord) — both new Remnants, given freely; the cold
+      things set along the sill first. `fen_beacon_burned` name/channels: Hesper nameless ("I meet the boats"),
+      or Corran poles back by the light and never out again. **Lit Heron** (Blender `heron_light_lit`,
+      `heron_light_near_lit`: glowing horn, fire in the cradle; halo + light), fog leaning back in both regions
+      but not over Stillhithe, the keeper's bell rings once, **a lantern lit out in the fog** ("for after").
+      The unburned Remnant goes back. Checkpoint `heron_lit`; the smoke walk lights it live.
+
 ### Art track (owner request, 2026-09-26)
 The owner wants the look upgraded: characters and settings read as generic greybox.
 **Cadence rule:** until the Vertical Slice looks shippable, at least every other session
@@ -276,38 +288,43 @@ each .glb < 5 MB.
       man and the Unmoored further in; Corran's **knot-cord** at his hip.
 
 ### Next up
-1. [C] **The Heron Light, part two** (content, due by Day 37 — next run, Day 35): who climbs the ladder (keep the keeper's fate
-   open-ish; the bell's carrier); up the ladder on a dry day with a reason; the Heron's burn — what does
-   Glasswater offer, given the right to forget? (an Unmoored's put-down thing? Hesper's name? Corran's
-   channels?) Honour `fen_skiff_bell`, `fen_dunstan_glimpsed`, `fen_dunstan_word`. Dunstan stays unmet until
-   the burn or after. Keep the four colliers and the Lamp's coal open.
-2. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+1. [A] **The Heron lit, dressed** (art due Day 36): the cold put-down things in a row along the lantern room's
+   sill and the keeper's coat folded on the boards (a `heron_light_near_lit` detail, or a small prop on the
+   platform); Corran without his knot-cord once given/burned (`corran_nocord`, placement `model` by
+   `fen_corran_cord_away`/`fen_beacon_burned=channels`); the lit Heron's gold lying on the mere (a reflection
+   streak); plus the *Fen art follow-ups* below.
+2. [C] **After the Heron** (content, due by Day 39): Oda at the fen once the Heron is lit — where the lane goes on
+   (fix her `route` line, "to Cindermoor"); Oda and Hesper on the trip out, the bell and the big man (debt list);
+   the lantern lit "for after" — where Dunstan carried it (mystery #5: alive, among the Unmoored, chose to go;
+   honour `fen_dunstan_word`, `fen_dunstan_glimpsed`, `fen_beacon_burned`). Keep the keeper's fate, the
+   put-down things' carrier, the four colliers and the Lamp's coal open.
+3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
    brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [S] Interaction polish: camera framing during dialogue; fade the
+9. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
-9. [A] **Fen art follow-ups** (next art due ~Day 38): the fen's flat white light (a pale shore band,
+10. [A] **Fen art follow-ups** (next art due ~Day 38): the fen's flat white light (a pale shore band,
    Stillhithe's paint, less blue in the water); sedge tussocks under the Unmoored at the fen's pools too
    (`tussock`, Day 34); the stage meeting the ladder leg (a cleat or a landing step); the shadow acne on
    the Heron's legs in the Compatibility renderer (zig-zag bands behind the ladder).
@@ -319,7 +336,7 @@ each .glb < 5 MB.
   Still to honour on Thornwold: `pells_pouch` (Pell stayed), the beacon-keeper; Keepers met
   later should react to `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (`future`).
 - [x] [C] Thornwold (forest, shifting paths): landing + Bram (Day 17), woods + Hob (Day 21), ridge + the Lamp (Day 25), the burn (Day 27). Later: the old Keepers' road north along the ridge — where the four colliers went (and whether Hob goes after them).
-- [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); Day 33 out to the Heron's legs (Dunstan glimpsed); next: the Heron's burn, Dunstan found.
+- [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); Day 33 out to the Heron's legs (Dunstan glimpsed); Day 35 the Heron's burn (lit); next: Dunstan found, the lane on.
 - [S] Day/night cycle & tides; NPC schedules.
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
 - [S] Accessibility: colorblind-safe fog/ember cues, subtitles sizing, no timing gates.
@@ -350,8 +367,8 @@ each .glb < 5 MB.
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
 - Next polish/debt pass due Day 39 (Day 31 was the last). Candidates: the smoke walk's Thornwold Oda (below);
   Hesper's first talk can be walked past (then `fen_ember` stays unset and nobody turns — fine, but check
-  it reads); the fen's mirror water/colour with the Vulkan pass; Hesper and Oda don't yet remark on the trip out to the
-  Heron, the bell, or the big man (fold into part two); the Heron's boardwalk stage overlaps the ladder leg a
+  it reads); the fen's mirror water/colour with the Vulkan pass; Oda doesn't yet remark on the trip out to the
+  Heron, the bell, or the big man (Hesper does since Day 35; fold Oda into *After the Heron*); the Heron's boardwalk stage overlaps the ladder leg a
   little (the model has no collider).
 - Test time budget: `tools/run_checks.sh` gives each step 300 s. Day 31: tests 26 s, smoke ~45 s, import the
   longest. The runner prints the slowest tests — check them when adding a validator pass over every region.
@@ -365,8 +382,8 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 29 (the fen lane); next content due by Day 33 (the Heron Light, part one).
-- Last art session: Day 32 (Aldous's bench, the gate lofts). Next art due Day 34.
+- Last content session: Day 35 (the Heron Light, part two); next content due by Day 39 (After the Heron).
+- Last art session: Day 34 (the Heron up close). Next art due Day 36 (the Heron lit, dressed).
 - Hob's camp bench is in the tally house's shadow under the landing's sun (west); he reads dark from
   the yard in Compatibility. Judge with the Vulkan colour pass; a fill light is not in the budget.
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
@@ -454,3 +471,7 @@ each .glb < 5 MB.
   later dialogue should keep the player from naming the four to Hob.
 - Oda's `route` line still says the lane past Thornwold leads "to Cindermoor"; the fen lane comes
   first (LORE Day 27). Reword it when the fen sailing lands.
+- Day 35: Corran's model wears the knot-cord always (Day 34), also after he gives it away or it burns — the
+  *Heron lit, dressed* art item gives him a `corran_nocord` variant. The smoke walk always burns the channels
+  (`_light_the_heron`); the name path is unit-tested only. The Act II end/recap card doesn't exist yet; when it
+  does, `fen_beacon_burned` belongs on it with Thornwold's burn.
