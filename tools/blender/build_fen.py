@@ -8,7 +8,7 @@ mere, cold, an iron heron for a vane.
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_fen.py
     .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post heron_light staithe boardwalk
-        plank_path punt eel_traps alder_snag reed_bed keeper_skiff tussock]
+        plank_path punt eel_traps alder_snag reed_bed keeper_skiff tussock gold_streak]
 
 Same conventions as build_dressing/build_ridge: origin at the base centre, flat-shaded,
 palette colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -263,6 +263,8 @@ def _heron_light(near: bool, lit: bool = False) -> None:
     # The keeper's skiff tied to a back leg, half full of water: pale weathered boards and a bone
     # gunwale so it reads from the shore through the fog (Day 30), an oar left across it.
     suffix = "_lit" if lit else ""
+    if near and lit:
+        _put_down_things(rz + 0.16)
     if near:
         bd.export("heron_light_near" + suffix)
         return
@@ -273,6 +275,66 @@ def _heron_light(near: bool, lit: bool = False) -> None:
     beam("SkiffOar", tuple(sk + Vector((-0.75, -0.3, 0.42))), tuple(sk + Vector((0.6, 0.35, 0.4))), 0.05, mat("bone", -0.1))
     rod("SkiffLine", tuple(sk + Vector((-0.3, 0.6, 0.35))), (foot, foot, 1.3), 0.015, mat("bone", -0.1), verts=3)
     bd.export("heron_light" + suffix)
+
+
+# Where the put-down things lie once the Heron is lit (Day 36): a row along the inside of the
+# lantern room's front sill (Blender -Y, toward the Foot), x from SILL_ROW[0] to SILL_ROW[1].
+SILL_ROW_Y, SILL_ROW = -0.66, (-0.6, 0.62)
+COAT_AT = Vector((0.5, 0.36, 0))
+
+
+def _put_down_things(floor: float) -> None:
+    """The cold things the Wakebearer lifted out of the cradle before the burn, "set in a row along
+    the sill" (heron_ladder.json): a child's shoe, a ribbon gone the colour of fog, a spoon, a key,
+    a comb, a button on its thread, letters folded small, and the whittled gull at the end. All
+    grey and cold; seen through the lit horn from the Foot. Beside the plate on the boards, the
+    keeper's coat folded small and square, the stitched ember on top."""
+    # The model's own materials where they'll do (merged by material: few draw calls).
+    GREY, PALE, DARK, WOOD = mat("silverfog", -0.45), mat("bone", -0.22), mat("ink", 0.15), mat("driftwood", -0.4)
+    y, z = SILL_ROW_Y, floor
+    x = SILL_ROW[0]
+    # A child's shoe on its side: sole, upper, a turned-back tongue.
+    box("Shoe", (0.13, 0.06, 0.025), (x + 0.02, y, z), DARK, 0.1)
+    box("ShoeUpper", (0.09, 0.055, 0.045), (x + 0.0, y, z + 0.025), GREY, 0.1)
+    beam("ShoeTongue", (x + 0.04, y, z + 0.05), (x + 0.07, y - 0.005, z + 0.075), 0.012, GREY, width=0.035)
+    # A ribbon, laid in two loose loops.
+    x += 0.17
+    for k in range(4):
+        a0, a1 = k * 0.9, (k + 1) * 0.9
+        beam("Ribbon", (x + math.cos(a0) * 0.04 + k * 0.015, y + math.sin(a0) * 0.025, z + 0.004),
+             (x + math.cos(a1) * 0.04 + (k + 1) * 0.015, y + math.sin(a1) * 0.025, z + 0.004), 0.006, PALE, width=0.02)
+    # A spoon: a shallow bowl and a handle.
+    x += 0.16
+    cyl("SpoonBowl", 0.025, 0.018, 0.012, 6, (x - 0.05, y, z), PALE)
+    beam("SpoonHandle", (x - 0.03, y, z + 0.008), (x + 0.07, y + 0.01, z + 0.008), 0.008, PALE, width=0.014)
+    # A key: a ring bow, a shank, a bit.
+    x += 0.15
+    cyl("KeyBow", 0.022, 0.022, 0.008, 6, (x - 0.04, y, z), DARK)
+    beam("KeyShank", (x - 0.02, y, z + 0.004), (x + 0.04, y, z + 0.004), 0.008, DARK)
+    box("KeyBit", (0.015, 0.02, 0.008), (x + 0.035, y - 0.012, z), DARK)
+    # A comb: a spine and teeth.
+    x += 0.13
+    box("CombSpine", (0.09, 0.015, 0.012), (x, y + 0.012, z), PALE)
+    for k in range(6):
+        box("CombTooth", (0.006, 0.025, 0.006), (x - 0.038 + k * 0.015, y - 0.008, z), PALE)
+    # A button on its thread.
+    x += 0.11
+    cyl("Button", 0.016, 0.016, 0.008, 6, (x, y, z), DARK)
+    beam("Thread", (x + 0.012, y, z + 0.003), (x + 0.06, y - 0.02, z + 0.003), 0.003, PALE)
+    # Letters folded small and smaller, stacked.
+    x += 0.13
+    for k, (w, d) in enumerate(((0.08, 0.055), (0.06, 0.04), (0.04, 0.028))):
+        box("Letter", (w, d, 0.01), (x, y, z + k * 0.01), PALE if k % 2 else GREY, 0.15 * k)
+    # The gull at the end of the row, beak along the sill.
+    _whittled_gull(Vector((SILL_ROW[1] - 0.05, y + 0.02, z)), math.pi / 2, WOOD)
+    # The keeper's coat on the boards beside the plate: folded small and square, the collar along
+    # one edge, a sleeve's cuff at the fold, the stitched ember on top (a small rust-red patch).
+    c = COAT_AT + Vector((0, 0, z))
+    COAT, FOLD = DARK, mat("pine", -0.6)  # the keepers' dark coat; the fold in the room posts' timber-dark
+    box("Coat", (0.34, 0.28, 0.07), tuple(c), COAT, 0.2)
+    box("CoatFold", (0.32, 0.26, 0.03), tuple(c + Vector((0, 0, 0.07))), FOLD, 0.2)
+    box("CoatCollar", (0.33, 0.05, 0.03), tuple(c + Vector((0.02, 0.12, 0.1))), COAT, 0.2)
+    cyl("CoatEmber", 0.04, 0.03, 0.006, 5, tuple(c + Vector((-0.02, -0.02, 0.1))), mat("ember", -0.3))
 
 
 def build_heron_light() -> None:
@@ -598,8 +660,39 @@ def build_reed_bed() -> None:
     bd.export("reed_bed")
 
 
+def build_gold_streak() -> None:
+    """The lit Heron's gold lying on the mere (Day 36; "lies down on the mere, and the mere holds it
+    the way it holds a face"): a broken streak of bright slivers on the water, 7.5 m along Godot +Z
+    from the origin (placed at the Heron's foot, turned toward where the player looks from), a few
+    centimetres thick, narrow at the Heron, widest a third of the way out, breaking up and fading
+    at the far end. See-through and emissive (horn), so it lies over the water like a glint. Placed
+    with `scale` (2.8 in the fen, seen from the staithe)."""
+    bd.reset()
+    rng = random.Random(36)
+    bright, faint = bd.horn("kindle", 0.7, glow=1.6), bd.horn("ember", 0.45, glow=0.9)
+    n = 28
+    for k in range(n):
+        t = k / (n - 1)
+        if t > 0.55 and rng.random() < t * 0.55:
+            continue  # the far end breaks up
+        w = 0.25 + 0.9 * math.sin(math.pi * min(1.0, t * 1.5)) * (1.0 - 0.45 * t)
+        w *= rng.uniform(0.7, 1.15)
+        yc = -(0.4 + t * 7.1)
+        x0 = rng.uniform(-0.12, 0.12) * (1 + t * 2)
+        m = bright if t < 0.45 or k % 3 else faint
+        # A sliver: a flat diamond, long across the streak, thin along it.
+        verts = [(x0 - w, yc, 0), (x0, yc - 0.06 - 0.04 * t, 0), (x0 + w, yc, 0), (x0, yc + 0.06 + 0.04 * t, 0)]
+        mesh = bpy.data.meshes.new("Sliver")
+        mesh.from_pydata(verts, [], [(0, 1, 2, 3)])
+        obj = bpy.data.objects.new("Sliver", mesh)
+        bpy.context.collection.objects.link(obj)
+        obj.modifiers.new("Thick", "SOLIDIFY").thickness = 0.01
+        bd.bp.finish(obj, m)
+    bd.export("gold_streak")
+
+
 BUILDERS = [build_reed_house, build_letting_post, build_heron_light, build_staithe, build_boardwalk, build_plank_path,
-            build_punt, build_eel_traps, build_alder_snag, build_reed_bed, build_keeper_skiff, build_tussock]
+            build_punt, build_eel_traps, build_alder_snag, build_reed_bed, build_keeper_skiff, build_tussock, build_gold_streak]
 ALIASES = {"letting_post_word": "letting_post", "heron_light_near": "heron_light", "heron_light_lit": "heron_light",
            "heron_light_near_lit": "heron_light", "keeper_skiff_bell": "keeper_skiff"}
 

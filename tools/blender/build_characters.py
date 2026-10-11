@@ -723,6 +723,17 @@ def build_hesper() -> None:
 
 
 def build_corran() -> None:
+    _corran(cord=True)
+
+
+def build_corran_nocord() -> None:
+    """Corran once his knot-cord is given away (Day 36, `fen_corran_cord_away`: given to the
+    Wakebearer, then burned in the Heron or not yet given back): the belt bare at the left hip and
+    his left hand drawn in to it, where the cord hung."""
+    _corran(cord=False)
+
+
+def _corran(cord: bool) -> None:
     """Corran Teal, the last of the fen folk on Glasswater (old, not Unmoored): short and broad in
     the back, thigh-high waders of tarred leather, a moss smock, a wide rush hat, a white fringe of
     beard, and an eel-leister (a long pole with a flat iron fork of barbed tines) held upright in his
@@ -742,12 +753,13 @@ def build_corran() -> None:
     # a row of knots in it — one tied at every turning out through the channels, "so I can count
     # them back".
     # Front of the hip, clear of his arm, the knots pale so they count from a few metres off.
-    cord, knot = material("coal", -0.6), material("driftwood", -0.25)
-    top = Vector((0.17, -0.29, b.waist + 0.03))
-    low = top + Vector((0.03, -0.05, -0.36))
-    t.append(limb(top, low, 0.014, 0.012, cord, verts=4))
-    for k in range(5):
-        t.append(ball(0.03, top + (low - top) * (0.22 + k * 0.17), knot, segments=5, rings=4))
+    if cord:
+        cord_m, knot = material("coal", -0.6), material("driftwood", -0.25)
+        top = Vector((0.17, -0.29, b.waist + 0.03))
+        low = top + Vector((0.03, -0.05, -0.36))
+        t.append(limb(top, low, 0.014, 0.012, cord_m, verts=4))
+        for k in range(5):
+            t.append(ball(0.03, top + (low - top) * (0.22 + k * 0.17), knot, segments=5, rings=4))
     # The creel: a reed basket on his back with a strap across the chest.
     # (Day 30: bigger and woven so it reads behind him: hoops, a lid, an eel's tail over the rim.)
     creel = material("driftwood", -0.12)
@@ -780,9 +792,10 @@ def build_corran() -> None:
     for tx in (-0.12, -0.04, 0.04, 0.12):
         b.parts["ArmR"].append(block((0.025, 0.025, 0.24), top + Vector((tx, 0, 0.13)), iron))
     b.arm_rest["ArmR"] = (math.radians(-12), 0, math.radians(-4))
-    b.arm_rest["ArmL"] = (math.radians(-5), 0, math.radians(8))
+    # Without the cord the left hand comes in to the bare belt (forward and across).
+    b.arm_rest["ArmL"] = (math.radians(-5), 0, math.radians(8)) if cord else (math.radians(-16), 0, math.radians(-2))
     b.head_rest = (math.radians(-3), 0, 0)
-    assemble(b, "corran")
+    assemble(b, "corran" if cord else "corran_nocord")
 
 
 def _unmoored_seat(b: Body, kind: str) -> None:
@@ -899,7 +912,7 @@ def build_dunstan() -> None:
 
 
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
-            build_hob, build_hob_seated, build_lamp, build_hesper, build_corran,
+            build_hob, build_hob_seated, build_lamp, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan]
 
 if __name__ == "__main__":
