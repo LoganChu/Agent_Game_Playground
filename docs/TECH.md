@@ -33,12 +33,12 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran unmoored_shawl unmoored_coat dunstan …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
-.tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle) (same kit dir)
+.tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -307,6 +307,17 @@ duplicate their deep Greying rects at strength 0.45–0.5 (Stillhithe's ellipse 
 smoke walk lights the Heron live on the second fen trip (`_light_the_heron`: Hesper's question, the punt,
 the climb, Corran's cord, the burn, back by the light; the menu walk alone never gets there), so the end
 state is always `channels`; `test_heron_burning.gd` covers the name path and the rest.
+
+**The Heron lit, dressed (Day 36):** an NPC can have **two placements on one spot with different
+`model`s** and exclusive `if`s (Corran with/without his cord, by `fen_corran_cord_away`). When a flag swaps
+them mid-talk, `Region.refresh_conditional` now removes before it builds and hands the leaving actor's
+turn-to-the-player and body yaw to its replacement (`NpcActor.take_over`), so the swap reads as the cord
+going, not a jump. Prop flag **`over_water`** (model props; validated bool) copies every surface material
+with `render_priority` 1 so it draws after the transparent sea (as the floating props' foam rings); the lit
+Heron's `gold_streak` uses it and sits 8 cm over the water level (the swell is ±7 cm). Glb byte output of a
+character re-export isn't stable (same size, different bytes): don't commit a rebuilt model whose script
+didn't change. `test_heron_dressed.gd` covers the sill row, the coat, the cord, the placements, the
+hand-over, the streak on open water and the validator.
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,

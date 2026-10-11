@@ -2,6 +2,58 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-11 21:00 UTC — Day 36: The Heron lit, dressed (art track)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset local `main`
+  to `origin/main` (Day 35's `2424020`). Baseline green (250 tests + smoke + launch).
+- **Art (due today; last art Day 34):** ROADMAP *Next up* #1, *The Heron lit, dressed*:
+  - **The put-down things on the sill** (`build_fen.py` `_put_down_things`, in `heron_light_near_lit` only):
+    the dialogue's list laid in a row inside the lantern room's front sill — a child's shoe on its side, a
+    ribbon in loose loops, a spoon, a key, a comb, a button on its thread, letters folded small and smaller,
+    and **the whittled gull at the end** — grey and cold, seen through the lit horn from the Foot. **The
+    keeper's coat** folded small and square on the boards beside the plate, the stitched ember on top. Built
+    from the model's own materials (merged by material: 16 draw calls max). The distance model doesn't
+    carry them (invisible from the staithe).
+  - **`corran_nocord`** (`build_characters.py`): Corran with a bare belt and his left hand drawn in to where
+    the cord hung. Both Corran placements (landing and the Foot) are now pairs on the same spot, by
+    `fen_corran_cord_away` (given and burned, or given and not yet back; a returned cord dresses him again).
+  - **Live swap mid-talk:** the cord is given inside a conversation, so the placement swaps while he's
+    talking. `Region.refresh_conditional` now removes before building and hands the old actor's turn to the
+    player and body yaw to the new one (`NpcActor.take_over`).
+  - **The gold on the mere** (`gold_streak`): a broken streak of emissive, see-through slivers, narrow at the
+    legs, widest a third out, breaking up at the far end. In the fen (scale 2.8) from the Heron toward the
+    staithe; at the legs out over the open water west of the stage (toward the Foot it would lie under the
+    mud). New prop flag **`over_water`** draws a model after the transparent sea (the first try showed the
+    slivers dark, drawn under the water); validated.
+- **Tests:** `test_heron_dressed.gd` (9): the row along the sill (something in every fifth, all lying low),
+  the coat, none of it in the cold or distance models, the dialogue still says so, Corran without the cord,
+  his placements by flag (one shown per state, same spot and facing), burned vs returned, the hand-over, the
+  streak (flat and long, lit-only, `over_water`, just over the swell, from the legs, > 60 % on open water in
+  both regions), `over_water` render priority (the shared material untouched), the validator. **Smoke walk**:
+  Corran is `corran_nocord` after giving the cord; the lit mere shows 4 conditional props (+ the gold).
+  259 tests + smoke + launch pass. Checkpoint `heron_lit` regenerated.
+
+Screenshots (`docs/screenshots/2026-10-11-pm-*.png`): `heron-sill` (the row and the coat through the horn),
+`gold-on-the-mere` (from the Foot), `gold-from-above` (the fen overview), `corran-nocord`.
+
+**Decisions**
+- **The things inside the room, not on the platform**: the text says "along the sill"; the lit horn is
+  see-through (alpha 0.3), so the row reads from the stage and the Foot without a new ledge.
+- **No red cord on the sill gull**: a few millimetres behind horn at 6 m; it'd need a variant model for nothing
+  visible. Logged under *Fen art follow-ups* for when there's a closer look.
+- **Placement pairs rather than a model-by-condition field on NPCs**: the engine already did conditional
+  multi-placement; only the mid-talk hand-over was missing.
+- **Skipped "tussocks under the fen's Unmoored"**: checked — all three stand on dry ground (0.1–0.24 m above the
+  water), so there's nothing to fix; removed from the follow-ups.
+
+**Problems / notes**
+- Re-exporting `corran.glb` from an unchanged script gives different bytes (same size); left the committed one.
+
+**Next run should**
+1. **After the Heron** (content, due by Day 39 — ROADMAP *Next up* #1).
+2. Polish/debt is due by Day 39 too (last Day 31): if Day 37 does the content, Day 38 is the polish pass.
+
 ## 2026-10-11 09:00 UTC — Day 35: The Heron Light, part two — Glasswater's burning (content)
 
 **Did**
