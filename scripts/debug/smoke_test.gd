@@ -239,6 +239,9 @@ func _light_the_heron(main: Node, ui: DialogueUI) -> void:
 	_check(_choose(ui, "Give it, Corran. For the light."), "...and gives his cord")
 	_check(_choose(ui, "Not yet."), "...and goes on waiting")
 	_finish_dialogue(ui, "corran (the cord)")
+	# Day 36: the cord given, the Corran on the Foot is the one without it (swapped live, mid-talk).
+	var bare := _npc("corran")
+	_check(bare != null and str(bare.npc_data.get("model", "")).ends_with("corran_nocord.glb"), "Corran without his cord")
 	ladder.interact()
 	_check(_choose(ui, "Set Corran's knot-cord in the cradle."), "the cord set in the cradle")
 	_check(_choose(ui, "Burn Corran's channels."), "...and burned")
@@ -246,8 +249,9 @@ func _light_the_heron(main: Node, ui: DialogueUI) -> void:
 	for i in 3:
 		await get_tree().process_frame
 	_check(GameState.world.quest_state("a_light_for_glasswater") == WorldState.QUEST_DONE, "the Heron Light is lit")
-	# Lit: the cold Heron and the big man gone; the lit Heron, the punt and the skiff show.
-	_check(mere.shown_conditional_props() == 3, "the lit Heron, the punt and the skiff show (%d)" % mere.shown_conditional_props())
+	# Lit: the cold Heron and the big man gone; the lit Heron, its gold on the mere (Day 36), the
+	# punt and the skiff show.
+	_check(mere.shown_conditional_props() == 4, "the lit Heron, its gold, the punt and the skiff show (%d)" % mere.shown_conditional_props())
 	_check(mere.find_children("*", "OmniLight3D", true, false).size() > 0, "the lit Heron lights the Foot")
 	_npc("corran").interact()
 	_check(_choose(ui, "Take me back."), "Corran poles back by the light")
