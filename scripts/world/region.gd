@@ -64,6 +64,10 @@ func refresh_conditional(animate: bool = true) -> void:
 	_refresh_greying(world, animate)
 	if field and _terrain and field.has_conditional_paint() and field.select_paint(world):
 		TerrainBuilder.recolor(_terrain, field)
+	# Removals first, so an NPC whose placement swaps (another model on the same spot, e.g.
+	# Corran without his cord) can hand its turn-to-the-player over to its replacement.
+	var builds: Array[Dictionary] = []
+	var left: Dictionary = {}  # npc id -> the actor just removed
 	for entry: Dictionary in _conditional:
 		var entry_data: Dictionary = entry["data"]
 		var want := Conditions.evaluate(entry_data.get("if"), world)
@@ -73,12 +77,20 @@ func refresh_conditional(animate: bool = true) -> void:
 		if node != null and node.is_queued_for_deletion():
 			node = null
 		if want and node == null:
-			node = _build(entry["kind"], entry_data)
-			if node:
-				add_child(node)
+			builds.append(entry)
 		elif not want and node != null:
+			if node is NpcActor:
+				left[(node as NpcActor).npc_id] = node
 			node.queue_free()
 			node = null
+		entry["node"] = node
+	for entry: Dictionary in builds:
+		var node := _build(entry["kind"], entry["data"])
+		if node:
+			var before: NpcActor = left.get(str(entry["data"].get("npc", "")))
+			if node is NpcActor and before != null:
+				(node as NpcActor).take_over(before)
+			add_child(node)
 		entry["node"] = node
 
 
@@ -240,6 +252,8 @@ func _build_prop(prop: Dictionary) -> Node3D:
 			if prop.get("halo") is Array:
 				node.add_child(LanternHalo.build(JsonUtil.to_vector3(prop["halo"]), float(prop.get("halo_size", LanternHalo.SIZE)),
 					float(prop.get("halo_strength", LanternHalo.STRENGTH)), float(prop.get("halo_bloom", 0.0))))
+			if prop.get("over_water", false) == true:
+				draw_over_water(node)
 			if prop.get("float") is Dictionary:
 				node = FloatingProp.wrap(node, prop["float"], float(prop.get("scale", 1.0)))
 	if node == null:
@@ -249,6 +263,19 @@ func _build_prop(prop: Dictionary) -> Node3D:
 	if prop.get("wading") is Array and not node is FloatingProp:
 		_add_wading_foam(node, prop["wading"], float(prop.get("scale", 1.0)))
 	return node
+
+
+## Draws every surface of `node` after the (transparent) sea: a copy of each material with
+## render_priority 1, as the floating props' foam rings (`over_water` props).
+static func draw_over_water(node: Node3D) -> void:
+	for mi: MeshInstance3D in node.find_children("*", "MeshInstance3D", true, false):
+		for i in mi.mesh.get_surface_count():
+			var source := mi.get_active_material(i)
+			if source == null:
+				continue
+			var copy := source.duplicate() as Material
+			copy.render_priority = 1
+			mi.set_surface_override_material(i, copy)
 
 
 ## Foam rings where a prop's legs stand in the sea (`wading`: [[x, z, radius], ...], model

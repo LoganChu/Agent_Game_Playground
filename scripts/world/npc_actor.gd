@@ -16,6 +16,8 @@ var npc_data: Dictionary = {}
 var _face_yaw := 0.0
 var _talking := false
 var _body: Node3D
+## Body yaw to start from (set by take_over before the body is built).
+var _start_yaw := 0.0
 
 
 func setup(id: String, data: Dictionary) -> void:
@@ -46,6 +48,14 @@ func face(point: Vector3) -> void:
 	if yaw != null:
 		_face_yaw = yaw
 		_talking = true
+
+
+## Carries on from `before`, the actor this one replaces at the same placement mid-visit (a
+## model swap while talking): its turn towards the player and the body's current yaw.
+func take_over(before: NpcActor) -> void:
+	_face_yaw = before._face_yaw
+	_talking = before._talking
+	_start_yaw = before.body_yaw()
 
 
 ## Yaw (relative to the actor's own facing, +Z) that faces world `point` from an actor at
@@ -102,6 +112,7 @@ func _build_body() -> void:
 		head.radial_segments = 8
 		head.rings = 4
 		body.add_child(PropFactory.mesh_instance(head, PropFactory.color("kindle").darkened(0.15), Vector3(0, 1.3, 0)))
+	body.rotation.y = _start_yaw
 	add_child(body)
 	_body = body
 	var label := Label3D.new()

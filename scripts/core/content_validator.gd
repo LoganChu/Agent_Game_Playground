@@ -196,6 +196,17 @@ func _check_prop_wading(where: String, prop: Dictionary, model: String) -> void:
 			_err(where, "prop wading ring must be [x, z, radius] (radius > 0)")
 
 
+## `over_water` (model props only, Day 36): true draws the model's surfaces after the
+## transparent sea (a glint lying on it, like the lit Heron's gold), so the water can't hide it.
+func _check_prop_over_water(where: String, prop: Dictionary, model: String) -> void:
+	if not prop.has("over_water"):
+		return
+	if not prop["over_water"] is bool:
+		_err(where, "prop 'over_water' must be true or false")
+	if model.is_empty():
+		_err(where, "prop 'over_water' needs a 'model'")
+
+
 ## `smoke` (model props only): vents [[x, y, z], ...] in model space that smoke rises from.
 func _check_prop_smoke(where: String, prop: Dictionary, model: String) -> void:
 	if not prop.has("smoke"):
@@ -328,6 +339,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_check_prop_colliders(where, prop, model)
 		_check_prop_float(where, prop, model)
 		_check_prop_wading(where, prop, model)
+		_check_prop_over_water(where, prop, model)
 		_check_prop_smoke(where, prop, model)
 		_check_prop_halo(where, prop, model)
 		_check_prop_figure(where, prop, model)
