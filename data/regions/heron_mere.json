@@ -329,6 +329,19 @@
       }
     },
     {
+      "model": "res://assets/models/dressing/gold_streak.glb",
+      "position": [
+        -0.9,
+        -0.17,
+        -4.7
+      ],
+      "rotation_y": -75,
+      "snap": false,
+      "if": "quest:a_light_for_glasswater=done",
+      "note": "The lit Heron's gold lying on the mere (Day 36): from its legs west over the open water past the stage's end, where it shows from the Foot (toward the Foot itself it would lie under the mud).",
+      "over_water": true
+    },
+    {
       "model": "res://assets/models/dressing/keeper_skiff.glb",
       "position": [
         3.0,
@@ -613,8 +626,26 @@
         6.2
       ],
       "rotation_y": 180,
-      "if": "flag:fen_punt_out",
+      "if": [
+        "flag:fen_punt_out",
+        "!flag:fen_corran_cord_away"
+      ],
       "note": "By his punt on the Foot, waiting to pole you back."
+    },
+    {
+      "npc": "corran",
+      "position": [
+        0.4,
+        0,
+        6.2
+      ],
+      "rotation_y": 180,
+      "if": [
+        "flag:fen_punt_out",
+        "flag:fen_corran_cord_away"
+      ],
+      "note": "By his punt on the Foot, waiting to pole you back. Without his knot-cord.",
+      "model": "res://assets/models/characters/corran_nocord.glb"
     }
   ],
   "objects": [

@@ -561,6 +561,20 @@
       "halo_bloom": 0.35
     },
     {
+      "model": "res://assets/models/dressing/gold_streak.glb",
+      "position": [
+        -13,
+        -0.17,
+        -31
+      ],
+      "rotation_y": 23,
+      "scale": 2.8,
+      "snap": false,
+      "if": "quest:a_light_for_glasswater=done",
+      "note": "The lit Heron's gold lying on the mere (Day 36), from its legs toward the staithe; it only shows on open water (the ground covers it on land).",
+      "over_water": true
+    },
+    {
       "model": "res://assets/models/dressing/alder_snag.glb",
       "position": [
         -2.5,
@@ -1104,7 +1118,25 @@
       ],
       "rotation_y": -30,
       "note": "At his landing by the eel tubs and the upturned punt, facing the path in.",
-      "if": "!flag:fen_punt_out"
+      "if": [
+        "!flag:fen_punt_out",
+        "!flag:fen_corran_cord_away"
+      ]
+    },
+    {
+      "npc": "corran",
+      "position": [
+        12.6,
+        0,
+        -5.4
+      ],
+      "rotation_y": -30,
+      "note": "At his landing by the eel tubs and the upturned punt, facing the path in. Without his knot-cord (given away; burned, or not yet given back).",
+      "if": [
+        "!flag:fen_punt_out",
+        "flag:fen_corran_cord_away"
+      ],
+      "model": "res://assets/models/characters/corran_nocord.glb"
     },
     {
       "npc": "oda",
