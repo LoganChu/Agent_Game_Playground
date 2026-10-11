@@ -63,6 +63,16 @@
         "if": "flag:fen_corran_decided"
       },
       {
+        "say": "corran",
+        "text": "Lit, out there. I look at it a good deal.",
+        "if": "flag:fen_beacon_burned=channels"
+      },
+      {
+        "say": "corran",
+        "text": "Lit. Seventy years. Hesper's lost her name to it and doesn't seem to mind. I mind for her.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -106,8 +116,36 @@
           },
           {
             "text": "Pole me out to the Heron again.",
-            "if": "flag:fen_heron_reached",
+            "if": [
+              "flag:fen_heron_reached",
+              "!flag:fen_beacon_burned=channels"
+            ],
             "goto": "pole_again"
+          },
+          {
+            "text": "Pole me out to the Heron again.",
+            "if": "flag:fen_beacon_burned=channels",
+            "goto": "no_channels"
+          },
+          {
+            "text": "The Heron wants something somebody here still holds.",
+            "if": [
+              "stage:a_light_for_glasswater=feed_the_heron",
+              "!flag:fen_corran_cord_away"
+            ],
+            "goto": "cord_ask"
+          },
+          {
+            "text": "Your knot-cord. I didn't burn it.",
+            "if": [
+              "quest:a_light_for_glasswater=done",
+              "item:corrans_knot_cord"
+            ],
+            "take_item": "corrans_knot_cord",
+            "set": {
+              "fen_corran_cord_away": false
+            },
+            "goto": "cord_back"
           },
           {
             "text": "Goodbye.",
@@ -377,7 +415,13 @@
     "mere": [
       {
         "say": "corran",
-        "text": "I'll be here. Don't you go up that ladder without telling me."
+        "text": "I'll be here. Don't you go up that ladder without telling me.",
+        "if": "!quest:a_light_for_glasswater=done"
+      },
+      {
+        "say": "corran",
+        "text": "Look at it. Lit, over my head. Huh.",
+        "if": "quest:a_light_for_glasswater=done"
       },
       {
         "goto": "mere_hub"
@@ -406,6 +450,26 @@
             "text": "I saw a man out there. I couldn't hold his name.",
             "if": "flag:fen_dunstan_glimpsed=nameless",
             "goto": "mere_nameless"
+          },
+          {
+            "text": "The Heron wants something somebody here still holds.",
+            "if": [
+              "stage:a_light_for_glasswater=feed_the_heron",
+              "!flag:fen_corran_cord_away"
+            ],
+            "goto": "cord_ask"
+          },
+          {
+            "text": "Your knot-cord. I didn't burn it.",
+            "if": [
+              "quest:a_light_for_glasswater=done",
+              "item:corrans_knot_cord"
+            ],
+            "take_item": "corrans_knot_cord",
+            "set": {
+              "fen_corran_cord_away": false
+            },
+            "goto": "cord_back"
           },
           {
             "text": "Take me back.",
@@ -481,7 +545,13 @@
     "pole_back": [
       {
         "say": "narrator",
-        "text": "Corran counts the knots back off his cord, right, left, right, and the fog closes and opens again on reeds, and his own landing, and the eel tubs."
+        "text": "Corran counts the knots back off his cord, right, left, right, and the fog closes and opens again on reeds, and his own landing, and the eel tubs.",
+        "if": "!flag:fen_beacon_burned=channels"
+      },
+      {
+        "say": "narrator",
+        "text": "Corran has no cord to count back. He stands in the stern a long while, looking. Then he poles by the light at your backs: wherever the gold lies on the water there's a channel under it, and it brings you in to reeds, and his own landing, and the eel tubs.",
+        "if": "flag:fen_beacon_burned=channels"
       },
       {
         "set": {
@@ -494,6 +564,112 @@
           "from_punt"
         ],
         "end": true
+      }
+    ],
+    "back_to_hub": [
+      {
+        "if": "flag:fen_punt_out",
+        "goto": "mere_hub"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "cord_ask": [
+      {
+        "say": "corran",
+        "text": "Hesper's name or my channels. I said so at the ladder.",
+        "if": "flag:fen_heron_climbed"
+      },
+      {
+        "say": "corran",
+        "text": "She came here to put things down. I didn't. I've held this fen seventy years and nobody asked me for it."
+      },
+      {
+        "say": "narrator",
+        "text": "He unhooks the knot-cord from his belt. Today's knots on it, pale, and under them the tar worn smooth by every knot he ever tied and counted back and untied."
+      },
+      {
+        "say": "corran",
+        "text": "Every channel on Glasswater's in this. Out and back. My sister in the bow, when she was small enough to sit there."
+      },
+      {
+        "say": "corran",
+        "text": "Burn it and nobody finds the Heron again. Nor their way home through the Deeps, the ones on the lanes, if they ever come back. My sister."
+      },
+      {
+        "say": "corran",
+        "text": "But it'd be lit. Huh."
+      },
+      {
+        "choice": [
+          {
+            "text": "Give it, Corran. For the light.",
+            "goto": "cord_given"
+          },
+          {
+            "text": "No. Keep it.",
+            "goto": "cord_kept"
+          }
+        ]
+      }
+    ],
+    "cord_given": [
+      {
+        "say": "narrator",
+        "text": "He wades out to where the fog lies on the water and holds the cord out into it by one end, and stands there. His lips move: left, right, left. The tar goes silver. When he gives it to you it's heavier than a cord."
+      },
+      {
+        "say": "corran",
+        "text": "Mind you count them."
+      },
+      {
+        "set": {
+          "fen_corran_cord_away": true
+        },
+        "give_item": "corrans_knot_cord"
+      },
+      {
+        "goto": "back_to_hub"
+      }
+    ],
+    "cord_kept": [
+      {
+        "say": "corran",
+        "text": "Keep my own channels. There's a thought nobody's had in this fen for a while."
+      },
+      {
+        "goto": "back_to_hub"
+      }
+    ],
+    "cord_back": [
+      {
+        "say": "narrator",
+        "text": "He takes it without a word and hooks it back at his hip, and his thumb goes along the knots, counting."
+      },
+      {
+        "say": "corran",
+        "text": "Still there. All of them."
+      },
+      {
+        "goto": "back_to_hub"
+      }
+    ],
+    "no_channels": [
+      {
+        "say": "narrator",
+        "text": "Corran looks out over the reeds toward the gold light on its legs."
+      },
+      {
+        "say": "corran",
+        "text": "I can see it. I can't see the way to it. Seventy years, and I couldn't tell you which side of the drowned alder."
+      },
+      {
+        "say": "corran",
+        "text": "Nobody poles out there now. It's lit. It doesn't need us."
+      },
+      {
+        "goto": "hub"
       }
     ]
   }

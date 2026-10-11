@@ -5,7 +5,13 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.045,
-    "color": "silverfog"
+    "color": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_glasswater=done",
+        "density": 0.03
+      }
+    ]
   },
   "light": {
     "note": "A dark island under a white sky: flat, shadowless light off the water, everything the colour of fog; the ferry's lantern and the ember are the only warm things.",
@@ -16,7 +22,16 @@
     "ambient_color": "silverfog",
     "ambient_energy": 0.4,
     "sky_top": "slate",
-    "sky_horizon": "silverfog"
+    "sky_horizon": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_glasswater=done",
+        "sun_color": "#E8CC9C",
+        "sun_energy": 0.9,
+        "ambient_energy": 0.44,
+        "sky_top": "tide"
+      }
+    ]
   },
   "greying": [
     {
@@ -29,7 +44,21 @@
       "strength": 1.0,
       "falloff": 4.0,
       "height": 3.0,
-      "note": "The Deeps: the mere north of Stillhithe, where the Unmoored go when they have almost finished forgetting. The long walk runs into it; the Heron Light stands in it."
+      "note": "The Deeps: the mere north of Stillhithe, where the Unmoored go when they have almost finished forgetting. The long walk runs into it; the Heron Light stands in it.",
+      "if": "!quest:a_light_for_glasswater=done"
+    },
+    {
+      "rect": [
+        -32,
+        -40,
+        32,
+        -19
+      ],
+      "strength": 0.45,
+      "falloff": 4.0,
+      "height": 2.2,
+      "note": "After Glasswater's burning the Deeps' fog leans back: thin on the mere, the long walk a walk again. Stillhithe's thin Greying stays, as if it had been asked to.",
+      "if": "quest:a_light_for_glasswater=done"
     },
     {
       "ellipse": [
@@ -508,7 +537,28 @@
       ],
       "rotation_y": 28,
       "snap": false,
-      "note": "Glasswater's beacon, the Heron Light, cold on its legs out in the mere in the Deeps' fog. Unreachable (no collider)."
+      "note": "Glasswater's beacon, the Heron Light, cold on its legs out in the mere in the Deeps' fog. Unreachable (no collider).",
+      "if": "!quest:a_light_for_glasswater=done"
+    },
+    {
+      "model": "res://assets/models/dressing/heron_light_lit.glb",
+      "position": [
+        -13,
+        -1.15,
+        -31
+      ],
+      "rotation_y": 28,
+      "snap": false,
+      "note": "The Heron Light lit by Glasswater's burning (Day 35): gold on its legs out in the mere, the fog glowing round it.",
+      "if": "quest:a_light_for_glasswater=done",
+      "halo": [
+        0,
+        7.0,
+        0
+      ],
+      "halo_size": 14.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.35
     },
     {
       "model": "res://assets/models/dressing/alder_snag.glb",

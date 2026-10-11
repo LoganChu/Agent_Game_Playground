@@ -88,6 +88,21 @@
     ],
     "greet": [
       {
+        "say": "narrator",
+        "text": "She doesn't say her name. When you say it, she looks over her shoulder to see who you mean.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "hesper",
+        "text": "I meet the boats. That's who I am, now. It does.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "hesper",
+        "text": "The eel-man sits on his landing looking out at the light like it's a letter he can't read. He'll want company and won't ask.",
+        "if": "flag:fen_beacon_burned=channels"
+      },
+      {
         "say": "hesper",
         "text": "I saw the red cord on the post. That's a kind word, whatever it says. It doesn't pull.",
         "if": [
@@ -158,6 +173,34 @@
             "text": "Where's the letting post?",
             "if": "stage:the_letting_post=leave_word",
             "goto": "letting"
+          },
+          {
+            "text": "I've been out to the Heron.",
+            "if": [
+              "flag:fen_heron_reached",
+              "!flag:fen_hesper_heard_heron"
+            ],
+            "goto": "heron_told"
+          },
+          {
+            "text": "The Heron wants something somebody here still holds.",
+            "if": [
+              "stage:a_light_for_glasswater=feed_the_heron",
+              "!flag:fen_hesper_name_away"
+            ],
+            "goto": "name_ask"
+          },
+          {
+            "text": "I didn't burn your name. Here.",
+            "if": [
+              "quest:a_light_for_glasswater=done",
+              "item:hespers_name"
+            ],
+            "take_item": "hespers_name",
+            "set": {
+              "fen_hesper_name_away": false
+            },
+            "goto": "name_back"
           },
           {
             "text": "Goodbye.",
@@ -272,6 +315,168 @@
       {
         "say": "hesper",
         "text": "Past the west walk, on the islet. Look for the post with hooks. Don't take anything off it that isn't yours."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "heron_told": [
+      {
+        "say": "hesper",
+        "text": "You went out. With the eel-man, in his punt, to the legs. Things carry."
+      },
+      {
+        "say": "hesper",
+        "text": "You hung her bell back on her bow. Then it's where she'd want it, if she comes in.",
+        "if": "flag:fen_skiff_bell=hung"
+      },
+      {
+        "say": "hesper",
+        "text": "You kept her bell. Don't ring it on my staithe.",
+        "if": "flag:fen_skiff_bell=kept"
+      },
+      {
+        "say": "hesper",
+        "text": "You called a name out there.",
+        "if": "flag:fen_dunstan_glimpsed=called"
+      },
+      {
+        "say": "narrator",
+        "text": "She looks down at the string of small things at her wrist, which she doesn't do.",
+        "if": "flag:fen_dunstan_glimpsed=called"
+      },
+      {
+        "say": "hesper",
+        "text": "He stopped, you say. Then he's not finished. Don't take that for a promise. It's only weather.",
+        "if": "flag:fen_dunstan_glimpsed=called"
+      },
+      {
+        "say": "hesper",
+        "text": "You saw somebody out there and let him be. That's the rule kept where nobody would have seen you break it.",
+        "if": "flag:fen_dunstan_glimpsed=watched"
+      },
+      {
+        "say": "hesper",
+        "text": "You saw somebody out there and couldn't hold his name. I could. I'll not.",
+        "if": "flag:fen_dunstan_glimpsed=nameless"
+      },
+      {
+        "say": "hesper",
+        "text": "And somebody climbs the ladder. Yes.",
+        "if": "flag:fen_heron_ladder_seen"
+      },
+      {
+        "say": "hesper",
+        "text": "Some nights there's a light up the Heron. Not the beacon. Small. It goes up the legs slowly, and stays a while, and comes down again."
+      },
+      {
+        "say": "hesper",
+        "text": "Like somebody sitting up with someone sleeping."
+      },
+      {
+        "say": "hesper",
+        "text": "I don't ask whose. But you've a light of your own. You might go up and look. That's a reason, if the eel-man wants one."
+      },
+      {
+        "set": {
+          "fen_hesper_heard_heron": true
+        }
+      },
+      {
+        "if": "stage:a_light_for_glasswater=at_the_legs",
+        "quest_stage": [
+          "a_light_for_glasswater",
+          "up_the_ladder"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "name_ask": [
+      {
+        "say": "hesper",
+        "text": "Something somebody still holds. In this fen."
+      },
+      {
+        "say": "narrator",
+        "text": "She nearly laughs."
+      },
+      {
+        "say": "hesper",
+        "text": "We came here to stop holding things. There's the eel-man, and his channels. And there's me."
+      },
+      {
+        "say": "hesper",
+        "text": "Hesper. Hesper Vail. That much I kept. I kept it to meet the boats with. Somebody ought to say who's meeting them, at a staithe."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks straight at your bare ember, for once, and doesn't turn away.",
+        "if": "flag:fen_ember=bare"
+      },
+      {
+        "say": "hesper",
+        "text": "It's the last thing tying me. You can have it, if it's for a light. I'll still meet the boats."
+      },
+      {
+        "say": "hesper",
+        "text": "His I'll keep. The big man's. That's not mine to give.",
+        "if": "flag:fen_heard_of_dunstan"
+      },
+      {
+        "choice": [
+          {
+            "text": "Give it, Hesper. For the light.",
+            "goto": "name_given"
+          },
+          {
+            "text": "No. Keep it.",
+            "goto": "name_kept"
+          }
+        ]
+      }
+    ],
+    "name_given": [
+      {
+        "say": "narrator",
+        "text": "She goes down the staithe steps to the pool's edge, where the fog lies on the water, and says her name out over it. Once. Again, quieter. The third time it doesn't come back off the water."
+      },
+      {
+        "say": "narrator",
+        "text": "She reaches into the reeds where it went and lifts out a reed-stem gone silver from end to end, lettered along its length in a hand you can't read, and gives it to you."
+      },
+      {
+        "say": "hesper",
+        "text": "There. That's light, for a whole name."
+      },
+      {
+        "set": {
+          "fen_hesper_name_away": true
+        },
+        "give_item": "hespers_name"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "name_kept": [
+      {
+        "say": "hesper",
+        "text": "Then I'll go on meeting boats with it. Mind the eel-man doesn't give you his channels out of spite."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "name_back": [
+      {
+        "say": "narrator",
+        "text": "She turns the reed in her fingers. The lettering is the same as it was. She can read it."
+      },
+      {
+        "say": "hesper",
+        "text": "Hesper. Well. I'll go on meeting boats with it, then."
       },
       {
         "goto": "hub"

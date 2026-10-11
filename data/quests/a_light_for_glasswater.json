@@ -3,7 +3,6 @@
   "title": "A Light for Glasswater",
   "region": "glasswater_fen",
   "giver": "corran",
-  "future": true,
   "description": "Glasswater Fen's beacon, the Heron Light, has been dark since the Snuffing. While it is, no lane runs on from the fen.",
   "stages": [
     {
@@ -21,6 +20,14 @@
     {
       "id": "at_the_legs",
       "text": "Corran poled you out through the channels to the Heron Light. It stands on its four legs in a hole in the fog that has always been there; the keeper's skiff is still tied to the legs, and the ladder goes up into the grey. The light is dark. Corran waits in the punt to take you back."
+    },
+    {
+      "id": "up_the_ladder",
+      "text": "Hesper says that some nights a small light goes up the Heron's ladder and comes down again, slowly, the way you'd sit up with someone sleeping. Corran wanted a dry day and a reason before you climbed it. You have the reason. Ask him at the Heron's legs, and climb."
+    },
+    {
+      "id": "feed_the_heron",
+      "text": "Up the Heron's ladder, the cradle is heaped with things the Unmoored put down, gone cold, with a whittled gull on its rim; the keeper's coat lies folded on the boards. The cradle leaned to your ember and gave up: it won't burn what nobody holds. Only two people in the fen still hold anything: Hesper, her name; Corran, his channels. Whatever feeds it, Glasswater will never remember again."
     }
   ]
 }

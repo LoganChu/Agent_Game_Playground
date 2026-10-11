@@ -3,6 +3,18 @@
   "knots": {
     "start": [
       {
+        "if": "quest:a_light_for_glasswater=done",
+        "goto": "lit"
+      },
+      {
+        "if": "stage:a_light_for_glasswater=feed_the_heron",
+        "goto": "cradle"
+      },
+      {
+        "if": "stage:a_light_for_glasswater=up_the_ladder",
+        "goto": "dry_day"
+      },
+      {
         "say": "narrator",
         "text": "The ladder goes up the front leg into the white, its rungs lashed on with cord. The lowest four are green with slime, slick as soap."
       },
@@ -30,6 +42,349 @@
           "fen_heron_ladder_seen": true
         },
         "end": true
+      }
+    ],
+    "dry_day": [
+      {
+        "say": "narrator",
+        "text": "Corran comes along the stage behind you, wiping his hands down his waders. He looks up the ladder, then at the fog, then at the rungs, one by one, the way he'd look at a sky."
+      },
+      {
+        "say": "corran",
+        "text": "Dry as it'll get. Fog's lifted a hand off the water today. I'd not count on it twice."
+      },
+      {
+        "say": "corran",
+        "text": "And you've a reason, have you. Hesper's little light. Go on, then. I'll hold the foot."
+      },
+      {
+        "set": {
+          "fen_heron_ladder_seen": true
+        }
+      },
+      {
+        "choice": [
+          {
+            "text": "Climb.",
+            "goto": "climb"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "climb": [
+      {
+        "say": "narrator",
+        "text": "The slimed rungs first, slick under your boots. Then the pale ones, and your feet find the worn places by themselves, as if somebody had put them there for you. The fog goes by below. The Heron's legs lean in round you like the sides of a well."
+      },
+      {
+        "say": "narrator",
+        "text": "A trapdoor in the platform, propped open with a peg. Somebody leaves it so."
+      },
+      {
+        "say": "narrator",
+        "text": "The lantern room: four dark horn panes, a timber sill, an iron plate on the boards. On the plate, the cradle. There's no ash in it."
+      },
+      {
+        "say": "narrator",
+        "text": "There are things. A child's shoe. A ribbon gone the colour of fog. A spoon, a key, a comb, a button on its thread, letters folded small and smaller. All grey, all cold, laid in the iron carefully, the way you'd lay a fire. Or put a child down to sleep."
+      },
+      {
+        "say": "narrator",
+        "text": "The same sort of things that hang on the letting post's hooks. The ones nobody took.",
+        "if": "quest:the_letting_post=done"
+      },
+      {
+        "say": "narrator",
+        "text": "On the cradle's rim, set where the light would fall first, sits a little whittled gull, carved a touch askew."
+      },
+      {
+        "say": "narrator",
+        "text": "The same hand as the gulls on the staithe posts. Dunstan's.",
+        "if": [
+          "flag:fen_heard_of_dunstan",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The same hand as the gulls on the staithe posts. Whose hand, you can't hold; it goes past you like rain off a coat.",
+        "if": [
+          "flag:fen_heard_of_dunstan",
+          "flag:saltmarrow_beacon_burned=gull"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The same hand as the gulls on every staithe post.",
+        "if": "!flag:fen_heard_of_dunstan"
+      },
+      {
+        "say": "narrator",
+        "text": "Round its neck, knotted twice, a bit of red cord.",
+        "if": "flag:fen_dunstan_word=mara"
+      },
+      {
+        "say": "narrator",
+        "text": "On the boards beside the plate lies a keeper's coat, folded small and square, the stitched ember on top. Folded the way you fold a thing you've finished with."
+      },
+      {
+        "say": "narrator",
+        "text": "Below, her skiff is tied the way you tie a boat you mean to come back to. Both of those are true, somehow."
+      },
+      {
+        "say": "narrator",
+        "text": "You lift the ember. The cradle leans to it, the way the Gull's did, and then it doesn't. The things in it stay cold."
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody holds them any more. That's what they're for. A beacon won't burn what nobody remembers: it wants something somebody is still holding."
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody, in a fen full of people who came here to put things down. There's Corran, with his channels. There's Hesper, with the one thing she kept."
+      },
+      {
+        "set": {
+          "fen_heron_climbed": true
+        },
+        "quest_stage": [
+          "a_light_for_glasswater",
+          "feed_the_heron"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "You climb down. Corran has one hand on the ladder and his eyes on the fog where the big man stood.",
+        "if": "flag:fen_dunstan_glimpsed"
+      },
+      {
+        "say": "narrator",
+        "text": "You climb down. Corran has one hand on the ladder and his eyes on the fog.",
+        "if": "!flag:fen_dunstan_glimpsed"
+      },
+      {
+        "say": "corran",
+        "text": "Well?"
+      },
+      {
+        "say": "narrator",
+        "text": "You tell him. He's quiet a long while."
+      },
+      {
+        "say": "corran",
+        "text": "Things they put down. Somebody carries them out here and lays them in her cradle, like it'd keep them warm."
+      },
+      {
+        "say": "corran",
+        "text": "Hesper's name, or my channels. That's what's left in this fen that anybody's holding. Huh."
+      },
+      {
+        "end": true
+      }
+    ],
+    "cradle": [
+      {
+        "say": "narrator",
+        "text": "Corran holds the foot. You go up the pale rungs to the lantern room. The cold things lie in the cradle, the gull on its rim, the coat folded on the boards."
+      },
+      {
+        "say": "narrator",
+        "text": "Hesper's name is in your satchel: a reed-stem, silver end to end, light as a reed.",
+        "if": "item:hespers_name"
+      },
+      {
+        "say": "narrator",
+        "text": "Corran's knot-cord is in your satchel, heavy as wet rope.",
+        "if": "item:corrans_knot_cord"
+      },
+      {
+        "say": "narrator",
+        "text": "You have nothing to set in it. Somebody in the fen has to give it something they still hold: Hesper, on the staithe, or Corran, below.",
+        "if": [
+          "!item:hespers_name",
+          "!item:corrans_knot_cord"
+        ]
+      },
+      {
+        "goto": "waiting"
+      }
+    ],
+    "waiting": [
+      {
+        "say": "narrator",
+        "text": "The cradle waits. Whatever you set in it, Glasswater will never remember again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Set Hesper's name in the cradle.",
+            "if": "item:hespers_name",
+            "goto": "weigh_name"
+          },
+          {
+            "text": "Set Corran's knot-cord in the cradle.",
+            "if": "item:corrans_knot_cord",
+            "goto": "weigh_channels"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "weigh_name": [
+      {
+        "say": "narrator",
+        "text": "The reed is light, for a whole name. In it: a woman on a staithe saying who she is to every boat that comes in, because somebody ought to, at a staithe. One name kept back from everything else she put down, and kept for that."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and Hesper Vail will have no name. She'll meet the boats all the same, and not be able to tell them who's meeting them. Nobody on Glasswater will know what to call her. She asked for nothing back."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Hesper's name.",
+            "take_item": "hespers_name",
+            "set": {
+              "fen_beacon_burned": "name"
+            },
+            "goto": "burn_name"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "weigh_channels": [
+      {
+        "say": "narrator",
+        "text": "The cord is heavy as wet rope. In it: every channel on Glasswater. Left at the drowned alder, right at the second eel stake; seventy years of turnings, counted out and counted back; a small girl in the bow, trailing her hand."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and nobody living will know the deep channels. The fen folk on the lanes will never find their way home through them. Corran will fish the shallows and look out at the mere, and never pole out to the Heron again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Corran's channels.",
+            "take_item": "corrans_knot_cord",
+            "set": {
+              "fen_beacon_burned": "channels"
+            },
+            "goto": "burn_channels"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "burn_name": [
+      {
+        "say": "narrator",
+        "text": "First you lift the cold things out of the cradle one at a time and set them in a row along the sill. They aren't yours to burn."
+      },
+      {
+        "say": "narrator",
+        "text": "Then you lay the reed in the iron and say her name once, the way she said it to you. The reed takes the flame at the lettered end."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "burn_channels": [
+      {
+        "say": "narrator",
+        "text": "First you lift the cold things out of the cradle one at a time and set them in a row along the sill. They aren't yours to burn."
+      },
+      {
+        "say": "narrator",
+        "text": "Then you coil the cord in the iron. The knots catch one at a time, the way they were tied: out, and then back."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "kindle": [
+      {
+        "say": "narrator",
+        "text": "The Heron Light catches. Gold comes out through the horn panes, low and warm, and lies down on the mere, and the mere holds it the way it holds a face."
+      },
+      {
+        "say": "narrator",
+        "text": "The hole in the fog round the legs opens like a breath let go. The fog leans back off the channels and the pools and the long walk. Not gone. Standing back. Only over Stillhithe it stays, thin as breath on glass, as if it had been asked to."
+      },
+      {
+        "quest_complete": "a_light_for_glasswater"
+      },
+      {
+        "say": "narrator",
+        "text": "Below, at the keeper's skiff, the little bell on her bow rings once. Nothing has moved the water.",
+        "if": "flag:fen_skiff_bell=hung"
+      },
+      {
+        "say": "narrator",
+        "text": "In your satchel the keeper's bell rings once, by itself.",
+        "if": "item:heron_skiff_bell"
+      },
+      {
+        "say": "narrator",
+        "text": "Out at the fog's foot, where the big man stood, a light comes on. Small. A lantern, lit. It doesn't come nearer. After a while it goes away into the grey, the way a lantern goes when somebody carries it."
+      },
+      {
+        "say": "narrator",
+        "text": "It's for after, he told Corran. After this, then.",
+        "if": "flag:fen_heard_of_dunstan"
+      },
+      {
+        "say": "narrator",
+        "text": "Far off over the reeds, on the staithe, a woman in a shawl is meeting nobody, and can't think what she was going to say.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "narrator",
+        "text": "At the foot of the ladder an old man is looking at the water round the legs as if he has never seen it before.",
+        "if": "flag:fen_beacon_burned=channels"
+      },
+      {
+        "say": "corran",
+        "text": "Lit. Seventy years I've waited to see that from under it. Come down. We'll go back by it.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "corran",
+        "text": "Lit. Huh. I can see the way back by it, I think. Don't ask me which way we came.",
+        "if": "flag:fen_beacon_burned=channels"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "You climb to the lantern room. The Heron Light burns gold behind its horn panes, and the mere lies round the legs holding it."
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a lettered reed. Then it's only fire. You couldn't say whose.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a row of knots. Then it's only fire.",
+        "if": "flag:fen_beacon_burned=channels"
+      },
+      {
+        "say": "narrator",
+        "text": "Along the sill the cold things lie in a row where you set them, the gull at the end. The keeper's coat is still folded on the boards. Somebody will carry them out again, or won't."
       }
     ]
   }

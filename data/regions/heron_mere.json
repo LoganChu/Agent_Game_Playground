@@ -5,7 +5,13 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.05,
-    "color": "silverfog"
+    "color": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_glasswater=done",
+        "density": 0.03
+      }
+    ]
   },
   "light": {
     "note": "White, still and shadowless in the hole in the fog: the sky a lid, the water a mirror, the legs grey on grey; the ember is the only warm thing.",
@@ -16,7 +22,16 @@
     "ambient_color": "silverfog",
     "ambient_energy": 0.45,
     "sky_top": "silverfog",
-    "sky_horizon": "silverfog"
+    "sky_horizon": "silverfog",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_glasswater=done",
+        "sun_color": "#EBCB97",
+        "sun_energy": 0.9,
+        "ambient_energy": 0.48,
+        "sky_top": "tide"
+      }
+    ]
   },
   "greying": [
     {
@@ -29,7 +44,8 @@
       "strength": 1.0,
       "falloff": 4.0,
       "height": 3.2,
-      "note": "The fog stands round the Heron's legs like a wall on every side ('stood off the legs since the day it came'); the Unmoored further in sit inside it."
+      "note": "The fog stands round the Heron's legs like a wall on every side ('stood off the legs since the day it came'); the Unmoored further in sit inside it.",
+      "if": "!quest:a_light_for_glasswater=done"
     },
     {
       "rect": [
@@ -40,7 +56,8 @@
       ],
       "strength": 1.0,
       "falloff": 4.0,
-      "height": 3.2
+      "height": 3.2,
+      "if": "!quest:a_light_for_glasswater=done"
     },
     {
       "rect": [
@@ -51,7 +68,8 @@
       ],
       "strength": 1.0,
       "falloff": 4.0,
-      "height": 3.2
+      "height": 3.2,
+      "if": "!quest:a_light_for_glasswater=done"
     },
     {
       "rect": [
@@ -63,7 +81,57 @@
       "strength": 1.0,
       "falloff": 4.0,
       "height": 3.2,
-      "note": "South, the way back through the channels."
+      "note": "South, the way back through the channels.",
+      "if": "!quest:a_light_for_glasswater=done"
+    },
+    {
+      "rect": [
+        -22,
+        -26,
+        22,
+        -14
+      ],
+      "strength": 0.5,
+      "falloff": 4.0,
+      "height": 2.4,
+      "if": "quest:a_light_for_glasswater=done",
+      "note": "After Glasswater's burning the fog leans back from the legs: still a wall round the hole, thinner, lower (the Unmoored further in keep it)."
+    },
+    {
+      "rect": [
+        -22,
+        -14,
+        -10,
+        18
+      ],
+      "strength": 0.5,
+      "falloff": 4.0,
+      "height": 2.4,
+      "if": "quest:a_light_for_glasswater=done"
+    },
+    {
+      "rect": [
+        10,
+        -14,
+        22,
+        18
+      ],
+      "strength": 0.5,
+      "falloff": 4.0,
+      "height": 2.4,
+      "if": "quest:a_light_for_glasswater=done"
+    },
+    {
+      "rect": [
+        -10,
+        11,
+        10,
+        18
+      ],
+      "strength": 0.5,
+      "falloff": 4.0,
+      "height": 2.4,
+      "if": "quest:a_light_for_glasswater=done"
     }
   ],
   "spawn_points": {
@@ -228,7 +296,37 @@
       ],
       "rotation_y": 0,
       "snap": false,
-      "note": "The Heron Light up close (the near model: no block skiff; the rungs above the slime scraped pale): four tall legs in the mere, the ladder up the front-left leg (by the boardwalk's end), the keeper's skiff tied to the back-right leg (by the mud bar). Dark."
+      "note": "The Heron Light up close (the near model: no block skiff; the rungs above the slime scraped pale): four tall legs in the mere, the ladder up the front-left leg (by the boardwalk's end), the keeper's skiff tied to the back-right leg (by the mud bar). Dark.",
+      "if": "!quest:a_light_for_glasswater=done"
+    },
+    {
+      "model": "res://assets/models/dressing/heron_light_near_lit.glb",
+      "position": [
+        0,
+        -1.15,
+        -5
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "note": "The Heron Light lit by Glasswater's burning (Day 35): gold through the horn panes, a fire in the cradle.",
+      "if": "quest:a_light_for_glasswater=done",
+      "halo": [
+        0,
+        7.0,
+        0
+      ],
+      "halo_size": 6.0,
+      "halo_bloom": 0.3,
+      "light": {
+        "color": "kindle",
+        "energy": 2.0,
+        "range": 16.0,
+        "offset": [
+          0,
+          6.6,
+          0
+        ]
+      }
     },
     {
       "model": "res://assets/models/dressing/keeper_skiff.glb",

@@ -274,18 +274,35 @@
     },
     "fen_dunstan_glimpsed": {
       "description": "At the Heron's legs the player saw a big man with an unlit lantern standing at the edge of the fog on a tussock, looking at the water, before he walked off into it: 'called' (called his name; he stopped, didn't turn, went on), 'watched' (let him go without a word) or 'nameless' (after the gull burn: his name wasn't there to call). Pays off when Dunstan is found.",
-      "default": "",
-      "future": true
+      "default": ""
     },
     "fen_skiff_bell": {
-      "description": "What the player did with the keeper's skiff bell Corran found in his far trap, at her skiff by the Heron's legs: 'hung' (tied it back on her bow) or 'kept' (kept it). For The Heron Light, part two.",
-      "default": "",
-      "future": true
+      "description": "What the player did with the keeper's skiff bell Corran found in his far trap, at her skiff by the Heron's legs: 'hung' (tied it back on her bow) or 'kept' (kept it). When the Heron is lit the bell rings once by itself, on her bow or in the satchel.",
+      "default": ""
     },
     "fen_heron_ladder_seen": {
-      "description": "Player has looked at the Heron Light's ladder: the rungs above the slime scraped clean by boots, recently. Someone climbs it (open; part two).",
-      "default": false,
-      "future": true
+      "description": "Player has looked at the Heron Light's ladder: the rungs above the slime scraped clean by boots, recently. Someone climbs it (Corran: 'I want a dry day, and you want a reason').",
+      "default": false
+    },
+    "fen_hesper_heard_heron": {
+      "description": "Back from the Heron's legs, the player told Hesper about the trip (her answers follow the bell, the big man and the ladder). She tells them that some nights a small light goes up the Heron's ladder and comes down again: the reason to climb (A Light for Glasswater → up_the_ladder).",
+      "default": false
+    },
+    "fen_heron_climbed": {
+      "description": "The player climbed the Heron's ladder with Corran holding the foot and found the lantern room: the cradle heaped with cold put-down things, a whittled gull on its rim, the keeper's coat folded on the boards. The cradle won't take what nobody holds (→ feed_the_heron).",
+      "default": false
+    },
+    "fen_hesper_name_away": {
+      "description": "Hesper said her name out over the pool until it didn't come back, and gave it to the player as a Remnant (hespers_name) for the Heron. Cleared if the unburned name is given back.",
+      "default": false
+    },
+    "fen_corran_cord_away": {
+      "description": "Corran held his knot-cord out in the fog till it went silver and gave it to the player as a Remnant (corrans_knot_cord): every channel he ever counted back. Cleared if the unburned cord is given back.",
+      "default": false
+    },
+    "fen_beacon_burned": {
+      "description": "Which Remnant fed the Heron Light: '' (unlit), 'name' (Hesper Vail's name — the last thing she kept; she meets the boats without it) or 'channels' (Corran's knot-cord — nobody living knows the deep channels; the fen folk can't come home through them, and nobody poles out to the Heron again). Glasswater's burning; Glasswater forgets it for good.",
+      "default": ""
     }
   }
 }
