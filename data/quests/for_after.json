@@ -1,0 +1,12 @@
+{
+  "id": "for_after",
+  "title": "For After",
+  "region": "glasswater_fen",
+  "description": "When the Heron took, a lantern was lit out at the fog's foot where the big man stood, and carried away into the grey.",
+  "stages": [
+    {
+      "id": "the_light_on_the_long_walk",
+      "text": "The lantern lit at the fog's foot has been set down at the end of the long walk, where the boards stop, low over the water. The Deeps' fog has leaned back off the walk since the Heron took; you could walk out to it."
+    }
+  ]
+}

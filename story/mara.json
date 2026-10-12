@@ -150,6 +150,15 @@
             "goto": "pell_ferry"
           },
           {
+            "text": "Dunstan sent you this.",
+            "if": "item:gull_for_mara",
+            "take_item": "gull_for_mara",
+            "set": {
+              "saltmarrow_mara_got_gull": true
+            },
+            "goto": "gull_from_dunstan"
+          },
+          {
             "text": "I'll be going.",
             "end": true
           }
@@ -621,6 +630,35 @@
       {
         "say": "narrator",
         "text": "She says it without heat, and it lands harder for that."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "gull_from_dunstan": [
+      {
+        "say": "narrator",
+        "text": "Mara takes the little gull and turns it over in her square fingers, the way you'd check a knot somebody else tied."
+      },
+      {
+        "say": "player",
+        "text": "He said to set it on the stool, facing the door. And that it's not a promise. Only so you'd know he knows where it is."
+      },
+      {
+        "say": "mara",
+        "text": "Facing the door. Not north."
+      },
+      {
+        "say": "mara",
+        "text": "Course it's not a promise. Great fool never made one in his life he didn't laugh his way out of."
+      },
+      {
+        "say": "narrator",
+        "text": "She sets it on the dented seat, beak to the door, and stands looking at it a while with her arms folded."
+      },
+      {
+        "say": "mara",
+        "text": "There. When he comes, it'll be the first thing he sees. If he comes."
       },
       {
         "goto": "hub"

@@ -102,9 +102,8 @@
       "default": false
     },
     "saltmarrow_mara_message_for_dunstan": {
-      "description": "Mara, knowing Dunstan chose the fog, asked the player to tell him the stool is still there, if they see him. Pays off when Dunstan is found among the Unmoored (Act II).",
-      "default": false,
-      "future": true
+      "description": "Mara, knowing Dunstan chose the fog, asked the player to tell him the stool is still there, if they see him. Delivered in person at the end of the long walk (Day 37).",
+      "default": false
     },
     "saltmarrow_ferry_passage": {
       "description": "Oda Farrow gave the player a berth on the Slow Mercy for Thornwold, sailing on the evening tide. Ends Act I (the act-end card); Act II starts from it.",
@@ -244,9 +243,8 @@
       "default": false
     },
     "fen_dunstan_word": {
-      "description": "What the player left on the Unmoored's letting post for the big man further in: 'mara' (Mara's word: the stool's still by the door), 'own' (someone from Saltmarrow came looking) or 'none' (left nothing: the right to forget). Pays off when Dunstan is found.",
-      "default": "",
-      "future": true
+      "description": "What the player left on the Unmoored's letting post for the big man further in: 'mara' (Mara's word: the stool's still by the door), 'own' (someone from Saltmarrow came looking) or 'none' (left nothing: the right to forget). Paid off when Dunstan is found at the end of the long walk (Day 37).",
+      "default": ""
     },
     "fen_hesper_saw_word": {
       "description": "Hesper has remarked on what the player left (or didn't) on the letting post (one-time).",
@@ -303,6 +301,40 @@
     "fen_beacon_burned": {
       "description": "Which Remnant fed the Heron Light: '' (unlit), 'name' (Hesper Vail's name — the last thing she kept; she meets the boats without it) or 'channels' (Corran's knot-cord — nobody living knows the deep channels; the fen folk can't come home through them, and nobody poles out to the Heron again). Glasswater's burning; Glasswater forgets it for good.",
       "default": ""
+    },
+    "fen_lantern_seen": {
+      "description": "Back on the fen after Glasswater's burning, the player saw the lantern lit at the fog's foot set down at the end of the long walk (one-time arrival scene; starts For After).",
+      "default": false
+    },
+    "fen_dunstan_met": {
+      "description": "The player found Dunstan Tollen at the end of the long walk, sat on a tussock by his lit lantern, whittling, and he said his name (after the gull burn it slides off). Completes For After.",
+      "default": false
+    },
+    "fen_dunstan_mara": {
+      "description": "What the player told Dunstan of Mara: 'message' (her word, in person or tied on the post — he whittled a gull for the stool, facing the door), 'burned' (that she says Tollens end with her and sets out two cups — the gull burn), 'spared' (after the gull burn, only that she's well), 'well' (that she's well) or 'nothing' (not theirs to carry).",
+      "default": "",
+      "future": true
+    },
+    "fen_dunstan_rule": {
+      "description": "Whether the player asked Dunstan what he came to put down ('asked' — he doesn't know: 'that's how you know it went') or kept Stillhithe's rule ('kept').",
+      "default": "",
+      "future": true
+    },
+    "fen_hesper_heard_dunstan": {
+      "description": "Hesper has been told the big man was found by his lit lantern (one-time): she keeps his name till he comes for it.",
+      "default": false
+    },
+    "fen_oda_heard_heron": {
+      "description": "Oda has been told about the trip out to the Heron's legs (the bell, the big man) — one-time.",
+      "default": false
+    },
+    "fen_oda_heard_dunstan": {
+      "description": "Oda has been told Dunstan was found (one-time): 'Is he laughing?'",
+      "default": false
+    },
+    "saltmarrow_mara_got_gull": {
+      "description": "The player gave Mara the gull Dunstan whittled for her at the end of the long walk; she set it on his stool facing the door.",
+      "default": false
     }
   }
 }

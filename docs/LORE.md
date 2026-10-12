@@ -618,6 +618,34 @@ forget. The fog is thickest and strangest here.
     big man stood, a lantern is lit — "It's for after" — and is carried away into the grey.** Dunstan is still
     not met.
 
+- **After the Heron — Dunstan found (Day 37):**
+  - **The lantern for after.** Back on the fen after the burn, the lantern lit at the fog's foot sits at **the end of the
+    long walk, where the boards stop**, low over the water, steady (*For After*). Corran: "Nobody walks that far out with
+    a light. Nobody ever did." The lantern **lit itself** when the Heron took, as the keeper's bell rang ("Nobody struck
+    it").
+  - **Dunstan Tollen** (mystery #5, half paid: alive, among the Unmoored, chose to go) sits on a sedge tussock at the end
+    of the long walk with his boots in the mere, the lantern lit beside him, **whittling gulls**, facing the lit Heron. He
+    says his name (after the `gull` burn it slides off; he is "the big man" — but "my sister keeps the harbor there.
+    Mara." lands). He remembers Mara. He took Mara's red cord from the post (half at his belt, half round the gull's neck
+    on the Heron's rim); he cut the Wakebearer's own word off the hook, then went back for it.
+  - **"For after":** you can't walk out of the Deeps in the dark (the boards are laid one way, going in); he waited on the
+    Heron so he could see his way back **when he's done**. "Nearly. I don't know how much there was, so I can't tell how
+    much is left." When done he'll walk back and ask Hesper for his name — not before. Hesper keeps it (if her own name
+    burned: "I couldn't keep my own, and I've still got his").
+  - **What he put down: he doesn't know** — "that's how you know it went." He laughed all the way up the coast "because it
+    was going to stop" (`fen_dunstan_rule`: asked / kept). *Never say what it was.*
+  - **The Heron's climber:** Dunstan sits up there some nights "with them — they're cold"; **the gull on the rim is his**.
+    **He didn't carry the put-down things up**: they were there the first time and there are more each time ("I don't
+    know whose"). The keeper's coat was folded when he came; he never touched it. (Still open: the carrier; the keeper.)
+  - **Mara** (`fen_dunstan_mara`): her word (in person, or tied on the post) → he laughs ("tells you not to, so you'll
+    know she would") and whittles **a gull for the stool, facing the door — "not a promise, only so she knows I know where
+    it is"** (Mara sets it on the stool: "Facing the door. Not north." / "If he comes."). The `gull` burn told → "Two
+    cups… she's put me down before I've put her down. That's backward. Tollens always did go backward" — nothing sent.
+  - **Oda** at the lit fen: "Three lit." **The lane on runs east-about to Wrackholm**: the Tidewrights' salvage yards and
+    **the lane-house where masters are sworn** (Oda, 38 years back). **Dark; nobody has answered a horn from Wrackholm
+    since the Snuffing — "that's not like us."** Cindermoor is past it "and past more besides". She won't sail it until
+    the Wakebearer is "done here". On Dunstan: "Is he laughing?… That man laughed at weather."
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)
@@ -643,7 +671,8 @@ forget. The fog is thickest and strangest here.
    other people's memories, not emptied.
 4. **What happened to Isolde Vane?** *[SECRET]* She was the first to discover the truth and was
    "burned" by the Keepers; the Hollow Choir sings her memory.
-5. **Where did Dunstan Tollen go?** He is alive in the fog, among the Unmoored, and chose to go.
+5. **Where did Dunstan Tollen go?** He is alive in the fog, among the Unmoored, and chose to go. *(Found Day 37 at the end of
+   the long walk; what he put down stays unknown even to him. Still to pay off: whether he walks back for his name.)*
 
 ## Story flags (canon registry)
 All world-state flags are declared in `data/flags.json` with a description. Content may only

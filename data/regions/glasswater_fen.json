@@ -1096,6 +1096,25 @@
         0.7
       ],
       "note": "Another, at the head of the long walk, facing the Deeps."
+    },
+    {
+      "model": "res://assets/models/dressing/plank_path.glb",
+      "position": [
+        0.4,
+        0,
+        -27.9
+      ],
+      "rotation_y": 8,
+      "if": "quest:a_light_for_glasswater=done",
+      "note": "The last board on the long walk, laid crooked for going in; the halo is Dunstan's lantern on his tussock beside it (Day 37: seen from the staithe; a halo, not a light — the light budget).",
+      "halo": [
+        1.22,
+        0.45,
+        -1.3
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.9,
+      "halo_bloom": 0.3
     }
   ],
   "npcs": [
@@ -1148,6 +1167,35 @@
       "rotation_y": 0,
       "if": "flag:lanes_ferry_at=fen",
       "note": "At the staithe end by the Slow Mercy's plank."
+    },
+    {
+      "npc": "dunstan",
+      "position": [
+        1.5,
+        0,
+        -29.9
+      ],
+      "rotation_y": -95,
+      "if": [
+        "quest:a_light_for_glasswater=done",
+        "!flag:fen_dunstan_word=mara"
+      ],
+      "note": "Dunstan found (Day 37): on a tussock at the end of the long walk, boots in the mere, the lantern lit beside him, whittling, facing the lit Heron."
+    },
+    {
+      "npc": "dunstan",
+      "position": [
+        1.5,
+        0,
+        -29.9
+      ],
+      "rotation_y": -95,
+      "if": [
+        "quest:a_light_for_glasswater=done",
+        "flag:fen_dunstan_word=mara"
+      ],
+      "model": "res://assets/models/characters/dunstan_seated_cord.glb",
+      "note": "The same, with Mara's red cord knotted at his belt (her word was tied on the letting post)."
     }
   ],
   "objects": [
@@ -1198,6 +1246,18 @@
       },
       "dialogue": "fen_arrival",
       "note": "First landfall at Glasswater Fen."
+    },
+    {
+      "id": "fen_lantern_for_after",
+      "if": [
+        "quest:a_light_for_glasswater=done",
+        "!flag:fen_lantern_seen"
+      ],
+      "set": {
+        "fen_lantern_seen": true
+      },
+      "dialogue": "fen_lantern_for_after",
+      "note": "Back on the fen after the burn: the lantern lit at the fog's foot sits at the end of the long walk (starts For After)."
     }
   ],
   "exits": [],

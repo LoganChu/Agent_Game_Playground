@@ -315,6 +315,29 @@
         "heron_skiff_bell": 0
       },
       "shot": "--camera=7,3.5,10:-1,4,-6"
+    },
+    {
+      "id": "dunstan_found",
+      "act": "Act II — The Drift",
+      "title": "For after: Dunstan found",
+      "inherits": "heron_lit",
+      "region": "glasswater_fen",
+      "spawn": "from_punt",
+      "description": "Poled back by the Heron's light; the lantern lit at the fog's foot sits at the end of the long walk. Walk out along the boards: Dunstan Tollen on a tussock with his boots in the mere, whittling, the lantern lit beside him (Mara's word was left on the post, so a bit of red cord at his belt).",
+      "flags": {
+        "fen_punt_out": false,
+        "fen_lantern_seen": true,
+        "fen_dunstan_word": "mara",
+        "fen_heard_of_dunstan": true,
+        "saltmarrow_mara_told_of_dunstan": true,
+        "saltmarrow_mara_knows_dunstan_chose": true,
+        "saltmarrow_mara_message_for_dunstan": true
+      },
+      "quests": {
+        "for_after": "the_light_on_the_long_walk",
+        "the_letting_post": "done"
+      },
+      "shot": "--camera=4.2,1.6,-25.6:1.3,0.7,-30"
     }
   ]
 }

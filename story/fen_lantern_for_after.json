@@ -1,0 +1,23 @@
+{
+  "id": "fen_lantern_for_after",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Back on the fen you see it before anything else: out at the end of the long walk, where the boards stop, a small light sits low over the water. It doesn't move. It doesn't go out."
+      },
+      {
+        "say": "narrator",
+        "text": "The lantern that was lit at the fog's foot when the Heron took. Somebody has carried it this far in, and set it down."
+      },
+      {
+        "say": "corran",
+        "text": "That's not one of mine. Nobody walks that far out with a light. Nobody ever did."
+      },
+      {
+        "quest_start": "for_after",
+        "end": true
+      }
+    ]
+  }
+}

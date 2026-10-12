@@ -7,6 +7,10 @@
         "goto": "gull_burned"
       },
       {
+        "if": "flag:saltmarrow_mara_got_gull",
+        "goto": "gull_sent"
+      },
+      {
         "if": [
           "flag:saltmarrow_mara_offered_gull",
           "quest:a_light_for_saltmarrow=done",
@@ -70,6 +74,25 @@
         "if": "flag:saltmarrow_mara_knows_dunstan_chose",
         "say": "narrator",
         "text": "The stool is still set square to the harbor, facing north. Mara wipes it down every morning and couldn't tell you why."
+      }
+    ],
+    "gull_sent": [
+      {
+        "say": "narrator",
+        "text": "Dunstan's stool. A thumb-sized gull sits on the seat, fresh-whittled, its beak turned to Mara's door."
+      },
+      {
+        "say": "narrator",
+        "text": "Beside it sits the older one, beak turned north, the way he walked. They're facing each other.",
+        "if": [
+          "flag:saltmarrow_mara_offered_gull",
+          "quest:a_light_for_saltmarrow=done",
+          "!item:dunstans_gull"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Not a promise. Just so she knows he knows where it is."
       }
     ]
   }

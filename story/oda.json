@@ -256,7 +256,7 @@
       },
       {
         "say": "oda",
-        "text": "Light Thornwold, and the lane past it opens. That's how you get to Cindermoor. One light at a time, same as anyone."
+        "text": "Light Thornwold, and the lane past it opens, and the one past that. That's the way toward Cindermoor: one light at a time, same as anyone."
       },
       {
         "goto": "hub"
@@ -606,6 +606,11 @@
     "fen": [
       {
         "say": "oda",
+        "text": "Three lit. The Gull, the Ridge Light, and that heron on stilts. I'd not have wagered on the heron.",
+        "if": "quest:a_light_for_glasswater=done"
+      },
+      {
+        "say": "oda",
         "text": "We'll lie here a tide or two. I don't like water that doesn't move. Water that doesn't move is thinking."
       },
       {
@@ -614,6 +619,46 @@
             "text": "That rowboat tied at the staithe...",
             "if": "flag:fen_rowboat_seen",
             "goto": "fen_rowboat"
+          },
+          {
+            "text": "I went out to the Heron's legs.",
+            "if": [
+              "flag:fen_heron_reached",
+              "!flag:fen_oda_heard_heron"
+            ],
+            "set": {
+              "fen_oda_heard_heron": true
+            },
+            "goto": "fen_heron"
+          },
+          {
+            "text": "I found Dunstan.",
+            "if": [
+              "flag:fen_dunstan_met",
+              "!flag:fen_oda_heard_dunstan",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
+            "set": {
+              "fen_oda_heard_dunstan": true
+            },
+            "goto": "fen_dunstan"
+          },
+          {
+            "text": "I found the big man from the rowboat.",
+            "if": [
+              "flag:fen_dunstan_met",
+              "!flag:fen_oda_heard_dunstan",
+              "flag:saltmarrow_beacon_burned=gull"
+            ],
+            "set": {
+              "fen_oda_heard_dunstan": true
+            },
+            "goto": "fen_dunstan"
+          },
+          {
+            "text": "Where does the lane go from here?",
+            "if": "quest:a_light_for_glasswater=done",
+            "goto": "fen_lane"
           },
           {
             "text": "Take me back to Thornwold.",
@@ -668,6 +713,92 @@
           "from_ferry"
         ],
         "end": true
+      }
+    ],
+    "fen_heron": [
+      {
+        "say": "oda",
+        "text": "Out to the legs, in an eel-punt, in that? Rather you than me."
+      },
+      {
+        "say": "oda",
+        "text": "You tied her bell back on her bow. Good. A boat ought to say she's coming in, whether or not anyone's listening.",
+        "if": "flag:fen_skiff_bell=hung"
+      },
+      {
+        "say": "oda",
+        "text": "You kept her bell. Don't ring it on my deck. A ship's bell rung where there's no ship calls the wrong things in.",
+        "if": "flag:fen_skiff_bell=kept"
+      },
+      {
+        "say": "oda",
+        "text": "And you called him, and he went on. He did that on deck when he'd made his mind up: say his name and he'd keep coiling.",
+        "if": "flag:fen_dunstan_glimpsed=called"
+      },
+      {
+        "say": "oda",
+        "text": "And you let him walk. Some would have shouted. I might have.",
+        "if": "flag:fen_dunstan_glimpsed=watched"
+      },
+      {
+        "say": "oda",
+        "text": "And you saw a big man you couldn't put a name to. I could. I won't. It'd only run off you.",
+        "if": "flag:fen_dunstan_glimpsed=nameless"
+      },
+      {
+        "goto": "fen"
+      }
+    ],
+    "fen_dunstan": [
+      {
+        "say": "oda",
+        "text": "Is he laughing?"
+      },
+      {
+        "say": "player",
+        "text": "Once. Like a dropped anchor."
+      },
+      {
+        "say": "oda",
+        "text": "Then he's all right. Or he will be. That man laughed at weather."
+      },
+      {
+        "say": "oda",
+        "text": "A gull for Mara? I'll carry it the long way round, Thornwold and the Gull. It'll keep. Gulls do.",
+        "if": "item:gull_for_mara"
+      },
+      {
+        "say": "oda",
+        "text": "He's sat by a lantern with nobody to tell him the tide. Well. He knows the tide.",
+        "if": "!item:gull_for_mara"
+      },
+      {
+        "goto": "fen"
+      }
+    ],
+    "fen_lane": [
+      {
+        "say": "oda",
+        "text": "East-about. Keep the Heron astern and the morning on your right cheek, the old pilots say, and you raise Wrackholm in a day."
+      },
+      {
+        "say": "oda",
+        "text": "Our yards. Tidewright salvage, and the lane-house where the masters are sworn. Where they swore me, thirty-eight years back."
+      },
+      {
+        "say": "oda",
+        "text": "Dark. Nobody's answered a horn from Wrackholm since the Snuffing, and that's not like us. We answer horns."
+      },
+      {
+        "say": "oda",
+        "text": "Cindermoor's past it, and past more besides. That's how it goes."
+      },
+      {
+        "say": "oda",
+        "text": "Not this tide. When I sail for Wrackholm I want my crew rested and you done here. You've a look like you're not."
+      },
+      {
+        "goto": "fen"
       }
     ]
   }

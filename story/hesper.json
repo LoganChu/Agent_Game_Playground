@@ -203,6 +203,17 @@
             "goto": "name_back"
           },
           {
+            "text": "I found the man who left his name with you.",
+            "if": [
+              "flag:fen_dunstan_met",
+              "!flag:fen_hesper_heard_dunstan"
+            ],
+            "set": {
+              "fen_hesper_heard_dunstan": true
+            },
+            "goto": "dunstan_found"
+          },
+          {
             "text": "Goodbye.",
             "end": true
           }
@@ -477,6 +488,28 @@
       {
         "say": "hesper",
         "text": "Hesper. Well. I'll go on meeting boats with it, then."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dunstan_found": [
+      {
+        "say": "hesper",
+        "text": "That's asking about somebody further in. But you're telling, not asking. I'll allow it."
+      },
+      {
+        "say": "hesper",
+        "text": "I've seen his light from the staithe, out where the boards stop. He's sitting up with it."
+      },
+      {
+        "say": "hesper",
+        "text": "He didn't send for his name, then. So he's not done. I'll keep it. I've kept it this long."
+      },
+      {
+        "say": "hesper",
+        "text": "Funny. I couldn't keep my own, and I've still got his. It doesn't weigh anything, keeping somebody else's.",
+        "if": "flag:fen_beacon_burned=name"
       },
       {
         "goto": "hub"
