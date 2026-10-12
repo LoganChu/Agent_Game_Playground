@@ -2,6 +2,53 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-12 21:00 UTC — Day 38: Polish/debt pass four (placements proved exclusive; Dunstan's boots in the mere)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again, and `origin/main` was
+  force-updated again (to Day 37's `78b40e9`); reset local `main` to it. Baseline green (269 tests + smoke + launch).
+- **Polish/debt (due by Day 39; last Day 31)** — ROADMAP *Known issues* candidates:
+  - **The validator proves an NPC's placements exclusive.** Until now it only required every placement of a
+    many-placed NPC to have an `if` ("keep them exact negations" was a note). New `Conditions.joint_witness`
+    searches the combinations of the values a set of conditions mention (flags at their default, each named
+    value, true/false and one unnamed value; quests inactive/done/active at each named stage or another; item
+    counts) for a state where all hold; the validator runs it on every pair of an NPC's placements and reports the
+    witness. **It found one:** Pell could stand on Shingle Point and on Thornwold at once if
+    `thornwold_pell_landed` were ever set without `saltmarrow_ferry_arrived` — the beach placement now negates both.
+  - **Dunstan's boots in the mere.** He sat on the spine of the long walk's end hummock with his boots on the
+    mud. Now off its west side, still facing the lit Heron and in talking reach of the last board: the tussock in
+    the shallows (`position` y 0.15 — the data offset over the ground — so it stands ~0.15 deep, not 0.55),
+    his boots over open water. The halo on the last board moved with his lantern. Checkpoint `dunstan_found` re-shot.
+  - **Walking past Hesper** (never asked to cup the ember): every `fen_ember` line in Corran's, Dunstan's, Hesper's
+    and the glimpse's dialogue has a sensible reading when it's unset (Dunstan's "bare light" is `!cupped` — true);
+    tested on Corran's first talk.
+  - **The lantern for after** is seen from Corran's landing (where the punt brings you back), Stillhithe and the walk;
+    the note that said "from the staithe" is corrected (the reed houses hide it there; the arrival text holds).
+- **Tests:** `test_polish_four.gd` (5): the witness search (negations, two values, a value and its exclusion, a value
+  nobody named, done quests have no stage, item counts), every placed NPC exclusive (and Pell's beach negation), the
+  validator catching a double Dunstan, the boots in the mere (seat in the shallows, ground under the boots lower,
+  by the walk's end, facing the Heron), walking past Hesper. 274 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-10-12-pm-dunstan-boots-in-the-mere.png`; `docs/checkpoints/dunstan_found.png`.
+
+**Decisions**
+- **A brute-force witness, not a solver**: conditions are a handful of AND-ed terms, so a pair's search is a few
+  hundred states. It over-approximates (tries values the story never sets), which is the safe side for a
+  validator: the fix is always to write exact negations.
+- **Not extended to prop variants yet**: a scan of same-spot conditional props found only the letting post pair,
+  overlapping only for `fen_dunstan_word=true` (never set). An exact check wants declared flag `values` — logged.
+- **Smoke walk left on Mara's 'well' path** and its Thornwold-Oda helper as is: both are covered (unit tests,
+  `_sail_the_fen_lane`), and more passes would cost smoke time for nothing new.
+- **The Heron's stage/leg overlap** folded into *Fen art follow-ups* (it's a model fix).
+
+**Problems / notes**
+- Day 31 was already "polish pass three"; this is four (`test_polish_four.gd`).
+- The art cadence (every other session) slipped: Day 37 content, Day 38 polish, last art Day 36.
+
+**Next run should**
+1. **Fen art follow-ups** (art, overdue by the cadence) — ROADMAP *Next up* #1.
+2. Then **the lane to Wrackholm** (content, due by Day 41).
+
 ## 2026-10-12 09:00 UTC — Day 37: After the Heron — Dunstan found (content)
 
 **Did**

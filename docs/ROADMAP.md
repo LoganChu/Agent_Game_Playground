@@ -304,9 +304,19 @@ each .glb < 5 MB.
       walk back by, then his name from Hesper. **Oda** three-lit at the fen: the trip out (bell, big man), "Is he
       laughing?", **the lane on to Wrackholm** (Tidewright yards, dark; not sailed yet); her Saltmarrow `route` line
       fixed ("the one past that"). Hesper keeps his name. Checkpoint `dunstan_found`.
+- [x] [P] **Polish/debt pass four** (Day 38): the validator **proves an NPC's placements exclusive**
+      (`Conditions.joint_witness` — it found Pell able to stand on the beach and on Thornwold at once if the
+      flags ever disagreed; the beach placement now negates `thornwold_pell_landed`); **Dunstan's boots in the
+      mere** (off the west side of the walk's end hummock, the tussock in the shallows; was on the spine), his
+      halo follows; walking past Hesper checked (every `fen_ember` line has a sensible unset reading; tested);
+      the lantern-for-after note corrected (seen from Corran's landing, not the staithe). Checkpoint
+      `dunstan_found` re-shot.
 
 ### Next up
-1. [P] **Polish/debt pass** (due by Day 39; last Day 31) — see *Known issues* (candidates listed there).
+1. [A] **Fen art follow-ups** (due next — the art cadence: last art Day 36): the fen's flat white light (a pale shore band,
+   Stillhithe's paint, less blue in the water); the gull's red cord on the sill (Mara's word — too small for
+   the horn, Day 36: a closer look-at would need it); the stage meeting the ladder leg (a cleat or a landing step); the shadow acne on
+   the Heron's legs in the Compatibility renderer (zig-zag bands behind the ladder).
 2. [C] **The lane to Wrackholm** (content, due by Day 41): Oda sails east-about from the lit fen once asked ("you done
    here"); the Tidewrights' yards dark, nobody answering horns — the faction's own island (Tidewrights court the
    player: deeds, the hand-scale, Keepers pay twice; `saltmarrow_oda_saw_sleeve_ember`). New region, a Tidewright NPC
@@ -326,7 +336,7 @@ each .glb < 5 MB.
 6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
-   (LORE: "a road forgets where it goes" — now Thornwold's theme, see item 3); a Hushed NPC
+   (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
@@ -339,10 +349,6 @@ each .glb < 5 MB.
 9. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
-10. [A] **Fen art follow-ups** (next art due ~Day 40): the fen's flat white light (a pale shore band,
-   Stillhithe's paint, less blue in the water); the gull's red cord on the sill (Mara's word — too small for
-   the horn, Day 36: a closer look-at would need it); the stage meeting the ladder leg (a cleat or a landing step); the shadow acne on
-   the Heron's legs in the Compatibility renderer (zig-zag bands behind the ladder).
 
 ## Milestone 2 — Alpha (Act II begins)
 - [x] [C] **The crossing** — landed Day 17 (see Done).
@@ -380,12 +386,12 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due Day 39 (Day 31 was the last). Candidates: the smoke walk's Thornwold Oda (below);
-  Hesper's first talk can be walked past (then `fen_ember` stays unset and nobody turns — fine, but check
-  it reads); the fen's mirror water/colour with the Vulkan pass; Dunstan's tussock sits on the long walk's end hummock (the
-  text says "boots in the mere" — move him a little out, or lower the hummock's tip); the smoke walk only takes the
-  'well' Mara path; the Heron's boardwalk stage overlaps the ladder leg a
-  little (the model has no collider).
+- Next polish/debt pass due by Day 46 (Day 38 was the last). Candidates: the fen's mirror water/colour with the
+  Vulkan pass; the smoke walk only takes the 'well' Mara path (others: `test_after_the_heron.gd`); the Heron's
+  boardwalk stage overlaps the ladder leg a little (the model has no collider — or fold into *Fen art
+  follow-ups*); a validator pass over **conditional prop variants on the same spot** (like the NPC check —
+  today only the letting post pair, which overlaps only for a value `fen_dunstan_word` never takes; a flag
+  `values` list in `flags.json` would let `joint_witness` stop guessing and make such checks exact).
 - Test time budget: `tools/run_checks.sh` gives each step 300 s. Day 31: tests 26 s, smoke ~45 s, import the
   longest. The runner prints the slowest tests — check them when adding a validator pass over every region.
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog
@@ -399,7 +405,8 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 37 (After the Heron — Dunstan found); next content due by Day 41 (the lane to Wrackholm).
-- Last art session: Day 36 (the Heron lit, dressed). Next art due ~Day 40 (*Fen art follow-ups*).
+- Last polish/debt session: Day 38 (pass four); next due by Day 46.
+- Last art session: Day 36 (the Heron lit, dressed). Next art due Day 39 (*Fen art follow-ups*): the every-other-session cadence slipped for the Day 38 polish pass.
 - Hob's camp bench is in the tally house's shadow under the landing's sun (west); he reads dark from
   the yard in Compatibility. Judge with the Vulkan colour pass; a fill light is not in the budget.
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
@@ -449,8 +456,8 @@ each .glb < 5 MB.
 - Smoke test ferry paths: the ferry needs Pell's dock ask before Mara's leave; the walk
   takes one Pell path per run (whichever the menu walker reaches — currently promised →
   Mara says yes). Other ferry paths are covered by `test_ferry.gd`.
-- NPCs placed in several regions: the validator only checks each placement is conditional,
-  not that the conditions are mutually exclusive — keep them as exact negations.
+- NPCs placed in several regions: since Day 38 the validator proves no two placements can show at once
+  (`Conditions.joint_witness`); it also tries values a flag never takes, so keep them exact negations.
 - Model props can't be tinted (the `color` field only affects procedural shapes), so tint
   variants are separate exports (`net_rack_pine`). If variants multiply, add a material
   override hook (e.g. recolour surfaces named `Tint*`).

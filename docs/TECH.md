@@ -260,7 +260,13 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   placement has an `if` (Pell: beach until `saltmarrow_ferry_arrived`, then the dock; Hob:
   the clearing until `thornwold_hob_came_in`, then the tally-house step — set by the landing's
   `hob_comes_in` event, Day 27, which needs the Ridge Light lit and Hob paid in either order). The
-  conditions are expected to be mutually exclusive; the validator can't prove that.
+  conditions must be mutually exclusive, and since Day 38 the validator proves it:
+  `Conditions.joint_witness(conditions, flag_defaults)` searches every combination of the values
+  the conditions mention (each flag at its default, every named value, true, false and one unnamed
+  value; quests inactive/done/active at each named stage or another; items 0, 1, each named count)
+  for a state where two placements both hold, and reports it (`{"flag:x": v, …}`). The search is
+  per pair over that pair's terms only (tiny); it gives up past 65 536 states. Because it tries
+  values the story never sets (a string flag set to `true`), keep placements exact negations.
 - **`act_ends`** in `data/game.json`: `[{id, when, title, subtitle?, recap: [{if?, text}],
   coda}]`. When a dialogue closes and an act's `when` has *just* become true (compared with
   a snapshot taken on every region load, so loading a save never shows a card), `main.gd`
