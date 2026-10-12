@@ -42,6 +42,15 @@ func table(kind: String) -> Dictionary:
 	return {}
 
 
+## An NPC's name as the player knows it now: the first of its `names` (`[{if, name}]`) whose
+## condition holds, else its `name` (Dunstan is "The big man" until he says who he is).
+static func npc_display_name(npc: Dictionary, state: WorldState, fallback: String = "") -> String:
+	for entry: Variant in npc.get("names", []):
+		if entry is Dictionary and Conditions.evaluate((entry as Dictionary).get("if"), state):
+			return str((entry as Dictionary).get("name", fallback))
+	return str(npc.get("name", fallback))
+
+
 func get_region(id: String) -> Dictionary:
 	return regions.get(id, {})
 

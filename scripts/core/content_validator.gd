@@ -268,6 +268,15 @@ func _validate_npc(id: String, npc: Dictionary) -> void:
 		_err(where, "faces_player must be true or false")
 	if npc.has("idle") and str(npc["idle"]) not in CharacterRig.STYLES:
 		_err(where, "idle must be one of %s" % [CharacterRig.STYLES])
+	if npc.has("names"):
+		if not npc["names"] is Array:
+			_err(where, "names must be a list of {if, name}")
+		else:
+			for entry: Variant in npc["names"]:
+				if not entry is Dictionary or not (entry as Dictionary).has("if") or str((entry as Dictionary).get("name", "")).is_empty():
+					_err(where, "each names entry needs an 'if' and a non-empty 'name'")
+				else:
+					_ref_condition(where, (entry as Dictionary)["if"])
 
 
 ## A character model must exist and be a scene (the rig tolerates missing parts, so the part

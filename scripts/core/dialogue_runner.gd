@@ -107,8 +107,7 @@ func choose(option_index: int) -> Dictionary:
 func speaker_name(speaker: String) -> String:
 	if SPECIAL_SPEAKERS.has(speaker):
 		return SPECIAL_SPEAKERS[speaker]
-	var npc := db.get_npc(speaker)
-	return str(npc.get("name", speaker))
+	return ContentDatabase.npc_display_name(db.get_npc(speaker), state, speaker)
 
 
 func apply_effects(step: Dictionary) -> void:

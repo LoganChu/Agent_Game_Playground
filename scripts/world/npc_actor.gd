@@ -16,6 +16,7 @@ var npc_data: Dictionary = {}
 var _face_yaw := 0.0
 var _talking := false
 var _body: Node3D
+var _label: Label3D
 ## Body yaw to start from (set by take_over before the body is built).
 var _start_yaw := 0.0
 
@@ -24,12 +25,22 @@ func setup(id: String, data: Dictionary) -> void:
 	npc_id = id
 	npc_data = data
 	name = "Npc_" + id
-	prompt = "Talk to " + str(data.get("name", id))
+	_refresh_prompt()
+
+
+## "Talk to <name>" and the name over the head, by the NPC's conditional `names`.
+func _refresh_prompt() -> void:
+	var shown := ContentDatabase.npc_display_name(npc_data, GameState.world, npc_id)
+	prompt = "Talk to " + shown
+	if _label:
+		_label.text = shown
 
 
 func _ready() -> void:
 	super._ready()
 	add_to_group("npcs")
+	if npc_data.has("names"):
+		GameState.world.flag_changed.connect(func(_id: String, _v: Variant) -> void: _refresh_prompt())
 	_build_body()
 
 
@@ -116,7 +127,8 @@ func _build_body() -> void:
 	add_child(body)
 	_body = body
 	var label := Label3D.new()
-	label.text = str(npc_data.get("name", npc_id))
+	_label = label
+	label.text = ContentDatabase.npc_display_name(npc_data, GameState.world, npc_id)
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	label.position = Vector3(0, 2.0, 0)
 	label.font_size = 40

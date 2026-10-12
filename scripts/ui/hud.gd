@@ -55,6 +55,9 @@ func set_ember(ember: float, depth: float) -> void:
 ## dialogue panel would cover it anyway, and its keys don't apply there.
 func _process(_delta: float) -> void:
 	_keys.visible = not GameState.input_locked
+	# An NPC's name can change while it has focus (Dunstan says who he is).
+	if _prompt.visible and _focus and is_instance_valid(_focus) and not _prompt.text.ends_with(_focus.prompt):
+		set_focus(_focus)
 
 
 ## True while the bottom-left key hint is on screen.
