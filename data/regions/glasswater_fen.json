@@ -1106,11 +1106,11 @@
       ],
       "rotation_y": 8,
       "if": "quest:a_light_for_glasswater=done",
-      "note": "The last board on the long walk, laid crooked for going in; the halo is Dunstan's lantern on his tussock beside it (Day 37: seen from the staithe; a halo, not a light — the light budget).",
+      "note": "The last board on the long walk, laid crooked for going in; the halo is Dunstan's lantern on his tussock beside it (Day 37: seen from Corran's landing, Stillhithe and along the walk — the reed houses hide it from the staithe; a halo, not a light — the light budget). Day 38: moved with him to the west side of the tip.",
       "halo": [
-        1.22,
+        0.27,
         0.45,
-        -1.3
+        -1.17
       ],
       "halo_size": 2.4,
       "halo_strength": 0.9,
@@ -1171,23 +1171,23 @@
     {
       "npc": "dunstan",
       "position": [
-        1.5,
-        0,
-        -29.9
+        0.45,
+        0.15,
+        -29.6
       ],
       "rotation_y": -95,
       "if": [
         "quest:a_light_for_glasswater=done",
         "!flag:fen_dunstan_word=mara"
       ],
-      "note": "Dunstan found (Day 37): on a tussock at the end of the long walk, boots in the mere, the lantern lit beside him, whittling, facing the lit Heron."
+      "note": "Dunstan found (Day 37): on a tussock at the end of the long walk, boots in the mere, the lantern lit beside him, whittling, facing the lit Heron. Day 38: off the west side of the hummock tip, the tussock set 0.15 up out of the deeper water so it stands in the shallows and his boots hang in open water (was on the spine)."
     },
     {
       "npc": "dunstan",
       "position": [
-        1.5,
-        0,
-        -29.9
+        0.45,
+        0.15,
+        -29.6
       ],
       "rotation_y": -95,
       "if": [
