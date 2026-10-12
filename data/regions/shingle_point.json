@@ -450,8 +450,11 @@
         2
       ],
       "rotation_y": 200,
-      "if": "!flag:saltmarrow_ferry_arrived",
-      "note": "On the beach until the ferry comes; then on the Saltmarrow dock."
+      "if": [
+        "!flag:saltmarrow_ferry_arrived",
+        "!flag:thornwold_pell_landed"
+      ],
+      "note": "On the beach until the ferry comes; then on the Saltmarrow dock (or on Thornwold, if they crossed: exact negations, checked by the validator)."
     }
   ],
   "pickups": [

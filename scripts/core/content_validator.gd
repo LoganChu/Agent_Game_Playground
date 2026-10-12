@@ -49,6 +49,7 @@ func validate() -> bool:
 	for id: String in db.dialogues:
 		_validate_dialogue(id, db.dialogues[id])
 	_check_orphans()
+	_check_placements_exclusive()
 	for message in Scenarios.validate(db, Scenarios.all()):
 		_err("data/scenarios.json", message)
 	return errors.is_empty()
@@ -332,7 +333,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 			# An NPC may stand in several places only if every placement is conditional
 			# (e.g. Pell on the beach until the ferry comes, then on the dock).
 			var placements: Array = _npcs_placed.get(npc_id, [])
-			placements.append({"region": id, "conditional": placement.has("if")})
+			placements.append({"region": id, "conditional": placement.has("if"), "if": placement.get("if")})
 			_npcs_placed[npc_id] = placements
 			if placements.size() > 1 and placements.any(func(p: Dictionary) -> bool: return not p["conditional"]):
 				_err(where, "npc '%s' is placed more than once (also in %s); every placement then needs an 'if'" \
@@ -884,6 +885,27 @@ func _ref_condition(where: String, condition: Variant) -> void:
 				if not db.items.has(id):
 					_err(where, "condition on unknown item '%s'" % id)
 				_items_used[id] = true
+
+
+## An NPC placed more than once (all conditional) must never show in two places at once: no
+## world state may satisfy two of its placements' conditions (Day 38; before, only "keep them
+## exact negations" in the notes).
+func _check_placements_exclusive() -> void:
+	var defaults: Dictionary = {}
+	for flag_id: String in db.flags:
+		defaults[flag_id] = db.flag_default(flag_id)
+	for npc_id: String in _npcs_placed:
+		var placements: Array = _npcs_placed[npc_id]
+		for i in placements.size():
+			for j in range(i + 1, placements.size()):
+				var a: Dictionary = placements[i]
+				var b: Dictionary = placements[j]
+				if not a["conditional"] or not b["conditional"]:
+					continue  # already an error above
+				var witness := Conditions.joint_witness([a["if"], b["if"]], defaults)
+				if not witness.is_empty():
+					_err("region " + str(b["region"]), "npc '%s' can show here and in %s at once (e.g. %s); make the placements' conditions exclusive" \
+							% [npc_id, a["region"], JSON.stringify(witness)])
 
 
 func _flag_exempt(id: String) -> bool:

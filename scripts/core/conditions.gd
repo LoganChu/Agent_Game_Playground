@@ -105,3 +105,70 @@ static func _truthy(v: Variant) -> bool:
 	if v is String:
 		return not (v as String).is_empty()
 	return true
+
+
+## Searches for a world state in which every condition in `conditions` holds at once, trying
+## each flag at its default (`flag_defaults`), at every value the conditions name, true, false
+## and one value none of them names; each quest inactive, done, or active at each named stage
+## (or another); each item at 0, 1 and every named count. Returns that state's assignments
+## ({"flag:x": v, "quest:q": "active@stage", "item:i": n}), or {} if no such state exists.
+## Used by the validator to prove an NPC's placements never show two at once. Gives up (and
+## returns {}) past `max_states` combinations.
+static func joint_witness(conditions: Array, flag_defaults: Dictionary, max_states: int = 65536) -> Dictionary:
+	var domains: Dictionary = {}  # "kind:id" -> Array of candidate values
+	for condition: Variant in conditions:
+		for term in terms(condition):
+			var p := parse(term)
+			if p.has("error"):
+				return {}
+			var id: String = p["id"]
+			match p["kind"]:
+				"flag":
+					var key := "flag:" + id
+					if not domains.has(key):
+						domains[key] = [flag_defaults.get(id, false), true, false, "\u0001other"]
+					if p["op"] == "=" and not (domains[key] as Array).has(p["value"]):
+						(domains[key] as Array).append(p["value"])
+				"quest", "stage":
+					var key := "quest:" + id
+					if not domains.has(key):
+						domains[key] = ["inactive", "done", "active@\u0001other"]
+					if p["kind"] == "stage" and not (domains[key] as Array).has("active@" + p["value"]):
+						(domains[key] as Array).append("active@" + p["value"])
+				"item":
+					var key := "item:" + id
+					if not domains.has(key):
+						domains[key] = [0, 1]
+					if p["op"] == ">=" and not (domains[key] as Array).has(int(p["value"])):
+						(domains[key] as Array).append(int(p["value"]))
+	var keys: Array = domains.keys()
+	var total := 1
+	for key: String in keys:
+		total *= (domains[key] as Array).size()
+		if total > max_states:
+			push_warning("joint_witness: too many states to search (%s…)" % ", ".join(PackedStringArray(keys)))
+			return {}
+	var state := WorldState.new()
+	for n in total:
+		var assignment: Dictionary = {}
+		var rest := n
+		state.flags.clear()
+		state.quests.clear()
+		state.inventory.clear()
+		for key: String in keys:
+			var domain: Array = domains[key]
+			var value: Variant = domain[rest % domain.size()]
+			rest /= domain.size()
+			assignment[key] = value
+			var id := key.substr(key.find(":") + 1)
+			if key.begins_with("flag:"):
+				state.flags[id] = value
+			elif key.begins_with("quest:"):
+				var s := str(value)
+				state.quests[id] = {"state": s.get_slice("@", 0), "stage": s.get_slice("@", 1)} if s.begins_with("active@") \
+						else {"state": s, "stage": ""}
+			else:
+				state.inventory[id] = value
+		if conditions.all(func(c: Variant) -> bool: return evaluate(c, state)):
+			return assignment
+	return {}
