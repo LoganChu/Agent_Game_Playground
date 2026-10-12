@@ -2,6 +2,70 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-12 09:00 UTC — Day 37: After the Heron — Dunstan found (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; `origin/main` had been
+  force-updated to Day 36's `523cadf` (local `main` still pointed elsewhere) — worked from `origin/main`. Baseline green.
+- **Content (due by Day 39; last content Day 35):** ROADMAP *Next up* #1, *After the Heron*:
+  - **The lantern for after:** a fen arrival event once the Heron is lit (any way in — in practice poled back by the
+    light): the lantern lit at the fog's foot sits at the end of the long walk; Corran: "Nobody walks that far out with
+    a light." Starts **For After** (one stage).
+  - **Dunstan Tollen found** (new NPC + `story/dunstan.json`): on a tussock at the end of the long walk, boots toward the
+    mere, whittling, the lantern lit beside him, facing the lit Heron (`faces_player: false`). His first talk honours
+    the ember (cupped/bare), the glimpse (called/watched/nameless), the letting-post word (mara: the red cord at his
+    belt; own: "I cut it off the hook. Then I went back for it"; none: "the best of it"), the burn (Hesper kept his name
+    and lost her own / Corran's seventy years). Then Mara: her word in person (or "it was me tied it on") → he laughs
+    and whittles **a gull for the stool, facing the door** ("not a promise"); after the gull burn the player can tell him
+    she says Tollens end with her and sets out two cups ("…backward. Tollens always did go backward") or spare him.
+    The hub: the lantern ("for after" — to walk back by when he's done; then his name from Hesper), the rule (asked:
+    "I don't know. That's how you know it went" / kept), the Heron's climber (his gull on the rim; **he didn't carry the
+    put-down things up — more each time, "I don't know whose"**; the keeper's coat untouched).
+  - **Mara** takes the gull and sets it on the stool, beak to the door ("If he comes."); the stool shows it (beside the
+    older gull facing north, if that came home).
+  - **Oda** at the lit fen: "Three lit."; the trip out (bell hung/kept, big man called/watched/nameless); "I found
+    Dunstan." / "…the big man from the rowboat." (gull burn) → "Is he laughing?"; **the lane on: east-about to
+    Wrackholm**, the Tidewrights' yards and lane-house, dark, nobody answering horns — not sailed yet. Her Saltmarrow
+    `route` line no longer implies Cindermoor is one lane past Thornwold.
+  - **Hesper** hears he's found: keeps his name till he sends ("I couldn't keep my own, and I've still got his").
+- **Engine:** NPC **`names`** (`[{if, name}]`) — conditional display names for the speaker label, the "Talk to…"
+  prompt and the head label, refreshed live on flag changes (validated). Dunstan is "The big man" until he says it, and
+  always after the gull burn.
+- **Art (small):** `build_characters.py` `dunstan_seated` / `dunstan_seated_cord` (shared `_dunstan(seated, cord)`):
+  seated on a tussock, forearms on the knees, a knife and a thumb-sized gull, the ship's lantern lit on the tussock's
+  shoulder, Mara's red cord at the belt in the `_cord` variant. The lantern glows with a **halo** on the last board of
+  the walk, not a real light (the light budget).
+- **Tests:** `test_after_the_heron.gd` (10): the arrival scene once, placements by word (same spot, cord variant, the
+  halo beside him), the big man → Dunstan (speaker names; gull burn), first talk by earlier choices, every Mara path,
+  the lantern/rule/climber, Mara and the stool, Oda (three lit, Wrackholm, the trip, Dunstan, the route line), Hesper,
+  the `names` validator. **Smoke walk** finds Dunstan after lighting the Heron (`_find_dunstan`: the scene, the
+  prompt before/after his name, the halo, the 'well' path). 269 tests + smoke + launch pass. Checkpoint
+  `dunstan_found`.
+
+Screenshots: `docs/checkpoints/dunstan_found.png`, `docs/screenshots/2026-10-12-dunstan-at-the-end-of-the-walk.png`,
+`…-lantern-from-stillhithe.png`.
+
+**Decisions**
+- **Dunstan met, not brought home.** Mystery #5 is half paid: alive, Unmoored, chose it. He doesn't know what he put
+  down (the rule makes that the only honest answer) — so the "why" never needs inventing — and he isn't done, so his
+  walk back for his name stays a later payoff.
+- **The carrier stays open:** Dunstan sits up with the put-down things and owns the gull, but someone else keeps
+  carrying them up.
+- **The next island is named (Wrackholm, the Tidewrights')** so the lane on has a pull, but not sailed — that's its own
+  content session (Act II's "+2 islands": this is one, the Tidewrights' home, which the faction table needs).
+- **Halo, not light,** for his lantern: TECH's budget is ember/ferry/beacon only.
+- **`names` over a second NPC id:** one Dunstan with conditional names keeps every flag and dialogue in one place.
+
+**Problems / notes**
+- The lantern can't be seen from the staithe itself (Stillhithe's reed houses stand in the way), though the arrival
+  text says you see it "back on the fen"; it reads from Stillhithe and along the walk. Left as is.
+- A one-line lambda with a trailing `and` in the smoke test broke its parse; tests and import still passed, but every
+  `--scenario` screenshot hung (main.gd preloads SmokeTest). Rewritten as a loop; `run_checks.sh` would have caught it.
+
+**Next run should**
+1. **Polish/debt pass** (due by Day 39; last Day 31) — ROADMAP *Known issues* has the candidates.
+2. Then **the lane to Wrackholm** (content, by Day 41). Art is due ~Day 40 (*Fen art follow-ups*).
+
 ## 2026-10-11 21:00 UTC — Day 36: The Heron lit, dressed (art track)
 
 **Did**

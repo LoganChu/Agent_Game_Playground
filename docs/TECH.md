@@ -33,7 +33,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
@@ -318,6 +318,17 @@ Heron's `gold_streak` uses it and sits 8 cm over the water level (the swell is �
 character re-export isn't stable (same size, different bytes): don't commit a rebuilt model whose script
 didn't change. `test_heron_dressed.gd` covers the sill row, the coat, the cord, the placements, the
 hand-over, the streak on open water and the validator.
+
+**After the Heron (Day 37):** NPC **`names`** — `[{"if": condition, "name": "..."}]`, first match wins, else `name`
+(`ContentDatabase.npc_display_name`). Used for the dialogue speaker label (`DialogueRunner.speaker_name`), the
+"Talk to …" prompt and the Label3D over the head (`NpcActor._refresh_prompt`, re-read on every flag change; the HUD
+re-labels a focused prompt when it changes). Dunstan is "The big man" until `fen_dunstan_met` (set on the line where he
+says it, so the rest of that talk is already "Dunstan Tollen") and always after the `gull` burn. Validated: a list of
+entries each with an `if` (known flags) and a non-empty `name`. Dunstan sits at the end of the long walk on
+`quest:a_light_for_glasswater=done` (two placements, `dunstan_seated` / `dunstan_seated_cord` by
+`fen_dunstan_word=mara`); his lantern is a **halo** on the last board (not a light — the budget), and the fen's arrival
+event `fen_lantern_for_after` (after the burn, any way in) starts *For After*. The smoke walk finds him after
+`_light_the_heron` (`_find_dunstan`); `test_after_the_heron.gd` covers the rest.
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,
