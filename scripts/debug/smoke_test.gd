@@ -259,6 +259,37 @@ func _light_the_heron(main: Node, ui: DialogueUI) -> void:
 	for i in 3:
 		await get_tree().physics_frame
 	_check((main.get("region") as Region).region_id == "glasswater_fen", "back at the landing, the Heron lit")
+	await _find_dunstan(main, ui)
+
+
+## Day 37: back on the fen the lantern lit at the fog's foot sits at the end of the long walk
+## (arrival scene, For After); Dunstan by it says his name, hears of Mara, and stays.
+func _find_dunstan(main: Node, ui: DialogueUI) -> void:
+	for i in 3:
+		await get_tree().process_frame
+	_check(ui.is_open(), "the lantern at the end of the long walk is seen on arriving")
+	_finish_dialogue(ui, "the lantern for after")
+	_check(GameState.world.get_flag("fen_lantern_seen") == true, "...once")
+	_check(GameState.world.quest_state("for_after") == WorldState.QUEST_ACTIVE, "For After begins")
+	var dunstan := _npc("dunstan")
+	_check(dunstan != null, "Dunstan sits at the end of the long walk")
+	if dunstan == null:
+		return
+	_check(dunstan.prompt == "Talk to The big man", "a big man, not yet named (%s)" % dunstan.prompt)
+	var fen: Region = main.get("region")
+	var glowing := false
+	for halo in fen.find_children("*", "LanternHalo", true, false):
+		if (halo as Node3D).global_position.distance_to(dunstan.global_position) < 2.0:
+			glowing = true
+	_check(glowing, "his lantern glows at the end of the walk")
+	dunstan.interact()
+	_check(_choose(ui, "She's well. She keeps the harbor, and everyone fed."), "Dunstan asks after Mara")
+	_check(_choose(ui, "What's the lantern for?"), "...and says what the lantern's for")
+	_check(_choose(ui, "I'll leave you to it."), "...and stays by it")
+	_finish_dialogue(ui, "dunstan")
+	_check(GameState.world.get_flag("fen_dunstan_met") == true and GameState.world.quest_state("for_after") == WorldState.QUEST_DONE,
+			"Dunstan found")
+	_check(dunstan.prompt == "Talk to Dunstan Tollen", "named once he's said it (%s)" % dunstan.prompt)
 
 
 func _npc(id: String) -> NpcActor:
