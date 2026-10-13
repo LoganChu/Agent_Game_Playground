@@ -8,7 +8,7 @@ mere, cold, an iron heron for a vane.
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_fen.py
     .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post heron_light staithe boardwalk
-        plank_path punt eel_traps alder_snag reed_bed keeper_skiff tussock gold_streak]
+        plank_path punt eel_traps alder_snag reed_bed keeper_skiff tussock gold_streak gull_cord]
 
 Same conventions as build_dressing/build_ridge: origin at the base centre, flat-shaded,
 palette colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -244,17 +244,19 @@ def _heron_light(near: bool, lit: bool = False) -> None:
     cyl("Roof", rhalf * 1.95, 0.08, 1.7, 4, (0, 0, roof_z), THATCH, math.pi / 4)
     cyl("RoofEave", rhalf * 2.05, rhalf * 1.9, 0.14, 4, (0, 0, roof_z - 0.08), mat("driftwood", -0.35), math.pi / 4)
     _heron(Vector((0, 0, roof_z + 1.68)), IRON)
-    # A ladder up the front-left leg, rungs lashed; the lowest rungs green with slime.
+    # A ladder up the front-left leg, rungs lashed; the lowest rungs green with slime. Lashed
+    # tight to the leg (Day 39; was 0.25 out): the rungs' shadows fall just behind each rung
+    # instead of striping the whole leg in zig-zags under a high sun.
     (a, b) = legs[0]
     side = Vector((0.32, 0, 0))
+    out = Vector((0, -LADDER_OUT, 0))
     for s in (-1, 1):
-        rod("LadderRail", tuple(a + side * s * 0.5 + Vector((0, -0.25, 0))), tuple(b + side * s * 0.5 + Vector((0, -0.25, 0))),
-            0.035, PLANK, verts=4)
+        rod("LadderRail", tuple(a + side * s * 0.5 + out), tuple(b + side * s * 0.5 + out), 0.035, PLANK, verts=4)
     # Above the slime the rungs are scraped pale in the middle where boots go (Day 34): somebody
     # climbs it, lately. Each rung is three lengths: dark ends, a pale worn middle.
     worn = mat("bone", -0.22)
     for k in range(1, 20):
-        p = a + (b - a) * (k / 20) + Vector((0, -0.25, 0))
+        p = a + (b - a) * (k / 20) + out
         if k < 5:
             beam("Rung", tuple(p - side * 0.5), tuple(p + side * 0.5), 0.04, mat("moss", -0.3))
             continue
@@ -263,6 +265,8 @@ def _heron_light(near: bool, lit: bool = False) -> None:
     # The keeper's skiff tied to a back leg, half full of water: pale weathered boards and a bone
     # gunwale so it reads from the shore through the fog (Day 30), an oar left across it.
     suffix = "_lit" if lit else ""
+    if near:
+        _ladder_landing(a, b, PLANK, BRACE, LEG, IRON)
     if near and lit:
         _put_down_things(rz + 0.16)
     if near:
@@ -275,6 +279,43 @@ def _heron_light(near: bool, lit: bool = False) -> None:
     beam("SkiffOar", tuple(sk + Vector((-0.75, -0.3, 0.42))), tuple(sk + Vector((0.6, 0.35, 0.4))), 0.05, mat("bone", -0.1))
     rod("SkiffLine", tuple(sk + Vector((-0.3, 0.6, 0.35))), (foot, foot, 1.3), 0.015, mat("bone", -0.1), verts=3)
     bd.export("heron_light" + suffix)
+
+
+# How far the ladder stands out from its leg's axis (Blender -Y, toward the Foot); the leg is
+# 0.14 round, the rungs 0.04: lashed on, just clear.
+LADDER_OUT = 0.19
+# The keepers' stage (heron_mere.json: boardwalk at x -2, deck 0.275, its far end at z -3.0) in the
+# Heron's own frame (placed at y -1.15, z -5): deck top and the end's Blender y.
+STAGE_DECK, STAGE_END_Y = 1.425, -2.0
+
+
+def _ladder_landing(a: Vector, b: Vector, plank, brace, line, iron) -> None:
+    """Where the stage meets the ladder leg (Day 39): the stage stopped a stride short of the rails.
+    Two boards laid across on a bearer carry the deck on to the foot of the ladder, flush with the
+    stage's top, on stub piles of their own; the first dry rung is just above. A cleat on the leg
+    beside it, a few turns of line round it, for the punt's painter. Only the model's own
+    materials (the lit near model is at its draw-call budget), slime aside: the low rungs' green."""
+    at = lambda z: a + (b - a) * (z / (b.z - a.z))  # noqa: E731 — the leg's axis at height z
+    leg = at(STAGE_DECK)
+    rails_y = leg.y - LADDER_OUT - 0.05  # just short of the ladder rails' front
+    half = (rails_y - STAGE_END_Y) / 2
+    for k in range(2):
+        y0 = STAGE_END_Y + half * k
+        box("LandingBoard", (1.08 + 0.06 * k, half - 0.015, 0.07), (leg.x - 0.05 + 0.03 * k, y0 + half / 2, STAGE_DECK - 0.07), plank,
+            0.03 * (1 - 2 * k))
+    mid = STAGE_END_Y + half
+    beam("LandingBearer", (leg.x - 0.62, mid, STAGE_DECK - 0.13), (leg.x + 0.55, mid, STAGE_DECK - 0.13), 0.08, brace)
+    for x in (leg.x - 0.5, leg.x + 0.48):
+        cyl("LandingPile", 0.07, 0.065, STAGE_DECK - 0.17, 5, (x, mid, 0), brace)
+        cyl("LandingSlime", 0.075, 0.075, 0.12, 5, (x, mid, 1.12), mat("moss", -0.3))
+    # The cleat: on the leg's outer (-X) face, a hand above the boards; a few turns of grey line.
+    c = at(STAGE_DECK + 0.55) + Vector((-0.15, 0, 0))
+    box("CleatBlock", (0.05, 0.06, 0.1), tuple(c - Vector((-0.02, 0, 0.05))), iron)
+    beam("Cleat", tuple(c + Vector((-0.04, -0.13, 0))), tuple(c + Vector((-0.04, 0.13, 0))), 0.045, iron)
+    for k in range(3):
+        rod("CleatLine", tuple(c + Vector((-0.07, -0.06 + 0.06 * k, -0.03))), tuple(c + Vector((-0.07, 0.06 - 0.06 * k, 0.03))),
+            0.012, line, verts=4)
+    rod("CleatLineEnd", tuple(c + Vector((-0.07, 0.07, -0.02))), tuple(c + Vector((-0.1, 0.1, -0.42))), 0.012, line, verts=4)
 
 
 # Where the put-down things lie once the Heron is lit (Day 36): a row along the inside of the
@@ -335,6 +376,34 @@ def _put_down_things(floor: float) -> None:
     box("CoatFold", (0.32, 0.26, 0.03), tuple(c + Vector((0, 0, 0.07))), FOLD, 0.2)
     box("CoatCollar", (0.33, 0.05, 0.03), tuple(c + Vector((0.02, 0.12, 0.1))), COAT, 0.2)
     cyl("CoatEmber", 0.04, 0.03, 0.006, 5, tuple(c + Vector((-0.02, -0.02, 0.1))), mat("ember", -0.3))
+
+
+# The lantern room's floor in the Heron's frame (rz + 0.16) and the sill gull's neck: where Mara's
+# word, a bit of red cord knotted twice, sits once the Heron is lit (heron_ladder.json).
+ROOM_FLOOR = 6.2 + 0.16 + 0.16
+GULL_AT = Vector((SILL_ROW[1] - 0.05, SILL_ROW_Y + 0.02, ROOM_FLOOR))
+
+
+def build_gull_cord() -> None:
+    """Mara's word round the sill gull's neck (Day 39), in the Heron's own frame so it is placed
+    exactly where the Heron is: a loop of red cord knotted twice under the beak, the two ends
+    hanging. Drawn a size fat (~2.5 cm) so a fleck of red reads through the lit horn from the Foot;
+    a prop of its own so the lit Heron needn't be built twice for one flag."""
+    bd.reset()
+    red = mat("coal", 0.05)
+    fwd = Vector((1, 0, 0))  # the gull faces along the sill (_whittled_gull, facing pi/2)
+    neck = GULL_AT + Vector((0, 0, 0.07)) + fwd * 0.1 + Vector((0, 0, 0.045))
+    n, r = 7, 0.045
+    for k in range(n):  # the loop, tipped a little forward like a collar
+        a0, a1 = k / n * math.tau, (k + 1) / n * math.tau
+        p0 = neck + Vector((math.cos(a0) * r, math.sin(a0) * r, -math.cos(a0) * r * 0.5))
+        p1 = neck + Vector((math.cos(a1) * r, math.sin(a1) * r, -math.cos(a1) * r * 0.5))
+        rod("Cord", tuple(p0), tuple(p1), 0.012, red, verts=4)
+    knot = neck + fwd * (r + 0.005) - Vector((0, 0, r * 0.5))
+    cyl("CordKnot", 0.02, 0.016, 0.03, 5, tuple(knot - Vector((0, 0, 0.015))), red)
+    for s in (-1, 1):  # the ends, hanging over the gull's breast onto the sill
+        rod("CordEnd", tuple(knot), tuple(knot + Vector((0.035, s * 0.03, -0.06))), 0.01, red, verts=4)
+    bd.export("gull_cord")
 
 
 def build_heron_light() -> None:
@@ -692,7 +761,8 @@ def build_gold_streak() -> None:
 
 
 BUILDERS = [build_reed_house, build_letting_post, build_heron_light, build_staithe, build_boardwalk, build_plank_path,
-            build_punt, build_eel_traps, build_alder_snag, build_reed_bed, build_keeper_skiff, build_tussock, build_gold_streak]
+            build_punt, build_eel_traps, build_alder_snag, build_reed_bed, build_keeper_skiff, build_tussock, build_gold_streak,
+            build_gull_cord]
 ALIASES = {"letting_post_word": "letting_post", "heron_light_near": "heron_light", "heron_light_lit": "heron_light",
            "heron_light_near_lit": "heron_light", "keeper_skiff_bell": "keeper_skiff"}
 
