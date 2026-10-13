@@ -250,8 +250,9 @@ func _light_the_heron(main: Node, ui: DialogueUI) -> void:
 		await get_tree().process_frame
 	_check(GameState.world.quest_state("a_light_for_glasswater") == WorldState.QUEST_DONE, "the Heron Light is lit")
 	# Lit: the cold Heron and the big man gone; the lit Heron, its gold on the mere (Day 36), the
-	# punt and the skiff show.
-	_check(mere.shown_conditional_props() == 4, "the lit Heron, its gold, the punt and the skiff show (%d)" % mere.shown_conditional_props())
+	# punt and the skiff show; with Mara's word on the post, her red cord round the sill gull (Day 39).
+	var cord := 1 if GameState.world.get_flag("fen_dunstan_word", "") == "mara" else 0
+	_check(mere.shown_conditional_props() == 4 + cord, "the lit Heron, its gold, the punt and the skiff show, the cord %d (%d)" % [cord, mere.shown_conditional_props()])
 	_check(mere.find_children("*", "OmniLight3D", true, false).size() > 0, "the lit Heron lights the Foot")
 	_npc("corran").interact()
 	_check(_choose(ui, "Take me back."), "Corran poles back by the light")

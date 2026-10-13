@@ -5,7 +5,7 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.05,
-    "color": "silverfog",
+    "color": "#CBCCC9",
     "overrides": [
       {
         "if": "quest:a_light_for_glasswater=done",
@@ -15,14 +15,14 @@
   },
   "light": {
     "note": "White, still and shadowless in the hole in the fog: the sky a lid, the water a mirror, the legs grey on grey; the ember is the only warm thing.",
-    "sun_color": "silverfog",
+    "sun_color": "#E2E1DC",
     "sun_energy": 0.7,
     "sun_pitch": -62,
     "sun_yaw": -20,
-    "ambient_color": "silverfog",
+    "ambient_color": "#CBCCC9",
     "ambient_energy": 0.45,
-    "sky_top": "silverfog",
-    "sky_horizon": "silverfog",
+    "sky_top": "#CBCCC9",
+    "sky_horizon": "#CBCCC9",
     "overrides": [
       {
         "if": "quest:a_light_for_glasswater=done",
@@ -234,10 +234,11 @@
       }
     ],
     "colors": {
-      "ground": "moss",
-      "shore": "pine",
-      "seabed": "abyss",
-      "cliff": "slate"
+      "ground": "#7B8A6C",
+      "shore": "#BDB6A6",
+      "seabed": "#3A3A32",
+      "cliff": "slate",
+      "shore_height": 0.22
     },
     "paint": [
       {
@@ -247,7 +248,7 @@
           3.4,
           2.2
         ],
-        "color": "silverfog",
+        "color": "#D0CEC6",
         "note": "the middle of the Foot gone the colour of the fog, like Stillhithe"
       },
       {
@@ -327,6 +328,21 @@
           0
         ]
       }
+    },
+    {
+      "model": "res://assets/models/dressing/gull_cord.glb",
+      "position": [
+        0,
+        -1.15,
+        -5
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "note": "Mara's word round the sill gull's neck, a bit of red cord knotted twice (Day 39): built in the Heron's own frame, so placed where the Heron is. Only lit (the cold things are heaped in the cradle, out of sight).",
+      "if": [
+        "quest:a_light_for_glasswater=done",
+        "flag:fen_dunstan_word=mara"
+      ]
     },
     {
       "model": "res://assets/models/dressing/gold_streak.glb",
@@ -709,9 +725,9 @@
     "wash": 0.0,
     "foam": 0.5,
     "mirror": 0.6,
-    "shallow": "pine",
-    "deep": "ink",
-    "sheen": "silverfog",
+    "shallow": "#3E4239",
+    "deep": "#202323",
+    "sheen": "#D8D8D3",
     "note": "Fen water: peat-dark and mirror-still, the sky lying on it at a glancing look; barely a ripple, no wash."
   }
 }
