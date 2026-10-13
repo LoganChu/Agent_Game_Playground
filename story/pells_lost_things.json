@@ -33,6 +33,10 @@
       {
         "if": "flag:saltmarrow_ferry_lantern_hung",
         "goto": "green_glass"
+      },
+      {
+        "if": "flag:saltmarrow_pell_float",
+        "goto": "the_float"
       }
     ],
     "empty_nest": [
@@ -47,12 +51,26 @@
       {
         "if": "flag:saltmarrow_ferry_lantern_hung",
         "goto": "green_glass"
+      },
+      {
+        "if": "flag:saltmarrow_pell_float",
+        "goto": "the_float"
       }
     ],
     "green_glass": [
       {
         "say": "narrator",
         "text": "On top sits a new treasure: a chip of green bottle-glass, polished smooth. FERRY is scratched into the cloth beside it."
+      },
+      {
+        "if": "flag:saltmarrow_pell_float",
+        "goto": "the_float"
+      }
+    ],
+    "the_float": [
+      {
+        "say": "narrator",
+        "text": "And on top of everything, ON and not IN, sits a green glass net-float in a cage of tarred cord, frosted by the sea. The grey light goes green inside it. A scrap of sailcloth beside it says, in Pell's big letters: NOBODYS. SO MINE. LOOK DONT TUCH."
       }
     ]
   }

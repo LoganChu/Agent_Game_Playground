@@ -1,0 +1,24 @@
+{
+  "id": "wrackholm_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A shingle hard under black rock, and boats hauled up on it in rows: hulls on blocks, hulls on their sides, ribs with nothing left on them. Timber stacked and sorted. Chain in coils. Nothing moves."
+      },
+      {
+        "say": "narrator",
+        "text": "Up the shingle stands a long low hall of black stone, its turf roof roped down against the wind. A thread of smoke from the chimney. A line of firelight in a shuttered window. And by the door, slung on a frame, a great horn bound in brass, lashed shut."
+      },
+      {
+        "say": "oda",
+        "text": "The lane-house. Where they swear the masters. That horn's answered every boat that ever came home to this hard."
+      },
+      {
+        "say": "oda",
+        "text": "Somebody's lashed it. Go up and see who. Tell them Oda Farrow's in, and she'd like to know why nobody said so.",
+        "quest_start": "a_light_for_wrackholm"
+      }
+    ]
+  }
+}

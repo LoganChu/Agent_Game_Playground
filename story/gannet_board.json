@@ -1,0 +1,60 @@
+{
+  "id": "gannet_board",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:wrackholm_board_read",
+        "goto": "read_already"
+      },
+      {
+        "say": "narrator",
+        "text": "A board screwed to the Gannet's transom, painted black once, gone the flat grey of slate. Something was chalked on it. There's nothing there now but the grain."
+      },
+      {
+        "choice": [
+          {
+            "text": "Hold the ember to the board.",
+            "goto": "read"
+          },
+          {
+            "text": "Leave it.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "read": [
+      {
+        "say": "narrator",
+        "text": "You hold the ember close. Its warmth goes into the grey paint the way breath goes onto glass, only backward: the grey clears, and under it, letter by letter, the chalk comes back."
+      },
+      {
+        "say": "narrator",
+        "text": "GANNET of Wrackholm. Sworn: HALE CORBET, master. ANNIS CORBET. RUAN PASK.",
+        "set": {
+          "wrackholm_board_read": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "Three names you don't know. Somebody on this island will.",
+        "if": "!flag:wrackholm_met_wenna"
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna will want them.",
+        "if": "quest:the_gannets_crew=active",
+        "quest_stage": [
+          "the_gannets_crew",
+          "say_the_names"
+        ]
+      }
+    ],
+    "read_already": [
+      {
+        "say": "narrator",
+        "text": "GANNET of Wrackholm. Sworn: HALE CORBET, master. ANNIS CORBET. RUAN PASK. The chalk stays where your light brought it back."
+      }
+    ]
+  }
+}

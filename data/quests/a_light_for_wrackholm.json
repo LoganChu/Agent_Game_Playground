@@ -1,0 +1,18 @@
+{
+  "id": "a_light_for_wrackholm",
+  "title": "A Light for Wrackholm",
+  "region": "wrackholm",
+  "giver": "wenna",
+  "future": true,
+  "description": "Wrackholm's beacon, the Wrack Light, has been dark since the Snuffing, and nobody on the island has answered a horn since.",
+  "stages": [
+    {
+      "id": "the_lashed_horn",
+      "text": "Nobody on Wrackholm has answered a horn since the Snuffing. The yard is dark, the Wrack Light out on the Teeth is dark, and the answering horn by the lane-house door, which Oda says has answered every boat that ever came home here, is lashed shut. Go up and ask who lashed it."
+    },
+    {
+      "id": "the_teeth",
+      "text": "Wenna Garrow, the lane-warden, won't unlash the horn while the Wrack Light is dark: a horn answered is a lane promised, and the Teeth are out there in the fog. The Wrack Light stands on its stack out on the Teeth. At the bottom of a spring tide, she says, the Teeth come up enough to walk, if you know where to put your feet. She knew, once. The tide isn't down."
+    }
+  ]
+}

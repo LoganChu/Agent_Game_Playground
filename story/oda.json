@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:lanes_ferry_at=wrackholm",
+        "goto": "wrackholm"
+      },
+      {
         "if": "flag:lanes_ferry_at=fen",
         "goto": "fen"
       },
@@ -661,6 +665,14 @@
             "goto": "fen_lane"
           },
           {
+            "text": "Sail east-about to Wrackholm.",
+            "if": [
+              "flag:fen_oda_lane_asked",
+              "flag:fen_dunstan_met"
+            ],
+            "goto": "sail_wrackholm"
+          },
+          {
             "text": "Take me back to Thornwold.",
             "goto": "fen_back"
           },
@@ -779,7 +791,10 @@
     "fen_lane": [
       {
         "say": "oda",
-        "text": "East-about. Keep the Heron astern and the morning on your right cheek, the old pilots say, and you raise Wrackholm in a day."
+        "text": "East-about. Keep the Heron astern and the morning on your right cheek, the old pilots say, and you raise Wrackholm in a day.",
+        "set": {
+          "fen_oda_lane_asked": true
+        }
       },
       {
         "say": "oda",
@@ -795,10 +810,177 @@
       },
       {
         "say": "oda",
-        "text": "Not this tide. When I sail for Wrackholm I want my crew rested and you done here. You've a look like you're not."
+        "text": "Not this tide. When I sail for Wrackholm I want my crew rested and you done here. You've a look like you're not.",
+        "if": "!flag:fen_dunstan_met"
+      },
+      {
+        "say": "oda",
+        "text": "You've the look of somebody done here, near enough. Say the word, and we'll go east-about.",
+        "if": "flag:fen_dunstan_met"
       },
       {
         "goto": "fen"
+      }
+    ],
+    "sail_wrackholm": [
+      {
+        "if": "flag:wrackholm_landed",
+        "goto": "sail_wrackholm_again"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy out of the reeds on the morning ebb and puts her east-about, the Heron's gold astern and the low sun on your right cheek, the way the old pilots say."
+      },
+      {
+        "say": "oda",
+        "text": "A gull for the stool, facing the door. Not a promise. That's a Tollen for you: he'll tell you what a thing isn't.",
+        "if": "flag:fen_dunstan_mara=message"
+      },
+      {
+        "say": "oda",
+        "text": "You told him about the two cups. Somebody had to. I'm glad it wasn't me.",
+        "if": "flag:fen_dunstan_mara=burned"
+      },
+      {
+        "say": "oda",
+        "text": "You told him she's well. That's a message too. The kind a man can carry.",
+        "if": "flag:fen_dunstan_mara=well"
+      },
+      {
+        "say": "oda",
+        "text": "You told him she's well, and not the rest. That's a kindness I'd not have managed.",
+        "if": "flag:fen_dunstan_mara=spared"
+      },
+      {
+        "say": "oda",
+        "text": "You carried him nothing of Mara's. Some things don't go in a satchel.",
+        "if": "flag:fen_dunstan_mara=nothing"
+      },
+      {
+        "say": "oda",
+        "text": "And you asked him what he'd put down, and he didn't know. Good. That's the only answer worth having, out there.",
+        "if": "flag:fen_dunstan_rule=asked"
+      },
+      {
+        "say": "oda",
+        "text": "And you never asked him what he'd put down. Tidewright manners. We don't ask a man what's in his hold.",
+        "if": "flag:fen_dunstan_rule=kept"
+      },
+      {
+        "say": "narrator",
+        "text": "By noon the Heron is a warmth astern and there is nothing ahead but grey. Oda puts the bone horn to her mouth: one long note, then two short. Putting in; passengers welcome."
+      },
+      {
+        "say": "narrator",
+        "text": "Nothing answers. She waits as long as it takes to say a name, and blows again. Nothing."
+      },
+      {
+        "say": "oda",
+        "text": "Thirty-eight years I've blown for Wrackholm and been answered before the second short was done. Wenna Garrow swore me master in that lane-house. She'd answer a horn in her sleep."
+      },
+      {
+        "say": "narrator",
+        "text": "Oda puts a man in the bows with the lead and comes in slow, by soundings, the way you come into a harbor you can't see. Somewhere off the bow to port the sea breaks on something and draws back, over and over, like breath through teeth."
+      },
+      {
+        "say": "oda",
+        "text": "The Teeth. We keep them to port, and we keep quiet. ...There. Wrackholm."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "wrackholm"
+        },
+        "travel": [
+          "wrackholm",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "sail_wrackholm_again": [
+      {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy east-about again with the Heron astern, and comes in slow by soundings, the Teeth breathing to port."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "wrackholm"
+        },
+        "travel": [
+          "wrackholm",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "wrackholm": [
+      {
+        "say": "oda",
+        "text": "I'll lie here while I've a tide. I don't like the sound of the Teeth from a harbor nobody answers.",
+        "if": "!flag:wrackholm_met_wenna"
+      },
+      {
+        "say": "oda",
+        "text": "Wenna, still warden. Good. And the Gannet... I knew Hale Corbet. I'll not say more till his name's been said proper.",
+        "if": [
+          "flag:wrackholm_met_wenna",
+          "!flag:wrackholm_gannet_named"
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "She said them into the horn? Hale, and Annis, and Ruan Pask. Then they're home. That's the old way.",
+        "if": "flag:wrackholm_gannet_named"
+      },
+      {
+        "choice": [
+          {
+            "text": "Who's Wenna Garrow?",
+            "if": "!flag:wrackholm_met_wenna",
+            "goto": "wrackholm_wenna"
+          },
+          {
+            "text": "Take me back to Glasswater Fen.",
+            "goto": "wrackholm_back"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "wrackholm_wenna": [
+      {
+        "say": "oda",
+        "text": "Lane-warden. Keeps the lane-house and the horn, and swears the masters. She swore me. I cried. If she tells you that, she's lying."
+      },
+      {
+        "say": "oda",
+        "text": "Eighty if she's a day. She's answered every horn on this hard for fifty years. So something's wrong."
+      },
+      {
+        "goto": "wrackholm"
+      }
+    ],
+    "wrackholm_back": [
+      {
+        "say": "oda",
+        "text": "Heron dead ahead, this way. Easier, steering toward a light."
+      },
+      {
+        "say": "narrator",
+        "text": "The Teeth breathe once more astern, and are gone. In a while the grey ahead goes faintly gold, low on the water."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "fen"
+        },
+        "travel": [
+          "glasswater_fen",
+          "from_ferry"
+        ],
+        "end": true
       }
     ]
   }

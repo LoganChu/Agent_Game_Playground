@@ -649,7 +649,27 @@
     "dock_stayed": [
       {
         "say": "pell",
-        "text": "Remember. Something lost. Something GOOD. Not a sock."
+        "text": "Remember. Something lost. Something GOOD. Not a sock.",
+        "if": "!flag:saltmarrow_pell_float"
+      },
+      {
+        "say": "pell",
+        "text": "It's on top of the crate. Where everyone can see. Nobody's allowed to touch it, but everybody's allowed to LOOK.",
+        "if": "flag:saltmarrow_pell_float"
+      },
+      {
+        "choice": [
+          {
+            "text": "I brought you something lost. Something good.",
+            "if": "item:glass_float",
+            "goto": "dock_float"
+          },
+          {
+            "text": "Not yet.",
+            "if": "item:glass_float",
+            "goto": "hub"
+          }
+        ]
       },
       {
         "goto": "hub"
@@ -740,6 +760,39 @@
       {
         "say": "pell",
         "text": "He said I could keep it? Then I'm keeping it FOR him. Finders keep for, not keep. That's the rule. I just made it the rule."
+      }
+    ],
+    "dock_float": [
+      {
+        "say": "narrator",
+        "text": "You open the finding pouch. Pell looks at the green glass float in it for a long time without touching it."
+      },
+      {
+        "say": "pell",
+        "text": "It's GLASS. It's a whole ball of sea. Look, you can see the sea in it, it goes green—"
+      },
+      {
+        "say": "pell",
+        "text": "Where'd you FIND it?"
+      },
+      {
+        "say": "player",
+        "text": "On Wrackholm. A salvager kept it a year and a tide for whoever lost it. Nobody came. So it's yours."
+      },
+      {
+        "say": "pell",
+        "text": "Nobody's. So it's mine. That's the BEST kind of lost thing.",
+        "take_item": "glass_float",
+        "set": {
+          "saltmarrow_pell_float": true
+        }
+      },
+      {
+        "say": "pell",
+        "text": "It's going on top of the crate. Not in. ON. Keep the pouch. You're not done finding."
+      },
+      {
+        "goto": "hub"
       }
     ]
   }

@@ -1,0 +1,9 @@
+{
+  "id": "jory",
+  "name": "Jory Pask",
+  "faction": "tidewrights",
+  "color": "coal",
+  "dialogue": "jory",
+  "model": "res://assets/models/characters/jory.glb",
+  "bio": "A Wrackholm salvager, nineteen. Strips the copper off the Gannet, his brother's boat, one nail at a time, because the yard keeps what the sea gives back. Knows he had a brother; the fog took the name. Blames the Keepers' dark."
+}

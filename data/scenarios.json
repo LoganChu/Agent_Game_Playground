@@ -338,6 +338,31 @@
         "the_letting_post": "done"
       },
       "shot": "--camera=4.2,1.6,-25.6:0.8,0.5,-29.6"
+    },
+    {
+      "id": "wrackholm",
+      "act": "Act II — The Drift",
+      "title": "East-about to Wrackholm",
+      "inherits": "dunstan_found",
+      "region": "wrackholm",
+      "spawn": "from_ferry",
+      "description": "Dunstan found (Mara's word carried: a gull for the stool; the rule kept). Oda sailed east-about from the lit fen and nobody answered her horn; she came in by soundings past the Teeth. The Tidewrights' yard is dark, the Gannet hauled up on the hard, the answering horn lashed shut by the lane-house door, Wenna Garrow sitting by it, Jory Pask stripping the Gannet's copper.",
+      "flags": {
+        "fen_dunstan_met": true,
+        "fen_dunstan_mara": "message",
+        "fen_dunstan_rule": "kept",
+        "fen_oda_lane_asked": true,
+        "lanes_ferry_at": "wrackholm",
+        "wrackholm_landed": true
+      },
+      "quests": {
+        "for_after": "done",
+        "a_light_for_wrackholm": "the_lashed_horn"
+      },
+      "items": {
+        "gull_for_mara": 1
+      },
+      "shot": "--camera=17,6.5,4:-3,0.5,-6"
     }
   ]
 }

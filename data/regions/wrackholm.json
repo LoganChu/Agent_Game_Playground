@@ -1,0 +1,702 @@
+{
+  "id": "wrackholm",
+  "name": "Wrackholm Hard",
+  "description": "The Tidewrights' own island, east-about from Glasswater: a shingle hard under black rock where the guild's salvage yard hauls up what the sea gives back, the lane-house where masters are sworn, its answering horn lashed shut, and out on the Teeth the Wrack Light standing dark.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.04,
+    "color": "#AEB3B8"
+  },
+  "light": {
+    "note": "A dark island under a low cold sky: grey light off black rock, the sun a smear low in the south-east; the only warm things are the firelight in the lane-house shutters, the ferry's lantern and the ember.",
+    "sun_color": "#D6D9DC",
+    "sun_energy": 0.65,
+    "sun_pitch": -30,
+    "sun_yaw": 40,
+    "ambient_color": "#AEB3B8",
+    "ambient_energy": 0.38,
+    "sky_top": "slate",
+    "sky_horizon": "#AEB3B8"
+  },
+  "greying": [
+    {
+      "rect": [
+        -34,
+        -30,
+        -17,
+        26
+      ],
+      "strength": 1.0,
+      "falloff": 5.0,
+      "height": 3.2,
+      "note": "The Teeth: the reef off the yard's mouth, deep in the fog, the Wrack Light dark on its stack among them. The spit runs out toward them and goes under."
+    },
+    {
+      "rect": [
+        -34,
+        -30,
+        34,
+        -21
+      ],
+      "strength": 0.9,
+      "falloff": 4.0,
+      "height": 3.0,
+      "note": "The open sea north of the island, lying grey up to the shore."
+    },
+    {
+      "ellipse": [
+        -11,
+        -3,
+        7,
+        7
+      ],
+      "strength": 0.4,
+      "falloff": 3.0,
+      "height": 2.0,
+      "note": "The yard's west end: the fog lies on the hulks and the stacks, off the Teeth. Jory works in it."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      5,
+      0.5,
+      9
+    ],
+    "from_ferry": [
+      5,
+      0.5,
+      9
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -34,
+      -30,
+      34,
+      26
+    ],
+    "cell": 1.0,
+    "base": -1.6,
+    "seed": 40,
+    "roughness": 0.08,
+    "ragged": 1.6,
+    "ragged_scale": 4.0,
+    "note": "Black rock and shingle: the hard (south, the quay and the yard), the lane-house's rise (north-east), a rocky knoll (north-west) and a spit running west toward the Teeth.",
+    "land": [
+      {
+        "ellipse": [
+          0,
+          -5,
+          20,
+          10.5
+        ],
+        "height": 0.35,
+        "falloff": 3,
+        "note": "the island: shingle hard and yard"
+      },
+      {
+        "ellipse": [
+          9,
+          -11,
+          8,
+          5
+        ],
+        "height": 1.3,
+        "falloff": 5,
+        "note": "the lane-house's rise",
+        "ragged": 0.2
+      },
+      {
+        "ellipse": [
+          -12,
+          -12,
+          6,
+          4
+        ],
+        "height": 1.0,
+        "falloff": 2.5,
+        "ragged": 0.6,
+        "note": "the rocky knoll over the yard"
+      },
+      {
+        "path": [
+          [
+            -16,
+            -2,
+            0.3
+          ],
+          [
+            -21,
+            0,
+            0.12
+          ]
+        ],
+        "width": 2.6,
+        "falloff": 1.2,
+        "note": "the spit toward the Teeth (goes under in the fog)"
+      }
+    ],
+    "colors": {
+      "ground": "#55604F",
+      "shore": "#8A857B",
+      "shore_height": 0.3,
+      "seabed": "#2E3436",
+      "cliff": "#3A3D42"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            5,
+            5,
+            0
+          ],
+          [
+            6,
+            0,
+            0
+          ],
+          [
+            8,
+            -5,
+            0
+          ],
+          [
+            9.5,
+            -9,
+            0
+          ]
+        ],
+        "width": 1.6,
+        "color": "#8A857B",
+        "note": "the trodden shingle from the quay up to the lane-house door"
+      },
+      {
+        "ellipse": [
+          -7,
+          -2,
+          7.5,
+          5
+        ],
+        "color": "#4A4840",
+        "note": "the yard's ground, tar-black under the hulks"
+      }
+    ],
+    "piers": [
+      {
+        "rect": [
+          4,
+          5,
+          6,
+          11
+        ],
+        "deck": 0.275,
+        "note": "The yard's plank jetty (dock prop at 5,-0.4,8)."
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/dock.glb",
+      "shape": "dock",
+      "position": [
+        5,
+        -0.4,
+        8
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "wading": [
+        [
+          -0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          -0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          0.95,
+          0.15
+        ],
+        [
+          0.95,
+          0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          2.8,
+          0.15
+        ],
+        [
+          0.95,
+          2.8,
+          0.15
+        ]
+      ],
+      "note": "The yard's plank jetty off the hard."
+    },
+    {
+      "model": "res://assets/models/dressing/ferry.glb",
+      "position": [
+        7.9,
+        -0.25,
+        9.5
+      ],
+      "rotation_y": 180,
+      "snap": false,
+      "if": "flag:lanes_ferry_at=wrackholm",
+      "light": {
+        "color": "moss",
+        "energy": 1.2,
+        "range": 8.0,
+        "offset": [
+          0,
+          7.6,
+          -1.2
+        ]
+      },
+      "float": {
+        "bob": 0.05,
+        "roll": 1.5,
+        "period": 5.0,
+        "foam": [
+          1.55,
+          4.4
+        ]
+      },
+      "note": "The Slow Mercy alongside the jetty while she's at Wrackholm. Masthead lantern lit."
+    },
+    {
+      "model": "res://assets/models/dressing/lane_house.glb",
+      "position": [
+        9.5,
+        0,
+        -12
+      ],
+      "rotation_y": 0,
+      "collider": [
+        10.4,
+        3.6,
+        5.0
+      ],
+      "smoke": [
+        [
+          4.1,
+          4.35,
+          0.6
+        ]
+      ],
+      "note": "The lane-house, where the Tidewrights swear their masters: black stone, a turf roof roped down with old hawsers, its door to the sea, firelight in the shutters (they're inside), smoke from the chimney."
+    },
+    {
+      "model": "res://assets/models/dressing/answering_horn.glb",
+      "position": [
+        6.0,
+        0,
+        -7.9
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.9,
+        2.6,
+        2.8
+      ],
+      "note": "The answering horn on its frame by the lane-house door, its bell to the sea, lashed shut since the Snuffing."
+    },
+    {
+      "model": "res://assets/models/dressing/gannet_hulk.glb",
+      "position": [
+        -5.5,
+        0,
+        -1.0
+      ],
+      "rotation_y": 180,
+      "collider": [
+        3.0,
+        2.0,
+        6.6
+      ],
+      "note": "The Gannet, hauled up on the hard bow-first: stove in on the Teeth, her copper half stripped (Jory's work, on her west side), her crew board on the transom toward the sea."
+    },
+    {
+      "model": "res://assets/models/dressing/salvage_stack.glb",
+      "position": [
+        -11.5,
+        0,
+        -5.5
+      ],
+      "rotation_y": 10,
+      "collider": [
+        3.1,
+        1.2,
+        2.4
+      ],
+      "note": "Reclaimed timber sorted on bearers, a lead tag nailed on: held a year and a tide for its owner."
+    },
+    {
+      "model": "res://assets/models/dressing/salvage_stack.glb",
+      "position": [
+        -1.5,
+        0,
+        -7.5
+      ],
+      "rotation_y": 80,
+      "collider": [
+        3.1,
+        1.2,
+        2.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/salvage_stack.glb",
+      "position": [
+        -13.5,
+        0,
+        1.5
+      ],
+      "rotation_y": -20,
+      "collider": [
+        3.1,
+        1.2,
+        2.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/float_pile.glb",
+      "position": [
+        -9.8,
+        0,
+        -2.6
+      ],
+      "rotation_y": 30,
+      "collider": [
+        1.2,
+        1.3,
+        1.0
+      ],
+      "note": "The come-home pile: glass floats nobody has claimed in a year and a tide."
+    },
+    {
+      "model": "res://assets/models/dressing/wreck.glb",
+      "position": [
+        -15.5,
+        0,
+        -8.0
+      ],
+      "rotation_y": 60,
+      "collider": [
+        2.8,
+        1.8,
+        6.4
+      ],
+      "note": "An older hulk broken down to her ribs: the yard takes everything, in the end."
+    },
+    {
+      "model": "res://assets/models/dressing/rowboat_upturned.glb",
+      "position": [
+        0.8,
+        0,
+        1.2
+      ],
+      "rotation_y": 75,
+      "collider": [
+        1.4,
+        0.9,
+        3.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/barrels.glb",
+      "position": [
+        2.6,
+        0,
+        3.6
+      ],
+      "rotation_y": 10,
+      "collider": [
+        1.5,
+        0.9,
+        1.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/crate.glb",
+      "shape": "crate",
+      "position": [
+        7.4,
+        0,
+        3.4
+      ],
+      "rotation_y": 20,
+      "collider": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/barrel.glb",
+      "position": [
+        8.2,
+        0,
+        2.6
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.6,
+        0.8,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/net_rack.glb",
+      "position": [
+        13.0,
+        0,
+        0.5
+      ],
+      "rotation_y": 80,
+      "collider": [
+        2.4,
+        1.8,
+        0.2
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        17.0,
+        0,
+        -3.0
+      ],
+      "rotation_y": 30,
+      "scale": 1.2,
+      "collider": [
+        3.6,
+        2.6,
+        1.6
+      ],
+      "note": "Black rock heaved up through the shingle."
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        -12.0,
+        0,
+        -13.0
+      ],
+      "rotation_y": 100,
+      "collider": [
+        3.6,
+        2.6,
+        1.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        14.5,
+        0,
+        4.0
+      ],
+      "rotation_y": 10,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -16.5,
+        0,
+        3.0
+      ],
+      "rotation_y": 70,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -24.5,
+        -0.95,
+        -4.5
+      ],
+      "rotation_y": 40,
+      "snap": false,
+      "note": "One of the Teeth, awash."
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -26.0,
+        -0.9,
+        3.5
+      ],
+      "rotation_y": 120,
+      "snap": false,
+      "note": "One of the Teeth, awash."
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -22.5,
+        -1.0,
+        7.5
+      ],
+      "rotation_y": -30,
+      "snap": false,
+      "note": "One of the Teeth, awash."
+    },
+    {
+      "model": "res://assets/models/dressing/wrack_light.glb",
+      "position": [
+        -29.0,
+        -1.6,
+        -1.5
+      ],
+      "rotation_y": 20,
+      "snap": false,
+      "note": "Wrackholm's beacon, the Wrack Light, dark on its stack out on the Teeth (out of reach; no collider)."
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        12.0,
+        0,
+        -5.0
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        4.0,
+        0,
+        -9.0
+      ],
+      "rotation_y": 40
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        15.5,
+        0,
+        -9.5
+      ],
+      "rotation_y": 80
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        11.0,
+        0,
+        3.6
+      ],
+      "rotation_y": -15
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "oda",
+      "position": [
+        5.1,
+        0,
+        10.3
+      ],
+      "rotation_y": 0,
+      "if": "flag:lanes_ferry_at=wrackholm",
+      "note": "At the jetty end by the Slow Mercy's plank."
+    },
+    {
+      "npc": "wenna",
+      "position": [
+        7.5,
+        0,
+        -8.7
+      ],
+      "rotation_y": 10,
+      "note": "On a coil of hawser by the lane-house door, beside the lashed horn, looking out to sea."
+    },
+    {
+      "npc": "jory",
+      "position": [
+        -7.9,
+        0,
+        -0.4
+      ],
+      "rotation_y": 90,
+      "note": "On the Gannet's west side in the yard's fog, stripping her copper."
+    }
+  ],
+  "objects": [
+    {
+      "id": "gannet_board",
+      "prompt": "Look at the Gannet's crew board",
+      "dialogue": "gannet_board",
+      "position": [
+        -5.5,
+        0,
+        3.1
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        1.3,
+        -0.85
+      ],
+      "note": "The crew board on the Gannet's transom (gannet_hulk's GANNET_BOARD, turned with the hulk)."
+    },
+    {
+      "id": "answering_horn",
+      "prompt": "Look at the answering horn",
+      "dialogue": "answering_horn",
+      "position": [
+        6.0,
+        0,
+        -5.8
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        1.9,
+        -0.9
+      ],
+      "note": "The horn's bell end, toward the sea."
+    }
+  ],
+  "events": [
+    {
+      "id": "wrackholm_arrival",
+      "if": [
+        "flag:lanes_ferry_at=wrackholm",
+        "!flag:wrackholm_landed"
+      ],
+      "set": {
+        "wrackholm_landed": true
+      },
+      "dialogue": "wrackholm_arrival",
+      "note": "First landfall at Wrackholm."
+    }
+  ]
+}

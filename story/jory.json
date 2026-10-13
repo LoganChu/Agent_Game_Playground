@@ -1,0 +1,219 @@
+{
+  "id": "jory",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:wrackholm_met_jory",
+        "goto": "first"
+      },
+      {
+        "say": "jory",
+        "text": "Every nail.",
+        "if": "!flag:wrackholm_jory_brother"
+      },
+      {
+        "say": "jory",
+        "text": "Ruan. I keep saying it, so it'll stick.",
+        "if": "flag:wrackholm_jory_brother"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "A lanky lad in a coal-red gansey is levering copper sheets off the bottom of a hauled-up boat with a pry bar, carefully, one nail at a time, stacking each sheet as it comes away."
+      },
+      {
+        "say": "jory",
+        "text": "A ferry. That was a ferry's horn, wasn't it? Nobody's come in since—"
+      },
+      {
+        "say": "jory",
+        "text": "Jory Pask. Salvage. This was the Gannet. She's the yard's now. The yard keeps what the sea gives back, every nail. It's what we do.",
+        "set": {
+          "wrackholm_met_jory": true
+        }
+      },
+      {
+        "say": "jory",
+        "text": "She was my brother's boat. I had a brother. I know that the way you know a tooth's gone: you keep putting your tongue in the gap."
+      },
+      {
+        "say": "jory",
+        "text": "The Spire went dark on the Keepers' watch, and the Wrack went with it, and the Teeth had the Gannet. That's who drowned him. Whoever he was."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Your brother's name was Ruan. Ruan Pask. It's on the Gannet's crew board.",
+            "if": [
+              "flag:wrackholm_board_read",
+              "!flag:wrackholm_jory_brother"
+            ],
+            "goto": "brother"
+          },
+          {
+            "text": "Wenna told me about the night the Gannet came in.",
+            "if": [
+              "flag:wrackholm_gannet_named",
+              "flag:wrackholm_jory_brother",
+              "flag:wrackholm_who_answered="
+            ],
+            "goto": "who"
+          },
+          {
+            "text": "Have you found anything lost? Something good, for a child who keeps lost things.",
+            "if": [
+              "item:pells_pouch",
+              "!flag:wrackholm_jory_float"
+            ],
+            "goto": "float"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "brother": [
+      {
+        "say": "narrator",
+        "text": "Jory stops with the bar under a nail."
+      },
+      {
+        "say": "jory",
+        "text": "Ruan."
+      },
+      {
+        "say": "jory",
+        "text": "Ruan Pask. He'd laugh himself sick, me taking her copper off like a careful old man. He never pulled a nail straight in his life. He'd just— Ruan.",
+        "set": {
+          "wrackholm_jory_brother": true
+        }
+      },
+      {
+        "if": "flag:wrackholm_gannet_named",
+        "goto": "who"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "who": [
+      {
+        "say": "jory",
+        "text": "Wenna knows something. She's sat by that horn ever since and won't let anyone near it. Somebody blew, and somebody answered. So who called them in? The dark? The Keepers?"
+      },
+      {
+        "choice": [
+          {
+            "text": "Wenna answered, as she'd answered for fifty years. Then the Wrack went out.",
+            "set": {
+              "wrackholm_who_answered": "wenna"
+            },
+            "goto": "who_wenna"
+          },
+          {
+            "text": "The Spire didn't go out. Keepers put it out, on purpose.",
+            "if": "flag:saltmarrow_aldous_confessed",
+            "set": {
+              "wrackholm_who_answered": "keepers"
+            },
+            "goto": "who_keepers"
+          },
+          {
+            "text": "The Wrack went out under them. Nobody's to blame for the dark.",
+            "set": {
+              "wrackholm_who_answered": "dark"
+            },
+            "goto": "who_dark"
+          }
+        ]
+      }
+    ],
+    "who_wenna": [
+      {
+        "say": "narrator",
+        "text": "Jory looks up the shingle at the old woman by the horn for a long while."
+      },
+      {
+        "say": "jory",
+        "text": "Fifty years. Every boat that ever came home to this hard came home on Wenna's answer. Ruan did, a hundred times."
+      },
+      {
+        "say": "jory",
+        "text": "She answered. Course she answered. She's Wenna."
+      },
+      {
+        "say": "jory",
+        "text": "I'll go up. Not today. I'll get her copper off first. Then I'll go up."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "who_keepers": [
+      {
+        "say": "jory",
+        "text": "Put out? On purpose?"
+      },
+      {
+        "say": "jory",
+        "text": "Then it was them. I knew it. A Keeper put his hand over the light, and the Teeth had my brother."
+      },
+      {
+        "say": "narrator",
+        "text": "He goes back to the copper, harder. The next nail comes out bent."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "who_dark": [
+      {
+        "say": "jory",
+        "text": "The dark. Aye. Nobody's to blame for the dark."
+      },
+      {
+        "say": "jory",
+        "text": "Only it's a hard thing to hate, the dark. I'll keep trying."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "float": [
+      {
+        "say": "jory",
+        "text": "Lost and good? Everything on this hard was lost. Good's harder."
+      },
+      {
+        "say": "jory",
+        "text": "Here. Off the come-home pile. Floats are the one thing the sea always gives back. We keep them a year and a tide for whoever's net they came off, and nobody's come for this one."
+      },
+      {
+        "say": "narrator",
+        "text": "He holds out a green glass net-float as big as two fists, in a cage of tarred cord. The sea has frosted it. When you turn it, the grey light goes green inside, like looking up from under a wave."
+      },
+      {
+        "say": "jory",
+        "text": "Tell your finder it's past its year and a tide. It's nobody's. So it's theirs.",
+        "give_item": "glass_float",
+        "set": {
+          "wrackholm_jory_float": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

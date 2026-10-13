@@ -1,0 +1,20 @@
+{
+  "id": "answering_horn",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The answering horn: a long horn of black wood bound in brass, slung under a beam with its bell to the sea. It would take two to sound it, by the look of it, and a good pair of lungs."
+      },
+      {
+        "say": "narrator",
+        "text": "A sailcloth bung is pushed into the bell, and tarred line crossed over it; more is wound round the mouthpiece, thick and tight, the way you'd bind a wound."
+      },
+      {
+        "say": "narrator",
+        "text": "The lashing is just as tight. But somebody has wiped the salt off the brass, where a hand rests.",
+        "if": "flag:wrackholm_gannet_named"
+      }
+    ]
+  }
+}

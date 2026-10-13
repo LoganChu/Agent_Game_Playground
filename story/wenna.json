@@ -1,0 +1,323 @@
+{
+  "id": "wenna",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:wrackholm_met_wenna",
+        "goto": "first"
+      },
+      {
+        "say": "wenna",
+        "text": "Still here. So's the horn.",
+        "if": "!flag:wrackholm_gannet_named"
+      },
+      {
+        "say": "wenna",
+        "text": "Still here. So are they, now.",
+        "if": "flag:wrackholm_gannet_named"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "An old woman sits on a coil of hawser by the lane-house door, under the lashed horn, in a guild coat buttoned to the chin and a white shawl crossed over it. Her hand rests on the horn's frame as if it might get up and go without her."
+      },
+      {
+        "say": "wenna",
+        "text": "Long, and two short. That's Oda Farrow's horn; she always did hurry the shorts. I heard it. I heard both."
+      },
+      {
+        "say": "wenna",
+        "text": "Wenna Garrow. Lane-warden. I swore that girl master in this house thirty-eight years back, and she cried, and I'll thank you not to tell her I said so.",
+        "set": {
+          "wrackholm_met_wenna": true
+        }
+      },
+      {
+        "choice": [
+          {
+            "text": "Why didn't anybody answer her?",
+            "goto": "why"
+          }
+        ]
+      }
+    ],
+    "why": [
+      {
+        "say": "wenna",
+        "text": "A horn answered is a lane promised. That's the oldest law we've got. You answer a boat when you can light her in, and not before."
+      },
+      {
+        "say": "wenna",
+        "text": "The Wrack's dark. The Teeth are out there in the fog where they've always been, and nobody can see them. So nobody answers."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at the lashed horn. The tarred line round its mouthpiece is wound thick, the way you'd bind a wound."
+      },
+      {
+        "say": "wenna",
+        "text": "I answered once. The night the Spire went dark."
+      },
+      {
+        "goto": "gannet"
+      }
+    ],
+    "gannet": [
+      {
+        "say": "wenna",
+        "text": "The Gannet blew for us at dusk, coming home from salvage off the Teeth. Long and two short. I answered, as I'd answered fifty years. And while my note was still in the air, the Wrack went out."
+      },
+      {
+        "say": "wenna",
+        "text": "She came in on my answer. The Teeth had her. Three aboard."
+      },
+      {
+        "say": "wenna",
+        "text": "We hauled her up on the hard. The yard keeps what the sea gives back; that's the law too. Jory's down there now, taking off her copper."
+      },
+      {
+        "say": "wenna",
+        "text": "And I can't tell you their names. That's the fog: it takes the names first. Three of ours, and I swore every one, and I can't say who."
+      },
+      {
+        "say": "wenna",
+        "text": "Every Tidewright boat carries her crew chalked on a board at the stern. The Gannet's has gone blank as a slate. Oda says you carry a light that gives things back.",
+        "quest_start": "the_gannets_crew"
+      },
+      {
+        "say": "wenna",
+        "text": "...You've looked already. I can see it on you.",
+        "if": "flag:wrackholm_board_read",
+        "quest_stage": [
+          "the_gannets_crew",
+          "say_the_names"
+        ]
+      },
+      {
+        "say": "wenna",
+        "text": "Hold it to the board. I'd say their names over the horn. It's the least a warden owes, and it's all I've left to pay with.",
+        "if": "!flag:wrackholm_board_read"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "The Gannet's crew: Hale Corbet, master. Annis Corbet. Ruan Pask.",
+            "if": [
+              "flag:wrackholm_board_read",
+              "quest:the_gannets_crew=active"
+            ],
+            "goto": "names"
+          },
+          {
+            "text": "What would it take to light the Wrack?",
+            "if": "stage:a_light_for_wrackholm=the_lashed_horn",
+            "goto": "wrack"
+          },
+          {
+            "text": "About the Teeth.",
+            "if": "stage:a_light_for_wrackholm=the_teeth",
+            "goto": "teeth"
+          },
+          {
+            "text": "Oda says Tidewrights weigh a deed.",
+            "if": "!flag:wrackholm_wenna_offer",
+            "goto": "deed"
+          },
+          {
+            "text": "Show Wenna the Keeper's sleeve-ember.",
+            "if": [
+              "item:keepers_sleeve_ember",
+              "!flag:wrackholm_wenna_saw_sleeve"
+            ],
+            "set": {
+              "wrackholm_wenna_saw_sleeve": true
+            },
+            "goto": "sleeve"
+          },
+          {
+            "text": "Thornwold's beacon-keeper has lost its name.",
+            "if": [
+              "flag:thornwold_lamp_name_lost",
+              "!flag:wrackholm_book_told"
+            ],
+            "set": {
+              "wrackholm_book_told": true
+            },
+            "goto": "book"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "names": [
+      {
+        "say": "narrator",
+        "text": "Wenna takes her hand off the frame and lays it flat on the horn, over the lashing, where a mouth would go."
+      },
+      {
+        "say": "wenna",
+        "text": "Hale Corbet. Master. Annis Corbet, his girl. Ruan Pask."
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't sound the horn. She says each name into the bound mouth of it, low, the way you'd tell somebody a thing in their sleep. The third time round, the lane-house shutters open a crack, and somebody inside says them too."
+      },
+      {
+        "say": "wenna",
+        "text": "There. They're home. That's what a horn's for, in the end: saying who's come in.",
+        "quest_complete": "the_gannets_crew",
+        "set": {
+          "wrackholm_gannet_named": true
+        }
+      },
+      {
+        "say": "wenna",
+        "text": "And I'll say the rest, since you've earned it. It was my answer brought them in. Not the dark. Not the Keepers. Mine."
+      },
+      {
+        "say": "wenna",
+        "text": "Jory thinks it was the Keepers' dark that drowned his brother, and I've let him. It's easier to hate a light that went out than an old woman who's still sitting here."
+      },
+      {
+        "say": "wenna",
+        "text": "I'll not ask you to lie for me. I'll not ask you to tell him, either. I'm done asking things of people."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "wrack": [
+      {
+        "say": "wenna",
+        "text": "Light it. That's all. It'll want feeding, same as your others, Oda says: something somebody holds."
+      },
+      {
+        "say": "wenna",
+        "text": "It stands on its stack out on the Teeth. At the bottom of a spring tide the Teeth come up out of the water enough to walk, if you know where to put your feet. I knew, once."
+      },
+      {
+        "say": "wenna",
+        "text": "Ask me again when the tide's down. It isn't.",
+        "quest_stage": [
+          "a_light_for_wrackholm",
+          "the_teeth"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "teeth": [
+      {
+        "say": "wenna",
+        "text": "Not yet. The tide's not down, and I've not remembered where to put my feet. One of those'll come first."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "deed": [
+      {
+        "say": "wenna",
+        "text": "We do. Oda weighed you on her scale at Saltmarrow, and she's told me what it came to, and what it's come to since. Three lit."
+      },
+      {
+        "say": "wenna",
+        "text": "She says you told it like a thing you'd done. Good. A deed ought to be owned.",
+        "if": "flag:saltmarrow_ferry_deed=claimed"
+      },
+      {
+        "say": "wenna",
+        "text": "She says you told it as if half of it was other people's. That's the Tidewright way, near enough.",
+        "if": "flag:saltmarrow_ferry_deed=shared"
+      },
+      {
+        "say": "wenna",
+        "text": "She says you'd not tell it at all. That's allowed. The scale doesn't need telling.",
+        "if": "flag:saltmarrow_ferry_deed=brusque"
+      },
+      {
+        "say": "wenna",
+        "text": "Keepers want the Spire lit their way, by their rites, with their hands on it. We don't care whose hands. We only want to steer by it."
+      },
+      {
+        "say": "wenna",
+        "text": "When the Wrack's lit, come into the lane-house, and I'll swear you a friend of the lanes. No Tidewright deck would ever weigh you light again. Think on it. It's not nothing, from us.",
+        "set": {
+          "wrackholm_wenna_offer": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "sleeve": [
+      {
+        "say": "narrator",
+        "text": "Wenna looks at the faded ember on its scrap of robe without touching it."
+      },
+      {
+        "say": "wenna",
+        "text": "Oda told me before you were off her plank. It's ridden four lanes on her deck and paid its way, she says. I'll take her word. It's what she's for.",
+        "if": "flag:saltmarrow_oda_saw_sleeve_ember"
+      },
+      {
+        "say": "wenna",
+        "text": "You never showed Oda that, I'd wager. No. She'd have told me.",
+        "if": "!flag:saltmarrow_oda_saw_sleeve_ember"
+      },
+      {
+        "say": "wenna",
+        "text": "Keepers pay twice on our decks. You'll have heard. Once for the crossing, like anybody. And once into the Book.",
+        "if": "!flag:wrackholm_book_told"
+      },
+      {
+        "say": "wenna",
+        "text": "Every Keeper that ever rode a Tidewright deck wrote their name in the lane-house Book, for the second fare. The one thing a Keeper won't give anybody else, they gave us. Nine hundred years of them, in the dark at the back of the house.",
+        "if": "!flag:wrackholm_book_told"
+      },
+      {
+        "say": "wenna",
+        "text": "Put it away before Jory sees it. He's got enough to carry.",
+        "if": "flag:wrackholm_met_jory"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "book": [
+      {
+        "say": "wenna",
+        "text": "Thirty winters at Thornwold's light, and it's lost its own name? Hm."
+      },
+      {
+        "say": "wenna",
+        "text": "Keepers pay twice on our decks: once for the crossing, and once into the Book. Their names, in the lane-house Book, in their own hands. It's the one thing a Keeper won't give anybody else.",
+        "if": "!flag:wrackholm_wenna_saw_sleeve"
+      },
+      {
+        "say": "wenna",
+        "text": "If your Keeper ever rode a Tidewright deck out to Thornwold, it wrote its name in the Book first. Thirty winters back. It'll be in there."
+      },
+      {
+        "say": "wenna",
+        "text": "The Book's at the back of the house. I'll not take a lamp in there till the Wrack's lit: ordinary fire's no use against this fog, and the Book's paper. Light the Wrack, and I'll find you its page."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

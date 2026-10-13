@@ -1,0 +1,17 @@
+{
+  "id": "the_gannets_crew",
+  "title": "The Gannet's Crew",
+  "region": "wrackholm",
+  "giver": "wenna",
+  "description": "The Gannet came in on Wrackholm's answer the night the Spire went dark, and the Teeth had her. Three aboard.",
+  "stages": [
+    {
+      "id": "the_crew_board",
+      "text": "The yard hauled the Gannet up on the hard, but nobody can remember her crew's names; the fog takes the names first. Every Tidewright boat carries her sworn crew chalked on a board at the stern, and the Gannet's has gone blank as a slate. Wenna Garrow wants the names back, to say over the horn. Your ember gives things back, Oda says."
+    },
+    {
+      "id": "say_the_names",
+      "text": "Under your ember the chalk came back on the Gannet's crew board: HALE CORBET, master; ANNIS CORBET; RUAN PASK. Take the names up to Wenna at the lane-house."
+    }
+  ]
+}

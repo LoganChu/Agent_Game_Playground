@@ -110,7 +110,7 @@
       "default": false
     },
     "lanes_ferry_at": {
-      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing), 'saltmarrow' (back at the Saltmarrow dock) or 'fen' (at Glasswater Fen's staithe, Day 29). Oda and the ferry prop are placed by it; the player travels with her.",
+      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing), 'saltmarrow' (back at the Saltmarrow dock) 'fen' (at Glasswater Fen's staithe, Day 29) or 'wrackholm' (at Wrackholm's jetty, Day 40). Oda and the ferry prop are placed by it; the player travels with her.",
       "default": ""
     },
     "thornwold_landed": {
@@ -312,13 +312,11 @@
     },
     "fen_dunstan_mara": {
       "description": "What the player told Dunstan of Mara: 'message' (her word, in person or tied on the post — he whittled a gull for the stool, facing the door), 'burned' (that she says Tollens end with her and sets out two cups — the gull burn), 'spared' (after the gull burn, only that she's well), 'well' (that she's well) or 'nothing' (not theirs to carry).",
-      "default": "",
-      "future": true
+      "default": ""
     },
     "fen_dunstan_rule": {
       "description": "Whether the player asked Dunstan what he came to put down ('asked' — he doesn't know: 'that's how you know it went') or kept Stillhithe's rule ('kept').",
-      "default": "",
-      "future": true
+      "default": ""
     },
     "fen_hesper_heard_dunstan": {
       "description": "Hesper has been told the big man was found by his lit lantern (one-time): she keeps his name till he comes for it.",
@@ -334,6 +332,61 @@
     },
     "saltmarrow_mara_got_gull": {
       "description": "The player gave Mara the gull Dunstan whittled for her at the end of the long walk; she set it on his stool facing the door.",
+      "default": false
+    },
+    "fen_oda_lane_asked": {
+      "description": "Oda told the player where the lane runs on from the lit fen: east-about to Wrackholm. Once Dunstan is found (the player 'done here') she'll sail it.",
+      "default": false
+    },
+    "wrackholm_landed": {
+      "description": "First landfall at Wrackholm played (the arrival scene: the yard dark, the answering horn lashed). Starts A Light for Wrackholm.",
+      "default": false
+    },
+    "wrackholm_met_wenna": {
+      "description": "The player met Wenna Garrow, lane-warden of Wrackholm, by the lashed horn and heard why nobody answers (a horn answered is a lane promised) and of the Gannet.",
+      "default": false
+    },
+    "wrackholm_met_jory": {
+      "description": "The player met Jory Pask stripping the Gannet's copper in the yard.",
+      "default": false
+    },
+    "wrackholm_board_read": {
+      "description": "The player held the ember to the Gannet's blank crew board and the chalk came back: Hale Corbet, master; Annis Corbet; Ruan Pask.",
+      "default": false
+    },
+    "wrackholm_gannet_named": {
+      "description": "Wenna said the Gannet's crew's names into the lashed horn (The Gannet's Crew done), and told the player it was her answer brought them in.",
+      "default": false
+    },
+    "wrackholm_jory_brother": {
+      "description": "The player told Jory his brother's name, off the crew board: Ruan Pask.",
+      "default": false
+    },
+    "wrackholm_who_answered": {
+      "description": "What the player told Jory about who called the Gannet in: '' (not asked), 'wenna' (the truth: Wenna answered, and the Wrack went out), 'keepers' (the Spire was put out on purpose, by Keepers) or 'dark' (nobody's to blame for the dark). For Wrackholm's burning and the Tidewrights' arc.",
+      "default": "",
+      "future": true
+    },
+    "wrackholm_wenna_saw_sleeve": {
+      "description": "The player showed Wenna the Keeper's sleeve-ember: Keepers pay twice, once for the crossing and once into the lane-house Book (their names).",
+      "default": false
+    },
+    "wrackholm_book_told": {
+      "description": "Wenna told the player the Lamp's name may be in the lane-house Book of Keepers carried (if it ever rode a Tidewright deck); she'll find its page once the Wrack is lit.",
+      "default": false,
+      "future": true
+    },
+    "wrackholm_wenna_offer": {
+      "description": "Wenna weighed the player's deeds (three lit) and offered to swear them a friend of the lanes once the Wrack is lit: the Tidewrights court the Wakebearer.",
+      "default": false,
+      "future": true
+    },
+    "wrackholm_jory_float": {
+      "description": "Jory gave the player a glass float off the come-home pile for Pell's finding pouch (something lost, something good).",
+      "default": false
+    },
+    "saltmarrow_pell_float": {
+      "description": "The player brought Pell the glass float from Wrackholm in the finding pouch: something lost, something GOOD. It sits on top of the lost-things crate.",
       "default": false
     }
   }
