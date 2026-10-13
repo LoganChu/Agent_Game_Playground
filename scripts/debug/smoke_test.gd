@@ -192,6 +192,10 @@ func _walk_the_heron(main: Node, ui: DialogueUI, trip: int) -> void:
 	fen = main.get("region")
 	if fen.region_id != "glasswater_fen":
 		return
+	await _sail_to_wrackholm(main, ui)
+	fen = main.get("region")
+	if fen.region_id != "glasswater_fen":
+		return
 	for node in get_tree().get_nodes_in_group("npcs"):
 		if (node as NpcActor).npc_id == "oda" and not node.is_queued_for_deletion():
 			(node as NpcActor).interact()
@@ -291,6 +295,40 @@ func _find_dunstan(main: Node, ui: DialogueUI) -> void:
 	_check(GameState.world.get_flag("fen_dunstan_met") == true and GameState.world.quest_state("for_after") == WorldState.QUEST_DONE,
 			"Dunstan found")
 	_check(dunstan.prompt == "Talk to Dunstan Tollen", "named once he's said it (%s)" % dunstan.prompt)
+
+
+## Day 40: with Dunstan found, Oda says where the lane runs on and sails it east-about to Wrackholm
+## (nobody answers her horn; the arrival scene starts A Light for Wrackholm). Walk the island the way
+## the passes do — the crew board first (the ember brings the names back), Wenna (the law, the Gannet,
+## the names said into the horn), Jory (his brother's name, who called them in), Oda last, who sails
+## the walk back to the fen.
+func _sail_to_wrackholm(main: Node, ui: DialogueUI) -> void:
+	var oda := _npc("oda")
+	_check(oda != null, "Oda at the staithe with Dunstan found")
+	if oda == null:
+		return
+	oda.interact()
+	_check(_choose(ui, "Where does the lane go from here?"), "Oda says where the lane runs on")
+	_check(_choose(ui, "Sail east-about to Wrackholm."), "...and, done here, sails it")
+	_finish_dialogue(ui, "oda (east-about)")
+	for i in 3:
+		await get_tree().physics_frame
+	var holm: Region = main.get("region")
+	_check(holm.region_id == "wrackholm", "Oda sailed to Wrackholm")
+	if holm.region_id != "wrackholm":
+		return
+	_sailings.append("glasswater_fen -> wrackholm")
+	_walked[holm.region_id] = true
+	_check(ui.is_open(), "the yard is seen dark on landing")
+	_finish_dialogue(ui, "the Wrackholm arrival")
+	await get_tree().process_frame
+	_check(GameState.world.quest_stage("a_light_for_wrackholm") == "the_lashed_horn", "A Light for Wrackholm begins")
+	_check(await _walk_region(main, ui, holm, 0), "Oda sails the walk back from Wrackholm")
+	var world := GameState.world
+	_check(world.get_flag("wrackholm_board_read") == true, "the ember brought the Gannet's names back")
+	_check(world.quest_state("the_gannets_crew") == WorldState.QUEST_DONE, "Wenna said them into the horn")
+	_check(str(world.get_flag("wrackholm_who_answered")) != "", "Jory was told who called them in")
+	_check((main.get("region") as Region).region_id == "glasswater_fen", "back at the fen from Wrackholm")
 
 
 func _npc(id: String) -> NpcActor:
