@@ -646,6 +646,75 @@ forget. The fog is thickest and strangest here.
     since the Snuffing — "that's not like us."** Cindermoor is past it "and past more besides". She won't sail it until
     the Wakebearer is "done here". On Dunstan: "Is he laughing?… That man laughed at weather."
 
+### 4. Wrackholm (Act II — begun Day 40)
+The Tidewrights' own island, east-about from Glasswater ("keep the Heron astern and the morning on your right cheek,
+the old pilots say, and you raise Wrackholm in a day"). Low black rock and shingle. Theme: **what's owed** — deeds,
+debts, salvage, and who answers for a thing.
+
+- **Established in play (Day 40 — the lane to Wrackholm):**
+  - **The lane on.** Oda sails it once she has said where it runs and the Wakebearer is "done here" at the fen
+    (Dunstan found). On the way she speaks to what was carried to Dunstan (`fen_dunstan_mara`: the gull for the stool
+    — "a Tollen'll tell you what a thing isn't"; the two cups — "glad it wasn't me"; well / spared / nothing) and to
+    the rule (`fen_dunstan_rule`: asked — "the only answer worth having, out there"; kept — "Tidewright manners. We
+    don't ask a man what's in his hold"). **Nobody answers her horn.** She comes in slow by soundings, a man in the bows
+    with the lead, past **the Teeth** — the reef off the yard's mouth, breaking "like breath through teeth". The lane
+    from Wrackholm runs back to the fen only (lanes run light to light).
+  - **The hard and the yard.** A shingle hard under black rock where the Tidewrights' salvage yard hauls up what the
+    sea gives back: hulls on keel blocks, an old hulk broken down to her ribs, reclaimed timber **sorted on bearers
+    with a lead tag nailed on**, chain, blocks, a plank jetty. **Salvage law:** the yard keeps what the sea gives back,
+    every nail — but holds it **a year and a tide** for its owner first. **The come-home pile:** glass net-floats, "the
+    one thing the sea always gives back"; nobody's claimed these.
+  - **The lane-house** — where the Tidewrights' masters are sworn (Oda, 38 years back): a long low hall of dry-laid
+    black stone with pale quoins, its **turf roof roped down with old hawsers weighted with slung stones**, its door to
+    the sea under a ship's beam, **an iron hand-scale** over the door (the Guild's sign: deeds are weighed here). The
+    yard folk are **inside**, round a fire (firelight in the shutters, smoke from the chimney); nobody came out.
+  - **The answering horn**: a great horn of black wood bound in brass, slung under a beam by the door, bell to the sea;
+    it takes two to sound it. **Lashed shut since the Snuffing** — a sailcloth bung in the bell, tarred line crossed
+    over it and wound round the mouthpiece "the way you'd bind a wound".
+  - **Horn law: "A horn answered is a lane promised."** You answer a boat only when you can light her in. With the
+    Wrack dark and the Teeth unseen, nobody answers: that is why Wrackholm went silent ("that's not like us" — Oda).
+  - **The Gannet.** The night of the Snuffing the yard's boat *Gannet* blew for home at dusk, coming in from salvage off
+    the Teeth. **Wenna answered, as she had for fifty years, and while her note was in the air the Wrack went out.** The
+    Gannet came in on her answer and the Teeth had her: **Hale Corbet** (master), **Annis Corbet** (his daughter) and
+    **Ruan Pask**. The yard hauled her up on the hard (stove in at the port bow, copper half stripped). The fog took
+    their names first; nobody could say them.
+  - **Crew boards.** Every Tidewright boat carries her sworn crew chalked on a board at the stern. The Gannet's had
+    gone blank as slate; **held to the Wakebearer's ember the chalk came back**, "the way breath goes onto glass, only
+    backward" (`wrackholm_board_read`). (The ember gives back what the fog took from a thing — Hesper's "your light
+    puts the coat back on"; foreshadows mysteries #2/#3, never explain.)
+  - **Wenna Garrow** — lane-warden of Wrackholm, eighties; keeps the lane-house and the horn and **swears the masters**
+    (she swore Oda, who cried — each says the other's lying). Sits on a coil of hawser by the lashed horn in a guild coat
+    buttoned to the chin, a white shawl, a brass warden's mouthpiece on a cord. Given the names, she **says them into
+    the lashed horn's mouth** without sounding it ("That's what a horn's for, in the end: saying who's come in"); the
+    yard folk inside say them too (*The Gannet's Crew*, `wrackholm_gannet_named`). Then she owns it: **"It was my answer
+    brought them in. Not the dark. Not the Keepers. Mine."** She has let the yard blame the Keepers' dark; she won't ask
+    the Wakebearer to lie for her, or to tell.
+  - **Jory Pask** — salvager, nineteen; Ruan's younger brother. Strips the Gannet's copper one nail at a time because
+    the yard keeps what the sea gives back. Knew he had a brother "the way you know a tooth's gone"; given the name off
+    the board, he keeps saying it "so it'll stick" (`wrackholm_jory_brother`). Blames the Keepers ("the Spire went dark
+    on the Keepers' watch"). Told who called the Gannet in (`wrackholm_who_answered`): **wenna** (the truth — "Course
+    she answered. She's Wenna"; he'll go up to her "when her copper's off"), **keepers** (only if the Wakebearer heard
+    Aldous: the Spire was put out on purpose — his hatred of Keepers hardens) or **dark** ("a hard thing to hate, the
+    dark").
+  - **What the Wrack needs** (`a_light_for_wrackholm`, stage `the_teeth`): Wenna won't unlash the horn while it is dark.
+    The **Wrack Light** stands on a ragged stack of black rock out on the Teeth: a squat round tower of black stone ringed
+    with pale bands, a lantern room framed in **reclaimed ships' timbers** with horn panes, a copper roof gone green,
+    **an iron anchor** for a vane (each beacon wears its island's sign). **At the bottom of a spring tide the Teeth come up
+    enough to walk, "if you know where to put your feet"**; Wenna knew once. It will want feeding like the others. (Open:
+    the tides; who remembers the way across.)
+  - **Keepers pay twice — the second fare is a name.** Every Keeper who ever rode a Tidewright deck **wrote their name in
+    the lane-house Book** — "the one thing a Keeper won't give anybody else, they gave us", nine hundred years of them, in
+    the dark at the back of the hall. If the Lamp ever rode a Tidewright deck out to Thornwold, its name is in the Book,
+    thirty winters back, in its own hand; Wenna will find the page **once the Wrack is lit** (she won't take a flame to
+    paper in this fog) (`wrackholm_book_told`). With the sleeve-ember, Wenna takes Oda's word if Oda saw it.
+  - **The Tidewrights court the Wakebearer**: Wenna has had Oda's weighing ("Three lit") and offers to **swear them a
+    friend of the lanes** once the Wrack is lit — "No Tidewright deck would ever weigh you light again" — "Keepers want
+    the Spire lit their way, by their rites… We don't care whose hands. We only want to steer by it." (`wrackholm_wenna_offer`)
+  - **Pell's lost thing:** Jory gives a **glass float** off the come-home pile for Pell's finding pouch ("past its year
+    and a tide. It's nobody's. So it's theirs"). Back on Saltmarrow, Pell (who stayed) takes it — "Nobody's. So it's
+    mine. That's the BEST kind of lost thing" — and sets it **on top of** the lost-things crate where everyone can look;
+    the Wakebearer keeps the pouch ("You're not done finding") (`saltmarrow_pell_float`).
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)

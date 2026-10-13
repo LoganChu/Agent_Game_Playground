@@ -2,6 +2,71 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-13 21:00 UTC — Day 40: The lane to Wrackholm (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; local `main` reset to
+  `origin/main` (Day 39's `4f44547`). Baseline green (278 tests + smoke + launch).
+- **Content (due by Day 41; last content Day 37):** ROADMAP *Next up* #1, *The lane to Wrackholm*:
+  - **The east lane.** At the lit fen, Oda's "Where does the lane go from here?" now sets `fen_oda_lane_asked`; with
+    Dunstan found she says you're "done here, near enough" and offers **"Sail east-about to Wrackholm."** The first
+    sailing honours what was carried to Dunstan (`fen_dunstan_mara`, all five values) and the rule (`fen_dunstan_rule`)
+    — both flags stop being `future` — then **nobody answers her horn**, and she comes in by soundings past **the
+    Teeth**. Wrackholm runs back to the fen only; later sailings are one line.
+  - **New region `wrackholm` (Wrackholm Hard):** the jetty, the salvage yard on the shingle (the *Gannet* hauled up,
+    an old hulk down to her ribs, timber sorted with lead tags, the come-home pile of glass floats), the lane-house on
+    its rise with the answering horn lashed by its door, a spit running out into the Teeth's deep fog, and the Wrack
+    Light dark on its stack out of reach; thin fog over the yard's west end. Arrival event → *A Light for Wrackholm*.
+  - **Wenna Garrow** (lane-warden, swore Oda): **"A horn answered is a lane promised"** — nobody answers while the Wrack
+    is dark. The Snuffing night she answered the *Gannet* as the Wrack went out; the Teeth had her (Hale and Annis Corbet,
+    Ruan Pask). **The Gannet's Crew** (completable): the ember brings the chalk back on the blank crew board; Wenna says
+    the names into the lashed horn ("That's what a horn's for, in the end: saying who's come in") and owns it: "It was my
+    answer brought them in." Also: the Wrack at the bottom of a spring tide (stage `the_teeth` — waits on tides), the
+    deed weighed (`saltmarrow_ferry_deed`) and **the friend-of-the-lanes offer**, **Keepers pay twice — the second fare is
+    their name in the lane-house Book** (with the sleeve-ember; Oda's word if she saw it), and **the Lamp's lost name may
+    be in the Book** (page once the Wrack is lit).
+  - **Jory Pask** (salvager, Ruan's brother) strips the Gannet's copper; given his brother's name he keeps saying it, and
+    once Wenna has spoken he asks who called them in: **Wenna** (the truth), **the Keepers** (only if Aldous confessed:
+    the Spire was put out) or **the dark** (`wrackholm_who_answered`, for the Wrack's burning).
+  - **Pell's pouch paid:** Jory gives a glass float off the come-home pile ("past its year and a tide. It's nobody's. So
+    it's theirs"); Pell (stayed) sets it on top of the lost-things crate (the crate's dialogue shows it).
+- **Art (folded in):** `tools/blender/build_wrackholm.py` — `lane_house` (black stone courses, pale quoins, turf roof
+  roped down with weighted hawsers, firelight in the shutters, smoke), `answering_horn` (lashed: bung, crossed tarred
+  line, the mouthpiece bound), `gannet_hulk` (stove in, copper half stripped, the blank crew board at `GANNET_BOARD`),
+  `salvage_stack`, `float_pile`, `wrack_light` (black tower on a rock stack, ships'-timber lantern room, green copper
+  roof, an iron anchor vane); characters `wenna` (seated on a hawser coil) and `jory` (pry bar, leather apron).
+- **Tests:** `test_wrackholm.gd` (9): the lane's gating and sailing, the sailing's lines per Mara/rule, **Oda and the
+  ferry in exactly one region for every `lanes_ferry_at`**, the layout (reach, the yard's fog, Wenna by horn and door,
+  the Wrack out of reach, the board's glint on the hulk's transom, the arrival once), the kit, Wenna, the Wrack/deed/
+  Book, Jory three ways, the float to Pell. `test_dressing.gd` allows the lane-house's length and the Wrack's height.
+  **Smoke walk** sails to Wrackholm after finding Dunstan (`_sail_to_wrackholm`: board, Wenna, Jory, Oda back).
+  287 tests + smoke + launch pass. Checkpoint `wrackholm`.
+
+Screenshots (`docs/screenshots/2026-10-13-pm-*.png`): `lane-house-and-wenna`, `the-answering-horn-lashed`,
+`the-gannet-and-her-crew-board`, `wenna-jory-oda`; `docs/checkpoints/wrackholm.png`.
+
+**Decisions**
+- **Why Wrackholm went silent is a law, not a mystery:** Tidewrights answer horns ("that's not like us") — so the
+  silence is them keeping their oldest law, at a cost. It makes the island's theme *what's owed* and gives a guilt to
+  weigh (Wenna's answer) without touching the Keepers' secrets; Jory's "keepers" answer only exists if Aldous told you.
+- **The ember restores the crew board** (a thing the fog greyed, not a burned memory), in line with Hesper's "your
+  light puts the coat back on". It never restores a burn.
+- **The Wrack Light waits on tides** (stage `the_teeth`): the next Wrackholm session needs a tide value or a low-water
+  region; written into ROADMAP *Next up* #2 rather than faked with a dialogue gate now.
+- **The Book (Keepers' second fare)** is new canon: it gives "Keepers pay twice" a concrete meaning and a place for the
+  Lamp's lost name to be found later, without naming it now.
+- **Gating "done here" on `fen_dunstan_met`**, not on every fen thread, so nobody is stuck: Dunstan is always findable
+  once the Heron is lit.
+
+**Problems / notes**
+- The island reads pale in the Compatibility renderer (black stone and turf wash to light grey); left for the Vulkan
+  pass rather than darkening blind. Art follow-ups logged in *Known issues*.
+- The spit into the Teeth is walkable into deep fog and leads nowhere yet (by design: the way across is the next part).
+
+**Next run should**
+1. **Title screen** (systems; ROADMAP *Next up* #1) — systems are due (last systems-led session: Day 37's NPC `names`).
+2. Then **Wrackholm, part two — the Teeth** (content, due by Day 44); the next polish/debt pass is due by Day 46.
+
 ## 2026-10-13 09:00 UTC — Day 39: Fen art follow-ups (the white light, the landing, the ladder, Mara's cord)
 
 **Did**

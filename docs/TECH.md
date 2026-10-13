@@ -33,12 +33,13 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord wenna jory …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
+.tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn gannet_hulk salvage_stack float_pile wrack_light]  # Wrackholm kit (Day 40; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -335,6 +336,15 @@ entries each with an `if` (known flags) and a non-empty `name`. Dunstan sits at 
 `fen_dunstan_word=mara`); his lantern is a **halo** on the last board (not a light — the budget), and the fen's arrival
 event `fen_lantern_for_after` (after the burn, any way in) starts *For After*. The smoke walk finds him after
 `_light_the_heron` (`_find_dunstan`); `test_after_the_heron.gd` covers the rest.
+
+**The east lane (Day 40):** `lanes_ferry_at=wrackholm` puts the ferry and Oda at Wrackholm's jetty (Saltmarrow's
+placements gained a fourth `!` term). At the lit fen Oda's "Where does the lane go from here?" sets `fen_oda_lane_asked`;
+"Sail east-about to Wrackholm." needs that **and** `fen_dunstan_met` ("done here"). The first sailing (`sail_wrackholm`)
+is the full scene and honours `fen_dunstan_mara` / `fen_dunstan_rule`; the region's arrival event sets `wrackholm_landed`
+and starts *A Light for Wrackholm*. From Wrackholm Oda only runs back to the fen. `test_wrackholm.gd` also proves Oda and
+the ferry stand in exactly one region for every value of `lanes_ferry_at` — **add the next port's value to that test**.
+The smoke walk sails it from the fen after `_light_the_heron` (`_sail_to_wrackholm`: the lane asked, the sailing, the
+arrival scene, a region walk — board, Wenna, Jory, then Oda sails it back), before Oda takes the walk on to Thornwold.
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,
@@ -757,6 +767,12 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - `tests/run_tests.gd` prints each test's time and the slowest eight (Day 31). Keep the suite well
   inside `run_checks.sh`'s 300 s per step: a validator pass over every region runs once per validator
   test (~20 of them), so a slow per-region check multiplies. Day 31: 26 s.
+- `tests/test_wrackholm.gd` — Day 40: the east lane (asked + done here; the full sailing honouring what was carried to
+  Dunstan; back to the fen only; later sailings short), Oda and the ferry in exactly one region on every lane, the
+  layout (reachable, the yard's thin fog, Wenna by the horn and the door, the Wrack Light out of reach in the Teeth's fog,
+  the board object's glint on the hulk's transom), the kit (the blank board, one glowing surface on the lane-house, the
+  rig), Wenna (the law, the Gannet, the names said into the horn, read-first, the Teeth, deeds, the sleeve-ember and the
+  Book, the Lamp's name), Jory (his brother's name, who called them in three ways) and the glass float to Pell.
 - `tests/test_characters.gd` — character models follow the rig contract; the rig poses and
   returns to rest; missing models fall back; validator catches bad `model`/`idle`.
 - `tests/test_dialogue.gd`, `tests/test_world_state.gd`, `tests/test_journal_model.gd` — unit

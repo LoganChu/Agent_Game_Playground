@@ -323,17 +323,33 @@ each .glb < 5 MB.
       now **lashed tight** (0.19 m from the leg's axis, was 0.25). **Mara's red cord** round the sill gull's neck
       (`gull_cord`, its own prop in the Heron's frame; lit and `fen_dunstan_word=mara` only).
       Checkpoints `glasswater_fen`, `heron_mere`, `heron_lit`, `dunstan_found` re-shot.
+- [x] [C] **The lane to Wrackholm** (Day 40): at the lit fen Oda's "where does the lane go" + Dunstan found ("done
+      here") → **"Sail east-about to Wrackholm."**; the full sailing honours `fen_dunstan_mara` / `fen_dunstan_rule`;
+      nobody answers her horn; in by soundings past **the Teeth**. New region **`wrackholm`** (Wrackholm Hard: the
+      salvage yard, the jetty, the lane-house on its rise, a spit into the Teeth's fog, the Wrack Light dark out of reach),
+      arrival event (*A Light for Wrackholm*, `future`). **Wenna Garrow** (lane-warden; horn law: "a horn answered is a
+      lane promised"; she answered the *Gannet* as the Wrack went out) and **Jory Pask** (salvager; Ruan's brother).
+      **The Gannet's Crew** (completable): the ember brings the chalk back on the crew board; Wenna says the names into
+      the lashed horn and owns her answer; Jory told who called them in (`wrackholm_who_answered`: wenna / keepers —
+      only if Aldous confessed / dark). Wenna: the Wrack at a spring tide's bottom (stage `the_teeth`, waits on tides),
+      the deed weighed per `saltmarrow_ferry_deed` and **the friend-of-the-lanes offer**, **Keepers pay twice — the second
+      fare is their name in the lane-house Book**, and the Lamp's lost name may be in it (page once the Wrack is lit).
+      **Pell's pouch paid**: Jory's glass float off the come-home pile → Pell sets it on the crate. **Art:**
+      `build_wrackholm.py` (lane_house, answering_horn lashed, gannet_hulk + crew board, salvage_stack, float_pile,
+      wrack_light) and characters `wenna` (seated on a hawser coil), `jory`. Checkpoint `wrackholm`; the smoke walk sails
+      it and back.
 
 ### Next up
-1. [C] **The lane to Wrackholm** (content, due by Day 41): Oda sails east-about from the lit fen once asked ("you done
-   here"); the Tidewrights' yards dark, nobody answering horns — the faction's own island (Tidewrights court the
-   player: deeds, the hand-scale, Keepers pay twice; `saltmarrow_oda_saw_sleeve_ember`). New region, a Tidewright NPC
-   or two, a new quest; honour `fen_dunstan_mara` / `fen_dunstan_rule` somewhere (Oda?), and bring Pell's
-   `pells_pouch` / the Thornwold beacon-keeper threads closer. Keep Dunstan at the end of the walk (his walk back
-   for his name is a later payoff, not this one).
-2. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+1. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
+2. [C] **Wrackholm, part two — the Teeth** (content, due by Day 44): tides first (a small `tide` world value
+   stepped by sleeping/time, or by sailing, with the Teeth's walkable path as a conditional region feature — `land`
+   can't be conditional, so a pier-like conditional walkway or a second region `wrack_teeth` reached at low water);
+   who remembers where to put your feet (Wenna? Jory? Oda?); the Wrack Light's Remnant candidates (Wenna's answer —
+   the horn's mouthpiece; the Gannet's crew board; Jory's copper?) — honour `wrackholm_who_answered`; Jory going up to
+   Wenna (`who=wenna`); the lane-house Book once lit (the Lamp's page — `wrackholm_book_told`, `thornwold_lamp_name_lost`)
+   and the friend-of-the-lanes swearing (`wrackholm_wenna_offer`). Keep Keepers' arc and Cindermoor out of it.
 3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -362,10 +378,12 @@ each .glb < 5 MB.
 - [x] [C] **The crossing** — landed Day 17 (see Done).
 - [S] **Ferry travel system & map screen** (lanes open beacon to beacon): replace Oda's
   sail/back dialogue choices with a lane map; `lanes_ferry_at` stays the ferry's position.
-  Still to honour on Thornwold: `pells_pouch` (Pell stayed), the beacon-keeper; Keepers met
-  later should react to `saltmarrow_aldous_confessed` and the Keeper's Sleeve-Ember (`future`).
+  (`pells_pouch` honoured Day 40: Jory's glass float. The beacon-keeper is the Lamp — its name may be in
+  Wrackholm's lane-house Book.) Keepers met later should react to `saltmarrow_aldous_confessed` and the Keeper's
+  Sleeve-Ember (`future`).
 - [x] [C] Thornwold (forest, shifting paths): landing + Bram (Day 17), woods + Hob (Day 21), ridge + the Lamp (Day 25), the burn (Day 27). Later: the old Keepers' road north along the ridge — where the four colliers went (and whether Hob goes after them).
-- [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); Day 33 out to the Heron's legs (Dunstan glimpsed); Day 35 the Heron's burn (lit); Day 37 Dunstan found (his walk back for his name later); next: the lane on to Wrackholm.
+- [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); Day 33 out to the Heron's legs (Dunstan glimpsed); Day 35 the Heron's burn (lit); Day 37 Dunstan found (his walk back for his name later); Day 40 the lane on to Wrackholm.
+- [C] Wrackholm (the Tidewrights' island: what's owed). Begun Day 40 (the yard, the lane-house, Wenna, Jory, the Gannet's crew); next: the Teeth at low water and the Wrack Light's burning; the lane-house Book; the friend-of-the-lanes swearing.
 - [S] Day/night cycle & tides; NPC schedules.
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
 - [S] Accessibility: colorblind-safe fog/ember cues, subtitles sizing, no timing gates.
@@ -412,10 +430,15 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 37 (After the Heron — Dunstan found); next content due by Day 41 (the lane to Wrackholm).
+- Last content session: Day 40 (the lane to Wrackholm); next content due by Day 44 (Wrackholm, part two — the Teeth).
 - Last polish/debt session: Day 38 (pass four); next due by Day 46.
-- Last art session: Day 39 (fen art follow-ups). Next art due ~Day 41–42: fold Wrackholm's kit into its content session, or the
-  Saltmarrow dressing follow-ups.
+- Last art session: Day 40 (Wrackholm's kit and Wenna/Jory, folded into the content session; Day 39 the fen). Next art due
+  ~Day 42: Wrackholm follow-ups (below) or the Saltmarrow dressing follow-ups.
+- Wrackholm art follow-ups (Day 40): the island reads pale in the Compatibility renderer (black stone and dark turf
+  wash to light grey under the 0.04 fog — judge in Vulkan before darkening); the lane-house's hawser weight stones hang
+  under the eaves like lanterns from some angles; more yard life (a second salvager? a hulk on its side, a rope-walk
+  shed); the Teeth only show as three awash rocks — a reef line of broken water would sell them; Jory's hair reads as a
+  cap.
 - Hob's camp bench is in the tally house's shadow under the landing's sun (west); he reads dark from
   the yard in Compatibility. Judge with the Vulkan colour pass; a fill light is not in the budget.
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
