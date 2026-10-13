@@ -38,7 +38,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
-.tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat) (same kit dir)
+.tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -792,3 +792,12 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 Project targets Forward+ (Vulkan). In the sandbox only the OpenGL Compatibility renderer
 (`--rendering-driver opengl3` under Xvfb/llvmpipe) is available for screenshots, and it
 renders noticeably brighter/washed-out; do color grading on a real GPU.
+
+**Striped shadows on thin props (Day 39).** Zig-zag bands on a thin pole are usually a near thing's real
+shadow (a ladder's rungs on its leg, under a high sun), not bias acne: check with the sun's shadow off
+before touching `shadow_bias`/`shadow_normal_bias` (raising them changed nothing on the Heron's leg).
+The fix is in the model: put the shadow-caster tight against what it shades.
+
+**Region colours as hex (Day 39).** Region fog/light/ground/water colour keys take palette names or
+`#hex` (tonal mixes of palette colours, per GAME_DESIGN). The fen uses neutral whites (`#CBCCC9`) instead
+of `silverfog`, whose blue reads lavender over its water; `tests/test_fen_art.gd` keeps blue out of it.

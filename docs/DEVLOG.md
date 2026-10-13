@@ -2,6 +2,59 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-13 09:00 UTC — Day 39: Fen art follow-ups (the white light, the landing, the ladder, Mara's cord)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Local `main` matched `origin/main`
+  (Day 38's `ae72592`) this time. Baseline green (274 tests + smoke + launch).
+- **Art (overdue by the cadence; last art Day 36):** ROADMAP *Next up* #1, *Fen art follow-ups*, all four parts:
+  - **The fen's flat white light** (both `glasswater_fen` and `heron_mere`): fog, ambient and sky horizon a
+    neutral white `#CBCCC9` (silverfog's blue read lavender over the water); the ground bleached sedge
+    `#7B8A6C` (was moss-mint); **a pale mud band** at the shore `#BDB6A6` (0.22 m; was dark pine); the
+    fog-coloured ground of Stillhithe and the Foot whiter `#D0CEC6`; **peat water** — shallow `#3E4239`, deep
+    `#202323`, sheen `#D8D8D3`, and a peat seabed `#3A3A32` instead of abyss blue showing through the shallows.
+    The mere's cold sky is the fog's white too; lit, it still opens blue (`tide`) — that's the burn's payoff.
+  - **The stage meets the ladder:** the keepers' stage stopped ~0.3 m short of the rails. Both near Heron models
+    now carry a two-board landing on a bearer and two stub piles (slimed at the waterline), flush with the
+    stage's deck and stopping just short of the rails, and **a cleat** on the leg's outer face with a few turns
+    of line and a hanging end, for the punt's painter.
+  - **"Shadow acne" on the Heron's legs** turned out to be the rungs' real shadows striping the ladder leg under
+    the high (-62°) sun: raising `shadow_bias`/`normal_bias` and shortening the shadow distance changed
+    nothing; switching shadows off cleared it. Fixed in the model — the ladder is **lashed tight** to the leg
+    (0.19 m from its axis, was 0.25), so each rung's shadow falls just behind it. Atmosphere untouched.
+  - **Mara's red cord round the sill gull's neck** (`gull_cord`, 9 KB): a loop knotted twice under the beak, the
+    ends hanging, drawn a size fat so a fleck of red reads through the lit horn. Its own prop built in the
+    Heron's frame and placed at the Heron's position, `if` lit and `fen_dunstan_word=mara` — matching the
+    climb's line — rather than a second lit Heron model (the near lit model is at its 16 draw-call budget;
+    the landing reuses the model's own materials for the same reason).
+- **Tests:** `test_fen_art.gd` (4): no blue in the fen's water, fog, ambient, horizon or seabed, the shore band
+  paler than the ground, the sedge less saturated than moss (lit sky still `tide`); the ladder 0.19 out on all
+  four Heron models with nothing where it used to stand; the landing between the stage's end (derived from the
+  region's pier and the Heron's position) and the rails, flush with the deck, not under the rails, a cleat, and
+  not in the distance model; the cord round the gull's neck, placed with the Heron, shown only lit + Mara's word.
+  `test_fen_dressed.gd`'s "peat-dark water" no longer pins `ink` (blue-black): dark and not blue. The **smoke
+  walk** expects the cord when its run left Mara's word on the post. 278 tests + smoke + launch pass.
+  Checkpoints `glasswater_fen`, `heron_mere`, `heron_lit`, `dunstan_found` re-shot.
+
+Screenshots (`docs/screenshots/2026-10-13-*.png`): `fen-white-light`, `ladder-before-striped-leg` /
+`ladder-lashed-tight`, `landing-and-cleat`, `red-cord-on-the-sill-gull`.
+
+**Decisions**
+- **Hex tones over new palette names** for the fen: GAME_DESIGN allows tonal shades, region colours already take
+  `#hex`, and adding palette entries would ripple into every palette check. Recorded in TECH *Rendering notes*.
+- **The landing is art only**: the stage's pier rect still ends at z -3, so the player stops at the stage's end;
+  the climb is dialogue. Logged in *Known issues*.
+- **The cord is conditioned exactly like the climb's line** (`fen_dunstan_word=mara`), lit only; before the burn
+  the things are heaped in the cradle out of sight.
+
+**Problems / notes**
+- The Compatibility renderer makes the white fen very pale from far overviews; judge it with the Vulkan colour
+  pass (ROADMAP *Next up* #3).
+
+**Next run should**
+1. **The lane to Wrackholm** (content, due by Day 41) — ROADMAP *Next up* #1.
+2. Then a systems item (the title screen is next in line).
+
 ## 2026-10-12 21:00 UTC — Day 38: Polish/debt pass four (placements proved exclusive; Dunstan's boots in the mere)
 
 **Did**

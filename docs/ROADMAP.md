@@ -312,41 +312,49 @@ each .glb < 5 MB.
       the lantern-for-after note corrected (seen from Corran's landing, not the staithe). Checkpoint
       `dunstan_found` re-shot.
 
+- [x] [A] **Fen art follow-ups** (Day 39): **the fen's flat white light** in both fen regions — fog, ambient
+      and horizon a neutral white (`#CBCCC9`, was the bluish silverfog), bleached sedge ground (`#7B8A6C`, was
+      moss), **a pale mud band** at the shore (`#BDB6A6`, 0.22 m; was pine), Stillhithe's and the Foot's
+      fog-coloured ground whiter (`#D0CEC6`), **peat water** (shallow/deep/sheen grey-brown, near-black, white; a
+      peat seabed instead of abyss blue); lit, the mere's sky still opens blue. **The stage meets the ladder**: a
+      two-board landing on a bearer and stub piles, flush with the stage, carries it on to the ladder foot, and a
+      **cleat** on the leg with a few turns of line (near models only). **The "shadow acne"** on the ladder leg
+      was the rungs' own shadows striping the leg (not bias — shadows off cleared it, bias didn't): the ladder is
+      now **lashed tight** (0.19 m from the leg's axis, was 0.25). **Mara's red cord** round the sill gull's neck
+      (`gull_cord`, its own prop in the Heron's frame; lit and `fen_dunstan_word=mara` only).
+      Checkpoints `glasswater_fen`, `heron_mere`, `heron_lit`, `dunstan_found` re-shot.
+
 ### Next up
-1. [A] **Fen art follow-ups** (due next — the art cadence: last art Day 36): the fen's flat white light (a pale shore band,
-   Stillhithe's paint, less blue in the water); the gull's red cord on the sill (Mara's word — too small for
-   the horn, Day 36: a closer look-at would need it); the stage meeting the ladder leg (a cleat or a landing step); the shadow acne on
-   the Heron's legs in the Compatibility renderer (zig-zag bands behind the ladder).
-2. [C] **The lane to Wrackholm** (content, due by Day 41): Oda sails east-about from the lit fen once asked ("you done
+1. [C] **The lane to Wrackholm** (content, due by Day 41): Oda sails east-about from the lit fen once asked ("you done
    here"); the Tidewrights' yards dark, nobody answering horns — the faction's own island (Tidewrights court the
    player: deeds, the hand-scale, Keepers pay twice; `saltmarrow_oda_saw_sleeve_ember`). New region, a Tidewright NPC
    or two, a new quest; honour `fen_dunstan_mara` / `fen_dunstan_rule` somewhere (Oda?), and bring Pell's
    `pells_pouch` / the Thornwold beacon-keeper threads closer. Keep Dunstan at the end of the walk (his walk back
    for his name is a later payoff, not this one).
-3. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
+2. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
    "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
    Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-7. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-8. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
    brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-9. [S] Interaction polish: camera framing during dialogue; fade the
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -386,10 +394,10 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 46 (Day 38 was the last). Candidates: the fen's mirror water/colour with the
+- Next polish/debt pass due by Day 46 (Day 38 was the last). Candidates: the fen's white light and peat water (Day 39) with the
   Vulkan pass; the smoke walk only takes the 'well' Mara path (others: `test_after_the_heron.gd`); the Heron's
-  boardwalk stage overlaps the ladder leg a little (the model has no collider — or fold into *Fen art
-  follow-ups*); a validator pass over **conditional prop variants on the same spot** (like the NPC check —
+  landing (Day 39) has no collider of its own — the stage's pier rect stops at z -3, so the player stands at the
+  stage's end, not on the landing (fine while the climb is dialogue); a validator pass over **conditional prop variants on the same spot** (like the NPC check —
   today only the letting post pair, which overlaps only for a value `fen_dunstan_word` never takes; a flag
   `values` list in `flags.json` would let `joint_witness` stop guessing and make such checks exact).
 - Test time budget: `tools/run_checks.sh` gives each step 300 s. Day 31: tests 26 s, smoke ~45 s, import the
@@ -406,7 +414,8 @@ each .glb < 5 MB.
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 37 (After the Heron — Dunstan found); next content due by Day 41 (the lane to Wrackholm).
 - Last polish/debt session: Day 38 (pass four); next due by Day 46.
-- Last art session: Day 36 (the Heron lit, dressed). Next art due Day 39 (*Fen art follow-ups*): the every-other-session cadence slipped for the Day 38 polish pass.
+- Last art session: Day 39 (fen art follow-ups). Next art due ~Day 41–42: fold Wrackholm's kit into its content session, or the
+  Saltmarrow dressing follow-ups.
 - Hob's camp bench is in the tally house's shadow under the landing's sun (west); he reads dark from
   the yard in Compatibility. Judge with the Vulkan colour pass; a fill light is not in the budget.
 - Prop `smoke` is CPU particles (pauses with the tree under the menu): fine at a few vents;
