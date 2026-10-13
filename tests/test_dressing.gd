@@ -45,13 +45,17 @@ func test_every_model_loads_small_and_upright() -> void:
 		# Merged by material in Blender: a handful of draw calls, not one per strand.
 		assert_true(meshes.size() <= 16, "%s has %d mesh nodes (merge by material)" % [path, meshes.size()])
 		var box := _bounds(node)
-		# The ferry is the one big vessel (9 m hull, 8 m mast) and the beacons on towers and legs the
-		# tall landmarks (~10-11 m to their vanes); everything else fits in 8 × 7 m.
+		# The ferry is the one big vessel (9 m hull, 8 m mast), the beacons on towers, legs and stacks the
+		# tall landmarks (~10-11 m to their vanes) and the lane-house the one long hall; everything else
+		# fits in 8 × 7 m.
 		var limit := Vector3(8.0, 7.0, 8.0)
 		if path.ends_with("ferry.glb"):
 			limit = Vector3(12.0, 9.0, 12.0)
-		elif path.get_file().begins_with("thornwold_beacon") or path.get_file().begins_with("heron_light"):
+		elif path.get_file().begins_with("thornwold_beacon") or path.get_file().begins_with("heron_light") \
+				or path.get_file().begins_with("wrack_light"):
 			limit = Vector3(8.0, 11.0, 8.0)
+		elif path.ends_with("lane_house.glb"):
+			limit = Vector3(12.0, 7.0, 8.0)  # Wrackholm's lane-house is the one long hall (10 m)
 		assert_true(box.size.length() > 0.2 and box.size.x < limit.x and box.size.z < limit.z and box.size.y < limit.y, "%s has sane bounds %s" % [path, box])
 		# Boats sit on the waterline; the dock (and the fen's staithe/boardwalk) and lantern room are placed at absolute heights.
 		if not path.get_file().get_basename() in ["moored_boat", "ferry", "dock", "beacon_lit", "staithe", "boardwalk"]:

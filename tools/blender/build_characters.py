@@ -969,10 +969,100 @@ def _dunstan(seated: bool, cord: bool = False) -> None:
     assemble(b, "dunstan_seated_cord" if cord else "dunstan_seated", scale=1.08)
 
 
+def build_wenna() -> None:
+    """Wenna Garrow, lane-warden of Wrackholm (eighties): she keeps the lane-house and its answering
+    horn and swears the Tidewrights' masters (she swore Oda). Sits by the lashed horn on a coil of old
+    hawser: a long tide-dark guild coat buttoned to the chin, a bone-white knitted shawl crossed over
+    it, white hair in a knot under a black wool cap, big knuckled hands on her knees, a brass
+    warden's mouthpiece on a cord at her neck (the horn's own is lashed)."""
+    reset_scene()
+    b = Body(seated=True, build=0.95)
+    coat = material("abyss", -0.25)
+    skin = material("driftwood", -0.05)
+    base_body(b, skin, coat, material("ink", 0.1), coat)
+    t = b.parts["Torso"]
+    # The coat's long skirt over the knees, buttoned to the chin.
+    t.append(limb((0, -0.02, b.hip - 0.02), (0, -0.02, b.waist + 0.1), 0.3, 0.27, coat, verts=8))
+    b.parts["LegL"].append(block((0.5, 0.4, 0.04), (-0.12, -0.2, b.hip + 0.08), coat, rot=(0.05, 0, 0)))
+    b.parts["LegL"].append(block((0.5, 0.04, 0.32), (-0.12, -0.41, b.hip - 0.08), coat, rot=(-0.12, 0, 0)))
+    for z in (0.78, 0.9, 1.02):
+        t.append(ball(0.022, (0, -0.25, z), material("ember", -0.4), segments=4, rings=3))
+    t.append(ring(0.17, b.shoulder + 0.05, 0.1, coat))                                     # buttoned collar
+    shawl = material("bone", -0.25)
+    t.append(ball(0.33, (0, 0.02, b.shoulder - 0.07), shawl, scale=(1.0, 0.86, 0.62)))     # over the shoulders
+    for s in (-1, 1):
+        t.append(block((0.09, 0.04, 0.42), (s * 0.08, -0.25, b.shoulder - 0.25), shawl, rot=(0.12, 0, s * 0.45)))  # crossed ends
+    # The warden's brass mouthpiece on a cord.
+    t.append(limb((0.1, -0.24, b.shoulder + 0.04), (0.03, -0.27, b.shoulder - 0.2), 0.008, 0.008, material("ink", 0.2), verts=3))
+    t.append(limb((0.03, -0.28, b.shoulder - 0.2), (0.03, -0.29, b.shoulder - 0.29), 0.022, 0.035, material("ember", -0.3), verts=6))
+    h = b.parts["Head"]
+    hair = material("bone", 0.05)
+    h.append(ball(0.25, (0, 0.04, b.head + 0.02), hair, scale=(1.04, 1.0, 1.0)))
+    h.append(ball(0.09, (0, 0.24, b.head + 0.0), hair))                                      # knot
+    cap = material("ink", 0.15)
+    h.append(ball(0.25, (0, 0.03, b.head + 0.1), cap, scale=(1.02, 1.02, 0.6)))
+    h.append(ring(0.25, b.head + 0.05, 0.05, material("ink", 0.25)))
+    for ex in (0.075, -0.075):
+        h.append(block((0.08, 0.03, 0.02), (ex, -0.21, b.head + 0.07), hair))                 # white brows
+    # Big knuckled hands on her knees.
+    for side in ("L", "R"):
+        b.parts["Arm" + side].append(ball(0.095, b.hand(side) + Vector((0, 0.0, 0.0)), skin, scale=(1.0, 1.1, 0.9), segments=6, rings=4))
+    b.arm_rest["ArmL"] = (math.radians(-50), 0, math.radians(-6))
+    b.arm_rest["ArmR"] = (math.radians(-50), 0, math.radians(6))
+    b.head_rest = (math.radians(-6), 0, 0)  # looking out to sea
+    # The seat: a coil of old hawser, turns showing.
+    top = b.hip - 0.04
+    rope = material("driftwood", -0.4)
+    b.parts["Stool"].append(limb((0, 0.02, 0), (0, 0.02, top), 0.34, 0.32, rope, verts=9))
+    for z in (0.08, 0.2, 0.32):
+        b.parts["Stool"].append(limb((0, 0.02, z), (0, 0.02, z + 0.05), 0.35, 0.35, material("driftwood", -0.55), verts=9))
+    b.parts["Stool"].append(limb((0.3, -0.18, 0.02), (0.55, -0.42, 0.02), 0.05, 0.05, rope, verts=5))  # the end
+    assemble(b, "wenna", scale=0.95)
+
+
+def build_jory() -> None:
+    """Jory Pask, a Wrackholm salvager (nineteen): stripping the copper off the Gannet, his brother's
+    boat, because the yard keeps what the sea gives back. Lanky; a coal-red gansey with the sleeves
+    shoved up, canvas trousers, a tarred leather apron, sea boots; a mop of dark hair, bare-headed;
+    a pry bar hanging from his right hand; a lead salvage tag and a hammer at his belt."""
+    reset_scene()
+    b = Body(build=0.92)
+    gansey = material("coal", -0.3)
+    skin = material("driftwood", 0.15)
+    base_body(b, skin, material("driftwood", -0.35), material("ink", 0.05), gansey)
+    t = b.parts["Torso"]
+    apron = material("coal", -0.6)
+    t.append(block((0.34, 0.04, 0.52), (0, -0.25, b.waist - 0.2), apron))                    # apron skirt
+    t.append(block((0.26, 0.04, 0.24), (0, -0.26, b.waist + 0.2), apron))                    # bib
+    t.append(ring(0.27, b.waist + 0.04, 0.05, material("driftwood", -0.5)))                  # belt
+    t.append(block((0.07, 0.02, 0.05), (0.2, -0.27, b.waist - 0.04), material("slate", 0.05)))  # lead tag
+    t.append(limb((-0.22, -0.2, b.waist + 0.0), (-0.22, -0.2, b.waist - 0.22), 0.02, 0.02, material("driftwood", -0.2), verts=4))  # hammer haft
+    t.append(block((0.1, 0.05, 0.05), (-0.22, -0.2, b.waist + 0.0), material("ink", 0.2)))   # hammer head
+    for side in ("L", "R"):
+        hand = b.hand(side)
+        b.parts["Arm" + side].append(limb(hand + Vector((0, 0, 0.24)), hand + Vector((0, 0, 0.06)), 0.074, 0.068, skin))
+        b.parts["Arm" + side].append(limb(hand + Vector((0, 0, 0.29)), hand + Vector((0, 0, 0.23)), 0.095, 0.095, gansey))
+    for side, x in (("L", 0.12), ("R", -0.12)):
+        b.parts["Leg" + side].append(limb((x, 0, 0.08), (x, 0, 0.36), 0.095, 0.1, material("ink", 0.08)))  # sea boots
+    h = b.parts["Head"]
+    hair = material("ink", 0.3)
+    h.append(ball(0.26, (0, 0.04, b.head + 0.06), hair, scale=(1.05, 1.02, 0.85)))
+    h.append(ball(0.1, (0.05, -0.17, b.head + 0.15), hair, scale=(2.0, 1.0, 0.7)))          # fringe
+    # The pry bar: iron, hooked at the foot, hanging from the right hand.
+    hand = b.hand("R")
+    iron = material("ink", 0.2)
+    b.parts["ArmR"].append(limb(hand + Vector((0, -0.03, 0.06)), hand + Vector((0, -0.05, -0.6)), 0.018, 0.018, iron, verts=5))
+    b.parts["ArmR"].append(limb(hand + Vector((0, -0.05, -0.6)), hand + Vector((0, -0.14, -0.66)), 0.018, 0.012, iron, verts=4))
+    b.arm_rest["ArmR"] = (math.radians(-6), 0, math.radians(-4))
+    b.arm_rest["ArmL"] = (0, 0, math.radians(8))
+    b.head_rest = (math.radians(4), 0, math.radians(-6))
+    assemble(b, "jory", scale=1.04)
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_lamp, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
-            build_dunstan_seated_cord]
+            build_dunstan_seated_cord, build_wenna, build_jory]
 
 if __name__ == "__main__":
     import sys
