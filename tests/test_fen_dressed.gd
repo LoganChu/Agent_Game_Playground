@@ -217,7 +217,9 @@ func test_mirror_still_water() -> void:
 	var mat := WaterBuilder.material(spec)
 	assert_true(float(mat.get_shader_parameter("wave_height")) < WaterBuilder.WAVE_HEIGHT * 0.3, "the shader gets the low swell")
 	assert_eq(float(mat.get_shader_parameter("wash_strength")), 0.0, "...and no wash")
-	assert_true((mat.get_shader_parameter("deep_color") as Color).is_equal_approx(PropFactory.color("ink")), "...and peat-dark water")
+	# Peat-dark (Day 39: a peat grey-black, no longer the palette's blue-black ink — the fen's light is white).
+	var deep := mat.get_shader_parameter("deep_color") as Color
+	assert_true(deep.get_luminance() < 0.2 and deep.b - maxf(deep.r, deep.g) < 0.02, "...and peat-dark water (%s)" % deep.to_html(false))
 	var sea := WaterBuilder.material()
 	assert_eq(float(sea.get_shader_parameter("wave_height")), WaterBuilder.WAVE_HEIGHT, "the sea elsewhere keeps its swell")
 	assert_eq(float(sea.get_shader_parameter("mirror")), 0.0, "...and no mirror")
