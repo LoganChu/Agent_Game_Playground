@@ -36,6 +36,7 @@ func _run() -> void:
 		await get_tree().physics_frame
 	var main := get_parent()
 	var ui: DialogueUI = main.get("dialogue_ui")
+	await _start_from_title(main)
 	_check(ui.is_open(), "intro dialogue plays on new game")
 	var player := get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
 	_check(player != null and player.find_child("CharacterRig", true, false) != null, "player shows the Wakebearer model")
@@ -87,6 +88,7 @@ func _run() -> void:
 	await _check_pause_menu(main)
 	await _check_settings(main)
 	await _check_chapter_select(main)
+	await _check_return_to_title(main)
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
 	var before := GameState.world.to_dict()
 	_check(SaveSystem.save_game("smoke_test"), "save succeeds")
@@ -638,7 +640,7 @@ func _check_pause_menu(main: Node) -> void:
 	await get_tree().process_frame
 	_check(menu.is_open() and get_tree().paused and GameState.input_locked, "Esc opens the pause menu and pauses")
 	_check(not hud.is_key_hint_shown(), "key hint hides under the pause menu")
-	_check(menu.press("Save game") and menu.page == PauseMenu.Page.SAVE, "pause menu opens the save page")
+	_check(menu.press("Save game") and menu.page == MenuScreen.Page.SAVE, "pause menu opens the save page")
 	_check(menu.press("Slot 1") and SaveSystem.has_save("slot1"), "saving into slot 1")
 	var saved := JSON.stringify(GameState.world.to_dict())
 	_check(menu.press("Slot 1") and menu.press("Slot 1"), "overwriting slot 1 takes a second press")
@@ -646,9 +648,9 @@ func _check_pause_menu(main: Node) -> void:
 	_press("pause")
 	await get_tree().process_frame
 	await get_tree().process_frame
-	_check(menu.is_open() and menu.page == PauseMenu.Page.MAIN, "Esc backs out to the main page")
+	_check(menu.is_open() and menu.page == MenuScreen.Page.MAIN, "Esc backs out to the main page")
 	GameState.world.set_flag("intro_seen", false)
-	_check(menu.press("Load game") and menu.page == PauseMenu.Page.LOAD, "pause menu opens the load page")
+	_check(menu.press("Load game") and menu.page == MenuScreen.Page.LOAD, "pause menu opens the load page")
 	_check(menu.buttons()[0].disabled, "empty quicksave can't be loaded")
 	_check(menu.press("Slot 1"), "loading slot 1")
 	_check(not menu.is_open() and not get_tree().paused, "loading closes the menu and unpauses")
@@ -676,13 +678,13 @@ func _check_settings(main: Node) -> void:
 	_press("pause")
 	await get_tree().process_frame
 	await get_tree().process_frame
-	_check(menu.press("Settings") and menu.page == PauseMenu.Page.SETTINGS, "pause menu opens Settings")
+	_check(menu.press("Settings") and menu.page == MenuScreen.Page.SETTINGS, "pause menu opens Settings")
 	var master := menu.slider("Master volume")
 	_check(master != null, "Settings has a master volume slider")
 	if master:
 		master.value = 50.0
 		_check(is_equal_approx(AudioServer.get_bus_volume_db(0), linear_to_db(0.5)), "the master slider sets the Master bus")
-	_check(menu.press("Controls") and menu.page == PauseMenu.Page.CONTROLS, "Settings opens Controls")
+	_check(menu.press("Controls") and menu.page == MenuScreen.Page.CONTROLS, "Settings opens Controls")
 	_check(menu.press("Journal"), "picking the journal to rebind")
 	await get_tree().process_frame
 	var key := InputEventKey.new()
@@ -693,16 +695,16 @@ func _check_settings(main: Node) -> void:
 	await get_tree().process_frame
 	_check(settings.key_for("journal") == KEY_K and menu.capturing.is_empty(), "a key press rebinds the journal to K")
 	_check(InputMap.event_is_action(key, "journal"), "K is the journal key now")
-	_check(not InputMap.event_is_action(key, "move_forward") and menu.page == PauseMenu.Page.CONTROLS, "and nothing else; still on Controls")
+	_check(not InputMap.event_is_action(key, "move_forward") and menu.page == MenuScreen.Page.CONTROLS, "and nothing else; still on Controls")
 	_check((hud.get("_keys") as Label).text.begins_with("[K] Journal"), "the HUD hint follows the binding")
 	_press("pause")
 	await get_tree().process_frame
 	await get_tree().process_frame
-	_check(menu.page == PauseMenu.Page.SETTINGS, "Esc backs out of Controls to Settings")
+	_check(menu.page == MenuScreen.Page.SETTINGS, "Esc backs out of Controls to Settings")
 	_press("pause")
 	await get_tree().process_frame
 	await get_tree().process_frame
-	_check(menu.page == PauseMenu.Page.MAIN and FileAccess.file_exists(settings.path), "leaving Settings saves them")
+	_check(menu.page == MenuScreen.Page.MAIN and FileAccess.file_exists(settings.path), "leaving Settings saves them")
 	menu.close()
 	await get_tree().process_frame
 	settings.reset()
@@ -717,7 +719,7 @@ func _check_chapter_select(main: Node) -> void:
 	_press("pause")
 	await get_tree().process_frame
 	await get_tree().process_frame
-	_check(menu.press("Chapter select") and menu.page == PauseMenu.Page.CHAPTERS, "pause menu opens Chapter select")
+	_check(menu.press("Chapter select") and menu.page == MenuScreen.Page.CHAPTERS, "pause menu opens Chapter select")
 	_check(menu.buttons().size() == Scenarios.all().size() + 1, "every checkpoint is listed")
 	_check(menu.press("Thornwold Landing"), "jumping to the Thornwold checkpoint")
 	for i in 3:
@@ -727,6 +729,56 @@ func _check_chapter_select(main: Node) -> void:
 	_check(region != null and region.region_id == "thornwold_landing", "the checkpoint's region loads")
 	_check(world.get_flag("lanes_ferry_at") == "thornwold" and world.quest_state("a_light_for_thornwold") == WorldState.QUEST_INACTIVE, "the world is reset to the checkpoint")
 	_check(not menu.is_open() and not get_tree().paused and not GameState.input_locked, "jumping closes the menu")
+
+
+## The game opens on the title screen over the start region (the HUD hidden, input held,
+## the camera drifting, no waking yet); New game closes it and the waking plays.
+func _start_from_title(main: Node) -> void:
+	var title: TitleScreen = main.get("title_screen")
+	var hud: Hud = main.get("hud")
+	var ui: DialogueUI = main.get("dialogue_ui")
+	var player: Player = main.get("player")
+	_check(title.is_open() and GameState.input_locked and not hud.visible, "the game opens on the title screen")
+	_check(not ui.is_open(), "the waking waits for New game")
+	_check((main.get("region") as Region).region_id == str(Content.db.game["start_region"]), "the start region behind the title")
+	_check(title.heading().begins_with(str(Content.db.game["title"])), "the title screen shows the game's name")
+	var yaw := player.camera_yaw()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(not is_equal_approx(player.camera_yaw(), yaw), "the camera drifts behind the title")
+	# The page was built before this run moved the saves aside; rebuild it on the scratch dir.
+	title._show_page(MenuScreen.Page.MAIN)
+	_check(title.buttons()[0].text == "New game" and title.buttons()[1].disabled, "no saves: New game first, Load greyed")
+	_check(title.press("New game"), "pressing New game")
+	for i in 3:
+		await get_tree().physics_frame
+	_check(not title.is_open() and hud.visible, "New game closes the title")
+
+
+## Pause menu → Return to title (twice: unsaved progress) resets the world behind the title;
+## Continue then loads the latest save (a slot saved after the quicksave).
+func _check_return_to_title(main: Node) -> void:
+	var menu: PauseMenu = main.get("pause_menu")
+	var title: TitleScreen = main.get("title_screen")
+	_check(SaveSystem.save_game("slot2"), "saving to slot 2 before returning to the title")
+	var saved := JSON.stringify(GameState.world.to_dict())
+	var saved_region := (main.get("region") as Region).region_id
+	_press("pause")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(menu.press("Return to title") and menu.is_open(), "Return to title asks for a second press")
+	_check(menu.press("Return to title"), "returning to the title")
+	for i in 3:
+		await get_tree().physics_frame
+	_check(title.is_open() and not menu.is_open() and not get_tree().paused and GameState.input_locked, "the title screen is up (and holds input)")
+	_check((main.get("region") as Region).region_id == str(Content.db.game["start_region"]) and not GameState.world.get_flag("intro_seen"), "the world is back at the start")
+	_check(title.buttons()[0].text.begins_with("Continue") and title.buttons()[0].text.contains("Slot 2"), "Continue offers the latest save")
+	_check(title.press("Continue"), "pressing Continue")
+	for i in 3:
+		await get_tree().physics_frame
+	_check(not title.is_open() and not GameState.input_locked, "Continue closes the title")
+	_check((main.get("region") as Region).region_id == saved_region and JSON.stringify(GameState.world.to_dict()) == saved, "Continue restores the save")
+	DirAccess.remove_absolute(SaveSystem.slot_path("slot2"))
 
 
 ## The end-of-act card shows (deferred) after the dialogue that ends an act: record it and
