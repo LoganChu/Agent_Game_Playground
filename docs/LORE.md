@@ -700,8 +700,8 @@ debts, salvage, and who answers for a thing.
     The **Wrack Light** stands on a ragged stack of black rock out on the Teeth: a squat round tower of black stone ringed
     with pale bands, a lantern room framed in **reclaimed ships' timbers** with horn panes, a copper roof gone green,
     **an iron anchor** for a vane (each beacon wears its island's sign). **At the bottom of a spring tide the Teeth come up
-    enough to walk, "if you know where to put your feet"**; Wenna knew once. It will want feeding like the others. (Open:
-    the tides; who remembers the way across.)
+    enough to walk, "if you know where to put your feet"**; Wenna knew once. It will want feeding like the others. (Day 42: the way
+    across is the white — see below.)
   - **Keepers pay twice — the second fare is a name.** Every Keeper who ever rode a Tidewright deck **wrote their name in
     the lane-house Book** — "the one thing a Keeper won't give anybody else, they gave us", nine hundred years of them, in
     the dark at the back of the hall. If the Lamp ever rode a Tidewright deck out to Thornwold, its name is in the Book,
@@ -710,6 +710,27 @@ debts, salvage, and who answers for a thing.
   - **The Tidewrights court the Wakebearer**: Wenna has had Oda's weighing ("Three lit") and offers to **swear them a
     friend of the lanes** once the Wrack is lit — "No Tidewright deck would ever weigh you light again" — "Keepers want
     the Spire lit their way, by their rites… We don't care whose hands. We only want to steer by it." (`wrackholm_wenna_offer`)
+  - **Established in play (Day 42 — the Teeth):**
+    - **Nobody ever knew the Teeth by heart.** You put your feet **on the white**: every spring, at the bottom of the
+      springs, a lampwarden went out with a pot of white lead and put **a hand on every rock that would bear you** — a
+      daub a hand wide, four finger-strokes off the heel of it pointing on toward the Wrack. Lately it was **Hale
+      Corbet** (the Gannet's master); Ruan carried the pot, and once took Jory out at seven ("don't look at the water,
+      look at the white"). The fog had the marks off, like the Gannet's board; **held to the ember the white came back**,
+      rock after rock out into the fog, "as if somebody were walking ahead of you laying them down".
+    - **The tide** (`wrackholm_tide`): the Teeth stand up at the bottom of a spring tide, waited down at the spit's end;
+      the flood comes back behind you as you cross back ("it doesn't wait for anybody"). Off the white the reef is
+      black slab and wrack-weed; old wreck ribs lie out there, under at high water.
+    - **The Wrack Light, inside:** steps worn into the stack's flank; a low tarred door under a black lintel with an iron
+      anchor let into it, never locked ("nothing out here ever needed locking"); a wet stair round the wall. **The
+      lantern room is framed in timbers off boats that never came home, each still carrying the yard's lead tag**
+      (KITTIWAKE, HONEST WEIGHT, TWO SISTERS, FAIR RETURN): salvage held a year and a tide, and if nobody comes for a
+      boat **she goes out to the Wrack, a timber at a time, and holds up the light** — "what we owe them, what they owe
+      us" (Wenna). **A new iron bracket stands empty — for the Gannet; Hale fitted it himself the spring before.** The
+      cradle is cold and salt-white; it won't burn what nobody holds (`feed_the_wrack`). From the lantern room the horn
+      by the lane-house door has its bell turned toward the Wrack: "a horn and a light, facing each other over the
+      water, each waiting on the other."
+    - **Jory goes up.** Told it was Wenna's answer, with the Gannet's copper off, Jory goes up the shingle and stands by
+      her at the horn, saying nothing; she takes hold of his sleeve ("Copper's off." "So it is.") (`wrackholm_jory_up`).
   - **Pell's lost thing:** Jory gives a **glass float** off the come-home pile for Pell's finding pouch ("past its year
     and a tide. It's nobody's. So it's theirs"). Back on Saltmarrow, Pell (who stayed) takes it — "Nobody's. So it's
     mine. That's the BEST kind of lost thing" — and sets it **on top of** the lost-things crate where everyone can look;

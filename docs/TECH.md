@@ -40,7 +40,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
-.tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn gannet_hulk salvage_stack float_pile wrack_light]  # Wrackholm kit (Day 40; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
+.tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn gannet_hulk salvage_stack float_pile wrack_light teeth_rock teeth_mark]  # Wrackholm kit (Day 40; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -364,6 +364,21 @@ and starts *A Light for Wrackholm*. From Wrackholm Oda only runs back to the fen
 the ferry stand in exactly one region for every value of `lanes_ferry_at` — **add the next port's value to that test**.
 The smoke walk sails it from the fen after `_light_the_heron` (`_sail_to_wrackholm`: the lane asked, the sailing, the
 arrival scene, a region walk — board, Wenna, Jory, then Oda sails it back), before Oda takes the walk on to Thornwold.
+
+**The Teeth (Day 42):** a region reached on foot only at low water, through a **gated exit** (Wrackholm's spit
+→ `wrack_teeth`, `requires` `flag:wrackholm_tide=low` and `flag:wrackholm_teeth_marks`) rather than a dialogue
+`travel`, so the smoke walk's region pass never wanders onto it; the way back is an object (`teeth_way_back`) whose
+dialogue sets the tide in again and `travel`s to Wrackholm's `from_teeth` spawn (mid-yard: the spit is all fog, and
+spawns must be clear). **`wrackholm_tide`** ('' / `low`) is a story flag, waited down at the spit's end
+(`teeth_spit`); a real tide system (Milestone 2) should drive it, keeping those values. Wrackholm shows the ebb with
+three off-spit slabs (`teeth_rock` bare / `teeth_mark` once the white is back, shape `rock`) — its water level never
+changes. In `wrack_teeth` the marked slabs sit at y −0.38 (snapped) so the slab's top (`TEETH_TOP` 0.42 in
+`build_wrackholm.py`) stands 4 cm proud of the reef road: no collider, the player walks over the white. The Wrack is
+placed origin 2 m under (`snap: false`, `rotation_y` 90 turns its door east); its sill (stack top 3.5 m) meets the ramp
+path's 1.45 top — `tests/test_the_teeth.gd` mirrors `WRACK_DOOR` and checks it. Narrow reef `path`s need a feature
+`ragged` ≲ 0.35 and width ≥ 3 m or the coastline wobble cuts them into steep islands (check with `terrain_map.gd`).
+The smoke walk sails east-about a second time (`_cross_the_teeth`) and leaves the tide down so the final gate check
+finds the exit open; `_check_gates` now travels back to where it started (Wrackholm's gate sorts after Saltmarrow's).
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,

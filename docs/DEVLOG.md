@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-14 21:00 UTC — Day 42: The Teeth (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; local `main` fast-forwarded
+  to `origin/main` (Day 41's `d5da0f8`). Baseline green (291 tests + smoke + launch).
+- **Content (due by Day 44; last content Day 40):** ROADMAP *Next up* #1, *Wrackholm, part two — the Teeth*:
+  - **Who remembers where to put your feet: nobody.** Wenna's "About the Teeth." now remembers she never knew — you put
+    your feet **on the white**, the lampwardens' white-lead marks, a hand on every rock that will bear you, renewed every
+    spring (Hale Corbet's hand lately; she can't name him until the crew's names are back). The fog will have had them;
+    "you've a light that gives things back." New stage `the_marks`; she sends you to wait the springs down at the spit.
+  - **The tide:** `wrackholm_tide` ('' / `low`). At the spit's end (`teeth_spit`) "Wait for the ebb." passes the
+    evening (the firelight in the shutters going gold, somebody looking out) and the Teeth stand up; three slabs show
+    off the spit. "Hold the ember to the rock." brings the white back, rock after rock out into the fog
+    (`wrackholm_teeth_marks`); the slabs swap to marked ones and **the exit "Cross the Teeth on the white" opens**.
+  - **New region `wrack_teeth` (The Teeth):** the drowned end of the spit, a winding reef road west through moderate
+    fog (0.6; deep fog north and south), marked slabs every few strides pointing on, dead-end teeth and old wreck ribs
+    in the water, the Wrack's stack with a ramp up its flank to the door. Arrival scene `teeth_crossing` (once).
+  - **The Wrack's lantern room** (`wrack_door` → `wrack_light`): framed in **timbers off boats that never came home, each
+    with the yard's lead tag** (a year and a tide, then the Wrack); **a new empty bracket** (the Gannet's — Hale fitted it
+    the spring before); the cold cradle won't burn what nobody holds → stage **`feed_the_wrack`**; the lashed horn's bell
+    turned toward it across the water. Wenna, told: "what we owe them, what they owe us … I'll sit with that a while."
+  - **Back before the flood** (`teeth_way_back`): sets the tide in and lands mid-yard. **Jory goes up:** if he was told
+    it was Wenna's answer, the next landing after a crossing plays `jory_goes_up` — the Gannet's copper off, he stands
+    by her at the horn and she takes his sleeve ("Copper's off." "So it is."); a second Jory placement by the horn
+    (`wrackholm_jory_up`, exact negation). Jory, asked about Ruan and the Teeth: "I remember the white. I don't
+    remember where it was."
+- **Art (folded in):** `build_wrackholm.py` `teeth_rock` (low black reef slab, wrack-weed skirt) and `teeth_mark` (the
+  same with a white-lead daub and four finger-strokes), and lead tags on each of the Wrack's eight timbers.
+- **Tests:** `test_the_teeth.gd` (7): Wenna on the white (with and without the names), the spit and the tide (the exit's
+  gate, the off-spit slabs bare/marked, the wait again without a second ember), the crossing / the room / the way back
+  (spawn clear of fog), the layout (marks on the road in order, flush, in thin fog; the Wrack's door meets the ramp's
+  top), Jory going up only on `wenna` and only once, Jory's memory gated, the kit. **Smoke walk** sails east-about a
+  second time and crosses (`_cross_the_teeth`), and `_check_gates` now returns the walk to where it started (the new
+  gate sorted last and the walk began on Wrackholm). 298 tests + smoke + launch pass. Checkpoint `the_teeth`.
+
+Screenshots (`docs/screenshots/2026-10-14-pm-*.png`): `the-white-off-the-spit`, `the-teeth-at-low-water`,
+`the-wracks-door`, `jory-went-up`; `docs/checkpoints/the_teeth.png`.
+
+**Decisions**
+- **The way across is the white, and nobody remembers it** — the ember gives back what the fog took from a thing (the
+  board, now the marks), so the island's knowledge was always in the rocks, not in a guide. It keeps the Wakebearer the
+  one who can cross without inventing a pilot, and gives the marks a hand (Hale's) that pays into the burning.
+- **Tide as a story flag, not a system.** Day/night and tides are a Milestone 2 system; until then `wrackholm_tide` is
+  waited down in dialogue and flooded back on the way back. A system later should drive the same values.
+- **A second region behind a gated exit**, not a conditional walkway (`land` can't be conditional; a pier-like deck
+  would float at high water). The exit also keeps the smoke walk's generic region pass from wandering onto the Teeth.
+- **The burning waits for next content session.** This session sets `feed_the_wrack` and plants the candidates (Wenna's
+  answer, the Gannet's names and bracket, Jory's Ruan) without offering them; the Wrack is the Tidewrights' payoff and
+  deserves its own session.
+
+**Problems / notes**
+- The first reef road broke into steep islands (2 m wide, ragged 1.0); widened to 3 m with feature `ragged` 0.35.
+- Adding a gated exit on Wrackholm made the smoke walk start its passes on Wrackholm (the gate check left it there):
+  `_check_gates` now goes back home.
+- The reef reads as one smooth causeway from above; foam lines in the gullies would help (logged in *Known issues*).
+
+**Next run should**
+1. **Wrackholm, part three — the Wrack's burning** (content, due by Day 46) — ROADMAP *Next up* #1.
+2. The next polish/debt pass is due by Day 46 too (Day 38 was the last) — if the burning doesn't fit, do the pass first.
+
 ## 2026-10-14 09:00 UTC — Day 41: The title screen (systems)
 
 **Did**
