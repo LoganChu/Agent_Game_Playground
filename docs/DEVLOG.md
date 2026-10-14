@@ -2,6 +2,62 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-14 09:00 UTC — Day 41: The title screen (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; local `main` matched
+  `origin/main` (Day 40's `da98085`). Baseline green (287 tests + smoke + launch).
+- **Systems (due; last systems-led session Day 37):** ROADMAP *Next up* #1, *Title screen*:
+  - **`TitleScreen`** (`scripts/ui/title_screen.gd`): a plain launch opens on it over the live start region — the
+    world has been reset by `GameState.new_game()`, the waking narration waits, the HUD hides, input is held, the
+    tree keeps running (the sea moves) and the camera drifts slowly round the Wakebearer. The game's name and a
+    tagline (`data/game.json` `tagline`: "What is worth keeping, when you cannot keep everything?"), then
+    **Continue — <region> (<slot>)** when there is a save, **New game**, **Load game** (greyed with no saves),
+    **Chapter select (dev)** in debug builds, **Settings**, **Quit**. Region arrival events wait for it to close.
+  - **Continue** loads `SaveSystem.latest_slot()` — the newest `saved_at` across the quicksave and the three slots
+    (file time breaks a same-second tie; unreadable saves skipped). A save that won't load keeps the title up and
+    says so.
+  - **Return to title** on the pause menu (between Settings and Quit) and on the **Act I end card** (beside "Keep
+    exploring"): both ask for a second press (unsaved progress), then `main.return_to_title()` resets the world,
+    rebuilds the start region and opens the title — deferred, so the closing menu's deferred input unlock can't
+    land after it and free the player behind the title.
+  - **`MenuScreen`** (`scripts/ui/menu_screen.gd`): the pause menu's panel, page switching, Load, Chapter select,
+    Settings and Controls pages (sliders, key capture, saving per change) moved into a base class; `PauseMenu`
+    (now ~90 lines) and `TitleScreen` extend it and add only their main pages (and the pause menu's Save page).
+    The scroll-box fitting now measures whatever a subclass puts in the panel.
+  - **Launch rules** (`main.wants_title`): a plain launch and `--smoke-test` open on the title; any debug arg that
+    asks for a state or screen (`--scenario`, `--region`, `--flags`, `--quest`, `--act-end`, `--pause-menu`,
+    `--screenshot`) goes straight into play as before (checkpoints and screenshots unchanged); `--title` forces it.
+- **Tests:** `test_title_screen.gd` (4): which launches open on the title; Continue = latest save (quicksave counts,
+  newest stamp not slot order, unreadable skipped); the title's pages (no-save layout, the name only on the main page,
+  shared Settings/Controls/Load, Esc page by page and staying put on the main page); Return to title asking twice on
+  the pause menu (a page change disarms it) and the act card. `test_settings.gd` uses `MenuScreen.Page`. **The smoke
+  run now starts from the title** (it's up over the start region, HUD hidden, camera drifting, no waking until New
+  game) and near its end saves slot 2, returns to the title from the pause menu (twice), checks the world is back at
+  the start and that Continue names slot 2, and Continues back into the saved state. 291 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-14-*.png`): `title-screen`, `act-end-return-to-title`.
+
+**Decisions**
+- **A base class rather than a `SettingsPages` control** (the roadmap's suggestion): the pages share the panel, the
+  button list, the note line, the Esc ladder and the confirm-twice pattern, not just the settings rows, so one
+  `MenuScreen` with per-menu main pages removed the most duplication (Load and Chapter select came along free).
+- **The title sits over the real start region**, not a separate scene: no change to `run/main_scene`, the checkpoint
+  and screenshot tooling, or the smoke harness, and the beach is the title art. The world behind it is already a
+  fresh game, so New game just rebuilds it and plays the waking.
+- **New game never asks twice**: it doesn't touch any save. Return to title does (it drops unsaved progress).
+- **No pause behind the title**: input is locked instead, so the water, smoke and boats keep moving.
+
+**Problems / notes**
+- First screenshot had the title's list scrolling with Quit cut off: an autowrapped Label reports a tall minimum
+  height before it has a width, and the scroll fitting read it. The one-line tagline doesn't wrap now.
+- The panel hides the Wakebearer on the beach behind it; logged as a title follow-up (with the fixed-size name, no
+  music, no autosave) in *Known issues*.
+
+**Next run should**
+1. **Wrackholm, part two — the Teeth** (content, due by Day 44) — ROADMAP *Next up* #1 (tides first).
+2. The next polish/debt pass is due by Day 46; art is due soon too (last art-led session Day 39).
+
 ## 2026-10-13 21:00 UTC — Day 40: The lane to Wrackholm (content)
 
 **Did**

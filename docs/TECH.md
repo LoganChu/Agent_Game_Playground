@@ -17,7 +17,7 @@ GODOT=.tools/bin/godot
 $GODOT --headless --path . --import                         # parse scripts, import assets
 $GODOT --headless --path . -s res://tests/run_tests.gd      # unit + content tests
 $GODOT --headless --path . -- --smoke-test                  # automated playthrough
-$GODOT --path .                                             # play
+$GODOT --path .                                             # play (opens on the title screen)
 $GODOT --path . -- --region=saltmarrow                      # start in a region (debug)
 $GODOT --path . -- --flags=intro_seen,saltmarrow_beacon_burned=knot \
     --quest=a_light_for_saltmarrow,across_the_grey:await_the_ferry  # late-game state (debug)
@@ -26,7 +26,8 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --act-end=act1 --screenshot=/abs/out.png               # show an act's end card (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow --flags=intro_seen \
     --pause-menu[=save|load|chapters|settings|controls] --screenshot=/abs/out.png     # pause menu (on a page) (debug)
-xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png   # the waking (debug args skip the title)
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --title --settle=90 --screenshot=/abs/out.png  # the title screen
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --camera=0,26,34:0,0,0 --screenshot=/abs/out.png       # fixed overview camera (eye:target)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --flags=intro_seen \
@@ -76,7 +77,8 @@ scripts/
     content.gd      "Content"    – the loaded ContentDatabase (validates in debug builds)
     game_state.gd   "GameState"  – current WorldState, region, signals (toast, dialogue_requested…)
     save_system.gd  "SaveSystem" – JSON saves in user://saves/<slot>.json: "quick" (F5 / F9)
-                    and SLOTS slot1..slot3 (pause menu); slot_summary() for menus; `save_dir`
+                    and SLOTS slot1..slot3 (pause menu); slot_summary() for menus, latest_slot()
+                    for the title's Continue (newest `saved_at`, quicksave included); `save_dir`
                     is a var so the smoke test saves elsewhere
   world/       region.gd (builds a region from data), npc_actor.gd, pickup.gd,
                region_exit.gd (optionally gated), inspectable.gd (examine → dialogue),
@@ -90,8 +92,12 @@ scripts/
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel), act_end_card.gd
-               (full-screen end-of-act card: title, recap, coda, "Keep exploring"), pause_menu.gd (Esc/Start:
-               pauses the tree; Resume / Save / Load / Quit, slot pages) — built in code.
+               (full-screen end-of-act card: title, recap, coda, "Keep exploring" / "Return to title"),
+               menu_screen.gd (`MenuScreen`: the page-based menu panel and the pages both menus
+               share — Load, Chapter select (dev), Settings, Controls), pause_menu.gd (`PauseMenu`
+               extends it; Esc/Start: pauses the tree; Resume / Save / Load / Settings / Return to
+               title / Quit), title_screen.gd (`TitleScreen` extends it; Continue / New game / Load /
+               Settings / Quit over the live start region) — built in code.
                ui_theme.gd: the one shared `Theme` (palette colours, font sizes, panel box)
                set on each UI root; widgets pick looks via `theme_type_variation`
                (UiTheme.SPEAKER, HINT, HUD_TOAST…), not per-widget overrides.
@@ -122,6 +128,19 @@ no data field.
 must run under it use `PROCESS_MODE_ALWAYS` (the menu, `Hud`, `SmokeTest`). It is the last
 modal added in `main.gd`, so it sees Esc first and ignores it while another modal holds input
 (that modal then closes on the same press).
+
+**Title screen (Day 41):** a plain launch (and `--smoke-test`) opens on `TitleScreen` (layer 20)
+over the freshly built start region: `GameState.new_game()` has run, the waking narration waits,
+the HUD is hidden, input is locked, the tree is *not* paused (the sea moves) and `main.gd` swings
+the camera round the Wakebearer (`Player.turn_camera`, `TITLE_DRIFT`). Region arrival events wait
+for it to close. Any debug arg that asks for a state or screen (`--scenario`, `--region`,
+`--flags`, `--quest`, `--act-end`, `--pause-menu`, `--screenshot`) skips it — `main.wants_title()`;
+`--title` forces it. **New game** → `main.start_new_game()` (reset, rebuild the start region, play
+the waking). **Continue** loads `SaveSystem.latest_slot()`; a save that won't load keeps the title
+up with a note. **Return to title** (pause menu, act-end card; both ask twice) →
+`main.return_to_title()`: reset and rebuild behind the title, opened *deferred* so the closing
+menu's deferred input unlock lands first. The big game name is a fixed 64 px (doesn't follow the
+text-size setting; everything else on the screen does).
 
 ## Content formats
 Every record lives in its own file whose name equals its `id`.
@@ -712,6 +731,11 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   sensitivity/invert, rebinding (swaps, claimed secondaries, reserved keys), file round trip,
   bad-file tolerance, the pause menu's Settings and Controls pages (key capture, Esc cancels,
   reset asks twice, saving per change, a drag saving once). The smoke test rebinds the journal with a real key press.
+- `tests/test_title_screen.gd` — Day 41: which launches open on the title, Continue = the latest
+  save (quicksave counts, unreadable skipped), the title's pages (shared Settings/Controls/Load,
+  Esc page by page, the name only on the main page), "Return to title" asking twice on the pause
+  menu and the act-end card. The smoke run starts from the title (New game) and, near its end,
+  returns to the title from the pause menu and Continues into a slot it saved.
 - `tests/test_polish_two.gd` — Day 23: the fog re-cut mesh carries both cuts (and keeps the
   pool's triangles while fading either way), the fog node's animated vs instant re-cut, the
   "[E]" prompt re-labelling on a rebind, inspectable glints (default/offset/opt-out, distance

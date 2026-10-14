@@ -339,38 +339,41 @@ each .glb < 5 MB.
       wrack_light) and characters `wenna` (seated on a hawser coil), `jory`. Checkpoint `wrackholm`; the smoke walk sails
       it and back.
 
+- [x] [S] **Title screen** (Day 41): a plain launch opens on `TitleScreen` over the live start
+      region (camera drifting, waking held back): Continue (latest save, quicksave included), New
+      game, Load, Settings, Quit (+ Chapter select in debug builds); "Return to title" on the pause
+      menu and the Act I end card (both ask twice). The pause menu's pages moved into a shared
+      `MenuScreen` base that both menus extend. Debug args skip the title; `--title` forces it.
+
 ### Next up
-1. [S] **Title screen**: New game / Continue (latest slot) / Load / Settings / Quit; then
-   "Return to title" on the Act I end card and in the pause menu. Reuse the pause menu's
-   Settings/Controls pages (move the page builders into a shared `SettingsPages` control).
-2. [C] **Wrackholm, part two — the Teeth** (content, due by Day 44): tides first (a small `tide` world value
+1. [C] **Wrackholm, part two — the Teeth** (content, due by Day 44): tides first (a small `tide` world value
    stepped by sleeping/time, or by sailing, with the Teeth's walkable path as a conditional region feature — `land`
    can't be conditional, so a pier-like conditional walkway or a second region `wrack_teeth` reached at low water);
    who remembers where to put your feet (Wenna? Jory? Oda?); the Wrack Light's Remnant candidates (Wenna's answer —
    the horn's mouthpiece; the Gannet's crew board; Jory's copper?) — honour `wrackholm_who_answered`; Jory going up to
    Wenna (`who=wenna`); the lane-house Book once lit (the Lamp's page — `wrackholm_book_told`, `thornwold_lamp_name_lost`)
    and the friend-of-the-lanes swearing (`wrackholm_wenna_offer`). Keep Keepers' arc and Cindermoor out of it.
-3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+3. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+5. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+6. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
    brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [S] Interaction polish: camera framing during dialogue; fade the
+7. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -418,6 +421,10 @@ each .glb < 5 MB.
   stage's end, not on the landing (fine while the climb is dialogue); a validator pass over **conditional prop variants on the same spot** (like the NPC check —
   today only the letting post pair, which overlaps only for a value `fen_dunstan_word` never takes; a flag
   `values` list in `flags.json` would let `joint_witness` stop guessing and make such checks exact).
+- Title screen follow-ups (fold into an [A]/[S] item): the panel sits over the Wakebearer — an
+  off-centre panel or a framed camera would show them on the beach; the big name is a fixed 64 px
+  (ignores the text-size setting); no music/ambience yet (audio item); no autosave, so "Return to
+  title" and Continue rely on manual/quick saves (full save system item).
 - Test time budget: `tools/run_checks.sh` gives each step 300 s. Day 31: tests 26 s, smoke ~45 s, import the
   longest. The runner prints the slowest tests — check them when adding a validator pass over every region.
 - The Greying's fog layers barely read from far overviews under the pre-burn global fog
