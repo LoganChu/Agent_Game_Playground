@@ -9,7 +9,11 @@ out on the Teeth.
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_wrackholm.py
     .tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn gannet_hulk
-        salvage_stack float_pile wrack_light]
+        salvage_stack float_pile wrack_light teeth_rock teeth_mark]
+
+Day 42 (the Teeth): `teeth_rock` (a low reef slab of black rock, wrack-weed round its foot) and
+`teeth_mark` (the same slab with a lampwarden's white-lead mark on its back, a hand's width:
+"put your feet where the white is"); the Wrack Light's ships' timbers each carry their lead tag.
 
 Same conventions as build_dressing/build_fen: origin at the base centre, flat-shaded, palette
 colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -323,16 +327,63 @@ def build_wrack_light() -> None:
     cyl("Gallery", 1.6, 1.6, 0.14, 10, (0, 0, top), mat("driftwood", -0.4))
     # The lantern room: eight ships'-timber posts, horn panes between them (dark), a sill.
     TIMBER = mat("coal", -0.55)
+    LEAD = mat("slate", 0.25)
     for k in range(8):
         a = k / 8 * math.tau
         rod("Timber", (math.cos(a) * 0.95, math.sin(a) * 0.95, top + 0.14), (math.cos(a) * 0.9, math.sin(a) * 0.9, top + 1.55),
             0.08, TIMBER, verts=4)
+        # Every timber off a boat that never came home keeps the yard's lead tag (Day 42).
+        box("Tag", (0.1, 0.03, 0.14), (math.cos(a) * 1.02, math.sin(a) * 1.02, top + 0.7 + (k % 3) * 0.12), LEAD,
+            a + math.pi / 2)
     cyl("Panes", 0.9, 0.86, 1.3, 8, (0, 0, top + 0.2), mat("driftwood", -0.5), math.pi / 8)
     cyl("Head", 1.05, 1.05, 0.12, 8, (0, 0, top + 1.5), TIMBER)
     # The copper roof, gone green, and the anchor.
     cyl("Roof", 1.2, 0.08, 1.0, 8, (0, 0, top + 1.62), mat("moss", 0.05))
     _anchor(Vector((0, 0, top + 2.6)), mat("ink", 0.15))
     bd.export("wrack_light")
+
+
+# The reef slab's top, Godot model space: where a mark sits and the player's feet go.
+TEETH_TOP = 0.42
+
+
+def _teeth_slab(rng: random.Random) -> None:
+    """A low reef slab (~2.2 x 1.5 m, top ~0.42 m over its origin): two or three tilted black
+    blocks worn flat on top, the wet foot darker, a skirt of wrack-weed round it at the tide line."""
+    WET = mat("ink", 0.12)
+    for k in range(3):
+        w, d = rng.uniform(0.8, 1.2), rng.uniform(0.7, 1.0)
+        h = TEETH_TOP - (0.0 if k == 0 else rng.uniform(0.05, 0.14))
+        cyl("Slab", w * 0.75, w * 0.62, h, 6, ((k - 1) * 0.6, rng.uniform(-0.2, 0.2), 0), _stone(rng), rng.uniform(0, math.tau))
+        cyl("Wet", w * 0.8, w * 0.78, 0.12, 6, ((k - 1) * 0.6, 0, -0.04), WET, rng.uniform(0, math.tau))
+    WEED = (mat("moss", -0.55), mat("driftwood", -0.6))
+    for k in range(9):
+        a = k / 9 * math.tau + rng.uniform(-0.2, 0.2)
+        p = Vector((math.cos(a) * 1.25, math.sin(a) * 0.85, 0.02))
+        tip = p + Vector((math.cos(a) * 0.35, math.sin(a) * 0.25, rng.uniform(-0.02, 0.05)))
+        beam("Weed", tuple(p), tuple(tip), 0.03, WEED[k % 2], width=0.22)
+
+
+def build_teeth_rock() -> None:
+    """One of the Teeth at low water: a low black reef slab, weed round its foot."""
+    bd.reset()
+    _teeth_slab(random.Random(46))
+    bd.export("teeth_rock")
+
+
+def build_teeth_mark() -> None:
+    """A slab of the Teeth carrying a lampwarden's mark: a daub of white lead a hand wide on its
+    flat back, five finger-strokes off the heel of it toward the Wrack (Godot -X), every spring
+    renewed. The fog had them off; the ember brings them back."""
+    bd.reset()
+    _teeth_slab(random.Random(47))
+    WHITE = mat("bone", 0.35)
+    box("Daub", (0.24, 0.2, 0.02), (0.05, 0, TEETH_TOP - 0.005), WHITE, 0.0)
+    for f in range(4):
+        y = -0.075 + f * 0.05
+        beam("Stroke", (-0.07, y, TEETH_TOP + 0.005), (-0.2 - (0.03 if f in (1, 2) else 0.0), y * 1.15, TEETH_TOP + 0.005),
+             0.02, WHITE, width=0.035)
+    bd.export("teeth_mark")
 
 
 BUILDERS = {
@@ -342,6 +393,8 @@ BUILDERS = {
     "salvage_stack": build_salvage_stack,
     "float_pile": build_float_pile,
     "wrack_light": build_wrack_light,
+    "teeth_rock": build_teeth_rock,
+    "teeth_mark": build_teeth_mark,
 }
 
 if __name__ == "__main__":
