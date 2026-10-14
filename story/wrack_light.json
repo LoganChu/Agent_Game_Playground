@@ -1,0 +1,72 @@
+{
+  "id": "wrack_light",
+  "knots": {
+    "start": [
+      {
+        "if": "quest:a_light_for_wrackholm=done",
+        "goto": "lit"
+      },
+      {
+        "if": "stage:a_light_for_wrackholm=feed_the_wrack",
+        "goto": "again"
+      },
+      {
+        "say": "narrator",
+        "text": "Steps are cut into the stack's flank, worn hollow. At the top, a low door of tarred planks under a lintel of black stone, an iron anchor let into it: Wrackholm's sign. It isn't locked. Nothing out here ever needed locking."
+      },
+      {
+        "say": "narrator",
+        "text": "Inside, a stair turns up round the wall in the dark, every tread wet. You climb it by the ember."
+      },
+      {
+        "goto": "room"
+      }
+    ],
+    "room": [
+      {
+        "say": "narrator",
+        "text": "The lantern room is framed in ships' timbers: eight of them, tarred black, curved still with the shape of the hulls they came out of. And on every one, the yard's lead tag, nailed on, the way the salvage on the hard is tagged."
+      },
+      {
+        "say": "narrator",
+        "text": "Scratched in the lead: KITTIWAKE. HONEST WEIGHT. TWO SISTERS. FAIR RETURN. The names are older than the timbers look. The fog hasn't touched these; nobody here had ever forgotten them."
+      },
+      {
+        "say": "narrator",
+        "text": "A year and a tide, the yard holds what the sea gives back, for its owner to come for. And if nobody comes, it seems, it goes out to the Wrack, and holds up the light."
+      },
+      {
+        "say": "narrator",
+        "text": "Between two of the timbers there's a new iron bracket, bright where it's been fitted, with nothing in it yet."
+      },
+      {
+        "say": "narrator",
+        "text": "The cradle in the middle of the room is cold, salt-white with spray. Your ember leans toward it, the way it leaned at the others, and then gives up. You know the shape of this by now: it won't burn what nobody holds."
+      },
+      {
+        "say": "narrator",
+        "text": "Through the dark panes, across the Teeth, a line of firelight in the lane-house shutters. The answering horn is a black stroke by the door, its bell turned this way. A horn and a light, facing each other over the water, each waiting on the other.",
+        "quest_stage": [
+          "a_light_for_wrackholm",
+          "feed_the_wrack"
+        ]
+      }
+    ],
+    "again": [
+      {
+        "say": "narrator",
+        "text": "The Wrack's lantern room: eight tagged timbers, the new empty bracket, the cold cradle. Across the Teeth, the horn waits with its bell turned this way."
+      },
+      {
+        "say": "narrator",
+        "text": "It wants something somebody on Wrackholm holds."
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "The Wrack Light burns over the Teeth."
+      }
+    ]
+  }
+}

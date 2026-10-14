@@ -1,0 +1,107 @@
+{
+  "id": "teeth_spit",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:wrackholm_tide=low",
+        "goto": "low"
+      },
+      {
+        "say": "narrator",
+        "text": "The spit runs out into the fog and goes under. Past it the Teeth break in the grey, white and gone, white and gone, like breath through teeth. Somewhere out there the Wrack stands dark on its stack."
+      },
+      {
+        "say": "narrator",
+        "text": "You'd want to know where to put your feet.",
+        "if": "!flag:wrackholm_teeth_marks_told"
+      },
+      {
+        "if": "!flag:wrackholm_teeth_marks_told",
+        "end": true
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna says tonight's the bottom of the springs.",
+        "if": "!flag:wrackholm_teeth_marks"
+      },
+      {
+        "choice": [
+          {
+            "text": "Wait for the ebb.",
+            "goto": "ebb"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "ebb": [
+      {
+        "say": "narrator",
+        "text": "You sit on the last dry stone of the spit with your back to the island and wait."
+      },
+      {
+        "say": "narrator",
+        "text": "It's a long wait. Behind you the line of firelight in the lane-house shutters goes from grey to gold as the day goes. Once somebody opens the door, looks out at you, and shuts it again."
+      },
+      {
+        "say": "narrator",
+        "text": "The water goes out of the Teeth the way breath goes out of a sleeper: a long while, and then all at once. The rocks stand up out of the fog, black and streaming, weed hanging off them like wet hair, a broken road of them out toward the stack.",
+        "set": {
+          "wrackholm_tide": "low"
+        }
+      },
+      {
+        "goto": "low"
+      }
+    ],
+    "low": [
+      {
+        "say": "narrator",
+        "text": "The Teeth are up. Water runs off them into the gullies between, talking to itself.",
+        "if": "!flag:wrackholm_teeth_marks"
+      },
+      {
+        "say": "narrator",
+        "text": "The first rock off the spit's end is flat-backed and worn smooth, as if by feet. On it there's a smear paler than the rest, the shape of nothing, the way the Gannet's board was.",
+        "if": "!flag:wrackholm_teeth_marks"
+      },
+      {
+        "if": "!flag:wrackholm_teeth_marks",
+        "choice": [
+          {
+            "text": "Hold the ember to the rock.",
+            "goto": "marks"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Teeth are up, and the white lies on them rock to rock out into the fog, a hand on each."
+      }
+    ],
+    "marks": [
+      {
+        "say": "narrator",
+        "text": "The white comes back into the smear the way breath goes onto glass, only backward: a daub of white lead as wide as a hand, and four finger-strokes off the heel of it, pointing out."
+      },
+      {
+        "say": "narrator",
+        "text": "Then the next rock. Then the next, and the next, out into the fog, as if somebody were walking ahead of you laying them down.",
+        "set": {
+          "wrackholm_teeth_marks": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "Every spring, somebody painted these fresh, their own hand the shape of it. Put your feet where the white is."
+      }
+    ]
+  }
+}

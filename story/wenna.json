@@ -17,6 +17,11 @@
         "if": "flag:wrackholm_gannet_named"
       },
       {
+        "say": "wenna",
+        "text": "He came up. Took him long enough. Took me longer.",
+        "if": "flag:wrackholm_jory_up"
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -124,8 +129,20 @@
           },
           {
             "text": "About the Teeth.",
-            "if": "stage:a_light_for_wrackholm=the_teeth",
+            "if": [
+              "stage:a_light_for_wrackholm=the_teeth"
+            ],
             "goto": "teeth"
+          },
+          {
+            "text": "About the Teeth.",
+            "if": "stage:a_light_for_wrackholm=the_marks",
+            "goto": "marks"
+          },
+          {
+            "text": "I've been out to the Wrack.",
+            "if": "stage:a_light_for_wrackholm=feed_the_wrack",
+            "goto": "wrack_seen"
           },
           {
             "text": "Oda says Tidewrights weigh a deed.",
@@ -222,7 +239,32 @@
     "teeth": [
       {
         "say": "wenna",
-        "text": "Not yet. The tide's not down, and I've not remembered where to put my feet. One of those'll come first."
+        "text": "I've sat here since you went off trying to remember where to put my feet. And I've remembered I never knew. Nobody did."
+      },
+      {
+        "say": "wenna",
+        "text": "You put them on the white. Every spring, at the bottom of the springs, the lampwardens went out with a pot of white lead and put a hand on every rock that would bear you. Hale Corbet did it, these last years. You didn't learn the Teeth; you learned to look for the white.",
+        "if": "flag:wrackholm_gannet_named"
+      },
+      {
+        "say": "wenna",
+        "text": "You put them on the white. Every spring, at the bottom of the springs, the lampwardens went out with a pot of white lead and put a hand on every rock that would bear you. The Gannet's master did it, these last years, and I can't give you his name. You didn't learn the Teeth; you learned to look for the white.",
+        "if": "!flag:wrackholm_gannet_named"
+      },
+      {
+        "say": "wenna",
+        "text": "The fog'll have had them off, same as it had the Gannet's board. But you've a light that gives things back.",
+        "set": {
+          "wrackholm_teeth_marks_told": true
+        }
+      },
+      {
+        "say": "wenna",
+        "text": "And tonight's the bottom of the springs, near enough. Go out to the end of the spit and wait it down. Come back before the flood. It doesn't wait for anybody, and it won't wait for you.",
+        "quest_stage": [
+          "a_light_for_wrackholm",
+          "the_marks"
+        ]
       },
       {
         "goto": "hub"
@@ -314,6 +356,53 @@
       {
         "say": "wenna",
         "text": "The Book's at the back of the house. I'll not take a lamp in there till the Wrack's lit: ordinary fire's no use against this fog, and the Book's paper. Light the Wrack, and I'll find you its page."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "marks": [
+      {
+        "say": "wenna",
+        "text": "Out at the spit's end, and wait it down. The white's there or it isn't."
+      },
+      {
+        "say": "wenna",
+        "text": "It'll be there. Hale never missed a spring.",
+        "if": "flag:wrackholm_gannet_named"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "wrack_seen": [
+      {
+        "say": "wenna",
+        "text": "You've been up. I can see it on you: you've the look of somebody who's read a lot of names."
+      },
+      {
+        "say": "wenna",
+        "text": "Aye, that's where they go. A year and a tide, and if nobody comes for her, a boat goes out to the Wrack, a timber at a time, and holds the light up for the rest. It's what we owe them. It's what they owe us."
+      },
+      {
+        "say": "wenna",
+        "text": "The new bracket's for the Gannet. Hale fitted it himself, the spring before. He liked a thing ready.",
+        "if": "flag:wrackholm_gannet_named"
+      },
+      {
+        "say": "wenna",
+        "text": "The new bracket's for the Gannet. Her master fitted it himself, the spring before. He liked a thing ready.",
+        "if": "!flag:wrackholm_gannet_named"
+      },
+      {
+        "say": "wenna",
+        "text": "So it wants feeding. Something somebody holds. I'll sit with that a while.",
+        "if": "!flag:wrackholm_jory_up"
+      },
+      {
+        "say": "wenna",
+        "text": "So it wants feeding. Something somebody holds. The lad and I will sit with that a while.",
+        "if": "flag:wrackholm_jory_up"
       },
       {
         "goto": "hub"

@@ -66,6 +66,11 @@
       5,
       0.5,
       9
+    ],
+    "from_teeth": [
+      0.5,
+      0.5,
+      -2.5
     ]
   },
   "ground": {
@@ -614,6 +619,97 @@
         3.6
       ],
       "rotation_y": -15
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "shape": "rock",
+      "position": [
+        -23.0,
+        -0.55,
+        0.6
+      ],
+      "rotation_y": 20,
+      "snap": false,
+      "if": [
+        "flag:wrackholm_tide=low",
+        "!flag:wrackholm_teeth_marks"
+      ],
+      "note": "At the bottom of the springs the Teeth come up off the spit's end (bare, until the ember brings the white back)."
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "shape": "rock",
+      "position": [
+        -23.0,
+        -0.55,
+        0.6
+      ],
+      "rotation_y": 20,
+      "snap": false,
+      "if": [
+        "flag:wrackholm_tide=low",
+        "flag:wrackholm_teeth_marks"
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "shape": "rock",
+      "position": [
+        -25.6,
+        -0.55,
+        -0.8
+      ],
+      "rotation_y": -30,
+      "snap": false,
+      "if": [
+        "flag:wrackholm_tide=low",
+        "!flag:wrackholm_teeth_marks"
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "shape": "rock",
+      "position": [
+        -25.6,
+        -0.55,
+        -0.8
+      ],
+      "rotation_y": -30,
+      "snap": false,
+      "if": [
+        "flag:wrackholm_tide=low",
+        "flag:wrackholm_teeth_marks"
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "shape": "rock",
+      "position": [
+        -27.8,
+        -0.55,
+        0.9
+      ],
+      "rotation_y": 60,
+      "snap": false,
+      "if": [
+        "flag:wrackholm_tide=low",
+        "!flag:wrackholm_teeth_marks"
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "shape": "rock",
+      "position": [
+        -27.8,
+        -0.55,
+        0.9
+      ],
+      "rotation_y": 60,
+      "snap": false,
+      "if": [
+        "flag:wrackholm_tide=low",
+        "flag:wrackholm_teeth_marks"
+      ]
     }
   ],
   "npcs": [
@@ -646,7 +742,19 @@
         -0.4
       ],
       "rotation_y": 90,
-      "note": "On the Gannet's west side in the yard's fog, stripping her copper."
+      "note": "On the Gannet's west side in the yard's fog, stripping her copper.",
+      "if": "!flag:wrackholm_jory_up"
+    },
+    {
+      "npc": "jory",
+      "position": [
+        8.9,
+        0,
+        -7.6
+      ],
+      "rotation_y": -70,
+      "if": "flag:wrackholm_jory_up",
+      "note": "Copper off, Jory came up the shingle to Wenna: he stands by her at the horn."
     }
   ],
   "objects": [
@@ -683,6 +791,17 @@
         -0.9
       ],
       "note": "The horn's bell end, toward the sea."
+    },
+    {
+      "id": "teeth_spit",
+      "prompt": "Look out at the Teeth",
+      "dialogue": "teeth_spit",
+      "position": [
+        -19.0,
+        0,
+        -0.7
+      ],
+      "reach": 2.2
     }
   ],
   "events": [
@@ -697,6 +816,35 @@
       },
       "dialogue": "wrackholm_arrival",
       "note": "First landfall at Wrackholm."
+    },
+    {
+      "id": "jory_goes_up",
+      "if": [
+        "flag:wrackholm_who_answered=wenna",
+        "flag:wrackholm_teeth_crossed",
+        "!flag:wrackholm_jory_up"
+      ],
+      "set": {
+        "wrackholm_jory_up": true
+      },
+      "dialogue": "jory_goes_up"
+    }
+  ],
+  "exits": [
+    {
+      "to": "wrack_teeth",
+      "spawn": "from_hard",
+      "position": [
+        -21.0,
+        0,
+        0.0
+      ],
+      "prompt": "Cross the Teeth on the white",
+      "requires": [
+        "flag:wrackholm_tide=low",
+        "flag:wrackholm_teeth_marks"
+      ],
+      "locked_text": "The Teeth are under the tide, or you don't know where to put your feet."
     }
   ]
 }

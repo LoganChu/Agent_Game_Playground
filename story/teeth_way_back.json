@@ -1,0 +1,36 @@
+{
+  "id": "teeth_way_back",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The white runs back rock to rock toward the spit, into the fog. In the gullies the water is coming back, a little further each time."
+      },
+      {
+        "choice": [
+          {
+            "text": "Go back across before the flood.",
+            "goto": "back"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "back": [
+      {
+        "say": "narrator",
+        "text": "You go back on the white with the flood at your heels. By the spit it's at your ankles; by the time you're up the hard, the Teeth are under again, and the fog has them.",
+        "set": {
+          "wrackholm_tide": ""
+        },
+        "travel": [
+          "wrackholm",
+          "from_teeth"
+        ]
+      }
+    ]
+  }
+}

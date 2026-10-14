@@ -388,6 +388,26 @@
     "saltmarrow_pell_float": {
       "description": "The player brought Pell the glass float from Wrackholm in the finding pouch: something lost, something GOOD. It sits on top of the lost-things crate.",
       "default": false
+    },
+    "wrackholm_teeth_marks_told": {
+      "description": "Wenna remembered that nobody ever knew the way across the Teeth by heart: you put your feet on the white, the lampwardens' white-lead marks, renewed every spring (the fog will have had them off). She sent the player to wait the spring tide down at the spit's end.",
+      "default": false
+    },
+    "wrackholm_tide": {
+      "description": "The tide off Wrackholm's spit: '' (in: the Teeth under, the usual state) or 'low' (the bottom of the springs: the Teeth stand up out of the water enough to walk). Waited down at the spit's end; the flood comes back behind the player as they cross back from the Teeth. A local story value until day/night and tides exist as a system.",
+      "default": ""
+    },
+    "wrackholm_teeth_marks": {
+      "description": "At low water the player held the ember to the first rock off the spit and the lampwardens' white-lead marks came back, rock after rock out into the fog toward the Wrack: the way across the Teeth.",
+      "default": false
+    },
+    "wrackholm_teeth_crossed": {
+      "description": "The player crossed the Teeth on the white for the first time (the crossing scene on reaching them).",
+      "default": false
+    },
+    "wrackholm_jory_up": {
+      "description": "With the Gannet's copper off, Jory went up the shingle to Wenna, as he said he would once he knew it was her answer (who answered = wenna); he stands by her at the horn after.",
+      "default": false
     }
   }
 }

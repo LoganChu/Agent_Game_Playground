@@ -1,0 +1,26 @@
+{
+  "id": "teeth_crossing",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You go out on the white."
+      },
+      {
+        "say": "narrator",
+        "text": "Rock to rock. The fog closes behind you and the island goes, the firelight last. Between the Teeth the gullies drain and fill, drain and fill, and each time the water comes back a little further."
+      },
+      {
+        "say": "narrator",
+        "text": "There's no road. There's only the next mark, a hand wide, and four fingers pointing on. You find you're putting your foot exactly on it each time, as if it matters to someone that you do."
+      },
+      {
+        "say": "narrator",
+        "text": "Then the Wrack comes up out of the grey ahead: a ragged black stack, the tower squat on top of it, its lantern room dark.",
+        "set": {
+          "wrackholm_teeth_crossed": true
+        }
+      }
+    ]
+  }
+}

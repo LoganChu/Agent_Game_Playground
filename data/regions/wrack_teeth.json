@@ -1,0 +1,603 @@
+{
+  "id": "wrack_teeth",
+  "name": "The Teeth",
+  "description": "The reef off Wrackholm's yard at the bottom of a spring tide: black rock standing up out of the fog, streaming, a broken road of it out to the Wrack Light's stack, the way across marked rock to rock in the lampwardens' white lead. Under again at the flood.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.05,
+    "color": "#A9AEB3"
+  },
+  "light": {
+    "note": "Low water at evening in the fog: everything wet and black and grey, the light flat and failing, the white marks the palest things out there after the ember.",
+    "sun_color": "#C9CDD1",
+    "sun_energy": 0.55,
+    "sun_pitch": -22,
+    "sun_yaw": 60,
+    "ambient_color": "#A9AEB3",
+    "ambient_energy": 0.36,
+    "sky_top": "slate",
+    "sky_horizon": "#A9AEB3"
+  },
+  "water": {
+    "swell": 0.6,
+    "wash": 0.7,
+    "foam": 1.3,
+    "note": "Drained, restless water in the gullies between the Teeth: low swell, a lot of broken foam."
+  },
+  "greying": [
+    {
+      "rect": [
+        -26,
+        -7,
+        14,
+        7
+      ],
+      "strength": 0.6,
+      "falloff": 4.0,
+      "height": 3.0,
+      "note": "The Teeth's fog over the white: thick enough to lose the island, thin enough to see the next mark."
+    },
+    {
+      "rect": [
+        -26,
+        -22,
+        32,
+        -9
+      ],
+      "strength": 1.0,
+      "falloff": 4.0,
+      "height": 3.2,
+      "note": "Deep fog off the reef to the north, over the open sea."
+    },
+    {
+      "rect": [
+        -26,
+        9,
+        32,
+        20
+      ],
+      "strength": 1.0,
+      "falloff": 4.0,
+      "height": 3.2,
+      "note": "...and to the south, toward the sound."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      24.5,
+      0.5,
+      0.0
+    ],
+    "from_hard": [
+      24.5,
+      0.5,
+      0.0
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -30,
+      -22,
+      32,
+      20
+    ],
+    "cell": 1.0,
+    "base": -1.6,
+    "seed": 42,
+    "roughness": 0.07,
+    "ragged": 1.0,
+    "ragged_scale": 3.0,
+    "note": "The Teeth at low water: the drowned end of Wrackholm's spit (east), a winding reef road west to the Wrack's stack, its ramp up to the door; dead-end teeth off it in the water.",
+    "land": [
+      {
+        "ellipse": [
+          25,
+          0,
+          3.6,
+          2.2
+        ],
+        "height": 0.1,
+        "falloff": 1.5,
+        "note": "the spit's drowned end, dry at low water"
+      },
+      {
+        "path": [
+          [
+            23,
+            0,
+            0.05
+          ],
+          [
+            17,
+            1.6,
+            0.0
+          ],
+          [
+            11.5,
+            -0.6,
+            0.05
+          ],
+          [
+            6,
+            1.8,
+            0.0
+          ],
+          [
+            0.5,
+            0.4,
+            0.05
+          ],
+          [
+            -4.5,
+            -1.6,
+            0.0
+          ],
+          [
+            -9,
+            -0.2,
+            0.05
+          ],
+          [
+            -12.6,
+            -1.0,
+            0.15
+          ]
+        ],
+        "width": 3.0,
+        "falloff": 1.2,
+        "note": "the reef road on the white",
+        "ragged": 0.35
+      },
+      {
+        "path": [
+          [
+            11.5,
+            -0.6,
+            0.0
+          ],
+          [
+            9.5,
+            -4.0,
+            -0.05
+          ]
+        ],
+        "width": 2.0,
+        "falloff": 0.8,
+        "note": "a tooth that goes nowhere",
+        "ragged": 0.3
+      },
+      {
+        "path": [
+          [
+            0.5,
+            0.4,
+            0.0
+          ],
+          [
+            -1.5,
+            3.6,
+            -0.05
+          ]
+        ],
+        "width": 2.0,
+        "falloff": 0.8,
+        "note": "another",
+        "ragged": 0.3
+      },
+      {
+        "ellipse": [
+          -18,
+          -1,
+          3.4,
+          3.0
+        ],
+        "height": 0.7,
+        "falloff": 1.2,
+        "ragged": 0.4,
+        "note": "the stack's broken shoulder"
+      },
+      {
+        "path": [
+          [
+            -12.6,
+            -1.0,
+            0.15
+          ],
+          [
+            -16.1,
+            -1.0,
+            1.45
+          ]
+        ],
+        "width": 2.2,
+        "falloff": 0.8,
+        "note": "steps worn into the stack's flank, up to the door",
+        "ragged": 0.2
+      }
+    ],
+    "colors": {
+      "ground": "#3C4140",
+      "shore": "#5A5A52",
+      "shore_height": 0.25,
+      "seabed": "#2A3032",
+      "cliff": "#2F3236"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            -12.6,
+            -1.0,
+            0
+          ],
+          [
+            -16.1,
+            -1.0,
+            0
+          ]
+        ],
+        "width": 1.2,
+        "color": "#4A4C4A",
+        "note": "the worn steps"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/wrack_light.glb",
+      "position": [
+        -18.0,
+        -2.0,
+        -1.0
+      ],
+      "rotation_y": 90,
+      "snap": false,
+      "collider": [
+        2.8,
+        9.2,
+        2.8
+      ],
+      "note": "The Wrack Light on its stack, its door (Godot +Z of the model) turned east to the ramp up the stack's flank. Origin 2 m under the water: the door's sill at ~1.5."
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "position": [
+        20.5,
+        -0.38,
+        0.9
+      ],
+      "rotation_y": 356.4,
+      "note": "The lampwardens' white-lead marks, a hand on every rock that will bear you, fingers pointing on toward the Wrack (the slab's top 4 cm proud of the reef)."
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "position": [
+        14.2,
+        -0.38,
+        0.5
+      ],
+      "rotation_y": 1.1
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "position": [
+        8.8,
+        -0.38,
+        0.6
+      ],
+      "rotation_y": 5.1
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "position": [
+        3.2,
+        -0.38,
+        1.1
+      ],
+      "rotation_y": 341.9
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "position": [
+        -2.0,
+        -0.38,
+        -0.6
+      ],
+      "rotation_y": 356.4
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "position": [
+        -6.8,
+        -0.38,
+        -0.9
+      ],
+      "rotation_y": 4.3
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_mark.glb",
+      "position": [
+        -10.8,
+        -0.38,
+        -0.6
+      ],
+      "rotation_y": 354.6
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        15,
+        -0.55,
+        -4.2
+      ],
+      "rotation_y": 30,
+      "snap": false,
+      "note": "Teeth that bear nobody: reef slabs in the water off the white, their tops just awash."
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        9.5,
+        -0.55,
+        -5.5
+      ],
+      "rotation_y": -40,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        4,
+        -0.55,
+        5.6
+      ],
+      "rotation_y": 10,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -1,
+        -0.55,
+        -5.0
+      ],
+      "rotation_y": 70,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -7,
+        -0.55,
+        4.2
+      ],
+      "rotation_y": -20,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -11,
+        -0.55,
+        -5.4
+      ],
+      "rotation_y": 45,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        19,
+        -0.55,
+        5.0
+      ],
+      "rotation_y": -60,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -3.5,
+        -0.55,
+        6.5
+      ],
+      "rotation_y": 15,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        12,
+        -0.55,
+        6.0
+      ],
+      "rotation_y": 100,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -14,
+        -0.55,
+        4.6
+      ],
+      "rotation_y": -10,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -21.5,
+        -0.9,
+        3.5
+      ],
+      "rotation_y": 40,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -20.5,
+        -0.95,
+        -5.5
+      ],
+      "rotation_y": -60,
+      "snap": false
+    },
+    {
+      "model": "res://assets/models/dressing/wreck.glb",
+      "position": [
+        7.0,
+        -1.1,
+        -8.5
+      ],
+      "rotation_y": 35,
+      "snap": false,
+      "note": "Ribs of an old wreck out on the Teeth, under at high water."
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        18.5,
+        -0.22,
+        -0.6
+      ],
+      "rotation_y": 163,
+      "scale": 0.73,
+      "note": "Teeth along the road's edges, standing a hand proud of it: they break its line."
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        15.5,
+        -0.22,
+        3.0
+      ],
+      "rotation_y": 70,
+      "scale": 0.77
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        12.5,
+        -0.22,
+        -2.3
+      ],
+      "rotation_y": 35,
+      "scale": 0.92
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        9.0,
+        -0.22,
+        2.4
+      ],
+      "rotation_y": 173,
+      "scale": 0.92
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        5.0,
+        -0.22,
+        3.3
+      ],
+      "rotation_y": 139,
+      "scale": 0.73
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        2.0,
+        -0.22,
+        -1.2
+      ],
+      "rotation_y": 108,
+      "scale": 0.71
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -1.0,
+        -0.22,
+        2.0
+      ],
+      "rotation_y": 23,
+      "scale": 0.77
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -3.5,
+        -0.22,
+        -3.2
+      ],
+      "rotation_y": 129,
+      "scale": 0.88
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -7.5,
+        -0.22,
+        1.3
+      ],
+      "rotation_y": 143,
+      "scale": 0.76
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -10.0,
+        -0.22,
+        -2.4
+      ],
+      "rotation_y": 166,
+      "scale": 0.91
+    }
+  ],
+  "objects": [
+    {
+      "id": "wrack_door",
+      "prompt": "Climb to the Wrack's lantern room",
+      "dialogue": "wrack_light",
+      "position": [
+        -15.8,
+        0,
+        -1.0
+      ],
+      "reach": 2.0,
+      "glint": [
+        -0.6,
+        1.3,
+        0
+      ]
+    },
+    {
+      "id": "teeth_way_back",
+      "prompt": "Look back toward the hard",
+      "dialogue": "teeth_way_back",
+      "position": [
+        23.0,
+        0,
+        0.6
+      ],
+      "reach": 2.2,
+      "glint": false
+    }
+  ],
+  "events": [
+    {
+      "id": "teeth_crossing",
+      "if": [
+        "flag:wrackholm_teeth_marks",
+        "!flag:wrackholm_teeth_crossed"
+      ],
+      "set": {
+        "wrackholm_teeth_crossed": true
+      },
+      "dialogue": "teeth_crossing"
+    }
+  ]
+}

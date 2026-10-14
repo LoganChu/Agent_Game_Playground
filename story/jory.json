@@ -9,12 +9,22 @@
       {
         "say": "jory",
         "text": "Every nail.",
-        "if": "!flag:wrackholm_jory_brother"
+        "if": [
+          "!flag:wrackholm_jory_brother"
+        ]
       },
       {
         "say": "jory",
         "text": "Ruan. I keep saying it, so it'll stick.",
-        "if": "flag:wrackholm_jory_brother"
+        "if": [
+          "flag:wrackholm_jory_brother",
+          "!flag:wrackholm_jory_up"
+        ]
+      },
+      {
+        "say": "jory",
+        "text": "Copper's off. I came up. I don't know what to say to her, so I'm stood here not saying it.",
+        "if": "flag:wrackholm_jory_up"
       },
       {
         "goto": "hub"
@@ -75,6 +85,15 @@
               "!flag:wrackholm_jory_float"
             ],
             "goto": "float"
+          },
+          {
+            "text": "Did Ruan ever take you out on the Teeth?",
+            "if": [
+              "stage:a_light_for_wrackholm=the_marks",
+              "flag:wrackholm_jory_brother",
+              "flag:wrackholm_gannet_named"
+            ],
+            "goto": "teeth"
           },
           {
             "text": "Goodbye.",
@@ -210,6 +229,23 @@
         "set": {
           "wrackholm_jory_float": true
         }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "teeth": [
+      {
+        "say": "jory",
+        "text": "Once. I was seven. Bottom of a spring, and Hale painting the white, and Ruan carrying the pot because Hale let him."
+      },
+      {
+        "say": "jory",
+        "text": "Put your feet where the white is, he said. Don't look at the water, look at the white. I did. I never looked up the whole way out."
+      },
+      {
+        "say": "jory",
+        "text": "I remember the white. I don't remember where it was. That's no use to you, is it."
       },
       {
         "goto": "hub"

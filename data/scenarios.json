@@ -363,6 +363,32 @@
         "gull_for_mara": 1
       },
       "shot": "--camera=17,6.5,4:-3,0.5,-6"
+    },
+    {
+      "id": "the_teeth",
+      "act": "Act II — The Drift",
+      "title": "The Teeth at the bottom of the springs",
+      "inherits": "wrackholm",
+      "region": "wrack_teeth",
+      "spawn": "from_hard",
+      "description": "The Gannet's crew named into the lashed horn (Jory told: it was Wenna's answer). Wenna remembered the white: nobody knew the Teeth by heart, you put your feet on the lampwardens' white-lead marks. Waited the spring tide down at the spit's end; the ember brought the marks back rock to rock; crossed on the white. Walk the reef road west to the Wrack's stack and climb to its lantern room.",
+      "flags": {
+        "wrackholm_met_wenna": true,
+        "wrackholm_met_jory": true,
+        "wrackholm_board_read": true,
+        "wrackholm_gannet_named": true,
+        "wrackholm_jory_brother": true,
+        "wrackholm_who_answered": "wenna",
+        "wrackholm_teeth_marks_told": true,
+        "wrackholm_tide": "low",
+        "wrackholm_teeth_marks": true,
+        "wrackholm_teeth_crossed": true
+      },
+      "quests": {
+        "the_gannets_crew": "done",
+        "a_light_for_wrackholm": "the_marks"
+      },
+      "shot": "--camera=27,4.5,4:12,0.2,0"
     }
   ]
 }

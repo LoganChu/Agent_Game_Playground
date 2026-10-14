@@ -1,0 +1,26 @@
+{
+  "id": "jory_goes_up",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Up the shingle, the Gannet stands bare on her keel blocks, the last of her copper stacked beside her in a neat pile. Jory's bar lies across it."
+      },
+      {
+        "say": "narrator",
+        "text": "Jory is by the lane-house door. He's not saying anything. Neither is Wenna. He stands next to her coil of hawser with his hands in his gansey, looking out at the Teeth going under, and after a while her hand comes up off the horn's frame and takes hold of his sleeve.",
+        "set": {
+          "wrackholm_jory_up": true
+        }
+      },
+      {
+        "say": "jory",
+        "text": "Copper's off."
+      },
+      {
+        "say": "wenna",
+        "text": "So it is."
+      }
+    ]
+  }
+}

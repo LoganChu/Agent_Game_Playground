@@ -331,6 +331,85 @@ func _sail_to_wrackholm(main: Node, ui: DialogueUI) -> void:
 	_check(world.quest_state("the_gannets_crew") == WorldState.QUEST_DONE, "Wenna said them into the horn")
 	_check(str(world.get_flag("wrackholm_who_answered")) != "", "Jory was told who called them in")
 	_check((main.get("region") as Region).region_id == "glasswater_fen", "back at the fen from Wrackholm")
+	await _cross_the_teeth(main, ui)
+
+
+## Day 42: sail east-about again and cross the Teeth the way a player would: Wenna on the white, the
+## spring tide waited down at the spit's end, the ember to the first rock, the exit onto the Teeth,
+## the crossing, the Wrack's lantern room, back before the flood (Jory, told it was Wenna's answer,
+## has gone up to her), then the tide waited down once more (so the end-of-walk gate check finds the
+## way open) and Oda back to the fen. The region walk above may already have done some of it.
+func _cross_the_teeth(main: Node, ui: DialogueUI) -> void:
+	var oda := _npc("oda")
+	if oda == null:
+		_check(false, "Oda at the staithe to sail east-about again")
+		return
+	oda.interact()
+	_check(_choose(ui, "Sail east-about to Wrackholm."), "Oda sails east-about again")
+	_finish_dialogue(ui, "oda (east-about again)")
+	for i in 3:
+		await get_tree().physics_frame
+	if ui.is_open():
+		_finish_dialogue(ui, "arrival event at Wrackholm")
+		await get_tree().process_frame
+	var world := GameState.world
+	_npc("wenna").interact()
+	_choose(ui, "What would it take to light the Wrack?")
+	_choose(ui, "About the Teeth.")
+	_check(_choose(ui, "Goodbye."), "Wenna lets you go")
+	_finish_dialogue(ui, "wenna (the white)")
+	_check(world.get_flag("wrackholm_teeth_marks_told") == true, "Wenna remembered the white")
+	_object("teeth_spit").interact()
+	_choose(ui, "Wait for the ebb.")
+	_choose(ui, "Hold the ember to the rock.")
+	_finish_dialogue(ui, "the spit's end")
+	_check(world.get_flag("wrackholm_tide") == "low" and world.get_flag("wrackholm_teeth_marks") == true, "the tide down and the white back")
+	await get_tree().process_frame
+	var holm: Region = main.get("region")
+	_check(holm.shown_conditional_props("rock") == 3, "the marked Teeth stand up off the spit (%d)" % holm.shown_conditional_props("rock"))
+	for node in get_tree().get_nodes_in_group("exits"):
+		var exit := node as RegionExit
+		if exit.target_region == "wrack_teeth" and not exit.is_queued_for_deletion():
+			exit.interact()
+	for i in 3:
+		await get_tree().physics_frame
+	var teeth: Region = main.get("region")
+	_check(teeth.region_id == "wrack_teeth", "out on the Teeth")
+	if teeth.region_id != "wrack_teeth":
+		return
+	_walked[teeth.region_id] = true
+	_check(ui.is_open(), "the crossing on the white")
+	_finish_dialogue(ui, "the crossing")
+	await get_tree().process_frame
+	_object("wrack_door").interact()
+	_finish_dialogue(ui, "the Wrack's lantern room")
+	_check(world.quest_stage("a_light_for_wrackholm") == "feed_the_wrack", "the Wrack wants feeding")
+	_object("teeth_way_back").interact()
+	_check(_choose(ui, "Go back across before the flood."), "back across")
+	_finish_dialogue(ui, "the way back")
+	for i in 3:
+		await get_tree().physics_frame
+	_check((main.get("region") as Region).region_id == "wrackholm" and world.get_flag("wrackholm_tide") == "", "back up the hard on the flood")
+	var up := str(world.get_flag("wrackholm_who_answered")) == "wenna"
+	_check(ui.is_open() == up, "Jory goes up to Wenna only if told it was her answer")
+	_finish_dialogue(ui, "jory goes up")
+	await get_tree().process_frame
+	_check(world.get_flag("wrackholm_jory_up") == up, "...and stays by her")
+	var jory := _npc("jory")
+	_check(jory != null and (jory.position.x > 5.0) == up, "Jory by the horn or at the copper")
+	_npc("wenna").interact()
+	_check(_choose(ui, "I've been out to the Wrack."), "Wenna hears of the lantern room")
+	_check(_choose(ui, "Goodbye."), "...and lets you go")
+	_finish_dialogue(ui, "wenna (the Wrack)")
+	_object("teeth_spit").interact()
+	_check(_choose(ui, "Wait for the ebb."), "the tide waited down again, the white already back")
+	_finish_dialogue(ui, "the spit's end again")
+	_npc("oda").interact()
+	_check(_choose(ui, "Take me back to Glasswater Fen."), "Oda runs back to the fen")
+	_finish_dialogue(ui, "oda (back to the fen)")
+	for i in 3:
+		await get_tree().physics_frame
+	_check((main.get("region") as Region).region_id == "glasswater_fen", "back at the fen from the Teeth")
 
 
 func _npc(id: String) -> NpcActor:
@@ -462,6 +541,9 @@ func _visit(main: Node, ui: DialogueUI, node: Node, pass_index: int) -> void:
 
 ## Checks every gated exit in every region: locked exits refuse travel, open ones allow it.
 func _check_gates(main: Node, expect_open: bool) -> void:
+	# Come back to where the walk was afterwards (the passes start from here; Day 42: Wrackholm's
+	# gate to the Teeth sorts after Saltmarrow's, so the walk would otherwise begin on Wrackholm).
+	var home := (main.get("region") as Region).region_id
 	for region_id: String in Content.db.regions:
 		for exit_data: Dictionary in Content.db.get_region(region_id).get("exits", []):
 			if not exit_data.has("requires"):
@@ -485,6 +567,9 @@ func _check_gates(main: Node, expect_open: bool) -> void:
 			var now: Region = main.get("region")
 			var arrived := now != null and now.region_id == target
 			_check(arrived == expect_open, "exit %s -> %s %s travel" % [region_id, target, "allows" if expect_open else "refuses"])
+	GameState.travel(home)
+	for i in 3:
+		await get_tree().physics_frame
 
 
 ## Sculpted ground: the player lands on it at every region's spawn, NPCs stand on it, the
