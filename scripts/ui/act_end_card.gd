@@ -1,9 +1,15 @@
 class_name ActEndCard
 extends CanvasLayer
 ## Full-screen end-of-act card: title, the player's choices as recap lines, a coda, and a
-## "Keep exploring" button. Fades in over the world; modal (locks input) while open.
+## "Keep exploring" button, or "Return to title" (asks for a second press: unsaved progress
+## is lost). Fades in over the world; modal (locks input) while open.
 
 signal closed
+## "Return to title" was confirmed; main resets the world and shows the title screen.
+signal title_requested
+
+const TITLE_TEXT := "Return to title"
+const TITLE_CONFIRM_TEXT := "Return to title? Unsaved progress is lost. Press again."
 
 var _root: Control
 var _title: Label
@@ -11,6 +17,7 @@ var _subtitle: Label
 var _recap: RichTextLabel
 var _coda: Label
 var _button: Button
+var _title_button: Button
 
 
 func _ready() -> void:
@@ -37,6 +44,7 @@ func show_act(act: Dictionary, recap: PackedStringArray) -> void:
 	_subtitle.visible = not _subtitle.text.is_empty()
 	_recap.text = "\n".join(Array(recap).map(func(line: String) -> String: return "•  " + line))
 	_coda.text = str(act.get("coda", ""))
+	_title_button.text = TITLE_TEXT
 	_root.modulate.a = 0.0
 	_root.show()
 	create_tween().tween_property(_root, "modulate:a", 1.0, 1.5)
@@ -49,6 +57,15 @@ func close() -> void:
 	_root.hide()
 	(func() -> void: GameState.input_locked = false).call_deferred()
 	closed.emit()
+
+
+## First press arms, second press closes the card and asks for the title screen.
+func return_to_title() -> void:
+	if _title_button.text != TITLE_CONFIRM_TEXT:
+		_title_button.text = TITLE_CONFIRM_TEXT
+		return
+	close()
+	title_requested.emit()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -95,4 +112,12 @@ func _build() -> void:
 	_button.text = "Keep exploring"
 	_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_button.pressed.connect(close)
-	box.add_child(_button)
+	var buttons := HBoxContainer.new()
+	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	buttons.add_theme_constant_override(&"separation", 16)
+	box.add_child(buttons)
+	buttons.add_child(_button)
+	_title_button = Button.new()
+	_title_button.text = TITLE_TEXT
+	_title_button.pressed.connect(return_to_title)
+	buttons.add_child(_title_button)

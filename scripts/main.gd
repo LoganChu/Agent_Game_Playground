@@ -1,7 +1,11 @@
 extends Node3D
 ## Root of the game scene: environment, current region, player and UI.
 ##
+## A plain launch opens on the title screen over the start region. Any of the debug args
+## below except --smoke-test skips it (straight into play); --title forces it.
+##
 ## Command-line user args (after `--`):
+##   --title               show the title screen even with other debug args (screenshots)
 ##   --smoke-test          automated playthrough (scripts/debug/smoke_test.gd), exit code = result
 ##   --screenshot=<png>    save a screenshot after a moment and quit
 ##   --region=<id>         start in another region (debug)
@@ -14,6 +18,9 @@ extends Node3D
 ##   --scenario=<id>       start at a story checkpoint from data/scenarios.json (see README);
 ##                         --scenario=list prints them and quits
 
+## Radians per second the camera swings round behind the title screen.
+const TITLE_DRIFT := 0.05
+
 var region: Region
 var player: Player
 var hud: Hud
@@ -23,6 +30,7 @@ var greying: GreyingWalker
 var atmosphere: Atmosphere
 var act_end_card: ActEndCard
 var pause_menu: PauseMenu
+var title_screen: TitleScreen
 ## Acts whose end the story had already reached (so a card shows once, when it changes).
 var _acts_reached: Dictionary = {}
 
@@ -42,6 +50,13 @@ func _ready() -> void:
 	# After the other modals: it sees Esc first, and passes it on while one of them is open.
 	pause_menu = PauseMenu.new()
 	add_child(pause_menu)
+	title_screen = TitleScreen.new()
+	add_child(title_screen)
+	title_screen.new_game_requested.connect(start_new_game)
+	title_screen.opened.connect(func() -> void: hud.visible = false)
+	title_screen.closed.connect(func() -> void: hud.visible = true)
+	pause_menu.title_requested.connect(return_to_title)
+	act_end_card.title_requested.connect(return_to_title)
 	dialogue_ui.closed.connect(_check_act_end)
 	player = Player.new()
 	add_child(player)
@@ -57,6 +72,7 @@ func _ready() -> void:
 	var fresh := GameState.region_id.is_empty()
 	if fresh:
 		GameState.new_game()
+	var titled := fresh and wants_title(OS.get_cmdline_user_args())
 	var scenario := _scenario_arg()
 	if not scenario.is_empty():
 		if scenario == "list":
@@ -76,7 +92,9 @@ func _ready() -> void:
 			_apply_debug_state(arg)
 	_acts_reached = ActRecap.reached(Content.db, GameState.world)
 	var intro := str(Content.db.game.get("intro_dialogue", ""))
-	if fresh and not intro.is_empty() and not GameState.world.get_flag("intro_seen"):
+	if titled:
+		title_screen.open()
+	elif fresh and not intro.is_empty() and not GameState.world.get_flag("intro_seen"):
 		dialogue_ui.open.call_deferred(intro)
 	for arg in OS.get_cmdline_user_args():
 		if arg == "--smoke-test":
@@ -93,6 +111,39 @@ func _ready() -> void:
 			for act in ActRecap.acts(Content.db):
 				if str(act["id"]) == arg.get_slice("=", 1):
 					act_end_card.show_act.call_deferred(act, ActRecap.lines(act, GameState.world))
+
+
+## Whether a launch with these user args opens on the title screen: yes for a plain launch
+## (and the smoke run, which starts from it), no when a debug arg asks for a particular
+## state or screen — unless --title asks for it anyway.
+static func wants_title(args: PackedStringArray) -> bool:
+	for arg in args:
+		if arg == "--title":
+			return true
+	for arg in args:
+		for skip: String in ["--scenario=", "--region=", "--flags=", "--quest=", "--act-end=", "--pause-menu", "--screenshot="]:
+			if arg.begins_with(skip):
+				return false
+	return true
+
+
+## New game from the title: the world back to the start, the start region rebuilt, and the
+## waking narration (once the region is in).
+func start_new_game() -> void:
+	GameState.new_game()
+	GameState.travel(GameState.region_id, GameState.spawn_point)
+	var intro := str(Content.db.game.get("intro_dialogue", ""))
+	if not intro.is_empty():
+		dialogue_ui.open.call_deferred(intro)
+
+
+## "Return to title" (pause menu, act-end card): the world reset to a fresh start behind the
+## title screen, as at launch. Deferred: the menu that asked unlocks input on a deferred
+## call of its own, which must land before the title locks it again.
+func return_to_title() -> void:
+	GameState.new_game()
+	GameState.travel(GameState.region_id, GameState.spawn_point)
+	title_screen.open.call_deferred()
 
 
 func _scenario_arg() -> String:
@@ -182,6 +233,10 @@ func load_region(region_id: String, spawn: String) -> void:
 func _fire_arrival_event() -> void:
 	if region == null or RegionEvents.arrival(region.data, GameState.world).is_empty():
 		return
+	if title_screen.is_open():
+		await title_screen.closed
+		_fire_arrival_event.call_deferred()
+		return
 	if dialogue_ui.is_open():
 		await dialogue_ui.closed
 		_fire_arrival_event.call_deferred()
@@ -224,8 +279,11 @@ func _apply_region_mood(animate: bool) -> void:
 
 
 ## Standing in the Greying thickens the fog around the player and drains the colour.
+## The title screen's camera drifts slowly round the Wakebearer on the beach.
 func _process(delta: float) -> void:
 	atmosphere.follow_greying(greying.depth, delta)
+	if title_screen.is_open():
+		player.turn_camera(TITLE_DRIFT * delta)
 
 
 ## Fog density the current region is heading toward (for tests).

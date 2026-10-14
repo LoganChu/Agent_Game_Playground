@@ -39,7 +39,7 @@ static func slot_label(slot: String) -> String:
 
 
 ## What a slot holds, for menus: {} if empty or unreadable, else {region, region_name,
-## saved_at ("2026-10-01 09:12", UTC)}.
+## saved_at ("2026-10-01 09:12", UTC), saved_at_full (with seconds)}.
 func slot_info(slot: String) -> Dictionary:
 	if not has_save(slot):
 		return {}
@@ -53,6 +53,7 @@ func slot_info(slot: String) -> Dictionary:
 		"region": region,
 		"region_name": str(Content.db.regions.get(region, {}).get("name", region)),
 		"saved_at": stamp.substr(0, 16),
+		"saved_at_full": stamp,
 	}
 
 
@@ -62,6 +63,23 @@ func slot_summary(slot: String) -> String:
 	if info.is_empty():
 		return "%s — empty" % slot_label(slot)
 	return "%s — %s · %s" % [slot_label(slot), info["region_name"], info["saved_at"]]
+
+
+## The slot saved most recently (quicksave included), or "" if there are no saves. For the
+## title screen's Continue.
+func latest_slot() -> String:
+	var best := ""
+	var best_stamp := ""
+	for slot: String in [QUICK_SLOT] + SLOTS:
+		var info := slot_info(slot)
+		if info.is_empty():
+			continue
+		# ISO stamps sort as strings; the file's modified time breaks a same-second tie.
+		var stamp := "%s|%012d" % [info["saved_at_full"], FileAccess.get_modified_time(slot_path(slot))]
+		if stamp > best_stamp:
+			best = slot
+			best_stamp = stamp
+	return best
 
 
 func build_save_data() -> Dictionary:

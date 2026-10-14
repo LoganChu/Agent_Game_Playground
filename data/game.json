@@ -1,5 +1,6 @@
 {
   "title": "Emberwake",
+  "tagline": "What is worth keeping, when you cannot keep everything?",
   "start_region": "shingle_point",
   "start_spawn": "default",
   "intro_dialogue": "wake_intro",

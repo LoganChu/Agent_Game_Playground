@@ -110,6 +110,16 @@ func _process(delta: float) -> void:
 	_update_camera_distance(delta)
 
 
+## Swings the orbit camera round the player (the title screen's slow drift).
+func turn_camera(radians: float) -> void:
+	_camera_yaw.rotation.y = wrapf(_camera_yaw.rotation.y + radians, -PI, PI)
+
+
+## The orbit camera's current yaw (for tests).
+func camera_yaw() -> float:
+	return _camera_yaw.rotation.y
+
+
 ## How far the camera currently sits behind the pivot (for tests).
 func camera_distance() -> float:
 	return _camera_distance
