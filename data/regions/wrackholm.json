@@ -409,7 +409,29 @@
         6.6
       ],
       "note": "The Gannet, hauled up on the hard bow-first: stove in on the Teeth, her copper half stripped (Jory's work, on her west side), her crew board on the transom toward the sea.",
-      "if": "!flag:wrackholm_board_taken"
+      "if": [
+        "!flag:wrackholm_board_taken",
+        "!flag:wrackholm_board_read"
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/gannet_hulk_named.glb",
+      "position": [
+        -5.5,
+        0,
+        -1.0
+      ],
+      "rotation_y": 180,
+      "collider": [
+        3.0,
+        2.0,
+        6.6
+      ],
+      "note": "The Gannet once the ember has read her crew board (Day 44): the three names in white chalk on the black again.",
+      "if": [
+        "!flag:wrackholm_board_taken",
+        "flag:wrackholm_board_read"
+      ]
     },
     {
       "model": "res://assets/models/dressing/gannet_hulk_bare.glb",
@@ -851,7 +873,40 @@
         -8.7
       ],
       "rotation_y": 10,
-      "note": "On a coil of hawser by the lane-house door, beside the lashed horn, looking out to sea."
+      "note": "On a coil of hawser by the lane-house door, beside the lashed horn, looking out to sea.",
+      "if": [
+        "!item:wennas_answer",
+        "!flag:wrackholm_beacon_burned=answer"
+      ]
+    },
+    {
+      "npc": "wenna",
+      "position": [
+        7.5,
+        0,
+        -8.7
+      ],
+      "rotation_y": 10,
+      "note": "By the lashed horn as ever, but her answer is in the Wakebearer's satchel: the cord at her neck bare, her hand at it.",
+      "if": [
+        "item:wennas_answer"
+      ],
+      "model": "res://assets/models/characters/wenna_nobrass.glb"
+    },
+    {
+      "npc": "wenna",
+      "position": [
+        7.5,
+        0,
+        -8.7
+      ],
+      "rotation_y": 10,
+      "note": "By the horn, the cord at her neck bare: her answer burned in the Wrack (she doesn't remember why her hand goes there).",
+      "if": [
+        "!item:wennas_answer",
+        "flag:wrackholm_beacon_burned=answer"
+      ],
+      "model": "res://assets/models/characters/wenna_nobrass.glb"
     },
     {
       "npc": "jory",
