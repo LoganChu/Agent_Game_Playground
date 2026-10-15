@@ -156,17 +156,17 @@ func test_the_board_off_the_transom_and_back() -> void:
 	var state := _feeding()
 	assert_false(_offered(state, "gannet_board").has(PRISE), "not without the yard's leave")
 	_lines(state, "wenna", [FEED, NOT_ANSWER])
-	assert_eq(_shown(HOLM, "gannet_hulk", state), 1)
+	assert_eq(_shown(HOLM, "gannet_hulk_named", state), 1)
 	assert_eq(_shown(HOLM, "gannet_hulk_bare", state), 0)
 	assert_true(_lines(state, "gannet_board", [PRISE]).contains("lighter than it ought to be"))
 	assert_true((state.item_count("gannets_crew_board") > 0) and state.get_flag("wrackholm_board_taken") == true)
-	assert_eq(_shown(HOLM, "gannet_hulk", state), 0, "the board off...")
+	assert_eq(_shown(HOLM, "gannet_hulk_named", state), 0, "the board off...")
 	assert_eq(_shown(HOLM, "gannet_hulk_bare", state), 1, "...a bare transom")
 	assert_true(_lines(state, "jory").contains("Ruan's name you've got under your arm"), "Jory sees it go by")
 	_lines(state, "gannet_board", [PUT_BACK])
 	assert_false((state.item_count("gannets_crew_board") > 0))
 	assert_false(state.get_flag("wrackholm_board_taken") == true)
-	assert_eq(_shown(HOLM, "gannet_hulk", state), 1, "back on its nails")
+	assert_eq(_shown(HOLM, "gannet_hulk_named", state), 1, "back on its nails (still named, Day 44)")
 	assert_true(_offered(state, "gannet_board").has(PRISE), "and can come off again")
 
 
@@ -259,7 +259,7 @@ func test_the_horn_unlashed_and_sounded() -> void:
 	assert_false(text.contains("Slow Mercy"), "no ferry at the jetty, no answer from it")
 	# The others go back: the board on its nails, the pot to Jory.
 	_lines(burned, "gannet_board", [PUT_BACK])
-	assert_eq(_shown(HOLM, "gannet_hulk", burned), 1)
+	assert_eq(_shown(HOLM, "gannet_hulk_named", burned), 1)
 	assert_true(_lines(burned, "jory", ["Give Jory back Hale's pot."]).contains("Look at the white"))
 	assert_false((burned.item_count("white_lead_pot") > 0))
 
