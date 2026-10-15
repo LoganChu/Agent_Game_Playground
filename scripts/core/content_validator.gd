@@ -9,6 +9,8 @@ const STEP_ACTIONS: Array[String] = ["say", "choice", "goto", "end"]
 const STEP_KEYS: Array[String] = ["say", "text", "choice", "goto", "end", "if", "count", "note"]
 const OPTION_KEYS: Array[String] = ["text", "goto", "end", "if", "count", "note"]
 const ITEM_KINDS: Array[String] = ["remnant", "key", "misc"]
+## Two props of one family closer than this (metres, ground plane) are variants of one thing.
+const PROP_VARIANT_SPOT := 0.6
 
 var db: ContentDatabase
 var errors: Array[String] = []
@@ -117,6 +119,20 @@ func _validate_flags() -> void:
 			_err("data/flags.json", "flag '%s' needs a description" % id)
 		if id != id.to_snake_case() or id.contains(" "):
 			_err("data/flags.json", "flag '%s' must be snake_case" % id)
+		if not entry is Dictionary:
+			continue
+		# A string flag lists every value it can take, its default first (Day 44).
+		var default: Variant = (entry as Dictionary).get("default", false)
+		var values: Variant = (entry as Dictionary).get("values")
+		if default is String and values == null:
+			_err("data/flags.json", "string flag '%s' needs a 'values' list" % id)
+		elif values != null:
+			if not default is String:
+				_err("data/flags.json", "flag '%s' has 'values' but a non-string default" % id)
+			elif not values is Array or (values as Array).is_empty() or (values as Array).any(func(v: Variant) -> bool: return not v is String):
+				_err("data/flags.json", "flag '%s' values must be a list of strings" % id)
+			elif not (values as Array).has(default):
+				_err("data/flags.json", "flag '%s' default %s is not among its values" % [id, JSON.stringify(default)])
 
 
 ## `light` is only for model props, and a model standing in for a shape that lights itself
@@ -376,7 +392,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_items_obtainable[item_id] = true
 		_ref_condition(where, pickup.get("if"))
 		for flag_id: String in (pickup.get("set", {}) as Dictionary):
-			_ref_flag_set(where, flag_id)
+			_ref_flag_set(where, flag_id, pickup["set"][flag_id])
 		if pickup.has("quest_stage"):
 			var pair: Variant = pickup["quest_stage"]
 			if not pair is Array or (pair as Array).size() != 2:
@@ -409,6 +425,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		var target_spawns: Dictionary = db.get_region(to).get("spawn_points", {})
 		if not target_spawns.has(str(exit.get("spawn", "default"))):
 			_err(where, "exit spawn '%s' not in region '%s'" % [exit.get("spawn", "default"), to])
+	_check_prop_variants(where, region)
 	_validate_events(where, region)
 	_validate_greying(where, region)
 	if region.has("ground"):
@@ -805,9 +822,13 @@ func _ref_dialogue(where: String, id: String) -> void:
 	_dialogues_used[id] = true
 
 
-func _ref_flag_set(where: String, id: String) -> void:
+func _ref_flag_set(where: String, id: String, value: Variant = null) -> void:
 	if not db.flags.has(id):
 		_err(where, "sets undeclared flag '%s' (declare it in data/flags.json)" % id)
+	elif value != null:
+		var problem := db.flag_value_error(id, value)
+		if not problem.is_empty():
+			_err(where, "sets " + problem)
 	_flags_set[id] = true
 
 
@@ -817,7 +838,7 @@ func _ref_effects(where: String, step: Dictionary) -> void:
 			_err(where, "'set' must be an object")
 		else:
 			for flag_id: String in step["set"]:
-				_ref_flag_set(where, flag_id)
+				_ref_flag_set(where, flag_id, step["set"][flag_id])
 	for key: String in ["quest_start", "quest_complete"]:
 		if step.has(key):
 			var qid := str(step[key])
@@ -875,6 +896,10 @@ func _ref_condition(where: String, condition: Variant) -> void:
 			"flag":
 				if not db.flags.has(id):
 					_err(where, "reads undeclared flag '%s'" % id)
+				elif p["op"] == "=":
+					var problem := db.flag_value_error(id, p["value"])
+					if not problem.is_empty():
+						_err(where, "reads " + problem)
 				_flags_read[id] = true
 			"quest":
 				if not db.quests.has(id):
@@ -891,9 +916,6 @@ func _ref_condition(where: String, condition: Variant) -> void:
 ## world state may satisfy two of its placements' conditions (Day 38; before, only "keep them
 ## exact negations" in the notes).
 func _check_placements_exclusive() -> void:
-	var defaults: Dictionary = {}
-	for flag_id: String in db.flags:
-		defaults[flag_id] = db.flag_default(flag_id)
 	for npc_id: String in _npcs_placed:
 		var placements: Array = _npcs_placed[npc_id]
 		for i in placements.size():
@@ -902,10 +924,47 @@ func _check_placements_exclusive() -> void:
 				var b: Dictionary = placements[j]
 				if not a["conditional"] or not b["conditional"]:
 					continue  # already an error above
-				var witness := Conditions.joint_witness([a["if"], b["if"]], defaults)
+				var witness := _joint_witness([a["if"], b["if"]])
 				if not witness.is_empty():
 					_err("region " + str(b["region"]), "npc '%s' can show here and in %s at once (e.g. %s); make the placements' conditions exclusive" \
 							% [npc_id, a["region"], JSON.stringify(witness)])
+
+
+## Two model props of one family (the same first word of the file name: `wrack_light` and
+## `wrack_light_lit`, `teeth_rock` and `teeth_mark`) standing on one spot are variants of one
+## thing, swapped by their `if`s: no world state may show both (Day 44). Props of different
+## families on one spot are overlays (the gold streak on the lit Heron) and may stack.
+func _check_prop_variants(where: String, region: Dictionary) -> void:
+	var props: Array = (region.get("props", []) as Array).filter(func(p: Dictionary) -> bool:
+		return p.has("model") and _is_vector(p.get("position")))
+	for i in props.size():
+		for j in range(i + 1, props.size()):
+			var a: Dictionary = props[i]
+			var b: Dictionary = props[j]
+			var family_a := str(a["model"]).get_file().get_slice("_", 0)
+			if family_a != str(b["model"]).get_file().get_slice("_", 0):
+				continue
+			var pa: Array = a["position"]
+			var pb: Array = b["position"]
+			if Vector2(float(pa[0]) - float(pb[0]), float(pa[2]) - float(pb[2])).length() > PROP_VARIANT_SPOT:
+				continue
+			var label := "'%s' and '%s' at %s" % [str(a["model"]).get_file(), str(b["model"]).get_file(), JSON.stringify(pa)]
+			if not a.has("if") and not b.has("if"):
+				continue  # a matched pair placed together on purpose (fence runs, rock clusters)
+			var witness := _joint_witness([a.get("if", []), b.get("if", [])])
+			if not witness.is_empty():
+				_err(where, "prop variants %s can both show (e.g. %s); make their conditions exclusive" % [label, JSON.stringify(witness)])
+
+
+## Conditions.joint_witness over this content's flags (their defaults and value lists).
+func _joint_witness(conditions: Array) -> Dictionary:
+	var defaults: Dictionary = {}
+	var values: Dictionary = {}
+	for flag_id: String in db.flags:
+		defaults[flag_id] = db.flag_default(flag_id)
+		if not db.flag_values(flag_id).is_empty():
+			values[flag_id] = db.flag_values(flag_id)
+	return Conditions.joint_witness(conditions, defaults, values)
 
 
 func _flag_exempt(id: String) -> bool:

@@ -113,6 +113,10 @@ static func validate(db: ContentDatabase, list: Array[Dictionary]) -> Array[Stri
 		for flag_id: String in scenario.get("flags", {}):
 			if not db.flags.has(flag_id):
 				errors.append("%s: undeclared flag '%s'" % [where, flag_id])
+			else:
+				var problem := db.flag_value_error(flag_id, scenario["flags"][flag_id])
+				if not problem.is_empty():
+					errors.append("%s: %s" % [where, problem])
 		var quests: Dictionary = scenario.get("quests", {})
 		for quest_id: String in quests:
 			var stage := str(quests[quest_id])

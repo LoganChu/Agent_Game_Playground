@@ -23,11 +23,21 @@
     },
     "saltmarrow_pebble_fate": {
       "description": "What the player did with the humming pebble Remnant: '' (not decided), 'given' (to Pell) or 'kept'. Pays off when the Gull's Beacon needs a memory to burn.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "given",
+        "kept"
+      ]
     },
     "saltmarrow_aldous_approach": {
       "description": "How the player first handled Aldous's evasions: '' / 'gentle' / 'pressed'. Gentle earns his trust (he confides sooner in Act I); pressed makes him defensive.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "gentle",
+        "pressed"
+      ]
     },
     "saltmarrow_hesk_saw_dunstan": {
       "description": "Old Hesk, Hushed in the net-lofts, told the player a big man with a lantern and 'Tollen shoulders' went north laughing, saying he'd come back for his name.",
@@ -48,7 +58,13 @@
     },
     "saltmarrow_beacon_burned": {
       "description": "Which Remnant fed the Gull's Beacon: '' (unlit), 'pebble' (the lullaby — Mara's song, Pell's comfort), 'knot' (Saltmarrow's founding knot) or 'gull' (Mara's memory of her brother Dunstan). The Act I choice; Saltmarrow forgets it for good.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "gull",
+        "knot",
+        "pebble"
+      ]
     },
     "saltmarrow_mara_saw_beacon_lit": {
       "description": "Player has spoken with Mara after the Gull's Beacon was relit (one-time aftermath scene).",
@@ -60,7 +76,12 @@
     },
     "saltmarrow_aldous_confessed": {
       "description": "Aldous's Act I confession: '' (untold), 'full' (gentle — the High Keeper put the flame out, a light went down the stair past him, gives the Keeper's sleeve-ember) or 'grudging' (pressed — the bare fact only). Keepers in Act II should know which.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "full",
+        "grudging"
+      ]
     },
     "saltmarrow_ferry_lantern_hung": {
       "description": "Mara hung the green signal lantern on the Saltmarrow dock-post so the Tidewright ferry knows passengers are waiting (Act II bridge).",
@@ -68,7 +89,13 @@
     },
     "saltmarrow_pell_ferry_ask": {
       "description": "What the player told Pell about the ferry: '' (not asked), 'promised' (Pell may come), 'refused' (Pell stays; asks for something lost brought back) or 'undecided' (Pell asks again, loudly, when the ferry comes). Asked on seeing the green lantern or on the dock when the ferry is in.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "promised",
+        "refused",
+        "undecided"
+      ]
     },
     "saltmarrow_mara_saw_sleeve_ember": {
       "description": "Player showed Mara the Keeper's sleeve-ember Aldous cut from his robe; she warned them Tidewrights don't love Keepers.",
@@ -81,6 +108,12 @@
     "saltmarrow_ferry_deed": {
       "description": "How the player told Oda Farrow their deed (the Tidewright fare): '' (not yet), 'claimed' (I relit the Gull), 'shared' (Saltmarrow did; I carried the ember) or 'brusque' (just take me across). Tidewrights in Act II should know how the Wakebearer talks about their deeds.",
       "default": "",
+      "values": [
+        "",
+        "brusque",
+        "claimed",
+        "shared"
+      ],
       "future": true
     },
     "saltmarrow_oda_knew_dunstan": {
@@ -95,7 +128,13 @@
     },
     "saltmarrow_pell_crossing": {
       "description": "How Pell's wish to cross ended when the ferry came: '' (unresolved), 'aboard' (Mara gave leave; Pell crosses on the Slow Mercy), 'stayed' (Pell stays and gave the player a finding pouch) or 'let_down' (promised, then the player told Mara Pell should stay). Act II must honour it.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "aboard",
+        "let_down",
+        "stayed"
+      ]
     },
     "saltmarrow_mara_farewell": {
       "description": "Mara said goodbye to the player after the ferry's horn (one-time scene).",
@@ -111,7 +150,14 @@
     },
     "lanes_ferry_at": {
       "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing), 'saltmarrow' (back at the Saltmarrow dock) 'fen' (at Glasswater Fen's staithe, Day 29) or 'wrackholm' (at Wrackholm's jetty, Day 40). Oda and the ferry prop are placed by it; the player travels with her.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "fen",
+        "saltmarrow",
+        "thornwold",
+        "wrackholm"
+      ]
     },
     "thornwold_landed": {
       "description": "The player has come ashore at Thornwold landing (one-time arrival scene after the crossing).",
@@ -186,7 +232,13 @@
     },
     "thornwold_stair_light": {
       "description": "What the player asked of the Lamp for the dark Keepers' stair: '' (not asked), 'sliver' (the Lamp broke a new sliver off the last coal - it shrinks), 'moved' (take the fourth waymark's lantern off the colliers' road - Hob's road gets darker) or 'refused' (the stair stays dark). Shifting paths: the woods' light follows the choice.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "moved",
+        "refused",
+        "sliver"
+      ]
     },
     "thornwold_fourth_lantern_taken": {
       "description": "The player unhooked the lantern from the fourth waymark on the colliers' road (thornwold_stair_light=moved): that waymark goes dark and its pool of clear ground closes up.",
@@ -211,7 +263,12 @@
     },
     "thornwold_beacon_burned": {
       "description": "Which Remnant fed the Ridge Light: '' (unlit), 'boots' (Hob Marl's memory of the four colliers who went up after the Lamp — he stops waiting, the cold hut is nobody's) or 'salt_row' (the lumber camp's memory of the colliers and the salt trade — the camp will never know who brings the charcoal). Thornwold's burning; Thornwold forgets it for good.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "boots",
+        "salt_row"
+      ]
     },
     "thornwold_hob_came_in": {
       "description": "After the Ridge Light was lit, a paid Hob Marl kept his promise and came in to the lumber camp by daylight (one-time arrival scene at the landing). Moves Hob from the clearing to the camp; Bram knows him unless the salt row burned.",
@@ -232,7 +289,12 @@
     },
     "fen_ember": {
       "description": "Asked by Hesper to cup the ember on Stillhithe ('it reminds'): 'cupped' (closed their hand over it) or 'bare' (refused). The Unmoored react to it.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "bare",
+        "cupped"
+      ]
     },
     "fen_heard_of_dunstan": {
       "description": "Hesper told the player about the big man who rowed to the fen, paid his mooring in whittled gulls, left his name with her and went out along the long walk into the Deeps. Starts The Letting Post.",
@@ -244,7 +306,13 @@
     },
     "fen_dunstan_word": {
       "description": "What the player left on the Unmoored's letting post for the big man further in: 'mara' (Mara's word: the stool's still by the door), 'own' (someone from Saltmarrow came looking) or 'none' (left nothing: the right to forget). Paid off when Dunstan is found at the end of the long walk (Day 37).",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "mara",
+        "none",
+        "own"
+      ]
     },
     "fen_hesper_saw_word": {
       "description": "Hesper has remarked on what the player left (or didn't) on the letting post (one-time).",
@@ -272,11 +340,22 @@
     },
     "fen_dunstan_glimpsed": {
       "description": "At the Heron's legs the player saw a big man with an unlit lantern standing at the edge of the fog on a tussock, looking at the water, before he walked off into it: 'called' (called his name; he stopped, didn't turn, went on), 'watched' (let him go without a word) or 'nameless' (after the gull burn: his name wasn't there to call). Pays off when Dunstan is found.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "called",
+        "nameless",
+        "watched"
+      ]
     },
     "fen_skiff_bell": {
       "description": "What the player did with the keeper's skiff bell Corran found in his far trap, at her skiff by the Heron's legs: 'hung' (tied it back on her bow) or 'kept' (kept it). When the Heron is lit the bell rings once by itself, on her bow or in the satchel.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "hung",
+        "kept"
+      ]
     },
     "fen_heron_ladder_seen": {
       "description": "Player has looked at the Heron Light's ladder: the rungs above the slime scraped clean by boots, recently. Someone climbs it (Corran: 'I want a dry day, and you want a reason').",
@@ -300,7 +379,12 @@
     },
     "fen_beacon_burned": {
       "description": "Which Remnant fed the Heron Light: '' (unlit), 'name' (Hesper Vail's name — the last thing she kept; she meets the boats without it) or 'channels' (Corran's knot-cord — nobody living knows the deep channels; the fen folk can't come home through them, and nobody poles out to the Heron again). Glasswater's burning; Glasswater forgets it for good.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "channels",
+        "name"
+      ]
     },
     "fen_lantern_seen": {
       "description": "Back on the fen after Glasswater's burning, the player saw the lantern lit at the fog's foot set down at the end of the long walk (one-time arrival scene; starts For After).",
@@ -312,11 +396,24 @@
     },
     "fen_dunstan_mara": {
       "description": "What the player told Dunstan of Mara: 'message' (her word, in person or tied on the post — he whittled a gull for the stool, facing the door), 'burned' (that she says Tollens end with her and sets out two cups — the gull burn), 'spared' (after the gull burn, only that she's well), 'well' (that she's well) or 'nothing' (not theirs to carry).",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "burned",
+        "message",
+        "nothing",
+        "spared",
+        "well"
+      ]
     },
     "fen_dunstan_rule": {
       "description": "Whether the player asked Dunstan what he came to put down ('asked' — he doesn't know: 'that's how you know it went') or kept Stillhithe's rule ('kept').",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "asked",
+        "kept"
+      ]
     },
     "fen_hesper_heard_dunstan": {
       "description": "Hesper has been told the big man was found by his lit lantern (one-time): she keeps his name till he comes for it.",
@@ -365,6 +462,12 @@
     "wrackholm_who_answered": {
       "description": "What the player told Jory about who called the Gannet in: '' (not asked), 'wenna' (the truth: Wenna answered, and the Wrack went out), 'keepers' (the Spire was put out on purpose, by Keepers) or 'dark' (nobody's to blame for the dark). For Wrackholm's burning and the Tidewrights' arc.",
       "default": "",
+      "values": [
+        "",
+        "dark",
+        "keepers",
+        "wenna"
+      ],
       "future": true
     },
     "wrackholm_wenna_saw_sleeve": {
@@ -395,7 +498,11 @@
     },
     "wrackholm_tide": {
       "description": "The tide off Wrackholm's spit: '' (in: the Teeth under, the usual state) or 'low' (the bottom of the springs: the Teeth stand up out of the water enough to walk). Waited down at the spit's end; the flood comes back behind the player as they cross back from the Teeth. A local story value until day/night and tides exist as a system.",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "low"
+      ]
     },
     "wrackholm_teeth_marks": {
       "description": "At low water the player held the ember to the first rock off the spit and the lampwardens' white-lead marks came back, rock after rock out into the fog toward the Wrack: the way across the Teeth.",
@@ -419,7 +526,13 @@
     },
     "wrackholm_beacon_burned": {
       "description": "What fed the Wrack Light (Wrackholm's burning): '' (not lit), 'answer' (Wenna's answer: nobody on Wrackholm remembers she ever answered a horn, the Gannet's night included), 'board' (the Gannet's crew board: the crew unnamed again on Wrackholm, for good) or 'white' (Hale's white-lead pot: Jory's one day out on the Teeth behind Ruan; nobody left on the island has walked behind a lampwarden).",
-      "default": ""
+      "default": "",
+      "values": [
+        "",
+        "answer",
+        "board",
+        "white"
+      ]
     },
     "wrackholm_horn_sounded": {
       "description": "With the Wrack lit, Wenna cut the lashing off the answering horn and it was sounded (it takes two: Jory, if he came up, else the player); Oda's horn answered from the jetty if the ferry lay there.",
@@ -438,6 +551,11 @@
     "wrackholm_sworn": {
       "description": "Wenna's offer, at the scale over the lane-house door once the Wrack was lit and the horn sounded: '' (not answered), 'sworn' (sworn a friend of the lanes: no Tidewright deck will weigh the player light) or 'declined'. For the Tidewrights' and Keepers' arcs.",
       "default": "",
+      "values": [
+        "",
+        "declined",
+        "sworn"
+      ],
       "future": true
     }
   }

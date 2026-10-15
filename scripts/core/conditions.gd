@@ -108,13 +108,14 @@ static func _truthy(v: Variant) -> bool:
 
 
 ## Searches for a world state in which every condition in `conditions` holds at once, trying
-## each flag at its default (`flag_defaults`), at every value the conditions name, true, false
-## and one value none of them names; each quest inactive, done, or active at each named stage
+## each flag at every value it can take when `flag_values` lists them (Day 44: exact), else at
+## its default (`flag_defaults`), at every value the conditions name, true, false and one value
+## none of them names; each quest inactive, done, or active at each named stage
 ## (or another); each item at 0, 1 and every named count. Returns that state's assignments
 ## ({"flag:x": v, "quest:q": "active@stage", "item:i": n}), or {} if no such state exists.
 ## Used by the validator to prove an NPC's placements never show two at once. Gives up (and
 ## returns {}) past `max_states` combinations.
-static func joint_witness(conditions: Array, flag_defaults: Dictionary, max_states: int = 65536) -> Dictionary:
+static func joint_witness(conditions: Array, flag_defaults: Dictionary, flag_values: Dictionary = {}, max_states: int = 65536) -> Dictionary:
 	var domains: Dictionary = {}  # "kind:id" -> Array of candidate values
 	for condition: Variant in conditions:
 		for term in terms(condition):
@@ -125,6 +126,9 @@ static func joint_witness(conditions: Array, flag_defaults: Dictionary, max_stat
 			match p["kind"]:
 				"flag":
 					var key := "flag:" + id
+					if flag_values.has(id):
+						domains[key] = (flag_values[id] as Array).duplicate()
+						continue
 					if not domains.has(key):
 						domains[key] = [flag_defaults.get(id, false), true, false, "\u0001other"]
 					if p["op"] == "=" and not (domains[key] as Array).has(p["value"]):

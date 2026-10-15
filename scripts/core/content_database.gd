@@ -76,6 +76,25 @@ func flag_default(id: String) -> Variant:
 	return entry.get("default", false)
 
 
+## Every value a string flag can take (`values` in flags.json, the default among them), or []
+## for a flag without a list (a true/false flag).
+func flag_values(id: String) -> Array:
+	var entry: Dictionary = flags.get(id, {})
+	var values: Variant = entry.get("values", [])
+	return (values as Array).duplicate() if values is Array else []
+
+
+## Why `value` can't be a value of flag `id` ('' if it can): a flag with a `values` list takes
+## only those (Day 44), so a typo in a `set` or a `flag:x=v` condition is caught.
+func flag_value_error(id: String, value: Variant) -> String:
+	var values := flag_values(id)
+	if values.is_empty():
+		return ""
+	if not value is String or not values.has(value):
+		return "flag '%s' never takes %s (its values: %s)" % [id, JSON.stringify(value), JSON.stringify(values)]
+	return ""
+
+
 func _load_kind(kind: String, dir_path: String) -> void:
 	for path in JsonUtil.list_files(dir_path, "json"):
 		_load_record(table(kind), kind, path)
