@@ -365,38 +365,39 @@ each .glb < 5 MB.
       menu and the Act I end card (both ask twice). The pause menu's pages moved into a shared
       `MenuScreen` base that both menus extend. Debug args skip the title; `--title` forces it.
 
+- [x] [P] **Polish/debt pass five** (Day 44): **string flags list their `values`** in `flags.json` (all 21); the
+      validator rejects a `set`, a `flag:x=v` condition or a scenario using a value not in the list, and
+      `joint_witness` is exact for them; **prop variants on one spot proved exclusive** (same model family within
+      0.6 m — some two dozen pairs today, all clean); **Wenna's cord hangs bare** once her answer is given or burned
+      (`wenna_nobrass`, her hand drawn in); **the Gannet's board shows its chalk** once read (`gannet_hulk_named`);
+      **the Teeth**: surf rings round the ten dead-end slabs in the water, wet gullies painted across the reef road.
+
 ### Next up
-1. [P] **Polish/debt pass five** (due by Day 46; Day 38 was the last). Candidates: the Teeth's foam/broken water in
-   the gullies and the reef reading as one causeway (Day 42); Wenna's character model still wears the brass mouthpiece
-   after she gives it (a `wenna_nobrass` placement model, like Corran's `corran_nocord`); the Gannet's board model shows
-   blank slate after the ember brought the chalk back (a chalked variant once `wrackholm_board_read`); the smoke walk
-   only ever burns Wenna's answer (others: `test_wrack_burning.gd`); the conditional-prop-variant validator pass and a
-   flag `values` list (below); the Heron's landing collider.
-2. [C] **The Lamp's name carried home** (next content, due by Day 47): Oda's lanes back to Thornwold from the fen; tell
+1. [C] **The Lamp's name carried home** (next content, due by Day 47): Oda's lanes back to Thornwold from the fen; tell
    the Lamp WYNN SALLOW (`wrackholm_lamp_name_read`) — does it want it back, now the Ridge Light is lit? Hob and the four
    (`thornwold_beacon_burned`). Or open Act II's next island / the lane on from Wrackholm (Cindermoor is "past more
    besides"); the Keepers' first approach should weigh `wrackholm_sworn`.
-3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+3. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+5. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+6. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
    brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [S] Interaction polish: camera framing during dialogue; fade the
+7. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -439,12 +440,14 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 46 (Day 38 was the last). Candidates: the fen's white light and peat water (Day 39) with the
-  Vulkan pass; the smoke walk only takes the 'well' Mara path (others: `test_after_the_heron.gd`); the Heron's
-  landing (Day 39) has no collider of its own — the stage's pier rect stops at z -3, so the player stands at the
-  stage's end, not on the landing (fine while the climb is dialogue); a validator pass over **conditional prop variants on the same spot** (like the NPC check —
-  today only the letting post pair, which overlaps only for a value `fen_dunstan_word` never takes; a flag
-  `values` list in `flags.json` would let `joint_witness` stop guessing and make such checks exact).
+- Next polish/debt pass due by Day 52 (Day 44 was the last). Candidates: the fen's white light and peat water
+  (Day 39) with the Vulkan pass; the smoke walk only takes the 'well' Mara path (others: `test_after_the_heron.gd`)
+  and only burns Wenna's answer on the Wrack (others: `test_wrack_burning.gd`); the Heron's landing (Day 39) has
+  no collider of its own — the stage's pier rect stops at z -3, so the player stands at the stage's end, not on the
+  landing (fine while the climb is dialogue); the Teeth's gullies (Day 44) barely read under the Greying layer
+  in the Compatibility renderer — judge with the Vulkan pass, darken or widen if still lost; some of the ten `teeth_rock`s
+  placed beside the reef road on Day 42 sit below the water (ground-relative y -0.22 on sea floor) and can't be
+  seen — raise them onto the road's shoulder or drop them.
 - Title screen follow-ups (fold into an [A]/[S] item): the panel sits over the Wakebearer — an
   off-centre panel or a framed camera would show them on the beach; the big name is a fixed 64 px
   (ignores the text-size setting); no music/ambience yet (audio item); no autosave, so "Return to

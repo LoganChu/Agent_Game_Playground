@@ -2,6 +2,61 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-15 21:00 UTC — Day 44: Polish/debt pass five
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again, and this time the
+  clone's `origin/main` ref was stale (Day 38's `ae72592`): `git fetch origin main` then fast-forward to Day 43's
+  `e5ce474`. Baseline green (308 tests + smoke + launch). **Next run: fetch before trusting `origin/main`.**
+- **Polish/debt (due by Day 46; last Day 38):** ROADMAP *Next up* #1.
+  - **String flags list their values.** All 21 string flags in `flags.json` now carry `"values"` (default first,
+    generated from every `set` in the content, then checked by hand). `ContentDatabase.flag_values` /
+    `flag_value_error`; the validator errors on a string flag without a list, a default outside it, and any
+    dialogue/pickup/event `set`, `flag:x=v` condition or scenario flag using a value the flag never takes. Every
+    existing value was already consistent (the scan found no typos).
+  - **`joint_witness` is exact for listed flags** (tries exactly their values instead of guessing an "other"),
+    which closes the Day 38 note about the letting post pair.
+  - **Prop variants on one spot are proved exclusive:** two model props of one family (first word of the file
+    name) within 0.6 m must never both show; overlays of another family may stack. Some two dozen pairs in the
+    game today, all clean.
+  - **Wenna without her brass:** `wenna_nobrass` (Blender; the cord's knot bare, her right hand drawn in off her
+    knee toward where it hung). Three exclusive placements on her coil of hawser: the brass; given (in your
+    satchel); burned in the Wrack. Given back → the brass again.
+  - **The Gannet's names in chalk:** `gannet_hulk_named` (three chalk lines on the black, read from outside the
+    transom) once `wrackholm_board_read`, until the board is prised off (bare) and again if it goes back.
+  - **The Teeth:** the ten dead-end slabs standing in the water get one surf ring each (`wading`), so they read
+    as teeth in broken water instead of flat stones; wet, weed-dark gullies painted across the reef road at its
+    six bends.
+- **Tests:** `test_polish_five.gd` (8): every string flag lists its values; the validator catches a misspelt set,
+  condition and flags.json entry; scenarios checked; joint_witness exact with lists; prop variants (two Gannets
+  caught, an overlay allowed); Wenna's three placements; the Gannet's three states; the Teeth's surf and gullies.
+  `test_wrack_burning.gd` now expects the named Gannet after the board was read. 316 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-15-pm-*.png`): `wenna-without-her-brass`, `the-gannets-names-in-chalk`,
+`the-teeth-in-surf`.
+
+**Decisions**
+- **Values are declared, not inferred at runtime.** A list in `flags.json` is the one place a new outcome must be
+  added, which turns "a condition that can never hold" from a silent bug into a validator error. True/false
+  flags stay unlisted.
+- **Variant = same model family.** Position alone would flag deliberate overlays (the gold streak on the lit
+  Heron, Dunstan's cord on the sill); naming a variant after its base is already the kit's habit.
+- **Wenna's placements key on the item and the burn**, not a new flag: holding `wennas_answer` or
+  `wrackholm_beacon_burned=answer` is exactly "the brass is away".
+- No new checkpoint: nothing new to reach (the existing `wrack_lit` and `the_teeth` show the changes).
+
+**Problems / notes**
+- The gullies barely read under the Teeth's Greying layer in the Compatibility renderer (verified by colour
+  probe that the paint is applied); left for the Vulkan colour pass.
+- Some of the Day 42 `teeth_rock`s beside the road sit below the water (ground-relative y on sea floor) and are
+  invisible; logged in *Known issues*. The smoke walk still burns only Wenna's answer; the Heron's landing collider
+  is still open.
+
+**Next run should**
+1. **Content (due by Day 47):** ROADMAP *Next up* #1, *The Lamp's name carried home* (or the lane on from
+   Wrackholm). Add a checkpoint for it.
+2. Next polish/debt pass due by Day 52.
+
 ## 2026-10-15 09:00 UTC — Day 43: The Wrack's burning (content)
 
 **Did**

@@ -34,13 +34,13 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord wenna jory …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord wenna wenna_nobrass jory …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
-.tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn (+ answering_horn_open) gannet_hulk (+ gannet_hulk_bare) salvage_stack float_pile wrack_light (+ wrack_light_lit) teeth_rock teeth_mark]  # Wrackholm kit (Day 40; the Day 43 variants: the horn unlashed, the board prised off, the Wrack lit; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
+.tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn (+ answering_horn_open) gannet_hulk (+ gannet_hulk_bare, gannet_hulk_named) salvage_stack float_pile wrack_light (+ wrack_light_lit) teeth_rock teeth_mark]  # Wrackholm kit (Day 40; the Day 43 variants: the horn unlashed, the board prised off, the Wrack lit; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -285,8 +285,15 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   the conditions mention (each flag at its default, every named value, true, false and one unnamed
   value; quests inactive/done/active at each named stage or another; items 0, 1, each named count)
   for a state where two placements both hold, and reports it (`{"flag:x": v, …}`). The search is
-  per pair over that pair's terms only (tiny); it gives up past 65 536 states. Because it tries
-  values the story never sets (a string flag set to `true`), keep placements exact negations.
+  per pair over that pair's terms only (tiny); it gives up past 65 536 states. Since Day 44 a
+  string flag with a `values` list (all of them have one) is tried at exactly those values, so
+  the search is exact for them; true/false flags are still tried at true/false.
+- **Prop variants (Day 44):** two **model** props of one *family* (the same first word of the file
+  name — `gannet_hulk` / `gannet_hulk_named` / `gannet_hulk_bare`, `teeth_rock` / `teeth_mark`)
+  within 0.6 m of each other on the ground plane are variants of one thing: the validator proves with
+  the same `joint_witness` that no state shows two (two unconditional ones are a deliberate pair and
+  skipped). Props of different families on one spot are overlays and may stack (the gold streak on
+  the lit Heron, Dunstan's cord on the near Heron's sill). Name a variant's model after its base.
 - **`act_ends`** in `data/game.json`: `[{id, when, title, subtitle?, recap: [{if?, text}],
   coda}]`. When a dialogue closes and an act's `when` has *just* become true (compared with
   a snapshot taken on every region load, so loading a save never shows a card), `main.gd`
@@ -560,6 +567,13 @@ with `--camera=`.
 Every flag must be declared with a `description` (and optional `default`). The validator
 errors on undeclared flags and on declared flags nothing sets; it warns on flags nothing reads
 unless marked `"future": true` (payoff not written yet) or `"read_by_code": true`.
+
+**String flags list their values (Day 44):** a flag whose `default` is a string must declare
+`"values": ["", "answer", "board", "white"]` — every value it can take, the default among them
+(`ContentDatabase.flag_values` / `flag_value_error`). The validator errors on a `set` (dialogue,
+pickup, event), a `flag:x=v` condition or a scenario that uses a value not in the list, so a typo
+can't silently make a condition never hold. Adding a new outcome = add it to the list first.
+True/false flags have no list.
 
 ### Conditions
 String or array of strings (AND). Prefix `!` negates.
