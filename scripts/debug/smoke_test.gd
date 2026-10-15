@@ -401,6 +401,9 @@ func _cross_the_teeth(main: Node, ui: DialogueUI) -> void:
 	_check(_choose(ui, "I've been out to the Wrack."), "Wenna hears of the lantern room")
 	_check(_choose(ui, "Goodbye."), "...and lets you go")
 	_finish_dialogue(ui, "wenna (the Wrack)")
+	await _burn_the_wrack(main, ui)
+	if (main.get("region") as Region).region_id != "wrackholm":
+		return
 	_object("teeth_spit").interact()
 	_check(_choose(ui, "Wait for the ebb."), "the tide waited down again, the white already back")
 	_finish_dialogue(ui, "the spit's end again")
@@ -410,6 +413,79 @@ func _cross_the_teeth(main: Node, ui: DialogueUI) -> void:
 	for i in 3:
 		await get_tree().physics_frame
 	_check((main.get("region") as Region).region_id == "glasswater_fen", "back at the fen from the Teeth")
+
+
+## Day 43: the Wrack's burning, live: Wenna gives her answer (with Jory, if he came up, his pot too),
+## the tide waited down and the Teeth crossed again, the answer burned in the cradle (the lit Wrack
+## replaces the dark one, and lights the reef), back on the flood; Wenna unlashes the horn and it's
+## sounded (the open horn shows), the Book opened, and the friend-of-the-lanes oath taken if offered.
+func _burn_the_wrack(main: Node, ui: DialogueUI) -> void:
+	var world := GameState.world
+	_npc("wenna").interact()
+	_check(_choose(ui, "The Wrack wants something somebody here holds."), "Wenna asked what Wrackholm holds")
+	if not world.get_flag("wrackholm_jory_up") == true:
+		_check(_choose(ui, "Give me your answer, Wenna."), "...and gives her answer")
+	_check(_choose(ui, "Goodbye."), "...and lets you go")
+	_finish_dialogue(ui, "wenna (her answer)")
+	_check(world.item_count("wennas_answer") == 1, "Wenna's answer in the satchel")
+	_object("teeth_spit").interact()
+	_check(_choose(ui, "Wait for the ebb."), "the tide waited down for the burning")
+	_finish_dialogue(ui, "the spit's end (the burning)")
+	await get_tree().process_frame
+	for node in get_tree().get_nodes_in_group("exits"):
+		var exit := node as RegionExit
+		if exit.target_region == "wrack_teeth" and not exit.is_queued_for_deletion():
+			exit.interact()
+	for i in 3:
+		await get_tree().physics_frame
+	var teeth: Region = main.get("region")
+	_check(teeth.region_id == "wrack_teeth", "out on the Teeth again")
+	if teeth.region_id != "wrack_teeth":
+		return
+	_check(not ui.is_open(), "the crossing scene played only the once")
+	_object("wrack_door").interact()
+	_check(_choose(ui, "Set Wenna's answer in the cradle."), "her answer set in the cradle")
+	_check(_choose(ui, "Burn Wenna's answer."), "...and burned")
+	_finish_dialogue(ui, "the Wrack's burning")
+	for i in 3:
+		await get_tree().process_frame
+	_check(world.quest_state("a_light_for_wrackholm") == WorldState.QUEST_DONE and world.get_flag("wrackholm_beacon_burned") == "answer",
+			"the Wrack Light is lit")
+	_check(_shown_model(teeth, "wrack_light_lit.glb") == 1 and _shown_model(teeth, "wrack_light.glb") == 0, "the lit Wrack replaces the dark one")
+	_check(teeth.find_children("*", "OmniLight3D", true, false).size() > 0, "...and lights the reef")
+	_object("teeth_way_back").interact()
+	_check(_choose(ui, "Go back across before the flood."), "back across by the Wrack's light")
+	_finish_dialogue(ui, "the way back (lit)")
+	for i in 3:
+		await get_tree().physics_frame
+	var holm: Region = main.get("region")
+	_check(holm.region_id == "wrackholm", "back on the hard, the Wrack lit")
+	if holm.region_id != "wrackholm":
+		return
+	if ui.is_open():
+		_finish_dialogue(ui, "arrival event (lit)")
+	_npc("wenna").interact()
+	_check(_choose(ui, "The Wrack's lit. Answer it."), "Wenna unlashes the horn")
+	_check(_choose(ui, "Show me the Book."), "...opens the Book")
+	if world.get_flag("wrackholm_wenna_offer") == true:
+		_check(_choose(ui, "Swear me a friend of the lanes."), "...offers the oath")
+		_check(_choose(ui, "Swear it."), "...sworn")
+	_check(_choose(ui, "Goodbye."), "...and lets you go")
+	_finish_dialogue(ui, "wenna (the horn, the Book)")
+	await get_tree().process_frame
+	_check(world.get_flag("wrackholm_horn_sounded") == true and world.get_flag("wrackholm_book_opened") == true, "the horn sounded, the Book opened")
+	_check(_shown_model(holm, "answering_horn_open.glb") == 1 and _shown_model(holm, "answering_horn.glb") == 0, "the horn stands open")
+	_check(_shown_model(holm, "wrack_light_lit.glb") == 1, "the Wrack burns across the Teeth from the hard")
+	print("Smoke: Wrackholm burned %s, horn sounded, sworn '%s'" % [world.get_flag("wrackholm_beacon_burned"), world.get_flag("wrackholm_sworn")])
+
+
+## How many of `region`'s conditional props of the model file `file` are shown now.
+func _shown_model(region: Region, file: String) -> int:
+	var n := 0
+	for entry: Dictionary in region._conditional:
+		if entry["kind"] == "prop" and str(entry["data"].get("model", "")).get_file() == file and is_instance_valid(entry["node"]):
+			n += 1
+	return n
 
 
 func _npc(id: String) -> NpcActor:
