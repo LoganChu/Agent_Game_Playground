@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:wrackholm_horn_sounded",
+        "goto": "open"
+      },
+      {
         "say": "narrator",
         "text": "The answering horn: a long horn of black wood bound in brass, slung under a beam with its bell to the sea. It would take two to sound it, by the look of it, and a good pair of lungs."
       },
@@ -14,6 +18,22 @@
         "say": "narrator",
         "text": "The lashing is just as tight. But somebody has wiped the salt off the brass, where a hand rests.",
         "if": "flag:wrackholm_gannet_named"
+      },
+      {
+        "say": "narrator",
+        "text": "Out on the Teeth the Wrack burns gold, and the lashed bell is turned to it, waiting on Wenna.",
+        "if": "quest:a_light_for_wrackholm=done"
+      }
+    ],
+    "open": [
+      {
+        "say": "narrator",
+        "text": "The answering horn, unlashed: its bell open to the sea and the Wrack's light, the cut line coiled and hung off the seaward post. The brass is warm where hands have been."
+      },
+      {
+        "say": "narrator",
+        "text": "It would take two to sound it. It has two, now.",
+        "if": "flag:wrackholm_jory_up"
       }
     ]
   }

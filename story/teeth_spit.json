@@ -8,7 +8,13 @@
       },
       {
         "say": "narrator",
-        "text": "The spit runs out into the fog and goes under. Past it the Teeth break in the grey, white and gone, white and gone, like breath through teeth. Somewhere out there the Wrack stands dark on its stack."
+        "text": "The spit runs out into the fog and goes under. Past it the Teeth break in the grey, white and gone, white and gone, like breath through teeth. Somewhere out there the Wrack stands dark on its stack.",
+        "if": "!quest:a_light_for_wrackholm=done"
+      },
+      {
+        "say": "narrator",
+        "text": "The spit runs out into the thinned fog and goes under. Past it the Teeth break white and gone, and out on its stack the Wrack burns gold, laying a road of light across the water to your feet.",
+        "if": "quest:a_light_for_wrackholm=done"
       },
       {
         "say": "narrator",

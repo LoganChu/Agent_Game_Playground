@@ -933,6 +933,36 @@
         "if": "flag:wrackholm_gannet_named"
       },
       {
+        "say": "oda",
+        "text": "Four lit. The Gull, the Ridge, that heron, and the Wrack. My grandmother'd have called me a liar.",
+        "if": "quest:a_light_for_wrackholm=done"
+      },
+      {
+        "say": "oda",
+        "text": "Wrackholm blew and I answered it. Backwards, but I'll take it. I'd forgotten that horn's voice.",
+        "if": "flag:wrackholm_horn_sounded"
+      },
+      {
+        "say": "oda",
+        "text": "She doesn't remember answering. Fifty years of it. Well, I do; an off-islander keeps what you burn. I'll keep that for her.",
+        "if": "flag:wrackholm_beacon_burned=answer"
+      },
+      {
+        "say": "oda",
+        "text": "Hale, and Annis, and Ruan Pask. Nobody on this hard can say them now. I can. I'll say them at every jetty I tie up at, then.",
+        "if": "flag:wrackholm_beacon_burned=board"
+      },
+      {
+        "say": "oda",
+        "text": "The Pask lad doesn't remember going out on the Teeth. Hale told it on my deck once: the boy never looked up the whole way.",
+        "if": "flag:wrackholm_beacon_burned=white"
+      },
+      {
+        "say": "oda",
+        "text": "She swore you. Did you cry? ...I'll not tell.",
+        "if": "flag:wrackholm_sworn=sworn"
+      },
+      {
         "choice": [
           {
             "text": "Who's Wenna Garrow?",

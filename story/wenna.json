@@ -14,12 +14,39 @@
       {
         "say": "wenna",
         "text": "Still here. So are they, now.",
-        "if": "flag:wrackholm_gannet_named"
+        "if": [
+          "flag:wrackholm_gannet_named",
+          "!flag:wrackholm_beacon_burned=board"
+        ]
       },
       {
         "say": "wenna",
         "text": "He came up. Took him long enough. Took me longer.",
-        "if": "flag:wrackholm_jory_up"
+        "if": [
+          "flag:wrackholm_jory_up",
+          "!flag:wrackholm_beacon_burned=answer"
+        ]
+      },
+      {
+        "say": "wenna",
+        "text": "Still here. There were three on the Gannet. I keep counting them aboard, and I get to three, and no further.",
+        "if": "flag:wrackholm_beacon_burned=board"
+      },
+      {
+        "say": "wenna",
+        "text": "The lad keeps coming up to stand by me. I've not the heart to ask him what for. I don't think he knows.",
+        "if": [
+          "flag:wrackholm_jory_up",
+          "flag:wrackholm_beacon_burned=answer"
+        ]
+      },
+      {
+        "say": "wenna",
+        "text": "Lit. I've sat here looking at it since. I'll look a while yet.",
+        "if": [
+          "quest:a_light_for_wrackholm=done",
+          "!flag:wrackholm_horn_sounded"
+        ]
       },
       {
         "goto": "hub"
@@ -170,6 +197,45 @@
               "wrackholm_book_told": true
             },
             "goto": "book"
+          },
+          {
+            "text": "The Wrack wants something somebody here holds.",
+            "if": "stage:a_light_for_wrackholm=feed_the_wrack",
+            "goto": "feed"
+          },
+          {
+            "text": "The Wrack's lit. Answer it.",
+            "if": [
+              "quest:a_light_for_wrackholm=done",
+              "!flag:wrackholm_horn_sounded"
+            ],
+            "goto": "unlash"
+          },
+          {
+            "text": "Give Wenna back her answer.",
+            "if": [
+              "quest:a_light_for_wrackholm=done",
+              "item:wennas_answer"
+            ],
+            "take_item": "wennas_answer",
+            "goto": "answer_back"
+          },
+          {
+            "text": "Show me the Book.",
+            "if": [
+              "flag:wrackholm_horn_sounded",
+              "!flag:wrackholm_book_opened"
+            ],
+            "goto": "book_open"
+          },
+          {
+            "text": "Swear me a friend of the lanes.",
+            "if": [
+              "flag:wrackholm_horn_sounded",
+              "flag:wrackholm_wenna_offer",
+              "flag:wrackholm_sworn="
+            ],
+            "goto": "swear"
           },
           {
             "text": "Goodbye.",
@@ -403,6 +469,379 @@
         "say": "wenna",
         "text": "So it wants feeding. Something somebody holds. The lad and I will sit with that a while.",
         "if": "flag:wrackholm_jory_up"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "feed": [
+      {
+        "say": "wenna",
+        "text": "I've sat with it, like I said. Something somebody holds."
+      },
+      {
+        "if": "item:wennas_answer",
+        "goto": "feed_board"
+      },
+      {
+        "say": "narrator",
+        "text": "She closes her hand round the brass mouthpiece on its cord at her neck."
+      },
+      {
+        "say": "wenna",
+        "text": "There's mine. My answer. Fifty years of boats came home on it, every one. The Gannet's in there with the rest, and I'll not pick it out."
+      },
+      {
+        "say": "wenna",
+        "text": "Burn it, and nobody on Wrackholm will remember I ever answered a horn. Not the ones I brought in. Not the one I didn't. I'd call that a fair weight."
+      },
+      {
+        "if": [
+          "flag:wrackholm_jory_up",
+          "!item:white_lead_pot"
+        ],
+        "goto": "feed_together"
+      },
+      {
+        "choice": [
+          {
+            "text": "Give me your answer, Wenna.",
+            "goto": "give_answer"
+          },
+          {
+            "text": "Not your answer.",
+            "goto": "feed_board"
+          }
+        ]
+      }
+    ],
+    "give_answer": [
+      {
+        "say": "narrator",
+        "text": "Wenna takes the mouthpiece off its cord. She doesn't go to the horn. She stands, and puts the bare brass to her lips, and blows, out over the spit toward the Teeth: long, and two short. An answer, with nobody to hear it."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog doesn't give the note back. When she holds the brass out to you it's cold, and gone the silver of everything else out there."
+      },
+      {
+        "say": "wenna",
+        "text": "There. Mind it.",
+        "give_item": "wennas_answer"
+      },
+      {
+        "goto": "feed_board"
+      }
+    ],
+    "feed_together": [
+      {
+        "say": "jory",
+        "text": "No. Not hers."
+      },
+      {
+        "say": "narrator",
+        "text": "Jory has come round the horn's frame. He has something in his fist: a small iron pot with a rope bail, crusted white at the lip."
+      },
+      {
+        "say": "jory",
+        "text": "She's not to burn fifty years for one night. Burn mine. Hale's white-lead pot; I found it wedged under the Gannet's thwart. Ruan carried it, the day they took me out. It's what I've got of him that's only mine."
+      },
+      {
+        "say": "wenna",
+        "text": "Hush. It's not yours to choose for me, and it's not mine to choose for you."
+      },
+      {
+        "say": "narrator",
+        "text": "They look at each other a long moment, the old woman and the lad, over the lashed horn."
+      },
+      {
+        "say": "wenna",
+        "text": "We'll each give, and the Wakebearer will weigh it. That's the only way it's fair."
+      },
+      {
+        "say": "jory",
+        "text": "...Aye. That's fair."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna takes the mouthpiece off its cord and blows it bare, out toward the Teeth, long and two short; Jory holds the pot out into the fog over the yard at arm's length. The note doesn't come back. The white on the pot's lip goes grey."
+      },
+      {
+        "say": "narrator",
+        "text": "They put them in your hands together, brass and iron, both cold.",
+        "give_item": "wennas_answer"
+      },
+      {
+        "say": "jory",
+        "text": "Weigh it right.",
+        "give_item": "white_lead_pot"
+      },
+      {
+        "goto": "feed_board"
+      }
+    ],
+    "feed_board": [
+      {
+        "say": "wenna",
+        "text": "And there's the Gannet. She's the yard's: a year and a tide, and nobody's coming for her now; they're all aboard. If it's her board the Wrack wants, it's the yard's to give, and I'm the yard. Prise it off her transom if you've a mind.",
+        "if": [
+          "flag:wrackholm_gannet_named",
+          "!flag:wrackholm_board_leave"
+        ],
+        "set": {
+          "wrackholm_board_leave": true
+        }
+      },
+      {
+        "say": "wenna",
+        "text": "The Gannet's board is the yard's to give, and I've given it. It's on her transom or it's in your bag.",
+        "if": "flag:wrackholm_board_leave"
+      },
+      {
+        "say": "wenna",
+        "text": "Jory's got something of his brother's, I'd guess. Not my place to ask him for it.",
+        "if": [
+          "flag:wrackholm_jory_brother",
+          "!flag:wrackholm_jory_up",
+          "!item:white_lead_pot"
+        ]
+      },
+      {
+        "say": "wenna",
+        "text": "That's what Wrackholm holds. Weigh it. I'll not choose for you."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "answer_back": [
+      {
+        "say": "narrator",
+        "text": "She closes her hand on the brass. It warms in her fist, slowly, the way a stone does in the sun."
+      },
+      {
+        "say": "wenna",
+        "text": "Fifty years. And one."
+      },
+      {
+        "say": "narrator",
+        "text": "She puts it back on its cord."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "unlash": [
+      {
+        "say": "narrator",
+        "text": "Wenna looks out a long while at the Wrack, burning gold on its stack across the Teeth."
+      },
+      {
+        "say": "wenna",
+        "text": "Lit. Then a horn answered is a lane promised again, and I can promise it.",
+        "if": "!flag:wrackholm_beacon_burned=answer"
+      },
+      {
+        "say": "wenna",
+        "text": "They tell me I answered boats on this horn fifty years. Oda says so, and Oda doesn't lie except about crying. I'd like to have heard it.",
+        "if": "flag:wrackholm_beacon_burned=answer"
+      },
+      {
+        "say": "narrator",
+        "text": "She takes a knife out of her coat and cuts the tarred line round the mouthpiece, turn by turn, the way you'd take off a bandage. Then she reaches up and works the sailcloth bung out of the bell, and lets it drop on the shingle."
+      },
+      {
+        "say": "wenna",
+        "text": "It takes two."
+      },
+      {
+        "say": "narrator",
+        "text": "Jory sets his shoulder under the bell end without being asked.",
+        "if": "flag:wrackholm_jory_up"
+      },
+      {
+        "say": "wenna",
+        "text": "Get your shoulder under the bell. Breathe when I tell you, and not before.",
+        "if": "!flag:wrackholm_jory_up"
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna puts her mouth to the horn bare-lipped. There's no brass on her cord.",
+        "if": "flag:wrackholm_beacon_burned=answer"
+      },
+      {
+        "say": "narrator",
+        "text": "Her brass is still in your satchel, cold. She puts her mouth to the horn bare-lipped and doesn't ask for it.",
+        "if": "item:wennas_answer"
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna fits her brass to the horn's mouth and fills her lungs.",
+        "if": [
+          "!flag:wrackholm_beacon_burned=answer",
+          "!item:wennas_answer"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The note goes out over the Teeth like the floor of the sea moving: long, and long. Not an answer to a boat. An answer to a light. Out on its stack the Wrack burns on, as if it heard."
+      },
+      {
+        "say": "narrator",
+        "text": "From the jetty, the Slow Mercy's horn answers: long, and two short. Oda always did hurry the shorts.",
+        "if": "flag:lanes_ferry_at=wrackholm"
+      },
+      {
+        "say": "wenna",
+        "text": "There. Wrackholm answers.",
+        "set": {
+          "wrackholm_horn_sounded": true
+        }
+      },
+      {
+        "say": "wenna",
+        "text": "I'll want a mouthpiece made. I seem to have lost mine.",
+        "if": "flag:wrackholm_beacon_burned=answer"
+      },
+      {
+        "say": "wenna",
+        "text": "Come in, when you're ready. There's the Book, now there's light to read it by. And I made you an offer.",
+        "if": "flag:wrackholm_wenna_offer"
+      },
+      {
+        "say": "wenna",
+        "text": "Come in, when you're ready. There's the Book, now there's light to read it by.",
+        "if": "!flag:wrackholm_wenna_offer"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "book_open": [
+      {
+        "say": "narrator",
+        "text": "The lane-house is one long room, smoky and warm. The yard folk round the fire stand up when you come in, a dozen of them; somebody puts bread in your hand, somebody else a cup. Nobody says anything about the light. Tidewrights don't."
+      },
+      {
+        "say": "narrator",
+        "text": "At the back, in the dark, a lectern of black timber, and on it the Book: as thick as a man's arm is long, bound in tarred sailcloth. Wenna brings a lamp to it. She's not taken a flame back here in three months."
+      },
+      {
+        "say": "narrator",
+        "text": "Pages of names, nine hundred years of them, every Keeper who ever rode a Tidewright deck: cramped hands and proud ones, shaking ones, one that pressed so hard the nib went through."
+      },
+      {
+        "if": "!flag:wrackholm_book_told",
+        "goto": "book_last"
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna turns back thirty winters, licking her thumb, and runs a finger down the page."
+      },
+      {
+        "say": "wenna",
+        "text": "Here. Thornwold, the Ridge Light."
+      },
+      {
+        "say": "narrator",
+        "text": "In a careful hand, the letters squared off as if they'd been cut with a chisel: WYNN SALLOW, keeper, for the Ridge Light. Paid twice."
+      },
+      {
+        "say": "wenna",
+        "text": "That's your Keeper. The name's the Book's now; a fare's a fare. But you've read it, and nobody can make you forget what you've read. That's not mine to stop.",
+        "set": {
+          "wrackholm_lamp_name_read": true
+        }
+      },
+      {
+        "goto": "book_last"
+      }
+    ],
+    "book_last": [
+      {
+        "say": "narrator",
+        "text": "The last page. One line at the bottom, dated three months back: the night the Spire went dark. The fog has had the name. There's only the shape of a hand that wrote fast, hard enough to dent the paper."
+      },
+      {
+        "say": "wenna",
+        "text": "Nobody wrote in this Book that night. Nobody came in. I was out by the horn till morning; I'd have seen."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember leans toward the page, the way it leaned to the board, to the rocks. And then you find you've shut the Book, and your hand is flat on the cover, and you don't remember deciding to."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna looks at your hand, and then at you."
+      },
+      {
+        "say": "wenna",
+        "text": "...Aye. Some other night.",
+        "set": {
+          "wrackholm_book_opened": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "swear": [
+      {
+        "say": "wenna",
+        "text": "Hand on the scale, then."
+      },
+      {
+        "say": "narrator",
+        "text": "Over the lane-house door hangs the guild's iron hand-scale. She has you lay your palm in its pan, the ember-hand, and the beam dips and steadies."
+      },
+      {
+        "say": "wenna",
+        "text": "Weighed, and not found light. Whatever deck you step on, you step on as one of ours. Whatever you're owed, the lanes owe you. And what you owe, you'll pay. That's the whole of it."
+      },
+      {
+        "choice": [
+          {
+            "text": "Swear it.",
+            "set": {
+              "wrackholm_sworn": "sworn"
+            },
+            "goto": "sworn"
+          },
+          {
+            "text": "No. I'd rather owe nobody.",
+            "set": {
+              "wrackholm_sworn": "declined"
+            },
+            "goto": "declined"
+          },
+          {
+            "text": "Not yet.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "sworn": [
+      {
+        "say": "narrator",
+        "text": "Behind you in the doorway, the yard folk say it together, low, the way you'd say amen: \"Weighed.\""
+      },
+      {
+        "say": "wenna",
+        "text": "There. A friend of the lanes. Oda will cry. Don't tell her I said so."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "declined": [
+      {
+        "say": "wenna",
+        "text": "That's allowed. The scale doesn't need you on it to know what you weigh."
+      },
+      {
+        "say": "wenna",
+        "text": "Keepers'll ask you the same, one day, by their rites. Answer them as straight."
       },
       {
         "goto": "hub"

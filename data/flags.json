@@ -408,6 +408,37 @@
     "wrackholm_jory_up": {
       "description": "With the Gannet's copper off, Jory went up the shingle to Wenna, as he said he would once he knew it was her answer (who answered = wenna); he stands by her at the horn after.",
       "default": false
+    },
+    "wrackholm_board_leave": {
+      "description": "With the Wrack wanting feeding, Wenna (the yard) gave leave for the Gannet's crew board to be prised off her transom for it: a year and a tide, and nobody is coming for her now.",
+      "default": false
+    },
+    "wrackholm_board_taken": {
+      "description": "The Gannet's crew board is off her transom (the player prised it off with Wenna's leave; it's in the satchel, or burned). Set back to false if the player puts it back unburned.",
+      "default": false
+    },
+    "wrackholm_beacon_burned": {
+      "description": "What fed the Wrack Light (Wrackholm's burning): '' (not lit), 'answer' (Wenna's answer: nobody on Wrackholm remembers she ever answered a horn, the Gannet's night included), 'board' (the Gannet's crew board: the crew unnamed again on Wrackholm, for good) or 'white' (Hale's white-lead pot: Jory's one day out on the Teeth behind Ruan; nobody left on the island has walked behind a lampwarden).",
+      "default": ""
+    },
+    "wrackholm_horn_sounded": {
+      "description": "With the Wrack lit, Wenna cut the lashing off the answering horn and it was sounded (it takes two: Jory, if he came up, else the player); Oda's horn answered from the jetty if the ferry lay there.",
+      "default": false
+    },
+    "wrackholm_book_opened": {
+      "description": "Wenna opened the lane-house Book for the player by lamplight. Its last line, the night of the Snuffing, is a name the fog has had, in a hand that wrote fast; nobody on Wrackholm wrote it or saw it written. The ember leaned to it and the player shut the Book without deciding to (mystery #2 hook; never explain yet).",
+      "default": false,
+      "future": true
+    },
+    "wrackholm_lamp_name_read": {
+      "description": "In the lane-house Book, thirty winters back, the player read the Lamp's name in its own hand: WYNN SALLOW, keeper, for the Ridge Light. Paid twice. (To carry back to the Lamp.)",
+      "default": false,
+      "future": true
+    },
+    "wrackholm_sworn": {
+      "description": "Wenna's offer, at the scale over the lane-house door once the Wrack was lit and the horn sounded: '' (not answered), 'sworn' (sworn a friend of the lanes: no Tidewright deck will weigh the player light) or 'declined'. For the Tidewrights' and Keepers' arcs.",
+      "default": "",
+      "future": true
     }
   }
 }

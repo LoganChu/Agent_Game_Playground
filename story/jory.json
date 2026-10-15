@@ -18,13 +18,46 @@
         "text": "Ruan. I keep saying it, so it'll stick.",
         "if": [
           "flag:wrackholm_jory_brother",
-          "!flag:wrackholm_jory_up"
+          "!flag:wrackholm_jory_up",
+          "!flag:wrackholm_beacon_burned=board"
         ]
       },
       {
         "say": "jory",
         "text": "Copper's off. I came up. I don't know what to say to her, so I'm stood here not saying it.",
-        "if": "flag:wrackholm_jory_up"
+        "if": [
+          "flag:wrackholm_jory_up",
+          "!flag:wrackholm_beacon_burned=answer"
+        ]
+      },
+      {
+        "say": "jory",
+        "text": "I had a brother. I know that the way you know a tooth's gone. I had his name a while, I think. Somebody said it to me.",
+        "if": [
+          "flag:wrackholm_jory_brother",
+          "flag:wrackholm_beacon_burned=board"
+        ]
+      },
+      {
+        "say": "jory",
+        "text": "I keep coming up here to stand by Wenna. I don't know what for. It feels like the right place to stand.",
+        "if": [
+          "flag:wrackholm_jory_up",
+          "flag:wrackholm_beacon_burned=answer"
+        ]
+      },
+      {
+        "say": "jory",
+        "text": "Somebody'll have to paint the white, come spring. I said I'd go. I've never been out on the Teeth; I'll learn it off the marks.",
+        "if": "flag:wrackholm_beacon_burned=white"
+      },
+      {
+        "say": "jory",
+        "text": "That's Ruan's name you've got under your arm.",
+        "if": [
+          "item:gannets_crew_board",
+          "flag:wrackholm_jory_brother"
+        ]
       },
       {
         "goto": "hub"
@@ -94,6 +127,24 @@
               "flag:wrackholm_gannet_named"
             ],
             "goto": "teeth"
+          },
+          {
+            "text": "The Wrack wants something somebody here holds.",
+            "if": [
+              "stage:a_light_for_wrackholm=feed_the_wrack",
+              "flag:wrackholm_jory_brother",
+              "!item:white_lead_pot"
+            ],
+            "goto": "feed"
+          },
+          {
+            "text": "Give Jory back Hale's pot.",
+            "if": [
+              "quest:a_light_for_wrackholm=done",
+              "item:white_lead_pot"
+            ],
+            "take_item": "white_lead_pot",
+            "goto": "pot_back"
           },
           {
             "text": "Goodbye.",
@@ -246,6 +297,83 @@
       {
         "say": "jory",
         "text": "I remember the white. I don't remember where it was. That's no use to you, is it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "feed": [
+      {
+        "if": "flag:wrackholm_jory_up",
+        "goto": "feed_up"
+      },
+      {
+        "if": "flag:wrackholm_who_answered=keepers",
+        "goto": "feed_keepers"
+      },
+      {
+        "say": "narrator",
+        "text": "Jory sets down the pry bar and wipes his hands, and goes round to the Gannet's open side, and comes back with a small iron pot with a rope bail, crusted white at the lip."
+      },
+      {
+        "say": "jory",
+        "text": "Hale's white-lead pot. I found it wedged under her thwart when I had the boards up. Ruan carried it, the day they took me out. He'd not let me hold it; I'd spill it, he said."
+      },
+      {
+        "say": "jory",
+        "text": "It's what I've got of him that's only mine. Not the yard's. Mine."
+      },
+      {
+        "say": "narrator",
+        "text": "He holds it out into the fog that lies over the yard, at arm's length, the way you'd hold a lantern out over the side. He holds it there a long time. The white at the lip goes the grey of everything else."
+      },
+      {
+        "say": "jory",
+        "text": "I remember the white. I never could remember where it was. Maybe it's some use to somebody, the white.",
+        "give_item": "white_lead_pot"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "feed_up": [
+      {
+        "say": "jory",
+        "text": "Ask Wenna. Whatever we give, we'll give it together. She said."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "feed_keepers": [
+      {
+        "say": "narrator",
+        "text": "Jory looks at the ember in your hand for the first time as if he's seeing what it is."
+      },
+      {
+        "say": "jory",
+        "text": "That's a Keeper's light. Whatever you are. Same fire as the Spire's, near enough, isn't it?"
+      },
+      {
+        "say": "jory",
+        "text": "They put the Spire out on my brother. Not a thing of mine goes in a Keeper's fire. Ask the yard. Ask Wenna. Not me."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pot_back": [
+      {
+        "say": "narrator",
+        "text": "Jory turns the pot round in his hands. The white at its lip has come back, the way it came back on the rocks."
+      },
+      {
+        "say": "jory",
+        "text": "Don't look at the water. Look at the white. Hale said that. Ruan said it after, all the way home, in Hale's voice."
+      },
+      {
+        "say": "narrator",
+        "text": "He puts it on the stack of copper, where he can see it."
       },
       {
         "goto": "hub"

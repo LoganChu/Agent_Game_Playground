@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:wrackholm_board_taken",
+        "goto": "bare"
+      },
+      {
         "if": "flag:wrackholm_board_read",
         "goto": "read_already"
       },
@@ -54,6 +58,71 @@
       {
         "say": "narrator",
         "text": "GANNET of Wrackholm. Sworn: HALE CORBET, master. ANNIS CORBET. RUAN PASK. The chalk stays where your light brought it back."
+      },
+      {
+        "if": [
+          "flag:wrackholm_board_leave",
+          "stage:a_light_for_wrackholm=feed_the_wrack"
+        ],
+        "choice": [
+          {
+            "text": "Prise the board off the transom.",
+            "set": {
+              "wrackholm_board_taken": true
+            },
+            "give_item": "gannets_crew_board",
+            "goto": "prised"
+          },
+          {
+            "text": "Leave it.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "prised": [
+      {
+        "say": "narrator",
+        "text": "Jory's pry bar lies on the torn copper. Two nails, and the board comes away in your hands: lighter than it ought to be, for three people."
+      },
+      {
+        "say": "narrator",
+        "text": "Behind it the tar is cleaner, a square of it, the shape of where they were."
+      }
+    ],
+    "bare": [
+      {
+        "say": "narrator",
+        "text": "The transom is bare where the board hung: a cleaner square of tar, two nail holes. The board's in your satchel.",
+        "if": "item:gannets_crew_board"
+      },
+      {
+        "if": "item:gannets_crew_board",
+        "choice": [
+          {
+            "text": "Put the board back on the transom.",
+            "take_item": "gannets_crew_board",
+            "set": {
+              "wrackholm_board_taken": false
+            },
+            "goto": "put_back"
+          },
+          {
+            "text": "Leave it.",
+            "end": true
+          }
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The transom is bare: a cleaner square of tar where something hung, two nail holes. You can't think what it was.",
+        "if": "flag:wrackholm_beacon_burned=board"
+      }
+    ],
+    "put_back": [
+      {
+        "say": "narrator",
+        "text": "You set the board back on its nails and drive them home with the heel of your hand. The chalk stays where your light brought it back."
       }
     ]
   }

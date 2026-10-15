@@ -3,7 +3,6 @@
   "title": "A Light for Wrackholm",
   "region": "wrackholm",
   "giver": "wenna",
-  "future": true,
   "description": "Wrackholm's beacon, the Wrack Light, has been dark since the Snuffing, and nobody on the island has answered a horn since.",
   "stages": [
     {
@@ -20,7 +19,7 @@
     },
     {
       "id": "feed_the_wrack",
-      "text": "Across the Teeth on the white, up the Wrack's stair. Its lantern room is framed in the timbers of boats that never came home, each with the yard's lead tag still nailed on: a year and a tide, and then the Wrack. One bracket is new and empty. The cradle is cold, and leaned to your ember and gave up: it wants something somebody on Wrackholm holds. Whatever feeds it, Wrackholm will never remember again."
+      "text": "Across the Teeth on the white, up the Wrack's stair. Its lantern room is framed in the timbers of boats that never came home, each with the yard's lead tag still nailed on: a year and a tide, and then the Wrack. One bracket is new and empty. The cradle is cold, and leaned to your ember and gave up: it wants something somebody on Wrackholm holds. Whatever feeds it, Wrackholm will never remember again. Wenna has her answer; the yard has the Gannet's board; Jory, maybe, has something of his brother's."
     }
   ]
 }

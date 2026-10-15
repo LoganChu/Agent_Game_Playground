@@ -389,6 +389,29 @@
         "a_light_for_wrackholm": "the_marks"
       },
       "shot": "--camera=27,4.5,4:12,0.2,0"
+    },
+    {
+      "id": "wrack_lit",
+      "act": "Act II — The Drift",
+      "title": "The Wrack lit, the horn answered",
+      "inherits": "the_teeth",
+      "region": "wrackholm",
+      "spawn": "from_teeth",
+      "description": "Wenna and Jory gave together (her answer, his pot); the Gannet's board stayed on her transom. Hale's white-lead pot burned in the Wrack's cradle: the Wrack Light burns gold over the Teeth, the fog leaning back; Jory no longer remembers going out on the white. Talk to Wenna to unlash and sound the answering horn, open the lane-house Book, and be sworn a friend of the lanes.",
+      "flags": {
+        "wrackholm_tide": "",
+        "wrackholm_jory_up": true,
+        "wrackholm_wenna_offer": true,
+        "wrackholm_beacon_burned": "white",
+        "wrackholm_board_leave": true
+      },
+      "quests": {
+        "a_light_for_wrackholm": "done"
+      },
+      "items": {
+        "wennas_answer": 1
+      },
+      "shot": "--camera=4,5.5,9:-20,2,-1"
     }
   ]
 }

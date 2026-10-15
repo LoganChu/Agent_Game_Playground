@@ -5,7 +5,13 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.05,
-    "color": "#A9AEB3"
+    "color": "#A9AEB3",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_wrackholm=done",
+        "density": 0.03
+      }
+    ]
   },
   "light": {
     "note": "Low water at evening in the fog: everything wet and black and grey, the light flat and failing, the white marks the palest things out there after the ember.",
@@ -16,7 +22,16 @@
     "ambient_color": "#A9AEB3",
     "ambient_energy": 0.36,
     "sky_top": "slate",
-    "sky_horizon": "#A9AEB3"
+    "sky_horizon": "#A9AEB3",
+    "overrides": [
+      {
+        "if": "quest:a_light_for_wrackholm=done",
+        "sun_color": "#E9CFA0",
+        "sun_energy": 0.75,
+        "ambient_energy": 0.42,
+        "sky_top": "tide"
+      }
+    ]
   },
   "water": {
     "swell": 0.6,
@@ -35,7 +50,21 @@
       "strength": 0.6,
       "falloff": 4.0,
       "height": 3.0,
-      "note": "The Teeth's fog over the white: thick enough to lose the island, thin enough to see the next mark."
+      "note": "The Teeth's fog over the white: thick enough to lose the island, thin enough to see the next mark.",
+      "if": "!quest:a_light_for_wrackholm=done"
+    },
+    {
+      "rect": [
+        -26,
+        -7,
+        14,
+        7
+      ],
+      "strength": 0.25,
+      "falloff": 4.0,
+      "height": 2.2,
+      "if": "quest:a_light_for_wrackholm=done",
+      "note": "After Wrackholm's burning the fog leans back off the white: a fleece over the reef road, the marks plain in the Wrack's light."
     },
     {
       "rect": [
@@ -47,7 +76,21 @@
       "strength": 1.0,
       "falloff": 4.0,
       "height": 3.2,
-      "note": "Deep fog off the reef to the north, over the open sea."
+      "note": "Deep fog off the reef to the north, over the open sea.",
+      "if": "!quest:a_light_for_wrackholm=done"
+    },
+    {
+      "rect": [
+        -26,
+        -22,
+        32,
+        -9
+      ],
+      "strength": 0.6,
+      "falloff": 4.0,
+      "height": 2.6,
+      "if": "quest:a_light_for_wrackholm=done",
+      "note": "The deep fog stands back off the reef north and south, thinner, lower."
     },
     {
       "rect": [
@@ -59,7 +102,20 @@
       "strength": 1.0,
       "falloff": 4.0,
       "height": 3.2,
-      "note": "...and to the south, toward the sound."
+      "note": "...and to the south, toward the sound.",
+      "if": "!quest:a_light_for_wrackholm=done"
+    },
+    {
+      "rect": [
+        -26,
+        9,
+        32,
+        20
+      ],
+      "strength": 0.6,
+      "falloff": 4.0,
+      "height": 2.6,
+      "if": "quest:a_light_for_wrackholm=done"
     }
   ],
   "spawn_points": {
@@ -257,7 +313,42 @@
         9.2,
         2.8
       ],
-      "note": "The Wrack Light on its stack, its door (Godot +Z of the model) turned east to the ramp up the stack's flank. Origin 2 m under the water: the door's sill at ~1.5."
+      "note": "The Wrack Light on its stack, its door (Godot +Z of the model) turned east to the ramp up the stack's flank. Origin 2 m under the water: the door's sill at ~1.5.",
+      "if": "!quest:a_light_for_wrackholm=done"
+    },
+    {
+      "model": "res://assets/models/dressing/wrack_light_lit.glb",
+      "position": [
+        -18.0,
+        -2.0,
+        -1.0
+      ],
+      "rotation_y": 90,
+      "snap": false,
+      "collider": [
+        2.8,
+        9.2,
+        2.8
+      ],
+      "note": "The Wrack Light lit by Wrackholm's burning (Day 43): gold through the horn panes, a fire in the cradle, the tagged timbers holding it up.",
+      "if": "quest:a_light_for_wrackholm=done",
+      "halo": [
+        0,
+        7.9,
+        0
+      ],
+      "halo_size": 6.0,
+      "halo_bloom": 0.3,
+      "light": {
+        "color": "kindle",
+        "energy": 2.0,
+        "range": 18.0,
+        "offset": [
+          0,
+          7.9,
+          0
+        ]
+      }
     },
     {
       "model": "res://assets/models/dressing/teeth_mark.glb",

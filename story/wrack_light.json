@@ -59,13 +59,261 @@
       },
       {
         "say": "narrator",
-        "text": "It wants something somebody on Wrackholm holds."
+        "text": "Wenna's answer is in your satchel: a brass mouthpiece gone the silver of the fog, cold as a stone.",
+        "if": "item:wennas_answer"
+      },
+      {
+        "say": "narrator",
+        "text": "The Gannet's crew board is in your satchel, three names chalked on black.",
+        "if": "item:gannets_crew_board"
+      },
+      {
+        "say": "narrator",
+        "text": "Hale's white-lead pot is in your satchel, grey at the lip, heavier than it looks.",
+        "if": "item:white_lead_pot"
+      },
+      {
+        "say": "narrator",
+        "text": "It wants something somebody on Wrackholm holds. You've nothing of theirs to set in it: ask on the hard. Wenna, by the horn. The yard. Jory.",
+        "if": [
+          "!item:wennas_answer",
+          "!item:gannets_crew_board",
+          "!item:white_lead_pot"
+        ]
+      },
+      {
+        "if": [
+          "!item:wennas_answer",
+          "!item:gannets_crew_board",
+          "!item:white_lead_pot"
+        ],
+        "end": true
+      },
+      {
+        "goto": "waiting"
       }
     ],
     "lit": [
       {
         "say": "narrator",
-        "text": "The Wrack Light burns over the Teeth."
+        "text": "You climb to the lantern room. The Wrack Light burns gold behind its horn panes, and the tagged timbers stand round it holding it up."
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a curl of brass. Then it's only fire.",
+        "if": "flag:wrackholm_beacon_burned=answer"
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, chalk letters on black. Then it's only fire.",
+        "if": "flag:wrackholm_beacon_burned=board"
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a hand of white. Then it's only fire.",
+        "if": "flag:wrackholm_beacon_burned=white"
+      },
+      {
+        "say": "narrator",
+        "text": "Across the Teeth, the answering horn stands open by the lane-house door, its bell to the light.",
+        "if": "flag:wrackholm_horn_sounded"
+      }
+    ],
+    "waiting": [
+      {
+        "say": "narrator",
+        "text": "The cradle waits. Whatever you set in it, Wrackholm will never remember again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Set Wenna's answer in the cradle.",
+            "if": "item:wennas_answer",
+            "goto": "weigh_answer"
+          },
+          {
+            "text": "Set the Gannet's crew board in the cradle.",
+            "if": "item:gannets_crew_board",
+            "goto": "weigh_board"
+          },
+          {
+            "text": "Set Hale's white-lead pot in the cradle.",
+            "if": "item:white_lead_pot",
+            "goto": "weigh_white"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "weigh_answer": [
+      {
+        "say": "narrator",
+        "text": "The brass is cold in your hand, and small, for what's in it. An old woman on a coil of hawser in every weather for fifty years, answering boats home: long and two short, long and two short, and every one of them coming in on it."
+      },
+      {
+        "say": "narrator",
+        "text": "And one at dusk, three months gone, that brought the Gannet onto the Teeth."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and nobody on Wrackholm will remember Wenna Garrow ever answered a horn. Not the boats she brought home, and not the one she didn't. Not her."
+      },
+      {
+        "say": "narrator",
+        "text": "Jory will never know it was her.",
+        "if": "flag:wrackholm_who_answered=wenna"
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Wenna's answer.",
+            "take_item": "wennas_answer",
+            "set": {
+              "wrackholm_beacon_burned": "answer"
+            },
+            "goto": "burn_answer"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "weigh_board": [
+      {
+        "say": "narrator",
+        "text": "Three names in chalk on black: HALE CORBET, master. ANNIS CORBET. RUAN PASK. Your ember brought them back once. The Wrack won't give them back twice."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and the Gannet's crew are nobody's again on Wrackholm, for good. Wenna will count to three and no further. Jory will have a gap where a brother was, and no name to put in it."
+      },
+      {
+        "say": "narrator",
+        "text": "The new bracket will stay theirs. Nobody will know whose."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn the Gannet's crew board.",
+            "take_item": "gannets_crew_board",
+            "set": {
+              "wrackholm_beacon_burned": "board"
+            },
+            "goto": "burn_board"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "weigh_white": [
+      {
+        "say": "narrator",
+        "text": "A lampwarden's pot, crusted white. In it: a boy of seven on the Teeth at the bottom of the springs, looking at nothing but the white, because he was told to; and ahead of him, carrying the pot because Hale let him, his brother."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and Jory will never have been out on the Teeth. Nobody left on Wrackholm will have walked behind a lampwarden; come spring, whoever paints the white will be learning it off the marks."
+      },
+      {
+        "say": "narrator",
+        "text": "It's the one thing Jory has of Ruan that's only his."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Hale's white-lead pot.",
+            "take_item": "white_lead_pot",
+            "set": {
+              "wrackholm_beacon_burned": "white"
+            },
+            "goto": "burn_white"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "burn_answer": [
+      {
+        "say": "narrator",
+        "text": "You lay the mouthpiece in the iron, its cord coiled round it. For a moment you'd swear you hear it: long, and two short, a long way off, coming home."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "burn_board": [
+      {
+        "say": "narrator",
+        "text": "You lay the board in the cradle chalk up. The names go first, letter by letter, the way they came back: HALE. ANNIS. RUAN. Then the black."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "burn_white": [
+      {
+        "say": "narrator",
+        "text": "You set the pot in the iron. The white at its lip catches before anything else does, and burns the colour of a spring morning."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "kindle": [
+      {
+        "say": "narrator",
+        "text": "The Wrack Light catches. Gold comes out through the horn panes and goes down onto the Teeth, and every timber round you is lit along its length: KITTIWAKE, HONEST WEIGHT, TWO SISTERS, FAIR RETURN, the lead tags bright as coins."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog leans back off the reef the way water goes off the Teeth at the ebb: a long while, and then all at once. Not gone. Standing back. Below, rock to rock to the spit, the white lies in the light, a hand on each."
+      },
+      {
+        "quest_complete": "a_light_for_wrackholm"
+      },
+      {
+        "say": "narrator",
+        "text": "Across the water the lane-house door opens and people come out onto the shingle, one and then a dozen, and stand looking. Nobody shouts. Tidewrights don't, at a lighting."
+      },
+      {
+        "say": "narrator",
+        "text": "By the horn, an old woman gets up off her coil of hawser and looks at the light, and then at her own empty hand, as if she'd set something down and can't think what.",
+        "if": "flag:wrackholm_beacon_burned=answer"
+      },
+      {
+        "say": "narrator",
+        "text": "On the shingle somebody starts to say three names, the way you'd count a crew aboard, and gets to the first, and stops.",
+        "if": "flag:wrackholm_beacon_burned=board"
+      },
+      {
+        "say": "narrator",
+        "text": "On the shingle a lanky lad in a red gansey looks out at the white lying rock to rock in the gold, as if he's never seen it before. He hasn't, now.",
+        "if": "flag:wrackholm_beacon_burned=white"
+      },
+      {
+        "say": "narrator",
+        "text": "The answering horn is a black stroke by the lane-house door, its bell turned to you. Still lashed. A horn answered is a lane promised; it's Wenna's to promise."
+      },
+      {
+        "say": "narrator",
+        "text": "The new bracket between the timbers stays empty. It's the Gannet's, whoever she was.",
+        "if": "flag:wrackholm_beacon_burned=board"
+      },
+      {
+        "say": "narrator",
+        "text": "The new bracket between the timbers stays empty, for the Gannet. One day it'll hold her.",
+        "if": "!flag:wrackholm_beacon_burned=board"
       }
     ]
   }
