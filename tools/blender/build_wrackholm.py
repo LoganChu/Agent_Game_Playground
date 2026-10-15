@@ -9,11 +9,15 @@ out on the Teeth.
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_wrackholm.py
     .tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn gannet_hulk
-        salvage_stack float_pile wrack_light teeth_rock teeth_mark]
+        salvage_stack float_pile wrack_light teeth_rock teeth_mark answering_horn_open gannet_hulk_bare
+        wrack_light_lit]
 
 Day 42 (the Teeth): `teeth_rock` (a low reef slab of black rock, wrack-weed round its foot) and
 `teeth_mark` (the same slab with a lampwarden's white-lead mark on its back, a hand's width:
 "put your feet where the white is"); the Wrack Light's ships' timbers each carry their lead tag.
+
+Day 43 (the Wrack's burning): `wrack_light_lit` (gold through the horn, a fire in the cradle),
+`answering_horn_open` (unlashed and sounded) and `gannet_hulk_bare` (her crew board prised off).
 
 Same conventions as build_dressing/build_fen: origin at the base centre, flat-shaded, palette
 colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -139,12 +143,16 @@ def build_lane_house() -> None:
     bd.export("lane_house")
 
 
-def build_answering_horn() -> None:
+def build_answering_horn(open_: bool = False) -> None:
     """The answering horn (~2.7 m): a long horn of black wood bound in brass, big enough that it
     takes two to sound it, slung under a beam between two posts with its bell to the sea (-Y) and
     its mouthpiece at a standing mouth's height at the back. **Lashed**: a sailcloth bung in the
     bell, tarred line crossed over it, and turns of tarred line round the mouthpiece (Wenna Garrow
-    lashed it the night the Gannet struck)."""
+    lashed it the night the Gannet struck).
+
+    `open_` (Day 43, `answering_horn_open`, once the Wrack is lit and the horn sounded): the bung out
+    and the lashing cut away, the bell's mouth black and open, the cut line hanging in a coil off the
+    seaward post."""
     bd.reset()
     WOOD, BRASS = mat("ink", 0.12), mat("ember", -0.4)
     POST, TAR = mat("driftwood", -0.5), mat("ink", 0.02)
@@ -170,6 +178,14 @@ def build_answering_horn() -> None:
     # Lashed: a sailcloth bung in the bell, two tarred lines crossed over it and turned round the
     # bell's rim; turns of tarred line wound thick round the mouthpiece.
     d = (bell - mouth).normalized()
+    if open_:
+        # Unlashed: the bell's dark throat, the cut line coiled and hung off the seaward post.
+        rod("Throat", tuple(bell - d * 0.25), tuple(bell + d * 0.005), 0.33, mat("ink", 0.0), verts=10, r_end=0.39)
+        for k in range(4):
+            cyl("CutLine", 0.16 - k * 0.01, 0.16 - k * 0.01, 0.035, 8, (0.12, -1.05, 1.15 - k * 0.05), TAR, k * 0.4)
+        rod("CutEnd", (0.12, -1.05, 1.0), (0.14, -1.1, 0.55), 0.015, TAR, verts=3)
+        bd.export("answering_horn_open")
+        return
     rod("Bung", tuple(bell - d * 0.1), tuple(bell + d * 0.01), 0.4, mat("bone", -0.12), verts=10)
     for a in (math.radians(45), math.radians(-45)):
         off = Vector((math.cos(a), 0, math.sin(a))) * 0.43
@@ -187,13 +203,16 @@ def build_answering_horn() -> None:
 GANNET = dict(length=6.4, half_beam=1.15, depth=1.0, sheer=1.15)
 
 
-def build_gannet_hulk() -> None:
+def build_gannet_hulk(bare: bool = False) -> None:
     """The Gannet, hauled up on Wrackholm's hard on keel blocks and shores, listing a little to
     port: dark tarred clinker, a tide-blue sheer strake, a mast stump. **Stove in at the bow** on
     the Teeth (planks sprung out, a black hole), **her copper sheathing half stripped** (green-
     brown sheets still on the starboard bottom, torn sheets stacked on the shingle beside her),
     and on her transom **the crew board** — black-painted, the chalk gone the grey of slate
-    (GANNET_BOARD; the region's `gannet_board` object reads it)."""
+    (GANNET_BOARD; the region's `gannet_board` object reads it).
+
+    `bare` (Day 43, `gannet_hulk_bare`): the board prised off for the Wrack — a cleaner square of
+    tar where it hung, two empty nail holes."""
     bd.reset()
     rng = random.Random(41)
     lift = 0.38
@@ -231,6 +250,12 @@ def build_gannet_hulk() -> None:
     beam("PryBar", (1.5, 1.05, 0.14), (2.05, 1.6, 0.14), 0.035, mat("ink", 0.15))
     # The crew board on the transom: black paint, blank as slate (the chalk gone).
     bx, bz, by = GANNET_BOARD[0], GANNET_BOARD[1], -GANNET_BOARD[2]
+    if bare:
+        box("BoardScar", (0.95, 0.02, 0.34), (bx, by + 0.015, bz - 0.17), mat("ink", 0.14))
+        for x in (-0.42, 0.42):
+            cyl("NailHole", 0.02, 0.02, 0.02, 4, (bx + x, by + 0.03, bz - 0.01), mat("ink", -0.1))
+        bd.export("gannet_hulk_bare")
+        return
     box("CrewBoard", (0.95, 0.05, 0.34), (bx, by + 0.03, bz - 0.17), mat("ink", 0.06))
     box("Blank", (0.82, 0.02, 0.24), (bx, by + 0.065, bz - 0.12), mat("silverfog", -0.4))
     for x in (-0.42, 0.42):
@@ -301,13 +326,17 @@ def _anchor(top: Vector, iron) -> None:
         beam("Fluke", tuple(top + Vector((s * 0.26, 0, 0.28))), tuple(top + Vector((s * 0.2, 0, 0.4))), 0.06, iron)
 
 
-def build_wrack_light() -> None:
+def build_wrack_light(lit: bool = False) -> None:
     """Wrackholm's beacon, the Wrack Light (~12 m from the stack's foot to the vane), dark: a ragged
     stack of black rock standing out of the Teeth, and on it a squat round tower of the same black
     stone, ringed with pale stone every few courses (Wrackholm builds low and heavy against the
     sea); a lantern room framed in **reclaimed ships' timbers**, horn panes, dark; a copper roof
     gone green; an iron anchor for a vane. Placed with its foot on the seabed (`snap: false`);
-    seen from the hard through the fog, out of reach."""
+    seen from the hard through the fog, out of reach.
+
+    `lit` (Day 43, `wrack_light_lit`, after Wrackholm's burning): the horn panes glow gold, a fire
+    stands in the cradle (coals, ember tongues, a kindle heart, as at the Heron), and the lead tags
+    on the timbers catch it."""
     bd.reset()
     rng = random.Random(45)
     # The stack: stacked, tilted rock blocks narrowing upward.
@@ -335,12 +364,25 @@ def build_wrack_light() -> None:
         # Every timber off a boat that never came home keeps the yard's lead tag (Day 42).
         box("Tag", (0.1, 0.03, 0.14), (math.cos(a) * 1.02, math.sin(a) * 1.02, top + 0.7 + (k % 3) * 0.12), LEAD,
             a + math.pi / 2)
-    cyl("Panes", 0.9, 0.86, 1.3, 8, (0, 0, top + 0.2), mat("driftwood", -0.5), math.pi / 8)
+    pane = bd.horn("kindle", 0.3, glow=0.35) if lit else mat("driftwood", -0.5)
+    cyl("Panes", 0.9, 0.86, 1.3, 8, (0, 0, top + 0.2), pane, math.pi / 8)
+    if lit:
+        # The fire in the cradle, seen through the horn: red coals, ember tongues, a kindle heart.
+        cyl("Cradle", 0.3, 0.24, 0.1, 8, (0, 0, top + 0.16), mat("ink", 0.1))
+        cyl("Coals", 0.26, 0.18, 0.14, 7, (0, 0, top + 0.26), mat("coal", 0.0, emissive=True))
+        for k in range(6):
+            a = k / 6 * math.tau + 0.2
+            r = 0.1 + 0.04 * (k % 2)
+            h = 0.45 + 0.12 * ((k * 3) % 5) / 4
+            tongue = cyl("Tongue", 0.1, 0.0, h, 4, (math.cos(a) * r, math.sin(a) * r, top + 0.36),
+                         mat("ember", 0.0, emissive=True), a)
+            tongue.rotation_euler = (math.sin(a) * 0.22, -math.cos(a) * 0.22, 0)
+        cyl("Heart", 0.1, 0.0, 0.65, 5, (0, 0, top + 0.36), mat("kindle", 0.0, emissive=True))
     cyl("Head", 1.05, 1.05, 0.12, 8, (0, 0, top + 1.5), TIMBER)
     # The copper roof, gone green, and the anchor.
     cyl("Roof", 1.2, 0.08, 1.0, 8, (0, 0, top + 1.62), mat("moss", 0.05))
     _anchor(Vector((0, 0, top + 2.6)), mat("ink", 0.15))
-    bd.export("wrack_light")
+    bd.export("wrack_light_lit" if lit else "wrack_light")
 
 
 # The reef slab's top, Godot model space: where a mark sits and the player's feet go.
@@ -389,10 +431,13 @@ def build_teeth_mark() -> None:
 BUILDERS = {
     "lane_house": build_lane_house,
     "answering_horn": build_answering_horn,
+    "answering_horn_open": lambda: build_answering_horn(open_=True),
     "gannet_hulk": build_gannet_hulk,
+    "gannet_hulk_bare": lambda: build_gannet_hulk(bare=True),
     "salvage_stack": build_salvage_stack,
     "float_pile": build_float_pile,
     "wrack_light": build_wrack_light,
+    "wrack_light_lit": lambda: build_wrack_light(lit=True),
     "teeth_rock": build_teeth_rock,
     "teeth_mark": build_teeth_mark,
 }
