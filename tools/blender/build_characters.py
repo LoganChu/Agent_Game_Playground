@@ -970,6 +970,17 @@ def _dunstan(seated: bool, cord: bool = False) -> None:
 
 
 def build_wenna() -> None:
+    _wenna(brass=True)
+
+
+def build_wenna_nobrass() -> None:
+    """Wenna once she has given her answer (Day 44): the mouthpiece off its cord and in the
+    Wakebearer's satchel, or burned in the Wrack. The cord hangs bare, and her right hand has come
+    up off her knee to where the brass was."""
+    _wenna(brass=False)
+
+
+def _wenna(brass: bool) -> None:
     """Wenna Garrow, lane-warden of Wrackholm (eighties): she keeps the lane-house and its answering
     horn and swears the Tidewrights' masters (she swore Oda). Sits by the lashed horn on a coil of old
     hawser: a long tide-dark guild coat buttoned to the chin, a bone-white knitted shawl crossed over
@@ -992,9 +1003,12 @@ def build_wenna() -> None:
     t.append(ball(0.33, (0, 0.02, b.shoulder - 0.07), shawl, scale=(1.0, 0.86, 0.62)))     # over the shoulders
     for s in (-1, 1):
         t.append(block((0.09, 0.04, 0.42), (s * 0.08, -0.25, b.shoulder - 0.25), shawl, rot=(0.12, 0, s * 0.45)))  # crossed ends
-    # The warden's brass mouthpiece on a cord.
+    # The warden's brass mouthpiece on a cord (the cord alone once she's given it).
     t.append(limb((0.1, -0.24, b.shoulder + 0.04), (0.03, -0.27, b.shoulder - 0.2), 0.008, 0.008, material("ink", 0.2), verts=3))
-    t.append(limb((0.03, -0.28, b.shoulder - 0.2), (0.03, -0.29, b.shoulder - 0.29), 0.022, 0.035, material("ember", -0.3), verts=6))
+    if brass:
+        t.append(limb((0.03, -0.28, b.shoulder - 0.2), (0.03, -0.29, b.shoulder - 0.29), 0.022, 0.035, material("ember", -0.3), verts=6))
+    else:
+        t.append(ball(0.012, (0.03, -0.275, b.shoulder - 0.21), material("ink", 0.2), segments=4, rings=3))  # the knot, empty
     h = b.parts["Head"]
     hair = material("bone", 0.05)
     h.append(ball(0.25, (0, 0.04, b.head + 0.02), hair, scale=(1.04, 1.0, 1.0)))
@@ -1009,6 +1023,8 @@ def build_wenna() -> None:
         b.parts["Arm" + side].append(ball(0.095, b.hand(side) + Vector((0, 0.0, 0.0)), skin, scale=(1.0, 1.1, 0.9), segments=6, rings=4))
     b.arm_rest["ArmL"] = (math.radians(-50), 0, math.radians(-6))
     b.arm_rest["ArmR"] = (math.radians(-50), 0, math.radians(6))
+    if not brass:
+        b.arm_rest["ArmR"] = (math.radians(-62), 0, math.radians(26))  # drawn in off her knee, toward where it hung
     b.head_rest = (math.radians(-6), 0, 0)  # looking out to sea
     # The seat: a coil of old hawser, turns showing.
     top = b.hip - 0.04
@@ -1017,7 +1033,7 @@ def build_wenna() -> None:
     for z in (0.08, 0.2, 0.32):
         b.parts["Stool"].append(limb((0, 0.02, z), (0, 0.02, z + 0.05), 0.35, 0.35, material("driftwood", -0.55), verts=9))
     b.parts["Stool"].append(limb((0.3, -0.18, 0.02), (0.55, -0.42, 0.02), 0.05, 0.05, rope, verts=5))  # the end
-    assemble(b, "wenna", scale=0.95)
+    assemble(b, "wenna" if brass else "wenna_nobrass", scale=0.95)
 
 
 def build_jory() -> None:
@@ -1062,7 +1078,7 @@ def build_jory() -> None:
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_lamp, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
-            build_dunstan_seated_cord, build_wenna, build_jory]
+            build_dunstan_seated_cord, build_wenna, build_wenna_nobrass, build_jory]
 
 if __name__ == "__main__":
     import sys

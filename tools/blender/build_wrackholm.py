@@ -10,6 +10,7 @@ Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_wrackholm.py
     .tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn gannet_hulk
         salvage_stack float_pile wrack_light teeth_rock teeth_mark answering_horn_open gannet_hulk_bare
+        gannet_hulk_named
         wrack_light_lit]
 
 Day 42 (the Teeth): `teeth_rock` (a low reef slab of black rock, wrack-weed round its foot) and
@@ -18,6 +19,7 @@ Day 42 (the Teeth): `teeth_rock` (a low reef slab of black rock, wrack-weed roun
 
 Day 43 (the Wrack's burning): `wrack_light_lit` (gold through the horn, a fire in the cradle),
 `answering_horn_open` (unlashed and sounded) and `gannet_hulk_bare` (her crew board prised off).
+Day 44: `gannet_hulk_named` (the board chalked again once the ember has read it).
 
 Same conventions as build_dressing/build_fen: origin at the base centre, flat-shaded, palette
 colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -203,7 +205,7 @@ def build_answering_horn(open_: bool = False) -> None:
 GANNET = dict(length=6.4, half_beam=1.15, depth=1.0, sheer=1.15)
 
 
-def build_gannet_hulk(bare: bool = False) -> None:
+def build_gannet_hulk(bare: bool = False, named: bool = False) -> None:
     """The Gannet, hauled up on Wrackholm's hard on keel blocks and shores, listing a little to
     port: dark tarred clinker, a tide-blue sheer strake, a mast stump. **Stove in at the bow** on
     the Teeth (planks sprung out, a black hole), **her copper sheathing half stripped** (green-
@@ -212,7 +214,10 @@ def build_gannet_hulk(bare: bool = False) -> None:
     (GANNET_BOARD; the region's `gannet_board` object reads it).
 
     `bare` (Day 43, `gannet_hulk_bare`): the board prised off for the Wrack — a cleaner square of
-    tar where it hung, two empty nail holes."""
+    tar where it hung, two empty nail holes.
+
+    `named` (Day 44, `gannet_hulk_named`): the board after the ember brought the chalk back
+    (`wrackholm_board_read`) — three lines of white chalk on the black, the master's longest."""
     bd.reset()
     rng = random.Random(41)
     lift = 0.38
@@ -257,10 +262,19 @@ def build_gannet_hulk(bare: bool = False) -> None:
         bd.export("gannet_hulk_bare")
         return
     box("CrewBoard", (0.95, 0.05, 0.34), (bx, by + 0.03, bz - 0.17), mat("ink", 0.06))
-    box("Blank", (0.82, 0.02, 0.24), (bx, by + 0.065, bz - 0.12), mat("silverfog", -0.4))
+    if not named:
+        box("Blank", (0.82, 0.02, 0.24), (bx, by + 0.065, bz - 0.12), mat("silverfog", -0.4))
+    else:
+        # HALE CORBET, master / ANNIS CORBET / RUAN PASK: words as chalk strokes, a gap between.
+        chalk = mat("bone", 0.1)
+        for row, words in enumerate(((0.16, 0.24, 0.2), (0.2, 0.24), (0.16, 0.16))):
+            x = 0.36  # read from outside the transom (+Y), so the lines start at +X
+            for w in words:
+                box("Chalk", (w, 0.012, 0.035), (bx + x - w / 2, by + 0.06, bz - 0.04 - 0.085 * row), chalk)
+                x -= w + 0.06
     for x in (-0.42, 0.42):
         cyl("BoardNail", 0.02, 0.02, 0.02, 4, (bx + x, by + 0.07, bz - 0.01), mat("ember", -0.4))
-    bd.export("gannet_hulk")
+    bd.export("gannet_hulk_named" if named else "gannet_hulk")
 
 
 def build_salvage_stack() -> None:
@@ -434,6 +448,7 @@ BUILDERS = {
     "answering_horn_open": lambda: build_answering_horn(open_=True),
     "gannet_hulk": build_gannet_hulk,
     "gannet_hulk_bare": lambda: build_gannet_hulk(bare=True),
+    "gannet_hulk_named": lambda: build_gannet_hulk(named=True),
     "salvage_stack": build_salvage_stack,
     "float_pile": build_float_pile,
     "wrack_light": build_wrack_light,
