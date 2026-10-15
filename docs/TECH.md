@@ -40,7 +40,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
-.tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn gannet_hulk salvage_stack float_pile wrack_light teeth_rock teeth_mark]  # Wrackholm kit (Day 40; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
+.tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn (+ answering_horn_open) gannet_hulk (+ gannet_hulk_bare) salvage_stack float_pile wrack_light (+ wrack_light_lit) teeth_rock teeth_mark]  # Wrackholm kit (Day 40; the Day 43 variants: the horn unlashed, the board prised off, the Wrack lit; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -380,6 +380,19 @@ path's 1.45 top — `tests/test_the_teeth.gd` mirrors `WRACK_DOOR` and checks it
 The smoke walk sails east-about a second time (`_cross_the_teeth`) and leaves the tide down so the final gate check
 finds the exit open; `_check_gates` now travels back to where it started (Wrackholm's gate sorts after Saltmarrow's).
 
+**The Wrack's burning (Day 43):** the same shape as the Heron's: Remnants are made *on purpose* by their holders in
+dialogue (`wennas_answer` from Wenna; `white_lead_pot` from Jory — or both from Wenna's `feed_together` knot when Jory
+has gone up; Jory refuses outright when told the Keepers put the Spire out), plus one taken off a prop: Wenna's leave
+(`wrackholm_board_leave`) lets the `gannet_board` inspectable prise the board off (`wrackholm_board_taken`, which also
+swaps `gannet_hulk` → `gannet_hulk_bare`; putting it back sets it false). `wrack_light` weighs and burns in the cradle
+(`wrackholm_beacon_burned` answer / board / white) and completes the quest; every Wrack/greying/light/fog entry in both
+Wrackholm regions has a `!quest:a_light_for_wrackholm=done` dark twin and a `=done` lit twin (lit model with `light` and
+`halo`, greying areas thinner and lower). Unburned Remnants go back by dialogue (Wenna, the transom, Jory). After the
+lighting Wenna's hub runs the horn (`wrackholm_horn_sounded` → `answering_horn_open`), the Book
+(`wrackholm_book_opened`, and `wrackholm_lamp_name_read` if `wrackholm_book_told`) and the oath (`wrackholm_sworn`).
+`tests/test_wrack_burning.gd`; the smoke walk burns Wenna's answer (`_burn_the_wrack`) between the lantern room and the
+last ebb, and reads conditional props by model file (`_shown_model`, reaching into `Region._conditional`).
+
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,
 description, region, spawn?, inherits?, flags?, quests?, items?, collected?, shot?}`.
@@ -709,6 +722,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 ## Testing
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
+- `tests/test_wrack_burning.gd` — Wrackholm's burning (Day 43): who gives what (Wenna; the yard's leave for the
+  board; Jory, never to a Keeper's fire; the two together), each burn and its aftermath, the lit Wrack in both regions,
+  the horn (it takes two), the Book, the oath, unburned Remnants returned, the kit variants.
 - `tests/test_burning.gd` — the Act I beacon choice through real story content (each burn
   path, Pell's consent, Mara's gull, returning unburned Remnants, fog thinning).
 - `tests/test_confession.gd` — Aldous's confession (gentle/full vs. pressed/grudging with a

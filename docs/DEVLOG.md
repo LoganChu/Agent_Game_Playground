@@ -2,6 +2,65 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-15 09:00 UTC — Day 43: The Wrack's burning (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; local `main` reset to
+  `origin/main` (Day 42's `e18c5b3`). Baseline green (298 tests + smoke + launch).
+- **Content (due by Day 46):** ROADMAP *Next up* #1, *Wrackholm, part three — the Wrack's burning*:
+  - **What Wrackholm holds.** At `feed_the_wrack`, "The Wrack wants something somebody here holds." — **Wenna** weighs
+    her answer and, given leave, blows her brass mouthpiece bare out over the Teeth until the fog keeps the note
+    (`wennas_answer`); as the yard she gives leave for **the Gannet's crew board** (`wrackholm_board_leave`), prised off
+    the transom at the `gannet_board` inspectable (`gannets_crew_board`, `wrackholm_board_taken`; can go back on its
+    nails); **Jory** gives **Hale's white-lead pot** (`white_lead_pot`, his one day on the Teeth behind Ruan) — never if
+    told the Keepers put the Spire out ("Not a thing of mine goes in a Keeper's fire"), and if he has gone up to Wenna
+    the two of them give together (`feed_together`: "We'll each give, and the Wakebearer will weigh it").
+  - **The burning** in the Wrack's cradle: weigh, refuse or burn each (`wrackholm_beacon_burned` answer / board /
+    white); the kindling (tags bright as coins, the fog leaning back off the white, the yard folk on the shingle not
+    shouting); per-burn aftermath for Wenna, Jory and Oda (an off-islander, who keeps what was burned). The quest
+    completes (no longer `future`). The unburned Remnants go back to Wenna, the transom and Jory.
+  - **Lit:** the dark Wrack swaps for `wrack_light_lit` (light + halo) on the Teeth and seen from the hard; every
+    greying area in both regions has a thinner, lower lit twin; fog and light overrides warm both regions.
+  - **The horn unlashed and sounded** ("The Wrack's lit. Answer it."): Wenna cuts the lashing; it takes two — Jory
+    under the bell if he came up, else you; long and long, an answer to a light; the Slow Mercy answers from the jetty
+    (`wrackholm_horn_sounded`, the horn model swaps to `answering_horn_open`).
+  - **The Book** in the lane-house: the Lamp's page if it was asked for — **WYNN SALLOW, keeper, for the Ridge Light.
+    Paid twice.** (`wrackholm_lamp_name_read`) — and **the last line**, the night of the Snuffing, a name the fog has had,
+    written when nobody came in; the ember leans to it and you shut the Book without deciding to
+    (`wrackholm_book_opened`, a mystery #2 hook).
+  - **Friend of the lanes:** a palm in the iron hand-scale; swear, decline or wait (`wrackholm_sworn`).
+- **Art (folded in):** `build_wrackholm.py` — `wrack_light_lit` (gold horn panes, a fire in the cradle),
+  `answering_horn_open` (bung out, lashing cut and hung off the post), `gannet_hulk_bare` (the board's scar).
+- **Tests:** `test_wrack_burning.gd` (10): who gives what and when, Jory and the Keepers, the two together, the board
+  off and back, each burn's aftermath and the lit regions, the answer burned with Jory up, the horn (two ways), the
+  Book (page or not; the last line), the oath, the kit. **Smoke walk** burns Wenna's answer live (`_burn_the_wrack`),
+  sounds the horn, opens the Book, swears. 308 tests + smoke + launch pass. Checkpoint `wrack_lit`.
+
+Screenshots (`docs/screenshots/2026-10-15-*.png`): `the-wrack-lit-over-the-teeth`, `the-horn-unlashed`,
+`the-gannets-bare-transom`; `docs/checkpoints/wrack_lit.png`.
+
+**Decisions**
+- **Three Remnants, three givers**, as the roadmap planned, but the board is the *yard's* to give (Wenna's leave as
+  warden) rather than Jory's: salvage law already says what nobody comes for goes out to the Wrack, and it keeps Jory's
+  choice his own (the pot). "Jory won't give to a Keeper's fire" is absolute — he never relents in this act.
+- **The Lamp's name is revealed now** (WYNN SALLOW): the Book was set up on Day 40 to hold it, and a name the player
+  can carry back to the ridge is a cheap, strong payoff for a later session. The name stays the Book's ("a fare's a
+  fare") — what the Lamp does with it is next content's question.
+- **The Book's last line** plants mystery #2 without saying anything: a name written the night of the Snuffing that
+  nobody saw written, and the ember's lean. LORE records the planned answer (the Wakebearer's own hand) and leaves the
+  *how* open.
+- **The horn's note is long and long** — an answer to a light, distinct from the boat call (long and two short), so
+  Oda's reply reads as the lane answering back.
+
+**Problems / notes**
+- Wenna's model still wears the brass after she gives it; the Gannet's board model shows blank slate even after the
+  chalk came back. Both logged for the polish pass.
+- The smoke walk always burns Wenna's answer (first offered); the other paths are unit-tested only.
+
+**Next run should**
+1. **Polish/debt pass five** (due by Day 46) — ROADMAP *Next up* #1.
+2. Content next is due by Day 47: *The Lamp's name carried home* (or the lane on from Wrackholm).
+
 ## 2026-10-14 21:00 UTC — Day 42: The Teeth (content)
 
 **Did**

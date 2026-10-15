@@ -339,6 +339,16 @@ each .glb < 5 MB.
       wrack_light) and characters `wenna` (seated on a hawser coil), `jory`. Checkpoint `wrackholm`; the smoke walk sails
       it and back.
 
+- [x] [C] **Wrackholm, part three — the Wrack's burning** (Day 43): what Wrackholm holds — **Wenna's answer** (her
+      brass mouthpiece, blown bare into the fog), **the Gannet's crew board** (the yard's to give: Wenna's leave, prised
+      off the transom) and **Hale's white-lead pot** (Jory's day on the Teeth behind Ruan; never into a Keeper's fire;
+      with Jory gone up, he and Wenna give together); weighed and burned in the cradle (`wrackholm_beacon_burned`); the
+      Wrack lit in both regions (lit model, light, halo, fog leaning back, warmer light); aftermath for Wenna, Jory and
+      Oda (who keeps what Wrackholm burned); **the horn unlashed and sounded** (Jory or the player under the bell; Oda
+      answers); **the lane-house Book** (the Lamp's page: WYNN SALLOW; the last line, the night of the Snuffing, that the
+      ember leans to); **the friend-of-the-lanes oath** (`wrackholm_sworn`). Blender `wrack_light_lit`,
+      `answering_horn_open`, `gannet_hulk_bare`. Checkpoint `wrack_lit`; the smoke walk burns the Wrack live.
+
 - [x] [C] **Wrackholm, part two — the Teeth** (Day 42): Wenna remembers nobody knew the way by heart — **you put your
       feet on the white** (the lampwardens' white-lead marks, renewed every spring; Hale Corbet's hand lately) — and
       sends the player to the spit's end (stage `the_marks`); **`wrackholm_tide`** ('' / `low`) waited down there; the
@@ -356,38 +366,37 @@ each .glb < 5 MB.
       `MenuScreen` base that both menus extend. Debug args skip the title; `--title` forces it.
 
 ### Next up
-1. [C] **Wrackholm, part three — the Wrack's burning** (content, due by Day 46): stage `feed_the_wrack` is set and
-   waits. The Remnant candidates (each "something somebody on Wrackholm holds", each a debt): **Wenna's answer** — her
-   brass warden's mouthpiece, fifty years of answering boats home, the Gannet's included (burn it and nobody on
-   Wrackholm remembers she answered: her guilt and her life's work go together; Jory's `who=wenna` truth goes with it);
-   **the Gannet's crew board** — the names just brought back (burn it and the crew are unnamed again, for everyone, for
-   good — the empty bracket stays theirs); **Jory's copper** / his memory of Ruan carrying the white-lead pot (just
-   regained). Honour `wrackholm_who_answered` (keepers: Jory won't give anything a Keeper's fire burns; wenna: he and
-   Wenna decide together if `wrackholm_jory_up`). Then the answering horn **unlashed and sounded** (it takes two —
-   Jory?), the lane-house Book once lit (the Lamp's page — `wrackholm_book_told`, `thornwold_lamp_name_lost`) and the
-   friend-of-the-lanes swearing (`wrackholm_wenna_offer`). A `wrack_teeth` lit variant (the Wrack's light, fog thinned,
-   the white still there). Keep the Keepers' arc and Cindermoor out of it.
-2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+1. [P] **Polish/debt pass five** (due by Day 46; Day 38 was the last). Candidates: the Teeth's foam/broken water in
+   the gullies and the reef reading as one causeway (Day 42); Wenna's character model still wears the brass mouthpiece
+   after she gives it (a `wenna_nobrass` placement model, like Corran's `corran_nocord`); the Gannet's board model shows
+   blank slate after the ember brought the chalk back (a chalked variant once `wrackholm_board_read`); the smoke walk
+   only ever burns Wenna's answer (others: `test_wrack_burning.gd`); the conditional-prop-variant validator pass and a
+   flag `values` list (below); the Heron's landing collider.
+2. [C] **The Lamp's name carried home** (next content, due by Day 47): Oda's lanes back to Thornwold from the fen; tell
+   the Lamp WYNN SALLOW (`wrackholm_lamp_name_read`) — does it want it back, now the Ridge Light is lit? Hob and the four
+   (`thornwold_beacon_burned`). Or open Act II's next island / the lane on from Wrackholm (Cindermoor is "past more
+   besides"); the Keepers' first approach should weigh `wrackholm_sworn`.
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-3. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
    audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-5. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
+6. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
     per NPC (data field). Placeholder sounds generated procedurally.
-6. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
    brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-7. [S] Interaction polish: camera framing during dialogue; fade the
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -400,7 +409,7 @@ each .glb < 5 MB.
   Sleeve-Ember (`future`).
 - [x] [C] Thornwold (forest, shifting paths): landing + Bram (Day 17), woods + Hob (Day 21), ridge + the Lamp (Day 25), the burn (Day 27). Later: the old Keepers' road north along the ridge — where the four colliers went (and whether Hob goes after them).
 - [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); Day 33 out to the Heron's legs (Dunstan glimpsed); Day 35 the Heron's burn (lit); Day 37 Dunstan found (his walk back for his name later); Day 40 the lane on to Wrackholm.
-- [C] Wrackholm (the Tidewrights' island: what's owed). Begun Day 40 (the yard, the lane-house, Wenna, Jory, the Gannet's crew); Day 42 the Teeth (the white, the tide, the Wrack's lantern room); next: the Wrack Light's burning; the horn unlashed; the lane-house Book; the friend-of-the-lanes swearing.
+- [C] Wrackholm (the Tidewrights' island: what's owed). Begun Day 40 (the yard, the lane-house, Wenna, Jory, the Gannet's crew); Day 42 the Teeth (the white, the tide, the Wrack's lantern room); Day 43 the Wrack's burning, the horn, the Book, the oath. Open: the Book's last line (mystery #2); the Lamp's name to carry home; the empty bracket (the Gannet's timber, a year and a tide on).
 - [S] Day/night cycle & tides; NPC schedules. (Day 42: Wrackholm's tide is a story flag, `wrackholm_tide`, waited
   down at the spit; a real tide system should drive it and keep '' / `low` as its values.)
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
@@ -452,9 +461,9 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 42 (the Teeth); next content due by Day 46 (the Wrack's burning).
+- Last content session: Day 43 (the Wrack's burning); next content due by Day 47.
 - Last polish/debt session: Day 38 (pass four); next due by Day 46.
-- Last art session: Day 42 (the Teeth's reef slabs and marks, folded into the content session; Day 39 the fen led). Next
+- Last art session: Day 43 (the lit Wrack, the open horn, the bare Gannet, folded into the content session; Day 39 the fen led). Next
   art-led session due ~Day 45: Wrackholm follow-ups (below) or the Saltmarrow dressing follow-ups.
 - The Teeth (Day 42) follow-ups: the reef road reads as one smooth grey causeway from above (edge slabs break it up a
   little); broken water/foam lines in the gullies would sell low water; the exit's marker post stands on the spit's end

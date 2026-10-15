@@ -736,6 +736,49 @@ debts, salvage, and who answers for a thing.
     mine. That's the BEST kind of lost thing" — and sets it **on top of** the lost-things crate where everyone can look;
     the Wakebearer keeps the pouch ("You're not done finding") (`saltmarrow_pell_float`).
 
+  - **Established in play (Day 43 — the Wrack's burning):**
+    - **What Wrackholm holds.** Three things, each a debt: **Wenna's answer** — she takes the brass warden's mouthpiece
+      off its cord and blows it bare out over the Teeth, long and two short, an answer with nobody to hear it; the fog
+      doesn't give the note back ("Fifty years of boats came home on it… The Gannet's in there with the rest, and I'll
+      not pick it out"). **The Gannet's crew board** — the yard's to give ("a year and a tide, and nobody's coming for
+      her now; they're all aboard… I'm the yard"); prised off the transom with Jory's pry bar, "lighter than it ought to
+      be, for three people". **Hale's white-lead pot** — the lampwarden's pot, found wedged under the Gannet's thwart;
+      Ruan carried it the spring they took Jory out at seven ("Don't look at the water. Look at the white" — Hale said
+      it; Ruan said it after, all the way home, in Hale's voice). Jory holds it into the yard's fog until the white goes
+      grey. **Told the Keepers put the Spire out, Jory never gives**: the ember is "a Keeper's light. Same fire as the
+      Spire's, near enough". **If Jory has gone up to Wenna, they give together**: "Not hers… Burn mine." — "Hush. It's
+      not yours to choose for me, and it's not mine to choose for you. We'll each give, and the Wakebearer will weigh it."
+    - **The burning** (`wrackholm_beacon_burned`): gold through the horn panes; the timbers' lead tags "bright as coins";
+      the fog leans back off the Teeth, the white lying rock to rock in the light. The yard folk come out on the shingle
+      and stand looking — **Tidewrights don't shout at a lighting.** The new bracket stays empty, the Gannet's.
+      - **answer:** nobody on Wrackholm remembers Wenna ever answered a horn — the boats she brought home or the one she
+        didn't, her guilt and her life's work together. Jory, if he went up, keeps standing by her "and doesn't know what
+        for". **Oda remembers** (off-islanders keep what is burned): "I'll keep that for her."
+      - **board:** the Gannet's crew are nobody's again on Wrackholm, for good; Wenna counts three aboard "and no further";
+        Jory has a brother and no name for him. Oda: "I'll say them at every jetty I tie up at."
+      - **white:** Jory was never out on the Teeth; nobody left on the island has walked behind a lampwarden. He'll paint
+        the white come spring, "learning it off the marks". Oda remembers Hale telling it: the boy never looked up.
+      - The unburned Remnants go back (Wenna's brass warms in her fist: "Fifty years. And one.").
+    - **The horn answered.** Wenna cuts the lashing "the way you'd take off a bandage" and pulls the bung; it takes two
+      (Jory under the bell if he came up, else the Wakebearer). **Long, and long — not an answer to a boat, an answer to
+      a light.** The Slow Mercy answers from the jetty, long and two short ("Oda always did hurry the shorts"). With her
+      answer burned Wenna blows bare-lipped and wants a mouthpiece made ("I seem to have lost mine").
+    - **The lane-house inside:** one long smoky room, the yard folk round the fire (bread, a cup, nothing said about the
+      light); at the back a black-timber lectern and **the Book**, bound in tarred sailcloth, "as thick as a man's arm is
+      long" — nine hundred years of Keepers' names. **The Lamp's page** (if asked for, `wrackholm_book_told`), thirty
+      winters back, letters squared off as if chiselled: **WYNN SALLOW, keeper, for the Ridge Light. Paid twice.** "The
+      name's the Book's now; a fare's a fare. But you've read it" (`wrackholm_lamp_name_read`).
+    - **The Book's last line** (`wrackholm_book_opened`): dated **the night the Spire went dark**; the fog has had the
+      name; "the shape of a hand that wrote fast, hard enough to dent the paper". **Nobody wrote in it that night; nobody
+      came in** (Wenna was out by the horn till morning). The ember leans to it — and the Wakebearer finds they've shut
+      the Book without deciding to. Wenna: "…Aye. Some other night." *[SECRET — planned]* the hand is the Wakebearer's
+      own (mystery #2); how it came to be written that night with nobody coming in stays open — decide before paying it
+      off, never before Act III.
+    - **A friend of the lanes** (`wrackholm_sworn`): a palm in the pan of the iron hand-scale over the door — "Weighed,
+      and not found light. Whatever deck you step on, you step on as one of ours. Whatever you're owed, the lanes owe you.
+      And what you owe, you'll pay." The yard folk: "Weighed." Declined: "The scale doesn't need you on it to know what
+      you weigh… Keepers'll ask you the same, one day, by their rites."
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)
@@ -753,7 +796,7 @@ debts, salvage, and who answers for a thing.
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
    Keepers quietly feeding it the memories of the Hushed. Oriel could not continue it.
-2. **Who is the player?** *[SECRET]* The player is not a stranger. They were a Keeper novice who
+2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —
