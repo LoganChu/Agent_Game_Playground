@@ -603,21 +603,27 @@ def _hob(seated: bool) -> None:
     assemble(b, "hob")
 
 
-def build_lamp() -> None:
+def build_lamp(hood_down: bool = False) -> None:
     """The Lamp, Thornwold's beacon-keeper (old, a Keeper thirty years at the Ridge Light): thin
     and stooped under a hooded oilskin cape, the hood up and the face lost in its shadow (nobody
     has seen it — "you don't ask the Lamp"); under the cape a Keeper's long silverfog robe, the
     ember stitched bright on the breast (not faded like Aldous's); hands soot-black from the
     chisel; a lantern pole in the right hand with a lit Keeper's lantern on its crook (the light
     "proper, like yours"); two cold lanterns at the belt to hang. Half-Hushed like Hob: the
-    cape's hem and the left sleeve gone silver."""
+    cape's hem and the left sleeve gone silver.
+
+    hood_down: `lamp_named` — told its name (WYNN SALLOW, out of the Tidewrights' Book), the Lamp has
+    put its hood back for the first time anyone has seen: a long weathered face, soot in the lines,
+    white hair cropped close as a Keeper's, the hood lying in a thick roll on its shoulders, the
+    head lifted off the bench."""
     reset_scene()
     b = Body(build=0.88)
     robe = material("silverfog", -0.12)
     cape = material("driftwood", -0.55)          # oilskin, dark and dull with wax and soot
     soot = material("ink", 0.1)
     iron = material("ink", 0.18)
-    base_body(b, material("driftwood", -0.15), robe, material("ink", 0.0), robe, sleeves=cape, face=False)
+    skin = material("driftwood", -0.15) if not hood_down else material("driftwood", -0.02)
+    base_body(b, skin, robe, material("ink", 0.0), robe, sleeves=cape, face=hood_down)
     t = b.parts["Torso"]
     t.append(limb((0, 0, 0.05), (0, 0, b.waist + 0.1), 0.33, 0.26, robe, verts=8))           # robe to the ground
     # The cape: hung from the shoulders to mid-shin, open at the front over the robe.
@@ -635,14 +641,26 @@ def build_lamp() -> None:
         t.append(limb((x, y, z + 0.18), (x, y, z + 0.1), 0.01, 0.01, iron, verts=4))
         t.append(limb((x, y, z - 0.06), (x, y, z + 0.1), 0.065, 0.06, material("silverfog", -0.45), verts=6))
         t.append(limb((x, y, z + 0.1), (x, y, z + 0.15), 0.07, 0.015, iron, verts=6))
-    # The hood, up and deep: the face is a shadow in it.
     h = b.parts["Head"]
     hood = cape
-    h.append(ball(0.27, (0, 0.03, b.head + 0.02), hood, scale=(1.0, 1.05, 1.1)))
-    h.append(limb((0, -0.12, b.head + 0.02), (0, -0.26, b.head - 0.01), 0.23, 0.21, hood, verts=8))  # the cowl's lip
-    h.append(ball(0.17, (0, -0.24, b.head - 0.03), material("ink", -0.2), scale=(1.0, 0.45, 1.15)))  # the shadow
-    h.append(limb((0, 0.2, b.head - 0.05), (0, 0.3, b.head - 0.4), 0.09, 0.03, hood, verts=5))  # hood point
-    h.append(ring(0.21, b.head - 0.22, 0.08, hood))
+    if hood_down:
+        # The hood put back: a thick roll of oilskin lying round the neck and down the back.
+        t.append(ring(0.2, b.neck - 0.02, 0.07, hood))
+        t.append(ball(0.2, (0, 0.17, b.shoulder - 0.02), hood, scale=(1.15, 0.55, 0.8)))
+        t.append(limb((0, 0.2, b.shoulder - 0.12), (0, 0.24, b.shoulder - 0.42), 0.08, 0.03, hood, verts=5))  # hood point
+        # White hair cropped close, a Keeper's crop gone untended; soot in the lines of the face.
+        hair = material("bone", 0.25)
+        h.append(ball(b.head_r * 1.02, (0, 0.06, b.head + 0.06), hair, scale=(1.04, 0.95, 0.74)))
+        h.append(block((0.2, 0.025, 0.02), (0, -b.head_r * 0.97, b.head + 0.075), material("ink", 0.05)))  # a soot-dark brow
+        h.append(block((0.06, 0.02, 0.05), (0.06, -b.head_r * 0.9, b.head - 0.08), material("ink", -0.1)))  # a thumb of soot on the cheek
+        h.append(block((0.1, 0.02, 0.016), (0, -b.head_r * 0.92, b.head - 0.11), material("ink", 0.1)))  # a thin mouth
+    else:
+        # The hood, up and deep: the face is a shadow in it.
+        h.append(ball(0.27, (0, 0.03, b.head + 0.02), hood, scale=(1.0, 1.05, 1.1)))
+        h.append(limb((0, -0.12, b.head + 0.02), (0, -0.26, b.head - 0.01), 0.23, 0.21, hood, verts=8))  # the cowl's lip
+        h.append(ball(0.17, (0, -0.24, b.head - 0.03), material("ink", -0.2), scale=(1.0, 0.45, 1.15)))  # the shadow
+        h.append(limb((0, 0.2, b.head - 0.05), (0, 0.3, b.head - 0.4), 0.09, 0.03, hood, verts=5))  # hood point
+        h.append(ring(0.21, b.head - 0.22, 0.08, hood))
     # Soot-black hands; the left sleeve silvered where the fog has had it.
     for side in ("L", "R"):
         b.parts["Arm" + side].append(ball(0.088, b.hand(side), soot, scale=(0.95, 1.05, 1.15), segments=6, rings=4))
@@ -664,8 +682,16 @@ def build_lamp() -> None:
     arm.append(limb(lamp + Vector((0, 0, 0.17)), lamp + Vector((0, 0, 0.24)), 0.08, 0.015, iron, verts=6))
     b.arm_rest["ArmR"] = (math.radians(-24), 0, math.radians(-4))
     b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(5))
-    b.head_rest = (math.radians(14), 0, 0)  # bowed: the hood hangs over the face
-    assemble(b, "lamp")
+    if hood_down:
+        b.head_rest = (math.radians(4), 0, 0)  # lifted: looking at whoever said its name
+        assemble(b, "lamp_named")
+    else:
+        b.head_rest = (math.radians(14), 0, 0)  # bowed: the hood hangs over the face
+        assemble(b, "lamp")
+
+
+def build_lamp_named() -> None:
+    build_lamp(hood_down=True)
 
 
 def build_hesper() -> None:
@@ -1076,7 +1102,7 @@ def build_jory() -> None:
 
 
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
-            build_hob, build_hob_seated, build_lamp, build_hesper, build_corran, build_corran_nocord,
+            build_hob, build_hob_seated, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
             build_dunstan_seated_cord, build_wenna, build_wenna_nobrass, build_jory]
 
