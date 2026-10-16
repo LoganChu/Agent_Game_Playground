@@ -751,7 +751,8 @@
         "text": "That's your Keeper. The name's the Book's now; a fare's a fare. But you've read it, and nobody can make you forget what you've read. That's not mine to stop.",
         "set": {
           "wrackholm_lamp_name_read": true
-        }
+        },
+        "quest_start": "paid_twice"
       },
       {
         "goto": "book_last"

@@ -472,6 +472,50 @@
         "if": "flag:thornwold_beacon_burned"
       },
       {
+        "if": [
+          "flag:thornwold_lamp_name=told",
+          "flag:wrackholm_sworn=sworn",
+          "!flag:lanes_oda_weighed_name"
+        ],
+        "say": "oda",
+        "text": "You carried the Lamp's name home off the Book. Wenna let you read it, so that's between you and the Book."
+      },
+      {
+        "if": [
+          "flag:thornwold_lamp_name=told",
+          "flag:wrackholm_sworn=sworn",
+          "!flag:lanes_oda_weighed_name"
+        ],
+        "say": "oda",
+        "text": "But you're ours now, sworn. The Book doesn't mind being read. It minds being emptied. Don't make a habit of carrying fares back, friend of the lanes.",
+        "set": {
+          "lanes_oda_weighed_name": true
+        }
+      },
+      {
+        "if": [
+          "flag:thornwold_lamp_name=told",
+          "!flag:wrackholm_sworn=sworn",
+          "!flag:lanes_oda_weighed_name"
+        ],
+        "say": "oda",
+        "text": "You carried the Lamp's name home off the Book. A Keeper's fare, given back by somebody who's not one of ours. Wenna'll not mind. She'd mind if you were sworn.",
+        "set": {
+          "lanes_oda_weighed_name": true
+        }
+      },
+      {
+        "if": [
+          "flag:thornwold_lamp_name=left",
+          "!flag:lanes_oda_weighed_name"
+        ],
+        "say": "oda",
+        "text": "You read a fare and left it paid. Tidewright manners, that. Wenna would weigh you heavy for it.",
+        "set": {
+          "lanes_oda_weighed_name": true
+        }
+      },
+      {
         "choice": [
           {
             "text": "Who kept Thornwold's beacon?",

@@ -1,0 +1,13 @@
+{
+  "id": "paid_twice",
+  "title": "Paid Twice",
+  "region": "thornwold_ridge",
+  "giver": "wenna",
+  "description": "In the lane-house Book on Wrackholm, thirty winters back, in a hand squared off as if with a chisel: WYNN SALLOW, keeper, for the Ridge Light. Paid twice. The Lamp put its name somewhere safe the winter it went dark, and lost it.",
+  "stages": [
+    {
+      "id": "carry_it_home",
+      "text": "The name is the Book's now, Wenna says; a fare's a fare. But you've read it, and nobody can make you forget what you've read. The Lamp is up on Thornwold's ridge, at the bench under the lodge's eave. Oda's lanes run back west: Wrackholm to the fen, the fen to Thornwold. Whether to say it, or to ask first, is yours."
+    }
+  ]
+}

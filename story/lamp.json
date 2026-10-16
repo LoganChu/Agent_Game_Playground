@@ -81,6 +81,16 @@
         "text": "There's a light on the stair. I saw it from the gallery. First new light on the bank since the fourth one went up."
       },
       {
+        "if": "flag:thornwold_lamp_name=told",
+        "say": "lamp",
+        "text": "Wynn. I say it in the mornings, at the bench. Still sounds like somebody I used to know."
+      },
+      {
+        "if": "flag:thornwold_lamp_name=left",
+        "say": "lamp",
+        "text": "The Book's keeping it. I sleep better, knowing where it is."
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -117,6 +127,14 @@
             "goto": "stair"
           },
           {
+            "text": "I read your name. In the Tidewrights' Book, on Wrackholm.",
+            "if": [
+              "flag:wrackholm_lamp_name_read",
+              "flag:thornwold_lamp_name="
+            ],
+            "goto": "name"
+          },
+          {
             "text": "The Ridge Light is cold.",
             "goto": "beacon"
           },
@@ -133,6 +151,14 @@
       }
     ],
     "who": [
+      {
+        "if": "flag:thornwold_lamp_name=told",
+        "goto": "who_named"
+      },
+      {
+        "if": "flag:thornwold_lamp_name=left",
+        "goto": "who_left"
+      },
       {
         "say": "lamp",
         "text": "Up here the colliers call me the Lamp. It does. It's what I do, so it does."
@@ -545,6 +571,165 @@
         "set": {
           "thornwold_lamp_saw_light": true
         }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "who_named": [
+      {
+        "say": "lamp",
+        "text": "Wynn Sallow. Keeper, for the Ridge Light. Up here the colliers call me the Lamp, and I answer to both now."
+      },
+      {
+        "say": "lamp",
+        "text": "Thirty winters I kept that light. Down twice a winter for flour and oil, and back up before the road could change its mind. Keepers don't give names, up here. I gave mine to a book, and you brought it back up a ladder."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "who_left": [
+      {
+        "say": "lamp",
+        "text": "The Lamp. It's what I do, so it's what I am. There's a name for me in a book on Wrackholm, and that's where it lives."
+      },
+      {
+        "say": "lamp",
+        "text": "Thirty winters I kept that light. Keepers don't give names, up here. I gave mine once, and it's paid for."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "name": [
+      {
+        "say": "narrator",
+        "text": "The chisel stops. The hood doesn't turn."
+      },
+      {
+        "say": "lamp",
+        "text": "The Tidewrights. The lane-house, at the back, in the dark. Yes. Twice a fare, for a Keeper. The coin, and then..."
+      },
+      {
+        "if": "flag:wrackholm_sworn=sworn",
+        "say": "lamp",
+        "text": "You've their weighing on you; I can hear it in how you stand. They'll have let you read it, then. A friend of the lanes."
+      },
+      {
+        "say": "lamp",
+        "text": "Somewhere safe. I said that, didn't I. Thirty winters back I wrote it in their Book for the crossing, and when the fog came it went out of my head and stayed on the page. Safe. I'd forgotten I'd told anyone but me."
+      },
+      {
+        "choice": [
+          {
+            "text": "Your name is Wynn Sallow.",
+            "goto": "name_said"
+          },
+          {
+            "text": "Do you want it back?",
+            "goto": "name_asked"
+          },
+          {
+            "text": "Not now.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "name_said": [
+      {
+        "say": "narrator",
+        "text": "You say it. Two words; it takes no time at all."
+      },
+      {
+        "say": "narrator",
+        "text": "The Lamp sits very still. Then both soot-black hands go up to the hood, and put it back."
+      },
+      {
+        "say": "narrator",
+        "text": "An old face, long and weathered, soot gone into every line of it like rain into a road. White hair cropped close the way the Keepers crop it, grown out ragged. Eyes the grey of the ridge stone, looking straight at you."
+      },
+      {
+        "say": "lamp",
+        "text": "Wynn Sallow."
+      },
+      {
+        "say": "lamp",
+        "text": "Thirty winters nobody's said it. I didn't know I'd been waiting on it till it came. I've a habit of losing the ends of things. Listen: that one had an end."
+      },
+      {
+        "say": "lamp",
+        "text": "There's a thing came back with it. The last midwinter. I'd carried my coal down from the flame and stopped on the east stair, and there was a novice on the landing. Young. A light cupped in their hands, as if it might get away."
+      },
+      {
+        "say": "lamp",
+        "text": "They said, 'Keep one back this year, Keeper Sallow.' My name. Nobody on that stair ever used it; it was in the Book and nowhere else. I thought they were being cheeky. I kept one back."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember leans, a hair, toward the iron box. Or toward the stair it came down. You couldn't say which."
+      },
+      {
+        "say": "lamp",
+        "text": "I never asked who. Keepers don't. The door-warden on the east stair might know; he never asked anybody's business, but he saw every face go by."
+      },
+      {
+        "set": {
+          "thornwold_lamp_name": "told"
+        },
+        "quest_complete": "paid_twice"
+      },
+      {
+        "say": "lamp",
+        "text": "Go on. I'll be here. I'll be Wynn, at the bench. That's a strange thing to be."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "name_asked": [
+      {
+        "say": "lamp",
+        "text": "Do I..."
+      },
+      {
+        "say": "narrator",
+        "text": "The chisel turns over in its fingers, once, twice."
+      },
+      {
+        "say": "lamp",
+        "text": "Paid twice, it says? In my hand? Square letters, like I'd cut them?"
+      },
+      {
+        "say": "narrator",
+        "text": "You nod."
+      },
+      {
+        "say": "lamp",
+        "text": "Then I gave it. A Keeper pays what's asked, and doesn't go round after for the change."
+      },
+      {
+        "say": "lamp",
+        "text": "And the four. If they come back along the ridge, they'll be looking for the Lamp. There should be a light at the end of it they know. Not some stranger with a name they never heard."
+      },
+      {
+        "say": "lamp",
+        "text": "Leave it with the Tidewrights. It's in good hands. Better than mine; mine lose things."
+      },
+      {
+        "say": "narrator",
+        "text": "The hood dips, once, the way a Keeper bows at a door."
+      },
+      {
+        "say": "lamp",
+        "text": "Thank you for asking. Nobody asks the Lamp."
+      },
+      {
+        "set": {
+          "thornwold_lamp_name": "left"
+        },
+        "quest_complete": "paid_twice"
       },
       {
         "goto": "hub"

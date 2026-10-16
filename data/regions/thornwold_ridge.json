@@ -869,7 +869,20 @@
         -6.8
       ],
       "rotation_y": 190,
-      "note": "At the lantern bench under the lodge's eave, bent over the iron box, back to the ladder."
+      "note": "At the lantern bench under the lodge's eave, bent over the iron box, back to the ladder.",
+      "if": "!flag:thornwold_lamp_name=told"
+    },
+    {
+      "npc": "lamp",
+      "position": [
+        -7.3,
+        0,
+        -6.8
+      ],
+      "rotation_y": 190,
+      "note": "At the bench as ever, its name said back to it: the hood put back for the first time anyone has seen, the face lifted.",
+      "if": "flag:thornwold_lamp_name=told",
+      "model": "res://assets/models/characters/lamp_named.glb"
     }
   ],
   "objects": [

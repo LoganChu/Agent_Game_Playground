@@ -279,6 +279,15 @@
       "default": false,
       "future": true
     },
+    "thornwold_lamp_name": {
+      "description": "The Lamp's name carried home from the Tidewrights' Book (Day 45): '' (not yet), 'told' (the player said it outright: WYNN SALLOW; the Lamp puts its hood back, finishes its sentences, and remembers who told it to keep a coal back the last midwinter) or 'left' (asked first; the Lamp chose to leave it paid in the Book and stay the Lamp, for the four coming down the road).",
+      "default": "",
+      "values": [
+        "",
+        "left",
+        "told"
+      ]
+    },
     "fen_landed": {
       "description": "The player has come ashore at Glasswater Fen's staithe (one-time arrival scene after the first sailing north-about from Thornwold).",
       "default": false
@@ -545,8 +554,7 @@
     },
     "wrackholm_lamp_name_read": {
       "description": "In the lane-house Book, thirty winters back, the player read the Lamp's name in its own hand: WYNN SALLOW, keeper, for the Ridge Light. Paid twice. (To carry back to the Lamp.)",
-      "default": false,
-      "future": true
+      "default": false
     },
     "wrackholm_sworn": {
       "description": "Wenna's offer, at the scale over the lane-house door once the Wrack was lit and the horn sounded: '' (not answered), 'sworn' (sworn a friend of the lanes: no Tidewright deck will weigh the player light) or 'declined'. For the Tidewrights' and Keepers' arcs.",
@@ -557,6 +565,10 @@
         "sworn"
       ],
       "future": true
+    },
+    "lanes_oda_weighed_name": {
+      "description": "Oda has weighed the Lamp's name being carried home off the Book (one-time line at Thornwold landing once thornwold_lamp_name is set; differs for a friend of the lanes).",
+      "default": false
     }
   }
 }

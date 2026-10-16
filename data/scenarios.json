@@ -412,6 +412,31 @@
         "wennas_answer": 1
       },
       "shot": "--camera=4,5.5,9:-20,2,-1"
+    },
+    {
+      "id": "lamp_named",
+      "act": "Act II — The Drift",
+      "title": "The Lamp's name carried home",
+      "inherits": "wrack_lit",
+      "region": "thornwold_ridge",
+      "spawn": "from_ladder",
+      "description": "The horn answered, the Book opened (the Lamp's page read: WYNN SALLOW), sworn a friend of the lanes; Oda sailed back west by the fen to Thornwold. On the ridge the player said the name outright: the Lamp has put its hood back and remembers the novice on the east stair who told it to keep a coal back. Oda, at the landing, has a word for a sworn friend carrying fares home.",
+      "flags": {
+        "wrackholm_horn_sounded": true,
+        "wrackholm_book_told": true,
+        "wrackholm_lamp_name_read": true,
+        "wrackholm_book_opened": true,
+        "wrackholm_sworn": "sworn",
+        "lanes_ferry_at": "thornwold",
+        "thornwold_lamp_name": "told"
+      },
+      "quests": {
+        "paid_twice": "done"
+      },
+      "items": {
+        "wennas_answer": 0
+      },
+      "shot": "--camera=-9.8,2.0,-8.0:-7.3,1.5,-6.8"
     }
   ]
 }
