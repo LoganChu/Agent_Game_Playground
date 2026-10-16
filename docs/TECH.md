@@ -33,6 +33,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --flags=intro_seen \
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
+$GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]  # the procedural sounds as .wav (audio review)
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord wenna wenna_nobrass jory …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
@@ -71,6 +72,8 @@ scripts/
     ember_meter.gd        EmberMeter — ember drain/refill in the Greying
     terrain_field.gd      TerrainField — sculpted ground heights, walkability, reachability
     region_events.gd      RegionEvents — region arrival events (which fires, applying its flags)
+    sound_synth.gd        SoundSynth — renders a data/audio.json recipe into an AudioStreamWAV
+    sound_bank.gd         SoundBank — rendered sounds by id, cached, rendered off the main thread
     act_recap.gd          ActRecap — act_ends in game.json: which acts are reached, recap lines
     json_util.gd, layers.gd
   autoload/    singletons (registered in project.godot)
@@ -89,6 +92,8 @@ scripts/
                turn-back; a child of main), atmosphere.gd (environment, sky, sun; mood
                tweens; a child of main), water_builder.gd (sea mesh with baked shore depth),
                floating_prop.gd (a prop's `float`: bob/roll + waterline foam ring)
+               audio_director.gd (the soundscape: ambience, footsteps, voices, cues, the
+               Greying's muffle; a child of main), sound_emitter.gd (a prop's positional `sound`)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
   ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel), act_end_card.gd
@@ -106,7 +111,7 @@ scripts/
   debug/       smoke_test.gd, screenshot.gd, character_lineup.gd, prop_lineup.gd (art-review scenes in scenes/debug/,
                lit by the game's Atmosphere through lineup_light.gd, `--mood=<region>`)
   main.gd      root scene script (scenes/main.tscn)
-data/          game.json, flags.json, regions/, npcs/, items/, quests/  (one JSON per record)
+data/          game.json, flags.json, audio.json, regions/, npcs/, items/, quests/  (one JSON per record)
 story/         dialogue JSON, one file per conversation
 assets/models/ Blender-exported .glb (+ Godot .import files — commit both)
 tools/         setup.sh, run_checks.sh, blender/ scripts
@@ -157,6 +162,8 @@ Every record lives in its own file whose name equals its `id`.
             "overrides": [{"if": condition, <any light key>...}]},  // see "Atmosphere"
   "greying": [{"rect"|"ellipse": [...], "strength": 1, "falloff": 2, "height": 2.4,
                "if": condition, "note": "..."}],        // fog areas that drain the ember — see "The Greying"
+  "ambience": [{"sound": "surf", "volume": 0.8, "if": condition}],  // looping layers — see "Audio"
+  "footsteps": "shingle", "footsteps_raised": "stone",  // surfaces (audio.json); raised = decks etc. (default boards)
   "spawn_points": {"default": [x,y,z], ...},    // "default" required
   "ground": {...},                              // sculpted terrain — see "Ground" below
   "terrain": [{"size": [w,h,d], "position": [x,top_y,z], "color": "moss", "rotation_y": 0}],  // legacy slabs (absolute y)
@@ -238,6 +245,9 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   rings, `FloatingProp.wading_mesh`). At build time a ring is kept only if the ground under
   it is below `water_level`, so a house straddling the tide line gets rings on its wet legs
   only. Used by the dock and the houses in Saltmarrow's shallows.
+- `"sound": {"id": "fire", "offset": [0, 4, 0], "range": 20, "volume": 1}` (model props) — a
+  looping positional sound in model space (`SoundEmitter`; Day 46): every lit beacon `fire`,
+  the charcoal clamps `embers`. See "Audio".
 - `"smoke": [[x, y, z], ...]` (model props) — smoke vents in model space (before `scale`):
   each gets a `CPUParticles3D` column of low-poly puffs that swell, drift downwind and fade
   (`PropSmoke`; preprocessed so it is already standing at load; CPU particles so the
@@ -717,7 +727,7 @@ once, on `drag_ended`) and again on leaving.
 [keys]     <action> = "<key name>"   only rebound actions, e.g. interact = "F"
 ```
 - **Audio buses** are created in code (`GameSettings.ensure_bus`, sent to Master) — there is
-  no `default_bus_layout.tres`. The audio-hooks item should play through these buses by name.
+  no `default_bus_layout.tres`. Everything plays through them by name (see "Audio").
 - **Rebinding**: each `InputSetup.REBINDABLE` action's first key in `BINDINGS` is its
   primary; rebinding replaces it, swaps with whichever action held the new key, and refuses
   Esc and the menu keys (pause stays Esc/P/Start). Default secondaries (arrows, Enter) stay
@@ -728,6 +738,61 @@ once, on `drag_ended`) and again on leaving.
   (`GameSettings.set_current`); the smoke test writes `user://smoke_settings.cfg`.
 - Range controls don't emit `value_changed` outside the scene tree (Godot 4.7): tests that
   drive a menu slider emit it by hand.
+
+## Audio (Day 46)
+No audio files yet: every sound is a **procedural placeholder**, a small recipe in
+`data/audio.json` `sounds` rendered at runtime by `SoundSynth` (`scripts/core/sound_synth.gd`;
+16-bit mono, 22 050 Hz). Kinds: `noise` (white/pink/brown, low/high-pass, `swell` for the
+sea, `gusts` for wind), `crackle` (fire), `tone` (harmonics, slide, vibrato, breath — horns,
+voices, ticks), `chirps` (calls scattered over a loop — gulls, birds, frogs), `chime` (struck
+notes — quest cues), `mix` (parts summed). One-shots take `attack`/`decay`/`release`;
+`loop: true` renders a little long and crossfades the tail into the head (seamless; tests check
+the wrap). Renders are seeded by the sound's id, so a sound is the same every run. To swap in a
+recording later, replace the recipe with `{"bus": …, "file": "res://assets/audio/x.ogg"}`.
+
+`SoundBank` caches rendered streams for the session and renders off the main thread
+(`WorkerThreadPool`): `warm(db, ids)` starts renders, `is_ready` polls, `stream` waits or
+renders on the spot. All ~40 sounds take ~3 s of CPU in total (8 MB); a region only warms what
+it uses (ambience on arrival, prop sounds as it builds; every one-shot cue at startup).
+
+`AudioDirector` (child of main, `main.audio`) plays it all through the Settings buses:
+- **Ambience**: a region's `"ambience": [{"sound", "volume" 0..1, "if"}]` layers (each must
+  loop), faded in/out over 1.6 s on arrival and when the story changes them; a layer shared
+  with the last region carries on. The world sounds different after a burn: gulls come back
+  to Saltmarrow and Shingle Point once the Gull's Beacon burns (and the headland's wind
+  drops), birds to Thornwold, frogs to the fen, gulls to Wrackholm and the Teeth.
+- **Prop sounds**: a prop's `"sound": {"id", "offset", "range", "volume"}` is a positional
+  `SoundEmitter` (AudioStreamPlayer3D) that starts once rendered — every lit beacon's `fire`,
+  the charcoal clamps' `embers`.
+- **Footsteps**: `CharacterRig.footfall` fires twice per walk cycle (in step with the legs);
+  `Player.stepped` (on the floor only) → `Region.footstep_surface(pos)`: a pier deck or
+  anything built ≥ 0.2 m above the ground is `boards` (or the region's `footsteps_raised` —
+  the Teeth's slabs are `stone`), shallow water `wade`, else the region's `footsteps`
+  (`audio.json footsteps.surfaces` maps each surface to a sound).
+- **Voices**: `DialogueUI.line_shown` → `speak()`: one blip per three words (1..6) in the
+  speaker's `voice` (`{sound, pitch}` on the NPC; `player_voice` in audio.json; the narrator is
+  silent), each a little off-pitch. A new line cuts the last one off.
+- **Story sounds**: a dialogue step's `"sound": "<id>"` (an effect, one-shot only) — the
+  ferry's horn (`horn_far`), the answering horn (`horn_near`), each beacon catching (`kindle`).
+- **Cues**: `audio.json events` — quest started/updated/done chimes, an item gained, a tick
+  on every button press (any `BaseButton` added to the tree) and on focus moves.
+- **The Greying**: a low-pass on the Ambience bus closes toward `greying.muffle_cutoff` with
+  depth, the ember's heartbeat (`greying.heart`) comes up under it, and `turn_back` plays when
+  the fog turns the player back.
+The validator checks every recipe (kind, bus, numbers, length ≤ 20 s, colours, mix parts),
+every sound named anywhere (regions, props, NPC voices, dialogue, footsteps, events), that
+layers and prop sounds loop and dialogue sounds don't, and warns on a sound never played.
+`main.audio.history` lists recent one-shots (the smoke run checks footsteps on the dock,
+Pell's blips, the Greying's muffle and heart, the turn-back, the gulls back on the headland).
+
+**Quitting:** a sound still playing at the instant the process ends shows as "N ObjectDB
+instances were leaked at exit" (the audio server never drains its playback list; a player
+stopped a few frames earlier doesn't leak). The menus' Quit and the smoke run go through
+`AudioDirector.quit_game(tree, code)` (stop everything, wait 3 frames, quit); a bare
+`--quit-after` launch still prints the warning — benign, a warning not an error.
+
+Listen to the sounds: `$GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]`
+writes each as a .wav (never commit them).
 
 ## Save format
 `user://saves/<slot>.json`: `{version, saved_at, region, spawn, player_position, world:

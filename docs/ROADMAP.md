@@ -376,8 +376,19 @@ each .glb < 5 MB.
       hood put back — Blender `lamp_named`; the novice on the east stair) or asked first (left paid in the Book, for
       the four); Oda weighs it once, harder on a sworn friend of the lanes. Checkpoint `lamp_named`.
 
+- [x] [S] **Audio hooks v1** (Day 46): the game has sound. Every sound is a procedural placeholder (`SoundSynth`
+      recipes in `data/audio.json`, rendered at runtime off the main thread by `SoundBank`; 36 sounds, ~8 MB, no
+      files); `AudioDirector` plays through the Settings buses: **region ambience layers** (surf, harbor lap, wind,
+      pines, reeds, the fen's hush) crossfaded on arrival and **changed by the burns** (gulls back over Saltmarrow
+      and Wrackholm, birds in Thornwold, frogs in the fen); **positional fire** at every lit beacon and **embers** at
+      the charcoal clamps; **footsteps** in step with the walk (shingle, grass, needles, stone, mud, boards on decks,
+      wading in the shallows); **voice blips** per NPC (`voice` {sound, pitch}); **story sounds** from dialogue
+      (`sound`: the ferry's horn, the answering horn, each beacon catching); quest/item chimes and UI ticks; **the
+      Greying muffles the world** (Ambience low-pass) with the ember's heartbeat under it and a turn-back sound.
+      Validator checks every recipe and reference; `tools/debug/export_sounds.gd` writes them as .wav to listen.
+
 ### Next up
-1. [C] **Next content** (due by Day 49): the lane on from Wrackholm (Cindermoor is "past more besides"; the Keepers'
+1. [C] **Next content** (due by Day 49; Day 46 was systems — audio): the lane on from Wrackholm (Cindermoor is "past more besides"; the Keepers'
    first approach should weigh `wrackholm_sworn` and `thornwold_lamp_name`), or **Aldous and the novice** — told the Lamp
    remembers a novice on the east stair saying "Keep one back this year, Keeper Sallow", Aldous (the door-warden who
    "saw every face go by") might know a face (mystery #2: don't answer it), or **Hob and the ladder** (salt_row: the Lamp
@@ -393,11 +404,16 @@ each .glb < 5 MB.
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
-   drifting in a pocket; audio cue (muffling low-pass + heartbeat-ish ember crackle) with the
-   audio item; colourblind-safe meter check with the accessibility item. Consider a story flag
+   drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
+   with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-5. [S] Audio hooks (buses exist since Day 19 — play through them by name), footsteps, ambient loop per region, dialogue "voice blips"
-    per NPC (data field). Placeholder sounds generated procedurally.
+5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+   voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
+   **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
+   would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
+   the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
+   path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
+   the Book shut, the horn on every sailing).
 6. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
    brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
@@ -455,7 +471,7 @@ each .glb < 5 MB.
   seen — raise them onto the road's shoulder or drop them.
 - Title screen follow-ups (fold into an [A]/[S] item): the panel sits over the Wakebearer — an
   off-centre panel or a framed camera would show them on the beach; the big name is a fixed 64 px
-  (ignores the text-size setting); no music/ambience yet (audio item); no autosave, so "Return to
+  (ignores the text-size setting); no music yet (the start region's ambience plays under it since Day 46); no autosave, so "Return to
   title" and Continue rely on manual/quick saves (full save system item).
 - Test time budget: `tools/run_checks.sh` gives each step 300 s. Day 31: tests 26 s, smoke ~45 s, import the
   longest. The runner prints the slowest tests — check them when adding a validator pass over every region.

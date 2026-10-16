@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-16 21:00 UTC — Day 46: Audio hooks v1 (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again with a stale
+  `origin/main` (Day 38's); fetched and reset local `main` to Day 45's `b6d3a30`. Baseline green.
+- **Systems (last systems session Day 41; content was Day 45, polish Day 44):** ROADMAP *Next up* #5, audio hooks.
+  The game was silent; it now has a whole placeholder soundscape, with no audio files committed:
+  - **`SoundSynth`** renders small JSON recipes (`data/audio.json`, 36 sounds) into 16-bit mono WAV streams: noise
+    (white/pink/brown, filtered, sea swell, wind gusts), fire crackle, tones (harmonics, slide, vibrato, breath),
+    scattered chirps (gulls, birds, frogs), chimes, mixes. Loops crossfade their tail into their head; renders are
+    seeded by id, so a sound is the same every run. **`SoundBank`** caches them and renders off the main thread.
+  - **`AudioDirector`** (child of main) plays through the Day 19 buses: **ambience layers per region** (`ambience`
+    with `if`), crossfaded on arrival and live when the story changes — **the burns are audible**: gulls come back
+    over Saltmarrow and Shingle Point when the Gull's Beacon burns (the headland's wind drops), birds into Thornwold,
+    frogs into the fen, gulls over Wrackholm and the Teeth. **Positional `fire`** at all six lit beacons and
+    `embers` at the three charcoal clamps (prop `sound` → `SoundEmitter`).
+  - **Footsteps** in step with the walk (`CharacterRig.footfall`, twice a cycle): a region surface (shingle,
+    grass, needles, stone, mud), `boards` on piers and anything built above the ground (the Teeth's slabs say
+    `stone`), `wade` in the shallows.
+  - **Voices**: every NPC has a `voice` ({sound, pitch} — five timbres: soft, reed, gruff, bright, hollow; Pell
+    high and bright, the Lamp and the Unmoored hollow); a line blips once per three words; the narrator is silent.
+  - **Story sounds**: a dialogue step's `sound` — the ferry's horn (arrival, and Oda's on the fen sailing), the
+    answering horn on Wrackholm, and each of the four beacons catching (`kindle`).
+  - **Cues**: quest started/updated/done chimes, an item gained, a tick on any button press and focus move.
+  - **The Greying** (a Greying v2 piece): the Ambience bus closes to 500 Hz with depth, the ember's heartbeat comes
+    up under it, and being turned back has its own fall.
+  - Validator: every recipe (kind, bus, numbers, ≤ 20 s, colours, mix parts) and every sound named anywhere; layers
+    and prop sounds must loop, dialogue sounds mustn't; warns on a sound never played.
+  - `tools/debug/export_sounds.gd` writes every sound as .wav for listening.
+- **Tests:** `test_audio.gd` (11): every kind renders deterministically and normalised, loops wrap without a click,
+  the bank's threaded renders, every game sound renders (~3 s, 8 MB) and ambience loops ≥ 6 s, config refs, the
+  validator's catches, the world after each burn, beacons and clamps, footsteps on the ground/dock/shallows/Teeth,
+  blips, story sounds. **Smoke run**: Shingle Point's surf and wind play (no gulls yet), Pell's line blips,
+  footsteps on the ramp and boards on the dock, the Greying muffles and the heart beats, the turn-back sounds,
+  gulls back and fire crackling at the lit Gull's Beacon. 333 tests + smoke + launch pass.
+
+**Decisions**
+- **Procedural placeholders, not files.** Recording or licensing sound isn't possible from here, and generated
+  audio keeps the repo small and the IP clean; each recipe can later be swapped for `"file"` without touching
+  code. The cost is ~3 s of CPU for everything, so renders go to `WorkerThreadPool` and a region warms only what
+  it uses.
+- **Ambience is region-wide layers, not placed sources** (simple, data-driven, crossfades for free); placed
+  sources are for things you walk up to (fires). Surf at the actual shoreline is a follow-up.
+- **Voice blips, not babble:** a soft pitched blip per few words reads as "someone talking" without competing with
+  the text; per-NPC pitch does the characterisation.
+- **Quit goes through `AudioDirector.quit_game`:** a sound playing at the instant the process ends is reported as
+  leaked objects; stopping players three frames before quitting avoids it (menus and the smoke run).
+- No checkpoint or screenshots: nothing new to see. Unheard by any human ear yet — levels are guesses.
+
+**Problems / notes**
+- Levels and timbres are untested by ear (no audio device in the sandbox; checked by RMS/zero-crossing stats
+  only). Added to ROADMAP as an owner listening pass.
+- A bare `--quit-after` launch still prints the leak warning (benign).
+- Music bus is still silent.
+
+**Next run should**
+1. **Content (due by Day 49):** ROADMAP *Next up* #1 — Aldous and the novice on the east stair, the lane on from
+   Wrackholm, or Hob and the ladder. Give its big moment a dialogue `sound`. Add a checkpoint.
+2. Next polish/debt pass due by Day 52. Fetch before trusting `origin/main`.
+
 ## 2026-10-16 09:00 UTC — Day 45: The Lamp's name carried home (content)
 
 **Did**

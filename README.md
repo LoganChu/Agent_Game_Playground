@@ -38,6 +38,11 @@ latest content. Three ways in:
 Each content session adds a checkpoint for what it built, so the newest content is always one
 jump away.
 
+## Sound
+Every sound is a procedural placeholder rendered at runtime from `data/audio.json` (surf,
+wind, gulls, fires, footsteps, voices, horns, chimes) — no audio files yet. To listen:
+`.tools/bin/godot --headless --path . -s res://tools/debug/export_sounds.gd -- /tmp/sounds`.
+
 ## Tests
 ```bash
 tools/run_checks.sh    # import + unit/content tests + smoke playthrough + launch
