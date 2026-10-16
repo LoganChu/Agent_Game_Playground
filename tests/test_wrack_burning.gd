@@ -276,6 +276,7 @@ func test_the_lane_house_book() -> void:
 		var text := _lines(state, "wenna", [BOOK])
 		assert_eq(text.contains("WYNN SALLOW, keeper, for the Ridge Light"), told, "the Lamp's page only if asked for")
 		assert_eq(state.get_flag("wrackholm_lamp_name_read") == true, told)
+		assert_eq(state.quest_state("paid_twice") == WorldState.QUEST_ACTIVE, told, "Paid Twice: carry it home")
 		assert_true(text.contains("the night the Spire went dark") and text.contains("you've shut the Book"), "the last line")
 		assert_true(state.get_flag("wrackholm_book_opened") == true)
 		assert_false(_offered(state, "wenna").has(BOOK), "opened once")
