@@ -2,6 +2,61 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-16 09:00 UTC — Day 45: The Lamp's name carried home (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; fetched and reset local
+  `main` to `origin/main` (Day 44's `7dd1a5f`). Baseline green.
+- **Content (due by Day 47; last content Day 43):** ROADMAP *Next up* #1, *The Lamp's name carried home*:
+  - **New quest *Paid Twice*** (`paid_twice`), started where Wenna reads the Lamp's page in the lane-house Book
+    (WYNN SALLOW, keeper, for the Ridge Light. Paid twice.). The lanes back west already existed (Wrackholm → fen →
+    Thornwold); the quest text points the way.
+  - **At the bench** ("I read your name. In the Tidewrights' Book, on Wrackholm."): the Lamp knows where it put it —
+    thirty winters back it wrote it in the Book for the crossing, and when the fog came it went out of its head and
+    stayed on the page ("Somewhere safe"). A sworn friend of the lanes is heard in how they stand.
+    - **Say it outright** (`thornwold_lamp_name=told`): the Lamp puts its hood back for the first time anyone has seen —
+      a long weathered face, soot in every line, white Keeper's crop grown ragged — and finishes a sentence ("Listen:
+      that one had an end."). The name brings back **the last midwinter: a novice on the east stair landing, a light
+      cupped in their hands, who said "Keep one back this year, Keeper Sallow"** — a name nobody on the stair ever used.
+      The ember leans. "The door-warden on the east stair might know" (a thread to Aldous). After: "I'll be Wynn, at the
+      bench", greeted as Wynn, "I answer to both now".
+    - **Ask first** (`left`): "A Keeper pays what's asked, and doesn't go round after for the change" — and the four,
+      coming back along the ridge, should find the Lamp, "not some stranger with a name they never heard". The hood
+      stays up; "The Book's keeping it."
+    - Old saves that read the name before the quest existed complete it all the same.
+  - **Oda weighs it** once at Thornwold landing (`lanes_oda_weighed_name`): sworn and told — "The Book doesn't mind
+    being read. It minds being emptied. Don't make a habit of carrying fares back, friend of the lanes"; told
+    otherwise — "She'd mind if you were sworn"; left — "Tidewright manners".
+- **Art (folded in):** `build_characters.py` `lamp_named` (`build_lamp(hood_down=True)`): the hood in a roll on the
+  shoulders, white crop, soot brow and cheek, the head lifted; a second Lamp placement at the bench swaps to it.
+- **Tests:** `test_lamps_name.gd` (6): only once read, said outright (model, lines, quest, greeting), asked first,
+  the sworn line, Oda once per outcome, old saves; `test_wrack_burning.gd` checks the Book starts *Paid Twice*.
+  322 tests + smoke + launch pass. Checkpoint `lamp_named`.
+
+Screenshots (`docs/screenshots/2026-10-16-*.png`): `the-lamp-named` (at the bench under the lit Ridge Light),
+`lamp-hood-back` (lineup); `docs/checkpoints/lamp_named.png`.
+
+**Decisions**
+- **The player chooses how, the Lamp chooses whether** — but only if asked. Saying it outright always lands; asking
+  hands the Lamp the right to forget (the fen's theme) and it takes it. Both are final: no blurting it later.
+- **The name pays out a mystery #2 hint, not an answer:** a novice who knew a name only the Book held, telling a
+  Keeper to keep a coal back the midwinter before the Snuffing. Recorded in LORE as the Wakebearer (planned), never
+  said in play. The door-warden thread points to Aldous for a later scene.
+- **The friend-of-the-lanes oath is weighed by a Tidewright, not the Keepers yet:** the roadmap wanted the Keepers'
+  first approach to weigh it; that's still open, but the oath now has its first consequence.
+- No smoke-walk extension: the walk ends at Wrackholm, and sailing two legs back and climbing the ridge would add a
+  minute to every check for six lines of dialogue already unit-tested.
+
+**Problems / notes**
+- The named Lamp faces the bench (its back to the ladder), so you see the white crop before the face unless you talk
+  to it (it turns to you). Fine; noted.
+- Lineup lighting tints the face green; in the ridge's light it reads as weathered skin.
+
+**Next run should**
+1. Next content due by Day 49; polish/debt pass due by Day 52. ROADMAP *Next up* #1 — the lane on from Wrackholm, or
+   Aldous asked about the novice on the east stair (the door-warden thread), or Hob and the ladder.
+2. Fetch before trusting `origin/main` (detached HEAD every run).
+
 ## 2026-10-15 21:00 UTC — Day 44: Polish/debt pass five
 
 **Did**

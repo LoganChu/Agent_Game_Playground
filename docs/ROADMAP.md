@@ -372,11 +372,16 @@ each .glb < 5 MB.
       (`wenna_nobrass`, her hand drawn in); **the Gannet's board shows its chalk** once read (`gannet_hulk_named`);
       **the Teeth**: surf rings round the ten dead-end slabs in the water, wet gullies painted across the reef road.
 
+- [x] [C] **The Lamp's name carried home** (Day 45): quest *Paid Twice* from the lane-house Book; said outright (the
+      hood put back — Blender `lamp_named`; the novice on the east stair) or asked first (left paid in the Book, for
+      the four); Oda weighs it once, harder on a sworn friend of the lanes. Checkpoint `lamp_named`.
+
 ### Next up
-1. [C] **The Lamp's name carried home** (next content, due by Day 47): Oda's lanes back to Thornwold from the fen; tell
-   the Lamp WYNN SALLOW (`wrackholm_lamp_name_read`) — does it want it back, now the Ridge Light is lit? Hob and the four
-   (`thornwold_beacon_burned`). Or open Act II's next island / the lane on from Wrackholm (Cindermoor is "past more
-   besides"); the Keepers' first approach should weigh `wrackholm_sworn`.
+1. [C] **Next content** (due by Day 49): the lane on from Wrackholm (Cindermoor is "past more besides"; the Keepers'
+   first approach should weigh `wrackholm_sworn` and `thornwold_lamp_name`), or **Aldous and the novice** — told the Lamp
+   remembers a novice on the east stair saying "Keep one back this year, Keeper Sallow", Aldous (the door-warden who
+   "saw every face go by") might know a face (mystery #2: don't answer it), or **Hob and the ladder** (salt_row: the Lamp
+   will tell him if he comes up).
 2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -410,7 +415,7 @@ each .glb < 5 MB.
   Sleeve-Ember (`future`).
 - [x] [C] Thornwold (forest, shifting paths): landing + Bram (Day 17), woods + Hob (Day 21), ridge + the Lamp (Day 25), the burn (Day 27). Later: the old Keepers' road north along the ridge — where the four colliers went (and whether Hob goes after them).
 - [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); Day 33 out to the Heron's legs (Dunstan glimpsed); Day 35 the Heron's burn (lit); Day 37 Dunstan found (his walk back for his name later); Day 40 the lane on to Wrackholm.
-- [C] Wrackholm (the Tidewrights' island: what's owed). Begun Day 40 (the yard, the lane-house, Wenna, Jory, the Gannet's crew); Day 42 the Teeth (the white, the tide, the Wrack's lantern room); Day 43 the Wrack's burning, the horn, the Book, the oath. Open: the Book's last line (mystery #2); the Lamp's name to carry home; the empty bracket (the Gannet's timber, a year and a tide on).
+- [C] Wrackholm (the Tidewrights' island: what's owed). Begun Day 40 (the yard, the lane-house, Wenna, Jory, the Gannet's crew); Day 42 the Teeth (the white, the tide, the Wrack's lantern room); Day 43 the Wrack's burning, the horn, the Book, the oath; Day 45 the Lamp's name carried home (Thornwold). Open: the Book's last line (mystery #2); the empty bracket (the Gannet's timber, a year and a tide on).
 - [S] Day/night cycle & tides; NPC schedules. (Day 42: Wrackholm's tide is a story flag, `wrackholm_tide`, waited
   down at the spit; a real tide system should drive it and keep '' / `low` as its values.)
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).

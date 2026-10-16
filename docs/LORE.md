@@ -779,6 +779,25 @@ debts, salvage, and who answers for a thing.
       And what you owe, you'll pay." The yard folk: "Weighed." Declined: "The scale doesn't need you on it to know what
       you weigh… Keepers'll ask you the same, one day, by their rites."
 
+  - **Established in play (Day 45 — the Lamp's name carried home, on Thornwold's ridge):** (`paid_twice`)
+    - **Where it put it.** Thirty winters back the Lamp wrote its name in the Book for the crossing (the Keeper's second
+      fare); when the fog came the name went out of its head and stayed on the page — "somewhere safe".
+    - **Said outright** (`thornwold_lamp_name=told`): the Lamp **puts its hood back** — a long weathered face, soot gone
+      into every line "like rain into a road", white hair in a Keeper's crop grown ragged, eyes the grey of the ridge
+      stone — and finishes a sentence for the first time. It answers to both now ("I'll be Wynn, at the bench").
+      **What came back with the name:** the last midwinter, carrying its coal down from the flame, it stopped on the
+      **east stair** and a **novice** on the landing, young, **a light cupped in their hands**, said **"Keep one back this
+      year, Keeper Sallow"** — a name nobody on the stair ever used; it was in the Book and nowhere else. It kept one
+      back. It never asked who; the door-warden of the east stair (Aldous) "saw every face go by". *[SECRET — planned]*
+      the novice is the Wakebearer (mystery #2), who knew the name because — not decided; the Book's last line is their
+      hand. Never confirm before Act III.
+    - **Asked first** (`left`): "A Keeper pays what's asked, and doesn't go round after for the change." The name stays
+      the Book's; the four, if they come back along the ridge, should find the Lamp, "not some stranger with a name they
+      never heard". The hood stays up.
+    - **Oda weighs it** (Tidewright view of the Book): a fare is the Book's; reading it is no harm ("Wenna let you read
+      it"), carrying it home is an off-islander's business — but **for a sworn friend of the lanes** "the Book doesn't
+      mind being read. It minds being emptied." Leaving it paid is "Tidewright manners".
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)
@@ -796,7 +815,7 @@ debts, salvage, and who answers for a thing.
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
    Keepers quietly feeding it the memories of the Hushed. Oriel could not continue it.
-2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
+2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —
