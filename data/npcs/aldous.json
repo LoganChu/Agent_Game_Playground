@@ -5,5 +5,9 @@
   "color": "silverfog",
   "dialogue": "aldous",
   "model": "res://assets/models/characters/aldous.glb",
-  "bio": "A Keeper of the Spire who fled the Hearthspire on the night of the Snuffing. Kind, evasive, drinks too much. Knows more than he says."
+  "bio": "A Keeper of the Spire who fled the Hearthspire on the night of the Snuffing. Kind, evasive, drinks too much. Knows more than he says.",
+  "voice": {
+    "sound": "voice_soft",
+    "pitch": 0.82
+  }
 }

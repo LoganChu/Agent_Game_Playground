@@ -5,5 +5,9 @@
   "color": "moss",
   "dialogue": "bram",
   "model": "res://assets/models/characters/bram.glb",
-  "bio": "Foreman of the Tidewright lumber camp at Thornwold landing, forties, Saltmarrow-born mother. Keeps tallies of everything. Broad, dry, tired; distrusts anything that grows overnight."
+  "bio": "Foreman of the Tidewright lumber camp at Thornwold landing, forties, Saltmarrow-born mother. Keeps tallies of everything. Broad, dry, tired; distrusts anything that grows overnight.",
+  "voice": {
+    "sound": "voice_gruff",
+    "pitch": 1.0
+  }
 }

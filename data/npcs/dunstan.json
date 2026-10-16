@@ -17,5 +17,9 @@
   "model": "res://assets/models/characters/dunstan_seated.glb",
   "idle": "sit",
   "faces_player": false,
-  "bio": "Mara Tollen's brother, a big Saltmarrow fisherman who crewed two winters for Oda Farrow. Rowed to Glasswater Fen facing backward, laughing, left his name with Hesper and went out along the long walk into the Deeps to put something down. Sits by his lantern at the end of the long walk, lit from the Heron: it's for after."
+  "bio": "Mara Tollen's brother, a big Saltmarrow fisherman who crewed two winters for Oda Farrow. Rowed to Glasswater Fen facing backward, laughing, left his name with Hesper and went out along the long walk into the Deeps to put something down. Sits by his lantern at the end of the long walk, lit from the Heron: it's for after.",
+  "voice": {
+    "sound": "voice_gruff",
+    "pitch": 0.82
+  }
 }

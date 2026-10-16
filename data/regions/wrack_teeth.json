@@ -33,6 +33,27 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "surf",
+      "volume": 1.0
+    },
+    {
+      "sound": "surf_far",
+      "volume": 0.7
+    },
+    {
+      "sound": "wind_high",
+      "volume": 0.7
+    },
+    {
+      "sound": "gulls",
+      "volume": 0.5,
+      "if": "quest:a_light_for_wrackholm=done"
+    }
+  ],
+  "footsteps": "stone",
+  "footsteps_raised": "stone",
   "water": {
     "swell": 0.6,
     "wash": 0.7,
@@ -450,6 +471,15 @@
           7.9,
           0
         ]
+      },
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          4,
+          0
+        ],
+        "range": 24
       }
     },
     {

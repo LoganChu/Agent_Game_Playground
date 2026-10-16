@@ -4,7 +4,8 @@
     "start": [
       {
         "say": "narrator",
-        "text": "A sound comes in off the sea: one long low note, then two short, like something very large clearing its throat."
+        "text": "A sound comes in off the sea: one long low note, then two short, like something very large clearing its throat.",
+        "sound": "horn_far"
       },
       {
         "say": "narrator",

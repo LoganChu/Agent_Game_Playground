@@ -33,6 +33,26 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "surf_far",
+      "volume": 0.55
+    },
+    {
+      "sound": "harbor_lap",
+      "volume": 0.5
+    },
+    {
+      "sound": "pines",
+      "volume": 0.8
+    },
+    {
+      "sound": "woods_birds",
+      "volume": 0.6,
+      "if": "quest:a_light_for_thornwold=done"
+    }
+  ],
+  "footsteps": "needles",
   "greying": [
     {
       "rect": [
@@ -1039,7 +1059,16 @@
           0.253
         ]
       ],
-      "note": "A charcoal clamp smouldering just past the bramble wall, in the Greying where nobody from the camp can go. Someone tends it."
+      "note": "A charcoal clamp smouldering just past the bramble wall, in the Greying where nobody from the camp can go. Someone tends it.",
+      "sound": {
+        "id": "embers",
+        "offset": [
+          0,
+          0.8,
+          0
+        ],
+        "range": 10
+      }
     },
     {
       "model": "res://assets/models/dressing/sack_cart.glb",

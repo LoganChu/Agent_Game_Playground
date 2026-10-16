@@ -912,7 +912,8 @@
       },
       {
         "say": "narrator",
-        "text": "By noon the Heron is a warmth astern and there is nothing ahead but grey. Oda puts the bone horn to her mouth: one long note, then two short. Putting in; passengers welcome."
+        "text": "By noon the Heron is a warmth astern and there is nothing ahead but grey. Oda puts the bone horn to her mouth: one long note, then two short. Putting in; passengers welcome.",
+        "sound": "horn_far"
       },
       {
         "say": "narrator",

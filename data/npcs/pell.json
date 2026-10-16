@@ -5,5 +5,9 @@
   "color": "kindle",
   "dialogue": "pell",
   "model": "res://assets/models/characters/pell.glb",
-  "bio": "Orphaned net-mender, about twelve. Fast-talking, knows every plank of Saltmarrow. Collects the 'lost things' the fog spits out onto Shingle Point."
+  "bio": "Orphaned net-mender, about twelve. Fast-talking, knows every plank of Saltmarrow. Collects the 'lost things' the fog spits out onto Shingle Point.",
+  "voice": {
+    "sound": "voice_bright",
+    "pitch": 1.3
+  }
 }

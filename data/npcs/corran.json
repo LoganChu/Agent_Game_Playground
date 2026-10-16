@@ -5,5 +5,9 @@
   "color": "moss",
   "dialogue": "corran",
   "model": "res://assets/models/characters/corran.glb",
-  "bio": "The last of the fen folk on Glasswater, old, an eel-man with a leister and a punt. Stayed when the rest went to the lanes after the Snuffing. Has no patience for the Unmoored, who come to his fen to put things down."
+  "bio": "The last of the fen folk on Glasswater, old, an eel-man with a leister and a punt. Stayed when the rest went to the lanes after the Snuffing. Has no patience for the Unmoored, who come to his fen to put things down.",
+  "voice": {
+    "sound": "voice_hollow",
+    "pitch": 0.95
+  }
 }

@@ -31,6 +31,22 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "surf",
+      "volume": 1.0
+    },
+    {
+      "sound": "wind_low",
+      "volume": 0.6
+    },
+    {
+      "sound": "gulls",
+      "volume": 0.7,
+      "if": "quest:a_light_for_saltmarrow=done"
+    }
+  ],
+  "footsteps": "shingle",
   "spawn_points": {
     "default": [
       0,

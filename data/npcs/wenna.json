@@ -6,5 +6,9 @@
   "dialogue": "wenna",
   "model": "res://assets/models/characters/wenna.glb",
   "idle": "sit",
-  "bio": "Lane-warden of Wrackholm, eighties: keeps the lane-house and its answering horn and swears the Tidewrights' masters (she swore Oda Farrow). The night of the Snuffing she answered the Gannet's horn as the Wrack Light went out, and the Teeth had her. She lashed the horn and sits by it."
+  "bio": "Lane-warden of Wrackholm, eighties: keeps the lane-house and its answering horn and swears the Tidewrights' masters (she swore Oda Farrow). The night of the Snuffing she answered the Gannet's horn as the Wrack Light went out, and the Teeth had her. She lashed the horn and sits by it.",
+  "voice": {
+    "sound": "voice_reed",
+    "pitch": 0.8
+  }
 }

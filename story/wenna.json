@@ -684,7 +684,8 @@
       },
       {
         "say": "narrator",
-        "text": "The note goes out over the Teeth like the floor of the sea moving: long, and long. Not an answer to a boat. An answer to a light. Out on its stack the Wrack burns on, as if it heard."
+        "text": "The note goes out over the Teeth like the floor of the sea moving: long, and long. Not an answer to a boat. An answer to a light. Out on its stack the Wrack burns on, as if it heard.",
+        "sound": "horn_near"
       },
       {
         "say": "narrator",

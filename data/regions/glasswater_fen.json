@@ -33,6 +33,22 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "fen_still",
+      "volume": 1.0
+    },
+    {
+      "sound": "reeds",
+      "volume": 0.8
+    },
+    {
+      "sound": "fen_frogs",
+      "volume": 0.8,
+      "if": "quest:a_light_for_glasswater=done"
+    }
+  ],
+  "footsteps": "mud",
   "greying": [
     {
       "rect": [
@@ -559,7 +575,16 @@
       ],
       "halo_size": 14.0,
       "halo_strength": 1.0,
-      "halo_bloom": 0.35
+      "halo_bloom": 0.35,
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          5,
+          0
+        ],
+        "range": 30
+      }
     },
     {
       "model": "res://assets/models/dressing/gold_streak.glb",

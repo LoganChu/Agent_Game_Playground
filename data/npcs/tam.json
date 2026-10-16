@@ -5,5 +5,9 @@
   "color": "tide",
   "dialogue": "tam",
   "model": "res://assets/models/characters/tam.glb",
-  "bio": "Young Tidewright net-hand posted at the boardwalk gate to the greyed net-lofts on Mara's orders. Earnest, scared of the fog, proud of the job."
+  "bio": "Young Tidewright net-hand posted at the boardwalk gate to the greyed net-lofts on Mara's orders. Earnest, scared of the fog, proud of the job.",
+  "voice": {
+    "sound": "voice_reed",
+    "pitch": 1.15
+  }
 }

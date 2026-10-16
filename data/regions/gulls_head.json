@@ -33,6 +33,28 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "wind_high",
+      "volume": 1.0,
+      "if": "!quest:a_light_for_saltmarrow=done"
+    },
+    {
+      "sound": "wind_high",
+      "volume": 0.55,
+      "if": "quest:a_light_for_saltmarrow=done"
+    },
+    {
+      "sound": "surf_far",
+      "volume": 0.8
+    },
+    {
+      "sound": "gulls",
+      "volume": 1.0,
+      "if": "quest:a_light_for_saltmarrow=done"
+    }
+  ],
+  "footsteps": "grass",
   "greying": [
     {
       "note": "Before the burn: the headland is drowned in it; the beacon stands in the thickest fog.",
@@ -416,6 +438,15 @@
           4.6,
           0
         ]
+      },
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          4,
+          0
+        ],
+        "range": 20
       }
     },
     {

@@ -178,7 +178,8 @@
     "kindle": [
       {
         "say": "narrator",
-        "text": "The Ridge Light catches. Gold comes out through the horn panes, softer than glass would let it, and the iron pine on the roof throws its shadow the length of the ridge."
+        "text": "The Ridge Light catches. Gold comes out through the horn panes, softer than glass would let it, and the iron pine on the roof throws its shadow the length of the ridge.",
+        "sound": "kindle"
       },
       {
         "say": "narrator",

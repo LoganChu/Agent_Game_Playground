@@ -32,6 +32,26 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "harbor_lap",
+      "volume": 0.9
+    },
+    {
+      "sound": "surf_far",
+      "volume": 0.6
+    },
+    {
+      "sound": "wind_low",
+      "volume": 0.45
+    },
+    {
+      "sound": "gulls",
+      "volume": 0.8,
+      "if": "quest:a_light_for_saltmarrow=done"
+    }
+  ],
+  "footsteps": "grass",
   "spawn_points": {
     "default": [
       0,

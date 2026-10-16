@@ -32,6 +32,22 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "wind_high",
+      "volume": 0.9
+    },
+    {
+      "sound": "pines",
+      "volume": 0.5
+    },
+    {
+      "sound": "woods_birds",
+      "volume": 0.4,
+      "if": "quest:a_light_for_thornwold=done"
+    }
+  ],
+  "footsteps": "stone",
   "greying": [
     {
       "rect": [
@@ -318,6 +334,15 @@
           6.8,
           0
         ]
+      },
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          4,
+          0
+        ],
+        "range": 20
       }
     },
     {

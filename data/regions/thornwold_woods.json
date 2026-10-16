@@ -32,6 +32,22 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "pines",
+      "volume": 1.0
+    },
+    {
+      "sound": "wind_low",
+      "volume": 0.4
+    },
+    {
+      "sound": "woods_birds",
+      "volume": 0.8,
+      "if": "quest:a_light_for_thornwold=done"
+    }
+  ],
+  "footsteps": "needles",
   "greying": [
     {
       "rect": [
@@ -569,7 +585,16 @@
           0.253
         ]
       ],
-      "note": "The clamp the camp sees smoking past the wall. Hob Marl tends it on his way down."
+      "note": "The clamp the camp sees smoking past the wall. Hob Marl tends it on his way down.",
+      "sound": {
+        "id": "embers",
+        "offset": [
+          0,
+          0.8,
+          0
+        ],
+        "range": 10
+      }
     },
     {
       "model": "res://assets/models/dressing/sack_cart.glb",
@@ -848,7 +873,16 @@
       ],
       "halo_size": 14.0,
       "halo_strength": 1.0,
-      "halo_bloom": 0.35
+      "halo_bloom": 0.35,
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          4,
+          0
+        ],
+        "range": 20
+      }
     },
     {
       "model": "res://assets/models/dressing/keeper_lodge.glb",
@@ -971,7 +1005,16 @@
           0.253
         ]
       ],
-      "note": "Hob's own clamp in the clearing."
+      "note": "Hob's own clamp in the clearing.",
+      "sound": {
+        "id": "embers",
+        "offset": [
+          0,
+          0.8,
+          0
+        ],
+        "range": 10
+      }
     },
     {
       "model": "res://assets/models/dressing/charcoal_sacks.glb",

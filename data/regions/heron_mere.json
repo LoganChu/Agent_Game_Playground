@@ -33,6 +33,26 @@
       }
     ]
   },
+  "ambience": [
+    {
+      "sound": "fen_still",
+      "volume": 1.0
+    },
+    {
+      "sound": "harbor_lap",
+      "volume": 0.4
+    },
+    {
+      "sound": "reeds",
+      "volume": 0.5
+    },
+    {
+      "sound": "fen_frogs",
+      "volume": 0.6,
+      "if": "quest:a_light_for_glasswater=done"
+    }
+  ],
+  "footsteps": "mud",
   "greying": [
     {
       "rect": [
@@ -327,6 +347,15 @@
           6.6,
           0
         ]
+      },
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          5,
+          0
+        ],
+        "range": 22
       }
     },
     {
