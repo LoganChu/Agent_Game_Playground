@@ -93,4 +93,4 @@ func _return_to_title() -> void:
 func _quit() -> void:
 	if not _confirm("quit", "Unsaved progress since your last save will be lost. Press again to quit."):
 		return
-	get_tree().quit()
+	AudioDirector.quit_game(get_tree())

@@ -28,6 +28,7 @@ var dialogue_ui: DialogueUI
 var journal_ui: JournalUI
 var greying: GreyingWalker
 var atmosphere: Atmosphere
+var audio: AudioDirector
 var act_end_card: ActEndCard
 var pause_menu: PauseMenu
 var title_screen: TitleScreen
@@ -39,6 +40,9 @@ func _ready() -> void:
 	atmosphere = Atmosphere.new()
 	atmosphere.name = "Atmosphere"
 	add_child(atmosphere)
+	audio = AudioDirector.new()
+	audio.name = "Audio"
+	add_child(audio)
 	hud = Hud.new()
 	add_child(hud)
 	dialogue_ui = DialogueUI.new()
@@ -58,13 +62,19 @@ func _ready() -> void:
 	pause_menu.title_requested.connect(return_to_title)
 	act_end_card.title_requested.connect(return_to_title)
 	dialogue_ui.closed.connect(_check_act_end)
+	dialogue_ui.line_shown.connect(audio.speak)
+	dialogue_ui.runner.effect_applied.connect(audio.on_dialogue_effect)
 	player = Player.new()
 	add_child(player)
 	player.focus_changed.connect(hud.set_focus)
+	player.stepped.connect(func() -> void:
+		if region:
+			audio.footstep(region.footstep_surface(player.global_position)))
 	greying = GreyingWalker.new()
 	greying.player = player
 	greying.hud = hud
 	greying.ember_changed.connect(hud.set_ember)
+	greying.turned_back.connect(audio.on_turned_back)
 	add_child(greying)
 	GameState.region_change_requested.connect(_on_region_change_requested)
 	GameState.world.flag_changed.connect(_on_world_changed.unbind(2))
@@ -220,6 +230,7 @@ func load_region(region_id: String, spawn: String) -> void:
 	GameState.pending_player_position = null
 	player.place_at(pos if pos is Vector3 else region.spawn_position(spawn))
 	greying.enter_region(region)
+	audio.enter_region(region.data)
 	_apply_region_mood(false)
 	hud.show_region_title(str(region.data.get("name", region_id)))
 	# A load can jump the story anywhere; only acts ended *in play* get a card.
@@ -282,6 +293,7 @@ func _apply_region_mood(animate: bool) -> void:
 ## The title screen's camera drifts slowly round the Wakebearer on the beach.
 func _process(delta: float) -> void:
 	atmosphere.follow_greying(greying.depth, delta)
+	audio.follow_greying(greying.depth)
 	if title_screen.is_open():
 		player.turn_camera(TITLE_DRIFT * delta)
 

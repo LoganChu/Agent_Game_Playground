@@ -6,6 +6,9 @@ extends CanvasLayer
 ## Controls: interact/click to continue; click, number keys or gamepad to pick a choice.
 
 signal closed
+## Each spoken line as it shows (`speaker` is an NPC id, "player" or "narrator"); the
+## AudioDirector speaks it in that voice.
+signal line_shown(speaker: String, text: String)
 
 var runner: DialogueRunner
 var current_event: Dictionary = {}
@@ -77,6 +80,7 @@ func _show(event: Dictionary) -> void:
 			_text_label.text = str(event.get("text", ""))
 			_continue_hint.text = InputSetup.hint("interact") + " continue"
 			_continue_hint.show()
+			line_shown.emit(str(event.get("speaker", "")), _text_label.text)
 		"choices":
 			_continue_hint.hide()
 			var i := 0

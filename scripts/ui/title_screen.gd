@@ -61,7 +61,7 @@ func _build_main() -> void:
 	if OS.is_debug_build():
 		_add("Chapter select (dev)", _show_page.bind(Page.CHAPTERS))
 	_add("Settings", _show_page.bind(Page.SETTINGS))
-	_add("Quit", func() -> void: get_tree().quit())
+	_add("Quit", func() -> void: AudioDirector.quit_game(get_tree()))
 
 
 func _leave_for_play() -> void:

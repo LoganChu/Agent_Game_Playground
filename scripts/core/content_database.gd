@@ -14,6 +14,10 @@ var dialogues: Dictionary = {}
 var flags: Dictionary = {}
 ## Game config (start region, etc.) from data/game.json.
 var game: Dictionary = {}
+## Sound config from data/audio.json (footsteps, player voice, Greying, event cues), and its
+## `sounds` (id -> SoundSynth recipe or {file}) for short.
+var audio: Dictionary = {}
+var sounds: Dictionary = {}
 ## Where each record came from (id -> file path), for error messages.
 var sources: Dictionary = {}
 var errors: Array[String] = []
@@ -27,6 +31,10 @@ func load_all(data_root: String = "res://data", story_root: String = "res://stor
 	var game_data: Variant = JsonUtil.load_file(data_root.path_join("game.json"), errors)
 	if game_data is Dictionary:
 		game = game_data
+	var audio_data: Variant = JsonUtil.load_file(data_root.path_join("audio.json"), errors)
+	if audio_data is Dictionary:
+		audio = audio_data
+		sounds = audio.get("sounds", {}) if audio.get("sounds") is Dictionary else {}
 	for path in JsonUtil.list_files(story_root, "json"):
 		_load_record(dialogues, "dialogue", path)
 	return errors.is_empty()

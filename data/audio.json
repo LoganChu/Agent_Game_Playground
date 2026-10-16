@@ -1,0 +1,99 @@
+{
+  "note": "Procedural placeholder sounds (Day 46): every sound is a SoundSynth recipe (scripts/core/sound_synth.gd), rendered at runtime. Replace a recipe with \"file\": \"res://assets/audio/....ogg\" when real recordings arrive. Regions list `ambience` layers and a `footsteps` surface; NPCs carry a `voice`; props may carry a `sound`; dialogue steps may play one with `sound`.",
+  "footsteps": {
+    "surfaces": {
+      "shingle": "step_shingle",
+      "grass": "step_grass",
+      "needles": "step_needles",
+      "stone": "step_stone",
+      "mud": "step_mud",
+      "boards": "step_boards",
+      "wade": "step_wade"
+    },
+    "default": "grass",
+    "note": "Piers sound as `boards` and shallow water as `wade`, whatever the region's surface."
+  },
+  "player_voice": {"sound": "voice_soft", "pitch": 1.05},
+  "greying": {
+    "note": "In the Greying the Ambience bus closes down to `muffle_cutoff` Hz at full depth and the ember's heartbeat comes up.",
+    "muffle_cutoff": 500,
+    "heart": "ember_heart",
+    "turn_back": "turn_back"
+  },
+  "events": {
+    "quest_start": "quest_start",
+    "quest_update": "quest_update",
+    "quest_done": "quest_done",
+    "item_gained": "pickup",
+    "ui_press": "ui_press",
+    "ui_focus": "ui_focus"
+  },
+  "sounds": {
+    "surf": {"bus": "Ambience", "kind": "noise", "color": "brown", "lowpass": 900, "highpass": 60, "swell": 6.5, "swell_depth": 0.75, "length": 13, "loop": true, "gain": 0.7},
+    "surf_far": {"bus": "Ambience", "kind": "noise", "color": "brown", "lowpass": 380, "swell": 9, "swell_depth": 0.45, "length": 18, "loop": true, "gain": 0.6},
+    "harbor_lap": {"bus": "Ambience", "kind": "noise", "color": "pink", "lowpass": 1300, "highpass": 250, "swell": 2.2, "swell_depth": 0.7, "length": 11, "loop": true, "gain": 0.4},
+    "wind_low": {"bus": "Ambience", "kind": "noise", "color": "pink", "lowpass": 420, "highpass": 40, "gusts": 3.5, "gust_depth": 0.6, "length": 14, "loop": true, "gain": 0.5},
+    "wind_high": {"bus": "Ambience", "kind": "noise", "color": "pink", "lowpass": 2400, "highpass": 700, "gusts": 2.5, "gust_depth": 0.8, "length": 15, "loop": true, "gain": 0.45},
+    "pines": {"bus": "Ambience", "kind": "noise", "color": "pink", "lowpass": 1700, "highpass": 350, "gusts": 4.5, "gust_depth": 0.7, "length": 16, "loop": true, "gain": 0.4},
+    "reeds": {"bus": "Ambience", "kind": "noise", "color": "white", "lowpass": 5000, "highpass": 1800, "gusts": 3, "gust_depth": 0.85, "length": 12, "loop": true, "gain": 0.2},
+    "fen_still": {"bus": "Ambience", "kind": "noise", "color": "brown", "lowpass": 220, "swell": 10, "swell_depth": 0.3, "length": 10, "loop": true, "gain": 0.45},
+    "gulls": {"bus": "Ambience", "kind": "chirps", "freq": 1450, "spread": 0.15, "slide": 0.62, "call": 0.24, "pulses": 3, "rate": 0.22, "harmonics": [1.0, 0.45, 0.2], "vibrato": 18, "vibrato_depth": 0.02, "length": 18, "loop": true, "gain": 0.3},
+    "woods_birds": {"bus": "Ambience", "kind": "chirps", "freq": 2900, "spread": 0.25, "slide": 1.3, "call": 0.08, "pulses": 4, "rate": 0.35, "harmonics": [1.0, 0.1], "length": 16, "loop": true, "gain": 0.22},
+    "fen_frogs": {"bus": "Ambience", "kind": "chirps", "freq": 240, "spread": 0.2, "slide": 0.9, "call": 0.07, "pulses": 5, "rate": 0.45, "harmonics": [1.0, 0.6, 0.4, 0.2], "length": 14, "loop": true, "gain": 0.28},
+    "fire": {"bus": "Ambience", "kind": "mix", "length": 7, "loop": true, "gain": 0.8, "parts": [
+      {"kind": "crackle", "rate": 14, "pop": 0.003, "lowpass": 5000, "bed": 0.2, "gain": 0.9},
+      {"kind": "noise", "color": "brown", "lowpass": 300, "gusts": 1.2, "gust_depth": 0.6, "gain": 0.5}
+    ]},
+    "embers": {"bus": "Ambience", "kind": "crackle", "rate": 5, "pop": 0.002, "lowpass": 2600, "bed": 0.4, "length": 6, "loop": true, "gain": 0.5},
+    "ember_heart": {"bus": "Effects", "kind": "mix", "length": 1.6, "loop": true, "gain": 0.7, "parts": [
+      {"kind": "tone", "freq": 52, "harmonics": [1.0, 0.3], "length": 0.22, "attack": 0.01, "decay": 0.08, "gain": 1.0},
+      {"kind": "crackle", "rate": 9, "pop": 0.002, "lowpass": 3200, "bed": 0.0, "gain": 0.35}
+    ]},
+
+    "step_shingle": {"bus": "Effects", "kind": "mix", "length": 0.16, "gain": 0.45, "parts": [
+      {"kind": "noise", "color": "white", "lowpass": 3200, "highpass": 500, "length": 0.16, "attack": 0.004, "decay": 0.04, "gain": 0.7},
+      {"kind": "crackle", "rate": 220, "pop": 0.003, "lowpass": 4500, "bed": 0.0, "length": 0.12, "decay": 0.05, "gain": 0.6}
+    ]},
+    "step_grass": {"bus": "Effects", "kind": "noise", "color": "pink", "lowpass": 1600, "highpass": 250, "length": 0.14, "attack": 0.01, "decay": 0.04, "gain": 0.35},
+    "step_needles": {"bus": "Effects", "kind": "noise", "color": "pink", "lowpass": 1100, "highpass": 180, "length": 0.15, "attack": 0.012, "decay": 0.05, "gain": 0.32},
+    "step_stone": {"bus": "Effects", "kind": "mix", "length": 0.1, "gain": 0.4, "parts": [
+      {"kind": "noise", "color": "white", "lowpass": 5000, "highpass": 1400, "length": 0.08, "attack": 0.001, "decay": 0.015, "gain": 0.6},
+      {"kind": "tone", "freq": 180, "harmonics": [1.0], "length": 0.07, "attack": 0.001, "decay": 0.02, "gain": 0.5}
+    ]},
+    "step_mud": {"bus": "Effects", "kind": "noise", "color": "brown", "lowpass": 700, "highpass": 90, "length": 0.22, "attack": 0.03, "decay": 0.07, "gain": 0.45},
+    "step_boards": {"bus": "Effects", "kind": "mix", "length": 0.16, "gain": 0.5, "parts": [
+      {"kind": "tone", "freq": 125, "harmonics": [1.0, 0.5, 0.2], "slide": 0.85, "length": 0.15, "attack": 0.002, "decay": 0.04, "gain": 0.8},
+      {"kind": "noise", "color": "pink", "lowpass": 2500, "highpass": 300, "length": 0.06, "attack": 0.001, "decay": 0.015, "gain": 0.4}
+    ]},
+    "step_wade": {"bus": "Effects", "kind": "noise", "color": "pink", "lowpass": 2200, "highpass": 200, "length": 0.32, "attack": 0.04, "decay": 0.1, "gain": 0.45},
+
+    "pickup": {"bus": "Effects", "kind": "chime", "notes": [784, 1175], "gap": 0.09, "ring": 0.7, "length": 0.9, "gain": 0.35},
+    "quest_start": {"bus": "Effects", "kind": "chime", "notes": [523, 659, 784], "gap": 0.13, "ring": 1.0, "length": 1.4, "gain": 0.35},
+    "quest_update": {"bus": "Effects", "kind": "chime", "notes": [659, 784], "gap": 0.12, "ring": 0.8, "length": 1.0, "gain": 0.3},
+    "quest_done": {"bus": "Effects", "kind": "chime", "notes": [392, 523, 659, 1047], "gap": 0.16, "ring": 1.6, "length": 2.2, "gain": 0.4},
+    "ui_press": {"bus": "Effects", "kind": "tone", "freq": 900, "harmonics": [1.0, 0.2], "slide": 1.2, "length": 0.06, "attack": 0.002, "decay": 0.02, "gain": 0.22},
+    "ui_focus": {"bus": "Effects", "kind": "tone", "freq": 1600, "harmonics": [1.0], "length": 0.03, "attack": 0.001, "decay": 0.008, "gain": 0.12},
+    "turn_back": {"bus": "Effects", "kind": "mix", "length": 2.4, "gain": 0.6, "parts": [
+      {"kind": "noise", "color": "pink", "lowpass": 600, "length": 2.4, "attack": 0.9, "release": 1.4, "gain": 0.8},
+      {"kind": "tone", "freq": 98, "harmonics": [1.0, 0.4], "slide": 0.7, "length": 2.4, "attack": 0.6, "release": 1.6, "gain": 0.6}
+    ]},
+
+    "kindle": {"bus": "Effects", "kind": "mix", "length": 3.5, "gain": 0.75, "parts": [
+      {"kind": "noise", "color": "brown", "lowpass": 900, "length": 3.5, "attack": 0.8, "release": 2.0, "gain": 0.8},
+      {"kind": "crackle", "rate": 30, "pop": 0.003, "lowpass": 6000, "bed": 0.0, "length": 3.5, "attack": 0.4, "release": 1.8, "gain": 0.7},
+      {"kind": "chime", "notes": [196, 294, 392], "gap": 0.35, "ring": 2.4, "length": 3.4, "attack": 0.2, "gain": 0.4}
+    ]},
+    "horn_far": {"bus": "Effects", "kind": "mix", "length": 4.0, "gain": 0.6, "parts": [
+      {"kind": "tone", "freq": 82, "harmonics": [1.0, 0.6, 0.35, 0.15], "vibrato": 3.5, "vibrato_depth": 0.006, "noise": 0.08, "lowpass": 600, "length": 2.0, "attack": 0.35, "release": 0.5, "gain": 1.0},
+      {"kind": "tone", "freq": 82, "harmonics": [1.0, 0.6, 0.35, 0.15], "length": 0.4, "attack": 0.05, "release": 0.15, "gain": 0.8},
+      {"kind": "noise", "color": "brown", "lowpass": 200, "length": 4.0, "attack": 0.5, "release": 2.0, "gain": 0.2}
+    ]},
+    "horn_near": {"bus": "Effects", "kind": "tone", "freq": 73, "harmonics": [1.0, 0.8, 0.5, 0.3, 0.15], "vibrato": 3, "vibrato_depth": 0.008, "noise": 0.1, "lowpass": 800, "length": 5.0, "attack": 0.6, "release": 1.5, "gain": 0.75},
+
+    "voice_soft": {"bus": "Voice", "kind": "tone", "freq": 210, "harmonics": [1.0, 0.45, 0.2, 0.1], "slide": 0.92, "noise": 0.15, "lowpass": 2000, "length": 0.09, "attack": 0.012, "release": 0.03, "gain": 0.3},
+    "voice_reed": {"bus": "Voice", "kind": "tone", "freq": 230, "harmonics": [0.6, 1.0, 0.7, 0.5, 0.3], "slide": 1.05, "noise": 0.05, "length": 0.08, "attack": 0.008, "release": 0.03, "gain": 0.26},
+    "voice_gruff": {"bus": "Voice", "kind": "tone", "freq": 120, "harmonics": [1.0, 0.7, 0.5, 0.3, 0.2], "slide": 0.9, "noise": 0.3, "lowpass": 1500, "length": 0.1, "attack": 0.01, "release": 0.04, "gain": 0.32},
+    "voice_bright": {"bus": "Voice", "kind": "tone", "freq": 330, "harmonics": [1.0, 0.3, 0.15], "slide": 1.1, "noise": 0.08, "length": 0.07, "attack": 0.006, "release": 0.025, "gain": 0.26},
+    "voice_hollow": {"bus": "Voice", "kind": "tone", "freq": 150, "harmonics": [1.0, 0.1, 0.4], "slide": 0.95, "noise": 0.35, "lowpass": 900, "length": 0.12, "attack": 0.02, "release": 0.05, "gain": 0.28}
+  }
+}

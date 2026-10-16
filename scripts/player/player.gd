@@ -4,6 +4,8 @@ extends CharacterBody3D
 ## interaction with the nearest Interactable in reach.
 
 signal focus_changed(target: Interactable)
+## A footfall on the ground (in step with the walk; not while airborne).
+signal stepped
 
 const SPEED := 5.0
 const ACCEL := 12.0
@@ -200,6 +202,9 @@ func _build_body() -> void:
 		model.name = "Model"
 		_visual.add_child(model)
 		_rig = model.get_node("CharacterRig") as CharacterRig
+		_rig.footfall.connect(func() -> void:
+			if is_on_floor():
+				stepped.emit())
 		ember_pos = EMBER_HAND
 	else:
 		_visual.add_child(PropFactory.mesh_instance(PropFactory.cylinder(0.18, 0.45, 1.1, 6), PropFactory.color("abyss"), Vector3(0, 0.55, 0)))

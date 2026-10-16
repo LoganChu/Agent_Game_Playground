@@ -25,6 +25,7 @@ var _items_obtainable: Dictionary = {}
 var _items_used: Dictionary = {}
 var _dialogues_used: Dictionary = {}
 var _npcs_placed: Dictionary = {}
+var _sounds_used: Dictionary = {}
 ## False while the region being validated has a malformed Greying area (its geometric
 ## checks are skipped then, the malformed area is reported instead).
 var _greying_ok := true
@@ -40,6 +41,7 @@ func validate() -> bool:
 	warnings.clear()
 	_validate_game()
 	_validate_flags()
+	_validate_audio()
 	for id: String in db.items:
 		_validate_item(id, db.items[id])
 	for id: String in db.npcs:
@@ -272,6 +274,100 @@ func _validate_item(id: String, item: Dictionary) -> void:
 		_err(where, "kind must be one of %s" % [ITEM_KINDS])
 
 
+## data/audio.json: every sound a valid recipe (or file) on a real bus, and every sound the
+## config names exists (Day 46).
+func _validate_audio() -> void:
+	var where := "data/audio.json"
+	for id: String in db.sounds:
+		var entry: Variant = db.sounds[id]
+		if not entry is Dictionary:
+			_err(where, "sound '%s' must be an object" % id)
+			continue
+		if str((entry as Dictionary).get("bus", "")) not in GameSettings.BUSES:
+			_err(where, "sound '%s' bus must be one of %s" % [id, GameSettings.BUSES])
+		if (entry as Dictionary).has("file"):
+			if not ResourceLoader.exists(str(entry["file"])):
+				_err(where, "sound '%s' file '%s' does not exist" % [id, entry["file"]])
+		else:
+			_check_recipe(where + " sound '%s'" % id, entry)
+	var footsteps: Dictionary = db.audio.get("footsteps", {}) if db.audio.get("footsteps") is Dictionary else {}
+	var surfaces: Variant = footsteps.get("surfaces", {})
+	if not surfaces is Dictionary or (surfaces as Dictionary).is_empty():
+		_err(where, "footsteps.surfaces must map surface names to sounds")
+	else:
+		for surface: String in surfaces:
+			_ref_sound(where + " footsteps", str(surfaces[surface]))
+		for needed: String in [str(footsteps.get("default", "")), "boards", "wade"]:
+			if not (surfaces as Dictionary).has(needed):
+				_err(where, "footsteps.surfaces needs '%s'" % needed)
+	_check_voice(where + " player_voice", db.audio.get("player_voice"))
+	var greying: Dictionary = db.audio.get("greying", {}) if db.audio.get("greying") is Dictionary else {}
+	for key: String in ["heart", "turn_back"]:
+		if greying.has(key):
+			_ref_sound(where + " greying." + key, str(greying[key]))
+	if greying.has("heart") and not bool((db.sounds.get(str(greying["heart"]), {}) as Dictionary).get("loop", false)):
+		_err(where, "greying.heart must be a looping sound")
+	var events: Variant = db.audio.get("events", {})
+	if events is Dictionary:
+		for key: String in events:
+			_ref_sound(where + " events." + key, str(events[key]))
+
+
+func _check_recipe(where: String, recipe: Dictionary, depth: int = 0) -> void:
+	var kind := str(recipe.get("kind", ""))
+	if kind not in SoundSynth.KINDS:
+		_err(where, "kind must be one of %s" % [SoundSynth.KINDS])
+		return
+	for key: String in ["length", "gain", "attack", "decay", "release", "lowpass", "highpass", "freq", "rate", "swell", "gusts", "pitch"]:
+		if recipe.has(key) and (not (recipe[key] is float or recipe[key] is int) or float(recipe[key]) < 0.0):
+			_err(where, "'%s' must be a number ≥ 0" % key)
+	if depth == 0 and not recipe.has("length"):
+		_err(where, "needs a 'length' (s)")
+	if float(recipe.get("length", 1.0)) <= 0.0 or float(recipe.get("length", 1.0)) > SoundSynth.MAX_LENGTH:
+		_err(where, "length must be in (0, %s] s" % SoundSynth.MAX_LENGTH)
+	if float(recipe.get("gain", 0.8)) > 1.0:
+		_err(where, "gain must be ≤ 1")
+	if recipe.has("color") and str(recipe["color"]) not in SoundSynth.NOISE_COLORS:
+		_err(where, "color '%s' must be one of %s" % [recipe["color"], SoundSynth.NOISE_COLORS])
+	if kind == "chime" and (not recipe.get("notes") is Array or (recipe["notes"] as Array).is_empty()):
+		_err(where, "a chime needs 'notes'")
+	if kind == "mix":
+		if not recipe.get("parts") is Array or (recipe["parts"] as Array).is_empty():
+			_err(where, "a mix needs 'parts'")
+		else:
+			for part: Variant in recipe["parts"]:
+				if part is Dictionary:
+					_check_recipe(where + " part", part, depth + 1)
+				else:
+					_err(where, "mix parts must be recipes")
+
+
+func _ref_sound(where: String, id: String) -> void:
+	_sounds_used[id] = true
+	if not db.sounds.has(id):
+		_err(where, "unknown sound '%s' (data/audio.json)" % id)
+
+
+## A voice: {sound, pitch} with a known sound and a sane pitch.
+func _check_voice(where: String, voice: Variant) -> void:
+	if voice == null:
+		return
+	if not voice is Dictionary or not (voice as Dictionary).has("sound"):
+		_err(where, "voice must be {sound, pitch}")
+		return
+	_ref_sound(where, str(voice["sound"]))
+	var pitch := float((voice as Dictionary).get("pitch", 1.0))
+	if pitch < 0.3 or pitch > 3.0:
+		_err(where, "voice pitch must be in 0.3..3")
+
+
+## A sound something plays as a loop (an ambience layer, a prop's sound) must loop.
+func _ref_loop(where: String, id: String) -> void:
+	_ref_sound(where, id)
+	if db.sounds.has(id) and not bool((db.sounds[id] as Dictionary).get("loop", false)):
+		_err(where, "sound '%s' must loop (\"loop\": true)" % id)
+
+
 func _validate_npc(id: String, npc: Dictionary) -> void:
 	var where := "npc " + id
 	_require_fields(where, npc, ["name", "dialogue", "color"])
@@ -281,6 +377,8 @@ func _validate_npc(id: String, npc: Dictionary) -> void:
 		_err(where, "invalid color '%s' (palette name or #hex)" % npc["color"])
 	if npc.has("model"):
 		_ref_character_model(where, str(npc["model"]))
+	if npc.has("voice"):
+		_check_voice(where, npc["voice"])
 	if npc.has("faces_player") and not npc["faces_player"] is bool:
 		_err(where, "faces_player must be true or false")
 	if npc.has("idle") and str(npc["idle"]) not in CharacterRig.STYLES:
@@ -335,6 +433,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 	var spawns: Variant = region.get("spawn_points", {})
 	if not spawns is Dictionary or not (spawns as Dictionary).has("default"):
 		_err(where, "spawn_points must contain 'default'")
+	_validate_region_audio(where, region)
 	for placement: Dictionary in region.get("npcs", []):
 		var npc_id := str(placement.get("npc", ""))
 		# A placement may pose the NPC differently there (Hob seated at the camp): its own
@@ -435,6 +534,35 @@ func _validate_region(id: String, region: Dictionary) -> void:
 ## Region `events` (arrival events, main.gd): each needs an id, an `if`, a dialogue and a
 ## `set` that switches its own `if` off (a `!flag:x` term with x in `set`), so an event can
 ## never fire twice.
+## A region's `ambience` layers, `footsteps` surfaces and its props' `sound`s (Day 46).
+func _validate_region_audio(where: String, region: Dictionary) -> void:
+	var ambience: Variant = region.get("ambience", [])
+	if not ambience is Array:
+		_err(where, "ambience must be a list of {sound, volume, if}")
+	else:
+		for layer: Variant in ambience:
+			if not layer is Dictionary or not (layer as Dictionary).has("sound"):
+				_err(where, "each ambience layer needs a 'sound'")
+				continue
+			_ref_loop(where + " ambience", str(layer["sound"]))
+			var volume := float((layer as Dictionary).get("volume", 1.0))
+			if volume <= 0.0 or volume > 1.0:
+				_err(where, "ambience volume must be in (0, 1]")
+			_ref_condition(where, (layer as Dictionary).get("if"))
+	var surfaces: Dictionary = (db.audio.get("footsteps", {}) as Dictionary).get("surfaces", {})
+	for key: String in ["footsteps", "footsteps_raised"]:
+		if region.has(key) and not surfaces.has(str(region[key])):
+			_err(where, "%s '%s' is not a surface in data/audio.json (%s)" % [key, region[key], surfaces.keys()])
+	for prop: Dictionary in region.get("props", []):
+		if prop.has("sound"):
+			if not prop["sound"] is Dictionary or not (prop["sound"] as Dictionary).has("id"):
+				_err(where, "prop sound must be {id, offset, range, volume}")
+				continue
+			_ref_loop(where + " prop " + str(prop.get("model", prop.get("shape", "?"))).get_file(), str(prop["sound"]["id"]))
+			if prop["sound"].has("offset") and not _is_vector(prop["sound"]["offset"]):
+				_err(where, "prop sound offset must be [x, y, z]")
+
+
 func _validate_events(where: String, region: Dictionary) -> void:
 	var events: Variant = region.get("events", [])
 	if not events is Array:
@@ -854,6 +982,10 @@ func _ref_effects(where: String, step: Dictionary) -> void:
 			_err(where, "quest_stage must be [quest_id, stage_id]")
 		else:
 			_ref_stage(where, str(pair[0]), str(pair[1]))
+	if step.has("sound"):
+		_ref_sound(where, str(step["sound"]))
+		if db.sounds.has(str(step["sound"])) and bool((db.sounds[str(step["sound"])] as Dictionary).get("loop", false)):
+			_err(where, "a dialogue sound plays once; '%s' loops" % step["sound"])
 	if step.has("travel"):
 		var target: Variant = step["travel"]
 		if not target is Array or (target as Array).size() not in [1, 2]:
@@ -989,6 +1121,9 @@ func _check_orphans() -> void:
 	for id: String in db.npcs:
 		if not _npcs_placed.has(id):
 			_err("npc " + id, "is not placed in any region")
+	for id: String in db.sounds:
+		if not _sounds_used.has(id):
+			_warn("data/audio.json", "sound '%s' is never played" % id)
 	for id: String in db.items:
 		if not _items_obtainable.has(id):
 			_warn("item " + id, "can never be obtained")

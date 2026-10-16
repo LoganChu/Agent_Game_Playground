@@ -41,6 +41,9 @@ const AVERT_RADIUS := 6.0
 ## seated Aldous: the bottle turning in his hand on his thigh, and once a cycle a swig — it comes
 ## up to his mouth, his head goes back, and down it comes again; the other hand rubs his knee).
 var style := "breathe"
+## A foot comes down (twice per walk cycle, while walking): the player's footsteps.
+signal footfall
+
 ## Horizontal speed in m/s; drives the walk swing (0 = standing).
 var move_speed := 0.0
 ## A condition (Conditions) under which this character won't look at the player: while it
@@ -54,6 +57,7 @@ var _rest: Dictionary = {}    # part name -> Transform3D
 var _time := 0.0
 var _walk_phase := 0.0
 var _walk_blend := 0.0
+var _stride := 0
 var _avert := 0.0       # 0..1, eased
 var _avert_side := 1.0  # which way the head turns: +1 = toward the model's +X, -1 = -X
 var _avert_reach := 1.0 # 0..1: how much turning is needed (none if the player is behind)
@@ -99,6 +103,12 @@ func _process(delta: float) -> void:
 	_time += delta
 	_walk_blend = move_toward(_walk_blend, 1.0 if move_speed > 0.3 else 0.0, delta * 5.0)
 	_walk_phase += delta * clampf(move_speed, 0.0, 6.0) * 2.2
+	# The legs swing with sin(phase): a foot lands every half cycle.
+	var stride := int(_walk_phase / PI)
+	if stride != _stride:
+		_stride = stride
+		if _walk_blend > 0.5:
+			footfall.emit()
 	if avert_if != null:
 		_update_avert(delta)
 	pose(_time, _walk_phase, _walk_blend)

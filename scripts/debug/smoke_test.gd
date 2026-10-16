@@ -41,6 +41,7 @@ func _run() -> void:
 	var player := get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
 	_check(player != null and player.find_child("CharacterRig", true, false) != null, "player shows the Wakebearer model")
 	_finish_dialogue(ui, "intro")
+	await _check_ambience(main)
 	await _check_ground(main)
 	await _check_greying(main)
 	await _check_gates(main, false)
@@ -101,10 +102,27 @@ func _run() -> void:
 	_check(main.get("region") != null, "region rebuilt after load")
 	if _failures.is_empty():
 		print("SMOKE TEST PASSED")
-		get_tree().quit(0)
+		AudioDirector.quit_game(get_tree(), 0)
 	else:
 		printerr("SMOKE TEST FAILED:\n  " + "\n  ".join(_failures))
-		get_tree().quit(1)
+		AudioDirector.quit_game(get_tree(), 1)
+
+
+## The soundscape: Shingle Point's surf and wind fade in (no gulls before the burn), and a
+## spoken line blips in its speaker's voice.
+func _check_ambience(main: Node) -> void:
+	var audio: AudioDirector = main.get("audio")
+	var guard := 0
+	while not (audio.layer_playing("surf") and audio.layer_playing("wind_low")) and guard < 600:
+		guard += 1
+		await get_tree().process_frame
+	_check(audio.layer_playing("surf") and audio.layer_playing("wind_low"), "Shingle Point's surf and wind play")
+	_check(not audio.ambience_targets().has("gulls"), "no gulls on Shingle Point before the beacon burns")
+	audio.history.clear()
+	audio.speak("pell", "Oi! You. Yes, you, with the hand.")
+	for i in 30:
+		await get_tree().process_frame
+	_check(audio.history.count("voice_bright") >= 2, "Pell's line blips in her voice (%s)" % ", ".join(PackedStringArray(audio.history)))
 
 
 ## Regions the player can walk to from `from` right now (itself first): exits whose
@@ -672,7 +690,10 @@ func _check_ground(main: Node) -> void:
 	var camera_yaw: Node3D = player.get("_camera_yaw")
 	camera_yaw.rotation.y = 0.0  # move_forward = -Z: from the lofts up the ramp to the beacon
 	player.place_at(Vector3(0, region.ground_y(0, 0) + 0.2, 0))
+	var audio: AudioDirector = main.get("audio")
+	audio.history.clear()
 	await _hold("move_forward", 150)
+	_check(audio.history.any(func(id: String) -> bool: return id.begins_with("step_")), "walking plays footsteps (%s)" % ", ".join(PackedStringArray(audio.history)))
 	var top := player.global_position
 	print("Smoke: ramp walk reached ", top)
 	_check(top.z < -8.0 and top.y > 2.3, "player walks up the Gull's Head ramp (reached %s)" % top)
@@ -687,7 +708,9 @@ func _check_ground(main: Node) -> void:
 		await get_tree().physics_frame
 	region = main.get("region")
 	player.place_at(Vector3(6, region.ground_y(6, 8) + 0.2, 8))
+	audio.history.clear()
 	await _hold("move_back", 150)  # +Z: down the walkway and out along the dock
+	_check(audio.history.has("step_boards"), "footsteps on the dock sound as boards (%s)" % ", ".join(PackedStringArray(audio.history)))
 	var dock := player.global_position
 	print("Smoke: dock walk reached ", dock)
 	_check(dock.z > 16.5 and absf(dock.y - region.ground_y(dock.x, dock.z)) < 0.2, "player walks out along the Saltmarrow dock (reached %s)" % dock)
@@ -720,6 +743,9 @@ func _check_greying(main: Node) -> void:
 	_check(walker.depth > 0.5, "the headland lies deep in the Greying (depth %s)" % walker.depth)
 	_check(walker.meter.ember < 0.95, "the Greying drains the ember (%s)" % walker.meter.ember)
 	_check(hud.is_meter_shown(), "ember meter shows in the Greying")
+	var audio: AudioDirector = main.get("audio")
+	_check(audio.ambience_cutoff() < 4000.0 and audio.is_heart_playing(), "the Greying muffles the ambience (%d Hz) and the ember's heart beats" % audio.ambience_cutoff())
+	audio.history.clear()
 	walker.meter.drain_scale = 60.0
 	var guard := 0
 	while not walker.turning_back and guard < 300:
@@ -727,6 +753,7 @@ func _check_greying(main: Node) -> void:
 		await get_tree().physics_frame
 	_check(walker.turning_back and GameState.input_locked, "an empty ember turns the player back")
 	await walker.turned_back
+	_check(audio.history.has("turn_back"), "turning back has its sound")
 	walker.meter.drain_scale = 1.0
 	for i in 5:
 		await get_tree().physics_frame
@@ -764,6 +791,12 @@ func _check_beacon_lit(main: Node) -> void:
 	_check(is_equal_approx(atmosphere.environment.fog_density, target), "fog applied on region load")
 	var light := RegionMood.light(region.data, world)
 	_check(is_equal_approx(atmosphere.sun.light_energy, float(light["sun_energy"])), "region light applied on region load")
+	var audio: AudioDirector = main.get("audio")
+	_check(audio.ambience_targets().has("gulls") and float(audio.ambience_targets().get("wind_high", 1.0)) < 1.0, "the gulls come back to the lit headland and the wind drops")
+	var fire: SoundEmitter = null
+	for node in region.find_children("Sound", "SoundEmitter", true, false):
+		fire = node as SoundEmitter
+	_check(fire != null and fire.sound_id == "fire", "the lit beacon's fire has its sound")
 
 
 ## Opens both journal tabs via the real input actions and checks they mirror world state.

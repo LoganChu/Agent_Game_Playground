@@ -32,6 +32,8 @@ func build(id: String) -> void:
 	data = Content.db.get_region(id)
 	name = "Region_" + id
 	add_to_group("region")
+	# Render the props' sounds in the background while the region builds.
+	SoundBank.warm(Content.db, prop_sounds(data))
 	if data.has("ground"):
 		field = TerrainField.from_data(data["ground"], float(data.get("water_level", -INF)))
 		field.select_paint(GameState.world)
@@ -121,6 +123,32 @@ func _refresh_greying(world: WorldState, animate: bool) -> void:
 			else:
 				fog.queue_free()
 			_greying_fog.erase(i)
+
+
+## Every sound id the region's props carry (`sound`), conditional ones included.
+static func prop_sounds(region_data: Dictionary) -> Array:
+	var ids: Array = []
+	for prop: Dictionary in region_data.get("props", []):
+		if prop.get("sound") is Dictionary and not ids.has(str(prop["sound"].get("id", ""))):
+			ids.append(str(prop["sound"].get("id", "")))
+	return ids
+
+
+## The footstep surface under `pos` (data/audio.json "footsteps"): a pier deck (or anything
+## built, standing well above the ground — a dock, a boardwalk) sounds as `boards`, unless
+## the region says otherwise (`footsteps_raised`: the Teeth's slabs are rock); shallow water
+## as `wade`; anywhere else the region's `footsteps`.
+func footstep_surface(pos: Vector3) -> String:
+	var surface := str(data.get("footsteps", (Content.db.audio.get("footsteps", {}) as Dictionary).get("default", "grass")))
+	if field == null:
+		return surface
+	var ground := field.height_at(pos.x, pos.z)
+	var deck := field.pier_deck(pos.x, pos.z)
+	if (deck > -INF and pos.y > deck - 0.2) or pos.y > ground + 0.2:
+		return str(data.get("footsteps_raised", "boards"))
+	if field.water_level > -INF and ground < field.water_level - 0.02:
+		return "wade"
+	return surface
 
 
 ## Fog depth (0..1) of the Greying at x/z right now.
@@ -252,6 +280,8 @@ func _build_prop(prop: Dictionary) -> Node3D:
 			if prop.get("halo") is Array:
 				node.add_child(LanternHalo.build(JsonUtil.to_vector3(prop["halo"]), float(prop.get("halo_size", LanternHalo.SIZE)),
 					float(prop.get("halo_strength", LanternHalo.STRENGTH)), float(prop.get("halo_bloom", 0.0))))
+			if prop.get("sound") is Dictionary:
+				node.add_child(SoundEmitter.build(prop["sound"]))
 			if prop.get("over_water", false) == true:
 				draw_over_water(node)
 			if prop.get("float") is Dictionary:
