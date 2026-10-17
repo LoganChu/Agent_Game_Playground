@@ -135,6 +135,14 @@
             "goto": "name"
           },
           {
+            "text": "Aldous Wren counted the novices on the stair that winter.",
+            "if": [
+              "!flag:saltmarrow_aldous_novice=",
+              "!flag:thornwold_lamp_heard_seventh"
+            ],
+            "goto": "seventh"
+          },
+          {
             "text": "The Ridge Light is cold.",
             "goto": "beacon"
           },
@@ -678,7 +686,8 @@
         "set": {
           "thornwold_lamp_name": "told"
         },
-        "quest_complete": "paid_twice"
+        "quest_complete": "paid_twice",
+        "quest_start": "the_east_stair"
       },
       {
         "say": "lamp",
@@ -730,6 +739,52 @@
           "thornwold_lamp_name": "left"
         },
         "quest_complete": "paid_twice"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "seventh": [
+      {
+        "say": "narrator",
+        "text": "The chisel stops."
+      },
+      {
+        "say": "lamp",
+        "text": "The Wren. On his bench in Saltmarrow, with a bottle, you said. Go on."
+      },
+      {
+        "say": "narrator",
+        "text": "You tell it: six novices with names, Ama Rusk and the Petch twins and the rest, and a seventh light on the east landing with no face to it. Thirty-one years and the fog's had one."
+      },
+      {
+        "say": "lamp",
+        "text": "Seven. I'd not have said seven. I'd have said a light, and a voice that knew my name, and the rest was the stair."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_novice=lamp",
+        "say": "lamp",
+        "text": "He's sorry? Thirty winters he never once asked my business, and now he's sorry. Tell him a door-warden isn't the door. No. I'll tell him myself, the day the lanes run with nobody counting."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_novice=self",
+        "say": "lamp",
+        "text": "You asked him if it was you. Keepers don't ask that kind of thing. But you're not a Keeper. Or not now."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_novice=self",
+        "say": "narrator",
+        "text": "The grey eyes stay on you a while, the way they'd stay on a coal deciding whether it's caught."
+      },
+      {
+        "if": "flag:thornwold_lamp_name=told",
+        "say": "lamp",
+        "text": "Whoever they were, they kept this ridge lit. I'd thank them. I'd ask them how they knew."
+      },
+      {
+        "set": {
+          "thornwold_lamp_heard_seventh": true
+        }
       },
       {
         "goto": "hub"

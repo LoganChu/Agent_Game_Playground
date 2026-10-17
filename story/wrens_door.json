@@ -40,7 +40,13 @@
       },
       {
         "say": "narrator",
-        "text": "In the brazier the ash has been raked smooth. Not lit. Raked, the way you'd make up a bed for someone expected."
+        "text": "In the brazier the ash has been raked smooth. Not lit. Raked, the way you'd make up a bed for someone expected.",
+        "if": "flag:saltmarrow_aldous_novice="
+      },
+      {
+        "if": "!flag:saltmarrow_aldous_novice=",
+        "say": "narrator",
+        "text": "On the raked ash a fire is laid: three sticks of driftwood crossed over a twist of dry wrack. Nobody has put a light to it. It looks like it's waiting for somebody to come down a stair."
       }
     ],
     "told_grudging": [
@@ -54,7 +60,13 @@
       },
       {
         "say": "narrator",
-        "text": "The brazier's ash is grey all the way down."
+        "text": "The brazier's ash is grey all the way down.",
+        "if": "flag:saltmarrow_aldous_novice="
+      },
+      {
+        "if": "!flag:saltmarrow_aldous_novice=",
+        "say": "narrator",
+        "text": "The brazier's ash has been raked level at last, and a fire laid on it: three sticks of driftwood crossed over a twist of dry wrack. Nobody has put a light to it. It looks like it's waiting for somebody to come down a stair."
       }
     ]
   }

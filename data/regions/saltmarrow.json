@@ -299,6 +299,48 @@
       "note": "Uncovered once Aldous has told the truth about the Hearthspire. Same position and turn as the house: the model sits on its hook."
     },
     {
+      "model": "res://assets/models/dressing/brazier_ash.glb",
+      "shape": "brazier",
+      "position": [
+        -9,
+        0,
+        -3
+      ],
+      "rotation_y": 15,
+      "if": [
+        "!flag:saltmarrow_aldous_confessed=full",
+        "flag:saltmarrow_aldous_novice="
+      ],
+      "note": "The cold brazier's grey ash and dead coals, as left (untold or grudging). Same position and turn as the house: the model sits in its bowl."
+    },
+    {
+      "model": "res://assets/models/dressing/brazier_raked.glb",
+      "shape": "brazier",
+      "position": [
+        -9,
+        0,
+        -3
+      ],
+      "rotation_y": 15,
+      "if": [
+        "flag:saltmarrow_aldous_confessed=full",
+        "flag:saltmarrow_aldous_novice="
+      ],
+      "note": "After a full confession the ash is raked, not lit: he has no ember to light it (LORE, Day 16)."
+    },
+    {
+      "model": "res://assets/models/dressing/brazier_laid.glb",
+      "shape": "brazier",
+      "position": [
+        -9,
+        0,
+        -3
+      ],
+      "rotation_y": 15,
+      "if": "!flag:saltmarrow_aldous_novice=",
+      "note": "After the novice on the east stair (Day 47): a fire laid on the raked ash for whoever comes down the stair. Still not lit."
+    },
+    {
       "model": "res://assets/models/dressing/plank_bench.glb",
       "position": [
         -7,

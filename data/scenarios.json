@@ -437,6 +437,23 @@
         "wennas_answer": 0
       },
       "shot": "--camera=-9.8,2.0,-8.0:-7.3,1.5,-6.8"
+    },
+    {
+      "id": "east_stair",
+      "act": "Act II — The Drift",
+      "title": "The East Stair",
+      "inherits": "lamp_named",
+      "region": "saltmarrow",
+      "spawn": "from_ferry",
+      "description": "Oda sailed the player back from Thornwold to Saltmarrow. On his bench by the Wrens' steps Aldous heard that Wynn Sallow is alive, counted six novices on the east stair by name and a seventh light with no face, and was asked 'could it have been me?' He couldn't find the player's face anywhere. He told of the novices' roll in the warden's niche on Cindermoor and laid the Wrens' brazier for whoever comes down the stair.",
+      "flags": {
+        "lanes_ferry_at": "saltmarrow",
+        "saltmarrow_aldous_novice": "self"
+      },
+      "quests": {
+        "the_east_stair": "done"
+      },
+      "shot": "--at=-6.6,0,0.6 --camera=-5.6,2.1,2.2:-9.3,0.9,-1.2"
     }
   ]
 }

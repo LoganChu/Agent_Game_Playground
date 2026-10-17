@@ -7,6 +7,11 @@
         "goto": "first"
       },
       {
+        "if": "flag:saltmarrow_aldous_novice=self",
+        "say": "narrator",
+        "text": "Aldous looks up at your face the way he has since you asked him, as if it might come back to him if he caught it unawares."
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -83,6 +88,14 @@
             "goto": "confess_grudging"
           },
           {
+            "text": "Wynn Sallow kept a coal.",
+            "if": [
+              "flag:thornwold_lamp_name=told",
+              "flag:saltmarrow_aldous_novice="
+            ],
+            "goto": "novice"
+          },
+          {
             "text": "What happened at the Hearthspire?",
             "goto": "spire"
           },
@@ -100,12 +113,18 @@
     ],
     "know_me": [
       {
-        "say": "aldous",
-        "text": "Know you? I— no. No. Everyone looks a bit familiar after the fourth cup."
+        "if": "flag:saltmarrow_aldous_novice=",
+        "goto": "know_me_before"
       },
       {
-        "say": "narrator",
-        "text": "He doesn't meet your eyes. His hand has drifted to cover the faded ember stitched on his sleeve."
+        "if": "flag:saltmarrow_aldous_novice=lamp",
+        "say": "aldous",
+        "text": "Know you? I've had a good look since Wynn's novice. You'd think a door-warden would know. I don't."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_novice=self",
+        "say": "aldous",
+        "text": "You asked me that on the bench and I told you the truth. I'm still looking. I'll tell you the day I find it."
       },
       {
         "goto": "hub"
@@ -525,6 +544,176 @@
       {
         "say": "aldous",
         "text": "Thornwold had a beacon-keeper of ours, once. I'll not say the name. Names carry. But if someone in those woods looks at your ember like they've seen one before… be kind to them. Kinder than I'd be."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "know_me_before": [
+      {
+        "say": "aldous",
+        "text": "Know you? I— no. No. Everyone looks a bit familiar after the fourth cup."
+      },
+      {
+        "say": "narrator",
+        "text": "He doesn't meet your eyes. His hand has drifted to cover the faded ember stitched on his sleeve."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "novice": [
+      {
+        "if": "!quest:the_east_stair=active",
+        "quest_start": "the_east_stair",
+        "note": "Saves where the name was said before Day 47 never started the quest."
+      },
+      {
+        "say": "narrator",
+        "text": "He has the bottle halfway to his mouth. It stops there."
+      },
+      {
+        "say": "aldous",
+        "text": "You said it out loud. In this fog. I wouldn't, the day the ferry came. Names carry."
+      },
+      {
+        "say": "aldous",
+        "text": "…Sallow. Wynn Sallow's alive?"
+      },
+      {
+        "say": "narrator",
+        "text": "You tell him: the ridge over Thornwold, the bench under the lodge's eave, the iron box and the chisel, a sliver a night, one lantern each. The hood put back."
+      },
+      {
+        "say": "aldous",
+        "text": "A sliver a night. That's Wynn. Never took a whole coal down the stair in thirty winters when half would do."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_confessed=grudging",
+        "say": "aldous",
+        "text": "I gave you the bare bones of that night and told you to go. I thought I was the only one of us who ran and lived. Wynn didn't run. Kept the light. Kept it for strangers."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_confessed=grudging",
+        "say": "narrator",
+        "text": "He corks the bottle and sets it down on the slate, carefully, as if it might wake."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_confessed=full",
+        "say": "aldous",
+        "text": "I told you there was a keeper of ours in those woods. I didn't tell you I'd counted Wynn among the dead. I've been pouring one out for that coal every night since the ferry."
+      },
+      {
+        "say": "aldous",
+        "text": "But you didn't sail two lanes to tell me Wynn's well. What's Wynn sent you to ask?"
+      },
+      {
+        "say": "narrator",
+        "text": "You tell him: the last midwinter, the east stair, a novice on the landing with a light cupped in their hands. 'Keep one back this year, Keeper Sallow.'"
+      },
+      {
+        "if": "flag:wrackholm_sworn=sworn",
+        "say": "aldous",
+        "text": "And there's the scale's salt on your palm. I can smell the lane-house on you. A friend of the lanes, asking a Keeper which of his novices said what to whom. My brothers would call that Tidewright business. They'd be right, and I don't care."
+      },
+      {
+        "if": "flag:wrackholm_sworn=declined",
+        "say": "aldous",
+        "text": "The Tidewrights offered you their scale, I'd guess, and you stepped off it. My brothers would like that in you. Don't let that be the reason you did it."
+      },
+      {
+        "say": "aldous",
+        "text": "The last midwinter. The coals came down from the flame one keeper at a time, and every one of them past me. I could tell you them in order. I have. Most nights, to this bench."
+      },
+      {
+        "say": "aldous",
+        "text": "And on the landings, the novices, holding lights for them to see the steps by. Seven that winter. Ama Rusk, with the cough. Tobin and Kit Petch, who swapped places to fool me and never once did. Joss Merrow, who dropped things. Edda Pike. Fennick, who sang on the steps when he thought nobody could hear."
+      },
+      {
+        "say": "narrator",
+        "text": "He stops. He counts on his fingers, under his breath, and comes to the end of them, and starts again."
+      },
+      {
+        "say": "aldous",
+        "text": "Six. I know there were seven. Seven lights up and seven down, every night of that winter; I counted them. And on the east landing, where the seventh face should be, there's—"
+      },
+      {
+        "say": "narrator",
+        "text": "He looks out over the harbor at the grey. He doesn't finish. Your ember beats in your palm, once, slow, like something knocking on the inside of a door.",
+        "sound": "ember_knock"
+      },
+      {
+        "say": "aldous",
+        "text": "Thirty-one years, and I never lost a face off that stair. Not one. The fog's had one."
+      },
+      {
+        "choice": [
+          {
+            "text": "Wynn would want to know who it was.",
+            "set": {
+              "saltmarrow_aldous_novice": "lamp"
+            },
+            "goto": "novice_lamp"
+          },
+          {
+            "text": "Could it have been me?",
+            "set": {
+              "saltmarrow_aldous_novice": "self"
+            },
+            "goto": "novice_self"
+          }
+        ]
+      }
+    ],
+    "novice_lamp": [
+      {
+        "say": "aldous",
+        "text": "So would I. Tell Wynn: the seventh light, on the east landing, and the door-warden's sorry. Tell Wynn I'm sorry for all of it, while you're there. Wynn'll know what I mean."
+      },
+      {
+        "goto": "novice_roll"
+      }
+    ],
+    "novice_self": [
+      {
+        "say": "narrator",
+        "text": "He looks at you for a long time. Long enough that the gulls come round twice."
+      },
+      {
+        "say": "aldous",
+        "text": "I don't know. That's the worst thing I could say to you, and it's the truth."
+      },
+      {
+        "say": "aldous",
+        "text": "I've been looking at your face since the morning you came up off the beach. I can't find it anywhere. Not on the stair. Not off it. A face I'd never seen, I'd know I'd never seen. Yours, I can't tell."
+      },
+      {
+        "say": "aldous",
+        "text": "I told you you came too soon. I'm less sure, now, that it's soon at all."
+      },
+      {
+        "goto": "novice_roll"
+      }
+    ],
+    "novice_roll": [
+      {
+        "say": "aldous",
+        "text": "There's a roll, at the Spire. Every novice's name, and the day they came up, in the door-warden's hand. Mine, for thirty-one years. It's in the warden's niche at the foot of the east stair, unless somebody's burned it."
+      },
+      {
+        "say": "aldous",
+        "text": "If you ever get across to Cindermoor, count the names for that winter. If there are seven, the seventh's yours to read. Whoever's it is."
+      },
+      {
+        "say": "narrator",
+        "text": "He gets up off the bench, slowly, joint by joint, and goes to the cold brazier at the Wrens' steps. He takes a stick from the driftwood by the door and lays it across the bowl. Then another, crossways. Then a third."
+      },
+      {
+        "say": "aldous",
+        "text": "A door-warden keeps a hearth laid for whoever comes down the stair. I let this one go cold. I've no fire to put to it. But it's laid."
+      },
+      {
+        "quest_complete": "the_east_stair"
       },
       {
         "goto": "hub"

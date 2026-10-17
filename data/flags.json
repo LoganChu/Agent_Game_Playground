@@ -74,6 +74,16 @@
       "description": "After the beacon was lit, a player who had not been gentle with Aldous asked for his story; he refused and sent them away. Unlocks showing him the ember on the next visit.",
       "default": false
     },
+    "saltmarrow_aldous_novice": {
+      "description": "Asked Aldous about the novice on the east stair (Day 47, The East Stair; needs thornwold_lamp_name=told): '' (not yet), 'lamp' (asked for Wynn's sake: he sends his sorry) or 'self' (asked 'could it have been me?': he can't find the player's face anywhere, on the stair or off it). Either way he counts six novices and a seventh with no face, tells of the novices' roll in the warden's niche at the foot of the east stair, and lays the Wrens' brazier.",
+      "default": "",
+      "values": [
+        "",
+        "lamp",
+        "self"
+      ],
+      "future": true
+    },
     "saltmarrow_aldous_confessed": {
       "description": "Aldous's Act I confession: '' (untold), 'full' (gentle — the High Keeper put the flame out, a light went down the stair past him, gives the Keeper's sleeve-ember) or 'grudging' (pressed — the bare fact only). Keepers in Act II should know which.",
       "default": "",
@@ -229,6 +239,10 @@
       "description": "Player told the Lamp what Brother Aldous confessed in Saltmarrow (reads saltmarrow_aldous_confessed; the Lamp recognises the sleeve-ember's stitching if the player carries it). The coal in the iron box went cold on one side the night of the Snuffing.",
       "default": false,
       "future": true
+    },
+    "thornwold_lamp_heard_seventh": {
+      "description": "Told the Lamp (Wynn) what Aldous counted: six novices with names and a seventh light on the east landing with no face. The Lamp answers Aldous's sorry ('lamp') or weighs the player ('self').",
+      "default": false
     },
     "thornwold_stair_light": {
       "description": "What the player asked of the Lamp for the dark Keepers' stair: '' (not asked), 'sliver' (the Lamp broke a new sliver off the last coal - it shrinks), 'moved' (take the fourth waymark's lantern off the colliers' road - Hob's road gets darker) or 'refused' (the stair stays dark). Shifting paths: the woods' light follows the choice.",
