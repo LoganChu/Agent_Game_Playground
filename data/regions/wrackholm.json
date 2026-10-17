@@ -647,7 +647,7 @@
       "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
       "position": [
         14.5,
-        0,
+        -0.77,
         4.0
       ],
       "rotation_y": 10,
@@ -655,13 +655,15 @@
         2.8,
         0.6,
         1.4
-      ]
+      ],
+      "snap": false,
+      "note": "A low rock off the shore, awash."
     },
     {
       "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
       "position": [
         -16.5,
-        0,
+        -0.79,
         3.0
       ],
       "rotation_y": 70,
@@ -669,13 +671,15 @@
         2.8,
         0.6,
         1.4
-      ]
+      ],
+      "snap": false,
+      "note": "A low rock off the shore, awash."
     },
     {
       "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
       "position": [
         -24.5,
-        -0.95,
+        -0.82,
         -4.5
       ],
       "rotation_y": 40,
@@ -686,7 +690,7 @@
       "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
       "position": [
         -26.0,
-        -0.9,
+        -0.8,
         3.5
       ],
       "rotation_y": 120,
@@ -697,7 +701,7 @@
       "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
       "position": [
         -22.5,
-        -1.0,
+        -0.83,
         7.5
       ],
       "rotation_y": -30,

@@ -698,27 +698,27 @@
     {
       "model": "res://assets/models/dressing/reeds.glb",
       "position": [
-        -5.2,
+        -3.36,
         0,
-        2.4
+        2.89
       ],
       "rotation_y": 201
     },
     {
       "model": "res://assets/models/dressing/reeds.glb",
       "position": [
-        -3.4,
+        -0.89,
         0,
-        -1.5
+        -2.95
       ],
       "rotation_y": 268
     },
     {
       "model": "res://assets/models/dressing/reeds.glb",
       "position": [
-        3.6,
+        2.56,
         0,
-        -3.4
+        -2.8
       ],
       "rotation_y": 335
     },
