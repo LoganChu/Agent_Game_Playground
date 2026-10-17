@@ -14,6 +14,7 @@ const HUD_TITLE := &"HudTitleLabel"  ## region name on arrival
 const HUD_KEYS := &"HudKeysLabel"  ## "[J] Journal [I] Satchel"
 const HUD_TOAST := &"HudToastLabel"  ## "Got: Harbormaster's Token"
 const HUD_METER := &"HudMeterLabel"  ## "Ember" over the Greying meter
+const GAME_TITLE := &"GameTitleLabel"  ## the game's name on the title screen
 
 ## Base font sizes at text scale 1.0: [theme type, theme item, size].
 const FONT_SIZES: Array = [
@@ -32,6 +33,7 @@ const FONT_SIZES: Array = [
 	[HUD_KEYS, &"font_size", 15],
 	[HUD_TOAST, &"font_size", 18],
 	[HUD_METER, &"font_size", 16],
+	[GAME_TITLE, &"font_size", 64],
 ]
 const DEFAULT_FONT_SIZE := 20
 
@@ -99,6 +101,7 @@ static func _build() -> Theme:
 	_label_variation(theme, HUD_KEYS, bone, 5)
 	_label_variation(theme, HUD_TOAST, kindle, 6)
 	_label_variation(theme, HUD_METER, kindle, 5)
+	_label_variation(theme, GAME_TITLE, kindle, 8)
 
 	# The ember meter (HUD, while in the Greying).
 	var bar_bg := StyleBoxFlat.new()

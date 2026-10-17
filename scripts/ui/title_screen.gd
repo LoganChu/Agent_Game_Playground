@@ -92,8 +92,7 @@ func _build() -> void:
 	_shade.color = Color(PropFactory.color("ink"), 0.3)
 	_game_title = Label.new()
 	_game_title.text = str(Content.db.game.get("title", "Emberwake"))
-	_game_title.theme_type_variation = UiTheme.HUD_TITLE
-	_game_title.add_theme_font_size_override(&"font_size", 64)
+	_game_title.theme_type_variation = UiTheme.GAME_TITLE
 	_game_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_box.add_child(_game_title)
 	_box.move_child(_game_title, 0)
