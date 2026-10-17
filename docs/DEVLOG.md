@@ -2,6 +2,60 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-17 09:00 UTC — Day 47: The east stair (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again with a stale
+  `origin/main`; fetched and reset local `main` to Day 46's `f5fd84f`. Baseline green.
+- **Content (due by Day 49; last content Day 45, systems Day 46):** ROADMAP *Next up* #1, *Aldous and the novice*:
+  - **New quest *The East Stair*** (`the_east_stair`), started where the Lamp, told its name, says the door-warden of
+    the east stair "saw every face go by". Oda's lane runs Thornwold → Saltmarrow already. Saves that said the name
+    before today start and finish it at Aldous.
+  - **On the bench** ("Wynn Sallow kept a coal."): the bottle stops halfway. Aldous had counted Wynn among the dead
+    (full) or thought himself the only Keeper who ran and lived (grudging — he corks the bottle). He names **six novices**
+    who held lights on the landings the last midwinter, counts on his fingers, starts again — **the seventh, on the east
+    landing, has no face**. The ember knocks once (new one-shot `ember_knock`). "Thirty-one years, and I never lost a face
+    off that stair. The fog's had one."
+    - **"Wynn would want to know who it was."** (`saltmarrow_aldous_novice=lamp`): he sends the door-warden's sorry.
+    - **"Could it have been me?"** (`self`): "I don't know. That's the worst thing I could say to you." He can't find the
+      player's face anywhere, on the stair or off it; "I told you you came too soon. I'm less sure, now, that it's soon at
+      all." From then on he looks at your face when you come up, and *Do you know me?* is answered honestly.
+    - Either way: **the novices' roll** in the warden's niche at the foot of the east stair (a Cindermoor hook) — and he
+      gets up off the bench and **lays the Wrens' brazier** for whoever comes down the stair. Not lit.
+  - **The Keepers weigh the lanes' oath** for the first time (a roadmap ask): sworn → "Tidewright business… I don't
+    care"; declined → "My brothers would like that in you."
+  - **Wynn hears it** on the ridge (`thornwold_lamp_heard_seventh`): "Seven. I'd not have said seven." — answers the sorry
+    ("a door-warden isn't the door") or weighs the player who asked if it was them ("you're not a Keeper. Or not now.").
+  - The Wrens' door describes the laid fire.
+- **Art (folded in):** `build_village.py` — the brazier's contents split out of `house_wren` into three exclusive props
+  at the house's origin: `brazier_ash` (as before), `brazier_raked` (**Day 16 canon finally shown**: raked after a full
+  confession), `brazier_laid` (three driftwood sticks crossed on raked ash over a twist of wrack).
+- **Tests:** `test_east_stair.gd` (9): the Lamp starts it, `left` never does; asked for Wynn; "could it have been me?";
+  the single knock; a grudging Wren; the oath weighed; old saves; the brazier's three states and the door; Wynn told.
+  `test_aftermath.gd` counts the brazier among Saltmarrow's conditional props. 342 tests + smoke + launch pass.
+  Checkpoint `east_stair`.
+
+Screenshots: `docs/screenshots/2026-10-17-the-brazier-laid.png`; `docs/checkpoints/east_stair.png`.
+
+**Decisions**
+- **Mystery #2 moves a notch, not an answer.** The novice gets a count (the seventh of seven) and a place to look (the
+  roll on Cindermoor), and the one man who remembers every face can't find the player's — never "it was you". LORE
+  marks the seventh name on the roll as the player's, undecided whether the roll survives.
+- **The quest completes at Aldous**; telling Wynn is an optional coda, not a stage — no new thread left hanging.
+- **The fire is laid, not lit:** Aldous still has no ember. Lighting it is a choice for a later scene (the player's
+  ember? Wynn's coal, if the lanes ever carry one?).
+- Six invented novices' names are canon now (LORE); Fennick is "he" in Aldous's line.
+- No smoke-walk extension: the walk never sails back to Saltmarrow; the scene is fully unit-tested (noted for pass six).
+
+**Problems / notes**
+- The tinder twist under the sticks hides inside the bowl; the raked ash's furrows barely read at the bowl's depth in
+  the Compatibility renderer. Fine at play distance.
+
+**Next run should**
+1. **Polish/debt pass six** (due by Day 52) — ROADMAP *Next up* #1.
+2. Next content due by Day 51: the lane on from Wrackholm, Hob and the ladder, or Dunstan's walk back. Fetch before
+   trusting `origin/main`.
+
 ## 2026-10-16 21:00 UTC — Day 46: Audio hooks v1 (systems)
 
 **Did**

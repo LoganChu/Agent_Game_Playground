@@ -798,6 +798,34 @@ debts, salvage, and who answers for a thing.
       it"), carrying it home is an off-islander's business — but **for a sworn friend of the lanes** "the Book doesn't
       mind being read. It minds being emptied." Leaving it paid is "Tidewright manners".
 
+  - **Established in play (Day 47 — the east stair, back in Saltmarrow):** (`the_east_stair`, `saltmarrow_aldous_novice`)
+    - **Aldous thought Wynn Sallow dead.** He knew the Ridge Light's keeper by name (he wouldn't say it the day the ferry
+      came) and had poured one out for that coal every night since; a grudging Aldous had thought himself "the only one of
+      us who ran and lived". "A sliver a night. That's Wynn."
+    - **The novices of the last midwinter.** The coals came down from the flame one keeper at a time, every one past the
+      door-warden, and novices stood on the landings holding lights for them. **Seven that winter.** Aldous names six:
+      **Ama Rusk** (the cough), **Tobin and Kit Petch** (twins who swapped places to fool him and never once did), **Joss
+      Merrow** (dropped things), **Edda Pike**, **Fennick** (sang on the steps). **The seventh, on the east landing, has no
+      face** — thirty-one years and he never lost a face off that stair; "the fog's had one." (The ember knocks once.)
+    - **The novices' roll:** every novice's name and the day they came up, in the door-warden's hand, kept **in the
+      warden's niche at the foot of the east stair** on the Hearthspire, "unless somebody's burned it". If there are seven
+      names for that winter, the seventh is the novice's. *(Hook for Cindermoor — Act III. [SECRET — planned] the seventh
+      name is the player's; whether the roll survives, or the name on it was burned too, is undecided.)*
+    - **Asked for Wynn's sake** (`lamp`): Aldous sends "the door-warden's sorry — for all of it". Wynn, told, answers that
+      a door-warden isn't the door, and will say so in person "the day the lanes run with nobody counting".
+    - **Asked "could it have been me?"** (`self`): "I don't know. That's the worst thing I could say to you, and it's the
+      truth." He can't find the player's face anywhere — "not on the stair, not off it"; a face he'd never seen he'd know
+      he'd never seen. "I told you you came too soon. I'm less sure, now, that it's soon at all." He looks at their face
+      since, as if it might come back to him unawares. (Wynn: "Keepers don't ask that kind of thing. But you're not a
+      Keeper. Or not now.")
+    - **The Keepers weigh the lanes' oath, first time:** to a sworn friend of the lanes Aldous says his brothers would
+      call this Tidewright business ("They'd be right, and I don't care"); to one who stepped off the scale, "My brothers
+      would like that in you."
+    - **The Wrens' brazier laid:** a door-warden keeps a hearth laid for whoever comes down the stair. Aldous lays three
+      sticks of driftwood crossed over a twist of dry wrack on the raked ash. **Still not lit** — he has no fire to put to it.
+      (The brazier's ash shows raked after a `full` confession, as Day 16 said; grey all the way down after `grudging`
+      until this scene.)
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)
@@ -815,7 +843,7 @@ debts, salvage, and who answers for a thing.
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
    Keepers quietly feeding it the memories of the Hushed. Oriel could not continue it.
-2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
+2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —

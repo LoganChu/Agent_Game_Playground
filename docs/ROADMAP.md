@@ -387,38 +387,45 @@ each .glb < 5 MB.
       Greying muffles the world** (Ambience low-pass) with the ember's heartbeat under it and a turn-back sound.
       Validator checks every recipe and reference; `tools/debug/export_sounds.gd` writes them as .wav to listen.
 
+- [x] [C] **The east stair** (Day 47): quest *The East Stair* (from the Lamp's name said outright); back in
+      Saltmarrow Aldous hears Wynn Sallow is alive, names six novices of the last midwinter and finds no face for the
+      seventh; asked for Wynn's sake (his sorry, answered by Wynn on the ridge) or "could it have been me?" (he can't
+      find the player's face anywhere); the novices' roll in the warden's niche (Cindermoor hook); the lanes' oath
+      weighed by a Keeper for the first time; the Wrens' brazier raked (full confession, Day 16 canon) and then laid
+      (Blender `brazier_ash`/`brazier_raked`/`brazier_laid`); the ember knocks once (`ember_knock`). Checkpoint `east_stair`.
+
 ### Next up
-1. [C] **Next content** (due by Day 49; Day 46 was systems — audio): the lane on from Wrackholm (Cindermoor is "past more besides"; the Keepers'
-   first approach should weigh `wrackholm_sworn` and `thornwold_lamp_name`), or **Aldous and the novice** — told the Lamp
-   remembers a novice on the east stair saying "Keep one back this year, Keeper Sallow", Aldous (the door-warden who
-   "saw every face go by") might know a face (mystery #2: don't answer it), or **Hob and the ladder** (salt_row: the Lamp
-   will tell him if he comes up).
-2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+1. [P] **Polish/debt pass six** (due by Day 52; last Day 44) — candidates in *Known issues* below; also the smoke walk
+   never sails back to Saltmarrow (the east stair is unit-tested only).
+2. [C] **Next content** (due by Day 51; Day 47 was content): **the lane on from Wrackholm** (Cindermoor is "past more
+   besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`), or
+   **Hob and the ladder** (salt_row: the Lamp will tell him if he comes up), or Dunstan's walk back for his name.
+   Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before.
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-3. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
    would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-6. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
-   vs. slate); a lit-window variant for nights once day/night exists; after a `full` confession the
-   brazier's ash raked (LORE, Day 16 — not yet shown); the mended lofts could get someone at work on
+7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+   vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-7. [S] Interaction polish: camera framing during dialogue; fade the
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -485,8 +492,8 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 43 (the Wrack's burning); next content due by Day 47.
-- Last polish/debt session: Day 38 (pass four); next due by Day 46.
+- Last content session: Day 47 (the east stair); next content due by Day 51.
+- Last polish/debt session: Day 44 (pass five); next due by Day 52.
 - Last art session: Day 43 (the lit Wrack, the open horn, the bare Gannet, folded into the content session; Day 39 the fen led). Next
   art-led session due ~Day 45: Wrackholm follow-ups (below) or the Saltmarrow dressing follow-ups.
 - The Teeth (Day 42) follow-ups: the reef road reads as one smooth grey causeway from above (edge slabs break it up a

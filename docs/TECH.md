@@ -37,7 +37,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord wenna wenna_nobrass jory …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
-.tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
+.tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren brazier_ash brazier_raked brazier_laid net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
@@ -240,6 +240,9 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   with the house's own `position` and `rotation_y` and only the `if` differs (a pattern for
   any story-swappable detail on a building). The old flat-walled `stilt_house.glb` was
   retired on Day 16. Every Act I prop is a Blender model (`test_village.gd` guards it).
+  The brazier's contents follow the same pattern (Day 47): `house_wren` keeps the bowl only, and
+  `brazier_ash` (cold heap) / `brazier_raked` (after a `full` confession) / `brazier_laid` (after
+  `saltmarrow_aldous_novice`) sit in it at the house's origin, `shape` "brazier", exactly one shown.
 - `"wading": [[x, z, radius], ...]` (model props, not with `float`) — small level foam rings
   round legs and pilings standing in the sea (model space before `scale`; one mesh for all
   rings, `FloatingProp.wading_mesh`). At build time a ring is kept only if the ground under
@@ -773,7 +776,8 @@ it uses (ambience on arrival, prop sounds as it builds; every one-shot cue at st
   speaker's `voice` (`{sound, pitch}` on the NPC; `player_voice` in audio.json; the narrator is
   silent), each a little off-pitch. A new line cuts the last one off.
 - **Story sounds**: a dialogue step's `"sound": "<id>"` (an effect, one-shot only) — the
-  ferry's horn (`horn_far`), the answering horn (`horn_near`), each beacon catching (`kindle`).
+  ferry's horn (`horn_far`), the answering horn (`horn_near`), each beacon catching (`kindle`), the ember's single knock
+  (`ember_knock`, Day 47) where Aldous can't find the seventh novice's face.
 - **Cues**: `audio.json events` — quest started/updated/done chimes, an item gained, a tick
   on every button press (any `BaseButton` added to the tree) and on focus moves.
 - **The Greying**: a low-pass on the Ambience bus closes toward `greying.muffle_cutoff` with
