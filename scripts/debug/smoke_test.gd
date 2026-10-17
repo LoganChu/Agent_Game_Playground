@@ -80,6 +80,7 @@ func _run() -> void:
 					if not visited.has(next) and not queue.has(next):
 						queue.append(next)
 	await _sail_the_fen_lane(main, ui)
+	await _carry_the_name_home(main, ui)
 	_check(_walked.size() == Content.db.regions.size(), "the walk reached every region (%s)" % ", ".join(PackedStringArray(_walked.keys())))
 	await _check_gates(main, true)
 	await _check_beacon_lit(main)
@@ -185,6 +186,81 @@ func _sail_the_fen_lane(main: Node, ui: DialogueUI) -> void:
 		await _walk_region(main, ui, region, trip)
 		if (main.get("region") as Region).region_id == "heron_mere":
 			await _walk_the_heron(main, ui, trip)
+
+
+## Days 45 and 47: with the Lamp's name read in Wrackholm's Book, carry it home the way a player
+## would: through the bramble wall, up the Keepers' ladder, say it to the Lamp (which starts *The
+## East Stair*), back down by the exits, and Oda's lane home to Saltmarrow, where Aldous hears Wynn
+## Sallow kept a coal, counts the novices for Wynn's sake and lays the Wrens' brazier.
+func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
+	var world := GameState.world
+	_check(world.get_flag("wrackholm_lamp_name_read") == true, "the Lamp's name was read in the Book")
+	if not await _arrived(main, ui, "thornwold_landing", "back at the landing to carry the name"):
+		return
+	_object("thornwold_bramble_wall").interact()
+	_check(_choose(ui, "Go through."), "the parted wall lets the walk through again")
+	_finish_dialogue(ui, "the bramble wall (going through)")
+	if not await _arrived(main, ui, "thornwold_woods", "through the wall to the woods"):
+		return
+	_object("woods_keeper_ladder").interact()
+	_check(_choose(ui, "Climb to the ridge."), "the stood ladder climbed again")
+	_finish_dialogue(ui, "the ladder (climbing)")
+	if not await _arrived(main, ui, "thornwold_ridge", "up the ladder to the ridge"):
+		return
+	_npc("lamp").interact()
+	_check(_choose(ui, "I read your name. In the Tidewrights' Book, on Wrackholm."), "the Lamp told the Book has its name")
+	_check(_choose(ui, "Your name is Wynn Sallow."), "...and said it outright")
+	_check(_choose(ui, "Goodbye."), "...and lets you go")
+	_finish_dialogue(ui, "the lamp (its name)")
+	_check(world.get_flag("thornwold_lamp_name") == "told" and world.quest_state("paid_twice") == WorldState.QUEST_DONE,
+			"the name carried home (Paid Twice)")
+	_check(world.quest_stage("the_east_stair") == "ask_the_door_warden", "the Lamp sends the walk to the door-warden")
+	for step: Array in [["thornwold_woods", "thornwold_ridge"], ["thornwold_landing", "thornwold_woods"]]:
+		if not await _take_exit(main, ui, step[0], "down from %s" % step[1]):
+			return
+	_npc("oda").interact()
+	_check(_choose(ui, "Take me back to Saltmarrow."), "Oda runs the lane home to Saltmarrow")
+	_finish_dialogue(ui, "oda (home to Saltmarrow)")
+	if not await _arrived(main, ui, "saltmarrow", "Oda sailed the walk home"):
+		return
+	_sailings.append("thornwold_landing -> saltmarrow")
+	var village: Region = main.get("region")
+	_check(_shown_model(village, "brazier_raked.glb") == 1, "the Wrens' ash raked after a full confession")
+	_npc("aldous").interact()
+	_check(_choose(ui, "Wynn Sallow kept a coal."), "Aldous told Wynn Sallow is alive")
+	_check(_choose(ui, "Wynn would want to know who it was."), "...asked for Wynn's sake")
+	_check(_choose(ui, "Rest easy, Brother."), "...and left on his bench")
+	_finish_dialogue(ui, "aldous (the east stair)")
+	await get_tree().process_frame
+	_check(world.quest_state("the_east_stair") == WorldState.QUEST_DONE and world.get_flag("saltmarrow_aldous_novice") == "lamp",
+			"the east stair counted")
+	_check(_shown_model(village, "brazier_laid.glb") == 1 and _shown_model(village, "brazier_raked.glb") == 0, "the brazier laid, not lit")
+	print("Smoke: the Lamp named, Aldous counted the seventh ('%s')" % world.get_flag("saltmarrow_aldous_novice"))
+
+
+## Waits for a travel to land and plays out any arrival scene; true if the walk is in `region_id`.
+func _arrived(main: Node, ui: DialogueUI, region_id: String, what: String) -> bool:
+	for i in 3:
+		await get_tree().physics_frame
+	var here := (main.get("region") as Region).region_id
+	_check(here == region_id, "%s (in %s)" % [what, here])
+	if here != region_id:
+		return false
+	_walked[here] = true
+	if ui.is_open():
+		_finish_dialogue(ui, "arrival in " + here)
+		await get_tree().process_frame
+	return true
+
+
+## Walks through this region's exit to `target`.
+func _take_exit(main: Node, ui: DialogueUI, target: String, what: String) -> bool:
+	for node in get_tree().get_nodes_in_group("exits"):
+		var exit := node as RegionExit
+		if exit.target_region == target and not exit.is_queued_for_deletion():
+			exit.interact()
+			break
+	return await _arrived(main, ui, target, what)
 
 
 ## Day 33: the first fen walk asks Corran to take you out and he sends you for his far trap; the
