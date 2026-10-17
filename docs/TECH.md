@@ -412,6 +412,9 @@ lighting Wenna's hub runs the horn (`wrackholm_horn_sounded` → `answering_horn
 (`wrackholm_book_opened`, and `wrackholm_lamp_name_read` if `wrackholm_book_told`) and the oath (`wrackholm_sworn`).
 `tests/test_wrack_burning.gd`; the smoke walk burns Wenna's answer (`_burn_the_wrack`) between the lantern room and the
 last ebb, and reads conditional props by model file (`_shown_model`, reaching into `Region._conditional`).
+After the fen lane the smoke walk **carries the Lamp's name home** (`_carry_the_name_home`, Day 48): back through the
+bramble wall and up the ladder by their `travel` choices, the name said outright, down by the exits (`_take_exit`),
+Oda's lane home to Saltmarrow, Aldous asked for Wynn's sake, and the Wrens' brazier checked raked → laid.
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,
@@ -805,6 +808,11 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 ## Testing
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
+- `tests/test_polish_six.gd` — (Day 48) **no model prop stands wholly under the sea** in any region (its top, placed as
+  `Region.place` does from the model's mesh bounds × `scale`, must clear `water_level` by 2 cm: an "awash" rock breaks
+  the surface, reeds stand in the shallows, not 1.6 m down). It loads every model, so it lives in the tests rather than
+  the validator (which runs at every debug start). Also the Teeth's road rocks on the road's shoulder, and the title
+  screen's name (`UiTheme.GAME_TITLE`, 64 px × the text scale).
 - `tests/test_wrack_burning.gd` — Wrackholm's burning (Day 43): who gives what (Wenna; the yard's leave for the
   board; Jory, never to a Keeper's fire; the two together), each burn and its aftermath, the lit Wrack in both regions,
   the horn (it takes two), the Book, the oath, unburned Remnants returned, the kit variants.

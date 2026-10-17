@@ -394,38 +394,44 @@ each .glb < 5 MB.
       weighed by a Keeper for the first time; the Wrens' brazier raked (full confession, Day 16 canon) and then laid
       (Blender `brazier_ash`/`brazier_raked`/`brazier_laid`); the ember knocks once (`ember_knock`). Checkpoint `east_stair`.
 
+- [x] [P] **Polish/debt pass six** (Day 48): **no prop drowned** — a new test over every region found twelve model
+      props wholly under the sea (five of the Teeth's road rocks on the sea floor beside the road, the "awash" outcrops
+      off Wrackholm and the stack 3–13 cm under, four reed clumps in 1.6 m of water on the fen and Shingle Point, two
+      shore outcrops off Wrackholm); the road rocks moved onto the road's shoulder, the outcrops raised to break the
+      surface, the reeds moved into the shallows; **the smoke walk carries the Lamp's name home** (the wall, the ladder,
+      the name said, Oda's lane to Saltmarrow, Aldous and the brazier laid) — every region is now walked back into;
+      **the title's name follows the text size** (`UiTheme.GAME_TITLE`).
+
 ### Next up
-1. [P] **Polish/debt pass six** (due by Day 52; last Day 44) — candidates in *Known issues* below; also the smoke walk
-   never sails back to Saltmarrow (the east stair is unit-tested only).
-2. [C] **Next content** (due by Day 51; Day 47 was content): **the lane on from Wrackholm** (Cindermoor is "past more
+1. [C] **Next content** (due by Day 51; Day 47 was content, Day 48 polish): **the lane on from Wrackholm** (Cindermoor is "past more
    besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`), or
    **Hob and the ladder** (salt_row: the Lamp will tell him if he comes up), or Dunstan's walk back for his name.
    Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before.
-3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
+3. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
    and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
    that show pad glyphs when a pad was used last.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
    would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+6. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [S] Interaction polish: camera framing during dialogue; fade the
+7. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -468,17 +474,18 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 52 (Day 44 was the last). Candidates: the fen's white light and peat water
-  (Day 39) with the Vulkan pass; the smoke walk only takes the 'well' Mara path (others: `test_after_the_heron.gd`)
-  and only burns Wenna's answer on the Wrack (others: `test_wrack_burning.gd`); the Heron's landing (Day 39) has
-  no collider of its own — the stage's pier rect stops at z -3, so the player stands at the stage's end, not on the
-  landing (fine while the climb is dialogue); the Teeth's gullies (Day 44) barely read under the Greying layer
-  in the Compatibility renderer — judge with the Vulkan pass, darken or widen if still lost; some of the ten `teeth_rock`s
-  placed beside the reef road on Day 42 sit below the water (ground-relative y -0.22 on sea floor) and can't be
-  seen — raise them onto the road's shoulder or drop them.
+- Next polish/debt pass due by Day 56 (Day 48 was the last). Candidates: the fen's white light and peat water
+  (Day 39) with the Vulkan pass; the smoke walk only takes the 'well' Mara path (others: `test_after_the_heron.gd`),
+  only burns Wenna's answer on the Wrack (others: `test_wrack_burning.gd`) and only asks Aldous for Wynn's sake (the
+  "could it have been me?" path: `test_east_stair.gd`); the Heron's landing (Day 39) has no collider of its own — the
+  stage's pier rect stops at z -3, so the player stands at the stage's end, not on the landing (fine while the climb
+  is dialogue); the Teeth's gullies (Day 44) barely read under the Greying layer in the Compatibility renderer — judge
+  with the Vulkan pass, darken or widen if still lost; the drowned-prop test checks model props only (shape props are
+  built in code; none sits in the sea today); a slab placed with `snap: false` floats above a deep sea floor (hidden by
+  the water's colour; fine unless the water clears).
 - Title screen follow-ups (fold into an [A]/[S] item): the panel sits over the Wakebearer — an
-  off-centre panel or a framed camera would show them on the beach; the big name is a fixed 64 px
-  (ignores the text-size setting); no music yet (the start region's ambience plays under it since Day 46); no autosave, so "Return to
+  off-centre panel or a framed camera would show them on the beach (the big name follows the text size since Day 48,
+  so at 2× it pushes the panel taller); no music yet (the start region's ambience plays under it since Day 46); no autosave, so "Return to
   title" and Continue rely on manual/quick saves (full save system item).
 - Test time budget: `tools/run_checks.sh` gives each step 300 s. Day 31: tests 26 s, smoke ~45 s, import the
   longest. The runner prints the slowest tests — check them when adding a validator pass over every region.
@@ -493,7 +500,7 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 47 (the east stair); next content due by Day 51.
-- Last polish/debt session: Day 44 (pass five); next due by Day 52.
+- Last polish/debt session: Day 48 (pass six); next due by Day 56.
 - Last art session: Day 43 (the lit Wrack, the open horn, the bare Gannet, folded into the content session; Day 39 the fen led). Next
   art-led session due ~Day 45: Wrackholm follow-ups (below) or the Saltmarrow dressing follow-ups.
 - The Teeth (Day 42) follow-ups: the reef road reads as one smooth grey causeway from above (edge slabs break it up a

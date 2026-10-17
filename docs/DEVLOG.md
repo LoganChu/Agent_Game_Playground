@@ -2,6 +2,52 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-17 21:00 UTC — Day 48: Polish/debt pass six
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again with a stale
+  `origin/main`; fetched and reset local `main` to Day 47's `3031883`. Baseline green (342 tests).
+- **Polish/debt (due by Day 52; last Day 44):** ROADMAP *Next up* #1.
+  - **No prop drowned.** The Day 42 known issue (some of the Teeth's road rocks sit under the water) became a test
+    over every region: a model prop whose top (mesh bounds × `scale`, placed as `Region.place` does) is below
+    `water_level` fails. It found **twelve**, not five:
+    - five of the ten rocks along the reef road were snapped to the sea floor beside it (up to 0.5 m under). All nine
+      ground-snapped ones now sit on the road's shoulder, 1.6–1.9 m off its line, a hand proud of the sea; the tenth,
+      beside a gully where the shoulder drops away, is an awash slab like those off the white.
+    - the "awash" `ridge_outcrop_low`s — three off Wrackholm, two off the stack on the Teeth — were 3–13 cm under, so
+      only the swell showed them; raised to break the surface by 4–7 cm. Two more off Wrackholm's shore (snapped,
+      with colliders) were 0.2–0.5 m under the sea; now awash rocks.
+    - four reed clumps — three in the fen's pools, one at Shingle Point — stood on the bottom in 1.6 m of water, so not
+      a stalk showed. Moved ~2 m into the shallows at the pools' edges.
+  - **The smoke walk carries the Lamp's name home** (the Day 47 gap): after the fen lane, back through the bramble wall
+    and up the Keepers' ladder by their own choices, the name said outright to the Lamp (*Paid Twice* done, *The East
+    Stair* begun), down by the exits, Oda's lane home to Saltmarrow, Aldous asked "for Wynn's sake", the brazier seen
+    raked then laid. Passed first time — the east stair now runs live end to end.
+  - **The title's name follows the text size:** a `GAME_TITLE` theme variation (64 px at 1.0) instead of a fixed
+    override on the label.
+- **Tests:** `test_polish_six.gd` (3): no drowned prop anywhere, the road rocks on the shoulder, the title's name
+  scales. 345 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-10-17-the-teeth-road-rocks.png` (low water; the road's edges now broken by rocks).
+
+**Decisions**
+- **A test, not a validator check:** the check needs every model's bounds, and the validator runs at each debug
+  start; loading ~100 .glb files there would slow every launch. The test takes ~0.6 s.
+- **Move, not drop:** the rocks and reeds were placed for a reason (breaking the road's line; a reedy fen), so
+  they moved to where that reason holds instead of being deleted.
+- The smoke walk takes one path through the new scene ("for Wynn's sake"); the other stays unit-tested.
+- No checkpoint: nothing new in the story.
+
+**Problems / notes**
+- None blocking. The Heron's landing collider and the Teeth's gullies stay on the known-issues list (judge with
+  the Vulkan pass).
+
+**Next run should**
+1. **Content (due by Day 51):** ROADMAP *Next up* #1 — the lane on from Wrackholm (towards Cindermoor), Hob and the
+   ladder, or Dunstan's walk back. Keep mystery #2 shut. Add a checkpoint.
+2. An art-led session is overdue (last Day 43): Wrackholm's follow-ups or the Saltmarrow dressing follow-ups —
+   fold one in. Next polish/debt pass due by Day 56. Fetch before trusting `origin/main`.
+
 ## 2026-10-17 09:00 UTC — Day 47: The east stair (content)
 
 **Did**
