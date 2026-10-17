@@ -281,12 +281,62 @@ def build_house_wren() -> None:
              (bx + math.cos(a) * 0.2, by + math.sin(a) * 0.2, 0.62), 0.04, iron)
     cyl("BrazierBowl", 0.18, 0.34, 0.2, 8, (bx, by, 0.58), iron)
     cyl("BrazierRim", 0.36, 0.36, 0.04, 8, (bx, by, 0.78), iron)
+    # What lies in the bowl is a separate prop (`brazier_ash` / `brazier_raked` / `brazier_laid`,
+    # placed with the house's own position and turn) so it can change with the story.
+    bd.export("house_wren")
+
+
+BRAZIER = (-1.25, -2.0)  # the bowl's centre on house_wren (its rim top at 0.82)
+
+
+def build_brazier_ash() -> None:
+    """The Wrens' brazier as it was left: grey ash heaped with a few dead coals (charcoal
+    grey, not glowing — the Keepers' fire is out). Origin is house_wren's."""
+    bd.reset()
+    rng = random.Random(41)
+    bx, by = BRAZIER
     cyl("Ash", 0.3, 0.12, 0.08, 7, (bx, by, 0.76), mat("silverfog", -0.35))
     for k in range(4):
         a = math.tau * k / 4 + 0.7
         bp.rock(f"DeadCoal{k}", 0.06, (bx + math.cos(a) * 0.12, by + math.sin(a) * 0.12, 0.84),
                 mat("ink", 0.2), rng)
-    bd.export("house_wren")
+    bd.export("brazier_ash")
+
+
+def _raked_ash(bx: float, by: float) -> None:
+    """Ash raked level to the rim with the furrows of the rake across it; the dead coals picked
+    out and set on the rim's edge."""
+    cyl("Ash", 0.33, 0.31, 0.05, 8, (bx, by, 0.76), mat("silverfog", -0.2))
+    for k in range(-2, 3):
+        beam(f"Furrow{k}", (bx - 0.24, by + k * 0.09, 0.812), (bx + 0.24, by + k * 0.09, 0.812), 0.012,
+             mat("silverfog", -0.5), width=0.025)
+
+
+def build_brazier_raked() -> None:
+    """After Aldous's full confession (LORE, Day 16): the ash raked, not lit — he has no ember
+    to light it."""
+    bd.reset()
+    bx, by = BRAZIER
+    _raked_ash(bx, by)
+    bd.export("brazier_raked")
+
+
+def build_brazier_laid() -> None:
+    """After Aldous was asked about the novice on the east stair (Day 47): the ash raked and a
+    fire laid on it, driftwood crossed three ways over a twist of dry wrack, for whoever comes
+    down the stair. Still not lit."""
+    bd.reset()
+    rng = random.Random(47)
+    bx, by = BRAZIER
+    _raked_ash(bx, by)
+    bp.rock("Tinder", 0.07, (bx, by, 0.83), mat("kindle", -0.25), rng)
+    wood = mat("driftwood", 0.05)
+    for k in range(3):
+        a = math.pi * k / 3 + 0.2
+        dx, dy = math.cos(a) * 0.26, math.sin(a) * 0.26
+        z = 0.84 + 0.035 * k
+        beam(f"Stick{k}", (bx - dx, by - dy, z), (bx + dx, by + dy, z + 0.02), 0.035, wood)
+    bd.export("brazier_laid")
 
 
 def _ember_disc(wrapped: bool) -> None:
@@ -500,7 +550,8 @@ def build_net_loft_mended() -> None:
 
 
 BUILDERS = [build_house_tall, build_house_porch, build_gate_post, build_house_stilt, build_house_wren,
-            build_ember_sign, build_ember_sign_wrapped, build_net_loft_broken,
+            build_ember_sign, build_ember_sign_wrapped, build_brazier_ash, build_brazier_raked, build_brazier_laid,
+            build_net_loft_broken,
             build_plank_bench, build_net_loft_mended]
 
 if __name__ == "__main__":
