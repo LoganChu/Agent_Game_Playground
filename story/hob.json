@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_hob_ladder=up",
+        "goto": "ridge_word"
+      },
+      {
         "if": "!flag:thornwold_met_hob",
         "goto": "first"
       },
@@ -37,6 +41,11 @@
       }
     ],
     "greet": [
+      {
+        "say": "hob",
+        "text": "Bottom of the road. Bottom of the road. Somebody's got to be at it, and it's me.",
+        "if": "flag:thornwold_hob_ladder=stayed"
+      },
       {
         "say": "hob",
         "text": "Daylight. Proper daylight, on the road. I'd forgotten the colour of it.",
@@ -151,6 +160,15 @@
               "!flag:thornwold_boots_away"
             ],
             "goto": "light"
+          },
+          {
+            "text": "You keep looking up at the ridge.",
+            "if": [
+              "flag:thornwold_hob_came_in",
+              "flag:thornwold_beacon_burned=salt_row",
+              "flag:thornwold_hob_ladder="
+            ],
+            "goto": "fifth"
           },
           {
             "text": "Goodbye.",
@@ -503,6 +521,208 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "fifth": [
+      {
+        "say": "hob",
+        "text": "Ladder's stood. Ladder's stood. I can see the light at the top of it from Bram Kettle's step, if I lean."
+      },
+      {
+        "say": "hob",
+        "text": "Four went up. Ottie. Wenna Coll. Abe and Tolly Dray. I counted them up, one at a time, and I never counted one of them down. I'd know. I'd..."
+      },
+      {
+        "say": "narrator",
+        "text": "You know what the Lamp told you, up there, about the ladder and the fifth. It isn't yours to tell him. It's the Lamp's.",
+        "if": "flag:thornwold_lamp_ladder_told"
+      },
+      {
+        "say": "hob",
+        "text": "Ottie said he'd bring a lantern down for my hut. Said he'd..."
+      },
+      {
+        "choice": [
+          {
+            "text": "Come up the ladder with me, Hob. Ask the Lamp yourself.",
+            "goto": "fifth_going"
+          },
+          {
+            "text": "Not today.",
+            "goto": "fifth_not_today"
+          }
+        ]
+      }
+    ],
+    "fifth_not_today": [
+      {
+        "say": "hob",
+        "text": "Not today. Not today. It's been stood a while. It'll stand."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "fifth_going": [
+      {
+        "say": "narrator",
+        "text": "He looks down at the rake across his knees as if he's not sure whose it is, and leans it against the step."
+      },
+      {
+        "say": "hob",
+        "text": "Up. Up. I know the lanterns. I'll go on ahead; you're quicker than me, you'll catch me on the ladder."
+      },
+      {
+        "say": "narrator",
+        "text": "Pell is across the yard before he's on his feet, holding something out in both hands: an ash-wood stick on a thong, the last notch half cut.",
+        "if": [
+          "flag:thornwold_pell_landed",
+          "flag:thornwold_hob_stick"
+        ]
+      },
+      {
+        "say": "pell",
+        "text": "You're going UP? Take your stick. Finders keep FOR. You'll want to know what you were counting, now.",
+        "if": [
+          "flag:thornwold_pell_landed",
+          "flag:thornwold_hob_stick"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Hob takes it, turns it over, and puts his black thumb in the half notch.",
+        "if": [
+          "flag:thornwold_pell_landed",
+          "flag:thornwold_hob_stick"
+        ]
+      },
+      {
+        "say": "hob",
+        "text": "Keep for. Keep for. Good kid.",
+        "if": [
+          "flag:thornwold_pell_landed",
+          "flag:thornwold_hob_stick"
+        ]
+      },
+      {
+        "if": [
+          "flag:thornwold_pell_landed",
+          "flag:thornwold_hob_stick"
+        ],
+        "set": {
+          "thornwold_hob_stick_back": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "He goes off up the cart road toward the brambles at an old man's walk, and doesn't look back, and the canes lift for him."
+      },
+      {
+        "set": {
+          "thornwold_hob_ladder": "going"
+        },
+        "quest_start": "the_fifth"
+      }
+    ],
+    "ridge_word": [
+      {
+        "say": "narrator",
+        "text": "Hob stands at the ladder's head with the lantern held out in front of him by its bail, the way you'd hold a thing you'd been handed and weren't sure was yours. He is looking north-east, up the spine, where the old road goes on past the bare marks into the fog."
+      },
+      {
+        "say": "hob",
+        "text": "Five. I'm the fifth. You came up the lanterns. You stood the ladder. You say."
+      },
+      {
+        "choice": [
+          {
+            "text": "Go after them, Hob. You've the light they went looking for.",
+            "goto": "ridge_go"
+          },
+          {
+            "text": "Stay. Somebody should be at the bottom of the road when they come down.",
+            "goto": "ridge_stay"
+          },
+          {
+            "text": "It's yours to choose, Hob. Not mine.",
+            "goto": "ridge_choose"
+          }
+        ]
+      }
+    ],
+    "ridge_go": [
+      {
+        "say": "hob",
+        "text": "After them. After them. Ottie'll want his boots."
+      },
+      {
+        "say": "hob",
+        "text": "No. No. I'll tell him where they are. He can come down for them himself. Do him good."
+      },
+      {
+        "goto": "ridge_walk"
+      }
+    ],
+    "ridge_choose": [
+      {
+        "say": "hob",
+        "text": "Mine. Mine. Nobody's said that to me since..."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks down the ladder at the woods, with the camp somewhere under them; then up the spine; then at the lantern in his fist."
+      },
+      {
+        "say": "hob",
+        "text": "They didn't wait to be told. Not one of them. Ottie never waited to be told a thing in his life."
+      },
+      {
+        "goto": "ridge_walk"
+      }
+    ],
+    "ridge_walk": [
+      {
+        "say": "narrator",
+        "text": "He doesn't take his leave of anybody. He sets off north-east up the spine at an old man's walk with the lantern swinging, and the heather closes behind him."
+      },
+      {
+        "say": "narrator",
+        "text": "At the first bare mark he stops, takes out the count-stick and his knife, and cuts a whole notch after the one he finished. Five. Then he goes on.",
+        "if": "flag:thornwold_hob_stick_back"
+      },
+      {
+        "say": "lamp",
+        "text": "I'll hang one on the second mark. So he'll see it, if he looks back. So he'll know the road down."
+      },
+      {
+        "set": {
+          "thornwold_hob_ladder": "gone"
+        },
+        "quest_complete": "the_fifth"
+      }
+    ],
+    "ridge_stay": [
+      {
+        "say": "hob",
+        "text": "Bottom of the road. Bottom of the road. That's a place, that is."
+      },
+      {
+        "say": "hob",
+        "text": "Somebody ought to know their faces, coming down. Bram Kettle won't. Bram Kettle doesn't know mine."
+      },
+      {
+        "say": "lamp",
+        "text": "Then there's two of us. One at each end. That's better than one."
+      },
+      {
+        "say": "narrator",
+        "text": "Hob goes back down the ladder with the lantern hooked over his arm, careful on every rung, talking to it."
+      },
+      {
+        "set": {
+          "thornwold_hob_ladder": "stayed"
+        },
+        "quest_complete": "the_fifth"
       }
     ]
   }

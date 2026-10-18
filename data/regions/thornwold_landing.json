@@ -395,6 +395,42 @@
       "note": "A split-log bench by the tally-house step. Empty until Hob comes in by daylight; then his seat (hob_seated sits on it at the same spot)."
     },
     {
+      "model": "res://assets/models/dressing/clamp_rake.glb",
+      "position": [
+        -5.72,
+        0,
+        1.45
+      ],
+      "rotation_y": 95,
+      "if": [
+        "flag:thornwold_beacon_burned=salt_row",
+        "!flag:thornwold_hob_ladder=",
+        "!flag:thornwold_hob_ladder=stayed"
+      ],
+      "note": "Hob's clamp rake, leaned on the bench when he got up to go up the ladder (The Fifth). Left where he leaned it once he has gone north: Bram won't move it."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        -4.9,
+        0,
+        3.5
+      ],
+      "rotation_y": 120,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ],
+      "if": "flag:thornwold_hob_ladder=stayed",
+      "note": "The mark at the bottom of the road (The Fifth, stayed): Hob piled a Keepers' cairn by the tally-house step and hung the Lamp's lantern on it, for the four coming down."
+    },
+    {
       "model": "res://assets/models/dressing/tally_house.glb",
       "shape": "house",
       "position": [
@@ -1445,8 +1481,13 @@
       "rotation_y": 95,
       "model": "res://assets/models/characters/hob_seated.glb",
       "idle": "sit",
-      "if": "flag:thornwold_hob_came_in",
-      "note": "On the bench by the tally-house step, rake across his knees, come in by daylight after the Ridge Light was lit. Seated here (hob_seated, the sit idle): dozes and wakes with a start."
+      "if": [
+        "flag:thornwold_hob_came_in",
+        "!flag:thornwold_hob_ladder=going",
+        "!flag:thornwold_hob_ladder=up",
+        "!flag:thornwold_hob_ladder=gone"
+      ],
+      "note": "On the bench by the tally-house step, rake across his knees, come in by daylight after the Ridge Light was lit. Seated here (hob_seated, the sit idle): dozes and wakes with a start. Off the step while he is up the ladder (The Fifth), and for good once he has gone north after the four."
     }
   ],
   "objects": [

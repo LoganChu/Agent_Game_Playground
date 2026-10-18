@@ -1,0 +1,17 @@
+{
+  "id": "the_fifth",
+  "title": "The Fifth",
+  "region": "thornwold_landing",
+  "giver": "hob",
+  "description": "Four colliers went up the Keepers' ladder one at a time to ask the Lamp for a lantern of their own, and went on north along the ridge without one. After the fourth the Lamp put the ladder down, so there'd be no fifth. Hob Marl is the fifth, and he still looks up the stair.",
+  "stages": [
+    {
+      "id": "up_the_ladder",
+      "text": "Hob Marl has gone on ahead of you, out through the bramble wall and up the lanterns to the Keepers' ladder. Follow him up to the ridge."
+    },
+    {
+      "id": "his_word",
+      "text": "On the ridge the Lamp told Hob he was the fifth, and gave him what the four came up for: a lantern of his own. He stands at the ladder's head with it, looking up the old Keepers' road. He's waiting on your word."
+    }
+  ]
+}

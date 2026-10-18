@@ -502,7 +502,24 @@
         -20.5
       ],
       "rotation_y": 135,
-      "note": "The old Keepers' road climbing on along the spine: the next waymark, bare, at the edge of seeing."
+      "note": "The old Keepers' road climbing on along the spine: the next waymark, bare, at the edge of seeing.",
+      "if": "!flag:thornwold_hob_ladder=gone"
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        20.5,
+        0,
+        -20.5
+      ],
+      "rotation_y": 135,
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ],
+      "if": "flag:thornwold_hob_ladder=gone",
+      "note": "The second mark on the old Keepers' road, lit (The Fifth, gone): the Lamp hung a lantern on it after Hob went north, so he'd see it if he looked back and know the road down."
     },
     {
       "model": "res://assets/models/dressing/waymark_tumbled.glb",
@@ -908,6 +925,21 @@
       "note": "At the bench as ever, its name said back to it: the hood put back for the first time anyone has seen, the face lifted.",
       "if": "flag:thornwold_lamp_name=told",
       "model": "res://assets/models/characters/lamp_named.glb"
+    },
+    {
+      "npc": "hob",
+      "position": [
+        2.0,
+        0,
+        7.4
+      ],
+      "rotation_y": 150,
+      "model": "res://assets/models/characters/hob_lantern.glb",
+      "if": [
+        "flag:thornwold_hob_came_in",
+        "flag:thornwold_hob_ladder=up"
+      ],
+      "note": "At the ladder's head by the lit waymark (The Fifth): the Lamp's lantern held out in front of him, looking up the old road north-east, waiting on the player's word."
     }
   ],
   "objects": [
@@ -939,6 +971,19 @@
         "thornwold_ridge_reached": true
       },
       "dialogue": "thornwold_ridge_arrival"
+    },
+    {
+      "id": "hob_up_the_ladder",
+      "if": [
+        "flag:thornwold_hob_ladder=going",
+        "!flag:thornwold_hob_told_fifth"
+      ],
+      "set": {
+        "thornwold_hob_told_fifth": true,
+        "thornwold_hob_ladder": "up"
+      },
+      "dialogue": "hob_up_the_ladder",
+      "note": "Hob went on ahead up the ladder (The Fifth): the Lamp tells him he is the fifth and gives him a lantern lit off the Ridge Light."
     }
   ],
   "exits": [

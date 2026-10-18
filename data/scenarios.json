@@ -454,6 +454,29 @@
         "the_east_stair": "done"
       },
       "shot": "--at=-6.6,0,0.6 --camera=-5.6,2.1,2.2:-9.3,0.9,-1.2"
+    },
+    {
+      "id": "the_fifth",
+      "act": "Act II — The Drift",
+      "title": "The Fifth",
+      "inherits": "east_stair",
+      "region": "thornwold_ridge",
+      "spawn": "from_ladder",
+      "description": "The salt-row path instead of the boots (Thornwold's burning re-chosen for this checkpoint): Bram's camp no longer knows the colliers, Hob still keeps the four. Back on Thornwold after the east stair, Hob was asked up the ladder from the tally-house step (Pell gave his count-stick back); on the ridge the Lamp told him he is the fifth and gave him a lantern of his own lit off the Ridge Light. He stands at the ladder's head with it, waiting on the player's word: go after the four, or stay at the bottom of the road.",
+      "flags": {
+        "lanes_ferry_at": "thornwold",
+        "thornwold_beacon_burned": "salt_row",
+        "thornwold_boots_away": false,
+        "thornwold_salt_row_away": true,
+        "thornwold_pell_landed": true,
+        "thornwold_hob_stick": true,
+        "thornwold_hob_stick_back": true,
+        "thornwold_hob_ladder": "up"
+      },
+      "quests": {
+        "the_fifth": "his_word"
+      },
+      "shot": "--camera=5.2,1.8,10.0:1.6,1.1,7.0"
     }
   ]
 }

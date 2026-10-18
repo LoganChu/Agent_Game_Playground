@@ -302,6 +302,29 @@
         "told"
       ]
     },
+    "thornwold_hob_ladder": {
+      "description": "The Fifth (Day 49; salt_row path only — Hob still keeps the four): '' (not yet), 'going' (asked to come up the ladder from the tally-house step, Hob went on ahead; he is off the step), 'up' (the ridge scene seen: the Lamp told him he is the fifth and offered him a lantern; he stands at the ladder's head with it, waiting on the player's word), 'gone' (told to go after the four: he walked north-east up the old Keepers' road with the lantern and hung it on the second bare waymark as he went by, so the next would know he'd gone up) or 'stayed' (told to stay at the bottom of the road: he built a mark by the tally-house step and hung the lantern on it, and cut four notches onto Bram's bare SALT pegs).",
+      "default": "",
+      "values": [
+        "",
+        "going",
+        "up",
+        "gone",
+        "stayed"
+      ]
+    },
+    "thornwold_hob_told_fifth": {
+      "description": "The Fifth: Hob came up the ladder and the Lamp told him he is the fifth, and gave him a lantern lit off the Ridge Light (one-time ridge arrival scene; moves thornwold_hob_ladder from 'going' to 'up').",
+      "default": false
+    },
+    "thornwold_hob_stick_back": {
+      "description": "Pell gave Hob Marl his count-stick back at the tally-house step as he got up to go up the ladder ('Finders keep FOR. You want to know what you were counting now'). On the ridge Hob finishes the half notch.",
+      "default": false
+    },
+    "thornwold_bram_heard_fifth": {
+      "description": "Player told Bram Kettle what became of the old collier on his step after The Fifth (one-time: gone up the ridge, or the mark at the bottom of the road and the notches on the bare SALT pegs).",
+      "default": false
+    },
     "fen_landed": {
       "description": "The player has come ashore at Glasswater Fen's staithe (one-time arrival scene after the first sailing north-about from Thornwold).",
       "default": false

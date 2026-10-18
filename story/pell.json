@@ -719,6 +719,27 @@
         ]
       },
       {
+        "say": "pell",
+        "text": "Hob went up the ridge with a LANTERN. He's got his stick back. I hope he counts them all the way home.",
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_hob_stick_back"
+        ]
+      },
+      {
+        "say": "pell",
+        "text": "Hob went up the ridge. He left his rake on Bram's step. I'm not finding it. It's not lost, it's left. That's different.",
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "!flag:thornwold_hob_stick_back"
+        ]
+      },
+      {
+        "say": "pell",
+        "text": "Hob built a MARK. Out of stones, by the step, like the Keepers' ones. He says it's the bottom of the road. I didn't know roads had bottoms.",
+        "if": "flag:thornwold_hob_ladder=stayed"
+      },
+      {
         "choice": [
           {
             "text": "The tally stick is Hob Marl's. A collier, past the wall.",

@@ -196,6 +196,28 @@
             "goto": "light"
           },
           {
+            "text": "The old collier from your step went up the ridge.",
+            "if": [
+              "flag:thornwold_hob_ladder=gone",
+              "!flag:thornwold_bram_heard_fifth"
+            ],
+            "set": {
+              "thornwold_bram_heard_fifth": true
+            },
+            "goto": "fifth_gone"
+          },
+          {
+            "text": "The old collier built a mark by your step.",
+            "if": [
+              "flag:thornwold_hob_ladder=stayed",
+              "!flag:thornwold_bram_heard_fifth"
+            ],
+            "set": {
+              "thornwold_bram_heard_fifth": true
+            },
+            "goto": "fifth_stayed"
+          },
+          {
             "text": "Goodbye.",
             "end": true
           }
@@ -458,6 +480,36 @@
           "flag:thornwold_beacon_burned=salt_row",
           "!flag:thornwold_hob_came_in"
         ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "fifth_gone": [
+      {
+        "say": "bram",
+        "text": "Did he. He left his rake leaning on my step. I've not moved it. Seems a thing you don't move."
+      },
+      {
+        "say": "bram",
+        "text": "I keep looking up at the ridge, now, the way he did. Can't think what for."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "fifth_stayed": [
+      {
+        "say": "bram",
+        "text": "He did. Piled stones by my step like a Keepers' mark and hung a light on it, and nobody asked him to."
+      },
+      {
+        "say": "bram",
+        "text": "Then he cut four notches on the bare pegs at the bottom of my board. Four. I asked him what they were for. He said they were for coming down."
+      },
+      {
+        "say": "bram",
+        "text": "I've let them be. You don't take a man's notches off a board."
       },
       {
         "goto": "hub"

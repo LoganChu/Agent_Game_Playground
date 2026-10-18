@@ -91,6 +91,21 @@
         "text": "The Book's keeping it. I sleep better, knowing where it is."
       },
       {
+        "say": "lamp",
+        "text": "He's waiting on you, not me. I've said my piece. Thirty winters late, but I've said it.",
+        "if": "flag:thornwold_hob_ladder=up"
+      },
+      {
+        "say": "lamp",
+        "text": "I hung a lantern on the second mark. He looked back at it from the third; I saw his light stop. Then the road had him over the shoulder. Five on it, now.",
+        "if": "flag:thornwold_hob_ladder=gone"
+      },
+      {
+        "say": "lamp",
+        "text": "There's a light at the bottom of the road now. I can see it from the bench, over the trees, when the fog leans. Two ends to a road. I'd forgotten roads have two.",
+        "if": "flag:thornwold_hob_ladder=stayed"
+      },
+      {
         "goto": "hub"
       }
     ],

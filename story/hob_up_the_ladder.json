@@ -1,0 +1,96 @@
+{
+  "id": "hob_up_the_ladder",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Hob is at the ladder's head ahead of you, down on one knee in the heather, getting his breath. When your light comes up over the top rung he gets to his feet and puts a hand on the ladder, as if to make sure it's still there."
+      },
+      {
+        "say": "narrator",
+        "text": "Under the lodge's eave the chisel has stopped. Wynn Sallow has turned round on the bench, hood back, and is looking at him.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "narrator",
+        "text": "Under the lodge's eave the chisel has stopped. The Lamp's hood has come round, and stays on him.",
+        "if": "!flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "hob",
+        "text": "Lamp. I came up. I came up the lanterns."
+      },
+      {
+        "say": "hob",
+        "text": "You've a face. All these years. You've a face.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "lamp",
+        "text": "Wynn. It's Wynn, now, at the bench.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "hob",
+        "text": "Lamp. I'll say Lamp. I'm old.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "lamp",
+        "text": "Hob Marl. I said if you ever came up I'd not put it down again, and I'd tell you. So."
+      },
+      {
+        "say": "lamp",
+        "text": "They came up one at a time, the four. Ottie last. Each with their hands out for a lantern of their own, and I hadn't enough to give one and keep the road. They went on north by the old Keepers' road, looking for a light I couldn't give them."
+      },
+      {
+        "say": "lamp",
+        "text": "After Ottie I put the ladder down. So there'd be no fifth."
+      },
+      {
+        "say": "hob",
+        "text": "No fifth."
+      },
+      {
+        "say": "lamp",
+        "text": "You're the fifth, Hob."
+      },
+      {
+        "say": "narrator",
+        "text": "Hob stands there a long while. His lips move: four names, counted. Then once more, slower, and a fifth after them that might be his own."
+      },
+      {
+        "say": "narrator",
+        "text": "He takes out the count-stick Pell gave back to him, and his knife, and finishes the half notch. It doesn't take long.",
+        "if": "flag:thornwold_hob_stick_back"
+      },
+      {
+        "say": "hob",
+        "text": "That's what I was counting. Four gone up. That's all it was. Four gone up.",
+        "if": "flag:thornwold_hob_stick_back"
+      },
+      {
+        "say": "lamp",
+        "text": "The road's the beacon's now. The lanterns can go out one a night and nobody's stranded for it. So I can do what I couldn't."
+      },
+      {
+        "say": "narrator",
+        "text": "It unhooks a cold lantern from its belt and walks across the ridge top to the tower, and comes back with the lantern lit: gold behind the horn, the Ridge Light's own."
+      },
+      {
+        "say": "lamp",
+        "text": "What they came up for. A light of your own. It's not mine to say where you take it. Not any more."
+      },
+      {
+        "say": "narrator",
+        "text": "Hob takes the lantern by its bail and holds it out in front of him. Then he looks round, not at the Lamp, but at you."
+      },
+      {
+        "quest_stage": [
+          "the_fifth",
+          "his_word"
+        ]
+      }
+    ]
+  }
+}

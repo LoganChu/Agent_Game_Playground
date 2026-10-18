@@ -57,6 +57,11 @@
         "say": "narrator",
         "text": "You look at the bare pegs a long time. You know something hung there. You can't think what. Neither can the board.",
         "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "narrator",
+        "text": "On the bare pegs under SALT somebody has hung one new stick: four notches cut deep, and nothing after them. It isn't a tally of salt.",
+        "if": "flag:thornwold_hob_ladder=stayed"
       }
     ]
   }
