@@ -778,6 +778,13 @@ debts, salvage, and who answers for a thing.
       and not found light. Whatever deck you step on, you step on as one of ours. Whatever you're owed, the lanes owe you.
       And what you owe, you'll pay." The yard folk: "Weighed." Declined: "The scale doesn't need you on it to know what
       you weigh… Keepers'll ask you the same, one day, by their rites."
+    - **The yard folk, seen** (Day 50; no names, no talk): an old yard hand in a tide-blue smock and a red knitted cap,
+      a grey beard cut square; a woman with her shawl up over her head and her arms folded under it; a lad of eleven or
+      so in a gansey too big for him. Until the Wrack is lit they stay inside round the fire. Lit, they come out to the
+      shingle's west end and **stand looking at it** — the old man with the cup he brought out from the fire, not drunk
+      from; the lad with a float off the come-home pile held to his chest. **Once the horn has answered the light the yard
+      goes back to work**: the old hand caulking a seam in the sorted timber, the woman at the come-home pile, the lad on
+      the hard watching the Slow Mercy. (The yard working again is the island's "lane promised" made visible.)
 
   - **Established in play (Day 45 — the Lamp's name carried home, on Thornwold's ridge):** (`paid_twice`)
     - **Where it put it.** Thirty winters back the Lamp wrote its name in the Book for the crossing (the Keeper's second

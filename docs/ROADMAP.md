@@ -409,13 +409,18 @@ each .glb < 5 MB.
       notches on the bare SALT pegs). Bram, Pell, the Lamp and the tally board follow it. Blender `hob_lantern`,
       `clamp_rake`. Checkpoint `the_fifth`.
 
+- [x] [A] **The yard's people** (Day 50, art-led): Blender `yard_smock` (an old yard hand with a cup), `yard_smock_mallet`
+      (the same, caulking: mallet and iron, the `chisel` idle), `yard_shawl` (a woman, shawl up, arms folded) and `yard_lad`
+      (a float held to his chest). Wrackholm's yard folk stay inside until the Wrack is lit, then stand on the shingle's
+      west end looking at it; once the horn has answered they are back at work about the yard. `test_yard_folk.gd`.
+
 ### Next up
-1. [A] **An art-led session** (overdue: last Day 43; small pieces folded into Days 47 and 49): the Saltmarrow
-   dressing follow-ups (#6) or Wrackholm's (the empty bracket, the yard's people), or character silhouette detail
-   (Known issues). Next content due by Day 53: **the lane on from Wrackholm** (Cindermoor is "past more besides"; a
-   Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`), **Dunstan's
-   walk back** for his name, or **the old Keepers' road north** (where the four went — and Hob, if `gone`; the boots
-   path has no fifth). Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before.
+1. [C] **Content (due by Day 53; last content Day 49):** **the lane on from Wrackholm** (Cindermoor is "past more
+   besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`),
+   **Dunstan's walk back** for his name, or **the old Keepers' road north** (where the four went — and Hob, if `gone`; the
+   boots path has no fifth). Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before.
+   Next polish/debt pass due by Day 56; next art-led session by ~Day 55 (Wrackholm's empty bracket, the Saltmarrow
+   dressing follow-ups #6, or character silhouette detail — Known issues).
 2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).

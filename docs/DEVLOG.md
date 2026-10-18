@@ -2,6 +2,48 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-18 21:00 UTC — Day 50: The yard's people (art-led)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again with a stale
+  `origin/main`; fetched and reset local `main` to Day 49's `1d5213c`. Baseline green (351 tests).
+- **Art-led (overdue: last Day 43):** ROADMAP *Next up* #1, Wrackholm's follow-up **"the yard's people"**. Canon
+  (Day 43) says the yard folk come out on the shingle and stand looking at the lit Wrack — but nobody did; the yard
+  had only Wenna and Jory in it.
+  - **Blender** (`build_characters.py`, ~780–890 tris each): `yard_smock` (an old yard hand: tide-blue smock to the
+    knee, red knitted cap, grey beard cut square, the cup he brought out from the fire), `yard_smock_mallet` (the same
+    with a caulking mallet and iron), `yard_shawl` (a woman: shawl up over her head, arms folded under it, tarred
+    apron), `yard_lad` (eleven or so: a gansey too big for him, a float off the come-home pile held to his chest).
+  - **Wrackholm** (props with an `idle`, like the Unmoored — no names, no talk): inside until the Wrack is lit; **lit,
+    the three stand at the shingle's west end looking at it** (`still`, within 15° of the Wrack, clear of the way out
+    to the spit); **once the horn has answered** (`wrackholm_horn_sounded`) **the yard goes back to work** — the old
+    hand caulking the sorted timber (`chisel` idle), the woman at the come-home pile, the lad on the hard watching the
+    Slow Mercy.
+- **Tests:** `test_yard_folk.gd` (4): the models load, rig and stay small; inside until lit; out looking (three, at
+  the Wrack, on dry shingle, off the spit path); back at work after the horn. 355 tests + smoke + launch pass.
+  Checkpoint `wrack_lit` re-shot (the lookers now stand in it).
+
+Screenshots: `docs/screenshots/2026-10-18-pm-the-yard-comes-out.png`, `docs/screenshots/2026-10-18-pm-the-yard-back-at-work.png`.
+
+**Decisions**
+- **Two states, keyed to the horn, not the light alone.** People standing looking forever would read as broken on
+  the next visit. The horn ("a horn answered is a lane promised") is the island's own word that the light is to be
+  trusted, so it is the right moment for the yard to pick its tools back up. No new flag needed.
+- **Unnamed props, not NPCs.** The yard's story is Wenna's and Jory's; giving the folk dialogue would dilute
+  "Tidewrights don't shout at a lighting". They can become NPCs later if a quest needs a yard voice.
+- **Three, not a crowd.** Re-using a model side by side reads as clones at this distance; three distinct figures
+  give the yard a population without that.
+- Lore gets a short "yard folk, seen" note (appearance and the two states) — no new story canon.
+
+**Problems / notes**
+- The caulker's mallet and iron are small at play distance; they read in close-ups. The lad stands near the jetty
+  head's slope; his collider is small (0.5 m) so the jetty stays easy to reach.
+
+**Next run should**
+1. **Content (due by Day 53; last content Day 49):** ROADMAP *Next up* #1 — the lane on from Wrackholm, Dunstan's
+   walk back, or the old Keepers' road north. Add a checkpoint. Next polish/debt pass due by Day 56.
+   Fetch before trusting `origin/main`.
+
 ## 2026-10-18 09:00 UTC — Day 49: The fifth (content)
 
 **Did**
