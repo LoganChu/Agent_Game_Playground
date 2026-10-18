@@ -759,6 +759,117 @@
       }
     },
     {
+      "model": "res://assets/models/characters/yard_smock.glb",
+      "position": [
+        -16.4,
+        0,
+        -3.0
+      ],
+      "rotation_y": -83,
+      "idle": "still",
+      "if": [
+        "quest:a_light_for_wrackholm=done",
+        "!flag:wrackholm_horn_sounded"
+      ],
+      "collider": [
+        0.6,
+        1.6,
+        0.6
+      ],
+      "note": "The yard folk come out on the shingle for the lighting and stand looking (Day 50): an old yard hand with the cup he brought out from the fire, not drunk from. Tidewrights don't shout at a lighting."
+    },
+    {
+      "model": "res://assets/models/characters/yard_shawl.glb",
+      "position": [
+        -15.2,
+        0,
+        -4.2
+      ],
+      "rotation_y": -79,
+      "idle": "still",
+      "if": [
+        "quest:a_light_for_wrackholm=done",
+        "!flag:wrackholm_horn_sounded"
+      ],
+      "collider": [
+        0.6,
+        1.6,
+        0.6
+      ],
+      "note": "A yard woman beside him, her shawl up and her arms folded against the cold off the Teeth."
+    },
+    {
+      "model": "res://assets/models/characters/yard_lad.glb",
+      "position": [
+        -17.2,
+        0,
+        1.0
+      ],
+      "rotation_y": -102,
+      "idle": "still",
+      "if": [
+        "quest:a_light_for_wrackholm=done",
+        "!flag:wrackholm_horn_sounded"
+      ],
+      "collider": [
+        0.5,
+        1.3,
+        0.5
+      ],
+      "note": "A yard lad at the shingle's edge with a float off the come-home pile held to his chest."
+    },
+    {
+      "model": "res://assets/models/characters/yard_smock_mallet.glb",
+      "position": [
+        -1.5,
+        0,
+        -6.0
+      ],
+      "rotation_y": 180,
+      "idle": "chisel",
+      "if": "flag:wrackholm_horn_sounded",
+      "collider": [
+        0.6,
+        1.6,
+        0.6
+      ],
+      "note": "Once the horn has answered the light the yard goes back to work: the old hand caulking a seam in the sorted timber."
+    },
+    {
+      "model": "res://assets/models/characters/yard_shawl.glb",
+      "position": [
+        -9.0,
+        0,
+        -1.5
+      ],
+      "rotation_y": -141,
+      "idle": "still",
+      "if": "flag:wrackholm_horn_sounded",
+      "collider": [
+        0.6,
+        1.6,
+        0.6
+      ],
+      "note": "The yard woman at the come-home pile, counting the floats nobody has claimed."
+    },
+    {
+      "model": "res://assets/models/characters/yard_lad.glb",
+      "position": [
+        1.8,
+        0,
+        4.4
+      ],
+      "rotation_y": 44,
+      "idle": "breathe",
+      "if": "flag:wrackholm_horn_sounded",
+      "collider": [
+        0.5,
+        1.3,
+        0.5
+      ],
+      "note": "The lad on the hard, watching the Slow Mercy at the jetty."
+    },
+    {
       "model": "res://assets/models/dressing/grass.glb",
       "position": [
         12.0,
