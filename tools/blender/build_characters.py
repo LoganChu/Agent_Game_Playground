@@ -541,7 +541,15 @@ def build_hob_seated() -> None:
     _hob(seated=True)
 
 
-def _hob(seated: bool) -> None:
+def build_hob_lantern() -> None:
+    """Hob at the ladder's head on Thornwold's ridge (Day 49, *The Fifth*): told he is the fifth and
+    handed what the four came up for, a lantern of his own lit off the Ridge Light. No rake (he
+    left it on the tally-house bench); the lantern held out in front of him by its bail in his
+    right hand, gold behind horn, and his head lifted off the stoop for once, looking up the road."""
+    _hob(seated=False, lantern=True)
+
+
+def _hob(seated: bool, lantern: bool = False) -> None:
     reset_scene()
     b = Body(seated=seated, build=0.9)
     smock = material("driftwood", -0.45)
@@ -589,6 +597,20 @@ def _hob(seated: bool) -> None:
         b.arm_rest["ArmR"] = (math.radians(-42), 0, math.radians(6))
         b.head_rest = (math.radians(14), 0, 0)
         assemble(b, "hob_seated")
+        return
+    if lantern:
+        # A Keeper's lantern held out by its bail: iron foot and cap, horn panes lit gold.
+        hand = b.hand("R")
+        arm = b.parts["ArmR"]
+        arm.append(limb(hand + Vector((0, -0.02, 0.02)), hand + Vector((0, -0.02, -0.1)), 0.01, 0.01, iron, verts=4))
+        lamp = hand + Vector((0, -0.02, -0.36))
+        arm.append(limb(lamp, lamp + Vector((0, 0, 0.02)), 0.075, 0.075, iron, verts=6))
+        arm.append(limb(lamp + Vector((0, 0, 0.02)), lamp + Vector((0, 0, 0.17)), 0.06, 0.06, material("kindle", 0.0, emissive=True), verts=6))
+        arm.append(limb(lamp + Vector((0, 0, 0.17)), lamp + Vector((0, 0, 0.24)), 0.08, 0.015, iron, verts=6))
+        b.arm_rest["ArmR"] = (math.radians(-38), 0, math.radians(-4))  # held out in front
+        b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(6))
+        b.head_rest = (math.radians(-6), 0, 0)  # head up: looking along the road, not at his feet
+        assemble(b, "hob_lantern")
         return
     # The clamp rake, upright in his left hand: a long pole and an iron head over his shoulder.
     hand = b.hand("L")
@@ -1102,7 +1124,7 @@ def build_jory() -> None:
 
 
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
-            build_hob, build_hob_seated, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
+            build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
             build_dunstan_seated_cord, build_wenna, build_wenna_nobrass, build_jory]
 

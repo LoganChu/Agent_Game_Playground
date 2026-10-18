@@ -504,8 +504,29 @@ def build_fallen_trunk() -> None:
     bd.export("fallen_trunk")
 
 
+def build_clamp_rake() -> None:
+    """Hob Marl's clamp rake, left leaning on the tally-house bench when he went up the ladder
+    (Day 49, *The Fifth*): a 1.7 m ash pole, its foot on the ground at the origin, leaning back
+    (+Y, Godot -Z) against the bench's seat edge; the iron head at the top, four tines hanging,
+    soot worn into the grip where his hands went. Nobody has moved it ("a thing you don't move")."""
+    bd.reset()
+    pole, iron, soot = mat("driftwood", -0.25), mat("slate", -0.45), mat("ink", 0.12)
+    foot = Vector((0.0, 0.0, 0.0))
+    top = Vector((0.0, 0.5, 1.62))  # leaning back about 17 degrees: rests on the seat's edge at 0.44
+    rod("Pole", foot, top, 0.024, pole)
+    grip = foot.lerp(top, 0.62)
+    rod("Grip", grip, foot.lerp(top, 0.74), 0.027, soot)
+    # The head: an iron bar across the top, four tines hanging down off its front edge.
+    head = top + Vector((0.0, -0.02, 0.02))
+    box("Head", (0.38, 0.05, 0.045), head, iron)
+    for x in (-0.15, -0.05, 0.05, 0.15):
+        rod("Tine", head + Vector((x, -0.03, 0.02)), head + Vector((x, -0.06, -0.12)), 0.012, iron, verts=4, r_end=0.007)
+    bd.export("clamp_rake")
+
+
 BUILDERS = [build_bramble, build_log_pile, build_stump, build_charcoal_sacks, build_bunkhouse, build_tally_house, build_log_bench,
-            build_saw_pit, build_charcoal_clamp, build_pine_dark, build_pine_snag, build_underbrush, build_fallen_trunk]
+            build_saw_pit, build_charcoal_clamp, build_pine_dark, build_pine_snag, build_underbrush, build_fallen_trunk,
+            build_clamp_rake]
 
 if __name__ == "__main__":
     only = [a for a in sys.argv[1:] if not a.startswith("-")]
