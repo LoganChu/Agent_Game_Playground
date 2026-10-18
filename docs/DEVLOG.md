@@ -2,6 +2,57 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-18 09:00 UTC — Day 49: The fifth (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again with a stale
+  `origin/main`; fetched and reset local `main` to Day 48's `72d43f4`. Baseline green (345 tests).
+- **Content (due by Day 51; last content Day 47):** ROADMAP *Next up* #1, **Hob and the ladder** — the Day 27 hook
+  ("the Lamp will leave the ladder stood and tell him the truth if he comes"), open since the salt-row burn shipped:
+  - **New quest *The Fifth*** (`the_fifth`, flag `thornwold_hob_ladder`: '' / going / up / gone / stayed), only on the
+    salt-row path (Hob still keeps the four). From Hob on the tally-house step: "You keep looking up at the ridge." The
+    player knows what the Lamp said and doesn't say it — it's the Lamp's to tell. Asked up, Hob leans his rake on the
+    bench and goes on ahead; **Pell** (if on Thornwold and keeping it) gives back his count-stick — "Finders keep FOR."
+  - **On the ridge** (arrival event `hob_up_the_ladder`): the Lamp tells him the four went north, the ladder put down
+    after Ottie — "You're the fifth, Hob." With the stick he finishes the half notch ("That's what I was counting").
+    Named, the hood is back and Hob sees a face. The road being the beacon's now, the Lamp **lights a cold lantern off
+    the Ridge Light** and gives him what the four came up for.
+  - **The player's word**, at Hob by the ladder's head: **go after them** (or **"it's yours to choose"** — he goes: "They
+    didn't wait to be told") → he walks up the old road, cuts a fifth notch, the Lamp **hangs a lantern on the second
+    mark**, his rake stays on Bram's bench; or **stay** → a Keepers' **cairn with the lantern by the tally-house step**
+    and **four notches on the bare SALT pegs**, "for coming down". Bram (who doesn't know him), Pell, the Lamp and the
+    tally board follow either way.
+- **Art (folded in):** `build_characters.py hob_lantern` (Hob standing, no rake, the lit lantern held out, head up);
+  `build_thornwold.py clamp_rake` (the rake leaned on the bench). The ridge's second bare waymark gets a lit variant;
+  the landing reuses `waymark_lit` for Hob's mark.
+- **Tests:** `test_the_fifth.gd` (6): salt-row only / from the step / not today; going with and without Pell's stick;
+  the Lamp's telling (named and not; once); go; his to choose; stay. Two older tests loosened where they pinned the
+  old state (Hob's camp placement now has more terms; `waymark_lit` may stand on the landing once Hob stayed).
+  351 tests + smoke + launch pass. Checkpoint `the_fifth`.
+
+Screenshots: `docs/screenshots/2026-10-18-the-mark-at-the-bottom-of-the-road.png`; `docs/checkpoints/the_fifth.png`.
+
+**Decisions**
+- **Pays off an open thread instead of opening one:** the salt-row burn left Hob looking up the stair with nothing to
+  find; the Lamp had promised to tell him. The new open question (what's up the old road north) was already open —
+  the four went there on Day 25.
+- **Only on the salt-row path.** On the boots path there is no fifth, as the Lamp wished; giving that path a scene would
+  undo the cost of the burn. A branch-only quest is the point of the burn choice.
+- **The Lamp gives the lantern, the player gives the word.** The lantern is the payoff for "I hadn't enough"; the
+  choice is whether Hob follows. "It's yours to choose" is a third answer that lands on `gone` — refusing to decide for
+  him is itself an answer, and he takes it the way the four did.
+- **The coal stays kept for the four**; the lantern is lit off the beacon (the road is the beacon's), so Day 27 canon holds.
+- The arrival event needs a one-time bool (`thornwold_hob_told_fifth`) because its state flag is many-valued (TECH).
+- No smoke-walk extension: the walk burns the boots, so it can never meet the fifth.
+
+**Problems / notes**
+- The rake is thin and sits in the porch's shadow in the Compatibility renderer; it reads up close. Hob's lantern is
+  small at the checkpoint's distance.
+
+**Next run should**
+1. **Art-led session** (overdue; ROADMAP *Next up* #1). Next content due by Day 53; next polish/debt pass by Day 56.
+   Fetch before trusting `origin/main`.
+
 ## 2026-10-17 21:00 UTC — Day 48: Polish/debt pass six
 
 **Did**

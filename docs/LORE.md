@@ -826,6 +826,31 @@ debts, salvage, and who answers for a thing.
       (The brazier's ash shows raked after a `full` confession, as Day 16 said; grey all the way down after `grudging`
       until this scene.)
 
+  - **Established in play (Day 49 — the fifth, on Thornwold's ridge; salt-row path only):** (`the_fifth`, `thornwold_hob_ladder`)
+    - **Hob goes up.** Asked from the tally-house step ("You keep looking up at the ridge"), he leans his rake on the bench
+      and goes on ahead up the lanterns. **Pell**, if on Thornwold and keeping his count-stick, gives it back: "Finders keep
+      FOR. You'll want to know what you were counting, now." ("Keep for. Good kid.")
+    - **The Lamp tells him** what it told the Wakebearer: the four came up one at a time, Ottie last, hands out for a
+      lantern; they went north by the old Keepers' road; after Ottie it put the ladder down "so there'd be no fifth".
+      "You're the fifth, Hob." With his stick he **finishes the half notch** — "That's what I was counting. Four gone up."
+      Hood back (named), Hob sees its face ("You've a face. All these years") and keeps calling it Lamp ("I'm old").
+    - **A light of his own.** The road is the beacon's now, so the Lamp can do what it couldn't: it lights a cold lantern
+      **off the Ridge Light** and gives Hob what the four came up for. ("It's not mine to say where you take it.") The
+      coal in the box stays kept for the four.
+    - **The Wakebearer's word:**
+      - **gone** ("Go after them", or "It's yours to choose" — "They didn't wait to be told. Ottie never waited to be told a
+        thing in his life"): Hob walks north-east up the spine with the lantern, Ottie's boots left on the cold hut's seat
+        ("He can come down for them himself"); with the stick he cuts a **fifth notch** at the first bare mark. The Lamp
+        **hangs a lantern on the second mark** so he'll know the road down; he looked back at it from the third, then the
+        road had him over the shoulder — "Five on it, now." His **rake stays leaned on Bram's bench**; Bram, who doesn't know
+        him, won't move it ("a thing you don't move") and catches himself looking up at the ridge.
+      - **stayed** ("Somebody should be at the bottom of the road"): "Bram Kettle doesn't know mine." The Lamp: "Then
+        there's two of us. One at each end." Hob builds **a Keepers' cairn by the tally-house step** and hangs the lantern on
+        it, and hangs **one new stick on the bare SALT pegs — four notches cut deep**, "for coming down". Bram lets them be.
+        The Lamp sees the light from the bench "when the fog leans": "Two ends to a road. I'd forgotten roads have two."
+    - Open: **what's up the old road north** (the far shore; where the four went, and now maybe Hob), and whether anyone
+      comes down it. On the boots path there is no fifth, as the Lamp wished — Hob sleeps and never asks.
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)

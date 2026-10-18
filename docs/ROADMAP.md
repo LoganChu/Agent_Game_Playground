@@ -402,11 +402,20 @@ each .glb < 5 MB.
       the name said, Oda's lane to Saltmarrow, Aldous and the brazier laid) — every region is now walked back into;
       **the title's name follows the text size** (`UiTheme.GAME_TITLE`).
 
+- [x] [C] **The fifth** (Day 49; salt-row path): quest *The Fifth* from Hob on the tally-house step; Pell gives back his
+      count-stick; on the ridge the Lamp tells Hob he is the fifth and gives him a lantern lit off the Ridge Light (what
+      the four came up for); the player's word — **go after them** (or "it's yours to choose": he goes; the second mark on
+      the old road lit, his rake left on Bram's bench) or **stay** (a Keepers' cairn with the lantern by the step, four
+      notches on the bare SALT pegs). Bram, Pell, the Lamp and the tally board follow it. Blender `hob_lantern`,
+      `clamp_rake`. Checkpoint `the_fifth`.
+
 ### Next up
-1. [C] **Next content** (due by Day 51; Day 47 was content, Day 48 polish): **the lane on from Wrackholm** (Cindermoor is "past more
-   besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`), or
-   **Hob and the ladder** (salt_row: the Lamp will tell him if he comes up), or Dunstan's walk back for his name.
-   Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before.
+1. [A] **An art-led session** (overdue: last Day 43; small pieces folded into Days 47 and 49): the Saltmarrow
+   dressing follow-ups (#6) or Wrackholm's (the empty bracket, the yard's people), or character silhouette detail
+   (Known issues). Next content due by Day 53: **the lane on from Wrackholm** (Cindermoor is "past more besides"; a
+   Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`), **Dunstan's
+   walk back** for his name, or **the old Keepers' road north** (where the four went — and Hob, if `gone`; the boots
+   path has no fifth). Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before.
 2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -474,7 +483,8 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 56 (Day 48 was the last). Candidates: the fen's white light and peat water
+- Next polish/debt pass due by Day 56 (Day 48 was the last). Candidates: the smoke walk never takes *The Fifth* (it burns
+  the boots, so there is no fifth; covered by `test_the_fifth.gd`); the fen's white light and peat water
   (Day 39) with the Vulkan pass; the smoke walk only takes the 'well' Mara path (others: `test_after_the_heron.gd`),
   only burns Wenna's answer on the Wrack (others: `test_wrack_burning.gd`) and only asks Aldous for Wynn's sake (the
   "could it have been me?" path: `test_east_stair.gd`); the Heron's landing (Day 39) has no collider of its own — the

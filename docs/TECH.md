@@ -35,10 +35,10 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]  # the procedural sounds as .wav (audio review)
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord wenna wenna_nobrass jory …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord wenna wenna_nobrass jory …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren brazier_ash brazier_raked brazier_laid net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
-.tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark …]  # Thornwold kit (same kit dir)
+.tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark clamp_rake …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
 .tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn (+ answering_horn_open) gannet_hulk (+ gannet_hulk_bare, gannet_hulk_named) salvage_stack float_pile wrack_light (+ wrack_light_lit) teeth_rock teeth_mark]  # Wrackholm kit (Day 40; the Day 43 variants: the horn unlashed, the board prised off, the Wrack lit; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
@@ -287,7 +287,9 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   event whose `if` holds applies its `set` flags and plays its `dialogue` (waiting for any
   open dialogue first) — `RegionEvents.arrival/fire`. The validator requires `if`, a known
   dialogue, and a `set` that switches the event off (one of its flags read as `!flag:x` in
-  the `if`), so every event fires once. The ferry's horn (`ferry_horn`) lives on Shingle
+  the `if`), so every event fires once. An event that moves a many-valued flag on (Day 49:
+  `hob_up_the_ladder` takes `thornwold_hob_ladder` from `going` to `up`) can't read it as
+  `!flag:x`, so it also sets a one-time bool (`thornwold_hob_told_fifth`) and reads that. The ferry's horn (`ferry_horn`) lives on Shingle
   Point and Gull's Head, not Saltmarrow: you hear it on coming back from somewhere.
 - **NPCs in several places:** an NPC may be placed more than once (any regions) only if every
   placement has an `if` (Pell: beach until `saltmarrow_ferry_arrived`, then the dock; Hob:
