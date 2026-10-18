@@ -114,7 +114,7 @@ func test_hob_sits_on_the_bench() -> void:
 			at_camp.append(placement)
 	assert_eq(at_camp.size(), 1, "Hob has one place at the camp")
 	var hob: Dictionary = at_camp[0]
-	assert_eq(str(hob.get("if", "")), "flag:thornwold_hob_came_in")
+	assert_eq(Conditions.terms(hob.get("if"))[0], "flag:thornwold_hob_came_in", "come in (and not up the ladder: The Fifth)")
 	assert_eq(str(hob.get("model", "")), SEATED)
 	assert_eq(str(hob.get("idle", "")), "sit")
 	var bench: Dictionary = {}

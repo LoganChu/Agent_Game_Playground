@@ -49,6 +49,9 @@ func test_kit_placed_past_the_wall() -> void:
 	for name in KIT:
 		var placed := _thornwold_props(name).size()
 		if name in WOODS_ONLY:
+			# The Fifth (Day 49): Hob's mark at the bottom of the road, only once he stayed.
+			placed -= _thornwold_props(name).filter(
+					func(p: Dictionary) -> bool: return str(p.get("if", "")) == "flag:thornwold_hob_ladder=stayed").size()
 			assert_eq(placed, 0, "%s stands past the wall, not on the landing" % name)
 			assert_true(_thornwold_props(name, "thornwold_woods").size() >= 1, "the woods use %s" % name)
 		else:
