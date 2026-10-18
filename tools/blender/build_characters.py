@@ -1123,10 +1123,128 @@ def build_jory() -> None:
     assemble(b, "jory", scale=1.04)
 
 
+# --- Wrackholm's yard folk (Day 50): no names, no talk; they came out for the lighting -------
+
+def build_yard_smock() -> None:
+    """A Wrackholm yard hand come out of the lane-house for the lighting (old): broad and short, a
+    tide-blue oilskin smock to the knee over a gansey, a coal-red knitted cap, a grey beard cut
+    square; the cup he brought out from the fire still in his right hand, not drunk from."""
+    _yard_smock(mallet=False)
+
+
+def build_yard_smock_mallet() -> None:
+    """The same yard hand back at work once the horn has answered the light: caulking a seam in the
+    sorted timber, a wooden mallet in the left hand and a caulking iron in the right."""
+    _yard_smock(mallet=True)
+
+
+def _yard_smock(mallet: bool) -> None:
+    reset_scene()
+    b = Body(build=1.08)
+    smock = material("tide", -0.35)
+    skin = material("driftwood", 0.05)
+    base_body(b, skin, material("abyss", -0.1), material("ink", 0.05), smock)
+    t = b.parts["Torso"]
+    t.append(ring(0.1, b.shoulder + 0.03, 0.06, material("slate", -0.45)))                    # gansey neck
+    t.append(limb((0, 0, 0.36), (0, 0, b.waist + 0.1), 0.34, 0.28, smock, verts=8))          # smock skirt
+    t.append(ball(0.27, (0, 0.0, b.shoulder - 0.05), smock, scale=(1.05, 0.85, 0.5)))          # yoke
+    t.append(block((0.12, 0.03, 0.12), (0.0, -0.27, b.waist + 0.22), material("tide", -0.55)))  # kangaroo pocket
+    t.append(ring(0.29, b.waist - 0.02, 0.04, material("ink", 0.12)))                          # lanyard belt
+    for side, x in (("L", 0.12), ("R", -0.12)):
+        b.parts["Leg" + side].append(limb((x, 0, 0.08), (x, 0, 0.34), 0.095, 0.1, material("ink", 0.08)))  # sea boots
+    h = b.parts["Head"]
+    cap = material("coal", -0.2)
+    h.append(ball(0.25, (0, 0.02, b.head + 0.09), cap, scale=(1.0, 1.0, 0.7)))
+    h.append(ring(0.25, b.head + 0.05, 0.06, material("coal", -0.35)))                         # turned-up rim
+    beard = material("silverfog", -0.1)
+    h.append(ball(0.15, (0, -0.15, b.head - 0.12), beard, scale=(1.25, 0.75, 1.0)))
+    h.append(block((0.2, 0.08, 0.1), (0, -0.19, b.head - 0.2), beard))                           # cut square
+    if mallet:
+        wood = material("driftwood", -0.15)
+        iron = material("ink", 0.2)
+        hand = b.hand("L")
+        b.parts["ArmL"].append(limb(hand + Vector((0, 0, 0.04)), hand + Vector((0, -0.02, -0.24)), 0.022, 0.02, wood, verts=5))
+        b.parts["ArmL"].append(limb(hand + Vector((-0.08, -0.02, -0.26)), hand + Vector((0.08, -0.02, -0.26)), 0.06, 0.06, wood, verts=6))
+        hand = b.hand("R")
+        b.parts["ArmR"].append(limb(hand + Vector((0, 0.02, 0.06)), hand + Vector((0, -0.06, -0.16)), 0.016, 0.016, iron, verts=4))
+        b.parts["ArmR"].append(block((0.07, 0.015, 0.05), hand + Vector((0, -0.07, -0.19)), iron))  # the iron's blade
+        b.arm_rest["ArmR"] = (math.radians(-28), 0, math.radians(-6))
+        b.arm_rest["ArmL"] = (math.radians(-6), 0, math.radians(6))
+        b.head_rest = (math.radians(14), 0, 0)  # down at the seam
+        assemble(b, "yard_smock_mallet", scale=0.98)
+        return
+    # The cup, held out a little in front, upright against the arm's forward swing.
+    hand = b.hand("R")
+    up = Vector((0, -math.sin(math.radians(38)), math.cos(math.radians(38))))
+    b.parts["ArmR"].append(limb(hand + up * 0.07, hand + up * 0.2, 0.055, 0.062, material("bone", -0.2), verts=6))
+    b.arm_rest["ArmR"] = (math.radians(-38), 0, math.radians(12))
+    b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(5))
+    b.head_rest = (math.radians(-6), 0, 0)  # up at the light
+    assemble(b, "yard_smock", scale=0.98)
+
+
+def build_yard_shawl() -> None:
+    """A yard woman come out for the lighting (middle years): a long slate skirt and a tarred work
+    apron, a moss shawl pulled up over her head and held shut, her arms folded under it against
+    the cold off the Teeth."""
+    reset_scene()
+    b = Body(build=0.96)
+    dress = material("slate", -0.3)
+    shawl = material("moss", -0.15)
+    skin = material("driftwood", 0.2)
+    base_body(b, skin, dress, material("ink", 0.12), dress, sleeves=shawl)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, 0.1), (0, 0, b.waist + 0.06), 0.33, 0.25, dress, verts=8))            # skirt to the boots
+    t.append(block((0.3, 0.04, 0.5), (0, -0.27, b.waist - 0.16), material("coal", -0.6)))       # tarred apron
+    t.append(ball(0.34, (0, 0.03, b.shoulder - 0.06), shawl, scale=(1.0, 0.9, 0.75)))           # shawl over the shoulders
+    t.append(limb((0, 0.18, b.shoulder - 0.05), (0, 0.24, b.shoulder - 0.5), 0.12, 0.0, shawl, verts=4))  # point down the back
+    h = b.parts["Head"]
+    h.append(ball(0.27, (0, 0.1, b.head + 0.06), shawl, scale=(1.08, 1.05, 1.05)))             # shawl up over the head, face clear
+    h.append(ball(0.09, (0, -0.12, b.head + 0.14), material("bone", -0.15), scale=(1.9, 0.9, 0.6)))  # grey hair at the brow
+    # Arms folded: forearms forward and in, the hands meeting under the shawl's fold.
+    b.arm_rest["ArmL"] = (math.radians(-62), 0, math.radians(-30))
+    b.arm_rest["ArmR"] = (math.radians(-58), 0, math.radians(30))
+    b.parts["Torso"].append(ball(0.16, (0, -0.24, b.shoulder - 0.36), shawl, scale=(1.6, 0.6, 0.6)))  # the fold over the arms
+    b.head_rest = (math.radians(-4), 0, math.radians(3))
+    assemble(b, "yard_shawl", scale=0.95)
+
+
+def build_yard_lad() -> None:
+    """A yard lad (eleven or so) at the edge of the shingle: a tide-blue gansey too big for him, the
+    sleeves rolled, bare-headed with a shock of fair hair; a glass float off the come-home pile
+    held against his chest in both hands."""
+    reset_scene()
+    b = Body(build=0.86)
+    gansey = material("tide", -0.1)
+    skin = material("driftwood", 0.25)
+    base_body(b, skin, material("driftwood", -0.4), material("ink", 0.1), gansey)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, b.hip - 0.12), (0, 0, b.hip + 0.06), 0.27, 0.26, gansey, verts=8))   # gansey hanging long
+    for side in ("L", "R"):
+        hand = b.hand(side)
+        b.parts["Arm" + side].append(limb(hand + Vector((0, 0, 0.18)), hand + Vector((0, 0, 0.12)), 0.095, 0.095, gansey))  # rolled cuff
+    h = b.parts["Head"]
+    hair = material("kindle", -0.2)
+    h.append(ball(0.26, (0, 0.03, b.head + 0.07), hair, scale=(1.08, 1.05, 0.85)))
+    h.append(ball(0.09, (-0.06, -0.17, b.head + 0.15), hair, scale=(2.0, 1.0, 0.8)))
+    # The float: green glass in a net of tarred cord, held to his chest (on the torso, so it stays put).
+    glass = material("moss", 0.25)
+    centre = Vector((0, -0.31, b.shoulder - 0.24))
+    t.append(ball(0.11, centre, glass, segments=8, rings=6))
+    cord = material("ink", 0.15)
+    t.append(ring(0.115, centre.z, 0.02, cord, y=centre.y))
+    t.append(limb(centre + Vector((0, 0, -0.12)), centre + Vector((0, 0, 0.12)), 0.012, 0.012, cord, verts=4))
+    b.arm_rest["ArmL"] = (math.radians(-48), 0, math.radians(-26))
+    b.arm_rest["ArmR"] = (math.radians(-48), 0, math.radians(26))
+    b.head_rest = (math.radians(-8), 0, 0)
+    assemble(b, "yard_lad", scale=0.8)
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
-            build_dunstan_seated_cord, build_wenna, build_wenna_nobrass, build_jory]
+            build_dunstan_seated_cord, build_wenna, build_wenna_nobrass, build_jory,
+            build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad]
 
 if __name__ == "__main__":
     import sys
