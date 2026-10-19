@@ -507,6 +507,40 @@ func _cross_the_teeth(main: Node, ui: DialogueUI) -> void:
 	for i in 3:
 		await get_tree().physics_frame
 	_check((main.get("region") as Region).region_id == "glasswater_fen", "back at the fen from the Teeth")
+	if (main.get("region") as Region).region_id == "glasswater_fen":
+		await _walk_dunstan_back(main, ui)
+
+
+## Day 51: back on the fen with the Wrack lit, Dunstan's lantern has come halfway in. Walk ahead of
+## him with the ember (a `travel` to the staithe), then he asks Hesper for his name and stays to turn
+## the long walk's boards (the walk keeps Saltmarrow as it was for the name carried home after).
+func _walk_dunstan_back(main: Node, ui: DialogueUI) -> void:
+	_check(ui.is_open(), "the light seen halfway in on landing")
+	_finish_dialogue(ui, "the fen arrival (the walk back)")
+	await get_tree().process_frame
+	_check(GameState.world.quest_stage("the_walk_back") == "out_on_the_walk", "The Walk Back begins")
+	var dunstan := _npc("dunstan")
+	_check(dunstan != null, "Dunstan stands on the long walk")
+	if dunstan == null:
+		return
+	dunstan.interact()
+	_check(_choose(ui, "Walk ahead of him with the ember."), "the player walks ahead with the ember")
+	_finish_dialogue(ui, "dunstan (the walk in)")
+	for i in 3:
+		await get_tree().physics_frame
+	_check((main.get("region") as Region).region_id == "glasswater_fen", "walked in to the staithe")
+	_check(GameState.world.get_flag("fen_dunstan_walk") == "in", "Dunstan at the staithe's foot")
+	dunstan = _npc("dunstan")
+	if dunstan == null:
+		_check(false, "Dunstan by Hesper")
+		return
+	dunstan.interact()
+	_check(_choose(ui, "Stay a while. Till you're sure it's done."), "his name given back, he's asked to stay")
+	_finish_dialogue(ui, "dunstan (his name)")
+	await get_tree().process_frame
+	_check(GameState.world.get_flag("fen_dunstan_walk") == "stayed", "he stays to turn the boards")
+	_check(GameState.world.quest_state("the_walk_back") == WorldState.QUEST_DONE, "The Walk Back done")
+	_check(_npc("dunstan") != null, "Dunstan at the head of the long walk")
 
 
 ## Day 43: the Wrack's burning, live: Wenna gives her answer (with Jory, if he came up, his pot too),

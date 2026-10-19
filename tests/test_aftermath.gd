@@ -33,10 +33,11 @@ func test_dressing_follows_the_burn() -> void:
 	# (The wrapped ember sign hangs by the Wrens' door until Aldous confesses: test_wrens_and_lofts.
 	# The two net-lofts by the gate are broken before the burn and half-mended after: one "house"
 	# each either way, test_aldous_bench. The Wrens' brazier changes with Aldous too: test_east_stair.)
-	assert_eq(_conditional_shapes(_state()), ["brazier", "ember_sign", "house", "house"] as Array[String], "nothing extra while unlit")
-	assert_eq(_conditional_shapes(_state("pebble")), ["brazier", "ember_sign", "house", "house", "net_rack", "net_rack"] as Array[String])
-	assert_eq(_conditional_shapes(_state("knot")), ["brazier", "ember_sign", "house", "house", "net_frame", "net_frame"] as Array[String])
-	assert_eq(_conditional_shapes(_state("gull")), ["brazier", "cups", "ember_sign", "house", "house", "net_rack", "net_rack"] as Array[String])
+	# (Dunstan's stool gives way to his own when he comes home: test_walk_back.)
+	assert_eq(_conditional_shapes(_state()), ["brazier", "ember_sign", "house", "house", "stool"] as Array[String], "nothing extra while unlit")
+	assert_eq(_conditional_shapes(_state("pebble")), ["brazier", "ember_sign", "house", "house", "net_rack", "net_rack", "stool"] as Array[String])
+	assert_eq(_conditional_shapes(_state("knot")), ["brazier", "ember_sign", "house", "house", "net_frame", "net_frame", "stool"] as Array[String])
+	assert_eq(_conditional_shapes(_state("gull")), ["brazier", "cups", "ember_sign", "house", "house", "net_rack", "net_rack", "stool"] as Array[String])
 
 
 func test_new_prop_shapes_build() -> void:
