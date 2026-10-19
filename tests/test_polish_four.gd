@@ -46,8 +46,8 @@ func test_dunstan_sits_with_his_boots_in_the_mere() -> void:
 	var water := float(region["water_level"])
 	var field := TerrainField.from_data(region["ground"], water)
 	for p: Dictionary in region["npcs"]:
-		if p["npc"] != "dunstan" or str(p.get("model", "")).contains("dunstan_lantern"):
-			continue  # (standing, walking back with the lantern: test_walk_back)
+		if p["npc"] != "dunstan" or str(p.get("model", "")).contains("dunstan_lantern") or str(p.get("model", "")).contains("dunstan_turning"):
+			continue  # (standing, walking back with the lantern or turning a board: test_walk_back)
 		var at := JsonUtil.to_vector3(p["position"])
 		var seat := at.y + field.surface_at(at.x, at.z)
 		assert_true(seat < water and seat > water - 0.3, "his tussock stands in the shallows (%.2f, water %.2f)" % [seat, water])

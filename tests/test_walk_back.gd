@@ -101,7 +101,7 @@ func _object_shown(state: WorldState, region: String, id: String) -> bool:
 
 
 func test_the_models_load() -> void:
-	for name: String in ["dunstan_lantern", "dunstan_home"]:
+	for name: String in ["dunstan_lantern", "dunstan_home", "dunstan_turning"]:
 		var path := CHARS + name + ".glb"
 		assert_true(ResourceLoader.exists(path), path)
 		assert_true(FileAccess.get_file_as_bytes(path).size() < 5 * 1024 * 1024, "%s is small" % name)
@@ -229,7 +229,7 @@ func test_stay_and_turn_the_boards() -> void:
 	assert_eq(state.item_count("gull_for_mara"), 1, "the gull stays the player's to carry")
 	var shown := _dunstans(state, FEN)
 	assert_eq(shown.size(), 1)
-	assert_eq(_model(shown[0]), "dunstan_lantern")
+	assert_eq(_model(shown[0]), "dunstan_turning", "stooped over a board (Day 52)")
 	var at: Array = shown[0]["position"]
 	assert_true(float(at[2]) > -17.0 and float(at[2]) < -14.0, "at the head of the long walk")
 	assert_empty(_dunstans(state, SALTMARROW))
@@ -245,3 +245,26 @@ func test_stay_and_turn_the_boards() -> void:
 	assert_true(_lines(state, "dunstan").contains("Two turned so far"))
 	assert_true(_lines(state, "hesper").contains("He's turning the boards"))
 	assert_true(_lines(state, "mara").find("came in backward") < 0, "Mara hears nothing yet")
+
+
+func test_turning_a_board() -> void:
+	# Day 52: the `stayed` Dunstan is stooped over a board, not standing with the lantern in his hand.
+	var model := CharacterRig.instantiate(CHARS + "dunstan_turning.glb")
+	var standing := CharacterRig.instantiate(CHARS + "dunstan_lantern.glb")
+	var parts := CharacterRig.find_parts(model)
+	for part: String in ["LegL", "LegR", "Torso", "Head", "ArmL", "ArmR"]:
+		assert_true(parts.has(part), "rigged: %s" % part)
+	var torso := parts["Torso"] as Node3D
+	assert_true(torso.rotation.x > 0.6 and torso.rotation.x < 1.1, "bent at the waist (%.2f rad)" % torso.rotation.x)
+	var height := Region.mesh_bounds(model).size.y
+	var upright := Region.mesh_bounds(standing).size.y
+	assert_true(height < upright * 0.92, "stooped below his standing height (%.2f vs %.2f)" % [height, upright])
+	var glowing: Array[String] = []
+	for mesh_instance: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
+		for i in mesh_instance.mesh.get_surface_count():
+			var material := mesh_instance.mesh.surface_get_material(i) as StandardMaterial3D
+			if material and material.emission_enabled:
+				glowing.append(str(mesh_instance.name))
+	assert_eq(glowing, ["Stool"] as Array[String], "the lantern stood lit on the boards, not in his hand")
+	model.free()
+	standing.free()

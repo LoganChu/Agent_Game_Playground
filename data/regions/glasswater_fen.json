@@ -1305,8 +1305,8 @@
       ],
       "rotation_y": 95,
       "if": "flag:fen_dunstan_walk=stayed",
-      "model": "res://assets/models/characters/dunstan_lantern.glb",
-      "note": "Named and stayed: beside the head of the long walk (west side, clear of the Unmoored on the east tussock), turning its boards the other way round for whoever walks back next."
+      "model": "res://assets/models/characters/dunstan_turning.glb",
+      "note": "Named and stayed: beside the head of the long walk (west side, clear of the Unmoored on the east tussock), stooped over a board he's turning the other way round for whoever walks back next; the lantern stood lit at his boot."
     }
   ],
   "objects": [

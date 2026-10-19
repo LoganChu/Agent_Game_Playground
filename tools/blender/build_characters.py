@@ -21,7 +21,7 @@ import math
 import os
 
 import bpy  # must be imported before mathutils when running as the bpy module
-from mathutils import Vector  # noqa: E402
+from mathutils import Euler, Vector  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 OUT_DIR = os.path.join(ROOT, "assets", "models", "characters")
@@ -131,10 +131,11 @@ def ring(r, z, height, mat, verts=8, y=0.0):
 class Body:
     """Proportions for one character. All heights in metres, before the Rig scale."""
 
-    def __init__(self, seated: bool = False, build: float = 1.0):
+    def __init__(self, seated: bool = False, build: float = 1.0, crouch: float = 0.0):
         self.seated = seated
         self.build = build            # width multiplier (1 = average, >1 broad)
-        self.hip = 0.46 if seated else 0.68
+        self.crouch = crouch          # standing only: how far the hips drop with the knees bent forward
+        self.hip = 0.46 if seated else 0.68 - crouch
         self.waist = self.hip + 0.06
         self.shoulder = self.hip + 0.52
         self.neck = self.shoulder + 0.05
@@ -145,6 +146,11 @@ class Body:
         self.parts = {k: [] for k in ("LegL", "LegR", "Torso", "Head", "ArmL", "ArmR", "Stool")}
         self.arm_rest = {"ArmL": (0.0, 0.0, 0.0), "ArmR": (0.0, 0.0, 0.0)}
         self.head_rest = (0.0, 0.0, 0.0)
+        self.torso_rest = (0.0, 0.0, 0.0)  # a stoop: the torso (and the head and arms with it) bent at the waist
+
+    def knee(self, x: float) -> Vector:
+        """Standing with `crouch`: the knee, forward of the hip and ankle."""
+        return Vector((x, -self.crouch * 2.4, (self.hip + 0.1) * 0.5))
 
     def pivots(self) -> dict:
         return {
@@ -171,6 +177,11 @@ def base_body(b: Body, skin, trousers, boots, top, sleeves=None, face=True) -> N
             leg.append(limb((x, 0, b.hip), knee, 0.1, 0.09, trousers))
             leg.append(limb(knee, (x, -0.38, 0.1), 0.085, 0.075, trousers))
             leg.append(block((0.15, 0.24, 0.11), (x, -0.43, 0.055), boots))
+        elif b.crouch > 0.0:
+            knee = b.knee(x)
+            leg.append(limb((x, 0, b.hip), knee, 0.1, 0.085, trousers))
+            leg.append(limb(knee, (x, 0, 0.1), 0.085, 0.075, trousers))
+            leg.append(block((0.16, 0.26, 0.12), (x, -0.04, 0.06), boots))
         else:
             leg.append(limb((x, 0, b.hip), (x, 0, 0.1), 0.1, 0.075, trousers))
             leg.append(block((0.16, 0.26, 0.12), (x, -0.04, 0.06), boots))
@@ -229,6 +240,7 @@ def assemble(b: Body, name: str, scale: float = 1.0) -> None:
         if arm in made:
             made[arm].rotation_euler = rot
     made["Head"].rotation_euler = b.head_rest
+    made["Torso"].rotation_euler = b.torso_rest
     tris = sum(sum(len(poly.vertices) - 2 for poly in o.data.polygons) for o in made.values())
     os.makedirs(OUT_DIR, exist_ok=True)
     path = os.path.join(OUT_DIR, f"{name}.glb")
@@ -953,6 +965,13 @@ def build_dunstan_home() -> None:
     _dunstan(seated=True, home=True)
 
 
+def build_dunstan_turning() -> None:
+    """Dunstan stayed (Day 52, *The Walk Back*): named, and staying on the fen to turn the long walk's
+    boards the other way round. Stooped at the head of the walk with his knees bent, a board lifted
+    crosswise in both hands, half turned; the ship's lantern stood lit on the boards at his left boot."""
+    _dunstan(seated=False, turning=True)
+
+
 def _ship_lantern(parts: list, base: Vector, lit: bool) -> None:
     """A squat ship's lantern standing on `base`: brass foot and cap, horn panes (gold when lit), a bail."""
     brass = material("driftwood", -0.45)
@@ -964,9 +983,9 @@ def _ship_lantern(parts: list, base: Vector, lit: bool) -> None:
     parts.append(limb(base + Vector((0.06, 0, 0.36)), base + Vector((0, 0, 0.47)), 0.012, 0.012, brass, verts=3))
 
 
-def _dunstan(seated: bool, cord: bool = False, lit: bool = False, home: bool = False) -> None:
+def _dunstan(seated: bool, cord: bool = False, lit: bool = False, home: bool = False, turning: bool = False) -> None:
     reset_scene()
-    b = Body(seated=seated, build=1.28)
+    b = Body(seated=seated, build=1.28, crouch=0.08 if turning else 0.0)
     knit = material("tide", -0.55)
     skin = material("driftwood", -0.08)
     oilskin = material("slate", -0.35)
@@ -976,7 +995,11 @@ def _dunstan(seated: bool, cord: bool = False, lit: bool = False, home: bool = F
     for z in (b.waist + 0.16, b.waist + 0.28):                                                     # knit ribs
         t.append(ring(0.325, z, 0.025, material("tide", -0.68)))
     t.append(ring(0.1, b.neck + 0.0, 0.06, knit))                                                  # roll neck
-    if not seated:
+    if turning:
+        for side, x in (("L", 0.12), ("R", -0.12)):                                               # boot tops, up the shin
+            ankle = Vector((x, 0, 0.12))
+            b.parts["Leg" + side].append(limb(ankle, ankle.lerp(b.knee(x), 0.85), 0.095, 0.1, material("ink", 0.04)))
+    elif not seated:
         for side, x in (("L", 0.12), ("R", -0.12)):                                               # boot tops
             b.parts["Leg" + side].append(limb((x, 0, 0.12), (x, 0, 0.36), 0.095, 0.1, material("ink", 0.04)))
     h = b.parts["Head"]
@@ -986,6 +1009,25 @@ def _dunstan(seated: bool, cord: bool = False, lit: bool = False, home: bool = F
         a = k / 5 * math.tau
         h.append(ball(0.07, (math.cos(a) * 0.2, math.sin(a) * 0.2 + 0.05, b.head + 0.17), hair, segments=5, rings=3))
     h.append(ball(0.19, (0, -0.1, b.head - 0.13), hair, scale=(1.05, 0.75, 0.95)))                 # beard
+    if turning:
+        # Stooped at the waist, the arms reaching down and a little forward: a board lifted crosswise
+        # in both hands (one of the long walk's: grey driftwood, a moss stain at one end), being turned.
+        b.torso_rest = (math.radians(48), 0, 0)
+        b.arm_rest["ArmL"] = (math.radians(-30), 0, math.radians(3))
+        b.arm_rest["ArmR"] = (math.radians(-30), 0, math.radians(-3))
+        b.head_rest = (math.radians(-22), 0, 0)  # eyes on the board, not the ground
+        hand = b.hand("L")
+        tilt = Euler((math.radians(-12), math.radians(8), 0))  # half turned: his right-hand end coming up
+        mid = Vector((0.0, -0.05, hand.z - 0.02))
+        b.parts["ArmL"].append(block((1.0, 0.2, 0.04), mid, material("driftwood", -0.36), rot=tilt))
+        stain = Vector((-0.38, 0, 0))
+        stain.rotate(tilt)
+        b.parts["ArmL"].append(block((0.22, 0.205, 0.042), mid + stain, material("moss", -0.4), rot=tilt))
+        # The lantern stood lit on the boards by his left boot.
+        _ship_lantern(b.parts["Stool"], Vector((0.55, -0.15, 0.0)), lit=True)
+        t.append(ring(0.335, b.waist + 0.05, 0.03, material("ink", 0.0)))                         # belt
+        assemble(b, "dunstan_turning", scale=1.08)
+        return
     if not seated:
         # The lantern in the left hand, hanging by its bail: a squat ship's lantern, horn panes dark
         # (gold once he's walking back with it lit).
@@ -1282,7 +1324,8 @@ def build_yard_lad() -> None:
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
-            build_dunstan_seated_cord, build_dunstan_lantern, build_dunstan_home, build_wenna, build_wenna_nobrass, build_jory,
+            build_dunstan_seated_cord, build_dunstan_lantern, build_dunstan_home, build_dunstan_turning,
+            build_wenna, build_wenna_nobrass, build_jory,
             build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad]
 
 if __name__ == "__main__":
