@@ -294,6 +294,10 @@ def build_mara() -> None:
     scarf = material("coal")
     t.append(ring(0.17, b.shoulder + 0.05, 0.1, scarf))
     t.append(block((0.1, 0.05, 0.36), (-0.1, -0.27, b.shoulder - 0.18), scarf, rot=(0.15, 0, 0.12)))
+    # The coat's collar turned up against the wind: stiff at the back and sides, open at the front.
+    t.append(block((0.36, 0.06, 0.2), (0, 0.13, b.shoulder + 0.09), coat, rot=(-0.3, 0, 0)))
+    for side in (1, -1):
+        t.append(block((0.06, 0.2, 0.17), (side * 0.17, 0.02, b.shoulder + 0.07), coat, rot=(0, side * 0.3, side * 0.25)))
     h = b.parts["Head"]
     hair = material("silverfog", -0.1)
     h.append(ball(0.255, (0, 0.05, b.head + 0.035), hair, scale=(1.04, 1.0, 1.0)))
@@ -415,6 +419,10 @@ def build_tam() -> None:
                                 material("driftwood", -0.1)))
     b.parts["ArmR"].append(limb(hand + Vector((0, -0.05, 0.9)), hand + Vector((0, -0.05, 1.05)), 0.05, 0.02,
                                 material("slate"), verts=4))                           # iron tip
+    # Sea boots to the knee with the tops turned down (a gatekeeper stands in the wet all day).
+    for side, x in (("L", 0.12), ("R", -0.12)):
+        b.parts["Leg" + side].append(limb((x, 0, 0.1), (x, 0, 0.26), 0.09, 0.1, material("ink", 0.1)))
+        b.parts["Leg" + side].append(limb((x, 0, 0.23), (x, 0, 0.31), 0.125, 0.13, material("ink", 0.24)))
     b.arm_rest["ArmR"] = (math.radians(-25), 0, math.radians(-10))
     assemble(b, "tam")
 
@@ -1192,7 +1200,13 @@ def build_jory() -> None:
     h = b.parts["Head"]
     hair = material("ink", 0.3)
     h.append(ball(0.26, (0, 0.04, b.head + 0.06), hair, scale=(1.05, 1.02, 0.85)))
-    h.append(ball(0.1, (0.05, -0.17, b.head + 0.15), hair, scale=(2.0, 1.0, 0.7)))          # fringe
+    for fx, fz in ((0.08, 0.12), (-0.05, 0.14)):                                              # fringe, fallen over the brow
+        h.append(ball(0.075, (fx, -0.16, b.head + fz), hair, scale=(1.3, 0.7, 1.0), segments=5, rings=3))
+    # A mop, not a cap: a shaggy rim of clumps over the ears and nape, a tuft standing up at the crown.
+    for a, r, z, size in ((0.1, 0.25, 0.04, 0.07), (0.7, 0.24, 0.1, 0.075), (1.3, 0.23, 0.02, 0.07),
+                          (1.9, 0.24, 0.09, 0.075), (2.5, 0.24, 0.0, 0.07), (3.05, 0.25, 0.06, 0.065),
+                          (1.6, 0.13, 0.22, 0.055)):
+        h.append(ball(size, (math.cos(a) * r, math.sin(a) * r + 0.04, b.head + z), hair, segments=5, rings=3))
     # The pry bar: iron, hooked at the foot, hanging from the right hand.
     hand = b.hand("R")
     iron = material("ink", 0.2)
