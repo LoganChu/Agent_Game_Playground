@@ -1,0 +1,37 @@
+{
+  "id": "fen_dunstan_coming",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Hesper is at the staithe's foot as always, but she isn't looking at the boat. She's looking north, over the reed roofs of Stillhithe, at the Deeps."
+      },
+      {
+        "say": "hesper",
+        "text": "The eel-man came by at first light. He says the light's gone off the end of the long walk."
+      },
+      {
+        "say": "hesper",
+        "text": "Not out. Off. It's halfway in, and it's stopped. It's been stopped since yesterday."
+      },
+      {
+        "say": "hesper",
+        "text": "I can't go and look. I've his name in my keeping; it isn't mine to carry out to him. That's the one way it's done.",
+        "if": "!flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "hesper",
+        "text": "I've no name of my own to go out under, and I've his in my keeping. It isn't mine to carry out to him. That's the one way it's done.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "hesper",
+        "text": "You've a light, though. Boards only go the one way out there.",
+        "quest_start": "the_walk_back"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

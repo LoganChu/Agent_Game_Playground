@@ -1,0 +1,17 @@
+{
+  "id": "the_walk_back",
+  "title": "The Walk Back",
+  "region": "glasswater_fen",
+  "giver": "hesper",
+  "description": "Dunstan said he'd walk back in and ask Hesper for his name when he was done. Not before.",
+  "stages": [
+    {
+      "id": "out_on_the_walk",
+      "text": "The lantern from the end of the long walk has come halfway in and stopped. The boards are laid for going in, not for coming back. Go out to it."
+    },
+    {
+      "id": "his_name",
+      "text": "Dunstan walked in behind your light and stands at the staithe's foot. He'll ask Hesper for his name himself; be there when he does."
+    }
+  ]
+}

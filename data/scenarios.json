@@ -477,6 +477,23 @@
         "the_fifth": "his_word"
       },
       "shot": "--camera=5.2,1.8,10.0:1.6,1.1,7.0"
+    },
+    {
+      "id": "the_walk_back",
+      "act": "Act II — The Drift",
+      "title": "The Walk Back",
+      "inherits": "east_stair",
+      "region": "glasswater_fen",
+      "spawn": "from_long_walk",
+      "description": "After the east stair Oda sailed the player back to the fen. Dunstan's lantern had come halfway in along the long walk and stopped (the boards are laid for going in); the player walked ahead of him with the ember, and he stands at the staithe's foot in front of Hesper to ask for his name himself. Talk to him: Hesper gives it back, and the player's word sends him home to Saltmarrow or keeps him turning the boards.",
+      "flags": {
+        "lanes_ferry_at": "fen",
+        "fen_dunstan_walk": "in"
+      },
+      "quests": {
+        "the_walk_back": "his_name"
+      },
+      "shot": "--camera=6.6,2.0,3.0:2.6,1.0,5.6"
     }
   ]
 }

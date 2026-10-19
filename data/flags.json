@@ -606,6 +606,21 @@
     "lanes_oda_weighed_name": {
       "description": "Oda has weighed the Lamp's name being carried home off the Book (one-time line at Thornwold landing once thornwold_lamp_name is set; differs for a friend of the lanes).",
       "default": false
+    },
+    "fen_dunstan_walk": {
+      "description": "Dunstan's walk back for his name (Day 51, The Walk Back): '' (still at the end of the long walk, nearly done), 'coming' (after the Wrack was lit, back on the fen: his lantern has come halfway in along the long walk and stopped — the boards are laid for going in), 'in' (walked in behind the player's ember; at the staithe's foot to ask Hesper for it himself), 'home' (named; rowed his boat home to Saltmarrow facing backward, and sits on his stool by Mara's door) or 'stayed' (named; stays on the fen and lays the long walk's boards the other way, for whoever walks back next — the first of the Unmoored to mend anything).",
+      "default": "",
+      "values": [
+        "",
+        "coming",
+        "home",
+        "in",
+        "stayed"
+      ]
+    },
+    "saltmarrow_mara_saw_dunstan_home": {
+      "description": "Mara has spoken of Dunstan coming home, rowing in backward (one-time; after the gull burn she doesn't know him, and the second cup is his anyway).",
+      "default": false
     }
   }
 }

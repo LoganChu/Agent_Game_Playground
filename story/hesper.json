@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:fen_dunstan_walk=in",
+        "goto": "waiting_on_him"
+      },
+      {
         "if": "!flag:fen_met_hesper",
         "goto": "first"
       },
@@ -144,6 +148,16 @@
         "say": "hesper",
         "text": "Still bare, that light. Stand downwind of me, then.",
         "if": "flag:fen_ember=bare"
+      },
+      {
+        "say": "hesper",
+        "text": "His boat's gone off my first post. He went out by the staithe, backward. First one ever.",
+        "if": "flag:fen_dunstan_walk=home"
+      },
+      {
+        "say": "hesper",
+        "text": "He's turning the boards on the long walk. Mending. Nobody's told him not to. I'm not going to be the first.",
+        "if": "flag:fen_dunstan_walk=stayed"
       },
       {
         "goto": "hub"
@@ -513,6 +527,12 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "waiting_on_him": [
+      {
+        "say": "hesper",
+        "text": "Not from me. He's to ask for it himself, in his own voice. That's how it's kept, or it isn't kept."
       }
     ]
   }

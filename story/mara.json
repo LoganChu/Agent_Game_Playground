@@ -14,6 +14,16 @@
         "goto": "beacon_lit"
       },
       {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_mara_saw_dunstan_home"
+        ],
+        "set": {
+          "saltmarrow_mara_saw_dunstan_home": true
+        },
+        "goto": "dunstan_home"
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -659,6 +669,56 @@
       {
         "say": "mara",
         "text": "There. When he comes, it'll be the first thing he sees. If he comes."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dunstan_home": [
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "goto": "stranger_home"
+      },
+      {
+        "say": "mara",
+        "text": "He came in backward. Course he did. Rowed the whole lane facing the wrong way, lantern in the stern, laughing at nothing, and half the harbor on the wall to see."
+      },
+      {
+        "say": "mara",
+        "text": "I didn't go down. Somebody had to set the stool square."
+      },
+      {
+        "say": "narrator",
+        "text": "She folds her arms and looks at the harbor, not at him, and not at you."
+      },
+      {
+        "say": "mara",
+        "text": "You walked him in. He told me. Don't make anything of it, and don't let him."
+      },
+      {
+        "say": "mara",
+        "text": "Thank you."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "stranger_home": [
+      {
+        "say": "mara",
+        "text": "There's a big man on the stool by my door. Came in backward in a rowboat with a lantern in the stern, and sat down there like he'd paid for it."
+      },
+      {
+        "say": "mara",
+        "text": "Says he's my brother. I've no reason on earth to believe it. Tollens end with me."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at the two cups on the crate. For once, they're both drained."
+      },
+      {
+        "say": "mara",
+        "text": "But the second cup's his. I knew that the minute he picked it up. Don't ask me how. I'll not have it asked."
       },
       {
         "goto": "hub"

@@ -3,6 +3,22 @@
   "knots": {
     "start": [
       {
+        "if": "flag:fen_dunstan_walk=coming",
+        "goto": "walk_back"
+      },
+      {
+        "if": "flag:fen_dunstan_walk=in",
+        "goto": "his_name"
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "goto": "home"
+      },
+      {
+        "if": "flag:fen_dunstan_walk=stayed",
+        "goto": "stayed"
+      },
+      {
         "if": "!flag:fen_dunstan_met",
         "goto": "first"
       },
@@ -416,6 +432,367 @@
       },
       {
         "goto": "talk"
+      }
+    ],
+    "walk_back": [
+      {
+        "say": "narrator",
+        "text": "Halfway along the long walk a big man stands on a board with the lantern held out in front of him, lit. He's facing in, toward Stillhithe. He isn't moving."
+      },
+      {
+        "say": "dunstan",
+        "text": "There you are. I'd a feeling it'd be you. Nobody else out here goes about with a light on purpose."
+      },
+      {
+        "say": "dunstan",
+        "text": "Done. I think. There's nothing left out there I'd know to look for, and I looked a good while."
+      },
+      {
+        "say": "dunstan",
+        "text": "Here's the trouble. Every board on this walk is laid by somebody going in. The near edge sits proud, the far edge sinks. You walk them out, they carry you. You walk them back, they tip you in the mere."
+      },
+      {
+        "say": "dunstan",
+        "text": "A lantern's no good for that. A lantern shows you where you are. I want somebody ahead of me showing me where the next one is."
+      },
+      {
+        "say": "dunstan",
+        "text": "You'd have to open your hand, mind. Just this once, out here. They'll forgive you; you're walking a man in.",
+        "if": "flag:fen_ember=cupped"
+      },
+      {
+        "say": "dunstan",
+        "text": "You've a gull of mine in your satchel still. Hang on to it a bit longer.",
+        "if": "item:gull_for_mara"
+      },
+      {
+        "choice": [
+          {
+            "text": "Walk ahead of him with the ember.",
+            "goto": "walking_in"
+          },
+          {
+            "text": "Not yet. Wait here.",
+            "goto": "wait"
+          }
+        ]
+      }
+    ],
+    "wait": [
+      {
+        "say": "dunstan",
+        "text": "I've waited worse places. Bring the light when you've a mind to."
+      }
+    ],
+    "walking_in": [
+      {
+        "say": "narrator",
+        "text": "You go first, the ember held low, and find each board before he needs it. He comes on behind, slow, testing every one, the lantern swinging, and he talks the whole way about nothing: weather, eels, a boat he once nearly bought.",
+        "if": "!flag:fen_ember=cupped"
+      },
+      {
+        "say": "narrator",
+        "text": "You open your hand. The light comes out gold over the water, and you go first, the ember held low, finding each board before he needs it. He comes on behind, slow, testing every one, and he talks the whole way about nothing: weather, eels, a boat he once nearly bought.",
+        "if": "flag:fen_ember=cupped"
+      },
+      {
+        "say": "narrator",
+        "text": "By the pools, the Unmoored turn their faces from your light, the way they do. When they see who walks behind it, one or two turn back to look."
+      },
+      {
+        "say": "dunstan",
+        "text": "Let them look. Somebody walking out of the Deeps. They'll want to know it can be done, even the ones who'll never try it."
+      },
+      {
+        "say": "narrator",
+        "text": "At Stillhithe's edge he steps off the last board onto the hummock and stands a while with both feet on the ground, as if he'd forgotten how it goes."
+      },
+      {
+        "say": "dunstan",
+        "text": "Right. The staithe. I'll ask her myself; that's how it's kept.",
+        "set": {
+          "fen_dunstan_walk": "in"
+        },
+        "quest_stage": [
+          "the_walk_back",
+          "his_name"
+        ],
+        "travel": [
+          "glasswater_fen",
+          "from_long_walk"
+        ]
+      }
+    ],
+    "his_name": [
+      {
+        "say": "narrator",
+        "text": "Dunstan stands at the staithe's foot in front of Hesper with his lantern in one hand and his other hand open, the way you'd stand at a counter to collect a thing you'd paid for."
+      },
+      {
+        "say": "dunstan",
+        "text": "I've come for my name, Hesper. I said I'd not, before I was done. I'm done."
+      },
+      {
+        "say": "hesper",
+        "text": "You're sure. I'll not keep it twice."
+      },
+      {
+        "say": "dunstan",
+        "text": "Sure as I'll ever be. I don't know how much there was. I know there's none left I'd miss."
+      },
+      {
+        "say": "narrator",
+        "text": "She takes it out from somewhere under the shawl, as though she'd carried it in a pocket, and says it once, carefully, the way you'd hand back a full cup."
+      },
+      {
+        "say": "hesper",
+        "text": "I couldn't keep my own. I've still got yours. Here.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "hesper",
+        "text": "Dunstan Tollen. Of Saltmarrow."
+      },
+      {
+        "say": "narrator",
+        "text": "It goes past you like rain off a coat. You hear it said, and then you only know that something was. He heard it, though. You can see him hear it.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "dunstan",
+        "text": "That's the one. Fits worse than I remember. It'll wear in."
+      },
+      {
+        "say": "narrator",
+        "text": "He laughs, the dropped-anchor laugh, and this time the fog carries it a little way."
+      },
+      {
+        "say": "dunstan",
+        "text": "And now I don't know what a Tollen does next. I'd not thought past this bit. That was rather the point of it."
+      },
+      {
+        "say": "dunstan",
+        "text": "Boat's where I left it. Tide's nothing here; water doesn't move. I could row her anywhere."
+      },
+      {
+        "choice": [
+          {
+            "text": "Go home. Mara's keeping the stool.",
+            "if": "!flag:saltmarrow_beacon_burned=gull",
+            "goto": "go_home"
+          },
+          {
+            "text": "There's a second cup going cold by her door. Go home and drink it.",
+            "if": "flag:saltmarrow_beacon_burned=gull",
+            "goto": "go_home_cup"
+          },
+          {
+            "text": "Stay a while. Till you're sure it's done.",
+            "goto": "stay"
+          },
+          {
+            "text": "That's yours to choose. Not mine.",
+            "goto": "yours"
+          }
+        ]
+      }
+    ],
+    "go_home": [
+      {
+        "say": "dunstan",
+        "text": "Keeping it. She would be. Swept round it, not under it, I'd lay money."
+      },
+      {
+        "goto": "rowing"
+      }
+    ],
+    "go_home_cup": [
+      {
+        "say": "narrator",
+        "text": "He's quiet a moment."
+      },
+      {
+        "say": "dunstan",
+        "text": "She'll not know me. You said. The light took her keeping of me."
+      },
+      {
+        "say": "dunstan",
+        "text": "Well. Then I'll be a stranger who knows where the cups go. There's worse things to be. Somebody ought to drink the other one."
+      },
+      {
+        "goto": "rowing"
+      }
+    ],
+    "yours": [
+      {
+        "say": "dunstan",
+        "text": "Mine, is it. Nobody's said that to me since I was nine."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks south, where the lanes run, a long time."
+      },
+      {
+        "say": "dunstan",
+        "text": "Home, then. A Tollen goes backward. I'll row her home facing this way, and watch the fen go."
+      },
+      {
+        "goto": "rowing"
+      }
+    ],
+    "rowing": [
+      {
+        "say": "dunstan",
+        "text": "Give us that gull back. I'll set it on the stool myself. Facing the door; I know.",
+        "if": "item:gull_for_mara",
+        "take_item": "gull_for_mara"
+      },
+      {
+        "say": "narrator",
+        "text": "He steps down into the rowboat at the staithe's first post, ships the oars, sets the lantern in the stern, and pulls out stroke by stroke, sitting the wrong way round the way sea-folk do, so he can watch where he's been."
+      },
+      {
+        "say": "hesper",
+        "text": "First one ever went out of here by the staithe. They all go by the long walk."
+      },
+      {
+        "say": "dunstan",
+        "text": "Tell Oda I'm not laughing at the weather. I'm laughing at something else. She'll want to know.",
+        "set": {
+          "fen_dunstan_walk": "home"
+        },
+        "quest_complete": "the_walk_back"
+      },
+      {
+        "end": true
+      }
+    ],
+    "stay": [
+      {
+        "say": "dunstan",
+        "text": "Sure it's done. Aye. I'd not want to row all the way to Saltmarrow and find a bit left in the bilge."
+      },
+      {
+        "say": "dunstan",
+        "text": "And I'll tell you what I'll do while I'm sure. I'll turn the boards. Every one on that walk, laid the other way round, so the next one coming back can walk it without a light."
+      },
+      {
+        "say": "hesper",
+        "text": "Nobody mends anything here. Mending's remembering."
+      },
+      {
+        "say": "dunstan",
+        "text": "I know. I've finished forgetting. Somebody may as well start the other thing.",
+        "set": {
+          "fen_dunstan_walk": "stayed"
+        },
+        "quest_complete": "the_walk_back"
+      },
+      {
+        "end": true
+      }
+    ],
+    "stayed": [
+      {
+        "say": "narrator",
+        "text": "Dunstan stands at the head of the long walk with the lantern in his fist and a lifted board at his feet, turning the boards one by one so the near edge sits proud for coming back.",
+        "if": "!flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "narrator",
+        "text": "The big man stands at the head of the long walk with the lantern in his fist and a lifted board at his feet, turning the boards one by one so the near edge sits proud for coming back.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "dunstan",
+        "text": "Two turned so far, and the rest to come. Some of them come off their tussocks and watch me do it. Nobody's said a word. That's the rule, I suppose."
+      },
+      {
+        "say": "dunstan",
+        "text": "When it's done I'll know it's done. Then Saltmarrow. Tell her that if you're passing. Or don't. She'll know where I am, by the stool.",
+        "if": "!flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "dunstan",
+        "text": "When it's done I'll know. Then I'll go and drink that cup.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll leave you to it.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "home": [
+      {
+        "say": "narrator",
+        "text": "Dunstan Tollen sits on his stool by Mara's door, his sea boots planted on the harbor stones, a cup held in both hands between his knees. The dent in the seat fits him exactly.",
+        "if": "!flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "narrator",
+        "text": "The big man sits on the stool by Mara's door, his sea boots planted on the harbor stones, the second cup held in both hands between his knees. The dent in the seat fits him exactly.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "dunstan",
+        "text": "Came in backward. Whole harbor stood on the wall to watch, and Tam rang the gate bell like I was a fire. Mara never came down. She was setting the stool square."
+      },
+      {
+        "say": "dunstan",
+        "text": "Gull's on the sill, facing the door. I sat on it the first night. She's not let me forget that, and she won't.",
+        "if": [
+          "!flag:saltmarrow_beacon_burned=gull",
+          "flag:fen_dunstan_mara=message"
+        ]
+      },
+      {
+        "say": "dunstan",
+        "text": "She doesn't know me. She poured that second cup and pushed it at me and said it was going cold anyway. So I drank it.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "dunstan",
+        "text": "I've told her I'm her brother. She says Tollens end with her. I say that's all right, then: I'll be the bit after the end. She let that stand. It's a start.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "dunstan",
+        "text": "Still don't know what it was I put down. Still glad. Ask me again in a year.",
+        "if": "flag:fen_dunstan_rule=asked"
+      },
+      {
+        "choice": [
+          {
+            "text": "Was it worth the walk back?",
+            "goto": "worth"
+          },
+          {
+            "text": "I'll leave you to your cup.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "worth": [
+      {
+        "say": "dunstan",
+        "text": "Walking out was the easy half. Anybody can walk out; the boards are laid for it."
+      },
+      {
+        "say": "dunstan",
+        "text": "Coming back you need somebody ahead of you with a light. I'd not have found the boards. So it's yours as much as mine, whatever it was worth."
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll leave you to your cup.",
+            "end": true
+          }
+        ]
       }
     ]
   }

@@ -789,7 +789,8 @@
         0.45,
         0.5,
         0.45
-      ]
+      ],
+      "if": "!flag:fen_dunstan_walk=home"
     },
     {
       "model": "res://assets/models/dressing/cups.glb",
@@ -1234,6 +1235,28 @@
         "!flag:thornwold_pell_landed"
       ],
       "note": "Pell's travelling bundle at the foot of the dock (gone with Pell if they cross)."
+    },
+    {
+      "model": "res://assets/models/dressing/rowboat.glb",
+      "position": [
+        2.3,
+        -0.45,
+        15.0
+      ],
+      "rotation_y": -6,
+      "snap": false,
+      "if": "flag:fen_dunstan_walk=home",
+      "note": "Dunstan's rowboat (Tollen-built), home from the fen: tied outboard of the other, the lantern still in her stern.",
+      "float": {
+        "bob": 0.04,
+        "roll": 2.5,
+        "period": 4.0,
+        "foam": [
+          0.6,
+          1.45
+        ],
+        "foam_y": 0.2
+      }
     }
   ],
   "npcs": [
@@ -1297,6 +1320,19 @@
         "!flag:lanes_ferry_at=wrackholm"
       ],
       "note": "Ferry-master at the dock end, by the boarding plank, whenever the Slow Mercy is at Saltmarrow."
+    },
+    {
+      "npc": "dunstan",
+      "position": [
+        9.6,
+        0,
+        8.6
+      ],
+      "rotation_y": 20,
+      "if": "flag:fen_dunstan_walk=home",
+      "model": "res://assets/models/characters/dunstan_home.glb",
+      "idle": "sit",
+      "note": "Home (Day 51): on his own stool by Mara's door (the stool prop gives way to his model's), a cup in both hands, facing the harbor."
     }
   ],
   "exits": [
@@ -1338,7 +1374,8 @@
         0,
         0.8,
         0
-      ]
+      ],
+      "if": "!flag:fen_dunstan_walk=home"
     },
     {
       "id": "saltmarrow_drying_nets",

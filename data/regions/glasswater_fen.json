@@ -104,6 +104,11 @@
       15.6,
       0.5,
       -6.8
+    ],
+    "from_long_walk": [
+      1.4,
+      0.5,
+      3.6
     ]
   },
   "ground": {
@@ -409,7 +414,8 @@
           1.45
         ],
         "foam_y": 0.2
-      }
+      },
+      "if": "!flag:fen_dunstan_walk=home"
     },
     {
       "model": "res://assets/models/dressing/boardwalk.glb",
@@ -1037,7 +1043,8 @@
         -16.68
       ],
       "rotation_y": 8.1,
-      "note": "Boards laid on the long walk going in; nobody mends them (no collider)."
+      "note": "Boards laid on the long walk going in; nobody mends them (no collider).",
+      "if": "!flag:fen_dunstan_walk=stayed"
     },
     {
       "model": "res://assets/models/dressing/plank_path.glb",
@@ -1046,7 +1053,8 @@
         0,
         -19.75
       ],
-      "rotation_y": 8.1
+      "rotation_y": 8.1,
+      "if": "!flag:fen_dunstan_walk=stayed"
     },
     {
       "model": "res://assets/models/dressing/plank_path.glb",
@@ -1131,7 +1139,10 @@
         -27.9
       ],
       "rotation_y": 8,
-      "if": "quest:a_light_for_glasswater=done",
+      "if": [
+        "quest:a_light_for_glasswater=done",
+        "!flag:fen_dunstan_walk"
+      ],
       "note": "The last board on the long walk, laid crooked for going in; the halo is Dunstan's lantern on his tussock beside it (Day 37: seen from Corran's landing, Stillhithe and along the walk — the reed houses hide it from the staithe; a halo, not a light — the light budget). Day 38: moved with him to the west side of the tip.",
       "halo": [
         0.27,
@@ -1141,6 +1152,42 @@
       "halo_size": 2.4,
       "halo_strength": 0.9,
       "halo_bloom": 0.3
+    },
+    {
+      "model": "res://assets/models/dressing/plank_path.glb",
+      "position": [
+        -0.24,
+        0,
+        -16.68
+      ],
+      "rotation_y": 188.1,
+      "note": "Turned round by Dunstan (stayed): laid for coming back.",
+      "if": "flag:fen_dunstan_walk=stayed"
+    },
+    {
+      "model": "res://assets/models/dressing/plank_path.glb",
+      "position": [
+        -0.68,
+        0,
+        -19.75
+      ],
+      "rotation_y": 188.1,
+      "if": "flag:fen_dunstan_walk=stayed",
+      "note": "Turned round by Dunstan (stayed): laid for coming back."
+    },
+    {
+      "model": "res://assets/models/dressing/plank_path.glb",
+      "position": [
+        0.4,
+        0,
+        -27.9
+      ],
+      "rotation_y": 8,
+      "if": [
+        "quest:a_light_for_glasswater=done",
+        "!flag:fen_dunstan_walk="
+      ],
+      "note": "The last board, once Dunstan has picked up his lantern and walked back (Day 51): no light at the end of the long walk."
     }
   ],
   "npcs": [
@@ -1204,7 +1251,8 @@
       "rotation_y": -95,
       "if": [
         "quest:a_light_for_glasswater=done",
-        "!flag:fen_dunstan_word=mara"
+        "!flag:fen_dunstan_word=mara",
+        "!flag:fen_dunstan_walk"
       ],
       "note": "Dunstan found (Day 37): on a tussock at the end of the long walk, boots in the mere, the lantern lit beside him, whittling, facing the lit Heron. Day 38: off the west side of the hummock tip, the tussock set 0.15 up out of the deeper water so it stands in the shallows and his boots hang in open water (was on the spine)."
     },
@@ -1218,10 +1266,47 @@
       "rotation_y": -95,
       "if": [
         "quest:a_light_for_glasswater=done",
-        "flag:fen_dunstan_word=mara"
+        "flag:fen_dunstan_word=mara",
+        "!flag:fen_dunstan_walk"
       ],
       "model": "res://assets/models/characters/dunstan_seated_cord.glb",
       "note": "The same, with Mara's red cord knotted at his belt (her word was tied on the letting post)."
+    },
+    {
+      "npc": "dunstan",
+      "position": [
+        -0.62,
+        0,
+        -21.6
+      ],
+      "rotation_y": 0,
+      "if": "flag:fen_dunstan_walk=coming",
+      "model": "res://assets/models/characters/dunstan_lantern.glb",
+      "note": "The Walk Back (Day 51): halfway in along the long walk with the lantern lit, facing Stillhithe, stopped — the boards are laid for going in."
+    },
+    {
+      "npc": "dunstan",
+      "position": [
+        2.5,
+        0,
+        4.9
+      ],
+      "rotation_y": 35,
+      "if": "flag:fen_dunstan_walk=in",
+      "model": "res://assets/models/characters/dunstan_lantern.glb",
+      "note": "Walked in behind the player's ember: at the staithe's foot in front of Hesper, to ask for his name himself."
+    },
+    {
+      "npc": "dunstan",
+      "position": [
+        -1.7,
+        0,
+        -15.4
+      ],
+      "rotation_y": 95,
+      "if": "flag:fen_dunstan_walk=stayed",
+      "model": "res://assets/models/characters/dunstan_lantern.glb",
+      "note": "Named and stayed: beside the head of the long walk (west side, clear of the Unmoored on the east tussock), turning its boards the other way round for whoever walks back next."
     }
   ],
   "objects": [
@@ -1240,7 +1325,8 @@
         0.5,
         2.4
       ],
-      "note": "Dunstan's rowboat at the staithe's first post."
+      "note": "Dunstan's rowboat at the staithe's first post.",
+      "if": "!flag:fen_dunstan_walk=home"
     },
     {
       "id": "letting_post",
@@ -1284,6 +1370,19 @@
       },
       "dialogue": "fen_lantern_for_after",
       "note": "Back on the fen after the burn: the lantern lit at the fog's foot sits at the end of the long walk (starts For After)."
+    },
+    {
+      "id": "fen_dunstan_coming",
+      "if": [
+        "flag:fen_dunstan_met",
+        "flag:wrackholm_beacon_burned",
+        "!flag:fen_dunstan_walk"
+      ],
+      "dialogue": "fen_dunstan_coming",
+      "note": "Back on the fen after the Wrack was lit (Day 51): Dunstan's lantern has come halfway in along the long walk and stopped (starts The Walk Back).",
+      "set": {
+        "fen_dunstan_walk": "coming"
+      }
     }
   ],
   "exits": [],
