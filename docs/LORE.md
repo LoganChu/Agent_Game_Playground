@@ -646,6 +646,40 @@ forget. The fog is thickest and strangest here.
     since the Snuffing — "that's not like us."** Cindermoor is past it "and past more besides". She won't sail it until
     the Wakebearer is "done here". On Dunstan: "Is he laughing?… That man laughed at weather."
 
+- **The Walk Back (Day 51)** (mystery #5 paid: he walks back for his name; what he put down stays unknown):
+  - **When:** back on the fen any time after the Wrack is lit. Corran saw it at first light: the light is **off the end of
+    the long walk — not out, off: halfway in, and stopped**. Hesper can't go out: his name is in her keeping and "it isn't
+    mine to carry out to him". (`fen_dunstan_walk`: '' / coming / in / home / stayed.)
+  - **Why he stopped:** every board on the long walk is laid by somebody going in — the near edge proud, the far edge sunk;
+    walked back, they tip you in the mere. "A lantern shows you where you are. I want somebody ahead of me showing me where
+    the next one is." **"Done. I think. There's nothing left out there I'd know to look for."**
+  - **The walk in:** the Wakebearer goes first with the ember low (opened "just this once, out here" if it was cupped —
+    Hesper's manners otherwise stand), finding each board; he talks the whole way about nothing. The Unmoored turn from
+    the light as they do — and, seeing who walks behind it, **one or two turn back to look** ("They'll want to know it can
+    be done, even the ones who'll never try it"). On Stillhithe's ground he stands "as if he'd forgotten how it goes".
+  - **His name:** he asks Hesper himself, at the staithe's foot ("That's how it's kept, or it isn't kept" — she won't hand
+    it to the player). "You're sure. I'll not keep it twice." She takes it out "as though she'd carried it in a pocket" and
+    says it once: **"Dunstan Tollen. Of Saltmarrow."** (Her own burned: "I couldn't keep my own. I've still got yours.")
+    After the `gull` burn it goes past the Wakebearer like rain off a coat — he heard it, though. "Fits worse than I
+    remember. It'll wear in." The fog carries his laugh a little way, this time.
+  - **The player's word:**
+    - **home** ("Mara's keeping the stool"; after the gull burn, "there's a second cup going cold by her door"; or **"yours
+      to choose"** — "Nobody's said that to me since I was nine… A Tollen goes backward"): he takes back Mara's gull if
+      the player still carries it, and **rows home from the staithe facing backward**, lantern in the stern — "first one
+      ever went out of here by the staithe. They all go by the long walk" (Hesper). For Oda: "I'm not laughing at the
+      weather. I'm laughing at something else." **At Saltmarrow** his boat is tied outboard of the dock's rowboat and he
+      sits on **his own stool by Mara's door, a cup in both hands** (Tam rang the gate bell "like I was a fire"; Mara never
+      came down — "somebody had to set the stool square"; the gull on the sill, facing the door — he sat on it the first
+      night). Mara: "He came in backward. Course he did… You walked him in. Don't make anything of it… Thank you."
+      **After the gull burn** Mara doesn't know him: "a big man… says he's my brother. I've no reason on earth to believe
+      it. Tollens end with me. But the second cup's his. I knew that the minute he picked it up." Both cups drained, for
+      once. He: "I'll be the bit after the end. She let that stand. It's a start."
+    - **stayed** ("Till you're sure it's done"): he **turns the long walk's boards round, one by one, for whoever walks
+      back next** — the first of the Unmoored to mend anything ("Mending's remembering." / "I've finished forgetting.
+      Somebody may as well start the other thing."). The Unmoored come off their tussocks to watch; nobody says a word.
+      His boat waits at the staithe; Saltmarrow "will know where I am, by the stool".
+  - Still unknown, for good: **what he put down** ("Still don't know. Still glad. Ask me again in a year").
+
 ### 4. Wrackholm (Act II — begun Day 40)
 The Tidewrights' own island, east-about from Glasswater ("keep the Heron astern and the morning on your right cheek,
 the old pilots say, and you raise Wrackholm in a day"). Low black rock and shingle. Theme: **what's owed** — deeds,
@@ -884,7 +918,8 @@ debts, salvage, and who answers for a thing.
 4. **What happened to Isolde Vane?** *[SECRET]* She was the first to discover the truth and was
    "burned" by the Keepers; the Hollow Choir sings her memory.
 5. **Where did Dunstan Tollen go?** He is alive in the fog, among the Unmoored, and chose to go. *(Found Day 37 at the end of
-   the long walk; what he put down stays unknown even to him. Still to pay off: whether he walks back for his name.)*
+   the long walk; what he put down stays unknown even to him. Day 51: he walks back for his name behind the Wakebearer's
+   ember and goes home to Saltmarrow or stays to turn the long walk's boards — paid. What he put down is never told.)*
 
 ## Story flags (canon registry)
 All world-state flags are declared in `data/flags.json` with a description. Content may only

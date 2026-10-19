@@ -2,6 +2,69 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-19 09:00 UTC — Day 51: The walk back (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again with a stale
+  `origin/main`; fetched and reset local `main` to Day 50's `54dec82`. (My baseline run overlapped my first edits, so
+  it isn't a clean baseline; Day 50 recorded 355 green and the untouched suites still pass.)
+- **Content (due by Day 53; last content Day 49):** ROADMAP *Next up* #1, **Dunstan's walk back** — the last open
+  thread of mystery #5 ("When I am, I'll walk back in with this and ask Hesper for my name. Not before.", Day 37):
+  - **New quest *The Walk Back*** (`the_walk_back`, flag `fen_dunstan_walk`: '' / coming / in / home / stayed). Back on
+    the fen any time after the Wrack is lit (arrival event `fen_dunstan_coming`): Hesper says the light is off the end of
+    the long walk, halfway in, and stopped. She can't go out: his name is in her keeping.
+  - **On the long walk** Dunstan stands with his lantern lit (`dunstan_lantern`): "Done. I think." The boards are all
+    laid by people going in and tip you in the mere walked the other way; a lantern shows where you are, not where the
+    next board is. The player walks ahead with the ember (opened "just this once" if it was cupped); the Unmoored turn
+    from the light, and one or two turn back to look at who's walking out of the Deeps. `travel` to a new
+    `from_long_walk` spawn at the staithe.
+  - **His name:** Hesper won't hand it to the player ("He's to ask for it himself"); asked, she says it once —
+    "Dunstan Tollen. Of Saltmarrow." (her own name burned: "I couldn't keep my own. I've still got yours"; after the
+    `gull` burn it goes past the player like rain off a coat).
+  - **The player's word:** **home** ("Mara's keeping the stool" / after the gull burn "there's a second cup going cold
+    by her door" / "that's yours to choose" → "A Tollen goes backward") — he takes back Mara's gull if the player still
+    has it and rows home from the staithe facing backward. At **Saltmarrow** he sits on his own stool by Mara's door
+    with a cup (`dunstan_home`; the stool prop and its inspectable give way), his boat tied outboard of the dock's
+    rowboat; Mara's one-time homecoming ("He came in backward. Course he did… Thank you."), or after the gull burn a
+    big man who says he's her brother — "But the second cup's his." Or **stay** — he turns the long walk's boards
+    round for whoever walks back next ("Mending's remembering." / "I've finished forgetting. Somebody may as well
+    start the other thing."); the first two boards are visibly turned. Hesper has a line for each.
+- **Art (folded in):** `build_characters.py dunstan_lantern` (standing, the lantern lit, head up) and `dunstan_home`
+  (seated on his own driftwood stool, a cup in both hands).
+- **Tests:** `test_walk_back.gd` (8). Two older tests loosened where they pinned the old state: Saltmarrow's
+  conditional shapes now include the stool; Dunstan's boots-in-the-mere check skips his standing placements. The
+  `stayed` placement was moved off an Unmoored figure's tussock after `test_fen_dressed` caught it. 363 tests + smoke + launch pass.
+  The smoke walk takes the walk back (see Problems). Checkpoint `the_walk_back`.
+
+Screenshots: `docs/screenshots/2026-10-19-the-walk-back.png`, `docs/screenshots/2026-10-19-home-on-the-stool.png`;
+`docs/checkpoints/the_walk_back.png`.
+
+**Decisions**
+- **Pays off a thread rather than opening one.** Mystery #5 had one question left (does he walk back?). What he put
+  down stays unknown for good — LORE says never tell it, and he says so himself ("Ask me again in a year").
+- **Gated on the Wrack, not a timer.** There's no day/night or calendar yet; the Wrack lit is the first point where
+  the player has been away from the fen long enough for "nearly" to become "done", and it can only come after he was
+  found (the lane to Wrackholm needs it).
+- **The player's light makes the walk possible** — the ember finally does something for the Unmoored instead of
+  against them, which keeps the ember-holds-memory foreshadowing (mystery #2/#3) without explaining it.
+- **Home is the default reading of "yours to choose"** (mirrors Hob's "yours to choose" → gone): a man who
+  just took his name back would use it. **Stay** is the fen's answer, and it opens nothing new: he's still on the fen,
+  just mending.
+- **After the gull burn he still goes home**, as a stranger. The two cups have been on the crate since Day 9; this
+  is what they were for. No new flag for Mara knowing him: she doesn't, and won't.
+- Hesper's line names Corran seeing the light; Corran himself isn't changed (his punt state varies too much).
+
+**Problems / notes**
+- The `stayed` Dunstan uses the standing lantern model; a stooped "turning a board" pose would read better (ROADMAP).
+- The checkpoint was first framed with the player standing in front of Dunstan; re-shot from the side.
+- The smoke walk now sails back to the fen with the Wrack lit, so the new arrival scene broke it (Oda couldn't be
+  talked to behind it). It now **takes the walk back live** — the light seen, walking him in (a `travel`), his name,
+  `stayed` (so Saltmarrow stays as the later name-carrying walk expects). Home is covered by `test_walk_back.gd`.
+
+**Next run should**
+1. **Art-led session** (due ~Day 55) or **polish/debt pass** (due by Day 56) — ROADMAP *Next up* #1. Next content by
+   Day 55. Fetch before trusting `origin/main`.
+
 ## 2026-10-18 21:00 UTC — Day 50: The yard's people (art-led)
 
 **Did**

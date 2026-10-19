@@ -414,13 +414,24 @@ each .glb < 5 MB.
       (a float held to his chest). Wrackholm's yard folk stay inside until the Wrack is lit, then stand on the shingle's
       west end looking at it; once the horn has answered they are back at work about the yard. `test_yard_folk.gd`.
 
+- [x] [C] **The walk back** (Day 51; pays off mystery #5's last open thread): back on the fen after the Wrack is lit,
+      Dunstan's lantern has come halfway in along the long walk and stopped (quest *The Walk Back*, `fen_dunstan_walk`);
+      the player walks ahead of him with the ember (the boards are laid for going in); at the staithe's foot he asks
+      Hesper for his name himself (it slides off after the gull burn); the player's word — **home** (rows home backward;
+      on his own stool by Mara's door at Saltmarrow, his boat at the dock; Mara's homecoming, or after the gull burn a
+      stranger who drinks the second cup) or **stay** (turns the long walk's boards round for whoever walks back next).
+      Blender `dunstan_lantern`, `dunstan_home`. Checkpoint `the_walk_back`.
+
 ### Next up
-1. [C] **Content (due by Day 53; last content Day 49):** **the lane on from Wrackholm** (Cindermoor is "past more
-   besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`),
-   **Dunstan's walk back** for his name, or **the old Keepers' road north** (where the four went — and Hob, if `gone`; the
-   boots path has no fifth). Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before.
-   Next polish/debt pass due by Day 56; next art-led session by ~Day 55 (Wrackholm's empty bracket, the Saltmarrow
-   dressing follow-ups #6, or character silhouette detail — Known issues).
+1. [A]/[P] **Art-led session due by ~Day 55; polish/debt pass due by Day 56** (Day 48 the last). Art candidates:
+   Wrackholm's empty bracket, the Saltmarrow dressing follow-ups #6, character silhouette detail (Known issues), or a
+   `dunstan_turning` pose (stooped over a lifted board) for the `stayed` ending — he stands with the lantern for now.
+   Next content due by Day 55 (last Day 51): **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper
+   met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`) or **the old Keepers'
+   road north** (where the four went — and Hob, if `gone`). Keep mystery #2 shut: the seventh novice and the roll pay
+   off on Cindermoor, not before. Small follow-ups from Day 51: Oda hearing Dunstan's message ("not laughing at the
+   weather") when the player next sails with her; Pell/Tam/Aldous noticing Dunstan home; the `stayed` ending's
+   eventual walk home (when are the boards all turned?).
 2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -488,7 +499,8 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 56 (Day 48 was the last). Candidates: the smoke walk never takes *The Fifth* (it burns
+- Next polish/debt pass due by Day 56 (Day 48 was the last). Candidates: the smoke walk only takes *The Walk Back*'s `stayed`
+  ending (home and the gull-burn stranger: `test_walk_back.gd`); the smoke walk never takes *The Fifth* (it burns
   the boots, so there is no fifth; covered by `test_the_fifth.gd`); the fen's white light and peat water
   (Day 39) with the Vulkan pass; the smoke walk only takes the 'well' Mara path (others: `test_after_the_heron.gd`),
   only burns Wenna's answer on the Wrack (others: `test_wrack_burning.gd`) and only asks Aldous for Wynn's sake (the

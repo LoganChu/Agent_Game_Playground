@@ -810,6 +810,12 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 ## Testing
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
+- `tests/test_walk_back.gd` — (Day 51) *The Walk Back*: the models; not before the Wrack is lit, then once (Dunstan
+  standing on the long walk, the last board's halo gone); walking him in (wait, walk, the cupped ember opened just this
+  once); Hesper won't hand the name over, he asks himself (the gull burn, her own name burned); home (his boat gone
+  from the fen, his stool by Mara's door, the dock's second rowboat, Mara once; the stranger and the second cup);
+  "yours to choose" is home; stay (the first two boards turned half round in place, the gull stays the player's).
+  The smoke walk takes it live after the Teeth (`_walk_dunstan_back`: walk in, name, stay).
 - `tests/test_polish_six.gd` — (Day 48) **no model prop stands wholly under the sea** in any region (its top, placed as
   `Region.place` does from the model's mesh bounds × `scale`, must clear `water_level` by 2 cm: an "awash" rock breaks
   the surface, reeds stand in the shallows, not 1.6 m down). It loads every model, so it lives in the tests rather than
