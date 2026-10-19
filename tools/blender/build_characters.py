@@ -940,6 +940,19 @@ def build_dunstan_seated_cord() -> None:
     _dunstan(seated=True, cord=True)
 
 
+def build_dunstan_lantern() -> None:
+    """Dunstan walking back (Day 51, *The Walk Back*): done, or as near as he can tell, coming in along
+    the long walk. The same man as at the Heron's foot, but the ship's lantern in his left hand is lit
+    now, horn panes gold, and his head is up: for once he is looking where he's going, not where he's been."""
+    _dunstan(seated=False, lit=True)
+
+
+def build_dunstan_home() -> None:
+    """Dunstan home (Day 51): on his own driftwood stool by Mara's door (the dent is his), sea boots
+    planted, a cup held in both big hands between his knees: the second cup, the one that was going cold."""
+    _dunstan(seated=True, home=True)
+
+
 def _ship_lantern(parts: list, base: Vector, lit: bool) -> None:
     """A squat ship's lantern standing on `base`: brass foot and cap, horn panes (gold when lit), a bail."""
     brass = material("driftwood", -0.45)
@@ -951,7 +964,7 @@ def _ship_lantern(parts: list, base: Vector, lit: bool) -> None:
     parts.append(limb(base + Vector((0.06, 0, 0.36)), base + Vector((0, 0, 0.47)), 0.012, 0.012, brass, verts=3))
 
 
-def _dunstan(seated: bool, cord: bool = False) -> None:
+def _dunstan(seated: bool, cord: bool = False, lit: bool = False, home: bool = False) -> None:
     reset_scene()
     b = Body(seated=seated, build=1.28)
     knit = material("tide", -0.55)
@@ -974,19 +987,45 @@ def _dunstan(seated: bool, cord: bool = False) -> None:
         h.append(ball(0.07, (math.cos(a) * 0.2, math.sin(a) * 0.2 + 0.05, b.head + 0.17), hair, segments=5, rings=3))
     h.append(ball(0.19, (0, -0.1, b.head - 0.13), hair, scale=(1.05, 0.75, 0.95)))                 # beard
     if not seated:
-        # The lantern in the left hand, hanging by its bail: a squat ship's lantern, horn panes dark.
+        # The lantern in the left hand, hanging by its bail: a squat ship's lantern, horn panes dark
+        # (gold once he's walking back with it lit).
         hand = b.hand("L")
         brass = material("driftwood", -0.45)
+        panes = material("kindle", 0.0, emissive=True) if lit else material("ink", 0.1)
         lz = hand.z - 0.3
         b.parts["ArmL"].append(limb(hand + Vector((0, 0, -0.04)), hand + Vector((0, 0, -0.12)), 0.012, 0.012, brass, verts=3))
-        b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz - 0.12)), Vector((hand.x, 0, lz + 0.14)), 0.1, 0.1, material("ink", 0.1), verts=6))
+        b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz - 0.12)), Vector((hand.x, 0, lz + 0.14)), 0.1, 0.1, panes, verts=6))
         b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz + 0.14)), Vector((hand.x, 0, lz + 0.22)), 0.11, 0.03, brass, verts=6))
         b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz - 0.15)), Vector((hand.x, 0, lz - 0.11)), 0.12, 0.12, brass, verts=6))
         b.parts["ArmL"].append(limb(Vector((hand.x, 0, lz + 0.22)), hand + Vector((0, 0, -0.12)), 0.015, 0.015, brass, verts=3))
         b.arm_rest["ArmL"] = (0, 0, math.radians(4))
         b.arm_rest["ArmR"] = (math.radians(-4), 0, math.radians(-6))
+        if lit:
+            b.head_rest = (math.radians(-4), 0, 0)  # head up: looking where he's going
+            assemble(b, "dunstan_lantern", scale=1.08)
+            return
         b.head_rest = (math.radians(24), 0, 0)  # looking down into the water
         assemble(b, "dunstan", scale=1.08)
+        return
+    if home:
+        # Sea boots planted on the harbor stones, on his own stool by Mara's door.
+        for side, x in (("L", 0.14), ("R", -0.14)):
+            b.parts["Leg" + side].append(limb((x, -0.42, 0.04), (x, -0.42, 0.34), 0.1, 0.105, material("ink", 0.04)))
+        t.append(ring(0.335, b.waist + 0.05, 0.03, material("ink", 0.0)))                         # belt
+        # A cup held in both hands between the knees.
+        b.arm_rest["ArmL"] = (math.radians(-52), 0, math.radians(-22))
+        b.arm_rest["ArmR"] = (math.radians(-52), 0, math.radians(22))
+        mid = (b.hand("L") + b.hand("R")) * 0.5
+        b.parts["ArmL"].append(limb(mid + Vector((-0.02, -0.02, -0.05)), mid + Vector((-0.02, -0.02, 0.06)), 0.055, 0.065,
+                                    material("bone", -0.15), verts=6))                             # the cup
+        b.head_rest = (math.radians(6), 0, 0)  # out over the harbor
+        # His stool: low driftwood, the seat dented.
+        top = b.hip - 0.04
+        stool = material("driftwood", -0.2)
+        b.parts["Stool"].append(limb((0, 0.02, top - 0.08), (0, 0.02, top), 0.3, 0.28, stool, verts=8))
+        for lx, ly in ((0.2, -0.16), (-0.2, -0.16), (0.2, 0.2), (-0.2, 0.2)):
+            b.parts["Stool"].append(limb((lx * 1.1, ly * 1.1, 0), (lx * 0.8, ly * 0.8, top - 0.08), 0.035, 0.035, stool, verts=4))
+        assemble(b, "dunstan_home", scale=1.08)
         return
     # Sea boots to the knee, in the mere (the tussock's foot is at the water).
     for side, x in (("L", 0.12), ("R", -0.12)):
@@ -1243,7 +1282,7 @@ def build_yard_lad() -> None:
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
-            build_dunstan_seated_cord, build_wenna, build_wenna_nobrass, build_jory,
+            build_dunstan_seated_cord, build_dunstan_lantern, build_dunstan_home, build_wenna, build_wenna_nobrass, build_jory,
             build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad]
 
 if __name__ == "__main__":
