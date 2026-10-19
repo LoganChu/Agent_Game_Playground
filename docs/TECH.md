@@ -35,7 +35,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]  # the procedural sounds as .wav (audio review)
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren brazier_ash brazier_raked brazier_laid net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark clamp_rake …]  # Thornwold kit (same kit dir)
@@ -707,7 +707,8 @@ player's speed, `mend` hand motion for Hesk, `rake` pulls and a forward lean for
 ```
 Rig (root, may be scaled — Pell is 0.78)
   LegL, LegR        pivot at hip
-  Torso             pivot at waist
+  Torso             pivot at waist; may have a rest rotation (a stoop: Body `torso_rest`, Day 52 — with Body
+                    `crouch` the standing legs bend at a knee forward of the hip and the hips drop)
     Head            pivot at neck
     ArmL, ArmR      pivot at shoulder; held items are part of the arm; may have rest rotation
   Stool             optional static extras
@@ -815,7 +816,8 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   once); Hesper won't hand the name over, he asks himself (the gull burn, her own name burned); home (his boat gone
   from the fen, his stool by Mara's door, the dock's second rowboat, Mara once; the stranger and the second cup);
   "yours to choose" is home; stay (the first two boards turned half round in place, the gull stays the player's).
-  The smoke walk takes it live after the Teeth (`_walk_dunstan_back`: walk in, name, stay).
+  The smoke walk takes it live after the Teeth (`_walk_dunstan_back`: walk in, name, stay). Day 52: the `stayed`
+  Dunstan is `dunstan_turning` (rigged, the torso bent 0.6–1.1 rad, lower than standing, the lantern's glow on `Stool`).
 - `tests/test_polish_six.gd` — (Day 48) **no model prop stands wholly under the sea** in any region (its top, placed as
   `Region.place` does from the model's mesh bounds × `scale`, must clear `water_level` by 2 cm: an "awash" rock breaks
   the surface, reeds stand in the shallows, not 1.6 m down). It loads every model, so it lives in the tests rather than

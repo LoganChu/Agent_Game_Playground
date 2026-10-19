@@ -421,12 +421,15 @@ each .glb < 5 MB.
       on his own stool by Mara's door at Saltmarrow, his boat at the dock; Mara's homecoming, or after the gull burn a
       stranger who drinks the second cup) or **stay** (turns the long walk's boards round for whoever walks back next).
       Blender `dunstan_lantern`, `dunstan_home`. Checkpoint `the_walk_back`.
+- [x] [A] **Turning the boards; collars, cuffs and a mop** (Day 52, art-led): Blender `dunstan_turning` — the `stayed`
+      Dunstan stooped at the head of the long walk over a board he's turning, the lantern stood lit at his boot (Body
+      `crouch` + `torso_rest`: knees bent, a stoop at the waist). Silhouette touch-ups from Known issues: Mara's coat
+      collar turned up, Tam's sea boots with turned-down tops, Jory's hair a shaggy mop instead of a cap.
 
 ### Next up
-1. [A]/[P] **Art-led session due by ~Day 55; polish/debt pass due by Day 56** (Day 48 the last). Art candidates:
-   Wrackholm's empty bracket, the Saltmarrow dressing follow-ups #6, character silhouette detail (Known issues), or a
-   `dunstan_turning` pose (stooped over a lifted board) for the `stayed` ending — he stands with the lantern for now.
-   Next content due by Day 55 (last Day 51): **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper
+1. [C] **Content due by Day 55** (last Day 51; next run is the natural slot), then **polish/debt pass due by Day 56**
+   (Day 48 the last; candidates in Known issues). Next art-led session due ~Day 59 (last Day 52): Wrackholm's empty
+   bracket, the Teeth's broken water, the Saltmarrow dressing follow-ups #6. Content: **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper
    met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`) or **the old Keepers'
    road north** (where the four went — and Hob, if `gone`). Keep mystery #2 shut: the seventh novice and the roll pay
    off on Cindermoor, not before. Small follow-ups from Day 51: Oda hearing Dunstan's message ("not laughing at the
@@ -492,8 +495,9 @@ each .glb < 5 MB.
   check it with the colour-grading item.
 - Character follow-ups (fold into later [A]/[S] items): the ember light is a fixed point in the player's model
   space rather than riding the arm; no facial expressions / talk motion during dialogue;
-  models are ~700–900 tris — room for more silhouette detail (Mara's coat collar, Tam's
-  boots) within the 1–2k budget.
+  models are ~700–1000 tris — room for more silhouette detail within the 1–2k budget (Mara's collar, Tam's boots,
+  Jory's hair: Day 52; Pell's cap and Bram's beard could go next). Stooped poses use Body `crouch`/`torso_rest`
+  (Day 52); the `breathe` idle sways them like anyone standing (a slow heave would sell lifting).
 - Smoke test: parsed input needs two process frames when resuming from a physics frame;
   keep the double await in `_check_journal`.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
@@ -526,10 +530,10 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 47 (the east stair); next content due by Day 51.
+- Last content session: Day 51 (the walk back); next content due by Day 55.
 - Last polish/debt session: Day 48 (pass six); next due by Day 56.
-- Last art session: Day 43 (the lit Wrack, the open horn, the bare Gannet, folded into the content session; Day 39 the fen led). Next
-  art-led session due ~Day 45: Wrackholm follow-ups (below) or the Saltmarrow dressing follow-ups.
+- Last art session: Day 52 (turning the boards; collars, cuffs and a mop). Next art-led session due ~Day 59: Wrackholm
+  follow-ups (below) or the Saltmarrow dressing follow-ups.
 - The Teeth (Day 42) follow-ups: the reef road reads as one smooth grey causeway from above (edge slabs break it up a
   little); broken water/foam lines in the gullies would sell low water; the exit's marker post stands on the spit's end
   among the marks; the Wrack's door has no step model (the ground ramp meets the sill); the lantern room is described,

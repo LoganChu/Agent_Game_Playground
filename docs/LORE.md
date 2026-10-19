@@ -677,6 +677,8 @@ forget. The fog is thickest and strangest here.
     - **stayed** ("Till you're sure it's done"): he **turns the long walk's boards round, one by one, for whoever walks
       back next** — the first of the Unmoored to mend anything ("Mending's remembering." / "I've finished forgetting.
       Somebody may as well start the other thing."). The Unmoored come off their tussocks to watch; nobody says a word.
+      Seen (Day 52): stooped at the head of the walk with a board lifted in both hands, half turned, his lantern stood
+      lit on the boards at his boot.
       His boat waits at the staithe; Saltmarrow "will know where I am, by the stool".
   - Still unknown, for good: **what he put down** ("Still don't know. Still glad. Ask me again in a year").
 

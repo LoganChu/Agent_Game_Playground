@@ -2,6 +2,48 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-19 21:00 UTC — Day 52: Turning the boards; collars, cuffs and a mop (art-led)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). `main` was already at Day 51's `582a695`.
+  Baseline: import, 363 tests and smoke green (the launch step tripped on my first fen edit, made while it ran — the
+  new model wasn't imported yet; re-run clean afterwards).
+- **Art-led (due ~Day 55; last Day 50):** ROADMAP *Next up* #1's candidates —
+  - **`dunstan_turning`** (`build_characters.py`, 994 tris): the `stayed` ending of *The Walk Back* no longer stands
+    holding the lantern. He's stooped at the head of the long walk, knees bent, a board lifted crosswise in both hands
+    and half turned (grey driftwood, a moss stain at one end), the ship's lantern stood lit on the boards at his left
+    boot. The fen's `stayed` placement uses it (same spot, same facing: toward the walk).
+  - **Body `crouch` and `torso_rest`** in the character builder: standing legs bend at a knee forward of the hip, and
+    the torso (with the head and arms) can rest bent at the waist. `CharacterRig` offsets from the rest transform, so
+    no rig changes were needed; the `breathe` idle sways him like anyone standing.
+  - **Silhouette touch-ups** (Known issues): Mara's coat collar turned up at the back and sides; Tam's sea boots with
+    turned-down tops below his coat; Jory's hair a shaggy mop (clumps over the ears and nape, a tuft at the crown, the
+    fringe fallen over the brow) instead of the flat-brimmed cap it read as.
+- **Tests:** `test_walk_back.gd` +1 (`test_turning_a_board`: rigged, bent 0.6–1.1 rad at the waist, lower than
+  standing, the only glow on `Stool` — the lantern at his boot); the `stayed` assertions expect the new model;
+  `test_polish_four`'s boots-in-the-mere check skips it like the other standing Dunstan. 364 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-10-19-pm-turning-the-boards.png`, `docs/screenshots/2026-10-19-pm-collars-cuffs-and-a-mop.png`.
+
+**Decisions**
+- **The board is part of his left arm**, not a ground prop: it moves with his hands. Both hands reach it from the
+  rest pose, so the right hand's ±1 cm breath drift against it doesn't show.
+- **No new idle style.** A slow heave (lift, turn, set down) would sell it better, but the board is baked into the
+  pose; a proper "lift" style is noted for later rather than half-done now.
+- **Bodies get `crouch`/`torso_rest` rather than a one-off leg rebuild**, so later stooped figures (a yard hand
+  caulking low, someone at the mended lofts) can reuse them.
+- No checkpoint re-shoot: Mara, Tam and Jory change by a few centimetres of collar, cuff and hair.
+
+**Problems / notes**
+- Blender's glTF export isn't byte-for-byte deterministic (rebuilding an untouched model changes the file); only the
+  models meant to change were rebuilt and committed.
+- The stooped gansey's skirt sits a little proud of his back when he bends (reads as his back; fine at play distance).
+
+**Next run should**
+1. **Content (due by Day 55; last Day 51):** ROADMAP *Next up* #1 — the lane on from Wrackholm or the old Keepers'
+   road north; or the small Day 51 follow-ups (Oda hearing Dunstan's message, Pell/Tam/Aldous noticing him home).
+   Add a checkpoint. Then the polish/debt pass (due by Day 56). Fetch before trusting `origin/main`.
+
 ## 2026-10-19 09:00 UTC — Day 51: The walk back (content)
 
 **Did**
