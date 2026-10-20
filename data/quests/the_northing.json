@@ -1,0 +1,21 @@
+{
+  "id": "the_northing",
+  "title": "The Northing",
+  "region": "thornwold_old_road",
+  "giver": "lamp",
+  "description": "Four colliers went north along the old Keepers' road looking for a light the Lamp couldn't give them. The road ends at the Northing, the Keepers' fire-cairn on the north cliff, where the keeper once lit the basket for the Spire's boat. Somebody is burning charcoal up there.",
+  "stages": [
+    {
+      "id": "walk_north",
+      "text": "The Lamp has smelled coal-smoke on the north wind, some nights. Walk the old Keepers' road north along Thornwold's spine to the Northing and see who's burning charcoal at the end of it."
+    },
+    {
+      "id": "a_proper_light",
+      "text": "Ottie Swale, the fourth collier, is at the Northing, keeping a charcoal fire in the Keepers' basket so the three who went down to the far shore can find the top of the steps. His last sack is burning, and the fog only lets a collier's fire be. Ask the Lamp for a proper light."
+    },
+    {
+      "id": "carry_it",
+      "text": "The Lamp lit a lantern off the Ridge Light for Ottie. Carry it up the old road to the Northing."
+    }
+  ]
+}

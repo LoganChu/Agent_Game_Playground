@@ -1,0 +1,13 @@
+{
+  "id": "ottie",
+  "name": "Ottie Swale",
+  "faction": "none",
+  "color": "coal",
+  "dialogue": "ottie",
+  "model": "res://assets/models/characters/ottie.glb",
+  "bio": "A collier from Thornwold's near side, the fourth of the four who went up after the Lamp for a lantern of their own and went on north by the old Keepers' road. Never once waited to be told a thing. Keeps a charcoal fire in the Northing's fire-basket for the three who went down to the far shore. Left his boots on his seat and his cap on a waymark. Half-Hushed.",
+  "voice": {
+    "sound": "voice_gruff",
+    "pitch": 0.95
+  }
+}

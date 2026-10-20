@@ -1,0 +1,30 @@
+{
+  "id": "northing",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Northing: a cairn of the ridge's grey stone, laid dry and taller than you, with an iron post up through the middle of it and a fire-basket on top. An iron arm reaches out from the post over the cliff, with a hook on the end."
+      },
+      {
+        "say": "narrator",
+        "text": "Low on the cairn's face the Keepers' ember is cut into a pale stone: a flame in a ring. The stone has been rubbed smooth at the height of a hand, the way a door-latch goes."
+      },
+      {
+        "say": "narrator",
+        "text": "Charcoal glows red in the basket and a thread of smoke goes up from it, straight, until the wind off the cliff takes it.",
+        "if": "flag:thornwold_northing="
+      },
+      {
+        "say": "narrator",
+        "text": "The Lamp's lantern hangs on the hook, gold behind horn, and its light goes out over the edge and down. In the basket the charcoal Ottie raked out has gone grey on the stones.",
+        "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "Ottie's charcoal is banked in the basket under a crust of ash, red only where the wind gets into it. Nobody is feeding it. Nobody needs to, for a night or two.",
+        "if": "flag:thornwold_northing=carried"
+      }
+    ]
+  }
+}

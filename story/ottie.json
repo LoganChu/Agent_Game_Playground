@@ -1,0 +1,649 @@
+{
+  "id": "ottie",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_northing=lit",
+        "goto": "home"
+      },
+      {
+        "if": "flag:thornwold_met_ottie",
+        "goto": "greet"
+      },
+      {
+        "say": "narrator",
+        "text": "At the foot of the cairn a man in a collier's smock is feeding the iron basket from a sack, a handful at a time, the way you'd feed a horse you were fond of. Charcoal. It glows red in the basket and sends up a thread of smoke, and the fog sits round it like a dog round a hearth: close, and not bothered."
+      },
+      {
+        "say": "narrator",
+        "text": "His feet are bound in sacking and cord. No boots. No cap. The hem of his smock has gone silver, and so has his right sleeve."
+      },
+      {
+        "say": "ottie",
+        "text": "That's a proper light. In your hand. Same colour as the Lamp's."
+      },
+      {
+        "say": "ottie",
+        "text": "You've been up the ladder, then. The Lamp put it down after me. I heard it go. Didn't look back; I'd said I wouldn't."
+      },
+      {
+        "say": "ottie",
+        "text": "Ottie Swale. Collier, near side, under the ridge. Was. Am. Don't know which, up here."
+      },
+      {
+        "set": {
+          "thornwold_met_ottie": true
+        }
+      },
+      {
+        "if": "quest:the_northing=inactive",
+        "quest_start": "the_northing"
+      },
+      {
+        "if": "stage:the_northing=walk_north",
+        "quest_stage": [
+          "the_northing",
+          "a_proper_light"
+        ]
+      },
+      {
+        "if": "item:colliers_cap",
+        "goto": "cap"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "greet": [
+      {
+        "say": "ottie",
+        "text": "That's off the Ridge Light. I can tell from here. Warmer than yours, and older.",
+        "if": "item:ridge_lantern"
+      },
+      {
+        "say": "ottie",
+        "text": "Still here. Still feeding it.",
+        "if": "!item:ridge_lantern"
+      },
+      {
+        "if": "item:colliers_cap",
+        "goto": "cap"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "cap": [
+      {
+        "say": "narrator",
+        "text": "His eyes go to your coat, where the felt cap you took off the stair's waymark is folded."
+      },
+      {
+        "say": "ottie",
+        "text": "That's my cap. Crooked cord on the band: I sewed that on myself, and Wenna laughed for a week."
+      },
+      {
+        "say": "narrator",
+        "text": "You give it to him. He turns it over, knocks the charcoal dust out of it against his knee, and puts it on."
+      },
+      {
+        "say": "ottie",
+        "text": "I hung it on the bottom mark so the next one would know I'd gone up. Somebody read it, then."
+      },
+      {
+        "take_item": "colliers_cap",
+        "set": {
+          "thornwold_ottie_cap": true
+        }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Where are the other three?",
+            "goto": "three"
+          },
+          {
+            "text": "Why charcoal, up here?",
+            "goto": "fire"
+          },
+          {
+            "text": "I've met Hob Marl.",
+            "if": "!flag:thornwold_hob_ladder=gone",
+            "goto": "hob"
+          },
+          {
+            "text": "Hob Marl came up this road.",
+            "if": "flag:thornwold_hob_ladder=gone",
+            "goto": "hob_gone"
+          },
+          {
+            "text": "Your boots are on your seat by the cold hut.",
+            "if": "!flag:thornwold_boots_away",
+            "goto": "boots_seat"
+          },
+          {
+            "text": "Your boots went into the Ridge Light.",
+            "if": "flag:thornwold_beacon_burned=boots",
+            "goto": "boots_burned"
+          },
+          {
+            "text": "I've your boots here. Hob gave them to me.",
+            "if": [
+              "item:otties_boots",
+              "!flag:thornwold_beacon_burned=boots"
+            ],
+            "goto": "boots_carried"
+          },
+          {
+            "text": "Your cap's still hanging on the mark at the foot of the stair.",
+            "if": [
+              "!flag:thornwold_stair_lantern_hung",
+              "!flag:thornwold_ottie_cap"
+            ],
+            "goto": "cap_left"
+          },
+          {
+            "text": "I'll bring you a proper light.",
+            "if": "stage:the_northing=a_proper_light",
+            "goto": "promise"
+          },
+          {
+            "text": "This is for you. The Lamp lit it off the Ridge Light.",
+            "if": "item:ridge_lantern",
+            "goto": "lantern"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "three": [
+      {
+        "say": "ottie",
+        "text": "Wenna Coll, and the Drays. Abe and Tolly. Down the Keepers' steps to the far shore."
+      },
+      {
+        "say": "ottie",
+        "text": "Everybody our side knew the Lamp went up this road once a winter with a lantern, and came back down a week after with a new coal. So there's a boat at the end of it, we said. From the Spire. And the Spire'll have lanterns to spare."
+      },
+      {
+        "say": "ottie",
+        "text": "Spire's dark, the Lamp told us. Well. Spires get lit again. Somebody'll come in a boat when it is."
+      },
+      {
+        "say": "ottie",
+        "text": "Wenna said she'd wait on the shore for it. Abe said he'd go with her, and Tolly said Abe couldn't find a beach with both hands, so that was three. Somebody had to keep the top lit, so they'd find the steps coming back up."
+      },
+      {
+        "say": "ottie",
+        "text": "I don't wait to be told. So."
+      },
+      {
+        "say": "narrator",
+        "text": "He counts something on his fingers, loses the count, starts again, and gives it up."
+      },
+      {
+        "say": "ottie",
+        "text": "Three sacks ago. I count in sacks, up here."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "fire": [
+      {
+        "say": "ottie",
+        "text": "It's what I've got. A collier's fire."
+      },
+      {
+        "say": "ottie",
+        "text": "The fog doesn't mind it. We burn what the woods drop, never what they grow, and the fog lets that be. Doesn't push it back, mind. Just lets it be. You can see it if you're stood on it."
+      },
+      {
+        "say": "ottie",
+        "text": "From the bottom of the steps, in that?"
+      },
+      {
+        "say": "narrator",
+        "text": "He looks out past the cairn, where the fog lies on the far shore like wool, and doesn't finish."
+      },
+      {
+        "say": "ottie",
+        "text": "That's the last sack. I'll keep it in while there's coal. Then I'll think of something. I'm good at thinking of something."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hob": [
+      {
+        "say": "ottie",
+        "text": "Hob! Is he well? Still counting us of a night? He counts, Hob. Sets our places in his head, like supper."
+      },
+      {
+        "if": "flag:thornwold_beacon_burned=boots",
+        "goto": "hob_forgot"
+      },
+      {
+        "say": "narrator",
+        "text": "You tell him: Hob still counts four, every night, and looks up the stair.",
+        "if": "!flag:thornwold_hob_ladder=stayed"
+      },
+      {
+        "say": "narrator",
+        "text": "You tell him: Hob was told he was the fifth, and given a light of his own, and stayed. He built a Keepers' mark by the tally-house step at the bottom of the road and hung the light on it.",
+        "if": "flag:thornwold_hob_ladder=stayed"
+      },
+      {
+        "say": "ottie",
+        "text": "A mark at the bottom. That's Hob. Somebody has to be where you come in.",
+        "if": "flag:thornwold_hob_ladder=stayed"
+      },
+      {
+        "say": "ottie",
+        "text": "Good. That's... good. Somebody remembers to count."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hob_forgot": [
+      {
+        "say": "narrator",
+        "text": "You tell him the truth: the Ridge Light was fed Hob's memory of the four. Hob doesn't count anyone now. He sleeps."
+      },
+      {
+        "say": "ottie",
+        "text": "Sleeps."
+      },
+      {
+        "say": "narrator",
+        "text": "He feeds the basket a handful."
+      },
+      {
+        "say": "ottie",
+        "text": "Hob never slept, that I knew. Always up, counting. Good. Let him sleep."
+      },
+      {
+        "say": "ottie",
+        "text": "So I'm nobody's, down there. Well. I was nobody's before I was anybody's. Colliers are."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hob_gone": [
+      {
+        "say": "ottie",
+        "text": "Hob came by. Hob Marl! With a lantern, a proper one, like yours. Stood here the best part of an hour, the two of us, not saying much. Then he said I'd forgot my boots."
+      },
+      {
+        "say": "ottie",
+        "text": "Then he went on down the steps after them. Didn't ask me. Didn't wait to be told."
+      },
+      {
+        "say": "ottie",
+        "text": "He's down there with a light, now. That's something. That's a lot."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "boots_seat": [
+      {
+        "say": "ottie",
+        "text": "On my seat. Side by side. Hob'll have seen to that; he'd not let them go grey."
+      },
+      {
+        "say": "ottie",
+        "text": "And my cap with them? Hob. He would.",
+        "if": "flag:thornwold_hob_has_cap"
+      },
+      {
+        "say": "ottie",
+        "text": "I left them so Hob would know I was coming back. A man doesn't leave his boots unless he's coming back for them. Everybody knows that."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "boots_burned": [
+      {
+        "say": "narrator",
+        "text": "You tell him: his boots went into the Ridge Light, with Hob's memory of the four. They lit it."
+      },
+      {
+        "say": "ottie",
+        "text": "My boots lit a beacon."
+      },
+      {
+        "say": "ottie",
+        "text": "I left them so Hob would know I was coming back. A man doesn't leave his boots unless he's coming back for them."
+      },
+      {
+        "say": "ottie",
+        "text": "Wenna'll never believe it. Feet remember. They'll have to."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "boots_carried": [
+      {
+        "say": "narrator",
+        "text": "You show him the boots Hob gave you, still not burned."
+      },
+      {
+        "say": "ottie",
+        "text": "Those are mine. I left them so Hob would know I was coming back. A man doesn't leave his boots unless he's coming back for them."
+      },
+      {
+        "say": "ottie",
+        "text": "Put them back on my seat, would you? I've a way to go in these yet. And they're for Hob to look at, not me."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "cap_left": [
+      {
+        "say": "ottie",
+        "text": "Is it. Good."
+      },
+      {
+        "say": "ottie",
+        "text": "Leave it hung. It says I went up. Till I'm down, it's telling the truth."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "promise": [
+      {
+        "say": "ottie",
+        "text": "The Lamp's? The Lamp wouldn't give us one. Hadn't enough, it said. A lantern for one's a mark gone dark for the rest."
+      },
+      {
+        "say": "narrator",
+        "text": "You tell him the Ridge Light is burning. The road is the beacon's now."
+      },
+      {
+        "say": "ottie",
+        "text": "Is it. Lit. I thought the sky looked different, south."
+      },
+      {
+        "say": "ottie",
+        "text": "Then ask. Ask for me. I'd ask myself, but I don't leave a fire."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lantern": [
+      {
+        "say": "narrator",
+        "text": "You hold up the Lamp's lantern. Ottie stops feeding the basket and looks at it a long time, the way Hob looks up the stair."
+      },
+      {
+        "say": "ottie",
+        "text": "Off the Ridge Light. That'd show from the shore. That'd show from the sea."
+      },
+      {
+        "say": "ottie",
+        "text": "Two things I could do with that. Hang it on the hook there, where the Lamp hung one for the boat, and they'd see the top from the bottom. And I could go home."
+      },
+      {
+        "say": "ottie",
+        "text": "Or take it down to them. They're down in that with nothing. A light at the top's no good to somebody who can't find the bottom of the steps."
+      },
+      {
+        "say": "ottie",
+        "text": "Hob's got a light down there already. Mind, Hob's light is Hob's. He'll be looking for them same as they're looking for the top.",
+        "if": "flag:thornwold_hob_ladder=gone"
+      },
+      {
+        "say": "ottie",
+        "text": "You brought it. You say."
+      },
+      {
+        "choice": [
+          {
+            "text": "Hang it on the Northing, Ottie. Go home.",
+            "goto": "lit"
+          },
+          {
+            "text": "Take it down to them.",
+            "goto": "carried"
+          },
+          {
+            "text": "Not yet.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "You hang the lantern on the boat-lantern's hook. The hook takes the weight as if it had been waiting thirty winters for it, and the light goes out over the cliff: gold, steady, down into the wool of the fog, until somewhere below there is a warm place in it."
+      },
+      {
+        "say": "narrator",
+        "text": "Ottie rakes the charcoal out of the basket onto the stones and lets it go grey."
+      },
+      {
+        "say": "ottie",
+        "text": "They'll come up to that. Wenna will, anyway. And the Drays'll argue on every step about who saw it first."
+      },
+      {
+        "say": "ottie",
+        "text": "And Hob's down there with his. One at the bottom and one at the top. That's a road.",
+        "if": "flag:thornwold_hob_ladder=gone"
+      },
+      {
+        "say": "ottie",
+        "text": "Boots. I'm going home to my boots.",
+        "if": "!flag:thornwold_boots_away"
+      },
+      {
+        "say": "ottie",
+        "text": "No boots to go home to. Well. A seat, then. A seat's something.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "ottie",
+        "text": "Bring my boots down to my seat when you come, if you're coming. I'll be on it.",
+        "if": [
+          "flag:thornwold_boots_away",
+          "!flag:thornwold_beacon_burned=boots"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "He picks up the empty sacks, folds them under his arm, and goes south along the spine without looking back, the way he came up. The fog lets him be."
+      },
+      {
+        "set": {
+          "thornwold_northing": "lit"
+        },
+        "take_item": "ridge_lantern",
+        "quest_complete": "the_northing"
+      }
+    ],
+    "carried": [
+      {
+        "say": "narrator",
+        "text": "You put the lantern in his soot-black hand. He holds it up and looks at it, and then over the edge."
+      },
+      {
+        "say": "ottie",
+        "text": "Down, then. I never did like waiting at the top of anything."
+      },
+      {
+        "say": "narrator",
+        "text": "He tips the last of the sack into the basket and banks it with the back of the fire iron, the way a collier banks a clamp to burn slow."
+      },
+      {
+        "say": "ottie",
+        "text": "It'll keep a night or two. Fog doesn't mind it."
+      },
+      {
+        "say": "ottie",
+        "text": "Tell Hob leave my boots be. I'll be back for them. All four of us will, and we'll want our places set.",
+        "if": [
+          "!flag:thornwold_boots_away",
+          "!flag:thornwold_hob_ladder=gone"
+        ]
+      },
+      {
+        "say": "ottie",
+        "text": "My boots can wait on the seat. They're good at it.",
+        "if": [
+          "!flag:thornwold_boots_away",
+          "flag:thornwold_hob_ladder=gone"
+        ]
+      },
+      {
+        "say": "ottie",
+        "text": "Nobody to tell, down there. Never mind. We'll tell them ourselves, when we come in.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "ottie",
+        "text": "Put my boots on my seat, when you're down. For whoever's looking.",
+        "if": [
+          "flag:thornwold_boots_away",
+          "!flag:thornwold_beacon_burned=boots"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "He goes down the Keepers' steps with the lantern held out in front of him. The light goes down into the fog a step at a time, stops once, a long way down, as if he'd turned to look back up at the basket, and goes on, and is gone."
+      },
+      {
+        "set": {
+          "thornwold_northing": "carried"
+        },
+        "take_item": "ridge_lantern",
+        "quest_complete": "the_northing"
+      }
+    ],
+    "home": [
+      {
+        "if": "flag:thornwold_ottie_home_seen",
+        "goto": "home_again"
+      },
+      {
+        "say": "narrator",
+        "text": "Ottie Swale sits on the log seat outside his hut with his boots on, his feet stuck out in front of him, looking at them as if they were somebody else's.",
+        "if": "!flag:thornwold_boots_away"
+      },
+      {
+        "say": "narrator",
+        "text": "Ottie Swale sits on the bare log seat outside his hut, his feet still bound in sacking, his heels on the black ground.",
+        "if": "flag:thornwold_boots_away"
+      },
+      {
+        "say": "ottie",
+        "text": "Boots. Hob said I'd want them. He was right. Don't tell him I said.",
+        "if": "!flag:thornwold_boots_away"
+      },
+      {
+        "say": "ottie",
+        "text": "Hob saw me come down the lanterns. He didn't say a thing for a long time. Then he said, 'Boots.'",
+        "if": [
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=gone",
+          "!flag:thornwold_hob_ladder=stayed"
+        ]
+      },
+      {
+        "say": "ottie",
+        "text": "Hob's at the bottom of the road, with his light on a mark by the tally-house step and four notches on Bram's bare pegs, for coming down. He's crossed one through. Three to go.",
+        "if": "flag:thornwold_hob_ladder=stayed"
+      },
+      {
+        "say": "ottie",
+        "text": "Hob's down on the far shore with them, with his light. Somebody has to keep the clearing.",
+        "if": "flag:thornwold_hob_ladder=gone"
+      },
+      {
+        "say": "ottie",
+        "text": "Hob looked at me like a stranger. 'Always just me, this side of the ridge,' he said. Said it kind. Well. It's me as well, now.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "ottie",
+        "text": "They'll see the light from the shore. They'll come up one at a time, same as we went. I'll be on my seat."
+      },
+      {
+        "set": {
+          "thornwold_ottie_home_seen": true
+        }
+      },
+      {
+        "if": [
+          "item:otties_boots",
+          "!flag:thornwold_beacon_burned=boots"
+        ],
+        "goto": "boots_back"
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "home_again": [
+      {
+        "say": "ottie",
+        "text": "Light's still on the Northing. Can't see it from here. Don't need to."
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "home_hub": [
+      {
+        "choice": [
+          {
+            "text": "I've brought your boots.",
+            "if": [
+              "item:otties_boots",
+              "!flag:thornwold_beacon_burned=boots"
+            ],
+            "goto": "boots_back"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "boots_back": [
+      {
+        "say": "narrator",
+        "text": "You give him his boots. He pulls them on over the sacking, stamps once on the black ground, and lets out a breath like a man getting into a warm bed."
+      },
+      {
+        "say": "ottie",
+        "text": "Now I'm home."
+      },
+      {
+        "take_item": "otties_boots",
+        "set": {
+          "thornwold_boots_away": false
+        }
+      },
+      {
+        "goto": "home_hub"
+      }
+    ]
+  }
+}

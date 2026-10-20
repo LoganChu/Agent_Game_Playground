@@ -1,0 +1,19 @@
+{
+  "id": "boat_watch",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Keepers' boat-watch: a low house of the ridge's stone, roofed in bark and turf, its door on a leather hinge. Inside there is a stone bench, a cold hearth, and a peg with nothing on it."
+      },
+      {
+        "say": "narrator",
+        "text": "Four beds of cut heather are laid along the walls. Three are flat and cold, the heather gone the colour of the fog. One has been slept in, and slept in, and slept in."
+      },
+      {
+        "say": "narrator",
+        "text": "Scratched in the lintel over the door are strokes in rows of five: a keeper counting winters. Thirty of them. Under the last row, in a rougher hand, four short strokes side by side, the way colliers tally a burn."
+      }
+    ]
+  }
+}

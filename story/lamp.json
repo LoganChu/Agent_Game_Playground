@@ -106,6 +106,16 @@
         "if": "flag:thornwold_hob_ladder=stayed"
       },
       {
+        "say": "lamp",
+        "text": "There's a light at the north end. I see it from the gallery, past the shoulder of the spine, where I used to look for the boat. Ottie went home, you say. They'll come back one at a time, the way they went.",
+        "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "lamp",
+        "text": "I saw a light go down off the Northing. Down, not along. Ottie never waited to be told a thing.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -165,6 +175,19 @@
             "text": "What does the Ridge Light want? What could Thornwold spare?",
             "if": "stage:a_light_for_thornwold=feed_the_light",
             "goto": "spare"
+          },
+          {
+            "text": "Where does the old road north go?",
+            "if": [
+              "quest:a_light_for_thornwold=done",
+              "quest:the_northing=inactive"
+            ],
+            "goto": "old_road"
+          },
+          {
+            "text": "One of the four is at the Northing. Ottie Swale.",
+            "if": "stage:the_northing=a_proper_light",
+            "goto": "ottie"
           },
           {
             "text": "Goodbye.",
@@ -800,6 +823,82 @@
         "set": {
           "thornwold_lamp_heard_seventh": true
         }
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "old_road": [
+      {
+        "say": "lamp",
+        "text": "North. Along the spine to the end of the island, to the Northing. A cairn on the north cliff with a basket on it."
+      },
+      {
+        "say": "lamp",
+        "text": "Once a winter I walked it in the dark with a lantern, and lit the basket, and the Spire's boat came in under the cliff for me. That's how a keeper gets to midwinter without riding a Tidewright deck. A week after, I'd walk it back with a new coal."
+      },
+      {
+        "say": "lamp",
+        "text": "You don't tend marks you walk once a year. My knees went before they did."
+      },
+      {
+        "say": "narrator",
+        "text": "The hood turns north, the way it turns when it listens."
+      },
+      {
+        "say": "lamp",
+        "text": "Some nights there's coal-smoke on the north wind. Colliers' smoke; I'd know it in my sleep. Nobody else burns charcoal on Thornwold."
+      },
+      {
+        "say": "lamp",
+        "text": "I can't leave the light. I'd not get far on these knees if I could. You've a light of your own and the road's the beacon's now. Walk it, would you? See who's burning at the end."
+      },
+      {
+        "quest_start": "the_northing"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ottie": [
+      {
+        "say": "narrator",
+        "text": "The chisel stops."
+      },
+      {
+        "say": "lamp",
+        "text": "Ottie. Last up. Hands out, and his cap on the mark at the bottom so the next would know."
+      },
+      {
+        "say": "lamp",
+        "text": "At the Northing. In the Keepers' basket. Charcoal."
+      },
+      {
+        "say": "narrator",
+        "text": "Something goes through the Lamp that might be a laugh, if it had kept the knack."
+      },
+      {
+        "say": "lamp",
+        "text": "Thirty winters I lit that basket for a boat, and the first collier up the road lights it with charcoal for his friends. Good. That's what it's for, if anything is."
+      },
+      {
+        "say": "lamp",
+        "text": "He came up for a lantern and I hadn't one to give. I've one now. The road's the beacon's; the beacon can spare it."
+      },
+      {
+        "say": "narrator",
+        "text": "The Lamp takes a cold lantern off the peg by the door and goes into the tower. You hear the stair, slow, all the way up, and slow all the way down. The lantern comes back gold behind its horn, with no coal in it and no wick, only the Ridge Light's fire."
+      },
+      {
+        "say": "lamp",
+        "text": "It'll burn as long as the Ridge Light does. Take it him. Tell him the Lamp's sorry it was late."
+      },
+      {
+        "give_item": "ridge_lantern",
+        "quest_stage": [
+          "the_northing",
+          "carry_it"
+        ]
       },
       {
         "goto": "hub"

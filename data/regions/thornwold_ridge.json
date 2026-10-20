@@ -110,6 +110,11 @@
       0.5,
       0.5,
       9.0
+    ],
+    "from_old_road": [
+      -1.5,
+      0.5,
+      -6.0
     ]
   },
   "ground": {
@@ -996,6 +1001,18 @@
         10.9
       ],
       "prompt": "Climb down the ladder"
+    },
+    {
+      "to": "thornwold_old_road",
+      "spawn": "from_ridge",
+      "position": [
+        17.5,
+        0,
+        -16.5
+      ],
+      "prompt": "Follow the old Keepers' road north along the spine",
+      "requires": "quest:a_light_for_thornwold=done",
+      "locked_text": "The old road goes on up the spine into fog as thick as fleece. With the Ridge Light cold behind you, you'd forget the way before the next mark."
     }
   ]
 }

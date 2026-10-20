@@ -1,0 +1,25 @@
+{
+  "id": "drays_rake",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A collier's clamp rake has been driven into the waymark's cairn beside the post, iron head up, tines hanging, the way you'd plant a stake to say somebody's been here."
+      },
+      {
+        "say": "narrator",
+        "text": "The pole is notched. On one side, an A, cut deep. On the other, a T, cut deeper. And above them, newer, a single notch cut clean across both sides at once."
+      },
+      {
+        "say": "narrator",
+        "text": "Abe and Tolly Dray's rake. They never once agreed whose it was. It seems they did, here, or agreed to leave it.",
+        "if": "flag:thornwold_met_ottie"
+      },
+      {
+        "say": "narrator",
+        "text": "Two colliers' marks on one rake. Whoever they were, they left it standing, pointing north.",
+        "if": "!flag:thornwold_met_ottie"
+      }
+    ]
+  }
+}

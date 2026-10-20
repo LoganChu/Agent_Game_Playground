@@ -1,0 +1,15 @@
+{
+  "id": "thornwold_old_road_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "North of the Ridge Light the old Keepers' road climbs onto Thornwold's spine and goes along it: a back of grey stone and silvered heather a few strides wide, falling away into the fog on both sides."
+      },
+      {
+        "say": "narrator",
+        "text": "Behind you the Ridge Light is a warm smudge, low over the shoulder of the ridge. Ahead, a long way off at the end of the spine, there is a smudge of red, and on the wind, very faint, the smell of a charcoal clamp."
+      }
+    ]
+  }
+}

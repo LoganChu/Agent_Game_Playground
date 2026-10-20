@@ -937,7 +937,8 @@
       "note": "A second hut, cold: one of the colliers who went up the ridge. Sods slipping, the curtain gone, the rake by the door, his boots left on the seat.",
       "if": [
         "!flag:thornwold_hob_has_cap",
-        "!flag:thornwold_boots_away"
+        "!flag:thornwold_boots_away",
+        "!flag:thornwold_northing=lit"
       ]
     },
     {
@@ -956,7 +957,8 @@
       "note": "The cold hut once Hob has Ottie Swale's cap: it sits crown-up on the seat by the boots.",
       "if": [
         "flag:thornwold_hob_has_cap",
-        "!flag:thornwold_boots_away"
+        "!flag:thornwold_boots_away",
+        "!flag:thornwold_northing=lit"
       ]
     },
     {
@@ -974,6 +976,25 @@
       ],
       "note": "The cold hut once Hob has given Ottie's boots (and the cap) for the Ridge Light: the seat bare. Nobody's, if they burned.",
       "if": "flag:thornwold_boots_away"
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut_cold_empty.glb",
+      "position": [
+        -6.5,
+        0,
+        -60.5
+      ],
+      "rotation_y": -40,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "note": "The cold hut with Ottie Swale home (The Northing, lit): he sits on its seat with his boots on, so the seat shows bare under him.",
+      "if": [
+        "flag:thornwold_northing=lit",
+        "!flag:thornwold_boots_away"
+      ]
     },
     {
       "model": "res://assets/models/dressing/charcoal_clamp.glb",
@@ -1754,6 +1775,93 @@
       "rotation_y": 40,
       "note": "By his clamp in the clearing, rake in hand.",
       "if": "!flag:thornwold_hob_came_in"
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home_cap.glb",
+      "if": [
+        "flag:thornwold_northing=lit",
+        "!flag:thornwold_boots_away",
+        "flag:thornwold_hob_has_cap"
+      ],
+      "note": "Ottie home on his hut's log seat (The Northing, lit), boots on and the cap Hob set by them on his head."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home_cap.glb",
+      "if": [
+        "flag:thornwold_northing=lit",
+        "!flag:thornwold_boots_away",
+        "!flag:thornwold_hob_has_cap",
+        "flag:thornwold_ottie_cap"
+      ],
+      "note": "The same, wearing the cap the player brought up the road."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home.glb",
+      "if": [
+        "flag:thornwold_northing=lit",
+        "!flag:thornwold_boots_away",
+        "!flag:thornwold_hob_has_cap",
+        "!flag:thornwold_ottie_cap"
+      ],
+      "note": "Home in his boots, bare-headed (his cap still hangs on the stair's waymark)."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home_unshod_cap.glb",
+      "if": [
+        "flag:thornwold_northing=lit",
+        "flag:thornwold_boots_away",
+        "flag:thornwold_ottie_cap"
+      ],
+      "note": "Home without his boots (burned in the Ridge Light, or still in the player's hands), in the cap the player brought him."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home_unshod.glb",
+      "if": [
+        "flag:thornwold_northing=lit",
+        "flag:thornwold_boots_away",
+        "!flag:thornwold_ottie_cap"
+      ],
+      "note": "Home without his boots, feet still bound in sacking, bare-headed."
     }
   ],
   "objects": [

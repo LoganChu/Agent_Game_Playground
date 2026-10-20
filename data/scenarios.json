@@ -494,6 +494,28 @@
         "the_walk_back": "his_name"
       },
       "shot": "--camera=6.6,2.0,3.0:2.6,1.0,5.6"
+    },
+    {
+      "id": "the_northing",
+      "act": "Act II — The Drift",
+      "title": "The Northing",
+      "inherits": "the_fifth",
+      "region": "thornwold_old_road",
+      "spawn": "from_ridge",
+      "description": "After The Fifth (Hob gone up the old road with his lantern), the player walked the old Keepers' road north along Thornwold's spine to the Northing, the Keepers' fire-cairn on the north cliff, and found Ottie Swale keeping a charcoal fire in its basket for the three who went down to the far shore. The Lamp lit a lantern off the Ridge Light for him. Carry it up the spine and give it to Ottie: hang it on the Northing (he goes home to his boots) or put it in his hand (he takes it down the steps).",
+      "flags": {
+        "thornwold_hob_ladder": "gone",
+        "thornwold_old_road_reached": true,
+        "thornwold_met_ottie": true
+      },
+      "quests": {
+        "the_fifth": "done",
+        "the_northing": "carry_it"
+      },
+      "items": {
+        "ridge_lantern": 1
+      },
+      "shot": "--camera=-2.5,4.2,-35.5:2.0,3.2,-41.0"
     }
   ]
 }

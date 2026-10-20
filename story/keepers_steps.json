@@ -1,0 +1,48 @@
+{
+  "id": "keepers_steps",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "At the head of the north cliff a bare waymark stands over steps cut in the rock, going down. Keepers' steps: narrow, worn hollow in the middle, an iron rail pinned to the cliff on the seaward side."
+      },
+      {
+        "say": "narrator",
+        "text": "Ten steps down they go into the fog, and the fog below is not like the fog on the spine. It lies on the far shore thick as wool, level as a floor, and somewhere under it the sea moves on stones."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember gutters just looking at it. Not today."
+      },
+      {
+        "say": "narrator",
+        "text": "Far down in the wool a light is standing still. Hob's, or what's left of it to see from here.",
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "!flag:thornwold_northing=carried"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Far down in the wool two lights are standing close together, not moving. Hob's, and the one Ottie took down.",
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_northing=carried"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Far down in the wool a light is standing still. Ottie's, the Ridge Light's gold, with nobody you can see beside it yet.",
+        "if": [
+          "!flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_northing=carried"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Behind you the Northing's lantern lays a warm smear on the top of the fog, the way a lamp in a window lays one on snow. From below, it would be the only thing to climb to.",
+        "if": "flag:thornwold_northing=lit"
+      }
+    ]
+  }
+}

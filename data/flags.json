@@ -325,6 +325,31 @@
       "description": "Player told Bram Kettle what became of the old collier on his step after The Fifth (one-time: gone up the ridge, or the mark at the bottom of the road and the notches on the bare SALT pegs).",
       "default": false
     },
+    "thornwold_old_road_reached": {
+      "description": "The player has walked out along the old Keepers' road north of the Ridge Light (one-time arrival scene on the spine; only once the Ridge Light is lit).",
+      "default": false
+    },
+    "thornwold_met_ottie": {
+      "description": "Met Ottie Swale at the Northing, the fourth collier who went up after the Lamp, keeping a charcoal fire in the Keepers' fire-basket for the three who went down to the far shore.",
+      "default": false
+    },
+    "thornwold_ottie_cap": {
+      "description": "The player gave Ottie Swale back his felt cap at the Northing (they took it off the stair's waymark and never gave it to Hob). He wears it from then on.",
+      "default": false
+    },
+    "thornwold_northing": {
+      "description": "The Northing (Day 53), what became of the Ridge Light's lantern the Lamp lit for Ottie: '' (not yet), 'lit' (hung on the Northing's boat-lantern hook, a light at the top of the Keepers' steps for the three on the far shore to climb to; Ottie let his charcoal go out and went home to the colliers' clearing and his boots) or 'carried' (put in Ottie's hand: he banked his charcoal with the last sack and took the light down the steps to the three, leaving his boots on his seat).",
+      "default": "",
+      "values": [
+        "",
+        "carried",
+        "lit"
+      ]
+    },
+    "thornwold_ottie_home_seen": {
+      "description": "Talked with Ottie Swale at home in the colliers' clearing after the Northing was lit (one-time homecoming: his boots, Hob, the three).",
+      "default": false
+    },
     "fen_landed": {
       "description": "The player has come ashore at Glasswater Fen's staithe (one-time arrival scene after the first sailing north-about from Thornwold).",
       "default": false

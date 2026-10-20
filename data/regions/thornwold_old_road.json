@@ -1,0 +1,937 @@
+{
+  "id": "thornwold_old_road",
+  "name": "The Old Road",
+  "description": "The old Keepers' road north along Thornwold's spine from the Ridge Light to the Northing, the Keepers' fire-cairn on the north cliff over the far shore.",
+  "fog": {
+    "density": 0.022,
+    "color": "silverfog"
+  },
+  "light": {
+    "note": "High on the spine above the fog-sea: thin cold daylight, the Ridge Light's warmth behind and a smudge of red at the far end.",
+    "sun_color": "#F5C77E",
+    "sun_energy": 0.95,
+    "sun_pitch": -40,
+    "sun_yaw": -120,
+    "ambient_color": "silverfog",
+    "ambient_energy": 0.34,
+    "sky_top": "tide",
+    "sky_horizon": "silverfog"
+  },
+  "ambience": [
+    {
+      "sound": "wind_high",
+      "volume": 1.0
+    },
+    {
+      "sound": "surf",
+      "volume": 0.25
+    }
+  ],
+  "footsteps": "stone",
+  "greying": [
+    {
+      "rect": [
+        -22,
+        -54,
+        22,
+        14
+      ],
+      "strength": 0.45,
+      "falloff": 3.0,
+      "height": 2.2,
+      "note": "The spine: thinned to a fleece by the lit Ridge Light, as the ridge top is, but the light is a long way behind."
+    },
+    {
+      "rect": [
+        -22,
+        -54,
+        22,
+        -49
+      ],
+      "strength": 1.0,
+      "falloff": 2.0,
+      "height": 6.0,
+      "note": "Over the north cliff: the fog lies on the far shore like wool, the steps going down into it."
+    },
+    {
+      "ellipse": [
+        2.0,
+        -39.5,
+        5.5,
+        4.5
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "note": "Something always burns in the Northing's basket: Ottie's charcoal (the fog lets a collier's fire be) or the Ridge Light's lantern."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      -0.5,
+      0.5,
+      20.0
+    ],
+    "from_ridge": [
+      -0.5,
+      0.5,
+      20.0
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -22,
+      -54,
+      22,
+      32
+    ],
+    "cell": 1.0,
+    "base": -8.0,
+    "seed": 53,
+    "roughness": 0.1,
+    "ragged": 0.8,
+    "note": "Thornwold's spine north of the Ridge Light: a long back of grey stone and silvered heather ten metres wide, dropping sheer into the fog on both sides (base -8, never reachable), climbing gently north to a knoll where the Northing stands over the north cliff.",
+    "land": [
+      {
+        "path": [
+          [
+            -1,
+            24,
+            0.0
+          ],
+          [
+            2,
+            14,
+            0.4
+          ],
+          [
+            -1,
+            0,
+            0.9
+          ],
+          [
+            3,
+            -14,
+            1.4
+          ],
+          [
+            1,
+            -30,
+            1.8
+          ],
+          [
+            1,
+            -36,
+            2.0
+          ]
+        ],
+        "width": 11,
+        "falloff": 2.0,
+        "note": "the spine"
+      },
+      {
+        "ellipse": [
+          1,
+          -40,
+          10,
+          6.5
+        ],
+        "height": 2.0,
+        "falloff": 2.0,
+        "note": "the Northing's knoll; its north edge is the cliff over the far shore"
+      },
+      {
+        "ellipse": [
+          -3.5,
+          -46.5,
+          2.0,
+          1.6
+        ],
+        "height": 2.0,
+        "falloff": 1.5,
+        "note": "the head of the Keepers' steps"
+      }
+    ],
+    "colors": {
+      "ground": "slate",
+      "shore": "pine",
+      "seabed": "pine",
+      "cliff": "slate"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            -0.5,
+            25,
+            0
+          ],
+          [
+            2,
+            14,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            3,
+            -14,
+            0
+          ],
+          [
+            1,
+            -30,
+            0
+          ],
+          [
+            1.5,
+            -38,
+            0
+          ]
+        ],
+        "width": 1.6,
+        "color": "driftwood",
+        "note": "the old Keepers' road"
+      },
+      {
+        "path": [
+          [
+            1.5,
+            -38,
+            0
+          ],
+          [
+            -3.0,
+            -45.5,
+            0
+          ]
+        ],
+        "width": 1.2,
+        "color": "driftwood",
+        "note": "on to the head of the steps"
+      },
+      {
+        "ellipse": [
+          2.4,
+          -40.2,
+          2.2,
+          1.8
+        ],
+        "color": "ink",
+        "note": "charcoal dust round the cairn's foot"
+      },
+      {
+        "ellipse": [
+          1,
+          -40,
+          9,
+          6
+        ],
+        "color": "pine",
+        "note": "turf on the knoll"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/northing_cairn.glb",
+      "position": [
+        2.0,
+        0,
+        -41.0
+      ],
+      "rotation_y": 160,
+      "collider": [
+        1.7,
+        2.0,
+        1.7
+      ],
+      "note": "The Northing: the Keepers' fire-cairn on the north cliff, an iron basket on top and the boat-lantern's hook reaching out over the cliff. Once a winter the keeper walked the old road and lit the basket, and the Spire's boat came in under the cliff."
+    },
+    {
+      "model": "res://assets/models/dressing/cresset_coals.glb",
+      "position": [
+        2.0,
+        0,
+        -41.0
+      ],
+      "rotation_y": 160,
+      "smoke": [
+        [
+          0,
+          2.3,
+          0
+        ]
+      ],
+      "sound": {
+        "id": "embers",
+        "offset": [
+          0,
+          2.2,
+          0
+        ],
+        "range": 10
+      },
+      "note": "Ottie's charcoal fire in the basket: a collier's fire, banked to last. Still smouldering after he takes the lantern down the steps (he banks it with the last of the sack).",
+      "if": "!flag:thornwold_northing=lit"
+    },
+    {
+      "model": "res://assets/models/dressing/cresset_lantern.glb",
+      "position": [
+        2.0,
+        0,
+        -41.0
+      ],
+      "rotation_y": 160,
+      "halo": [
+        0,
+        1.69,
+        0.78
+      ],
+      "halo_size": 3.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.3,
+      "note": "The Ridge Light's lantern hung on the boat-lantern's hook (The Northing, lit): gold out over the cliff, for the three on the far shore to climb to.",
+      "if": "flag:thornwold_northing=lit"
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_lodge.glb",
+      "position": [
+        -7.0,
+        0,
+        -40.0
+      ],
+      "rotation_y": 70,
+      "scale": 0.85,
+      "collider": [
+        4.4,
+        2.4,
+        3.0
+      ],
+      "note": "The Keepers' boat-watch: a low stone house, roof of bark and turf, where the keeper slept the night the boat was due. The colliers slept in it after."
+    },
+    {
+      "model": "res://assets/models/dressing/charcoal_sacks.glb",
+      "position": [
+        4.6,
+        0,
+        -38.2
+      ],
+      "rotation_y": 30,
+      "scale": 0.7,
+      "collider": [
+        1.0,
+        0.8,
+        1.0
+      ],
+      "note": "Ottie's sacks, carried up three at a time: two empty and folded, the last half gone."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark.glb",
+      "position": [
+        -3.0,
+        0,
+        -46.0
+      ],
+      "rotation_y": 200,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "A bare waymark at the head of the Keepers' steps, where they go down the north cliff into the fog to the far shore."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark.glb",
+      "position": [
+        3.2,
+        0,
+        10.0
+      ],
+      "rotation_y": 175,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "The fourth mark on the old road: bare, its carving worn nearly smooth."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_rake.glb",
+      "position": [
+        -2.6,
+        0,
+        -6.0
+      ],
+      "rotation_y": 160,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "note": "The fifth mark: a collier's rake driven into its cairn beside the post. Abe and Tolly Dray's."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_tumbled.glb",
+      "position": [
+        5.6,
+        0,
+        -21.0
+      ],
+      "rotation_y": 190,
+      "note": "The sixth: spilled, its post leaning, its arm in the heather. Nobody's tended this end in years."
+    },
+    {
+      "model": "res://assets/models/dressing/thornwold_beacon_lit.glb",
+      "position": [
+        -16.0,
+        -9.0,
+        74.0
+      ],
+      "rotation_y": -15,
+      "snap": false,
+      "halo": [
+        0,
+        6.85,
+        0
+      ],
+      "halo_size": 14.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.35,
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          4,
+          0
+        ],
+        "range": 20
+      },
+      "note": "The Ridge Light, lit, far back along the spine to the south-west: a warm smudge in the fog. This road is only walkable with it burning."
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        -6.5,
+        0,
+        15.5
+      ],
+      "rotation_y": 100,
+      "scale": 1.1,
+      "collider": [
+        3.4,
+        2.4,
+        1.5
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        7.0,
+        0,
+        4.0
+      ],
+      "rotation_y": 70,
+      "scale": 1.0,
+      "collider": [
+        3.2,
+        2.4,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        -6.5,
+        0,
+        -14.0
+      ],
+      "rotation_y": 160,
+      "scale": 1.3,
+      "collider": [
+        3.8,
+        2.8,
+        1.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        8.0,
+        0,
+        -28.0
+      ],
+      "rotation_y": 20,
+      "scale": 1.2,
+      "collider": [
+        3.6,
+        2.6,
+        1.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        -5.0,
+        0,
+        -30.0
+      ],
+      "rotation_y": 120,
+      "scale": 1.0,
+      "collider": [
+        3.2,
+        2.4,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        4.5,
+        0,
+        18.5
+      ],
+      "rotation_y": 30,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -5.0,
+        0,
+        5.5
+      ],
+      "rotation_y": 80,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        6.5,
+        0,
+        -10.5
+      ],
+      "rotation_y": 150,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -3.5,
+        0,
+        -23.0
+      ],
+      "rotation_y": 40,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        8.5,
+        0,
+        -40.0
+      ],
+      "rotation_y": 100,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -3,
+        0,
+        21.5
+      ],
+      "rotation_y": 0,
+      "scale": 1.1
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        3,
+        0,
+        15
+      ],
+      "rotation_y": 47,
+      "scale": 1.25
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -4,
+        0,
+        11
+      ],
+      "rotation_y": 94,
+      "scale": 1.4000000000000001
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        5.5,
+        0,
+        7
+      ],
+      "rotation_y": 141,
+      "scale": 1.55
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -2,
+        0,
+        2
+      ],
+      "rotation_y": 188,
+      "scale": 1.1
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        4,
+        0,
+        -2
+      ],
+      "rotation_y": 235,
+      "scale": 1.25
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -5,
+        0,
+        -9
+      ],
+      "rotation_y": 282,
+      "scale": 1.4000000000000001
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        3.5,
+        0,
+        -15
+      ],
+      "rotation_y": 329,
+      "scale": 1.55
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -1,
+        0,
+        -18
+      ],
+      "rotation_y": 16,
+      "scale": 1.1
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        6,
+        0,
+        -24
+      ],
+      "rotation_y": 63,
+      "scale": 1.25
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -2.5,
+        0,
+        -28
+      ],
+      "rotation_y": 110,
+      "scale": 1.4000000000000001
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        3,
+        0,
+        -32
+      ],
+      "rotation_y": 157,
+      "scale": 1.55
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -6,
+        0,
+        -35
+      ],
+      "rotation_y": 204,
+      "scale": 1.1
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        6.5,
+        0,
+        -35
+      ],
+      "rotation_y": 251,
+      "scale": 1.25
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -2,
+        0,
+        -43
+      ],
+      "rotation_y": 298,
+      "scale": 1.4000000000000001
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        6,
+        0,
+        -44
+      ],
+      "rotation_y": 345,
+      "scale": 1.55
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -5.5,
+        0,
+        13
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        6,
+        0,
+        -6
+      ],
+      "rotation_y": 73
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -4,
+        0,
+        -19
+      ],
+      "rotation_y": 146
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        7,
+        0,
+        -31
+      ],
+      "rotation_y": 219
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -1,
+        0,
+        -36
+      ],
+      "rotation_y": 292
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        7.5,
+        0,
+        13.5
+      ],
+      "rotation_y": 0,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -7.0,
+        0,
+        -3.0
+      ],
+      "rotation_y": 31,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_snag.glb",
+      "position": [
+        8.0,
+        0,
+        -16.0
+      ],
+      "rotation_y": 62,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -7.5,
+        0,
+        -24.5
+      ],
+      "rotation_y": 93,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "ottie",
+      "position": [
+        3.6,
+        0,
+        -39.2
+      ],
+      "rotation_y": 230,
+      "if": [
+        "flag:thornwold_northing=",
+        "!flag:thornwold_ottie_cap"
+      ],
+      "note": "At the Northing's foot, feeding the basket, bareheaded, his feet in sacking."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        3.6,
+        0,
+        -39.2
+      ],
+      "rotation_y": 230,
+      "if": [
+        "flag:thornwold_northing=",
+        "flag:thornwold_ottie_cap"
+      ],
+      "model": "res://assets/models/characters/ottie_cap.glb",
+      "note": "The same, his cap back on (the player brought it up the road)."
+    }
+  ],
+  "objects": [
+    {
+      "id": "northing",
+      "prompt": "Look at the Northing",
+      "dialogue": "northing",
+      "position": [
+        1.4,
+        0,
+        -39.6
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        2.6,
+        0
+      ]
+    },
+    {
+      "id": "drays_rake",
+      "prompt": "Look at the rake in the cairn",
+      "dialogue": "drays_rake",
+      "position": [
+        -2.3,
+        0,
+        -5.2
+      ],
+      "reach": 1.9
+    },
+    {
+      "id": "keepers_steps",
+      "prompt": "Look down the Keepers' steps",
+      "dialogue": "keepers_steps",
+      "position": [
+        -3.0,
+        0,
+        -45.0
+      ],
+      "reach": 2.0
+    },
+    {
+      "id": "boat_watch",
+      "prompt": "Look in at the boat-watch",
+      "dialogue": "boat_watch",
+      "position": [
+        -5.2,
+        0,
+        -38.6
+      ],
+      "reach": 2.0
+    }
+  ],
+  "events": [
+    {
+      "id": "old_road_arrival",
+      "if": [
+        "quest:a_light_for_thornwold=done",
+        "!flag:thornwold_old_road_reached"
+      ],
+      "set": {
+        "thornwold_old_road_reached": true
+      },
+      "dialogue": "thornwold_old_road_arrival"
+    }
+  ],
+  "exits": [
+    {
+      "to": "thornwold_ridge",
+      "spawn": "from_old_road",
+      "position": [
+        -0.5,
+        0,
+        23.0
+      ],
+      "prompt": "Walk back along the spine to the Ridge Light"
+    }
+  ]
+}
