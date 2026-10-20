@@ -933,6 +933,11 @@ debts, salvage, and who answers for a thing.
         they burned (the player can hand back unburned boots they carry: "Now I'm home"). Hob, if he knows him, said only
         "Boots." Boots path: Hob looked at him like a stranger — "Always just me, this side of the ridge." Said it kind. The
         Lamp sees the light from the gallery, "where I used to look for the boat".
+        Hob, salt-row, at the camp or the clearing: "Ottie's home... One. That's one. Three to come." At the bottom of the road
+        (*The Fifth*, stayed) Ottie stopped at his mark and said his name, and Hob crossed the first of the four notches
+        through on his stick on Bram's bare SALT pegs. Boots path: "a man on the seat by the cold hut. Charcoal man... It's
+        always been just me this side of the ridge. Hasn't it?" Bram's CHARCOAL row takes two notches a load now, in two
+        hands (one new hand, cut deep and straight, if Hob went down the steps) (Day 54).
       - **carried** — put in Ottie's hand: he banks his charcoal with the last sack ("it'll keep a night or two") and **takes
         the light down the Keepers' steps** to the three; his boots stay on his seat. From the cliff head his light stands still
         far below (beside Hob's, if Hob went). The Lamp: "Down, not along. Ottie never waited to be told a thing."

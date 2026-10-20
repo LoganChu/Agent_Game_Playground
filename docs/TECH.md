@@ -470,7 +470,9 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
   both cuts (UV2.x = alpha under the old lights, UV2.y = under the new; COLOR.a = new too, 8-bit)
   and keeps every triangle either cut needs; the shader mixes them by `recut`, tweened 0 → 1 over
   `FADE_SECONDS` (4 s), then the mesh is rebuilt with the new cut only. Region loads re-cut
-  instantly. The *gameplay* depth (ember drain) switches at once — the drain itself is gradual. Validator: `clear` must be a bool; the worst case
+  instantly. The *gameplay* depth (ember drain, `Region.greying_depth`) eases with it since Day 54: whenever the active
+  areas change live, it lerps from the old areas' depth to the new over the same 4 s (`_greying_blend`, ticked in
+  `Region._process`, which pauses with the tree; a region load settles at once). Validator: `clear` must be a bool; the worst case
   (`Greying.worst_case_areas`) is every fog area plus only the **unconditional** clear areas — a
   lantern the story may take away doesn't count toward the spawn-clear and ember-budget checks.
 

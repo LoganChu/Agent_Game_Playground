@@ -2,6 +2,46 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-20 21:00 UTC — Day 54: Polish pass seven (polish/debt)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). `main` was already at Day 53's `781c3d2`.
+  Baseline green (374 tests + smoke + launch).
+- **Polish/debt (due by Day 56; last Day 48):** ROADMAP *Next up* #1 / Known issues —
+  - **The ember drain eases with the fog.** Since Day 23 a lantern lit or put out re-cut the fog over 4 s, but the
+    drain (`Region.greying_depth`) jumped to the new light at once. It now lerps from the old active areas' depth to the
+    new over the same `GreyingFog.FADE_SECONDS` whenever the areas change live (`_greying_blend`, ticked in
+    `Region._process` — pauses with the tree; region loads settle at once).
+  - **The old road falls away.** Its flanks were a pale green plain 8 m below the spine; the base is now -24 with slate
+    shore/seabed, so from the road the sides are fog and from above the spine stands as a sheer slate wall.
+  - **Small follow-ups (the Northing):** Hob notices Ottie home — salt-row, at the camp or the clearing: "Ottie's home…
+    One. That's one. Three to come." (and the boots: on him, or "You've got his boots. Give a man his boots."); at the
+    bottom of the road (*The Fifth*, stayed) Ottie stopped at his mark and Hob crossed the first notch through; boots
+    path, "a man on the seat by the cold hut. Charcoal man…" and never his name. Bram's tally board: two charcoal notches
+    a load in two hands (one new hand if Hob went down the steps), and Hob's stick of four shows the first crossed.
+  - **Two stale Known issues closed** after an audit: Oda's "to Cindermoor" route line was reworded long ago, and the
+    player never names the four to Hob after the boots burn (the cap and the Lamp's ladder story are already gated).
+- **Tests:** `test_polish_seven.gd` (4: the drain's ease, Hob on Ottie home across five states, the board, the drop).
+  378 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-10-20-pm-the-old-road-falls-away.png`.
+
+**Decisions**
+- **`_process`, not a Tween, for the drain's ease**: the state is plain data the tests can step without a running tree,
+  and it stops ticking once settled. A second light change mid-fade eases on from the areas just replaced (a small jump,
+  noted in Known issues) rather than nesting blends.
+- **Hob's lines are in his greet, not a new choice**: he says it unprompted, like the fourth mark going dark. Nothing on
+  the `carried` path — Ottie never comes home, and nobody on Thornwold saw him go down.
+- No checkpoint: nothing new to start from (the old road's look shows in `the_northing`'s next re-shoot).
+
+**Problems / notes**
+- The first ease test failed because a Region added to the root inside the test runner's `_initialize` isn't in the tree
+  yet, so a Tween couldn't run there; moving the ease to `_process` fixed that and simplified it.
+
+**Next run should**
+1. **Content (due by Day 57; last Day 53):** ROADMAP *Next up* #1 — the far shore below the Northing, or the lane on
+   from Wrackholm; add a checkpoint. Then art-led by ~Day 59. Fetch before trusting `origin/main`.
+
 ## 2026-10-20 09:00 UTC — Day 53: The Northing (content)
 
 **Did**

@@ -436,17 +436,23 @@ each .glb < 5 MB.
       bottom) all follow earlier choices. Blender `ottie` (+ cap, + four seated home variants), `northing_cairn`,
       `cresset_coals`, `cresset_lantern`, `waymark_rake` (`build_old_road.py`). `test_the_northing.gd`; the smoke walk
       takes the old road live. Checkpoint `the_northing`.
+- [x] [P] **Polish/debt pass seven** (Day 54): **the ember drain eases with the fog** — a lantern lit or put out
+      used to change the drain at once while the fog took 4 s to re-cut; `Region.greying_depth` now lerps from the old
+      areas to the new over the same fade. **The old road's flanks** fall to slate 24 m below (they read as a pale green
+      plain under the fog). Small follow-ups: **Hob notices Ottie home** (salt-row: counted in, "Three to come"; at the
+      bottom of the road he crosses the first notch through; boots path: "a man on the seat by the cold hut") and **Bram's
+      tally board** takes two charcoal notches a load (or a new hand, if Hob went down the steps). Two stale Known issues
+      closed (Oda's Cindermoor line; the player naming the four to Hob after the boots burn — audited, already gated).
+      `test_polish_seven.gd`.
 
 ### Next up
-1. [P] **Polish/debt pass due by Day 56** (Day 48 the last; candidates in Known issues), then **content by Day 57**
-   (last Day 53). Next art-led session due ~Day 59 (last Day 52): Wrackholm's empty bracket, the Teeth's broken water,
+1. [C] **Content due by Day 57** (last Day 53). Next art-led session due ~Day 59 (last Day 52): Wrackholm's empty bracket, the Teeth's broken water,
    the Saltmarrow dressing follow-ups #6, the Northing follow-ups (Known issues). Content candidates: **the far shore**
    below the Northing (the three — Wenna Coll, Abe and Tolly Dray — and Hob and/or Ottie waiting on a boat that won't
    come; the Keepers' steps as the way down; on the boots path no one on Thornwold will know them); **the lane on from
    Wrackholm** (Cindermoor is "past more besides"; a Keeper met there should weigh `wrackholm_sworn`,
    `thornwold_lamp_name`, `saltmarrow_aldous_novice`). Keep mystery #2 shut: the seventh novice and the roll pay off on
-   Cindermoor, not before. Small follow-ups: Hob noticing Ottie home (salt-row: "Boots."; boots path: a stranger on the
-   next seat); Bram's tally board for Ottie; Oda hearing Dunstan's message ("not laughing at the weather") when the
+   Cindermoor, not before. Small follow-ups: Oda hearing Dunstan's message ("not laughing at the weather") when the
    player next sails with her; Pell/Tam/Aldous noticing Dunstan home; the `stayed` ending's eventual walk home.
 2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
@@ -516,7 +522,7 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 56 (Day 48 was the last). Candidates: the smoke walk only takes *The Northing*'s
+- Next polish/debt pass due by Day 62 (Day 54 was the last). Candidates: the smoke walk only takes *The Northing*'s
   `lit` ending on the boots path (others: `test_the_northing.gd`); the smoke walk's `_check_gates` teleports into
   regions and would hold input if an ungated arrival event fired there (Day 53: the old road's event is gated on the
   Ridge Light, and the walk now arrives there first — keep new events gated on how the player gets in); the smoke walk only takes *The Walk Back*'s `stayed`
@@ -547,13 +553,12 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 53 (the Northing); next content due by Day 57.
-- Last polish/debt session: Day 48 (pass six); next due by Day 56.
+- Last polish/debt session: Day 54 (pass seven); next due by Day 62.
 - Last art session: Day 52 (turning the boards; collars, cuffs and a mop). Next art-led session due ~Day 59: Wrackholm
   follow-ups (below) or the Saltmarrow dressing follow-ups.
 - The Northing (Day 53) follow-ups: the cairn's stones are lumps, not coursed slabs (fine at play distance); the ink
   scorch paint round its foot is angular; there are no step models at the head of the Keepers' steps (the waymark and the
-  inspectable stand for them); the low ground either side of the spine reads as a pale green plain under the fog rather
-  than a drop (a deeper base or a fog bank down the flanks would sell the height); Ottie's seated home sits on the cold
+  inspectable stand for them); (the flanks' drop: Day 54); Ottie's seated home sits on the cold
   hut's seat with the hut still slipped and cold (a warm-hut variant once he's been home a while).
 - The Teeth (Day 42) follow-ups: the reef road reads as one smooth grey causeway from above (edge slabs break it up a
   little); broken water/foam lines in the gullies would sell low water; the exit's marker post stands on the spit's end
@@ -599,9 +604,8 @@ each .glb < 5 MB.
   into `thornwold_woods`) are the ways off. The landing's own strip of woods past the wall is
   still deep Greying (you are turned back) — the way in is through the gap, by design.
 - The smoke test's menu walk always takes "Go through" at the bramble wall.
-- Lantern `clear` areas fade their fog re-cut over 4 s (Day 23), but the ember drain follows
-  the new light at once. If a lantern going out under the player feels abrupt, ramp
-  `Greying.depth_at` with the same tween.
+- Lantern `clear` areas fade their fog re-cut over 4 s (Day 23) and the ember drain eases with them (Day 54). A
+  second light change inside the 4 s eases on from the areas just replaced (a small jump; harmless at story beats).
 - Inspectable glints read faintly inside deep Greying (white on white in Compatibility);
   re-judge with the colour-grading item (they bloom in Forward+).
 - The woods region is a large hollow (≈ 50 × 50 m walkable) with nothing in its deep Greying but
@@ -647,11 +651,6 @@ each .glb < 5 MB.
 - Hob comes in by daylight for good once he's at the camp (`thornwold_hob_came_in`): there's no
   day/night yet, so he never goes home to his clamp. When day/night lands, give him a schedule
   (camp by day, clearing by night) instead of a one-way move.
-- After the boots burn, the player's own lines still name the four (e.g. the Lamp's ladder story is
-  told before the burn). Like Act I, the burned memory "slides off" only in narration; a pass over
-  later dialogue should keep the player from naming the four to Hob.
-- Oda's `route` line still says the lane past Thornwold leads "to Cindermoor"; the fen lane comes
-  first (LORE Day 27). Reword it when the fen sailing lands.
 - Day 35: the smoke walk always burns the channels
   (`_light_the_heron`); the name path is unit-tested only. The Act II end/recap card doesn't exist yet; when it
   does, `fen_beacon_burned` belongs on it with Thornwold's burn.
