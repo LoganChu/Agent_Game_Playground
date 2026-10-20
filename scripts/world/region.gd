@@ -25,6 +25,11 @@ var greying_areas: Array[Dictionary] = []
 var _greying_fog: Dictionary = {}
 ## Clear areas (lantern light) the shown fog was last cut around.
 var _greying_clears: Array[Dictionary] = []
+## While the fog dissolves into a new cut (a lantern lit or put out, an area coming or going),
+## the ember drain eases with it: depth blends from `_greying_from` to the current areas by
+## `_greying_blend` (0 → 1 over GreyingFog.FADE_SECONDS in `_process`; 1 = settled).
+var _greying_from: Array[Dictionary] = []
+var _greying_blend := 1.0
 
 
 func build(id: String) -> void:
@@ -97,7 +102,10 @@ func refresh_conditional(animate: bool = true) -> void:
 
 
 func _refresh_greying(world: WorldState, animate: bool) -> void:
+	var previous := greying_areas
 	greying_areas = Greying.active_areas(data, world)
+	if greying_areas != previous:
+		_ease_greying_depth(previous, animate)
 	var clears := Greying.clear_areas(greying_areas)
 	if clears != _greying_clears:
 		# The light changed: re-cut every shown fog layer around the new pools (dissolving
@@ -151,9 +159,31 @@ func footstep_surface(pos: Vector3) -> String:
 	return surface
 
 
-## Fog depth (0..1) of the Greying at x/z right now.
+## Fog depth (0..1) of the Greying at x/z right now (eased while the fog re-cuts).
 func greying_depth(x: float, z: float) -> float:
-	return Greying.depth_at(greying_areas, Vector2(x, z))
+	var depth := Greying.depth_at(greying_areas, Vector2(x, z))
+	if _greying_blend >= 1.0:
+		return depth
+	return lerpf(Greying.depth_at(_greying_from, Vector2(x, z)), depth, _greying_blend)
+
+
+## Starts the ember drain easing from the depths of `from_areas` to the current areas'
+## (a second change mid-fade eases on from `from_areas`, the areas just replaced).
+func _ease_greying_depth(from_areas: Array[Dictionary], animate: bool) -> void:
+	_greying_from = from_areas
+	_greying_blend = 0.0 if animate else 1.0
+	set_process(animate)
+
+
+func _process(delta: float) -> void:
+	_greying_blend = minf(1.0, _greying_blend + delta / GreyingFog.FADE_SECONDS)
+	if _greying_blend >= 1.0:
+		set_process(false)
+
+
+## How far the ember drain has eased into the current fog (1 = settled; for tests).
+func greying_settled() -> float:
+	return _greying_blend
 
 
 ## Height the Greying lies on at x/z: the ground, or the water where the ground is below it.
