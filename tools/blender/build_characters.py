@@ -1335,12 +1335,123 @@ def build_yard_lad() -> None:
     assemble(b, "yard_lad", scale=0.8)
 
 
+def build_ottie() -> None:
+    """Ottie Swale at the Northing (Day 53): the fourth collier who went up after the Lamp, keeping a
+    charcoal fire in the Keepers' fire-basket for the three who went down to the far shore. Lean and
+    restless (forties), bare-headed (his cap is on the stair's waymark) with cropped dark hair gone grey
+    at the temples and a short black beard; a sacking smock to mid-thigh, rope belt, a coal-red
+    neckerchief; soot to the elbows; no boots (they're on his seat by the cold hut) — his feet bound in
+    sacking and cord. A fire iron in his right hand. Half-Hushed: the hem and the right sleeve silvered."""
+    _ottie(seated=False)
+
+
+def build_ottie_cap() -> None:
+    """As `ottie`, his felt cap back on (the player brought it up the road): crooked cord and all."""
+    _ottie(seated=False, cap=True)
+
+
+def build_ottie_home() -> None:
+    """Ottie home (Day 53): on the log seat outside his own hut in the colliers' clearing, his boots on
+    at last, forearms on his knees, bare-headed."""
+    _ottie(seated=True, boots=True)
+
+
+def build_ottie_home_cap() -> None:
+    """As `ottie_home`, wearing his felt cap (off the seat where Hob set it, or brought up the road)."""
+    _ottie(seated=True, boots=True, cap=True)
+
+
+def build_ottie_home_unshod() -> None:
+    """Ottie home without his boots (they burned in the Ridge Light, or the player still carries them):
+    on the bare log seat with his feet still bound in sacking."""
+    _ottie(seated=True, boots=False)
+
+
+def build_ottie_home_unshod_cap() -> None:
+    """As `ottie_home_unshod`, wearing the felt cap the player brought up the road."""
+    _ottie(seated=True, boots=False, cap=True)
+
+
+def _ottie(seated: bool, boots: bool = False, cap: bool = False) -> None:
+    reset_scene()
+    b = Body(seated=seated, build=0.95)
+    smock = material("driftwood", -0.4)
+    soot = material("ink", 0.12)
+    skin = material("driftwood", 0.05)
+    hem = material("silverfog", -0.2)
+    sacking = material("driftwood", -0.2)
+    feet = material("ink", 0.04) if boots else sacking
+    base_body(b, skin, material("slate", -0.5), feet, smock, sleeves=soot)
+    cord = material("driftwood", -0.55)
+    for side, x in (("L", 0.12), ("R", -0.12)):
+        leg = b.parts["Leg" + side]
+        y = -0.43 if seated else -0.04
+        if boots:  # sea-boot style legs up the shin
+            top = 0.32 if seated else 0.3
+            leg.append(limb((x, y + (0.05 if seated else 0.0), 0.08), (x, y + (0.05 if seated else 0.0), top), 0.09, 0.095, feet))
+        else:      # sacking wound round the foot and ankle, bound with cord
+            leg.append(ball(0.11, (x, y, 0.08), sacking, scale=(0.85, 1.25, 0.75), segments=6, rings=4))
+            leg.append(limb((x - 0.08, y, 0.14), (x + 0.08, y, 0.14), 0.016, 0.016, cord, verts=4))
+            leg.append(limb((x, y + 0.03, 0.12), (x, y + 0.03, 0.26), 0.08, 0.075, sacking, verts=6))
+    t = b.parts["Torso"]
+    if seated:
+        t.append(limb((0, 0.0, b.hip - 0.06), (0, 0.0, b.waist + 0.06), 0.29, 0.26, smock, verts=8))
+        b.parts["LegL"].append(block((0.5, 0.34, 0.05), (-0.12, -0.18, b.hip + 0.07), smock))
+        b.parts["LegL"].append(block((0.5, 0.05, 0.12), (-0.12, -0.36, b.hip - 0.03), hem))
+    else:
+        # Sacking smock to mid-thigh, silvered at the hem.
+        t.append(limb((0, 0.0, 0.44), (0, 0.0, b.waist + 0.06), 0.29, 0.26, smock, verts=8))
+        t.append(limb((0, 0.0, 0.4), (0, 0.0, 0.48), 0.3, 0.3, hem, verts=8))
+    t.append(ring(0.265, b.waist + 0.03, 0.04, material("driftwood", -0.15)))                 # rope belt
+    t.append(ring(0.12, b.shoulder + 0.03, 0.06, material("coal", -0.1)))                     # neckerchief
+    t.append(limb((0.03, -0.12, b.shoulder + 0.02), (0.06, -0.2, b.shoulder - 0.12), 0.035, 0.012, material("coal", -0.1), verts=4))
+    for side in ("L", "R"):
+        hand = b.hand(side)
+        b.parts["Arm" + side].append(ball(0.09, hand, soot, scale=(0.95, 1.05, 1.15), segments=6, rings=4))
+    # The fog has had his right sleeve: a silver band over the soot below the shoulder.
+    r_top = Vector((-b.shoulder_x, 0, b.shoulder - 0.04))
+    b.parts["ArmR"].append(limb(r_top + Vector((0, 0, -0.08)), r_top + Vector((0, 0, -0.22)), 0.09, 0.085, hem))
+    h = b.parts["Head"]
+    hair = material("ink", 0.2)
+    h.append(ball(0.245, (0, 0.03, b.head + 0.05), hair, scale=(1.02, 1.0, 0.82)))              # cropped dark hair
+    for sx in (0.215, -0.215):
+        h.append(block((0.04, 0.12, 0.1), (sx, 0.0, b.head + 0.02), material("silverfog", -0.15)))  # grey at the temples
+    h.append(ball(0.16, (0, -0.11, b.head - 0.14), hair, scale=(1.0, 0.7, 0.75)))                # short black beard
+    h.append(block((0.09, 0.03, 0.04), (-0.07, -0.225, b.head + 0.13), soot))                    # soot smudge
+    if cap:
+        # The felt cap, black with charcoal dust, a coal-red band, and the cord he sewed on crooked.
+        felt = material("driftwood", -0.6)
+        h.append(ball(0.25, (0, 0.0, b.head + 0.1), felt, scale=(1.0, 1.0, 0.62)))
+        h.append(ring(0.25, b.head + 0.04, 0.05, material("coal", -0.4)))
+        h.append(block((0.3, 0.16, 0.025), (0, -0.25, b.head + 0.05), felt, rot=(math.radians(-12), 0, 0)))
+        h.append(limb((0.18, -0.15, b.head + 0.08), (0.06, -0.22, b.head + 0.15), 0.012, 0.012, cord, verts=3))
+    if seated:
+        # Forearms on his knees, hands hanging together; head up, looking at nothing much.
+        b.arm_rest["ArmL"] = (math.radians(-50), 0, math.radians(-12))
+        b.arm_rest["ArmR"] = (math.radians(-50), 0, math.radians(12))
+        b.head_rest = (math.radians(4), 0, 0)
+        name = "ottie_home" + ("" if boots else "_unshod") + ("_cap" if cap else "")
+        assemble(b, name)
+        return
+    # A fire iron in his right hand, point down, held a little out from his side.
+    hand = b.hand("R")
+    iron = material("slate", -0.5)
+    b.parts["ArmR"].append(limb(hand + Vector((0, -0.04, 0.06)), hand + Vector((-0.04, -0.12, -0.7)), 0.016, 0.012, iron, verts=4))
+    b.parts["ArmR"].append(limb(hand + Vector((-0.04, -0.12, -0.7)), hand + Vector((-0.04, -0.2, -0.76)), 0.014, 0.008, iron, verts=4))
+    b.arm_rest["ArmR"] = (math.radians(-10), 0, math.radians(-8))
+    b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(6))
+    b.head_rest = (math.radians(-4), 0, math.radians(-6))  # head up, a little aside: listening down the cliff
+    assemble(b, "ottie_cap" if cap else "ottie")
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
             build_dunstan_seated_cord, build_dunstan_lantern, build_dunstan_home, build_dunstan_turning,
             build_wenna, build_wenna_nobrass, build_jory,
-            build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad]
+            build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad,
+            build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
+            build_ottie_home_unshod_cap]
 
 if __name__ == "__main__":
     import sys
