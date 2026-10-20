@@ -86,11 +86,11 @@
       32
     ],
     "cell": 1.0,
-    "base": -8.0,
+    "base": -24.0,
     "seed": 53,
     "roughness": 0.1,
     "ragged": 0.8,
-    "note": "Thornwold's spine north of the Ridge Light: a long back of grey stone and silvered heather ten metres wide, dropping sheer into the fog on both sides (base -8, never reachable), climbing gently north to a knoll where the Northing stands over the north cliff.",
+    "note": "Thornwold's spine north of the Ridge Light: a long back of grey stone and silvered heather ten metres wide, dropping sheer into the fog on both sides (base -24, never reachable; slate below so the flanks read as cliff falling into fog, not a plain — Day 54), climbing gently north to a knoll where the Northing stands over the north cliff.",
     "land": [
       {
         "path": [
@@ -154,8 +154,8 @@
     ],
     "colors": {
       "ground": "slate",
-      "shore": "pine",
-      "seabed": "pine",
+      "shore": "slate",
+      "seabed": "slate",
       "cliff": "slate"
     },
     "paint": [
