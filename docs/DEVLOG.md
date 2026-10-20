@@ -2,6 +2,69 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-20 09:00 UTC — Day 53: The Northing (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale `origin/main` again;
+  fetched and reset local `main` to Day 52's `13ff58d`. Baseline green (364 tests + smoke + launch).
+- **Content (due by Day 55; last Day 51):** ROADMAP *Next up* #1, **the old Keepers' road north** — where the four
+  colliers went, open since Day 22 (Ottie's boots on the seat) and Day 25 (his cap on the stair's mark):
+  - **New region, The Old Road** (`thornwold_old_road`): from the ridge's NE corner (exit gated on the Ridge Light lit)
+    along Thornwold's spine — a few strides of grey stone and silvered heather falling sheer into the fog both sides —
+    past three old marks (one with **Abe and Tolly Dray's rake** driven into its cairn) to **the Northing**, the
+    Keepers' fire-cairn on the north cliff, with the **boat-watch** house beside it and the **Keepers' steps** going
+    down into fog "thick as wool" over the far shore. The Ridge Light shows lit far behind. Arrival scene once.
+  - **Ottie Swale** (new NPC, Blender `ottie` and five variants) keeps a **charcoal fire in the Northing's basket** for
+    the three (Wenna Coll, Abe and Tolly Dray) who went down to the far shore to wait for the Spire's boat — the Lamp
+    walked this road once a winter to meet it, so the colliers reckoned there were lanterns to spare at the end of it.
+    He left his **boots** so Hob would know he was coming back; his **cap** comes back to him if the player carries it,
+    and stays on the stair's mark otherwise ("Till I'm down, it's telling the truth"). What he hears of Hob follows the
+    burn and *The Fifth* (counting / asleep and nobody's / built the mark at the bottom / went down the steps after them).
+  - **Quest *The Northing*** (from the Lamp's new "Where does the old road north go?", or by meeting Ottie): told of
+    Ottie, the Lamp lights a cold lantern at the Ridge Light's cradle (item `ridge_lantern`). The player's word —
+    **hang it on the Northing** (`lit`: gold out over the cliff; Ottie rakes his charcoal out and goes home to his own
+    seat in the colliers' clearing, in his boots, or in sacking if they burned — unburned boots the player carries can be
+    handed back there) or **put it in his hand** (`carried`: he banks the charcoal and takes the light down the steps;
+    the boots stay on the seat). The Lamp, the Northing, the steps and the cold hut all show it.
+- **Art (folded in):** `build_old_road.py` — `northing_cairn` with two overlays modelled in place (`cresset_coals`,
+  `cresset_lantern`), `waymark_rake`; `build_characters.py` — `ottie`, `ottie_cap`, `ottie_home`, `ottie_home_cap`,
+  `ottie_home_unshod`, `ottie_home_unshod_cap` (~900–1130 tris).
+- **Tests:** `test_the_northing.gd` (10). `test_ridge_kit.gd` loosened where it pinned the lodge and the lit Ridge Light
+  to two regions (the boat-watch reuses the lodge; the old road shows the Ridge Light). The smoke walk now **takes the
+  old road live** from the ridge (meet Ottie, the Lamp's lantern, hang it, Ottie on his seat in the woods on the way
+  down). 374 tests + smoke + launch pass. Checkpoint `the_northing`.
+
+Screenshots: `docs/screenshots/2026-10-20-the-old-road.png`, `docs/screenshots/2026-10-20-the-northing-lit.png`,
+`docs/screenshots/2026-10-20-ottie-home.png`; `docs/checkpoints/the_northing.png`.
+
+**Decisions**
+- **One of the four found, three left below.** Pays off the boots and the cap and says where the four went, without
+  emptying the thread: the far shore stays for a later session, now with a concrete question (people waiting on a boat
+  that can't come while the Spire is dark).
+- **The choice is what the light is for**, not home-or-stay again (Hob and Dunstan both had that): a light at the top
+  for the three to climb to (and Ottie home), or a light carried down to them (the four together, nobody at the top).
+- **The Lamp can give now.** Its "a lantern for one is a mark gone dark for the rest" no longer holds once the road is
+  the beacon's (as with Hob's lantern, Day 49), so the lantern is lit off the Ridge Light, not the kept coal — which
+  stays "for the four", unspent.
+- **New canon, small and in keeping:** the Spire's boat called at the Northing for Thornwold's keeper each midwinter
+  (how a keeper "never rode Oda's deck"); the Lamp stopped tending the far marks when its knees went (answers Day 26's
+  "not said"). Nothing about the Spire's inside or the novices (mystery #2 stays shut).
+- **Ottie leaves the cap hung** if it's still on the stair's mark — no prop swap needed, and it says something.
+- Back from the old road lands inside the lodge's coal-light pool (the validator wants spawns clear in the worst case;
+  nothing nearer the road's head is unconditionally clear).
+
+**Problems / notes**
+- The first smoke run failed in the pause-menu check: the walk never reached the old road before the "every region"
+  check, so `_check_gates` teleported in later and the arrival scene held input. Fixed by walking the road live (and
+  the event is gated on the Ridge Light); noted in Known issues for future gated regions.
+- The lantern overlay's first build hung its glass 0.25 m below where the halo was put; caught by eye in the close-up,
+  model and halo re-pinned (and tested).
+- Low ground either side of the spine reads as a pale green plain under the fog rather than a drop (ROADMAP follow-ups).
+
+**Next run should**
+1. **Polish/debt pass (due by Day 56; last Day 48):** ROADMAP *Next up* #1 / Known issues. Then content by Day 57 (the
+   far shore, or the lane on from Wrackholm), art-led by ~Day 59. Fetch before trusting `origin/main`.
+
 ## 2026-10-19 21:00 UTC — Day 52: Turning the boards; collars, cuffs and a mop (art-led)
 
 **Did**

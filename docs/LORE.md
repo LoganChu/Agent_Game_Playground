@@ -894,6 +894,51 @@ debts, salvage, and who answers for a thing.
     - Open: **what's up the old road north** (the far shore; where the four went, and now maybe Hob), and whether anyone
       comes down it. On the boots path there is no fifth, as the Lamp wished — Hob sleeps and never asks.
 
+  - **Established in play (Day 53 — the Northing, up the old Keepers' road; any burn):** (`the_northing`, `thornwold_northing`)
+    - **The old road** runs north from the Ridge Light along Thornwold's spine — a back of grey stone and silvered heather a
+      few strides wide, falling sheer into the fog on both sides — to **the Northing**, a Keepers' fire-cairn on the north
+      cliff: a dry-laid cairn with an iron fire-basket on top and an arm with a hook reaching out over the cliff, the Keepers'
+      ember cut into a pale face-stone rubbed smooth at hand height. Beside it the **boat-watch**, a low stone house where the
+      keeper slept the night the boat was due (thirty winters scratched on its lintel in fives; under them, rougher, four
+      colliers' strokes). **Keepers' steps** go down the cliff into fog that lies on the far shore "thick as wool". Walkable
+      only once the Ridge Light is lit. On the way, the road's fifth mark carries **Abe and Tolly Dray's rake** driven into
+      its cairn (an A on one side of the pole, a T on the other, a newer notch cut across both).
+    - **How a keeper reached midwinter (the Lamp, Day 53):** once a winter the Lamp walked the old road in the dark and lit
+      the basket, and **the Spire's boat came in under the cliff** for it; a week later it walked back with a new coal. "That's
+      how a keeper gets to midwinter without riding a Tidewright deck." It stopped tending the far marks when its knees went.
+      The colliers all knew the Lamp went up this road once a winter, so they reckoned **there was a boat at the end of it,
+      from the Spire, with lanterns to spare** (the Lamp had told them the Spire was dark: "Spires get lit again").
+    - **Where the four went:** **Wenna Coll** went down the Keepers' steps to wait on the far shore for the boat; **Abe Dray**
+      went with her, and **Tolly** because Abe "couldn't find a beach with both hands". **Ottie Swale** stayed at the top, keeping
+      a **charcoal fire in the Northing's basket** so they'd find the steps coming back up ("I don't wait to be told"). He counts
+      time in sacks: three carried up, the last burning. The fog **lets a collier's fire be** ("we burn what the woods drop,
+      never what they grow") but doesn't lean back from it, so from below it may not show.
+    - **Why the boots (Day 22's hook):** Ottie left them on his seat so Hob would know he was coming back — "A man doesn't
+      leave his boots unless he's coming back for them. Everybody knows that." He went up in sacking. His **cap** on the
+      stair's mark was so the next would know he'd gone up; if it still hangs there he leaves it ("Till I'm down, it's telling
+      the truth"); brought up the road, he wears it. **Ottie** — forties, lean, cropped dark hair grey at the temples, a short
+      black beard, a coal-red neckerchief, soot to the elbows; Half-Hushed (the hem and right sleeve silvered).
+    - **What he hears:** salt-row path, Hob still counts four (or has built the mark at the bottom: "Somebody has to be where
+      you come in"). Boots path: the player tells him the Ridge Light took Hob's memory of the four — "Sleeps. Good… So I'm
+      nobody's, down there. I was nobody's before I was anybody's. Colliers are." If **Hob went** (The Fifth, gone), he passed
+      the Northing with his lantern, stood with Ottie an hour, said he'd forgotten his boots, and **went down the steps after
+      the three**.
+    - **A light off the Ridge Light:** told Ottie is there, the Lamp ("Thirty winters I lit that basket for a boat, and the
+      first collier up the road lights it with charcoal for his friends. Good.") lights a cold lantern at the Ridge Light's
+      cradle — no coal, no wick, only the beacon's fire, burning as long as the Ridge Light does — and sends it ("Tell him the
+      Lamp's sorry it was late"). The player's word:
+      - **lit** — hung on the Northing's boat-lantern hook: gold out over the cliff, "a warm place" in the fog below, the only
+        thing to climb to. Ottie rakes out his charcoal and **goes home** to the colliers' clearing, where he sits on his own
+        hut's seat — **in his boots** (salt-row path; with the cap Hob set by them, if Hob had it), or **still in sacking** if
+        they burned (the player can hand back unburned boots they carry: "Now I'm home"). Hob, if he knows him, said only
+        "Boots." Boots path: Hob looked at him like a stranger — "Always just me, this side of the ridge." Said it kind. The
+        Lamp sees the light from the gallery, "where I used to look for the boat".
+      - **carried** — put in Ottie's hand: he banks his charcoal with the last sack ("it'll keep a night or two") and **takes
+        the light down the Keepers' steps** to the three; his boots stay on his seat. From the cliff head his light stands still
+        far below (beside Hob's, if Hob went). The Lamp: "Down, not along. Ottie never waited to be told a thing."
+    - Open: **the far shore** below the Northing (the three — and Hob and/or Ottie — waiting on a boat that won't come while
+      the Spire is dark); whether and how they come back up, and to whom (on the boots path no one on Thornwold will know them).
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)

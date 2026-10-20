@@ -43,6 +43,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
 .tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn (+ answering_horn_open) gannet_hulk (+ gannet_hulk_bare, gannet_hulk_named) salvage_stack float_pile wrack_light (+ wrack_light_lit) teeth_rock teeth_mark]  # Wrackholm kit (Day 40; the Day 43 variants: the horn unlashed, the board prised off, the Wrack lit; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
+.tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake]  # the old Keepers' road north (Day 53; same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -661,7 +662,28 @@ its lumps) — `thornwold_beacon` / `thornwold_beacon_lit` (≈ 4.8 × 10.1 × 5
 lantern cage 6.1–7.5 m with the pane centre ≈ (0, 6.7, 0) for a future `light`; lit = emissive
 kindle panes) and `keeper_lodge` (4.8 × 3.3 × 3.2 m, door right of centre on -Y, lantern bench
 under the eave at -X). `build_woods.py collier_hut` also writes `collier_hut_cold` (same
-footprint). **The way up (Day 24):** `ridge_steps_lower` / `ridge_steps_upper` — one flight of
+footprint). **The old road kit (Day 53):** `tools/blender/build_old_road.py` (same kit dir, imports `build_woods` for its
+lumps and the waymark) — `northing_cairn` (≈ 1.7 m across, the basket's rim at 2.5 m; the boat-lantern's arm and hook
+reach out on -Y, the carved face-stone low on -Y), and two **overlays modelled at their place on it**, placed with the
+cairn's own `position`/`rotation_y` and swapped by `if`: `cresset_coals` (charcoal glowing coal-red in the basket; give
+it `smoke` at [0, 2.3, 0]) and `cresset_lantern` (a Keeper's lantern on the hook, emissive kindle, glass centre
+[0, 1.69, 0.78] Godot model space = its `halo`; `test_the_northing.gd` pins the halo). Different families from the cairn
+("cresset" vs "northing"), so they may stack on it; the two overlays are one family and must stay exclusive.
+`waymark_rake` = the bare waymark with a clamp rake driven into its cairn beside the post. Ottie's character models
+(`build_characters.py`): `ottie`, `ottie_cap` (standing, fire iron) and the seated `ottie_home`, `ottie_home_cap`,
+`ottie_home_unshod`, `ottie_home_unshod_cap` (boots or sacking feet × cap or bare head). The seated ones are placed on
+the cold hut's log seat in the woods at (-8.54, -58.85), `rotation_y` -63, `idle` `sit` — the seat is part of the hut
+model, so moving the hut means moving them.
+**The Old Road (Day 53, `thornwold_old_road`):** an inland ridge region built like the ridge top ("a drop at the edge"):
+`base` -8, the spine one `path` land feature 11 m wide climbing 0 → 2 m north, ending in a knoll ellipse; the drop on
+both sides is walkable-but-unreachable low ground. Reached from the ridge's NE corner by an exit gated on
+`quest:a_light_for_thornwold=done` (the ridge top's reachable plateau stops short of the spine's waymarks; the spine
+there rises 4 m in 2 m); coming back lands at the ridge's `from_old_road` spawn inside the lodge's coal pool (the only
+unconditional clear ground near enough; the ridge's worst-case fog covers everything else). Greying: one 0.45 fleece
+over the spine, a deep bank over the north cliff, and an unconditional clear pool round the Northing (something always
+burns in the basket). The distant lit Ridge Light is the same far-prop trick as the woods' skyline (`snap: false`,
+halo size 14). Its arrival event is gated on the Ridge Light lit (debug teleports and `_check_gates` must not fire it).
+**The way up (Day 24):** `ridge_steps_lower` / `ridge_steps_upper` — one flight of
 the Keepers' log stair each (risers + pegs, rope rail on stakes, the ember cut in the bottom
 stake). A flight climbs along its **+X from the origin (the low end, on the ramp's centreline)
 by exactly the rise its region `path` gives it** (`STAIR_FLIGHTS` in the script: lower 1.85 m
