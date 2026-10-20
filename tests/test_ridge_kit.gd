@@ -70,7 +70,8 @@ func test_beacon_and_lodge_stand_on_the_ridge_out_of_reach() -> void:
 	for name: String in ["thornwold_beacon", "keeper_lodge"]:
 		var placed := _props(name)
 		assert_eq(placed.size(), 1, "one %s, in the woods" % name)
-		assert_eq(_placed_anywhere(name), 2, "%s stands in the woods and on the ridge, nowhere else" % name)
+		# Day 53: the old road's boat-watch is a keeper's lodge too, and the Ridge Light shows lit behind you there.
+		assert_eq(_placed_anywhere(name), 2 if name == "thornwold_beacon" else 3, "%s stands in the woods, on the ridge (and the old road), nowhere else" % name)
 		for prop in placed:
 			var p: Array = prop["position"]
 			assert_true(float(p[2]) < -70.0, "%s is on the ridge (z %.1f)" % [name, float(p[2])])
@@ -80,7 +81,7 @@ func test_beacon_and_lodge_stand_on_the_ridge_out_of_reach() -> void:
 				assert_false(prop.has("if"), "the lodge stands unconditionally")
 			else:
 				assert_eq(prop.get("if"), "!quest:a_light_for_thornwold=done", "the tower is cold until the burn")
-	assert_eq(_placed_anywhere("thornwold_beacon_lit"), 2, "the lit Ridge Light, by the burn, where the cold one stands")
+	assert_eq(_placed_anywhere("thornwold_beacon_lit"), 3, "the lit Ridge Light, by the burn, where the cold one stands (and seen from the old road)")
 	for lit in _props("thornwold_beacon_lit"):
 		assert_eq(lit.get("if"), "quest:a_light_for_thornwold=done", "the lit tower waits for Thornwold's burn")
 

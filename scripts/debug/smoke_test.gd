@@ -215,9 +215,14 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 	_check(world.get_flag("thornwold_lamp_name") == "told" and world.quest_state("paid_twice") == WorldState.QUEST_DONE,
 			"the name carried home (Paid Twice)")
 	_check(world.quest_stage("the_east_stair") == "ask_the_door_warden", "the Lamp sends the walk to the door-warden")
-	for step: Array in [["thornwold_woods", "thornwold_ridge"], ["thornwold_landing", "thornwold_woods"]]:
-		if not await _take_exit(main, ui, step[0], "down from %s" % step[1]):
-			return
+	if not await _walk_the_old_road(main, ui):
+		return
+	if not await _take_exit(main, ui, "thornwold_woods", "down from thornwold_ridge"):
+		return
+	_check(_npc("ottie") != null and _shown_model(main.get("region"), "collier_hut_cold_empty.glb") == 1,
+			"Ottie home on his seat in the colliers' clearing")
+	if not await _take_exit(main, ui, "thornwold_landing", "down from thornwold_woods"):
+		return
 	_npc("oda").interact()
 	_check(_choose(ui, "Take me back to Saltmarrow."), "Oda runs the lane home to Saltmarrow")
 	_finish_dialogue(ui, "oda (home to Saltmarrow)")
@@ -236,6 +241,40 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 			"the east stair counted")
 	_check(_shown_model(village, "brazier_laid.glb") == 1 and _shown_model(village, "brazier_raked.glb") == 0, "the brazier laid, not lit")
 	print("Smoke: the Lamp named, Aldous counted the seventh ('%s')" % world.get_flag("saltmarrow_aldous_novice"))
+
+
+## Day 53: the old Keepers' road north, walked from the ridge with the Ridge Light lit: meet Ottie at the
+## Northing, ask the Lamp for a lantern lit off the Ridge Light, carry it back and hang it on the Northing.
+## True if the walk is back on the ridge.
+func _walk_the_old_road(main: Node, ui: DialogueUI) -> bool:
+	var world := GameState.world
+	if not await _take_exit(main, ui, "thornwold_old_road", "along the old road from the ridge"):
+		return false
+	_check(world.get_flag("thornwold_old_road_reached") == true, "the old road's arrival scene played")
+	_npc("ottie").interact()
+	_check(_choose(ui, "Goodbye."), "Ottie met at the Northing")
+	_finish_dialogue(ui, "ottie (first meeting)")
+	_check(world.quest_stage("the_northing") == "a_proper_light", "Ottie keeps a charcoal fire for the three")
+	if not await _take_exit(main, ui, "thornwold_ridge", "back along the spine"):
+		return false
+	_npc("lamp").interact()
+	_check(_choose(ui, "One of the four is at the Northing. Ottie Swale."), "the Lamp told of Ottie")
+	_check(_choose(ui, "Goodbye."), "...and lets you go")
+	_finish_dialogue(ui, "the lamp (a lantern for Ottie)")
+	_check(world.item_count("ridge_lantern") == 1, "the Lamp lit a lantern off the Ridge Light")
+	if not await _take_exit(main, ui, "thornwold_old_road", "along the old road with the lantern"):
+		return false
+	_npc("ottie").interact()
+	_check(_choose(ui, "This is for you. The Lamp lit it off the Ridge Light."), "the lantern offered to Ottie")
+	_check(_choose(ui, "Hang it on the Northing, Ottie. Go home."), "...and hung on the Northing")
+	_finish_dialogue(ui, "ottie (the Northing lit)")
+	await get_tree().process_frame
+	var road: Region = main.get("region")
+	_check(world.get_flag("thornwold_northing") == "lit" and world.quest_state("the_northing") == WorldState.QUEST_DONE, "the Northing lit")
+	_check(_shown_model(road, "cresset_lantern.glb") == 1 and _shown_model(road, "cresset_coals.glb") == 0, "the lantern on the hook, the charcoal out")
+	_check(_npc("ottie") == null, "Ottie has gone home")
+	print("Smoke: the Northing lit, Ottie home")
+	return await _take_exit(main, ui, "thornwold_ridge", "back along the spine to the Ridge Light")
 
 
 ## Waits for a travel to land and plays out any arrival scene; true if the walk is in `region_id`.
