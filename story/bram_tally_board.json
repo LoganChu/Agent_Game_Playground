@@ -11,6 +11,24 @@
         "text": "TIMBER: the sticks run the whole width of the board. CHARCOAL: nearly as long, and a fresh notch every few days. FLOUR AND OIL, UP: that row stops dead at the Snuffing."
       },
       {
+        "say": "narrator",
+        "text": "The newest charcoal notches come in pairs now, two cuts to a load, side by side, in two different hands.",
+        "if": [
+          "flag:thornwold_northing=lit",
+          "!flag:thornwold_hob_ladder=gone"
+        ],
+        "note": "Ottie home (The Northing, lit): two colliers bringing loads down the lanterns."
+      },
+      {
+        "say": "narrator",
+        "text": "The newest charcoal notches are cut in a different hand: deeper, and dead straight, like a man who had time to think about them.",
+        "if": [
+          "flag:thornwold_northing=lit",
+          "flag:thornwold_hob_ladder=gone"
+        ],
+        "note": "Ottie home and Hob gone down the steps: Ottie brings the loads alone."
+      },
+      {
         "if": [
           "!flag:thornwold_hob_paid",
           "!flag:thornwold_salt_row_away"
@@ -61,7 +79,18 @@
       {
         "say": "narrator",
         "text": "On the bare pegs under SALT somebody has hung one new stick: four notches cut deep, and nothing after them. It isn't a tally of salt.",
-        "if": "flag:thornwold_hob_ladder=stayed"
+        "if": [
+          "flag:thornwold_hob_ladder=stayed",
+          "!flag:thornwold_northing=lit"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "On the bare pegs under SALT somebody has hung one new stick: four notches cut deep, and the first of them crossed through. It isn't a tally of salt.",
+        "if": [
+          "flag:thornwold_hob_ladder=stayed",
+          "flag:thornwold_northing=lit"
+        ]
       }
     ]
   }

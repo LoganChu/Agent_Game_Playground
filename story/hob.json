@@ -72,6 +72,59 @@
       },
       {
         "if": [
+          "flag:thornwold_northing=lit",
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Ottie's home. Ottie Swale's on his seat. Came down the lanterns in the dark like he'd never been gone."
+      },
+      {
+        "if": [
+          "flag:thornwold_northing=lit",
+          "!flag:thornwold_boots_away",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "In his boots. Told him he'd want them. Told him."
+      },
+      {
+        "if": [
+          "flag:thornwold_northing=lit",
+          "flag:thornwold_boots_away",
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "In sacking. You've got his boots. Give a man his boots."
+      },
+      {
+        "if": [
+          "flag:thornwold_northing=lit",
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "One. That's one. Three to come."
+      },
+      {
+        "if": [
+          "flag:thornwold_northing=lit",
+          "flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Ottie came down past my mark. Past me, in the dark, and stopped, and said my name. I crossed him through on the stick. Three to go."
+      },
+      {
+        "if": [
+          "flag:thornwold_northing=lit",
+          "flag:thornwold_beacon_burned=boots"
+        ],
+        "say": "hob",
+        "text": "There's a man on the seat by the cold hut. Charcoal man, by his hands. Talks to me like he's known me years. Nice enough. It's always been just me this side of the ridge. Hasn't it?"
+      },
+      {
+        "if": [
           "flag:thornwold_fourth_lantern_taken",
           "!flag:thornwold_stair_lantern_hung"
         ],
