@@ -221,6 +221,7 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 		return
 	_check(_npc("ottie") != null and _shown_model(main.get("region"), "collier_hut_cold_empty.glb") == 1,
 			"Ottie home on his seat in the colliers' clearing")
+	_check(_npc("wenna_coll") != null and _npc("abe") != null and _npc("tolly") != null, "the three home in the clearing")
 	if not await _take_exit(main, ui, "thornwold_landing", "down from thornwold_woods"):
 		return
 	_npc("oda").interact()
@@ -274,7 +275,30 @@ func _walk_the_old_road(main: Node, ui: DialogueUI) -> bool:
 	_check(_shown_model(road, "cresset_lantern.glb") == 1 and _shown_model(road, "cresset_coals.glb") == 0, "the lantern on the hook, the charcoal out")
 	_check(_npc("ottie") == null, "Ottie has gone home")
 	print("Smoke: the Northing lit, Ottie home")
+	if not await _walk_the_far_shore(main, ui):
+		return false
 	return await _take_exit(main, ui, "thornwold_ridge", "back along the spine to the Ridge Light")
+
+
+## Day 55: down the Keepers' steps by the Northing's light to the far shore, where Wenna Coll waits on the
+## boat-stage for the Spire's boat; tell her to come up, and climb back to the Northing. True if back on the road.
+func _walk_the_far_shore(main: Node, ui: DialogueUI) -> bool:
+	var world := GameState.world
+	_object("keepers_steps").interact()
+	_check(_choose(ui, "Go down the Keepers' steps."), "the steps go down with a light at the Northing")
+	_finish_dialogue(ui, "the Keepers' steps (going down)")
+	if not await _arrived(main, ui, "thornwold_far_shore", "down the Keepers' steps"):
+		return false
+	_check(world.get_flag("thornwold_far_shore_reached") == true, "the far shore's arrival scene played")
+	_npc("wenna_coll").interact()
+	_check(_choose(ui, "Come up. Somebody came down for you: me."), "Wenna told to come up")
+	_finish_dialogue(ui, "wenna_coll (up)")
+	await get_tree().process_frame
+	_check(world.get_flag("thornwold_far_shore") == "up" and world.quest_state("the_far_shore") == WorldState.QUEST_DONE,
+			"The Far Shore: the three came up")
+	_check(_npc("wenna_coll") == null and _npc("abe") == null and _npc("tolly") == null, "the shore's empty")
+	print("Smoke: the far shore, the three gone up")
+	return await _take_exit(main, ui, "thornwold_old_road", "up the Keepers' steps to the Northing")
 
 
 ## Waits for a travel to land and plays out any arrival scene; true if the walk is in `region_id`.
