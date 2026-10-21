@@ -1444,6 +1444,179 @@ def _ottie(seated: bool, boots: bool = False, cap: bool = False) -> None:
     assemble(b, "ottie_cap" if cap else "ottie")
 
 
+def _held_lantern(b: Body, side: str = "R") -> None:
+    """A Keeper's lantern held out by its bail in one hand (as Hob's): iron foot and cap, horn lit gold."""
+    iron = material("slate", -0.45)
+    hand = b.hand(side)
+    arm = b.parts["Arm" + side]
+    arm.append(limb(hand + Vector((0, -0.02, 0.02)), hand + Vector((0, -0.02, -0.1)), 0.01, 0.01, iron, verts=4))
+    lamp = hand + Vector((0, -0.02, -0.36))
+    arm.append(limb(lamp, lamp + Vector((0, 0, 0.02)), 0.075, 0.075, iron, verts=6))
+    arm.append(limb(lamp + Vector((0, 0, 0.02)), lamp + Vector((0, 0, 0.17)), 0.06, 0.06, material("kindle", 0.0, emissive=True), verts=6))
+    arm.append(limb(lamp + Vector((0, 0, 0.17)), lamp + Vector((0, 0, 0.24)), 0.08, 0.015, iron, verts=6))
+
+
+def build_wenna_coll() -> None:
+    """Wenna Coll on the far shore (Day 55): the collier who went down the Keepers' steps to wait for the
+    Spire's boat. Fifties, big-handed and square; a sacking hood pulled up over her head and down over
+    her shoulders like a cape, a long grey-black braid out of it over her left shoulder (its end gone
+    silver), a dark smock to the shins, soot to the elbows. Sits on a folded sack at the end of the
+    boat-stage with her forearms on her knees, looking out to sea for a boat."""
+    _wenna_coll(seated=True)
+
+
+def build_wenna_coll_lantern() -> None:
+    """Wenna home from the far shore (Day 55, *The Far Shore*, up): standing in the colliers' clearing with
+    a lantern the Lamp lit for her hearth off the warm side of the kept coal, held out by its bail, her
+    hood pushed back off her head at last."""
+    _wenna_coll(seated=False, lantern=True)
+
+
+def _wenna_coll(seated: bool, lantern: bool = False) -> None:
+    reset_scene()
+    b = Body(seated=seated, build=1.05)
+    smock = material("ink", 0.22)
+    soot = material("ink", 0.1)
+    skin = material("driftwood", -0.02)
+    hem = material("silverfog", -0.2)
+    sacking = material("driftwood", -0.35)
+    base_body(b, skin, material("slate", -0.5), material("ink", 0.02), smock, sleeves=soot)
+    t = b.parts["Torso"]
+    if seated:
+        t.append(limb((0, 0.0, b.hip - 0.06), (0, 0.0, b.waist + 0.06), 0.3, 0.27, smock, verts=8))
+        b.parts["LegL"].append(block((0.5, 0.36, 0.05), (-0.12, -0.19, b.hip + 0.07), smock))
+        b.parts["LegL"].append(block((0.5, 0.05, 0.3), (-0.12, -0.38, b.hip - 0.1), smock))
+        b.parts["LegL"].append(block((0.5, 0.05, 0.08), (-0.12, -0.38, b.hip - 0.28), hem))
+    else:
+        # A dark smock to the shins, silvered at the hem.
+        t.append(limb((0, 0.0, 0.2), (0, 0.0, b.waist + 0.06), 0.31, 0.27, smock, verts=8))
+        t.append(limb((0, 0.0, 0.16), (0, 0.0, 0.24), 0.32, 0.31, hem, verts=8))
+    t.append(ring(0.275, b.waist + 0.03, 0.04, material("driftwood", -0.15)))                 # rope belt
+    for side in ("L", "R"):
+        b.parts["Arm" + side].append(ball(0.095, b.hand(side), soot, scale=(1.0, 1.1, 1.15), segments=6, rings=4))
+    h = b.parts["Head"]
+    hair = material("ink", 0.3)
+    h.append(ball(0.25, (0, 0.03, b.head + 0.04), hair, scale=(1.03, 1.0, 0.9)))
+    # The braid over her left shoulder, down her front; its end silvered.
+    braid = [Vector((0.16, -0.06, b.head - 0.14)), Vector((0.2, -0.2, b.shoulder - 0.02)), Vector((0.17, -0.27, b.shoulder - 0.24))]
+    for a, c in zip(braid, braid[1:]):
+        t.append(limb(a, c, 0.045, 0.04, hair, verts=5))
+    t.append(limb(braid[-1], braid[-1] + Vector((-0.01, -0.01, -0.1)), 0.04, 0.02, hem, verts=5))
+    for ex in (0.075, -0.075):
+        h.append(block((0.08, 0.03, 0.025), (ex, -0.215, b.head + 0.075), material("ink", 0.35)))  # dark brows
+    if not lantern:
+        # The sacking hood up over her head and down over her shoulders like a cape.
+        h.append(ball(0.29, (0, 0.1, b.head + 0.05), sacking, scale=(1.05, 1.0, 1.0)))
+        h.append(block((0.46, 0.06, 0.08), (0, -0.17, b.head + 0.2), sacking))                  # the hood's brow
+        t.append(ball(0.34, (0, 0.04, b.shoulder - 0.05), sacking, scale=(1.0, 0.85, 0.55)))
+    else:
+        # The hood pushed back: a heap of sacking on her shoulders behind the neck.
+        h.append(ball(0.27, (0, 0.16, b.head - 0.1), sacking, scale=(1.0, 0.7, 0.8)))
+        t.append(ball(0.33, (0, 0.06, b.shoulder - 0.05), sacking, scale=(1.0, 0.85, 0.5)))
+    if seated:
+        # On a folded sack; forearms on her knees, hands loosely together; head up, out to sea.
+        b.parts["Stool"].append(block((0.56, 0.5, b.hip - 0.06), (0, 0.02, (b.hip - 0.06) / 2), sacking))
+        b.parts["Stool"].append(block((0.58, 0.04, 0.06), (0, -0.23, b.hip - 0.1), material("driftwood", -0.55)))
+        b.arm_rest["ArmL"] = (math.radians(-52), 0, math.radians(-12))
+        b.arm_rest["ArmR"] = (math.radians(-52), 0, math.radians(12))
+        b.head_rest = (math.radians(-5), 0, 0)
+        assemble(b, "wenna_coll")
+        return
+    _held_lantern(b, "R")
+    b.arm_rest["ArmR"] = (math.radians(-36), 0, math.radians(-4))
+    b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(6))
+    b.head_rest = (math.radians(-4), 0, 0)
+    assemble(b, "wenna_coll_lantern")
+
+
+def build_abe() -> None:
+    """Abe Dray (Day 55), the elder of the Dray brothers, colliers who never once agreed whose rake it
+    was: big and broad, bald under a soot-smudged crown with a short rust-red beard, a sacking smock
+    with the sleeves rolled to the elbow over soot-black forearms, a coal-red sash for a belt, hands
+    on his hips. Half-Hushed: the smock's hem silvered."""
+    reset_scene()
+    b = Body(build=1.2)
+    smock = material("driftwood", -0.5)
+    soot = material("ink", 0.12)
+    skin = material("driftwood", 0.02)
+    hem = material("silverfog", -0.2)
+    base_body(b, skin, material("slate", -0.45), material("ink", 0.0), smock, sleeves=smock)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0.0, 0.42), (0, 0.0, b.waist + 0.06), 0.33, 0.31, smock, verts=8))
+    t.append(limb((0, 0.0, 0.38), (0, 0.0, 0.46), 0.34, 0.34, hem, verts=8))
+    t.append(ring(0.32, b.waist + 0.04, 0.07, material("coal", -0.15)))                       # the sash
+    t.append(limb((-0.2, -0.25, b.waist + 0.02), (-0.24, -0.27, b.waist - 0.22), 0.03, 0.02, material("coal", -0.15), verts=4))
+    for side in ("L", "R"):
+        hand = b.hand(side)
+        arm = b.parts["Arm" + side]
+        arm.append(limb(hand + Vector((0, 0, 0.26)), hand + Vector((0, 0, 0.02)), 0.08, 0.075, soot))  # bare, sooty forearm
+        arm.append(ball(0.1, hand, soot, scale=(1.0, 1.1, 1.1), segments=6, rings=4))
+        x = hand.x
+        arm.append(limb(Vector((x, 0, hand.z + 0.27)), Vector((x, 0, hand.z + 0.33)), 0.095, 0.095, smock))  # rolled sleeve
+    h = b.parts["Head"]
+    h.append(ball(0.17, (0, -0.1, b.head - 0.13), material("coal", -0.25), scale=(1.1, 0.75, 0.8)))  # rust-red beard
+    h.append(block((0.12, 0.03, 0.05), (0.07, -0.222, b.head + 0.13), soot))                   # soot on the crown
+    for ex in (0.075, -0.075):
+        h.append(block((0.09, 0.03, 0.03), (ex, -0.215, b.head + 0.075), material("coal", -0.35)))
+    # Hands on his hips: elbows out.
+    b.arm_rest["ArmL"] = (math.radians(-8), math.radians(-10), math.radians(38))
+    b.arm_rest["ArmR"] = (math.radians(-8), math.radians(10), math.radians(-38))
+    b.head_rest = (math.radians(-4), 0, 0)
+    assemble(b, "abe", scale=1.03)
+
+
+def build_tolly() -> None:
+    """Tolly Dray (Day 55), the younger: slight and long-armed, a moss-green knitted cap with a long tail
+    hanging down his back, a scarf wound twice, a patched sacking smock, soot to the wrists, clean-shaven
+    and sharp-nosed; his arms folded (he's waiting to be proved right). Half-Hushed: the cap's tail silvered."""
+    _tolly(lantern=False)
+
+
+def build_tolly_lantern() -> None:
+    """Tolly home from the far shore (Day 55, *The Far Shore*, up), carrying the Drays' one lantern off the
+    Lamp's coal (they couldn't agree who'd carry it, so he does)."""
+    _tolly(lantern=True)
+
+
+def _tolly(lantern: bool) -> None:
+    reset_scene()
+    b = Body(build=0.85)
+    smock = material("driftwood", -0.32)
+    soot = material("ink", 0.12)
+    skin = material("driftwood", 0.08)
+    base_body(b, skin, material("slate", -0.4), material("ink", 0.05), smock, sleeves=smock)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0.0, 0.4), (0, 0.0, b.waist + 0.06), 0.27, 0.24, smock, verts=8))
+    t.append(block((0.12, 0.04, 0.12), (-0.1, -0.25, b.waist + 0.15), material("driftwood", -0.55)))  # a patch
+    t.append(ring(0.235, b.waist + 0.03, 0.04, material("driftwood", -0.15)))
+    scarf = material("moss", -0.35)
+    t.append(ring(0.13, b.shoulder + 0.02, 0.07, scarf))
+    t.append(ring(0.125, b.shoulder + 0.08, 0.05, scarf))
+    for side in ("L", "R"):
+        b.parts["Arm" + side].append(ball(0.085, b.hand(side), soot, scale=(0.95, 1.05, 1.1), segments=6, rings=4))
+    h = b.parts["Head"]
+    cap = material("moss", -0.2)
+    h.append(ball(0.25, (0, 0.02, b.head + 0.08), cap, scale=(1.02, 1.02, 0.75)))
+    h.append(ring(0.25, b.head + 0.03, 0.06, material("moss", -0.4)))
+    tail = [Vector((0, 0.2, b.head + 0.14)), Vector((0, 0.32, b.head - 0.05)), Vector((0.02, 0.3, b.head - 0.3))]
+    for a, c in zip(tail, tail[1:]):
+        h.append(limb(a, c, 0.06, 0.045, cap, verts=5))
+    h.append(limb(tail[-1], tail[-1] + Vector((0, -0.01, -0.1)), 0.045, 0.02, material("silverfog", -0.2), verts=5))
+    for ex in (0.075, -0.075):
+        h.append(block((0.08, 0.03, 0.02), (ex, -0.215, b.head + 0.07), material("ink", 0.3)))
+    if lantern:
+        _held_lantern(b, "L")
+        b.arm_rest["ArmL"] = (math.radians(-34), 0, math.radians(4))
+        b.arm_rest["ArmR"] = (math.radians(-4), 0, math.radians(-6))
+        assemble(b, "tolly_lantern")
+        return
+    # Arms folded across his chest: both forearms brought in and up.
+    b.arm_rest["ArmL"] = (math.radians(-70), 0, math.radians(-38))
+    b.arm_rest["ArmR"] = (math.radians(-64), 0, math.radians(40))
+    b.head_rest = (math.radians(-3), 0, math.radians(8))
+    assemble(b, "tolly")
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
@@ -1451,7 +1624,8 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_wenna, build_wenna_nobrass, build_jory,
             build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad,
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
-            build_ottie_home_unshod_cap]
+            build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_abe, build_tolly,
+            build_tolly_lantern]
 
 if __name__ == "__main__":
     import sys
