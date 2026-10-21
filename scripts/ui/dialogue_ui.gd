@@ -4,6 +4,8 @@ extends CanvasLayer
 ## DialogueRunner, and locks player input while open.
 ##
 ## Controls: interact/click to continue; click, number keys or gamepad to pick a choice.
+## Lines type out at the player's text speed (GameSettings); interact/click while a line is
+## still typing shows the rest of it at once (nothing waits on the reveal).
 
 signal closed
 ## Each spoken line as it shows (`speaker` is an NPC id, "player" or "narrator"); the
@@ -18,10 +20,13 @@ var _name_label: Label
 var _text_label: RichTextLabel
 var _continue_hint: Label
 var _choices_box: VBoxContainer
+## Characters of the current line shown so far (fractional; ticks up at the text speed).
+var _revealed := 0.0
 
 
 func _ready() -> void:
 	layer = 10
+	add_to_group(&"dialogue_ui")
 	runner = DialogueRunner.new(Content.db, GameState.world)
 	GameState.dialogue_requested.connect(func(dialogue_id: String, _npc: String) -> void: open(dialogue_id))
 	_build()
@@ -38,6 +43,35 @@ func open(dialogue_id: String) -> void:
 	GameState.input_locked = true
 	_panel.show()
 	_show(runner.start(dialogue_id))
+
+
+## True while the current line is still typing out.
+func is_revealing() -> bool:
+	return _text_label != null and _text_label.visible_characters >= 0
+
+
+## Shows the rest of the current line at once (a press mid-line; screenshots).
+func finish_reveal() -> void:
+	if _text_label != null:
+		_text_label.visible_characters = -1
+
+
+func _process(delta: float) -> void:
+	if not is_open() or not is_revealing():
+		return
+	_revealed += delta * GameSettings.current().text_speed
+	if GameSettings.current().text_speed <= 0.0 or int(_revealed) >= _text_label.get_total_character_count():
+		finish_reveal()
+	else:
+		_text_label.visible_characters = int(_revealed)
+
+
+## The player's continue press: shows the rest of a line still typing, else moves on.
+func press_continue() -> void:
+	if is_revealing():
+		finish_reveal()
+	else:
+		advance()
 
 
 func advance() -> void:
@@ -58,7 +92,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT
 		if event.is_action_pressed("interact") or click:
 			get_viewport().set_input_as_handled()
-			advance()
+			press_continue()
 	elif current_event.get("type") == "choices" and event is InputEventKey and event.is_pressed():
 		var key := (event as InputEventKey).physical_keycode
 		if key >= KEY_1 and key <= KEY_9:
@@ -78,10 +112,13 @@ func _show(event: Dictionary) -> void:
 			_name_label.text = speaker_name
 			_name_label.visible = not speaker_name.is_empty()
 			_text_label.text = str(event.get("text", ""))
+			_revealed = 0.0
+			_text_label.visible_characters = 0 if GameSettings.current().text_speed > 0.0 else -1
 			_continue_hint.text = InputSetup.hint("interact") + " continue"
 			_continue_hint.show()
 			line_shown.emit(str(event.get("speaker", "")), _text_label.text)
 		"choices":
+			finish_reveal()
 			_continue_hint.hide()
 			var i := 0
 			for option: Dictionary in event.get("options", []):
@@ -98,6 +135,7 @@ func _show(event: Dictionary) -> void:
 
 
 func _close() -> void:
+	finish_reveal()
 	_panel.hide()
 	current_event = {}
 	# Defer unlocking so the key press that closed dialogue doesn't re-trigger interact.

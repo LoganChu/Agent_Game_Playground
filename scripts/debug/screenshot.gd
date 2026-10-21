@@ -30,6 +30,8 @@ func _capture() -> void:
 			settle = int(arg.substr(9))
 	for i in settle:
 		await get_tree().process_frame
+	# A --dialogue= shot shows its whole line, whatever the text speed.
+	get_tree().call_group(&"dialogue_ui", &"finish_reveal")
 	var image := get_viewport().get_texture().get_image()
 	var err := image.save_png(path)
 	print("Screenshot saved to %s (%s)" % [path, error_string(err)])
