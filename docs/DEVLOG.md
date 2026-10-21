@@ -2,6 +2,49 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-21 21:00 UTC — Day 56: Settings follow-ups (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale `origin/main` again;
+  fetched and reset local `main` to Day 55's `d090ce2`. Baseline green (387 tests + smoke + launch).
+- **Systems (none since Day 46):** ROADMAP *Settings follow-ups* (#3), four pieces on the Settings page:
+  - **Text speed** — dialogue lines now type out (Slow 25 / **Normal 50** / Fast 100 chars/s / Instant). Interact or a
+    click mid-line shows the rest of the line; it never skips one. Choices and closing finish any reveal.
+  - **Stick deadzone** slider (5–50 %, default 20 %) → the InputMap deadzone of the move and camera pad axes.
+  - **Display** (Windowed / Fullscreen) and **VSync** (On / Off) toggles, applied through DisplayServer.
+  - **Pad prompts** — once a pad button is pressed (or a stick leant past half-way) the HUD hints and the dialogue
+    "continue" show the pad's buttons ([A] Talk, [Back] Journal, [Y] Satchel, [Start] Menu); a key press or click
+    swaps them back.
+  - All new values are in `user://settings.cfg` (`[display] text_speed/window_mode/vsync`, `[pad] stick_deadzone`),
+    clamped on load like the rest; Reset puts them back.
+- Small refactor: the Settings page's value buttons share one `_add_toggle` (change → save → rebuild, focus kept), which
+  drops the hand-counted focus indices.
+- **Tests:** `test_settings.gd` +5 (text speed cycle, the typewriter, the deadzone on the pad axes, window mode/vsync,
+  pad prompts and the HUD hint) and the round-trip/bad-file/menu tests extended. 392 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-10-21-pm-settings.png`.
+
+**Decisions**
+- **Default text speed is Normal (typing), not Instant.** It's the narrative game's voice; Instant is one press away
+  and no gate waits on the reveal (accessibility pillar: no timing gates). `advance()` stays "next line" so tests, the
+  smoke walk and the checkpoint tool are unaffected; only the player's press goes through `press_continue`.
+- **Screenshots finish the reveal** before capturing (`dialogue_ui` group), so `--dialogue=` shots show whole lines.
+- **Pad labels are Godot's SDL names** (A/Y/Back/Start), not drawn glyphs — readable on every pad for now; per-brand
+  names and icon art are a later follow-up.
+- **Display is skipped under the headless server**, so CI only checks the stored values; a maximized window is left
+  alone when "Windowed" is applied.
+- No checkpoint: nothing new in the story.
+
+**Problems / notes**
+- `get_viewport()` is null for a DialogueUI outside the tree, so the test drives `press_continue()` rather than a fake
+  input event; `InputMap.event_is_action` ignores deadzones — the test uses `InputEvent.is_action_pressed`.
+- Needs the owner's hands: fullscreen/vsync and the pad prompts can't be seen in the sandbox (no window, no pad).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content or art-led** (both due by ~Day 59): Wenna's walk out along the lying cart road, or
+   the lane on from Wrackholm; or the art follow-ups (Hob's hut lantern after `up`, Abe's pose, Wrackholm's bracket).
+   Fetch before trusting `origin/main`.
+
 ## 2026-10-21 09:00 UTC — Day 55: The far shore (content)
 
 **Did**

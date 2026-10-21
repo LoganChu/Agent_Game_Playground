@@ -777,7 +777,10 @@ once, on `drag_ended`) and again on leaving.
 ```
 [audio]    Master/Music/Ambience/Effects/Voice = 0..1 (linear; 0 mutes the bus)
 [display]  text_scale = 0.75..2.0   (menu presets 0.85 / 1.0 / 1.25 / 1.5 → UiTheme)
+           text_speed = 0..400 chars/s (presets Slow 25 / Normal 50 / Fast 100 / Instant 0)
+           window_mode = "windowed" | "fullscreen", vsync = bool   (Day 56; DisplayServer)
 [camera]   sensitivity = 0.25..2.5, invert_x, invert_y   (Player reads them per event)
+[pad]      stick_deadzone = 0.05..0.5 (default 0.2) → InputMap deadzone of the PAD_AXES actions
 [keys]     <action> = "<key name>"   only rebound actions, e.g. interact = "F"
 ```
 - **Audio buses** are created in code (`GameSettings.ensure_bus`, sent to Master) — there is
@@ -787,6 +790,17 @@ once, on `drag_ended`) and again on leaving.
   Esc and the menu keys (pause stays Esc/P/Start). Default secondaries (arrows, Enter) stay
   unless another action claims them. `InputSetup.apply_keys` rebuilds the keyboard events;
   pad bindings are untouched (not rebindable yet). HUD/dialogue hints use `InputSetup.hint()`.
+- **Pad prompts (Day 56)**: `InputSetup.pad_last` flips on a pad button or a stick lean
+  ≥ 0.5 and back on a key or mouse click (`note_device`, fed by `Hud._input`, which re-labels
+  its key hint on the swap). While it's set, `hint()` gives the action's pad button
+  (`PAD_LABELS`: A / Y / Back / Start) for actions that have one, the key otherwise.
+- **Dialogue text speed (Day 56)**: `DialogueUI` sets each line's full text and reveals it
+  with `RichTextLabel.visible_characters` in `_process` (paused with the tree). Interact/click
+  mid-line (`press_continue`) shows the rest, never skips; `advance()` (tests, smoke) always
+  moves on. Choices and closing finish the reveal; `Screenshot` finishes it before capturing
+  (group `dialogue_ui`). No timing gates: nothing waits on the reveal.
+- **Display (Day 56)**: `_apply_display` is a no-op under the headless display server, so
+  tests and CI only check the stored values; it leaves a maximized window alone when windowed.
 - Loading clamps every value and ignores unknown/reserved/duplicate keys, so an old or
   hand-edited file never breaks the game. Tests use their own instance and path
   (`GameSettings.set_current`); the smoke test writes `user://smoke_settings.cfg`.

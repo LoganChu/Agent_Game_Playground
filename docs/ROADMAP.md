@@ -456,12 +456,17 @@ each .glb < 5 MB.
       Blender far-shore kit (steps foot, boat-stage + lantern overlay, driftwood fire lit/out, lean-to). The smoke walk
       takes it live. `test_far_shore.gd` (9). Checkpoint `the_far_shore`.
 
+- [x] [S] **Settings follow-ups** (Day 56): **text speed** (dialogue lines type out — Slow / Normal / Fast / Instant;
+      interact mid-line shows the rest, never skips), **stick deadzone** slider (the move/camera pad axes), **Display**
+      (windowed / fullscreen) and **VSync** toggles, and **pad prompts** (hints show [A] / [Y] / [Back] / [Start] once a
+      pad is used, keys again after a key press). All saved in `user://settings.cfg`. `test_settings.gd` (+5).
+
 ### Next up
-1. [A]/[S] **Day 56: art-led or systems.** Art-led is due ~Day 59 (last Day 52): Wrackholm's empty bracket, the Teeth's
+1. [A]/[C] **Day 57: art-led or content.** Art-led is due ~Day 59 (last Day 52): Wrackholm's empty bracket, the Teeth's
    broken water, the Saltmarrow dressing follow-ups #6, the Northing and far-shore follow-ups (Known issues: a lantern at
-   Hob's hut after *The Far Shore*'s `up`; Abe's hands-on-hips pose reads as arms held out). Systems haven't had a
-   session since Day 46 (audio): Settings follow-ups #3, the Greying v2 #4 (paths that fade — see the content candidate
-   below), the ferry/map screen (Milestone 2). **Content next due by Day 59** (last Day 55). Candidates: **Wenna's walk out
+   Hob's hut after *The Far Shore*'s `up`; Abe's hands-on-hips pose reads as arms held out). **Content next due by Day 59**
+   (last Day 55). Systems last Day 56 (settings); next systems candidates: the Greying v2 #4 (paths that fade), the
+   ferry/map screen (Milestone 2). Candidates: **Wenna's walk out
    along the lying cart road** to find her clamp (after `thornwold_far_shore=up`; the road that lies, the woods' liking —
    pairs with Greying v2's "paths that fade"); **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper
    met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`, and now
@@ -473,9 +478,9 @@ each .glb < 5 MB.
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-3. [S] **Settings follow-ups**: gamepad rebinding and stick deadzone; a fullscreen/window
-   and vsync toggle; a subtitle/dialogue-speed option with the accessibility item; prompts
-   that show pad glyphs when a pad was used last.
+3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+   rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
+   `Input.get_joy_name`); a resolution/scale option for windowed mode; the menu's "[Esc] back" hint following the pad.
 4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
