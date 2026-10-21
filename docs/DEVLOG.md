@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-21 09:00 UTC — Day 55: The far shore (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; fetched and reset local
+  `main` to Day 54's `867f914`. Baseline green (378 tests + smoke + launch).
+- **Content (due by Day 57; last Day 53):** ROADMAP *Next up* #1, **the far shore below the Northing** — the three
+  colliers' thread, open since Day 21 ("five hearths... the others went up after the Lamp") and Day 53 (where they went):
+  - **The way down.** The old road's Keepers' steps now offer "Go down the Keepers' steps." once the Northing has a light
+    (hung there, or carried down by Ottie), starting ***The Far Shore***; the way back up is an exit at the steps' foot.
+  - **New region, The Far Shore** (`thornwold_far_shore`): a shingle beach under the 14 m north cliff (the Northing far
+    overhead, its lantern or coals showing), closed by two buttresses, the fog a grey lid that thins in the cliff's lee,
+    and the **Keepers' boat-stage** — a dressed-stone quay where the Spire's boat came in for the keeper: a bollard with a
+    mooring ring worn bright on one side, thirty winters' strokes on its cap and Wenna's day-strokes after them, and the
+    boat's lantern bracket (Ottie's lantern on it, if he carried it down).
+  - **Wenna Coll, Abe and Tolly Dray** (new NPCs): Wenna on the end of the stage waiting for the Spire's boat to ask for a
+    lantern ("a light of my own to find my clamp by" — her hearth is out along the cart road that lies); the Drays by a
+    driftwood fire, Abe hopeful for the first time in forty years because Tolly isn't, and the story of their rake on the
+    fifth mark. Ottie (carried) and Hob (The Fifth, gone) are there too.
+  - **The Wakebearer's word:** **up** — "Somebody came down. That's what I was waiting for, maybe" — they climb, Ottie
+    leaves his lantern on the bracket for the boat, the Lamp knows their faces and **breaks the warm side of the kept coal**
+    into three lanterns (Wenna's hearth, the Drays', and Hob's hut, which Ottie promised him on Day 25); only the cold
+    side is left. All four home in the colliers' clearing; Hob counts them in and stops counting (salt row), crosses all
+    four notches (stayed), comes home with them (gone), or meets four friendly strangers (boots). Or **waiting** — the
+    Wakebearer promises to tell the Spire there are colliers on the Northing's stage; they stay (Wenna can still be asked
+    up later).
+- **Art (folded in):** `build_old_road.py` — `steps_foot`, `boat_stage` + overlay `stage_lantern`, `drift_fire` /
+  `drift_fire_out`, `drift_shelter`; `build_characters.py` — `wenna_coll`, `wenna_coll_lantern`, `abe`, `tolly`,
+  `tolly_lantern` (780–970 tris) and a shared `_held_lantern`.
+- **Tests:** `test_far_shore.gd` (9). The smoke walk now **takes the far shore live** after hanging the Northing's lantern
+  (down the steps, Wenna told to come up, back up the steps) and checks the three home in the clearing.
+  387 tests + smoke + launch pass. Checkpoint `the_far_shore`.
+
+Screenshots: `docs/screenshots/2026-10-21-the-far-shore.png`, `docs/screenshots/2026-10-21-the-boat-stage.png`,
+`docs/screenshots/2026-10-21-four-home.png`; `docs/checkpoints/the_far_shore.png`.
+
+**Decisions**
+- **The choice is coming home vs. keeping faith**, and the cost is the Lamp's coal: `up` spends what it kept "for the
+  four" (paying off Day 27's line), `waiting` keeps it whole but leaves the colliers on a cold shore on the Wakebearer's
+  promise to the Spire — a flag for Act III (`thornwold_far_shore=waiting`), not a new hook to chase now.
+- **The coal's cold side stays.** "The side that faced the Spire" is kept "anyway" — the Day 25 detail stays a mystery
+  with an object attached, instead of being burned away.
+- **Wenna Coll's id is `wenna_coll`** (and her model `wenna_coll.glb`): Wrackholm's lane-warden already owns `wenna`.
+- **No new idle styles.** Wenna uses `sit` (seated on a folded sack, the sack is her Stool part); Hob and Ottie on the
+  shore reuse `hob_lantern` and `ottie`/`ottie_cap`.
+- **The boat-stage is ground, the model is dressing.** The walkable quay is a `path` land feature; `boat_stage` only
+  dresses its end, placed `snap: false` at the deck height — no pier collider needed.
+- **Ottie's lantern stays on the stage after `up`** — a light burning for a boat that won't come; nobody explains it.
+
+**Problems / notes**
+- First test run: the NPC-in-one-place check found Hob `gone` could show with the woods' raking Hob (`!came_in`) — `gone`
+  implies `came_in` but the validator can't know that, so the new `gone` placements read `flag:thornwold_hob_came_in` too.
+- `boat_stage` first had a step down to the water below its origin; the kit test wants models standing on their origin,
+  so the step went (the stage's own ground edge reads as the drop).
+- The overlay was first named `boat_stage_lantern` — the same prop family as `boat_stage`, which the variant check would
+  read as two variants on one spot; renamed `stage_lantern`.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **art-led or systems** (art due ~Day 59; systems last Day 46). Content next due by Day 59
+   (Wenna's walk out along the lying cart road, or the lane on from Wrackholm). Fetch before trusting `origin/main`.
+
 ## 2026-10-20 21:00 UTC — Day 54: Polish pass seven (polish/debt)
 
 **Did**

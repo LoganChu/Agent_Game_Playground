@@ -43,7 +43,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_fen.py [reed_house letting_post (+ letting_post_word) heron_light staithe boardwalk plank_path punt eel_traps alder_snag reed_bed keeper_skiff (+ _bell) tussock gold_streak gull_cord]  # Glasswater Fen kit (heron_light also writes heron_light_near, no block skiff, and since Day 35 `_lit` variants of both: horn panes glowing, a fire in the cradle; Day 36: the near lit one has the put-down things on the sill and the coat; Day 39: both near ones carry the landing and cleat at the ladder foot; `gull_cord` is built in the Heron's own frame and placed where the Heron is) (same kit dir)
 .tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn (+ answering_horn_open) gannet_hulk (+ gannet_hulk_bare, gannet_hulk_named) salvage_stack float_pile wrack_light (+ wrack_light_lit) teeth_rock teeth_mark]  # Wrackholm kit (Day 40; the Day 43 variants: the horn unlashed, the board prised off, the Wrack lit; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
-.tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake]  # the old Keepers' road north (Day 53; same kit dir)
+.tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake steps_foot boat_stage stage_lantern drift_fire drift_fire_out drift_shelter]  # the old Keepers' road north (Day 53) and the far shore below it (Day 55) (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -685,6 +685,27 @@ unconditional clear ground near enough; the ridge's worst-case fog covers everyt
 over the spine, a deep bank over the north cliff, and an unconditional clear pool round the Northing (something always
 burns in the basket). The distant lit Ridge Light is the same far-prop trick as the woods' skyline (`snap: false`,
 halo size 14). Its arrival event is gated on the Ridge Light lit (debug teleports and `_check_gates` must not fire it).
+**The far shore kit (Day 55, `build_old_road.py`):** `steps_foot` (the bottom flight of the Keepers' steps cut up a
+rock buttress: ten steps rising 0.26 m each along +X from the origin, the buttress behind on +Y, an iron rail on -Y; placed
+at `rotation_y` 180 against the cliff, so the flight climbs toward -X), `boat_stage` (the dressing on the **end** of a
+stone quay whose walkable top is the region's ground: kerbs, a bollard with the mooring ring, a lantern post with its
+bracket reaching out on -Y; origin = the end's centre, the quay running back on +Y; placed `snap: false` at the quay's
+deck height) and its overlay `stage_lantern` (the Ridge Light's lantern on the bracket's hook, glass centre
+[-0.85, 1.87, 0.95] Godot model space = its `halo`; `test_far_shore.gd` pins it; family "stage", not "boat", so it
+stacks on the stage), `drift_fire` / `drift_fire_out` (one family, exclusive) and `drift_shelter` (a lean-to, open on
+-Y). Characters (`build_characters.py`): `wenna_coll` (seated on a folded sack, the `sit` idle; not `wenna`, who is
+Wrackholm's lane-warden), `wenna_coll_lantern`, `abe` (hands on hips), `tolly` (arms folded), `tolly_lantern`;
+`_held_lantern(body, side)` is the shared lantern-by-the-bail for standing figures.
+**The Far Shore (Day 55, `thornwold_far_shore`):** a sea region under a 14 m `rect` cliff on +Z (its top walkable but
+never reachable, like the ridge's drop), two ellipse buttresses closing the beach's ends, and the boat-stage as a `path`
+land feature 2.6 m wide at 0.7 m (painted pale) running out north. The Greying is one 0.6 "lid" over the sea and the
+shingle that fades out under the cliff (`rect` to z 0.5, falloff 4), so the spawn at the steps' foot is clear with no
+lantern; the Ridge Light's lantern on the stage (`carried`) and Hob's (The Fifth, `gone`) cut conditional pools. The way
+down is the old road's `keepers_steps` inspectable (a "Go down" choice that `travel`s, offered once
+`thornwold_northing` is set); the way back up is an ordinary exit at the steps' foot to the old road's `from_far_shore`
+spawn inside the Northing's clear pool. The arrival event is gated on `!flag:thornwold_northing=` (debug teleports).
+Hob's shore and clearing placements for `gone` also read `flag:thornwold_hob_came_in` — `gone` implies it, but the
+NPC-in-one-place check can't know that, and the woods' raking Hob reads `!…came_in`.
 **The way up (Day 24):** `ridge_steps_lower` / `ridge_steps_upper` — one flight of
 the Keepers' log stair each (risers + pegs, rope rail on stakes, the ember cut in the bottom
 stake). A flight climbs along its **+X from the origin (the low end, on the ramp's centreline)
@@ -835,6 +856,14 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 ## Testing
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
+- `tests/test_far_shore.gd` — (Day 55) *The Far Shore*: the steps go down only with a light at the Northing (and
+  start the quest); the arrival scene once, never on a debug teleport; who waits on the shore (the three, Ottie if he
+  carried the lantern down, Hob if he went; the stage's lantern); meeting Wenna (Ottie beside her, the road that lies, the
+  bollard's day-strokes, the Drays, Aldous's "put out"); come up (the shore empty, the fire raked out, the lantern left
+  for the boat, the three home in the clearing, Ottie in his boots, the Lamp breaking the warm side of the coal, Hob and
+  the board on the salt-row and stayed paths); by the Northing's light; wait (they stay; asked again later, up); Hob gone
+  and home; the boots path (strangers to Hob); the kit (glow only where it burns, the stage lantern's halo). The smoke
+  walk takes the far shore live after hanging the Northing's lantern (`_walk_the_far_shore`: down, Wenna, up).
 - `tests/test_walk_back.gd` — (Day 51) *The Walk Back*: the models; not before the Wrack is lit, then once (Dunstan
   standing on the long walk, the last board's halo gone); walking him in (wait, walk, the cupped ember opened just this
   once); Hesper won't hand the name over, he asks himself (the gull burn, her own name burned); home (his boat gone

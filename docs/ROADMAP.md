@@ -445,15 +445,30 @@ each .glb < 5 MB.
       closed (Oda's Cindermoor line; the player naming the four to Hob after the boots burn — audited, already gated).
       `test_polish_seven.gd`.
 
+- [x] [C] **The far shore** (Day 55): the Keepers' steps go down from the Northing once it has a light (lit or
+      carried) to **`thornwold_far_shore`** — a shingle beach under the north cliff, the fog a low lid, and the **Keepers'
+      boat-stage** where the Spire's boat came in (the bollard's thirty winters and Wenna's day-strokes; the lantern bracket).
+      **Wenna Coll**, **Abe** and **Tolly Dray** (new NPCs and Blender models, + lantern variants), Ottie under the lantern
+      he hung on the stage (carried), Hob counting (The Fifth, gone). Quest ***The Far Shore***: the Wakebearer's word —
+      **up** (the Lamp knows their faces and breaks the warm side of the kept coal into lanterns for Wenna's hearth, the
+      Drays and Hob's hut — Ottie's old promise; only the cold side is left; all four home in the clearing; Hob, the board,
+      Ottie and the Lamp follow it on every path) or **waiting** (the Wakebearer promised to tell the Spire; they stay).
+      Blender far-shore kit (steps foot, boat-stage + lantern overlay, driftwood fire lit/out, lean-to). The smoke walk
+      takes it live. `test_far_shore.gd` (9). Checkpoint `the_far_shore`.
+
 ### Next up
-1. [C] **Content due by Day 57** (last Day 53). Next art-led session due ~Day 59 (last Day 52): Wrackholm's empty bracket, the Teeth's broken water,
-   the Saltmarrow dressing follow-ups #6, the Northing follow-ups (Known issues). Content candidates: **the far shore**
-   below the Northing (the three — Wenna Coll, Abe and Tolly Dray — and Hob and/or Ottie waiting on a boat that won't
-   come; the Keepers' steps as the way down; on the boots path no one on Thornwold will know them); **the lane on from
-   Wrackholm** (Cindermoor is "past more besides"; a Keeper met there should weigh `wrackholm_sworn`,
-   `thornwold_lamp_name`, `saltmarrow_aldous_novice`). Keep mystery #2 shut: the seventh novice and the roll pay off on
-   Cindermoor, not before. Small follow-ups: Oda hearing Dunstan's message ("not laughing at the weather") when the
-   player next sails with her; Pell/Tam/Aldous noticing Dunstan home; the `stayed` ending's eventual walk home.
+1. [A]/[S] **Day 56: art-led or systems.** Art-led is due ~Day 59 (last Day 52): Wrackholm's empty bracket, the Teeth's
+   broken water, the Saltmarrow dressing follow-ups #6, the Northing and far-shore follow-ups (Known issues: a lantern at
+   Hob's hut after *The Far Shore*'s `up`; Abe's hands-on-hips pose reads as arms held out). Systems haven't had a
+   session since Day 46 (audio): Settings follow-ups #3, the Greying v2 #4 (paths that fade — see the content candidate
+   below), the ferry/map screen (Milestone 2). **Content next due by Day 59** (last Day 55). Candidates: **Wenna's walk out
+   along the lying cart road** to find her clamp (after `thornwold_far_shore=up`; the road that lies, the woods' liking —
+   pairs with Greying v2's "paths that fade"); **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper
+   met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`, and now
+   `thornwold_far_shore=waiting` — the promise to tell the Spire). Keep mystery #2 shut: the seventh novice and the roll pay
+   off on Cindermoor, not before; the coal's **cold side** stays unexplained. Small follow-ups: Oda hearing Dunstan's
+   message ("not laughing at the weather") when the player next sails with her; Pell/Tam/Aldous noticing Dunstan home; the
+   `stayed` ending's eventual walk home; Bram's CHARCOAL row with five hands after the far shore's `up`.
 2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -510,6 +525,10 @@ each .glb < 5 MB.
 - [P] Store assets, trailer capture tooling, crash-free week.
 
 ## Known issues / tech debt
+- Far-shore follow-ups (Day 55, for an [A] session): after *The Far Shore*'s `up` nothing at Hob's hut shows the lantern
+  Ottie brought him (dialogue only); Abe's hands-on-hips pose reads as arms held stiffly out; the cliff top above the
+  far shore is a broad flat plateau if seen from a high debug camera (never from play); the trodden path's paint on the
+  shingle zigzags on the 1 m grid.
 - The ferry signal lantern's moss glow reads almost white in the Compatibility renderer;
   check it with the colour-grading item.
 - Character follow-ups (fold into later [A]/[S] items): the ember light is a fixed point in the player's model
@@ -522,7 +541,7 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 62 (Day 54 was the last). Candidates: the smoke walk only takes *The Northing*'s
+- Next polish/debt pass due by Day 62 (Day 54 was the last). Candidates: the smoke walk only takes *The Far Shore*'s `up` (on the lit, boots path; `waiting`, carried and Hob's paths: `test_far_shore.gd`); the smoke walk only takes *The Northing*'s
   `lit` ending on the boots path (others: `test_the_northing.gd`); the smoke walk's `_check_gates` teleports into
   regions and would hold input if an ungated arrival event fired there (Day 53: the old road's event is gated on the
   Ridge Light, and the walk now arrives there first — keep new events gated on how the player gets in); the smoke walk only takes *The Walk Back*'s `stayed`

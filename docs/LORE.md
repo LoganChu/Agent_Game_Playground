@@ -941,8 +941,59 @@ debts, salvage, and who answers for a thing.
       - **carried** — put in Ottie's hand: he banks his charcoal with the last sack ("it'll keep a night or two") and **takes
         the light down the Keepers' steps** to the three; his boots stay on his seat. From the cliff head his light stands still
         far below (beside Hob's, if Hob went). The Lamp: "Down, not along. Ottie never waited to be told a thing."
-    - Open: **the far shore** below the Northing (the three — and Hob and/or Ottie — waiting on a boat that won't come while
+    - ~~Open~~ (paid Day 55, below): **the far shore** below the Northing (the three — and Hob and/or Ottie — waiting on a boat that won't come while
       the Spire is dark); whether and how they come back up, and to whom (on the boots path no one on Thornwold will know them).
+
+  - **Established in play (Day 55 — the far shore, below the Northing; any burn, once the Northing has a light):**
+    (`the_far_shore`, `thornwold_far_shore`)
+    - **The way down.** With a light at the Northing (`lit`) or below it (`carried`) the wool is "only weather": the
+      Keepers' steps go down the north cliff, the iron rail rubbed bright. From below the fog is **a lid**, grey and low
+      at a man's height over the shingle, thinning to nothing in the cliff's lee. The steps' foot is cut up a buttress of
+      the cliff with the Keepers' ember in the bottom riser.
+    - **The far shore**: a shingle beach a few strides deep under the cliff, closed at both ends by buttresses, and the
+      **Keepers' boat-stage** — a quay of dressed stone, "too well built for anything Thornwold would have put here", where
+      the Spire's boat came in once a winter for the keeper. Its bollard's iron ring is **worn bright on its seaward side**;
+      on the bollard's cap **thirty winters' strokes in fives** in the Lamp's chisel hand (the last one fresh — the boat
+      came the midwinter before the Snuffing), and after them **Wenna's day-strokes**, scratched with a nail. At the
+      stage's corner a timber post holds an **iron bracket** out over the water — where the boat's lantern hung.
+    - **Wenna Coll** — collier, fifties, square and big-handed, a sacking hood up over her head and shoulders, a long
+      grey-black braid (its end silvered), soot to the elbows; Half-Hushed. **The first of the four** to go up. Her hearth
+      was **out along the old cart road north of the wall**; the night of the Snuffing the road started lying and she walked
+      out to her own clamp three times and came back into the clearing, smelling her own smoke and never finding the fire.
+      She wanted a light of her own because "proper light goes where things are". She sits on a folded sack at the end of
+      the stage waiting for the Spire's boat ("A boat that size always has more than it needs") and counts days ("When I
+      get to a winter's worth, I'll know something"). Told the Spire was put out: "Then somebody can put it back."
+    - **Abe Dray** — the elder, big, bald, a rust-red beard, sleeves rolled; for the first time in forty years the hopeful
+      one ("Tolly says it isn't. So I took his side. Hoping's harder work than a clamp"). **Tolly Dray** — the younger,
+      slight, a long moss-green cap (its tail silvered), arms folded; came "to point" and so somebody would be on the beach
+      when Wenna found out. **The rake on the fifth mark**: Tolly wouldn't carry it another step and Abe said it wasn't his
+      to put down, so they cut a notch across both their marks — "a rake that's both of ours is the road's" (the first, or
+      second, thing they ever agreed on). They keep a **driftwood fire** under the cliff (the sea's leavings: the fog lets it
+      be, as it lets a clamp be; it clears nothing) and a lean-to of poles and split sacks; a spring under the cliff, limpets.
+    - **Ottie** (`carried`) hung the Ridge Light's lantern **on the stage's bracket, where the boat's lantern went**; Wenna
+      doesn't look at it, she looks past it. **Hob** (The Fifth, `gone`) stands by the fire with his lantern counting heads.
+    - **The Wakebearer's word** (to Wenna):
+      - **up** ("Come up. Somebody came down for you"; also later, from `waiting`): "Somebody came down. That's what I was
+        waiting for, maybe. You don't say that to yourself, sitting on the end of a quay. You say boat." The Drays move the
+        same way for once; the fire is raked out, the kettle left on its stone; Ottie leaves his lantern on the bracket "for
+        the boat. Somebody should be lit for it, if it comes" (it burns there for good); the stage's day-strokes stop, the
+        last one struck through. They walk the old road to the Ridge Light, where **the Lamp knew all their faces** before
+        they were in the light — and **broke the warm side of the kept coal**: one lantern for Wenna's hearth, one for the
+        Drays (Tolly carries it, Abe tells him how), one for **Hob's hut, because Ottie asked — he'd promised Hob a lantern
+        years back** (Day 25's promise, paid). **What's left in the iron box is only the cold side** — "the side that went
+        cold the night the Spire went dark. The side that faced it. It doesn't light anything. I'll keep it anyway." They
+        come home to the colliers' clearing (Ottie to his seat in his boots — or sacking if they burned); Wenna means to go
+        out along the cart road in the morning to find her clamp "if it's lying, I'll know, now". Salt-row: Hob counts them
+        in — "Four. Four home" — stops counting and sleeps; at the bottom of the road (*The Fifth*, stayed) all four notches on
+        his stick are crossed through. Hob gone: he came up behind them counting every step and stopped at the top; home to
+        his own clamp with his lantern ("My rake's at Bram Kettle's. He can keep it"). Boots path: four strangers in Hob's
+        clearing ("Talk to me like they've known me years... I don't mind it at all"); Ottie tells him his name again.
+      - **waiting** ("Wait for it, then. I'll tell the Spire you're here"): **the Wakebearer has promised to tell the Spire
+        there are colliers on the Northing's stage wanting lanterns** (an Act III payoff). They stay, Ottie and Hob with
+        them; Wenna scratches another stroke; the Lamp keeps the whole coal for them ("I sat on that bollard thirty winters
+        waiting for a boat that always came. Waiting for one that won't is harder").
+    - Open: the **cold side of the coal** (it faced the Spire; kept "anyway"); the **stage's lantern burning for a boat**;
+      on `waiting`, the promise to the Spire; Wenna's clamp out along the lying cart road.
 
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
