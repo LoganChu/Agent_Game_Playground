@@ -31,6 +31,12 @@ func _ready() -> void:
 	GameState.toast.connect(show_toast)
 
 
+## Re-labels the prompts when the player swaps between keyboard and pad.
+func _input(event: InputEvent) -> void:
+	if InputSetup.note_device(event):
+		_update_key_hint()
+
+
 func set_focus(target: Interactable) -> void:
 	_focus = target
 	if target and is_instance_valid(target):
@@ -188,10 +194,12 @@ func _make_label(variation: StringName) -> Label:
 	return label
 
 
-## Follows the player's key bindings (GameSettings): the key hint and the "[E] Talk to…"
-## prompt, which stays up under the pause menu (the player is paused with its focus).
+## Follows the player's key bindings (GameSettings) and the device used last (pad buttons
+## when it was a pad): the key hint and the "[E] Talk to…" prompt, which stays up under the
+## pause menu (the player is paused with its focus).
 func _update_key_hint() -> void:
-	_keys.text = "%s Journal   %s Satchel   [Esc] Menu" % [InputSetup.hint("journal"), InputSetup.hint("inventory")]
+	var menu := InputSetup.hint("pause") if InputSetup.pad_last else "[Esc]"
+	_keys.text = "%s Journal   %s Satchel   %s Menu" % [InputSetup.hint("journal"), InputSetup.hint("inventory"), menu]
 	if _prompt and _focus and is_instance_valid(_focus):
 		set_focus(_focus)
 
