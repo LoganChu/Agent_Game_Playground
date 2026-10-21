@@ -6,7 +6,8 @@ extends CanvasLayer
 ## pause menu's Save); this class builds the pages both menus offer:
 ##   Load        the F5 quicksave and the manual slots (SaveSystem), with region and time
 ##   Chapters    debug builds: jump to a story checkpoint in data/scenarios.json
-##   Settings    volumes, text size, camera sensitivity and invert, Controls, Reset
+##   Settings    volumes, text size and speed, camera sensitivity and invert, stick deadzone,
+##               display (window mode, vsync), Controls, Reset
 ##   Controls    rebind each action (press the action, then the new key; Esc cancels)
 ## Settings are saved to user://settings.cfg as they change (a dragged slider once, when it
 ## is let go) and again when their pages are left. Esc backs out page by page; on the MAIN
@@ -240,31 +241,38 @@ func _add(text: String, action: Callable) -> Button:
 	return button
 
 
-## The Settings page: a slider per audio bus, text size, camera sensitivity and invert,
-## Controls, Reset. Buttons show their value ("Text size: Large") and change it when pressed.
+## The Settings page: a slider per audio bus, text size and speed, camera sensitivity, stick
+## deadzone and invert, display, Controls, Reset. Buttons show their value ("Text size: Large")
+## and change it when pressed.
 func _build_settings() -> void:
 	var settings := GameSettings.current()
 	for i in GameSettings.BUSES.size():
 		var bus := GameSettings.BUSES[i]
 		_add_slider("%s volume" % GameSettings.BUS_LABELS[i], settings.volume(bus) * 100.0, 0.0, 100.0, 5.0, "%d%%",
 			func(value: float) -> void: settings.set_volume(bus, value / 100.0))
-	_add("Text size: " + settings.text_size_label(), func() -> void:
-		settings.cycle_text_size()
-		_commit_settings()
-		_refresh_settings(0))
+	_add_toggle("Text size: " + settings.text_size_label(), settings.cycle_text_size)
+	_add_toggle("Text speed: " + settings.text_speed_label(), settings.cycle_text_speed)
 	_add_slider("Camera sensitivity", settings.camera_sensitivity * 100.0, GameSettings.SENSITIVITY_MIN * 100.0,
 		GameSettings.SENSITIVITY_MAX * 100.0, 5.0, "%d%%", func(value: float) -> void: settings.set_camera_sensitivity(value / 100.0))
-	_add("Invert camera left/right: " + _on_off(settings.invert_x), func() -> void:
-		settings.set_invert_x(not settings.invert_x)
-		_commit_settings()
-		_refresh_settings(1))
-	_add("Invert camera up/down: " + _on_off(settings.invert_y), func() -> void:
-		settings.set_invert_y(not settings.invert_y)
-		_commit_settings()
-		_refresh_settings(2))
+	_add_toggle("Invert camera left/right: " + _on_off(settings.invert_x), func() -> void: settings.set_invert_x(not settings.invert_x))
+	_add_toggle("Invert camera up/down: " + _on_off(settings.invert_y), func() -> void: settings.set_invert_y(not settings.invert_y))
+	_add_slider("Stick deadzone", settings.stick_deadzone * 100.0, GameSettings.DEADZONE_MIN * 100.0,
+		GameSettings.DEADZONE_MAX * 100.0, 5.0, "%d%%", func(value: float) -> void: settings.set_stick_deadzone(value / 100.0))
+	_add_toggle("Display: " + settings.window_mode_label(), settings.cycle_window_mode)
+	_add_toggle("VSync: " + _on_off(settings.vsync), func() -> void: settings.set_vsync(not settings.vsync))
 	_add("Controls", _show_page.bind(Page.CONTROLS))
 	_add("Reset to defaults", _reset_settings)
 	_add("Back", _show_page.bind(Page.MAIN))
+
+
+## A Settings button that changes a value when pressed, saves, and rebuilds the page to show
+## the new value (focus stays on it).
+func _add_toggle(text: String, change: Callable) -> void:
+	var index := buttons().size()
+	_add(text, func() -> void:
+		change.call()
+		_commit_settings()
+		_refresh_settings(index))
 
 
 ## Rebuilds the Settings page in place, keeping focus on the `index`-th button pressed.

@@ -52,6 +52,20 @@ const PAD_BUTTONS: Dictionary = {
 	"pause": JOY_BUTTON_START,
 }
 
+## Prompt labels for the pad buttons above (Godot's SDL names; most PC pads report this layout).
+const PAD_LABELS: Dictionary = {
+	JOY_BUTTON_A: "A",
+	JOY_BUTTON_Y: "Y",
+	JOY_BUTTON_BACK: "Back",
+	JOY_BUTTON_START: "Start",
+}
+
+## A stick has to lean this far before it counts as "the pad was used" for prompts.
+const PAD_NOTICE_LEAN := 0.5
+
+## True when the last input came from a pad: prompts show pad buttons ("[A]") instead of keys.
+static var pad_last := false
+
 const PAD_AXES: Dictionary = {
 	"move_forward": [JOY_AXIS_LEFT_Y, -1.0],
 	"move_back": [JOY_AXIS_LEFT_Y, 1.0],
@@ -80,6 +94,14 @@ static func ensure_actions() -> void:
 			pa.axis = PAD_AXES[action][0]
 			pa.axis_value = PAD_AXES[action][1]
 			InputMap.action_add_event(action, pa)
+
+
+## Sets how far a stick must lean before the move and camera actions count (keys press at
+## full strength, so only the pad axes feel it).
+static func apply_deadzone(deadzone: float) -> void:
+	ensure_actions()
+	for action: String in PAD_AXES:
+		InputMap.action_set_deadzone(action, deadzone)
 
 
 ## The default primary key of an action (KEY_NONE if it has no keyboard binding).
@@ -129,6 +151,25 @@ static func bound_key(action: String) -> Key:
 	return default_key(action)
 
 
-## "[E]" — a HUD hint for an action's current key.
+## "[E]" — a HUD hint for an action's current key, or its pad button ("[A]") when the pad
+## was used last and the action has one.
 static func hint(action: String) -> String:
+	if pad_last and PAD_BUTTONS.has(action):
+		return "[%s]" % PAD_LABELS[PAD_BUTTONS[action]]
 	return "[%s]" % key_label(bound_key(action))
+
+
+## Notes which device `event` came from (a key or mouse click → keyboard; a pad button or a
+## firm stick lean → pad). True when that changed, so prompts should be re-labelled.
+static func note_device(event: InputEvent) -> bool:
+	var pad := pad_last
+	if event is InputEventKey or event is InputEventMouseButton:
+		pad = false
+	elif event is InputEventJoypadButton:
+		pad = true
+	elif event is InputEventJoypadMotion and absf((event as InputEventJoypadMotion).axis_value) >= PAD_NOTICE_LEAN:
+		pad = true
+	if pad == pad_last:
+		return false
+	pad_last = pad
+	return true
