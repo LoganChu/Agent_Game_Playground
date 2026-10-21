@@ -938,7 +938,8 @@
       "if": [
         "!flag:thornwold_hob_has_cap",
         "!flag:thornwold_boots_away",
-        "!flag:thornwold_northing=lit"
+        "!flag:thornwold_northing=lit",
+        "!flag:thornwold_far_shore=up"
       ]
     },
     {
@@ -958,7 +959,8 @@
       "if": [
         "flag:thornwold_hob_has_cap",
         "!flag:thornwold_boots_away",
-        "!flag:thornwold_northing=lit"
+        "!flag:thornwold_northing=lit",
+        "!flag:thornwold_far_shore=up"
       ]
     },
     {
@@ -993,6 +995,26 @@
       "note": "The cold hut with Ottie Swale home (The Northing, lit): he sits on its seat with his boots on, so the seat shows bare under him.",
       "if": [
         "flag:thornwold_northing=lit",
+        "!flag:thornwold_boots_away"
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut_cold_empty.glb",
+      "position": [
+        -6.5,
+        0,
+        -60.5
+      ],
+      "rotation_y": -40,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "note": "The cold hut with Ottie home from the far shore (The Far Shore, up, after he carried the lantern down): his boots on him, the seat bare under him.",
+      "if": [
+        "flag:thornwold_northing=carried",
+        "flag:thornwold_far_shore=up",
         "!flag:thornwold_boots_away"
       ]
     },
@@ -1862,6 +1884,151 @@
         "!flag:thornwold_ottie_cap"
       ],
       "note": "Home without his boots, feet still bound in sacking, bare-headed."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home_cap.glb",
+      "if": [
+        "flag:thornwold_northing=carried",
+        "flag:thornwold_far_shore=up",
+        "!flag:thornwold_boots_away",
+        "flag:thornwold_hob_has_cap"
+      ],
+      "note": "As the lit placement with the same model, but home from the far shore (The Far Shore, up) after carrying the lantern down."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home_cap.glb",
+      "if": [
+        "flag:thornwold_northing=carried",
+        "flag:thornwold_far_shore=up",
+        "!flag:thornwold_boots_away",
+        "!flag:thornwold_hob_has_cap",
+        "flag:thornwold_ottie_cap"
+      ],
+      "note": "As the lit placement with the same model, but home from the far shore (The Far Shore, up) after carrying the lantern down."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home.glb",
+      "if": [
+        "flag:thornwold_northing=carried",
+        "flag:thornwold_far_shore=up",
+        "!flag:thornwold_boots_away",
+        "!flag:thornwold_hob_has_cap",
+        "!flag:thornwold_ottie_cap"
+      ],
+      "note": "As the lit placement with the same model, but home from the far shore (The Far Shore, up) after carrying the lantern down."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home_unshod_cap.glb",
+      "if": [
+        "flag:thornwold_northing=carried",
+        "flag:thornwold_far_shore=up",
+        "flag:thornwold_boots_away",
+        "flag:thornwold_ottie_cap"
+      ],
+      "note": "As the lit placement with the same model, but home from the far shore (The Far Shore, up) after carrying the lantern down."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        -8.54,
+        0,
+        -58.85
+      ],
+      "rotation_y": -63,
+      "idle": "sit",
+      "model": "res://assets/models/characters/ottie_home_unshod.glb",
+      "if": [
+        "flag:thornwold_northing=carried",
+        "flag:thornwold_far_shore=up",
+        "flag:thornwold_boots_away",
+        "!flag:thornwold_ottie_cap"
+      ],
+      "note": "As the lit placement with the same model, but home from the far shore (The Far Shore, up) after carrying the lantern down."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        -10.0,
+        0,
+        -57.2
+      ],
+      "rotation_y": -12,
+      "model": "res://assets/models/characters/wenna_coll_lantern.glb",
+      "idle": "breathe",
+      "if": "flag:thornwold_far_shore=up",
+      "note": "Home from the far shore (The Far Shore, up): by Hob's clamp with her hood back and a lantern off the Lamp's coal, for finding her own hearth along the cart road."
+    },
+    {
+      "npc": "abe",
+      "position": [
+        -12.6,
+        0,
+        -49.6
+      ],
+      "rotation_y": 151,
+      "if": "flag:thornwold_far_shore=up",
+      "note": "Home from the far shore: across the clamp from his brother, telling him how to hold the lantern."
+    },
+    {
+      "npc": "tolly",
+      "position": [
+        -8.6,
+        0,
+        -50.4
+      ],
+      "rotation_y": -131,
+      "model": "res://assets/models/characters/tolly_lantern.glb",
+      "if": "flag:thornwold_far_shore=up",
+      "note": "Home from the far shore with the Drays' one lantern (they couldn't agree who'd carry it)."
+    },
+    {
+      "npc": "hob",
+      "position": [
+        -13.8,
+        0,
+        -56.0
+      ],
+      "rotation_y": 40,
+      "model": "res://assets/models/characters/hob_lantern.glb",
+      "idle": "breathe",
+      "if": [
+        "flag:thornwold_hob_came_in",
+        "flag:thornwold_hob_ladder=gone",
+        "flag:thornwold_far_shore=up"
+      ],
+      "note": "Hob home from the far shore (The Fifth, gone; The Far Shore, up): by his own clamp with his lantern held out, though the clearing never needed one. His rake is still on Bram's bench."
     }
   ],
   "objects": [

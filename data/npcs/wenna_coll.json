@@ -1,0 +1,14 @@
+{
+  "id": "wenna_coll",
+  "name": "Wenna Coll",
+  "faction": "none",
+  "color": "coal",
+  "dialogue": "wenna_coll",
+  "model": "res://assets/models/characters/wenna_coll.glb",
+  "idle": "sit",
+  "bio": "A collier from Thornwold's near side, the first of the four who went up after the Lamp for a lantern of their own. Her hearth was out by the old cart road, and when the road started lying she couldn't find her own clamp. Went down the Keepers' steps to wait on the far shore for the Spire's boat, and counts the days on the bollard. Half-Hushed: the end of her braid has gone silver.",
+  "voice": {
+    "sound": "voice_soft",
+    "pitch": 0.85
+  }
+}

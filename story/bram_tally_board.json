@@ -81,7 +81,8 @@
         "text": "On the bare pegs under SALT somebody has hung one new stick: four notches cut deep, and nothing after them. It isn't a tally of salt.",
         "if": [
           "flag:thornwold_hob_ladder=stayed",
-          "!flag:thornwold_northing=lit"
+          "!flag:thornwold_northing=lit",
+          "!flag:thornwold_far_shore=up"
         ]
       },
       {
@@ -89,7 +90,16 @@
         "text": "On the bare pegs under SALT somebody has hung one new stick: four notches cut deep, and the first of them crossed through. It isn't a tally of salt.",
         "if": [
           "flag:thornwold_hob_ladder=stayed",
-          "flag:thornwold_northing=lit"
+          "flag:thornwold_northing=lit",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "On the bare pegs under SALT somebody has hung one new stick: four notches cut deep, and every one of them crossed through. Nothing left on it to cross. It isn't a tally of salt.",
+        "if": [
+          "flag:thornwold_hob_ladder=stayed",
+          "flag:thornwold_far_shore=up"
         ]
       }
     ]

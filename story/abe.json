@@ -1,0 +1,120 @@
+{
+  "id": "abe",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_far_shore=up",
+        "goto": "home"
+      },
+      {
+        "say": "narrator",
+        "text": "A big bald man with a rust-red beard stands by the fire with his hands on his hips and his sleeves rolled, looking out at the fog over the sea as if it owed him money."
+      },
+      {
+        "say": "abe",
+        "text": "Boat's coming. Abe Dray. Him over there's my brother. He'll tell you it isn't.",
+        "if": "!flag:thornwold_far_shore=waiting"
+      },
+      {
+        "say": "abe",
+        "text": "Still coming. Don't you start.",
+        "if": "flag:thornwold_far_shore=waiting"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Why are you so sure the boat's coming?",
+            "goto": "sure"
+          },
+          {
+            "text": "There's a rake driven into a waymark on the old road.",
+            "goto": "rake"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "sure": [
+      {
+        "say": "abe",
+        "text": "Because Tolly says it isn't."
+      },
+      {
+        "say": "abe",
+        "text": "Forty years I've been the one says it won't rain, it won't hold, it won't light, and forty years Tolly's said it will. Then we come down a cliff and he's gone and took my side. So I took his. Somebody has to."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks at the fog over the water a while longer."
+      },
+      {
+        "say": "abe",
+        "text": "I'll tell you what, though. Hoping's harder work than a clamp. I don't know how he did it all those years."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "rake": [
+      {
+        "say": "abe",
+        "text": "Ours. Mine. His. Never once agreed whose, and we had it forty years between us."
+      },
+      {
+        "say": "abe",
+        "text": "Fifth mark on the road, Tolly sat down and said he wasn't carrying it another step, and I said it wasn't his to put down. So we cut a notch across both our marks and drove it in the cairn. A rake that's both of ours is the road's."
+      },
+      {
+        "say": "tolly",
+        "text": "First thing we ever agreed on."
+      },
+      {
+        "say": "abe",
+        "text": "Second. We both agreed you were wrong about the first."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "home": [
+      {
+        "say": "narrator",
+        "text": "Abe Dray stands across the clamp from his brother with his hands on his hips, watching Tolly hold the lantern."
+      },
+      {
+        "say": "abe",
+        "text": "Higher. You're holding it like a kettle."
+      },
+      {
+        "say": "abe",
+        "text": "The Lamp knew my face. Thirty winters, and I'd have said it never once looked at it. Said 'Abe Dray' before I'd opened my mouth, and broke a bit of its coal for us like breaking bread."
+      },
+      {
+        "say": "abe",
+        "text": "Boat never came. I'll not say I was wrong. I'll say it was late.",
+        "if": "!flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "abe",
+        "text": "Hob looked at us like we were weather. Nice enough. Asked if we were for the camp. Well. We know him, if he doesn't know us. That's a start.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ]
+  }
+}

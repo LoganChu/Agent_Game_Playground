@@ -1,0 +1,113 @@
+{
+  "id": "tolly",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_far_shore=up",
+        "goto": "home"
+      },
+      {
+        "say": "narrator",
+        "text": "A thin man in a long moss-green cap stands by the fire with his arms folded. The tail of the cap hangs down his back, and the end of it has gone silver."
+      },
+      {
+        "say": "tolly",
+        "text": "It isn't coming. He knows it isn't. He's just never stood on this side of an argument before, and he likes the view.",
+        "if": "!flag:thornwold_far_shore=waiting"
+      },
+      {
+        "say": "tolly",
+        "text": "Still not coming. I'm only saying.",
+        "if": "flag:thornwold_far_shore=waiting"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Why did you come down, if you don't think it's coming?",
+            "goto": "why"
+          },
+          {
+            "text": "How long have you been down here?",
+            "goto": "long"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "why": [
+      {
+        "say": "tolly",
+        "text": "Abe couldn't find a beach with both hands. Somebody had to come and point."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks across the fire at his brother, who is looking at the sea."
+      },
+      {
+        "say": "tolly",
+        "text": "And Wenna. Somebody has to be on the beach when she finds out. Abe'd only say he told her. He'd be wrong, but he'd say it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "long": [
+      {
+        "say": "tolly",
+        "text": "Ask Wenna. She's got it on the bollard in fives. I stopped counting when I ran out of things to say to Abe, which was the second day."
+      },
+      {
+        "say": "tolly",
+        "text": "Ottie's gone home, they say. There's a light on the Northing now, look. Lamp's, by the colour. We could go up by it any time we liked.",
+        "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "tolly",
+        "text": "We could go up by it any time we liked. We don't. That's colliers for you.",
+        "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "tolly",
+        "text": "Ottie came down with a proper light, after all that. Never waited to be told a thing.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "home": [
+      {
+        "say": "narrator",
+        "text": "Tolly Dray holds a Keeper's lantern out by its bail in the colliers' clearing, gold behind horn, and keeps looking at it as if it might change its mind."
+      },
+      {
+        "say": "tolly",
+        "text": "One lantern between the two of us. We couldn't agree who'd carry it. So I carry it, and he tells me how."
+      },
+      {
+        "say": "tolly",
+        "text": "Off the Lamp's own coal, that is. The warm side. There's only the cold side left in the box now, it says. The side that faced the Spire. Doesn't light anything."
+      },
+      {
+        "say": "tolly",
+        "text": "Ottie had one off it too. For Hob's hut. He promised Hob a lantern, years back, before any of this. Ottie keeps a promise like a dog keeps a bone."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ]
+  }
+}

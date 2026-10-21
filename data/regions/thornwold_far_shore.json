@@ -1,0 +1,662 @@
+{
+  "id": "thornwold_far_shore",
+  "name": "The Far Shore",
+  "description": "Thornwold's north shore under the Northing's cliff, at the foot of the Keepers' steps: a shingle beach in fog that lies on it thick as wool, and the Keepers' boat-stage, where the Spire's boat came in once a winter for the keeper.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.03,
+    "color": "silverfog"
+  },
+  "light": {
+    "note": "Under the wool: flat grey light with no sun to speak of, the sea the colour of slate, a warm smear high on the cliff where the Northing burns.",
+    "sun_color": "#E9DCC0",
+    "sun_energy": 0.55,
+    "sun_pitch": -55,
+    "sun_yaw": -160,
+    "ambient_color": "silverfog",
+    "ambient_energy": 0.42,
+    "sky_top": "slate",
+    "sky_horizon": "silverfog"
+  },
+  "ambience": [
+    {
+      "sound": "surf",
+      "volume": 1.0
+    },
+    {
+      "sound": "wind_high",
+      "volume": 0.35
+    }
+  ],
+  "footsteps": "shingle",
+  "footsteps_raised": "stone",
+  "greying": [
+    {
+      "rect": [
+        -26,
+        -34,
+        26,
+        0.5
+      ],
+      "strength": 0.6,
+      "falloff": 4.0,
+      "height": 4.0,
+      "note": "The wool: from the cliff head it looks level as a floor; down in it, it's a grey lid at head height over the shingle and the sea. Under the cliff, out of the draught, it thins to nothing."
+    },
+    {
+      "ellipse": [
+        8.0,
+        -13.0,
+        5.0,
+        5.0
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "if": "flag:thornwold_northing=carried",
+      "note": "The Ridge Light's lantern on the boat-stage's bracket, where Ottie hung it: a pool of clear air round the stage's end."
+    },
+    {
+      "ellipse": [
+        -6.0,
+        3.0,
+        4.5,
+        4.0
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "if": [
+        "flag:thornwold_hob_ladder=gone",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "Hob's lantern, stood on a stone by the colliers' fire."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      2.0,
+      0.5,
+      5.4
+    ],
+    "from_steps": [
+      2.0,
+      0.5,
+      5.4
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -28,
+      -34,
+      28,
+      18
+    ],
+    "cell": 1.0,
+    "base": -1.6,
+    "seed": 55,
+    "roughness": 0.08,
+    "ragged": 1.0,
+    "ragged_scale": 5.0,
+    "wade_depth": 0.35,
+    "note": "A shingle beach a few strides deep under the Northing's cliff (14 m, sheer), closed at both ends by buttresses of the same rock; the Keepers' boat-stage runs out north into the sea from the middle of it.",
+    "land": [
+      {
+        "rect": [
+          -18,
+          -4,
+          18,
+          9
+        ],
+        "height": 0.5,
+        "falloff": 4.0,
+        "note": "the shingle"
+      },
+      {
+        "rect": [
+          -28,
+          8.5,
+          28,
+          18
+        ],
+        "height": 14.0,
+        "falloff": 1.6,
+        "ragged": 0.6,
+        "note": "the north cliff; the Northing on its top"
+      },
+      {
+        "ellipse": [
+          -19.5,
+          5.0,
+          4.0,
+          7.0
+        ],
+        "height": 9.0,
+        "falloff": 1.6,
+        "note": "the west buttress"
+      },
+      {
+        "ellipse": [
+          19.5,
+          5.0,
+          4.0,
+          7.0
+        ],
+        "height": 9.0,
+        "falloff": 1.6,
+        "note": "the east buttress"
+      },
+      {
+        "path": [
+          [
+            8,
+            -1,
+            0.7
+          ],
+          [
+            8,
+            -15,
+            0.7
+          ]
+        ],
+        "width": 2.6,
+        "falloff": 0.5,
+        "note": "the Keepers' boat-stage: a built quay of dressed stone"
+      }
+    ],
+    "colors": {
+      "ground": "slate",
+      "shore": "driftwood",
+      "shore_height": 0.3,
+      "seabed": "slate",
+      "cliff": "slate",
+      "cliff_slope": 0.9
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            8,
+            -1,
+            0
+          ],
+          [
+            8,
+            -15,
+            0
+          ]
+        ],
+        "width": 2.4,
+        "color": "silverfog",
+        "note": "the stage's dressed stone"
+      },
+      {
+        "ellipse": [
+          -7.0,
+          2.5,
+          1.4,
+          1.2
+        ],
+        "color": "ink",
+        "note": "ash and charcoal round the colliers' fire"
+      },
+      {
+        "path": [
+          [
+            2.0,
+            5.5,
+            0
+          ],
+          [
+            -6.5,
+            3.0,
+            0
+          ],
+          [
+            7.5,
+            0.0,
+            0
+          ]
+        ],
+        "width": 1.0,
+        "color": "#8E8A82",
+        "note": "a path trodden in the shingle: steps, fire, stage"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/steps_foot.glb",
+      "position": [
+        3.2,
+        0,
+        6.9
+      ],
+      "rotation_y": 180,
+      "collider": [
+        4.6,
+        4.0,
+        1.4
+      ],
+      "note": "The foot of the Keepers' steps: cut up a buttress of the cliff, an iron rail on pins, the ember in the bottom riser. They go on up round the rock's shoulder into the wool."
+    },
+    {
+      "model": "res://assets/models/dressing/northing_cairn.glb",
+      "position": [
+        4.0,
+        0,
+        11.0
+      ],
+      "rotation_y": 180,
+      "note": "The Northing on the cliff top, far overhead: you can just make out the basket and the arm."
+    },
+    {
+      "model": "res://assets/models/dressing/cresset_coals.glb",
+      "position": [
+        4.0,
+        0,
+        11.0
+      ],
+      "rotation_y": 180,
+      "smoke": [
+        [
+          0,
+          2.3,
+          0
+        ]
+      ],
+      "if": "!flag:thornwold_northing=lit",
+      "note": "Ottie's charcoal banked in the basket (he carried the lantern down)."
+    },
+    {
+      "model": "res://assets/models/dressing/cresset_lantern.glb",
+      "position": [
+        4.0,
+        0,
+        11.0
+      ],
+      "rotation_y": 180,
+      "halo": [
+        0,
+        1.69,
+        0.78
+      ],
+      "halo_size": 6.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.4,
+      "if": "flag:thornwold_northing=lit",
+      "note": "The Ridge Light's lantern on the Northing's hook, high over the shore: the warm place at the top to climb to."
+    },
+    {
+      "model": "res://assets/models/dressing/boat_stage.glb",
+      "position": [
+        8.0,
+        0.72,
+        -14.9
+      ],
+      "snap": false,
+      "rotation_y": 180,
+      "note": "The Keepers' boat-stage's end: kerbs, the bollard and its mooring ring, the boat's lantern bracket."
+    },
+    {
+      "model": "res://assets/models/dressing/stage_lantern.glb",
+      "position": [
+        8.0,
+        0.72,
+        -14.9
+      ],
+      "snap": false,
+      "rotation_y": 180,
+      "halo": [
+        -0.85,
+        1.87,
+        0.95
+      ],
+      "halo_size": 3.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.3,
+      "if": "flag:thornwold_northing=carried",
+      "note": "The Ridge Light's lantern, hung by Ottie on the bracket where the boat's lantern went."
+    },
+    {
+      "model": "res://assets/models/dressing/drift_fire.glb",
+      "position": [
+        -7.0,
+        0,
+        2.5
+      ],
+      "rotation_y": 20,
+      "smoke": [
+        [
+          0,
+          0.5,
+          0
+        ]
+      ],
+      "sound": {
+        "id": "embers",
+        "offset": [
+          0,
+          0.3,
+          0
+        ],
+        "range": 8
+      },
+      "if": "!flag:thornwold_far_shore=up",
+      "note": "The colliers' driftwood fire: the sea's leavings, so the fog lets it be."
+    },
+    {
+      "model": "res://assets/models/dressing/drift_fire_out.glb",
+      "position": [
+        -7.0,
+        0,
+        2.5
+      ],
+      "rotation_y": 20,
+      "if": "flag:thornwold_far_shore=up",
+      "note": "Raked out when they went up the steps; the kettle left on its stone."
+    },
+    {
+      "model": "res://assets/models/dressing/drift_shelter.glb",
+      "position": [
+        -8.6,
+        0,
+        6.4
+      ],
+      "rotation_y": 180,
+      "collider": [
+        2.8,
+        1.4,
+        1.4
+      ],
+      "note": "The colliers' lean-to against the cliff foot: driftwood poles and split sacks."
+    },
+    {
+      "model": "res://assets/models/dressing/charcoal_sacks.glb",
+      "position": [
+        -11.2,
+        0,
+        5.6
+      ],
+      "rotation_y": 200,
+      "scale": 0.7,
+      "collider": [
+        1.0,
+        0.8,
+        1.0
+      ],
+      "note": "What they carried down: two sacks empty and one with a few handfuls in it."
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        -2.5,
+        0,
+        -1.5
+      ],
+      "rotation_y": 35
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        13.5,
+        0,
+        -0.5
+      ],
+      "rotation_y": -60
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        -13.0,
+        0,
+        0.5
+      ],
+      "rotation_y": 80
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        -15.0,
+        0,
+        6.0
+      ],
+      "rotation_y": 10,
+      "scale": 1.3,
+      "collider": [
+        3.8,
+        2.8,
+        1.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        14.5,
+        0,
+        6.2
+      ],
+      "rotation_y": 170,
+      "scale": 1.4,
+      "collider": [
+        4.0,
+        3.0,
+        1.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        11.5,
+        0,
+        3.5
+      ],
+      "rotation_y": 60,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -3.5,
+        0,
+        4.0
+      ],
+      "rotation_y": 140,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        3.5,
+        0,
+        -3.0
+      ],
+      "rotation_y": 20,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -1.0,
+        0,
+        6.8
+      ],
+      "rotation_y": 40,
+      "scale": 1.1
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        8.5,
+        0,
+        7.0
+      ],
+      "rotation_y": 200,
+      "scale": 1.3
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -12.5,
+        0,
+        7.4
+      ],
+      "rotation_y": 110,
+      "scale": 1.2
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "wenna_coll",
+      "position": [
+        8.0,
+        0,
+        -13.4
+      ],
+      "rotation_y": 180,
+      "if": "!flag:thornwold_far_shore=up",
+      "note": "At the end of the boat-stage on a folded sack, looking out to sea for a boat."
+    },
+    {
+      "npc": "abe",
+      "position": [
+        -5.6,
+        0,
+        1.5
+      ],
+      "rotation_y": -57,
+      "if": "!flag:thornwold_far_shore=up",
+      "note": "By the fire, hands on his hips: the boat's coming."
+    },
+    {
+      "npc": "tolly",
+      "position": [
+        -8.4,
+        0,
+        1.2
+      ],
+      "rotation_y": 45,
+      "if": "!flag:thornwold_far_shore=up",
+      "note": "Across the fire from him, arms folded: it isn't."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        6.6,
+        0,
+        -12.4
+      ],
+      "rotation_y": 160,
+      "if": [
+        "flag:thornwold_northing=carried",
+        "!flag:thornwold_far_shore=up",
+        "!flag:thornwold_ottie_cap"
+      ],
+      "note": "Ottie, come down with the lantern (The Northing, carried): by Wenna on the stage, under the light he hung."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        6.6,
+        0,
+        -12.4
+      ],
+      "rotation_y": 160,
+      "model": "res://assets/models/characters/ottie_cap.glb",
+      "if": [
+        "flag:thornwold_northing=carried",
+        "!flag:thornwold_far_shore=up",
+        "flag:thornwold_ottie_cap"
+      ],
+      "note": "The same, in his cap."
+    },
+    {
+      "npc": "hob",
+      "position": [
+        -5.8,
+        0,
+        4.0
+      ],
+      "rotation_y": -142,
+      "model": "res://assets/models/characters/hob_lantern.glb",
+      "idle": "breathe",
+      "if": [
+        "flag:thornwold_hob_came_in",
+        "flag:thornwold_hob_ladder=gone",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "Hob, come down the steps with his own lantern (The Fifth, gone): by the fire, the light held out."
+    }
+  ],
+  "objects": [
+    {
+      "id": "boat_stage",
+      "prompt": "Look at the boat-stage",
+      "dialogue": "boat_stage",
+      "position": [
+        8.6,
+        0,
+        -11.8
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        1.0,
+        0
+      ]
+    },
+    {
+      "id": "drift_fire",
+      "prompt": "Look at the fire",
+      "dialogue": "drift_fire",
+      "position": [
+        -7.0,
+        0,
+        2.5
+      ],
+      "reach": 1.8,
+      "glint": [
+        0,
+        0.9,
+        0
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "far_shore_arrival",
+      "if": [
+        "!flag:thornwold_northing=",
+        "!flag:thornwold_far_shore_reached"
+      ],
+      "set": {
+        "thornwold_far_shore_reached": true
+      },
+      "dialogue": "thornwold_far_shore_arrival"
+    }
+  ],
+  "exits": [
+    {
+      "to": "thornwold_old_road",
+      "spawn": "from_far_shore",
+      "position": [
+        2.4,
+        0,
+        5.9
+      ],
+      "prompt": "Climb the Keepers' steps to the Northing"
+    }
+  ]
+}

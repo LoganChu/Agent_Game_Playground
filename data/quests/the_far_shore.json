@@ -1,0 +1,17 @@
+{
+  "id": "the_far_shore",
+  "title": "The Far Shore",
+  "region": "thornwold_far_shore",
+  "giver": "wenna_coll",
+  "description": "Three of the four colliers who went north along the old Keepers' road went down the Keepers' steps from the Northing to the far shore, to wait for the Spire's boat. The Spire is dark.",
+  "stages": [
+    {
+      "id": "the_three",
+      "text": "There's light enough at the Northing now to go down the Keepers' steps. Find Wenna Coll and the Drays, Abe and Tolly, on the far shore."
+    },
+    {
+      "id": "the_boat",
+      "text": "Wenna Coll sits at the end of the Keepers' boat-stage waiting for the Spire's boat, and the Drays wait with her and argue about it. She'll come up when the boat comes, or when somebody tells her something she believes. Tell her what you think."
+    }
+  ]
+}

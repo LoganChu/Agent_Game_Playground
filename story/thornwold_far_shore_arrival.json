@@ -1,0 +1,45 @@
+{
+  "id": "thornwold_far_shore_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A long way down, and then shingle under your feet. From the top the fog looked like a floor. From underneath it's a lid: grey, low, a man's height over the stones, and the air under it still and cold and smelling of weed."
+      },
+      {
+        "say": "narrator",
+        "text": "Out from the middle of the beach a quay of dressed stone runs into the sea, too well built for anything Thornwold would have put here. The Keepers' boat-stage. Somebody is sitting on the very end of it, looking out."
+      },
+      {
+        "say": "narrator",
+        "text": "Under the cliff a driftwood fire burns in a ring of stones, and two men stand either side of it, not looking at each other, the way men stand who've been arguing a week."
+      },
+      {
+        "say": "narrator",
+        "text": "Overhead, high on the cliff, the Northing's lantern makes a gold place in the wool. From down here it's the only warm thing in the world.",
+        "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "On the stage's end a lantern hangs from an iron bracket, gold behind horn. The Ridge Light's. Ottie's standing under it.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "narrator",
+        "text": "By the fire, with a lantern of his own held out in front of him, Hob Marl is counting heads, and getting four, and starting again.",
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_northing=carried"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "By the fire, with a lantern of his own held out in front of him, Hob Marl is counting heads, and getting three, and looking up at the Northing's light, and making it four.",
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_northing=lit"
+        ]
+      }
+    ]
+  }
+}

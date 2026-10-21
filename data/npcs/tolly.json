@@ -1,0 +1,13 @@
+{
+  "id": "tolly",
+  "name": "Tolly Dray",
+  "faction": "none",
+  "color": "moss",
+  "dialogue": "tolly",
+  "model": "res://assets/models/characters/tolly.glb",
+  "bio": "The younger Dray. Went down the Keepers' steps because his brother 'couldn't find a beach with both hands'. Says the boat isn't coming, and is waiting to be proved right. Half-Hushed: the tail of his cap has gone silver.",
+  "voice": {
+    "sound": "voice_bright",
+    "pitch": 0.9
+  }
+}

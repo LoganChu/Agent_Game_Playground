@@ -108,12 +108,54 @@
       {
         "say": "lamp",
         "text": "There's a light at the north end. I see it from the gallery, past the shoulder of the spine, where I used to look for the boat. Ottie went home, you say. They'll come back one at a time, the way they went.",
-        "if": "flag:thornwold_northing=lit"
+        "if": [
+          "flag:thornwold_northing=lit",
+          "!flag:thornwold_far_shore=up"
+        ]
       },
       {
         "say": "lamp",
         "text": "I saw a light go down off the Northing. Down, not along. Ottie never waited to be told a thing.",
-        "if": "flag:thornwold_northing=carried"
+        "if": [
+          "flag:thornwold_northing=carried",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "lamp",
+        "text": "They came along the ridge in the dark, one behind the other, the way they went. I was at the bench. I knew them before they were in the light. Wenna Coll. Abe Dray. Tolly Dray. And Ottie behind with his fire iron, like a man herding geese. Thirty winters I never looked at them, I'd have said. I'd have been wrong.",
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "flag:thornwold_northing=carried"
+        ]
+      },
+      {
+        "say": "lamp",
+        "text": "They came along the ridge in the dark, one behind the other, the way they went, by the light on the Northing. I was at the bench. I knew them before they were in the light. Wenna Coll. Abe Dray. Tolly Dray. Thirty winters I never looked at them, I'd have said. I'd have been wrong.",
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "flag:thornwold_northing=lit"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "It lifts the lid of the iron box a finger's width. What's in it is the size of a fingernail paring, and there's no glow on it anywhere.",
+        "if": "flag:thornwold_far_shore=up"
+      },
+      {
+        "say": "lamp",
+        "text": "I broke the warm side for them. One for Wenna's hearth. One for the Drays, between them; they argued who'd carry it. One for Hob's hut, because Ottie asked, and said he'd promised.",
+        "if": "flag:thornwold_far_shore=up"
+      },
+      {
+        "say": "lamp",
+        "text": "What's left is the side that went cold the night the Spire went dark. The side that faced it. It doesn't light anything. I'll keep it anyway. Somebody should.",
+        "if": "flag:thornwold_far_shore=up"
+      },
+      {
+        "say": "lamp",
+        "text": "Still on the stage, are they. I sat on that bollard thirty winters waiting for a boat that always came. Waiting for one that won't is harder. I'll keep the coal for them. All of it.",
+        "if": "flag:thornwold_far_shore=waiting"
       },
       {
         "goto": "hub"

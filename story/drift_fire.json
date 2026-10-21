@@ -1,0 +1,22 @@
+{
+  "id": "drift_fire",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A ring of beach stones and a fire of driftwood in it, leaned up in a cone over a red heart the way a collier builds anything that has to last. A black kettle on a stone. A log for a seat, sat smooth.",
+        "if": "!flag:thornwold_far_shore=up"
+      },
+      {
+        "say": "narrator",
+        "text": "The fog sits round it close and doesn't mind it, the way it sits round a clamp in the colliers' clearing. Sea's leavings. Whatever lets a collier's fire be lets this one be too. It doesn't push the fog back an inch.",
+        "if": "!flag:thornwold_far_shore=up"
+      },
+      {
+        "say": "narrator",
+        "text": "The fire's been raked out and the stones kicked in over the ash, collier-fashion, so it won't creep. The kettle's still on its stone. Nobody's coming back for a kettle.",
+        "if": "flag:thornwold_far_shore=up"
+      }
+    ]
+  }
+}

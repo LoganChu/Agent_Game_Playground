@@ -12,14 +12,16 @@
       },
       {
         "say": "narrator",
-        "text": "Your ember gutters just looking at it. Not today."
+        "text": "Your ember gutters just looking at it. Not today.",
+        "if": "flag:thornwold_northing="
       },
       {
         "say": "narrator",
         "text": "Far down in the wool a light is standing still. Hob's, or what's left of it to see from here.",
         "if": [
           "flag:thornwold_hob_ladder=gone",
-          "!flag:thornwold_northing=carried"
+          "!flag:thornwold_northing=carried",
+          "!flag:thornwold_far_shore=up"
         ]
       },
       {
@@ -27,7 +29,8 @@
         "text": "Far down in the wool two lights are standing close together, not moving. Hob's, and the one Ottie took down.",
         "if": [
           "flag:thornwold_hob_ladder=gone",
-          "flag:thornwold_northing=carried"
+          "flag:thornwold_northing=carried",
+          "!flag:thornwold_far_shore=up"
         ]
       },
       {
@@ -35,13 +38,57 @@
         "text": "Far down in the wool a light is standing still. Ottie's, the Ridge Light's gold, with nobody you can see beside it yet.",
         "if": [
           "!flag:thornwold_hob_ladder=gone",
-          "flag:thornwold_northing=carried"
+          "flag:thornwold_northing=carried",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Far down in the wool the Ridge Light's lantern stands on the boat-stage, where Ottie left it hung for the boat. Nobody beside it now.",
+        "if": [
+          "flag:thornwold_northing=carried",
+          "flag:thornwold_far_shore=up"
         ]
       },
       {
         "say": "narrator",
         "text": "Behind you the Northing's lantern lays a warm smear on the top of the fog, the way a lamp in a window lays one on snow. From below, it would be the only thing to climb to.",
         "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember steadies. With a light up here, or one down there, the wool is only weather. You could go down.",
+        "if": [
+          "!flag:thornwold_northing=",
+          "!flag:thornwold_far_shore_reached"
+        ]
+      },
+      {
+        "if": "!flag:thornwold_northing=",
+        "choice": [
+          {
+            "text": "Go down the Keepers' steps.",
+            "goto": "down"
+          },
+          {
+            "text": "Not now.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "down": [
+      {
+        "if": "quest:the_far_shore=inactive",
+        "quest_start": "the_far_shore"
+      },
+      {
+        "say": "narrator",
+        "text": "You go down with a hand on the rail. The iron is cold and rubbed bright, and the wool closes over your head like water.",
+        "travel": [
+          "thornwold_far_shore",
+          "from_steps"
+        ]
       }
     ]
   }

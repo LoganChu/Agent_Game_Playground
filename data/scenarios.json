@@ -516,6 +516,27 @@
         "ridge_lantern": 1
       },
       "shot": "--camera=-2.5,4.2,-35.5:2.0,3.2,-41.0"
+    },
+    {
+      "id": "the_far_shore",
+      "act": "Act II — The Drift",
+      "title": "The Far Shore",
+      "inherits": "the_northing",
+      "region": "thornwold_far_shore",
+      "spawn": "from_steps",
+      "description": "After The Northing (Ottie took the Ridge Light's lantern down the Keepers' steps; Hob went down before him), the player went down the steps to the far shore under the Northing's cliff and found Wenna Coll on the end of the Keepers' boat-stage waiting for the Spire's boat, the Drays arguing by a driftwood fire, Ottie under the lantern he hung on the stage's bracket and Hob counting heads. Tell Wenna what you think: come up (the Lamp breaks the warm side of its kept coal for their hearths) or wait (and tell the Spire they're there).",
+      "flags": {
+        "thornwold_northing": "carried",
+        "thornwold_far_shore_reached": true
+      },
+      "quests": {
+        "the_northing": "done",
+        "the_far_shore": "the_three"
+      },
+      "items": {
+        "ridge_lantern": 0
+      },
+      "shot": "--camera=10,3.2,-9:-3,1.4,3"
     }
   ]
 }

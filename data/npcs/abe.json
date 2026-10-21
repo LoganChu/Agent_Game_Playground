@@ -1,0 +1,13 @@
+{
+  "id": "abe",
+  "name": "Abe Dray",
+  "faction": "none",
+  "color": "coal",
+  "dialogue": "abe",
+  "model": "res://assets/models/characters/abe.glb",
+  "bio": "The elder of the Dray brothers, colliers from Thornwold's near side, who never once agreed whose rake it was. Went down the Keepers' steps with Wenna Coll to wait for the Spire's boat; says it's coming, for the first time in his life the hopeful one. Half-Hushed.",
+  "voice": {
+    "sound": "voice_gruff",
+    "pitch": 0.82
+  }
+}

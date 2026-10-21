@@ -350,6 +350,31 @@
       "description": "Talked with Ottie Swale at home in the colliers' clearing after the Northing was lit (one-time homecoming: his boots, Hob, the three).",
       "default": false
     },
+    "thornwold_far_shore_reached": {
+      "description": "The player has gone down the Keepers' steps from the Northing to the far shore (one-time arrival scene; only once there is a light at the Northing or below it: thornwold_northing set).",
+      "default": false
+    },
+    "thornwold_met_wenna_coll": {
+      "description": "Met Wenna Coll at the end of the Keepers' boat-stage on the far shore, waiting for the Spire's boat with the Drays (advances The Far Shore to the_boat).",
+      "default": false
+    },
+    "thornwold_boat_stage_seen": {
+      "description": "Looked at the Keepers' boat-stage on the far shore: the mooring ring worn bright on one side, thirty winters' strokes on the bollard's cap and, after them, Wenna Coll's day-strokes. Wenna knows the player has seen her count.",
+      "default": false
+    },
+    "thornwold_far_shore": {
+      "description": "The Far Shore (Day 55), the Wakebearer's word to Wenna Coll on the boat-stage: '' (not yet), 'up' (somebody came down for them: the three climb the Keepers' steps — with Ottie if he carried the lantern down, and Hob if he went — and walk the old road to the Ridge Light, where the Lamp breaks the warm side of the kept coal into lanterns for their hearths; they come home to the colliers' clearing) or 'waiting' (wait for the boat: the Wakebearer promised to tell the Spire there are colliers on the Northing's stage; they stay on the shore with whatever light they have).",
+      "default": "",
+      "values": [
+        "",
+        "up",
+        "waiting"
+      ]
+    },
+    "thornwold_ottie_four_home_seen": {
+      "description": "Talked with Ottie Swale at home in the colliers' clearing after the three came up from the far shore (one-time: all four home).",
+      "default": false
+    },
     "fen_landed": {
       "description": "The player has come ashore at Glasswater Fen's staithe (one-time arrival scene after the first sailing north-about from Thornwold).",
       "default": false

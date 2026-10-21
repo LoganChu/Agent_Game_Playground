@@ -1,0 +1,45 @@
+{
+  "id": "boat_stage",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The boat-stage is dressed stone, squared and fitted, with kerbs along both sides and a step down to the water green with weed. Keepers' work. At the end a stone bollard carries an iron mooring ring, worn bright on its seaward side where the same rope pulled on it, winter after winter."
+      },
+      {
+        "say": "narrator",
+        "text": "On the bollard's cap somebody has scratched strokes in fives. Thirty winters of them, cut neat with a chisel point, the same hand as the lintel at the boat-watch up top. The last is fresher than the rest."
+      },
+      {
+        "say": "narrator",
+        "text": "After them, smaller and rougher, scratched with a nail: strokes in fives, a lot of them. Not winters. Days.",
+        "if": "!flag:thornwold_far_shore=waiting"
+      },
+      {
+        "say": "narrator",
+        "text": "After them, smaller and rougher, scratched with a nail: strokes in fives, days, and more of them every time you come down. Wenna's.",
+        "if": "flag:thornwold_far_shore=waiting"
+      },
+      {
+        "say": "narrator",
+        "text": "The days stop. The last stroke has a line through it.",
+        "if": "flag:thornwold_far_shore=up"
+      },
+      {
+        "say": "narrator",
+        "text": "At the corner a timber post holds an iron bracket out over the water, and on its hook, where the boat's lantern went, hangs the Ridge Light's: gold behind horn, the only light on the shore that the fog gets out of the way of.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "narrator",
+        "text": "At the corner a timber post holds an iron bracket out over the water. Its hook is empty. That's where the boat's lantern went, you'd guess: the light the keeper climbed down to, once a winter.",
+        "if": "!flag:thornwold_northing=carried"
+      },
+      {
+        "set": {
+          "thornwold_boat_stage_seen": true
+        }
+      }
+    ]
+  }
+}

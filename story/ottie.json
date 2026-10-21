@@ -3,6 +3,14 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_far_shore=up",
+        "goto": "home_four"
+      },
+      {
+        "if": "flag:thornwold_northing=carried",
+        "goto": "shore"
+      },
+      {
         "if": "flag:thornwold_northing=lit",
         "goto": "home"
       },
@@ -640,6 +648,116 @@
         "set": {
           "thornwold_boots_away": false
         }
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "shore": [
+      {
+        "say": "narrator",
+        "text": "Ottie stands on the boat-stage under the lantern he hung, his fire iron in his hand out of habit, nothing to poke."
+      },
+      {
+        "say": "ottie",
+        "text": "Hung it on the bracket. Where the boat's lantern went, Wenna says. She's not looking at it. She's looking past it."
+      },
+      {
+        "if": "!flag:thornwold_far_shore=waiting",
+        "say": "ottie",
+        "text": "I've told her come up. She says when the boat comes. You try. You've the face for it. Proper light in your hand."
+      },
+      {
+        "if": "flag:thornwold_far_shore=waiting",
+        "say": "ottie",
+        "text": "Waiting, then. I'm getting better at it. Not much."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "home_four": [
+      {
+        "if": "flag:thornwold_ottie_four_home_seen",
+        "goto": "home_four_again"
+      },
+      {
+        "say": "narrator",
+        "text": "Ottie Swale sits on the log seat outside his hut with his boots on, watching Wenna and the Drays round Hob's clamp with their lanterns as if he'd built them himself.",
+        "if": "!flag:thornwold_boots_away"
+      },
+      {
+        "say": "narrator",
+        "text": "Ottie Swale sits on the bare log seat outside his hut with his feet still bound in sacking, watching Wenna and the Drays round Hob's clamp with their lanterns as if he'd built them himself.",
+        "if": "flag:thornwold_boots_away"
+      },
+      {
+        "say": "ottie",
+        "text": "All four. All four home."
+      },
+      {
+        "say": "ottie",
+        "text": "Came up the steps behind Wenna. Left my light on the stage for the boat. Somebody should be lit for it.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "ottie",
+        "text": "They came up by the Northing's light. Wenna says they'd sat looking at it every night from the stage. Took somebody going down to make it a thing to climb to.",
+        "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "ottie",
+        "text": "Lamp was at the bench when we came along the ridge, like it knew. Knew us, every one. Broke the coal for them. I asked for a bit for Hob's hut. I promised him a lantern, years back. A promise doesn't go grey just because you do.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "ottie",
+        "text": "Lamp broke its coal for them at the bench, Wenna says. Knew them, every one. Sent a bit down for Hob's hut as well, because I'd asked it the night I came home. I promised him a lantern, years back. A promise doesn't go grey just because you do.",
+        "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "ottie",
+        "text": "Hob knows us. Hob counted us in, and then he sat down, and he slept.",
+        "if": [
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=gone"
+        ]
+      },
+      {
+        "say": "ottie",
+        "text": "Hob came up with us. Counting every step. Stopped at the top. Hasn't counted since.",
+        "if": "flag:thornwold_hob_ladder=gone"
+      },
+      {
+        "say": "ottie",
+        "text": "Hob doesn't know us. Four strangers in his clearing. He took the lantern for his hut off me all the same, and thanked me, and asked my name. I told him. He'll forget it. I'll tell him again. That's what neighbours are.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "set": {
+          "thornwold_ottie_four_home_seen": true
+        }
+      },
+      {
+        "if": [
+          "item:otties_boots",
+          "!flag:thornwold_beacon_burned=boots"
+        ],
+        "goto": "boots_back"
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "home_four_again": [
+      {
+        "say": "ottie",
+        "text": "Four seats. Four hearths, near enough. I keep counting them, and Hob's stopped. One of us has to."
       },
       {
         "goto": "home_hub"

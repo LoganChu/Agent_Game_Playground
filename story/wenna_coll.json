@@ -1,0 +1,403 @@
+{
+  "id": "wenna_coll",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_far_shore=up",
+        "goto": "home"
+      },
+      {
+        "if": "flag:thornwold_far_shore=waiting",
+        "goto": "waiting"
+      },
+      {
+        "if": "flag:thornwold_met_wenna_coll",
+        "goto": "greet"
+      },
+      {
+        "say": "narrator",
+        "text": "A woman sits on a folded sack at the very end of the stage with her forearms on her knees, a sacking hood pulled up over her head and down over her shoulders. A long braid comes out of it over one shoulder, grey and black, and the end of it has gone silver."
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't look round until you're nearly beside her, and then she looks at your hand first."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "You're not the boat."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Came down the steps, though. Nobody comes down the steps but the Lamp, and the Lamp's knees gave out before I was grey."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Wenna Coll. Collier, near side. I had a hearth out along the cart road, before the road took to lying."
+      },
+      {
+        "say": "ottie",
+        "text": "Told you somebody'd come down. Told you.",
+        "if": [
+          "flag:thornwold_northing=carried",
+          "!flag:thornwold_ottie_cap"
+        ]
+      },
+      {
+        "say": "ottie",
+        "text": "Told you somebody'd come down. Told you. In my cap and all.",
+        "if": [
+          "flag:thornwold_northing=carried",
+          "flag:thornwold_ottie_cap"
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "You told me the boat'd come, Ottie Swale. You tell me a lot.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "set": {
+          "thornwold_met_wenna_coll": true
+        }
+      },
+      {
+        "if": "quest:the_far_shore=inactive",
+        "quest_start": "the_far_shore"
+      },
+      {
+        "if": "stage:the_far_shore=the_three",
+        "quest_stage": [
+          "the_far_shore",
+          "the_boat"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "greet": [
+      {
+        "say": "narrator",
+        "text": "Wenna hasn't moved. Out past the end of the stage the fog lies on the water, and she watches it as if it might open."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Still not the boat."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "What are you waiting for?",
+            "goto": "boat"
+          },
+          {
+            "text": "Why did you need a light of your own?",
+            "goto": "hearth"
+          },
+          {
+            "text": "You've been counting days on the bollard.",
+            "if": "flag:thornwold_boat_stage_seen",
+            "goto": "days"
+          },
+          {
+            "text": "The Spire's dark. The boat isn't coming.",
+            "goto": "dark"
+          },
+          {
+            "text": "Come up. Somebody came down for you: me.",
+            "goto": "up"
+          },
+          {
+            "text": "Wait for it, then. I'll tell the Spire you're here.",
+            "goto": "wait"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "boat": [
+      {
+        "say": "wenna_coll",
+        "text": "The Spire's boat. Came in here every midwinter, under the cliff, for the keeper. Everybody our side knew it. Lamp went up the old road with a lantern once a winter and came back a week after with a new coal, and you don't get a coal off the Spire walking."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "So there's a boat. And a boat from the Spire'll have lanterns aboard, more than it needs. A boat that size always has more than it needs."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I'll ask for one. That's all. One light of my own. Lamp couldn't spare one, and I don't blame it. It had a road to keep."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hearth": [
+      {
+        "say": "wenna_coll",
+        "text": "My clamp's out along the cart road, north of the wall. The night the light went, the road started lying. You know that. Everybody knows it now."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I walked out to my own clamp in the morning and came back into the clearing. Walked out again, came back into the clearing. Three times. I could smell it burning. My own smoke, and I couldn't find the fire under it."
+      },
+      {
+        "say": "narrator",
+        "text": "She turns the end of her braid in her fingers, the silver part, and lets it go."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Proper light goes where things are. Lamp's lanterns don't lie, Hob says. So: a lantern. Then I go home."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "days": [
+      {
+        "say": "wenna_coll",
+        "text": "Somebody has to. Ottie counts in sacks. Abe and Tolly count in arguments. Lamp counted winters on that bollard, thirty of them, and the last one's fresh. The boat came that winter. It came every winter."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I count days. When I get to a winter's worth, I'll know something."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dark": [
+      {
+        "say": "wenna_coll",
+        "text": "Lamp said that. Spires get lit again, I said. Somebody'll come in a boat when it is."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "You've got the same light in your hand the Lamp had in its box. So somebody's lighting something, somewhere. You're the proof of it."
+      },
+      {
+        "say": "narrator",
+        "text": "You tell her what Brother Aldous told you in Saltmarrow: put out, not went out.",
+        "if": "!flag:saltmarrow_aldous_confessed="
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Put out. Then somebody can put it back. Things that get put out get put back. That's what hands are for.",
+        "if": "!flag:saltmarrow_aldous_confessed="
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "up": [
+      {
+        "say": "narrator",
+        "text": "She looks at you a long time. Then past you, up, at the cliff and the wool lying on top of it, and the steps going up into it."
+      },
+      {
+        "say": "narrator",
+        "text": "High on the cliff the Northing's lantern makes a gold place in the fog.",
+        "if": "flag:thornwold_northing=lit"
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Somebody came down."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "That's what I was waiting for, maybe. You don't say that to yourself, sitting on the end of a quay. You say boat. Boat's a better thing to wait for. It's got a shape."
+      },
+      {
+        "say": "narrator",
+        "text": "You tell her what the Lamp keeps in its iron box: the last of the coal, a thumbnail of it, kept for the four. 'If they come back along the ridge, there should be a light at the end of it that knows their faces.'",
+        "if": "flag:thornwold_lamp_saw_light"
+      },
+      {
+        "say": "wenna_coll",
+        "text": "It said that? For us? It never said that to us. It said no, and put the ladder down.",
+        "if": "flag:thornwold_lamp_saw_light"
+      },
+      {
+        "say": "narrator",
+        "text": "She gets up off the sack, folds it, and puts it under her arm. Then she pushes her hood back off her head, as if she'd only just noticed it was up."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Abe. Tolly. Up."
+      },
+      {
+        "say": "abe",
+        "text": "Up? The boat's—"
+      },
+      {
+        "say": "tolly",
+        "text": "Up. He said up. She said up. Up."
+      },
+      {
+        "say": "narrator",
+        "text": "For once the Drays are moving the same way. Abe rakes the fire out and kicks the stones in over it, collier-fashion; Tolly takes the kettle off and then, after a look at it, puts it back down on its stone."
+      },
+      {
+        "say": "ottie",
+        "text": "I'll leave the lantern on the bracket. For the boat. Somebody should be lit for it, if it comes.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "hob",
+        "text": "Four. One, two, three, four. I'll count you up the steps. I'll count you every step.",
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_northing=carried"
+        ]
+      },
+      {
+        "say": "hob",
+        "text": "Three. Three, and Ottie home. Four. I'll count you up the steps.",
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_northing=lit"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "They go up the Keepers' steps the way they went, one at a time, Wenna first with the sack under her arm. The fog takes them a step at a time. Near the top, you think, one of them stops to look back down at the stage. Then the wool closes."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Tell the boat we went home. If it comes."
+      },
+      {
+        "set": {
+          "thornwold_far_shore": "up"
+        }
+      },
+      {
+        "if": "quest:the_far_shore=active",
+        "quest_complete": "the_far_shore"
+      }
+    ],
+    "wait": [
+      {
+        "say": "wenna_coll",
+        "text": "Tell the Spire."
+      },
+      {
+        "say": "narrator",
+        "text": "She says it the way you'd say a word in a language you used to know."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Yes. You do that. Tell them there's colliers on the Northing's stage wanting lanterns, and how many. You can count; you've a light to count by. Tell them we're not proud. We'll take the ones with dents in."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "There's a spring under the cliff and limpets on the stones. Colliers have lived on less. We'll be here when it comes."
+      },
+      {
+        "say": "abe",
+        "text": "Told you. Told you it's coming."
+      },
+      {
+        "say": "tolly",
+        "text": "You told me the opposite of everything for forty years, Abe. You'd think one of them would come true by accident."
+      },
+      {
+        "say": "ottie",
+        "text": "Waiting, then. I don't wait well. I'll learn.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "hob",
+        "text": "Somebody's to count them. I'll count them. Morning and night.",
+        "if": "flag:thornwold_hob_ladder=gone"
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna sits back down on her sack at the end of the stage, and takes a nail out of her smock, and scratches a stroke on the bollard's cap."
+      },
+      {
+        "set": {
+          "thornwold_far_shore": "waiting"
+        }
+      },
+      {
+        "if": "quest:the_far_shore=active",
+        "quest_complete": "the_far_shore"
+      }
+    ],
+    "waiting": [
+      {
+        "say": "narrator",
+        "text": "Wenna is on the end of the stage, her nail in her hand. There are more strokes on the bollard than last time."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Not yet. You told them? Don't tell me if you haven't. I'd rather think you had."
+      },
+      {
+        "choice": [
+          {
+            "text": "Come up, Wenna. It's not too late to go home.",
+            "goto": "up"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "home": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll stands by Hob's clamp with her hood pushed back and a Keeper's lantern held out in front of her by its bail, gold behind horn. She keeps lifting it a little, the way you'd lift a lantern to see a face."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "The Lamp knew us. We came along the ridge in the dark and there it was at the bench, and it said my name before I'd said it. Thirty winters it never looked at us, I'd have said. It knew all four faces."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "It broke the coal for us. The warm side. Said the cold side was no use to anybody and it'd keep it anyway."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Hob knew us. Didn't say a thing. Just counted. Four. Then sat down on his step like his legs had gone and slept where he sat.",
+        "if": [
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=gone"
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Hob came up the steps behind us counting. He's stopped now. First time I've seen Hob Marl stop counting anything.",
+        "if": "flag:thornwold_hob_ladder=gone"
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Hob looked at us like weather. Said it's always been just him, this side of the ridge. Said it kind. Well. We know him. That'll do to be going on with.",
+        "if": "flag:thornwold_beacon_burned=boots"
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I'm going out along the cart road in the morning with this. To find my clamp. If it's lying, I'll know, now."
+      },
+      {
+        "choice": [
+          {
+            "text": "Good luck, Wenna.",
+            "end": true
+          }
+        ]
+      }
+    ]
+  }
+}

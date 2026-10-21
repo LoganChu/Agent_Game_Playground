@@ -3,6 +3,20 @@
   "knots": {
     "start": [
       {
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "!flag:thornwold_far_shore=up"
+        ],
+        "goto": "shore"
+      },
+      {
+        "if": [
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_far_shore=up"
+        ],
+        "goto": "home_from_shore"
+      },
+      {
         "if": "flag:thornwold_hob_ladder=up",
         "goto": "ridge_word"
       },
@@ -74,7 +88,8 @@
         "if": [
           "flag:thornwold_northing=lit",
           "!flag:thornwold_beacon_burned=boots",
-          "!flag:thornwold_hob_ladder=stayed"
+          "!flag:thornwold_hob_ladder=stayed",
+          "!flag:thornwold_far_shore=up"
         ],
         "say": "hob",
         "text": "Ottie's home. Ottie Swale's on his seat. Came down the lanterns in the dark like he'd never been gone."
@@ -83,7 +98,8 @@
         "if": [
           "flag:thornwold_northing=lit",
           "!flag:thornwold_boots_away",
-          "!flag:thornwold_hob_ladder=stayed"
+          "!flag:thornwold_hob_ladder=stayed",
+          "!flag:thornwold_far_shore=up"
         ],
         "say": "hob",
         "text": "In his boots. Told him he'd want them. Told him."
@@ -93,7 +109,8 @@
           "flag:thornwold_northing=lit",
           "flag:thornwold_boots_away",
           "!flag:thornwold_beacon_burned=boots",
-          "!flag:thornwold_hob_ladder=stayed"
+          "!flag:thornwold_hob_ladder=stayed",
+          "!flag:thornwold_far_shore=up"
         ],
         "say": "hob",
         "text": "In sacking. You've got his boots. Give a man his boots."
@@ -102,7 +119,8 @@
         "if": [
           "flag:thornwold_northing=lit",
           "!flag:thornwold_beacon_burned=boots",
-          "!flag:thornwold_hob_ladder=stayed"
+          "!flag:thornwold_hob_ladder=stayed",
+          "!flag:thornwold_far_shore=up"
         ],
         "say": "hob",
         "text": "One. That's one. Three to come."
@@ -110,7 +128,8 @@
       {
         "if": [
           "flag:thornwold_northing=lit",
-          "flag:thornwold_hob_ladder=stayed"
+          "flag:thornwold_hob_ladder=stayed",
+          "!flag:thornwold_far_shore=up"
         ],
         "say": "hob",
         "text": "Ottie came down past my mark. Past me, in the dark, and stopped, and said my name. I crossed him through on the stick. Three to go."
@@ -118,10 +137,62 @@
       {
         "if": [
           "flag:thornwold_northing=lit",
-          "flag:thornwold_beacon_burned=boots"
+          "flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_far_shore=up"
         ],
         "say": "hob",
         "text": "There's a man on the seat by the cold hut. Charcoal man, by his hands. Talks to me like he's known me years. Nice enough. It's always been just me this side of the ridge. Hasn't it?"
+      },
+      {
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Four. Four home. Ottie on his seat, and Wenna and the Drays came down the lanterns with lights of their own, and said my name, all three."
+      },
+      {
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Ottie brought a lantern for my hut. Said he'd promised. He had, too. Years back. I'd forgotten. He hadn't."
+      },
+      {
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "I've stopped counting. Stopped. Don't know what to do with my hands."
+      },
+      {
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "They came down past my mark. Three, behind Ottie's light, and stopped one at a time, and said their names. I crossed them through. All four. Nothing left on the stick to cross."
+      },
+      {
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Somebody's to be at the bottom of a road. Doesn't have to be counting, now. Can just be sitting."
+      },
+      {
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "flag:thornwold_beacon_burned=boots"
+        ],
+        "say": "hob",
+        "text": "There's more charcoal folk in the clearing now. Four. Came down off the ridge in the night with Keeper's lanterns. Talk to me like they've known me years. One brought a lantern for my hut. Said he'd promised. Nice of him. I don't mind it. I don't mind it at all."
       },
       {
         "if": [
@@ -776,6 +847,66 @@
           "thornwold_hob_ladder": "stayed"
         },
         "quest_complete": "the_fifth"
+      }
+    ],
+    "shore": [
+      {
+        "say": "narrator",
+        "text": "Hob stands by the colliers' fire with his lantern held out in front of him, and his lips move. One, two, three. Four. He starts again."
+      },
+      {
+        "if": "flag:thornwold_northing=carried",
+        "say": "hob",
+        "text": "Four. All four, on a beach. Had them in my head every night, and here they are with their feet wet."
+      },
+      {
+        "if": "flag:thornwold_northing=lit",
+        "say": "hob",
+        "text": "Three, on a beach, with their feet wet. And Ottie home, they say, to his boots. That's four. That's four."
+      },
+      {
+        "if": "!flag:thornwold_far_shore=waiting",
+        "say": "hob",
+        "text": "Wenna won't go up. Wenna's waiting for a boat. I'll wait with Wenna. I'm good at it. I'm the best there is."
+      },
+      {
+        "if": "flag:thornwold_far_shore=waiting",
+        "say": "hob",
+        "text": "Counting them morning and night. Morning and night. Somebody's to."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye, Hob.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "home_from_shore": [
+      {
+        "say": "narrator",
+        "text": "Hob Marl stands by his own clamp in the clearing, his lantern held out in front of him, though it's daylight and the clearing never needed one."
+      },
+      {
+        "say": "hob",
+        "text": "Came up the steps behind them. Counted them up every step. Four. Four, and me. Then I stopped. Stopped counting, top of the steps."
+      },
+      {
+        "say": "hob",
+        "text": "Ottie brought a lantern for my hut, as well. Said he'd promised. He had. I'd forgotten. He hadn't."
+      },
+      {
+        "say": "hob",
+        "text": "My rake's at Bram Kettle's, on his bench. He can keep it. Doesn't know whose it is, does he. Nobody down there does."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye, Hob.",
+            "end": true
+          }
+        ]
       }
     ]
   }
