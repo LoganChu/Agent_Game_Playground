@@ -222,7 +222,7 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 	_check(_npc("ottie") != null and _shown_model(main.get("region"), "collier_hut_cold_empty.glb") == 1,
 			"Ottie home on his seat in the colliers' clearing")
 	_check(_npc("wenna_coll") != null and _npc("abe") != null and _npc("tolly") != null, "the three home in the clearing")
-	if not await _take_exit(main, ui, "thornwold_landing", "down from thornwold_woods"):
+	if not await _walk_the_bend(main, ui):
 		return
 	_npc("oda").interact()
 	_check(_choose(ui, "Take me back to Saltmarrow."), "Oda runs the lane home to Saltmarrow")
@@ -299,6 +299,43 @@ func _walk_the_far_shore(main: Node, ui: DialogueUI) -> bool:
 	_check(_npc("wenna_coll") == null and _npc("abe") == null and _npc("tolly") == null, "the shore's empty")
 	print("Smoke: the far shore, the three gone up")
 	return await _take_exit(main, ui, "thornwold_old_road", "up the Keepers' steps to the Northing")
+
+
+## Day 57: ask Wenna Coll to walk out with her, go down to the landing and back through the wall for first light,
+## walk the old bend east with her to Coll's Hearth, hang her light on the bend's waymark, and walk the ruts back.
+## True if the walk ends at the landing.
+func _walk_the_bend(main: Node, ui: DialogueUI) -> bool:
+	var world := GameState.world
+	_npc("wenna_coll").interact()
+	_check(_choose(ui, "Can I walk out with you in the morning?"), "Wenna asked to walk out with her")
+	_finish_dialogue(ui, "wenna_coll (asked)")
+	_check(world.quest_stage("the_bend_in_the_road") == "first_light", "The Bend in the Road begun")
+	if not await _take_exit(main, ui, "thornwold_landing", "down from thornwold_woods"):
+		return false
+	_object("thornwold_bramble_wall").interact()
+	_check(_choose(ui, "Go through."), "back through the wall at first light")
+	_finish_dialogue(ui, "the bramble wall (going through)")
+	if not await _arrived(main, ui, "thornwold_woods", "through the wall to the woods"):
+		return false
+	_check(str(world.get_flag("thornwold_bend")) == "morning", "the first-light scene played")
+	_npc("wenna_coll").interact()
+	_check(_choose(ui, "Show me."), "Wenna shows the old ruts")
+	_finish_dialogue(ui, "wenna_coll (the bend)")
+	if not await _arrived(main, ui, "thornwold_colls_hearth", "along the bend with Wenna"):
+		return false
+	_check(world.get_flag("thornwold_colls_hearth_reached") == true, "Coll's Hearth's arrival scene played")
+	_npc("wenna_coll").interact()
+	_check(_choose(ui, "Hang it on the bend's waymark. Let the road be a road again."), "Wenna's light on the bend")
+	_finish_dialogue(ui, "wenna_coll (the road)")
+	await get_tree().process_frame
+	var hearth: Region = main.get("region")
+	_check(world.quest_state("the_bend_in_the_road") == WorldState.QUEST_DONE and _shown_model(hearth, "waymark_lit.glb") == 1,
+			"the bend lit, the quest done")
+	print("Smoke: the bend in the road, a road again")
+	if not await _take_exit(main, ui, "thornwold_woods", "back along the ruts"):
+		return false
+	_check(_object("woods_old_bend") != null, "the old ruts east from the straight road")
+	return await _take_exit(main, ui, "thornwold_landing", "down from thornwold_woods")
 
 
 ## Waits for a travel to land and plays out any arrival scene; true if the walk is in `region_id`.
