@@ -688,6 +688,10 @@
       "description": "The morning after Wenna Coll was asked (The Bend in the Road): the next arrival in the woods played the first-light scene (one-time).",
       "default": false
     },
+    "thornwold_bend_breaking_out": {
+      "description": "Coll's Hearth after The Bend in the Road (Day 58): the next arrival found Wenna at her clamp with the rake, breaking it out a sack at a time (one-time arrival scene; from then on she stands at the clamp's open front instead of sitting by her door).",
+      "default": false
+    },
     "thornwold_colls_hearth_reached": {
       "description": "The player has walked the old bend with Wenna Coll to Coll's Hearth (one-time arrival scene).",
       "default": false

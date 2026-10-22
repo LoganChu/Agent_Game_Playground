@@ -1,0 +1,29 @@
+{
+  "id": "colls_hearth_breaking_out",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_bend=road",
+        "say": "narrator",
+        "text": "Down the ruts from the bend's lantern the hollow opens, and there's a sound in it you haven't heard here: a rake, drawn through charcoal, and drawn again."
+      },
+      {
+        "if": "flag:thornwold_bend=hearth",
+        "say": "narrator",
+        "text": "The ruts bend, and you're in the hollow before you know you've found it. Her light's by the door. And there's a sound you haven't heard here: a rake, drawn through charcoal, and drawn again."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna has the clamp's front raked open to the hearth. The inside is black, stick on stick, and a fan of it lies drawn out on the moss in front of her. Four sacks stand tied at the side. A fifth sits open at her feet."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Don't stand in my dust. It's a sack at a time, this. Always was. You can't hurry a burn and you can't hurry the breaking."
+      },
+      {
+        "say": "narrator",
+        "text": "She draws the rake through again, slowly, and looks at what it brings out the way Ottie looks at his boots."
+      }
+    ]
+  }
+}

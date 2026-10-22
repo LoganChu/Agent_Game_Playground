@@ -718,7 +718,13 @@
     "bend_road": [
       {
         "say": "narrator",
-        "text": "Wenna Coll sits on the seat by her hut door with the fire in behind her and her big hands on her knees. Down the ruts the bend's lantern burns on its waymark."
+        "text": "Wenna Coll sits on the seat by her hut door with the fire in behind her and her big hands on her knees. Down the ruts the bend's lantern burns on its waymark.",
+        "if": "!flag:thornwold_bend_breaking_out"
+      },
+      {
+        "if": "flag:thornwold_bend_breaking_out",
+        "say": "narrator",
+        "text": "Wenna Coll is at her clamp with the rake, stooped into it, the charcoal coming out black onto the moss a stroke at a time. Down the ruts the bend's lantern burns on its waymark."
       },
       {
         "if": "!flag:thornwold_beacon_burned=boots",
@@ -750,7 +756,13 @@
     "bend_hearth": [
       {
         "say": "narrator",
-        "text": "Wenna Coll sits on the seat by her hut door under her own lantern, gold behind horn on its forked stake, the fire in behind her."
+        "text": "Wenna Coll sits on the seat by her hut door under her own lantern, gold behind horn on its forked stake, the fire in behind her.",
+        "if": "!flag:thornwold_bend_breaking_out"
+      },
+      {
+        "if": "flag:thornwold_bend_breaking_out",
+        "say": "narrator",
+        "text": "Wenna Coll is at her clamp with the rake, stooped into it, the charcoal coming out black onto the moss a stroke at a time. Her own lantern burns by the hut door behind her."
       },
       {
         "say": "wenna_coll",

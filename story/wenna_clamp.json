@@ -8,7 +8,13 @@
       },
       {
         "say": "narrator",
-        "text": "Where the front fell in, the charcoal shows black inside: stick on stick, the shape of the stack still in it, every piece burned clean through and not one gone to ash."
+        "text": "Where the front fell in, the charcoal shows black inside: stick on stick, the shape of the stack still in it, every piece burned clean through and not one gone to ash.",
+        "if": "!flag:thornwold_bend_breaking_out"
+      },
+      {
+        "if": "flag:thornwold_bend_breaking_out",
+        "say": "narrator",
+        "text": "The front's raked open to the hearth now. Inside it's black, stick on stick, the shape of the stack still in it, every piece burned clean through; the rake brings it out onto the moss in a fan, and four sacks stand tied beside it."
       },
       {
         "if": "flag:thornwold_bend=walked",
