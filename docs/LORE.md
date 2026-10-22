@@ -1025,6 +1025,10 @@ debts, salvage, and who answers for a thing.
         name every time.
     - Either way she sits on her own seat for the first time since the Snuffing and puts the fire in; another clamp when the
       cordwood's dry. **Ottie's promised lantern now hangs on a forked stake by Hob's door** (since *The Far Shore*'s `up`).
+    - **Breaking out the clamp (Day 58):** the next time the player comes along the bend, Wenna is up at her clamp with the
+      rake, its front raked open to the hearth, breaking the finished charcoal out "a sack at a time... You can't hurry a
+      burn and you can't hurry the breaking"; four sacks tied by it and a fifth open. From then on she's at the clamp, not
+      on her seat (`thornwold_bend_breaking_out`).
     - Open (small, not chased): the bend's lost north end under the ridge.
 
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)

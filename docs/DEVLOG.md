@@ -2,6 +2,56 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-22 21:00 UTC — Day 58: Breaking out the clamp; Abe's hands on his hips (art)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale `origin/main` again;
+  fetched and reset local `main` to Day 57's `c3badea`. Baseline green (402 tests + smoke + launch).
+- **Art-led (due ~Day 59; last Day 52):** ROADMAP *Next up* #1, the Coll's Hearth follow-ups from Day 57 and Abe:
+  - **`_bent_arm`** (build_characters.py): replaces a straight base arm with one bent at the elbow (two 0.27 m segments)
+    reaching a hand point given in the *posed* body, so a stoop (`torso_rest`) is accounted for; the elbow bows along a
+    hint. Rigid arms rotated at the shoulder can't put a fist on a hip or two hands on one pole.
+  - **Abe Dray** rebuilt with it: elbows out wide, fists on the coal-red sash, sleeves rolled at the elbow. (Before, his
+    "hands on hips" were straight arms swung 38° out: arms held stiffly out, the far-shore Known issue.)
+  - **`wenna_coll_rake`**: Wenna standing at her clamp with the hood pushed back, knees bent and stooped 25° into the work,
+    the clamp rake in both soot-black hands (back hand at her hip, front hand down the pole), its iron head down in the
+    charcoal ~1.4 m in front of her. The rake is the static `Stool` part so it stays on the ground under the idle.
+  - **`clamp_spent_open`** (build_bend.py): the spent clamp with the front raked open to the hearth (black bed inside), a
+    fan of charcoal drawn out on the moss, four tied sacks at the side and a fifth open with charcoal in its mouth.
+    `clamp_spent` and `hut_lantern` rebuild byte-identical.
+- **In the game:** a one-time arrival event at Coll's Hearth once *The Bend in the Road* is done
+  (`colls_hearth_breaking_out` → `thornwold_bend_breaking_out`): you hear a rake in charcoal before you see her ("It's a
+  sack at a time, this... You can't hurry a burn and you can't hurry the breaking"); variants for the lit bend and for the
+  hearth way in. From then on she's at the clamp with the rake instead of on her seat, the open clamp replaces the spent one,
+  and her talk and the clamp's description say so. The day she chooses she still sits by her door, as Day 57 wrote it.
+- **Tests:** `test_clamp_broken_out.gd` (7: seated the day it ends, the next arrival on both outcomes and only once, not
+  before she chooses, her talk and the clamp after, the rake on the ground in front of her, the open clamp's size, Abe's
+  fists at his hips with elbows wide). The smoke walk now goes back out along the lit bend to find her at it. 409 tests +
+  smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-10-22-pm-breaking-out.png`, `docs/screenshots/2026-10-22-pm-wenna-rake.png`,
+`docs/screenshots/2026-10-22-pm-abe-hips.png`.
+
+**Decisions**
+- **She's raking on the *next* visit, not the moment the quest ends.** Day 57's endings have her sit down by her door for
+  the first time since the Snuffing; standing her up at once would undo that beat. An arrival event (like Day 57's first
+  light) gives a "later" without a day/night clock; when the clock lands it can own this too.
+- **The rake idle stays `breathe`, not `rake`.** The `rake` idle swings the arms ±17° at the shoulder; with a 1.7 m pole
+  that drives the head 0.3 m into the ground. She reads as pausing mid-stroke; a pull animation for two-handed tools would
+  need the pole to follow the hands (noted below).
+- **The stooped skirt rides the legs.** A dress-length smock on the Torso part swings back like a bell when the waist bends;
+  for the rake pose the skirt goes in `LegL` and only the bodice bends.
+- No checkpoint: a small after-scene, not a new story point (the_bend_in_the_road's checkpoint still shows the choice).
+
+**Problems / notes**
+- The validator's NPC-exclusivity check doesn't know `thornwold_bend_breaking_out` only follows `road`/`hearth`, so the rake
+  placement is split in two (one per outcome).
+- The opened clamp's charcoal reads grey rather than black in the Compatibility renderer, like the rest of the ink tones;
+  one more thing for the Vulkan colour pass.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **systems or content** (both due by ~Day 61). Fetch before trusting `origin/main`.
+
 ## 2026-10-22 09:00 UTC — Day 57: The bend in the road (content)
 
 **Did**

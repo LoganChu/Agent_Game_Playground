@@ -44,7 +44,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn (+ answering_horn_open) gannet_hulk (+ gannet_hulk_bare, gannet_hulk_named) salvage_stack float_pile wrack_light (+ wrack_light_lit) teeth_rock teeth_mark]  # Wrackholm kit (Day 40; the Day 43 variants: the horn unlashed, the board prised off, the Wrack lit; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 .tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake steps_foot boat_stage stage_lantern drift_fire drift_fire_out drift_shelter]  # the old Keepers' road north (Day 53) and the far shore below it (Day 55) (same kit dir)
-.tools/bin/blender-py tools/blender/build_bend.py [clamp_spent hut_lantern]  # Coll's Hearth (Day 57): Wenna's clamp burned through; a Keeper's lantern on a forked stake by a hut door (glass centre Godot [0, 1.28, 0.32] = its `halo`) (same kit dir)
+.tools/bin/blender-py tools/blender/build_bend.py [clamp_spent clamp_spent_open hut_lantern]  # Coll's Hearth (Day 57): Wenna's clamp burned through (Day 58: and raked open, sacks filled, front on +Z); a Keeper's lantern on a forked stake by a hut door (glass centre Godot [0, 1.28, 0.32] = its `halo`) (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -695,8 +695,12 @@ deck height) and its overlay `stage_lantern` (the Ridge Light's lantern on the b
 [-0.85, 1.87, 0.95] Godot model space = its `halo`; `test_far_shore.gd` pins it; family "stage", not "boat", so it
 stacks on the stage), `drift_fire` / `drift_fire_out` (one family, exclusive) and `drift_shelter` (a lean-to, open on
 -Y). Characters (`build_characters.py`): `wenna_coll` (seated on a folded sack, the `sit` idle; not `wenna`, who is
-Wrackholm's lane-warden), `wenna_coll_lantern`, `abe` (hands on hips), `tolly` (arms folded), `tolly_lantern`;
-`_held_lantern(body, side)` is the shared lantern-by-the-bail for standing figures.
+Wrackholm's lane-warden), `wenna_coll_lantern`, `wenna_coll_rake` (Day 58: stooped at the clamp, the rake a static `Stool` extra on the ground;
+the skirt goes in `LegL` so the waist stoop doesn't swing it), `abe` (hands on hips), `tolly` (arms folded), `tolly_lantern`;
+`_held_lantern(body, side)` is the shared lantern-by-the-bail for standing figures. **`_bent_arm(body, side, hand, out, …)`**
+(Day 58) replaces base_body's straight arm with one bent at the elbow (two 0.27 m segments) reaching a hand point given in
+the *posed* body (after `torso_rest`), the elbow bowing along `out` — for poses a rigid arm can't make (Abe's fists on his
+hips, two hands on one pole). Leave `arm_rest` at zero for such arms; the idles still add their small swings.
 **The Far Shore (Day 55, `thornwold_far_shore`):** a sea region under a 14 m `rect` cliff on +Z (its top walkable but
 never reachable, like the ridge's drop), two ellipse buttresses closing the beach's ends, and the boat-stage as a `path`
 land feature 2.6 m wide at 0.7 m (painted pale) running out north. The Greying is one 0.6 "lid" over the sea and the

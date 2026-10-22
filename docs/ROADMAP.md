@@ -471,19 +471,25 @@ each .glb < 5 MB.
       issue). Blender `clamp_spent`, `hut_lantern` (`build_bend.py`). `test_bend_in_the_road.gd` (10); the smoke walk takes it
       live. Checkpoint `the_bend_in_the_road`.
 
+- [x] [A] **Coll's Hearth, breaking out; Abe's hands on his hips** (Day 58, art-led): the next arrival after *The Bend in
+      the Road* finds Wenna up at her clamp (`colls_hearth_breaking_out` event, `thornwold_bend_breaking_out`): Blender
+      **`wenna_coll_rake`** (standing, stooped into the rake, both hands on the pole, the rake static on the ground) and
+      **`clamp_spent_open`** (the front raked open to the hearth, a fan of charcoal on the moss, four sacks tied and a fifth
+      open); her talk and the clamp's description follow. **Abe**'s pose rebuilt with a new **`_bent_arm`** helper (elbows
+      out, fists on the sash). `test_clamp_broken_out.gd` (7); the smoke walk goes back along the lit bend to see it.
+
 ### Next up
-1. [A] **Day 58: art-led** (due ~Day 59; last Day 52): Wrackholm's empty bracket, the Teeth's broken water, the
-   Saltmarrow dressing follow-ups #6, Abe's hands-on-hips pose (reads as arms held out); for Coll's Hearth, a standing Wenna
-   with a rake (she sits on both outcomes for now) and the spent clamp broken out a sack at a time once she's home. Systems
-   next due by ~Day 61 (last Day 56): the Greying v2 #4 (paths that fade — Coll's Hearth fakes it with conditional paint),
-   the ferry/map screen (Milestone 2). **Content next due by Day 61** (last Day 57). Candidates: **the lane on from
-   Wrackholm** (Cindermoor is "past more besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`,
-   `saltmarrow_aldous_novice`, `thornwold_far_shore=waiting` — the promise to tell the Spire — and, lightly,
-   `thornwold_bend`). Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before; the coal's
-   **cold side** stays unexplained; the bend's lost north end is not a hook to chase. Small follow-ups: Oda hearing
-   Dunstan's message ("not laughing at the weather") when the player next sails with her; Pell/Tam/Aldous noticing Dunstan
-   home; the `stayed` ending's eventual walk home; Abe/Tolly or the Lamp on Wenna's bend; `waiting` colliers still on the
-   far shore have no way to reach *The Bend in the Road* until asked up (fine — her `home` knot only shows after `up`).
+1. [S]/[C] **Day 59: systems or content** (both due by ~Day 61; systems last Day 56, content last Day 57). Systems:
+   the Greying v2 #4 (paths that fade — Coll's Hearth fakes it with conditional paint), or the ferry/map screen
+   (Milestone 2). Content candidates: **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper met
+   there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`, `thornwold_far_shore=waiting`
+   — the promise to tell the Spire — and, lightly, `thornwold_bend`). Keep mystery #2 shut: the seventh novice and the
+   roll pay off on Cindermoor, not before; the coal's **cold side** stays unexplained; the bend's lost north end is not a
+   hook to chase. Small follow-ups: Oda hearing Dunstan's message ("not laughing at the weather") when the player next
+   sails with her; Pell/Tam/Aldous noticing Dunstan home; the `stayed` ending's eventual walk home; Abe/Tolly or the Lamp
+   on Wenna's bend (or her charcoal); `waiting` colliers still on the far shore have no way to reach *The Bend in the
+   Road* until asked up (fine — her `home` knot only shows after `up`). Next art-led session ~Day 63 (last Day 58):
+   Wrackholm's empty bracket, the Teeth's broken water, the Saltmarrow dressing follow-ups #6.
 2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -540,7 +546,7 @@ each .glb < 5 MB.
 - [P] Store assets, trailer capture tooling, crash-free week.
 
 ## Known issues / tech debt
-- Far-shore follow-ups (Day 55, for an [A] session): (Hob's hut lantern: done Day 57); Abe's hands-on-hips pose reads as arms held stiffly out; the cliff top above the
+- Far-shore follow-ups (Day 55, for an [A] session): (Hob's hut lantern: done Day 57; Abe's hands on his hips: Day 58); the cliff top above the
   far shore is a broad flat plateau if seen from a high debug camera (never from play); the trodden path's paint on the
   shingle zigzags on the 1 m grid.
 - The ferry signal lantern's moss glow reads almost white in the Compatibility renderer;
@@ -549,7 +555,9 @@ each .glb < 5 MB.
   space rather than riding the arm; no facial expressions / talk motion during dialogue;
   models are ~700–1000 tris — room for more silhouette detail within the 1–2k budget (Mara's collar, Tam's boots,
   Jory's hair: Day 52; Pell's cap and Bram's beard could go next). Stooped poses use Body `crouch`/`torso_rest`
-  (Day 52); the `breathe` idle sways them like anyone standing (a slow heave would sell lifting).
+  (Day 52); the `breathe` idle sways them like anyone standing (a slow heave would sell lifting). Two-handed tools
+  (Wenna's rake, Day 58) are static extras, so they can't use the `rake` idle's pull; a pull would need the tool to follow
+  the hands.
 - Smoke test: parsed input needs two process frames when resuming from a physics frame;
   keep the double await in `_check_journal`.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
@@ -585,9 +593,9 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 53 (the Northing); next content due by Day 57.
+- Last content session: Day 57 (the bend in the road); next content due by Day 61.
 - Last polish/debt session: Day 54 (pass seven); next due by Day 62.
-- Last art session: Day 52 (turning the boards; collars, cuffs and a mop). Next art-led session due ~Day 59: Wrackholm
+- Last art session: Day 58 (Wenna breaking out her clamp; Abe's pose). Next art-led session due ~Day 63: Wrackholm
   follow-ups (below) or the Saltmarrow dressing follow-ups.
 - The Northing (Day 53) follow-ups: the cairn's stones are lumps, not coursed slabs (fine at play distance); the ink
   scorch paint round its foot is angular; there are no step models at the head of the Keepers' steps (the waymark and the
