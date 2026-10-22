@@ -2,6 +2,65 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-22 09:00 UTC — Day 57: The bend in the road (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale `origin/main` again;
+  fetched and reset local `main` to Day 56's `2328d57`. Baseline green (392 tests + smoke + launch).
+- **Content (due by Day 59; last Day 55):** ROADMAP *Next up* #1, **Wenna's walk out along the lying cart road**, the
+  thread Day 55 left open ("I'm going out along the cart road in the morning... If it's lying, I'll know, now"):
+  - **Asking.** Home in the clearing after *The Far Shore*'s `up`, Wenna now takes "Can I walk out with you in the
+    morning?" → *The Bend in the Road* begins; she'll be by the first waymark past the wall at first light.
+  - **First light.** The player's next arrival in the woods is the morning (`woods_first_light`), Wenna under the first
+    waymark with her lantern held over the moss. She explains how a road lies: the cart road used to **bend east** round a
+    hollow past her hearth; the night of the Snuffing it straightened itself, and "it doesn't stop you. It just doesn't take
+    you there." "Show me." — her light (the Lamp's warm-side coal) finds the ruts under the moss, and you walk them east.
+  - **New region, Coll's Hearth** (`thornwold_colls_hearth`): a hollow where the fog stands back ("It was never the place
+    that was lost. It was the way to it."), her cone hut cold since the Snuffing, her **clamp lit the evening of the
+    Snuffing and burned clean through untended** (the best burn she ever had; she wasn't there for it), a truthful
+    cutter's stake, and a Keepers' waymark at the bend with an empty hook. The ruts go on north into thick fog.
+  - **The choice — where her one light goes:** **on the bend's waymark** (`road`: the fog leans off the whole bend, "Now
+    it's a road"; Hob comes along it — "Road's a road again. Said I'd come in when it was", his Day 21 promise turned out to
+    be about her road; Bram's board grows a stick marked BEND, her own cart to the gap) or **by her own door** (`hearth`: "a
+    light of my own... I meant it"; the bend stays lost to everyone else; she carries her sacks to Hob's cart and stands
+    there till he sees her). Either way she sits on her own seat for the first time since the Snuffing and puts the fire in.
+    Boots-path variants for Hob and Wenna throughout; Hob-gone-and-home gets his line too.
+  - **Folded in:** **a lantern by Hob's hut door** after `up` (Ottie's promise — the Known issue from Day 55), and **Bram's
+    CHARCOAL row in four and five hands** after `up` (the roadmap's "five hands" follow-up; the older two-hands lines now
+    stop at `up`).
+- **Art (folded in):** new `tools/blender/build_bend.py` — `clamp_spent` (a clamp sunk to a grey hump, turf slipped
+  silver, the front fallen in on finished charcoal, the stake ring leaning) and `hut_lantern` (a Keeper's lantern on a
+  forked stake; used for Wenna's door and Hob's).
+- **Tests:** `test_bend_in_the_road.gd` (10). The smoke walk now **takes the bend live** after the far shore (ask, down to
+  the landing and back through the wall for first light, show, road, back along the ruts). 402 tests + smoke + launch
+  pass. Checkpoint `the_bend_in_the_road`.
+
+Screenshots: `docs/screenshots/2026-10-22-first-light.png`, `docs/screenshots/2026-10-22-colls-hearth.png`,
+`docs/screenshots/2026-10-22-the-bend-lit.png`, `docs/screenshots/2026-10-22-hobs-lantern.png`;
+`docs/checkpoints/the_bend_in_the_road.png`.
+
+**Decisions**
+- **The choice is a light of one's own vs. a road for everyone** — the same coal Wenna sat on a quay for. `road` costs her
+  the thing she asked for and gives the woods a true road (and Hob's old promise a meaning); `hearth` honours her wish and
+  leaves the lie in place. Neither is a punishment; both are recorded in `thornwold_bend` for later (e.g. Bram's camp
+  or a Keeper reading the cart road).
+- **"Next morning" without a day/night system:** a one-time arrival event on the next woods arrival. When the real clock
+  lands (Milestone 2), it should own `thornwold_bend=morning`.
+- **The Snuffing was three months ago** (LORE timeline): first drafts said "a year" in Wenna's mouth; all changed to "since
+  the Snuffing". Worth a grep in future content.
+- **Only light finds the bend** (Greying v2's "paths that fade", faked): the ruts' paint and the woods' way in appear
+  only once walked; the north end stays faded unless the bend is lit. A real fading-path feature is still Greying v2 work.
+- **One knot-name collision** (`hearth`, already Wenna's far-shore knot) silently replaced old dialogue in the first
+  draft; `test_far_shore` caught it. The new outcome knot is `keep_it`.
+
+**Problems / notes**
+- The validator's event rule wants a `!flag:<bool>` term, so the string flag needed a companion `thornwold_bend_first_light`.
+- Wenna sits on both outcomes (the seated model); a standing-with-rake variant is on the art list.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **art-led** (due ~Day 59). Content next due by Day 61 (the lane on from Wrackholm). Fetch before
+   trusting `origin/main`.
+
 ## 2026-10-21 21:00 UTC — Day 56: Settings follow-ups (systems)
 
 **Did**

@@ -44,6 +44,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_wrackholm.py [lane_house answering_horn (+ answering_horn_open) gannet_hulk (+ gannet_hulk_bare, gannet_hulk_named) salvage_stack float_pile wrack_light (+ wrack_light_lit) teeth_rock teeth_mark]  # Wrackholm kit (Day 40; the Day 43 variants: the horn unlashed, the board prised off, the Wrack lit; lane_house's chimney smoke at HALL_SMOKE, the Gannet's crew board at GANNET_BOARD — tests/test_wrackholm.gd pins both to the region) (same kit dir)
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 .tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake steps_foot boat_stage stage_lantern drift_fire drift_fire_out drift_shelter]  # the old Keepers' road north (Day 53) and the far shore below it (Day 55) (same kit dir)
+.tools/bin/blender-py tools/blender/build_bend.py [clamp_spent hut_lantern]  # Coll's Hearth (Day 57): Wenna's clamp burned through; a Keeper's lantern on a forked stake by a hut door (glass centre Godot [0, 1.28, 0.32] = its `halo`) (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -706,6 +707,16 @@ down is the old road's `keepers_steps` inspectable (a "Go down" choice that `tra
 spawn inside the Northing's clear pool. The arrival event is gated on `!flag:thornwold_northing=` (debug teleports).
 Hob's shore and clearing placements for `gone` also read `flag:thornwold_hob_came_in` — `gone` implies it, but the
 NPC-in-one-place check can't know that, and the woods' raking Hob reads `!…came_in`.
+**Coll's Hearth (Day 57, `thornwold_colls_hearth`):** a closed hollow (banks on all sides; the west bank is "the trees
+between here and the straight road") reached only by `travel` — Wenna's "Show me." at the woods' first waymark, then the
+woods object `woods_old_bend` (shown once `thornwold_bend` is past `morning`) — with an ordinary exit back to the woods'
+`from_bend` spawn inside the first waymark's clear pool. **"Next morning" without a clock:** `thornwold_bend=asked` is
+answered by a woods arrival event (`woods_first_light`) on the player's *next* arrival; an event must switch itself off
+with a `!flag:<bool>` term, so it also sets the one-time `thornwold_bend_first_light`. Wenna's placements across the
+woods, the far shore and the hearth stay exclusive because every new one also reads `flag:thornwold_far_shore=up` (the
+shore's reads `!…=up`) and a distinct `thornwold_bend` value. The `road` outcome's clear areas are conditional, so the
+validator's worst case (no conditional lights) still had to pass with the bend in fog: the hearth and the ruts' entry
+are unconditional clear pools ~6 m apart through 0.7 fog.
 **The way up (Day 24):** `ridge_steps_lower` / `ridge_steps_upper` — one flight of
 the Keepers' log stair each (risers + pegs, rope rail on stakes, the ember cut in the bottom
 stake). A flight climbs along its **+X from the origin (the low end, on the ramp's centreline)
@@ -870,6 +881,12 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 ## Testing
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
+- `tests/test_bend_in_the_road.gd` — (Day 57) *The Bend in the Road*: asking Wenna (home from the far shore) starts it;
+  the next woods arrival is first light (once; she's by the first waymark); the fork's talk; "Show me." travels to Coll's
+  Hearth (arrival once; cold hut, spent clamp, bare waymark; the way back to the woods' `from_bend`); the clamp and her
+  hearth talk; **road** (two more clear areas, the waymark lit, the fire in, Hob and the BEND stick) and **hearth** (her
+  lantern by the door, the fog as it was, Hob, no BEND); the boots path; Hob gone and home; Hob's hut lantern. The smoke walk
+  takes it live (`_walk_the_bend`: ask, down to the landing and back through the wall, show, road, back along the ruts).
 - `tests/test_far_shore.gd` — (Day 55) *The Far Shore*: the steps go down only with a light at the Northing (and
   start the quest); the arrival scene once, never on a debug teleport; who waits on the shore (the three, Ottie if he
   carried the lantern down, Hob if he went; the stage's lantern); meeting Wenna (Ottie beside her, the road that lies, the

@@ -993,7 +993,39 @@ debts, salvage, and who answers for a thing.
         them; Wenna scratches another stroke; the Lamp keeps the whole coal for them ("I sat on that bollard thirty winters
         waiting for a boat that always came. Waiting for one that won't is harder").
     - Open: the **cold side of the coal** (it faced the Spire; kept "anyway"); the **stage's lantern burning for a boat**;
-      on `waiting`, the promise to the Spire; Wenna's clamp out along the lying cart road.
+      on `waiting`, the promise to the Spire ~~Wenna's clamp out along the lying cart road~~ (paid Day 57, below).
+
+  - **Established in play (Day 57 — the bend in the road; after *The Far Shore*'s `up`):** (`the_bend_in_the_road`, `thornwold_bend`)
+    - **The bend.** The old cart road did not always run straight from the wall to the ridge: just past the first waymark it
+      **bent east round a hollow, past Wenna Coll's hearth, and back north** to the road under the ridge ("the long way, and
+      it was the way" — forty years of her cart). **The night of the Snuffing the road straightened itself, "like a man
+      pulling his arm in"**, leaving no mark: the ruts simply run on straight. That is how a road lies — **"it doesn't stop
+      you. It just doesn't take you there."** Wenna walked the straight road out to her own clamp three times, smelling its
+      smoke the whole way, and came back into the clearing each time.
+    - **Proper light goes where things are.** At first light (the morning after the player offers to walk with her) Wenna
+      holds her lantern — the Lamp's warm-side coal — over the moss east of the first waymark, and the old ruts show under
+      the green; once seen in that light, the Wakebearer's ember finds them too. The far (north) end of the bend, back onto
+      the road under the ridge, is still lost in thick fog; nobody has found it.
+    - **Coll's Hearth** (`thornwold_colls_hearth`): a hollow east of the road where the fog **stands back the way it does
+      from the colliers' clearing** — "It was never the place that was lost. It was the way to it." Wenna's cone hut, cold
+      since the Snuffing; cordwood stacked the autumn before, silvered; a cutter's stake whose "this way home" notches point
+      back west, truthfully; a **Keepers' waymark at the bend** (the Lamp's lot set it "before my mother's time, so a cart'd
+      know to turn") with an empty hook; and **her clamp, lit the evening of the Snuffing**, which **burned itself clean
+      through with nobody to shut a vent and never once broke out** — the best burn she ever had, and she wasn't there for it.
+    - **Where her one light went** (the Wakebearer's word):
+      - **road** — hung on the bend's waymark: the fog leans back off the whole bend, from the straight road to the hearth
+        and a stone's throw on north; "Now it's a road. Somebody'll come along it. That's what roads are for." She gives up a
+        light of her own for the road's ("That's more, I think"). Hob came along the bend with his cart to see — "Road's a
+        road again. Said I'd come in when it was" (Day 21's promise, his words, about her road). Her charcoal comes down the
+        cart road to the gap in **her own cart**; Bram's board grows a stick marked **BEND**. Boots path: Hob doesn't know her,
+        "never knew there was a hearth out there".
+      - **hearth** — kept on a forked stake by her own door: "Let the road lie. I know where I am." The bend stays lost to
+        everyone else (the ruts can be found only by those who have walked them); she carries her sacks to Hob's cart and
+        stands by it till he sees her ("He'll find me because I'll go and stand where he is"). Boots path: she tells him her
+        name every time.
+    - Either way she sits on her own seat for the first time since the Snuffing and puts the fire in; another clamp when the
+      cordwood's dry. **Ottie's promised lantern now hangs on a forked stake by Hob's door** (since *The Far Shore*'s `up`).
+    - Open (small, not chased): the bend's lost north end under the ridge.
 
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 

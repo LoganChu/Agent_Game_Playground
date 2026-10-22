@@ -461,19 +461,29 @@ each .glb < 5 MB.
       (windowed / fullscreen) and **VSync** toggles, and **pad prompts** (hints show [A] / [Y] / [Back] / [Start] once a
       pad is used, keys again after a key press). All saved in `user://settings.cfg`. `test_settings.gd` (+5).
 
+- [x] [C] **The bend in the road** (Day 57; pays off Wenna's clamp "out along the lying cart road", Day 55): asked at home
+      after *The Far Shore*'s `up`, Wenna Coll waits by the first waymark at the player's next woods arrival ("first light");
+      her lantern finds the old bend the Snuffing straightened, east to a new region, **Coll's Hearth**
+      (`thornwold_colls_hearth`: her cold hut, her clamp burned clean through untended, the bend's bare waymark). Quest ***The
+      Bend in the Road***: her one light goes **on the bend's waymark** (`road`: the bend a road again; Hob comes along it;
+      Bram's board grows a BEND stick) or **by her own door** (`hearth`: a light of her own; the road still lies about her).
+      Folded in: Bram's CHARCOAL row in four and five hands after `up`; **a lantern by Hob's hut door** after `up` (Known
+      issue). Blender `clamp_spent`, `hut_lantern` (`build_bend.py`). `test_bend_in_the_road.gd` (10); the smoke walk takes it
+      live. Checkpoint `the_bend_in_the_road`.
+
 ### Next up
-1. [A]/[C] **Day 57: art-led or content.** Art-led is due ~Day 59 (last Day 52): Wrackholm's empty bracket, the Teeth's
-   broken water, the Saltmarrow dressing follow-ups #6, the Northing and far-shore follow-ups (Known issues: a lantern at
-   Hob's hut after *The Far Shore*'s `up`; Abe's hands-on-hips pose reads as arms held out). **Content next due by Day 59**
-   (last Day 55). Systems last Day 56 (settings); next systems candidates: the Greying v2 #4 (paths that fade), the
-   ferry/map screen (Milestone 2). Candidates: **Wenna's walk out
-   along the lying cart road** to find her clamp (after `thornwold_far_shore=up`; the road that lies, the woods' liking —
-   pairs with Greying v2's "paths that fade"); **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper
-   met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`, and now
-   `thornwold_far_shore=waiting` — the promise to tell the Spire). Keep mystery #2 shut: the seventh novice and the roll pay
-   off on Cindermoor, not before; the coal's **cold side** stays unexplained. Small follow-ups: Oda hearing Dunstan's
-   message ("not laughing at the weather") when the player next sails with her; Pell/Tam/Aldous noticing Dunstan home; the
-   `stayed` ending's eventual walk home; Bram's CHARCOAL row with five hands after the far shore's `up`.
+1. [A] **Day 58: art-led** (due ~Day 59; last Day 52): Wrackholm's empty bracket, the Teeth's broken water, the
+   Saltmarrow dressing follow-ups #6, Abe's hands-on-hips pose (reads as arms held out); for Coll's Hearth, a standing Wenna
+   with a rake (she sits on both outcomes for now) and the spent clamp broken out a sack at a time once she's home. Systems
+   next due by ~Day 61 (last Day 56): the Greying v2 #4 (paths that fade — Coll's Hearth fakes it with conditional paint),
+   the ferry/map screen (Milestone 2). **Content next due by Day 61** (last Day 57). Candidates: **the lane on from
+   Wrackholm** (Cindermoor is "past more besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`,
+   `saltmarrow_aldous_novice`, `thornwold_far_shore=waiting` — the promise to tell the Spire — and, lightly,
+   `thornwold_bend`). Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before; the coal's
+   **cold side** stays unexplained; the bend's lost north end is not a hook to chase. Small follow-ups: Oda hearing
+   Dunstan's message ("not laughing at the weather") when the player next sails with her; Pell/Tam/Aldous noticing Dunstan
+   home; the `stayed` ending's eventual walk home; Abe/Tolly or the Lamp on Wenna's bend; `waiting` colliers still on the
+   far shore have no way to reach *The Bend in the Road* until asked up (fine — her `home` knot only shows after `up`).
 2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -530,8 +540,7 @@ each .glb < 5 MB.
 - [P] Store assets, trailer capture tooling, crash-free week.
 
 ## Known issues / tech debt
-- Far-shore follow-ups (Day 55, for an [A] session): after *The Far Shore*'s `up` nothing at Hob's hut shows the lantern
-  Ottie brought him (dialogue only); Abe's hands-on-hips pose reads as arms held stiffly out; the cliff top above the
+- Far-shore follow-ups (Day 55, for an [A] session): (Hob's hut lantern: done Day 57); Abe's hands-on-hips pose reads as arms held stiffly out; the cliff top above the
   far shore is a broad flat plateau if seen from a high debug camera (never from play); the trodden path's paint on the
   shingle zigzags on the 1 m grid.
 - The ferry signal lantern's moss glow reads almost white in the Compatibility renderer;
