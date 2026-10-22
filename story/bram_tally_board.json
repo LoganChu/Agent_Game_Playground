@@ -15,7 +15,8 @@
         "text": "The newest charcoal notches come in pairs now, two cuts to a load, side by side, in two different hands.",
         "if": [
           "flag:thornwold_northing=lit",
-          "!flag:thornwold_hob_ladder=gone"
+          "!flag:thornwold_hob_ladder=gone",
+          "!flag:thornwold_far_shore=up"
         ],
         "note": "Ottie home (The Northing, lit): two colliers bringing loads down the lanterns."
       },
@@ -24,9 +25,25 @@
         "text": "The newest charcoal notches are cut in a different hand: deeper, and dead straight, like a man who had time to think about them.",
         "if": [
           "flag:thornwold_northing=lit",
-          "flag:thornwold_hob_ladder=gone"
+          "flag:thornwold_hob_ladder=gone",
+          "!flag:thornwold_far_shore=up"
         ],
         "note": "Ottie home and Hob gone down the steps: Ottie brings the loads alone."
+      },
+      {
+        "say": "narrator",
+        "text": "The newest charcoal notches come four and five to a load now, in four and five hands, crowded on the sticks the way the colliers crowd a clamp.",
+        "if": [
+          "flag:thornwold_far_shore=up",
+          "!flag:thornwold_bend=road"
+        ],
+        "note": "The four home from the far shore (and Hob): every hand on the near side brings loads down the lanterns."
+      },
+      {
+        "say": "narrator",
+        "text": "The newest charcoal notches come four and five to a load, in four and five hands. At the end of the row hangs a new stick in a square, heavy hand, marked along its side: BEND. Loads that came down the cart road itself, to the gap, on a cart nobody had to fetch.",
+        "if": "flag:thornwold_bend=road",
+        "note": "Wenna's bend lit (The Bend in the Road, road): her sacks come down the cart road in her own cart."
       },
       {
         "if": [

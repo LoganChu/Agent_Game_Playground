@@ -165,6 +165,11 @@
       -5.2,
       0.5,
       -57.8
+    ],
+    "from_bend": [
+      2.6,
+      0.5,
+      -20.0
     ]
   },
   "ground": {
@@ -425,6 +430,38 @@
           3.2
         ],
         "color": "moss"
+      },
+      {
+        "path": [
+          [
+            2.5,
+            -20.2,
+            0
+          ],
+          [
+            9,
+            -21,
+            0
+          ],
+          [
+            16,
+            -22.5,
+            0
+          ],
+          [
+            22,
+            -23.5,
+            0
+          ]
+        ],
+        "width": 1.8,
+        "color": "driftwood",
+        "if": [
+          "!flag:thornwold_bend=",
+          "!flag:thornwold_bend=asked",
+          "!flag:thornwold_bend=morning"
+        ],
+        "note": "the old bend's ruts going east off the straight road, found by Wenna's lantern"
       }
     ]
   },
@@ -920,6 +957,28 @@
           0.0
         ]
       ]
+    },
+    {
+      "model": "res://assets/models/dressing/hut_lantern.glb",
+      "position": [
+        -15.6,
+        0,
+        -56.6
+      ],
+      "rotation_y": 60,
+      "collider": [
+        0.3,
+        1.7,
+        0.3
+      ],
+      "halo": [
+        0,
+        1.28,
+        0.32
+      ],
+      "halo_size": 2.4,
+      "if": "flag:thornwold_far_shore=up",
+      "note": "The lantern Ottie promised Hob years back, off the warm side of the Lamp's coal (The Far Shore, up): on a forked stake by Hob's door."
     },
     {
       "model": "res://assets/models/dressing/collier_hut_cold.glb",
@@ -1987,8 +2046,43 @@
       "rotation_y": -12,
       "model": "res://assets/models/characters/wenna_coll_lantern.glb",
       "idle": "breathe",
-      "if": "flag:thornwold_far_shore=up",
+      "if": [
+        "flag:thornwold_far_shore=up",
+        "flag:thornwold_bend="
+      ],
       "note": "Home from the far shore (The Far Shore, up): by Hob's clamp with her hood back and a lantern off the Lamp's coal, for finding her own hearth along the cart road."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        -10.0,
+        0,
+        -57.2
+      ],
+      "rotation_y": -12,
+      "model": "res://assets/models/characters/wenna_coll_lantern.glb",
+      "idle": "breathe",
+      "if": [
+        "flag:thornwold_far_shore=up",
+        "flag:thornwold_bend=asked"
+      ],
+      "note": "The same, the night before her walk: she'll be by the first waymark at first light."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        3.6,
+        0,
+        -19.2
+      ],
+      "rotation_y": 95,
+      "model": "res://assets/models/characters/wenna_coll_lantern.glb",
+      "idle": "breathe",
+      "if": [
+        "flag:thornwold_far_shore=up",
+        "flag:thornwold_bend=morning"
+      ],
+      "note": "First light (The Bend in the Road): by the first waymark past the wall, her lantern held out east over the moss where the old ruts went."
     },
     {
       "npc": "abe",
@@ -2079,6 +2173,23 @@
         "flag:thornwold_stair_light=moved",
         "!flag:thornwold_fourth_lantern_taken"
       ]
+    },
+    {
+      "id": "woods_old_bend",
+      "prompt": "Follow the old ruts east",
+      "dialogue": "woods_old_bend",
+      "position": [
+        5.0,
+        0,
+        -20.4
+      ],
+      "reach": 1.9,
+      "if": [
+        "!flag:thornwold_bend=",
+        "!flag:thornwold_bend=asked",
+        "!flag:thornwold_bend=morning"
+      ],
+      "note": "Where the bend in the cart road left the straight road, once Wenna has walked it."
     }
   ],
   "events": [
@@ -2092,6 +2203,18 @@
         "thornwold_woods_entered": true
       },
       "dialogue": "thornwold_woods_arrival"
+    },
+    {
+      "id": "woods_first_light",
+      "if": [
+        "flag:thornwold_bend=asked",
+        "!flag:thornwold_bend_first_light"
+      ],
+      "set": {
+        "thornwold_bend": "morning",
+        "thornwold_bend_first_light": true
+      },
+      "dialogue": "woods_first_light"
     }
   ],
   "exits": [

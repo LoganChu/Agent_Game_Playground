@@ -1,0 +1,27 @@
+{
+  "id": "bend_waymark",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:thornwold_bend=road",
+        "say": "narrator",
+        "text": "A Keepers' waymark where the ruts bend: a stone cairn, a weathered post with the ember carved in its ring, an iron arm out over the ruts with a hook on it. The hook is empty and bright with old wear. The straight road out there has no mark of its own for the bend. It forgot this one when it forgot the bend."
+      },
+      {
+        "if": "flag:thornwold_bend=road",
+        "say": "narrator",
+        "text": "The bend's waymark, with Wenna's lantern on its hook: gold behind horn, the Lamp's coal inside, no bigger than a fingernail. The fog stands back off the bend in both directions. You can see the straight road from here, and the hearth."
+      },
+      {
+        "if": "flag:thornwold_bend=road",
+        "say": "narrator",
+        "text": "Your ember leans toward it. Very slightly, its coal leans back."
+      },
+      {
+        "if": "flag:thornwold_bend=hearth",
+        "say": "narrator",
+        "text": "Up the ruts, Wenna's own light burns by her door. From the bend you can only just see it."
+      }
+    ]
+  }
+}

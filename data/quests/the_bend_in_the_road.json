@@ -1,0 +1,21 @@
+{
+  "id": "the_bend_in_the_road",
+  "title": "The Bend in the Road",
+  "region": "thornwold_colls_hearth",
+  "giver": "wenna_coll",
+  "description": "Wenna Coll's hearth was out along the old cart road north of the bramble wall. The night of the Snuffing the road started lying, and she walked out to her own clamp three times and never found it. She has a light of her own now, off the Lamp's coal.",
+  "stages": [
+    {
+      "id": "first_light",
+      "text": "Wenna means to go out along the cart road at first light to find her clamp, and you said you'd walk with her. Come back into the woods in the morning; she'll be by the first waymark past the wall."
+    },
+    {
+      "id": "the_bend",
+      "text": "Wenna is waiting under the first waymark past the bramble wall with her lantern held out over the ruts. Walk out with her."
+    },
+    {
+      "id": "her_hearth",
+      "text": "The old ruts bent east off the straight road to Wenna's hearth: a cold hut and a clamp that burned itself through while she walked round it. She has one light off the Lamp's coal, and a waymark at the bend with an empty hook. Help her decide where her light goes."
+    }
+  ]
+}

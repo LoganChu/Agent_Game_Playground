@@ -1,0 +1,890 @@
+{
+  "id": "thornwold_colls_hearth",
+  "name": "Coll's Hearth",
+  "description": "Out along the old bend in Thornwold's cart road, east of the straight road the Snuffing left: Wenna Coll's hearth, a cold cone hut and a clamp that burned itself through while she walked round it, smelling her own smoke.",
+  "fog": {
+    "density": 0.03,
+    "color": "silverfog"
+  },
+  "light": {
+    "note": "Off the road in the woods' grey: cold and close like the rest of the woods, but the hollow's moss is green where the fog stands back from a hearth with somebody home.",
+    "sun_color": "#E9C489",
+    "sun_energy": 0.8,
+    "sun_pitch": -48,
+    "sun_yaw": -95,
+    "ambient_color": "pine",
+    "ambient_energy": 0.32,
+    "sky_top": "abyss",
+    "sky_horizon": "silverfog"
+  },
+  "ambience": [
+    {
+      "sound": "pines",
+      "volume": 1.0
+    },
+    {
+      "sound": "wind_low",
+      "volume": 0.45
+    },
+    {
+      "sound": "woods_birds",
+      "volume": 0.5,
+      "if": "flag:thornwold_bend=road"
+    }
+  ],
+  "footsteps": "needles",
+  "greying": [
+    {
+      "rect": [
+        -22,
+        -24,
+        18,
+        12
+      ],
+      "strength": 0.7,
+      "falloff": 4.0,
+      "height": 3.0,
+      "note": "The woods off the straight road: the bend the road forgot, thick enough to lose a cart's width of ruts in."
+    },
+    {
+      "rect": [
+        -22,
+        -24,
+        18,
+        -10
+      ],
+      "strength": 1.0,
+      "falloff": 4.0,
+      "height": 3.5,
+      "note": "North, where the bend went on to rejoin the road before the road started lying: as thick as the night of the Snuffing. The ruts go into it and don't come out."
+    },
+    {
+      "ellipse": [
+        4.5,
+        0.0,
+        8.5,
+        6.5
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "note": "Wenna's hearth: the fog stands back from it the way it does from the colliers' clearing (\"the woods like us\"). It was never the place that was lost. It was the way to it."
+    },
+    {
+      "ellipse": [
+        -15.0,
+        6.0,
+        4.5,
+        4.0
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "note": "Where the ruts come in off the straight road under the pines, the fog is thin: the bend shows in the moss."
+    },
+    {
+      "ellipse": [
+        -6.0,
+        4.5,
+        6.0,
+        5.0
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "if": "flag:thornwold_bend=road",
+      "note": "The Lamp's coal in a lantern on the bend's waymark: the fog leans back off the whole bend, the ruts to the road and the road to the hearth."
+    },
+    {
+      "ellipse": [
+        9.0,
+        -11.0,
+        3.5,
+        4.0
+      ],
+      "strength": 1.0,
+      "falloff": 3.0,
+      "clear": true,
+      "if": "flag:thornwold_bend=road",
+      "note": "The bend's lantern lights the ruts a stone's throw north too, before the thick takes them."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      -14.0,
+      0.5,
+      5.6
+    ],
+    "from_road": [
+      -14.0,
+      0.5,
+      5.6
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -24,
+      -26,
+      20,
+      14
+    ],
+    "cell": 1.0,
+    "base": 0.0,
+    "seed": 57,
+    "roughness": 0.1,
+    "ragged": 1.5,
+    "note": "A hollow in the woods east of the cart road: banks on every side but the west, where the old ruts come in from the road; the hearth on a low rise in the middle, the ruts bending through it and on north into the fog.",
+    "land": [
+      {
+        "rect": [
+          -24,
+          10,
+          20,
+          14
+        ],
+        "height": 2.6,
+        "falloff": 2.0,
+        "note": "south bank"
+      },
+      {
+        "rect": [
+          15,
+          -26,
+          20,
+          14
+        ],
+        "height": 3.4,
+        "falloff": 2.0,
+        "note": "east bank"
+      },
+      {
+        "rect": [
+          -24,
+          -26,
+          20,
+          -21
+        ],
+        "height": 4.0,
+        "falloff": 3.0,
+        "note": "north: the ground rising toward the ridge"
+      },
+      {
+        "rect": [
+          -24,
+          -26,
+          -20,
+          14
+        ],
+        "height": 3.0,
+        "falloff": 2.0,
+        "note": "west: the trees between here and the straight road"
+      },
+      {
+        "ellipse": [
+          5.0,
+          -1.0,
+          6.0,
+          5.0
+        ],
+        "height": 0.5,
+        "falloff": 3.0,
+        "note": "the hearth's rise"
+      }
+    ],
+    "colors": {
+      "ground": "pine",
+      "shore": "pine",
+      "seabed": "pine",
+      "cliff": "slate"
+    },
+    "paint": [
+      {
+        "ellipse": [
+          4.5,
+          0.0,
+          8.0,
+          6.0
+        ],
+        "color": "moss",
+        "note": "green where the fog stands back"
+      },
+      {
+        "ellipse": [
+          4.5,
+          -1.0,
+          4.5,
+          3.5
+        ],
+        "color": "ink",
+        "note": "the hearth's floor, black with forty years of charcoal dust"
+      },
+      {
+        "path": [
+          [
+            -21,
+            7,
+            0
+          ],
+          [
+            -14,
+            5.6,
+            0
+          ],
+          [
+            -6,
+            4.0,
+            0
+          ],
+          [
+            0,
+            2.2,
+            0
+          ],
+          [
+            6.5,
+            -3.5,
+            0
+          ],
+          [
+            8.5,
+            -10,
+            0
+          ]
+        ],
+        "width": 2.0,
+        "color": "driftwood",
+        "note": "the old ruts: the bend in the cart road, west to the straight road and north out of the hollow"
+      },
+      {
+        "path": [
+          [
+            8.5,
+            -10,
+            0
+          ],
+          [
+            9.5,
+            -16,
+            0
+          ],
+          [
+            10,
+            -22,
+            0
+          ]
+        ],
+        "width": 1.6,
+        "color": "#5E6B52",
+        "note": "north of the hearth the ruts fade into the moss and the thick",
+        "if": "!flag:thornwold_bend=road"
+      },
+      {
+        "path": [
+          [
+            8.5,
+            -10,
+            0
+          ],
+          [
+            9.5,
+            -16,
+            0
+          ],
+          [
+            10,
+            -22,
+            0
+          ]
+        ],
+        "width": 2.0,
+        "color": "driftwood",
+        "note": "lit, the ruts show on north as far as the eye goes",
+        "if": "flag:thornwold_bend=road"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/waymark.glb",
+      "position": [
+        -6.0,
+        0,
+        4.5
+      ],
+      "rotation_y": 75,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "if": "!flag:thornwold_bend=road",
+      "note": "The Keepers' waymark at the bend, its hook empty: the straight road has none of its own here."
+    },
+    {
+      "model": "res://assets/models/dressing/waymark_lit.glb",
+      "position": [
+        -6.0,
+        0,
+        4.5
+      ],
+      "rotation_y": 75,
+      "collider": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "halo": [
+        0,
+        1.76,
+        0.5
+      ],
+      "if": "flag:thornwold_bend=road",
+      "note": "The bend's waymark with Wenna's lantern on it, the Lamp's coal inside."
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut_cold_empty.glb",
+      "position": [
+        4.0,
+        0,
+        -3.0
+      ],
+      "rotation_y": -60,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "if": [
+        "!flag:thornwold_bend=road",
+        "!flag:thornwold_bend=hearth"
+      ],
+      "note": "Wenna's hut: cold since the Snuffing, the sods slipping, her rake by the door, nothing on the seat."
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut.glb",
+      "position": [
+        4.0,
+        0,
+        -3.0
+      ],
+      "rotation_y": -60,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "smoke": [
+        [
+          0.0,
+          2.75,
+          0.0
+        ]
+      ],
+      "if": "flag:thornwold_bend=road",
+      "note": "Wenna's hut with the fire in."
+    },
+    {
+      "model": "res://assets/models/dressing/collier_hut.glb",
+      "position": [
+        4.0,
+        0,
+        -3.0
+      ],
+      "rotation_y": -60,
+      "collider": [
+        2.4,
+        2.0,
+        2.4
+      ],
+      "smoke": [
+        [
+          0.0,
+          2.75,
+          0.0
+        ]
+      ],
+      "if": "flag:thornwold_bend=hearth",
+      "note": "Wenna's hut with the fire in, and her own light by the door."
+    },
+    {
+      "model": "res://assets/models/dressing/hut_lantern.glb",
+      "position": [
+        2.75,
+        0,
+        -0.8
+      ],
+      "rotation_y": -60,
+      "collider": [
+        0.3,
+        1.7,
+        0.3
+      ],
+      "halo": [
+        0,
+        1.28,
+        0.32
+      ],
+      "halo_size": 2.4,
+      "if": "flag:thornwold_bend=hearth",
+      "note": "Wenna's lantern on a forked stake by her door: a light of her own."
+    },
+    {
+      "model": "res://assets/models/dressing/clamp_spent.glb",
+      "position": [
+        9.5,
+        0,
+        2.5
+      ],
+      "rotation_y": 200,
+      "collider": [
+        3.4,
+        0.6,
+        3.4
+      ],
+      "note": "Wenna's clamp, burned clean through while she walked round it: sunk to a grey hump, the front fallen in on a whole burn's charcoal."
+    },
+    {
+      "model": "res://assets/models/dressing/charcoal_sacks.glb",
+      "position": [
+        7.6,
+        0,
+        -4.8
+      ],
+      "rotation_y": 140,
+      "scale": 0.8,
+      "collider": [
+        1.1,
+        0.8,
+        0.8
+      ],
+      "note": "Empty sacks under the hut's eave, waiting since the Snuffing for the burn."
+    },
+    {
+      "model": "res://assets/models/dressing/log_pile.glb",
+      "position": [
+        0.6,
+        0,
+        -6.6
+      ],
+      "rotation_y": 60,
+      "collider": [
+        1.6,
+        1.2,
+        3.3
+      ],
+      "note": "Cordwood for the next clamp, stacked the autumn before the Snuffing and silvered since."
+    },
+    {
+      "model": "res://assets/models/dressing/stump.glb",
+      "position": [
+        12.4,
+        0,
+        -2.0
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.75,
+        0.6,
+        0.75
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/trail_stake.glb",
+      "position": [
+        -12.0,
+        0,
+        4.4
+      ],
+      "rotation_y": 100,
+      "collider": [
+        0.25,
+        1.2,
+        0.25
+      ],
+      "note": "A cutter's stake from before the Snuffing, its 'this way home' notches pointing back west to the straight road. On this side of it, it tells the truth."
+    },
+    {
+      "model": "res://assets/models/dressing/fallen_trunk.glb",
+      "position": [
+        -1.0,
+        0,
+        10.0
+      ],
+      "rotation_y": 10,
+      "collider": [
+        4.2,
+        0.7,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        -10.0,
+        0,
+        8.6
+      ],
+      "rotation_y": 40
+    },
+    {
+      "model": "res://assets/models/dressing/underbrush.glb",
+      "position": [
+        13.5,
+        0,
+        6.5
+      ],
+      "rotation_y": 200
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -8.0,
+        0,
+        -1.5
+      ],
+      "rotation_y": 120
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        3.0,
+        0,
+        -13.5
+      ],
+      "rotation_y": 300
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        14.0,
+        0,
+        -9.0
+      ],
+      "rotation_y": 70
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -18.5,
+        0,
+        1.5
+      ],
+      "rotation_y": 20,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -17.0,
+        0,
+        10.0
+      ],
+      "rotation_y": 80,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -11.0,
+        0,
+        -4.5
+      ],
+      "rotation_y": 150,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -5.0,
+        0,
+        12.2
+      ],
+      "rotation_y": 240,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        6.0,
+        0,
+        12.0
+      ],
+      "rotation_y": 300,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        12.5,
+        0,
+        11.6
+      ],
+      "rotation_y": 30,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        16.0,
+        0,
+        2.0
+      ],
+      "rotation_y": 110,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_dark.glb",
+      "position": [
+        -3.0,
+        0,
+        -8.0
+      ],
+      "rotation_y": 200,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        15.5,
+        0,
+        -6.5
+      ],
+      "rotation_y": 60,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        5.0,
+        0,
+        -17.0
+      ],
+      "rotation_y": 10,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        13.5,
+        0,
+        -16.0
+      ],
+      "rotation_y": 160,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -8.0,
+        0,
+        -14.0
+      ],
+      "rotation_y": 260,
+      "scale": 1.4,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        -16.0,
+        0,
+        -10.0
+      ],
+      "rotation_y": 330,
+      "scale": 1.3,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/pine_grey.glb",
+      "position": [
+        0.0,
+        0,
+        -21.0
+      ],
+      "rotation_y": 90,
+      "scale": 1.2,
+      "shape": "pine",
+      "collider": [
+        0.6,
+        3,
+        0.6
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "wenna_coll",
+      "position": [
+        7.6,
+        0,
+        3.6
+      ],
+      "rotation_y": -105,
+      "model": "res://assets/models/characters/wenna_coll_lantern.glb",
+      "idle": "breathe",
+      "if": [
+        "flag:thornwold_far_shore=up",
+        "flag:thornwold_bend=walked"
+      ],
+      "note": "By her spent clamp with the Lamp's coal in her lantern, held out, looking at what's left."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        1.75,
+        0,
+        -1.7
+      ],
+      "rotation_y": -60,
+      "if": [
+        "flag:thornwold_far_shore=up",
+        "flag:thornwold_bend=road"
+      ],
+      "note": "On her own hut's seat, the fire in behind her, the bend's lantern down the ruts."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        1.75,
+        0,
+        -1.7
+      ],
+      "rotation_y": -60,
+      "if": [
+        "flag:thornwold_far_shore=up",
+        "flag:thornwold_bend=hearth"
+      ],
+      "note": "On her own hut's seat under her own light."
+    }
+  ],
+  "objects": [
+    {
+      "id": "wenna_clamp",
+      "prompt": "Look at the clamp",
+      "dialogue": "wenna_clamp",
+      "position": [
+        9.0,
+        0,
+        0.4
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        0.6,
+        0
+      ]
+    },
+    {
+      "id": "bend_waymark",
+      "prompt": "Look at the waymark",
+      "dialogue": "bend_waymark",
+      "position": [
+        -5.4,
+        0,
+        3.4
+      ],
+      "reach": 1.9
+    }
+  ],
+  "events": [
+    {
+      "id": "colls_hearth_arrival",
+      "if": [
+        "flag:thornwold_bend=walked",
+        "!flag:thornwold_colls_hearth_reached"
+      ],
+      "set": {
+        "thornwold_colls_hearth_reached": true
+      },
+      "dialogue": "colls_hearth_arrival"
+    }
+  ],
+  "exits": [
+    {
+      "to": "thornwold_woods",
+      "spawn": "from_bend",
+      "position": [
+        -18.6,
+        0,
+        7.4
+      ],
+      "prompt": "Back along the ruts to the cart road"
+    }
+  ]
+}

@@ -537,6 +537,25 @@
         "ridge_lantern": 0
       },
       "shot": "--camera=10,3.2,-9:-3,1.4,3"
+    },
+    {
+      "id": "the_bend_in_the_road",
+      "act": "Act II — The Drift",
+      "title": "The Bend in the Road",
+      "inherits": "the_far_shore",
+      "region": "thornwold_colls_hearth",
+      "spawn": "from_road",
+      "description": "After The Far Shore (the three came up; the Lamp broke the warm side of its coal for their hearths), Wenna Coll walked out at first light with her lantern and found the old bend in the cart road the Snuffing straightened: her hearth, a cold hut, a clamp burned clean through while she walked round it. Help her decide where her one light goes: on the bend's waymark (the road a road again) or by her own door (a light of her own).",
+      "flags": {
+        "thornwold_far_shore": "up",
+        "thornwold_bend": "walked",
+        "thornwold_colls_hearth_reached": true
+      },
+      "quests": {
+        "the_far_shore": "done",
+        "the_bend_in_the_road": "her_hearth"
+      },
+      "shot": "--camera=-11,4.2,7.5:6,0.8,-0.5"
     }
   ]
 }

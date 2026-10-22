@@ -671,6 +671,30 @@
     "saltmarrow_mara_saw_dunstan_home": {
       "description": "Mara has spoken of Dunstan coming home, rowing in backward (one-time; after the gull burn she doesn't know him, and the second cup is his anyway).",
       "default": false
+    },
+    "thornwold_bend": {
+      "description": "The Bend in the Road (Day 57), Wenna Coll's walk out along the old cart road to the hearth she lost the night the road started lying: '' (not asked), 'asked' (the player said they'd walk out with her at first light), 'morning' (the next arrival in the woods: she waits by the first waymark past the wall, lantern held over the ruts), 'walked' (out along the old bend with her to her hearth, Coll's Hearth: her clamp burned right through untended), then where the Lamp's coal went — 'road' (hung on the bend's Keepers' waymark: the bend is a road again, anybody can find her and her charcoal comes down the cart road to the gap) or 'hearth' (kept on a stake by her own hut door: a light of her own, as she wanted; the road still lies about her and her sacks go down with Hob's cart).",
+      "default": "",
+      "values": [
+        "",
+        "asked",
+        "morning",
+        "walked",
+        "road",
+        "hearth"
+      ]
+    },
+    "thornwold_bend_first_light": {
+      "description": "The morning after Wenna Coll was asked (The Bend in the Road): the next arrival in the woods played the first-light scene (one-time).",
+      "default": false
+    },
+    "thornwold_colls_hearth_reached": {
+      "description": "The player has walked the old bend with Wenna Coll to Coll's Hearth (one-time arrival scene).",
+      "default": false
+    },
+    "thornwold_wenna_clamp_seen": {
+      "description": "The player looked at Wenna Coll's spent clamp at Coll's Hearth (Wenna has a word for it after).",
+      "default": false
     }
   }
 }

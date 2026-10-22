@@ -196,6 +196,56 @@
       },
       {
         "if": [
+          "flag:thornwold_bend=road",
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Wenna's bend is lit. Went along it with the cart, the long way, to see. Road's a road again. Said that once, didn't I. Said I'd come in when it was. Didn't know whose road."
+      },
+      {
+        "if": [
+          "flag:thornwold_bend=hearth",
+          "!flag:thornwold_beacon_burned=boots",
+          "!flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Wenna brings her sacks to my cart herself. Stands by it till I see her. Out east somewhere, she lives. Road won't say where. Doesn't matter. She comes."
+      },
+      {
+        "if": [
+          "flag:thornwold_bend=road",
+          "flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Wenna came down to the bottom of the road and sat with me a bit. Says her bend's lit. Says the road's a road again. I said I'd come in when it was. Well. I'm in."
+      },
+      {
+        "if": [
+          "flag:thornwold_bend=hearth",
+          "flag:thornwold_hob_ladder=stayed"
+        ],
+        "say": "hob",
+        "text": "Wenna came down to the bottom of the road and sat with me a bit. Has her own light now, by her own door, out east where the road won't go. Didn't say where. Didn't need to."
+      },
+      {
+        "if": [
+          "flag:thornwold_bend=road",
+          "flag:thornwold_beacon_burned=boots"
+        ],
+        "say": "hob",
+        "text": "There's a light out east of the road now, on a Keepers' mark. A hearth out there, with a woman at it. Never knew there was a hearth out there. All my life this side of the ridge."
+      },
+      {
+        "if": [
+          "flag:thornwold_bend=hearth",
+          "flag:thornwold_beacon_burned=boots"
+        ],
+        "say": "hob",
+        "text": "A charcoal woman brings sacks to my cart. Comes out of the east, where there's no road. Tells me her name every time. Wenna. Nice of her."
+      },
+      {
+        "if": [
           "flag:thornwold_fourth_lantern_taken",
           "!flag:thornwold_stair_lantern_hung"
         ],
@@ -899,6 +949,22 @@
       {
         "say": "hob",
         "text": "My rake's at Bram Kettle's, on his bench. He can keep it. Doesn't know whose it is, does he. Nobody down there does."
+      },
+      {
+        "if": [
+          "flag:thornwold_bend=road",
+          "!flag:thornwold_beacon_burned=boots"
+        ],
+        "say": "hob",
+        "text": "Wenna's bend is lit. Went along it with the cart, the long way, to see. Road's a road again. Said that once, didn't I. Said I'd come in when it was. Didn't know whose road."
+      },
+      {
+        "if": [
+          "flag:thornwold_bend=hearth",
+          "!flag:thornwold_beacon_burned=boots"
+        ],
+        "say": "hob",
+        "text": "Wenna brings her sacks to my cart herself. Stands by it till I see her. Out east somewhere, she lives. Road won't say where. Doesn't matter. She comes."
       },
       {
         "choice": [

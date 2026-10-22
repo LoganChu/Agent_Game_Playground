@@ -1,0 +1,30 @@
+{
+  "id": "wenna_clamp",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Wenna's clamp: a low dome of earth and turf gone silver, a stride and a half across, sunk to half the height a clamp should stand. The vents are cold and open. Two of the ring of stakes are down in the moss."
+      },
+      {
+        "say": "narrator",
+        "text": "Where the front fell in, the charcoal shows black inside: stick on stick, the shape of the stack still in it, every piece burned clean through and not one gone to ash."
+      },
+      {
+        "if": "flag:thornwold_bend=walked",
+        "say": "narrator",
+        "text": "It burned the whole way down with nobody to shut a vent, and never once broke out. A whole burn, a collier's best work, done in the dark while she walked round it."
+      },
+      {
+        "if": "!flag:thornwold_bend=walked",
+        "say": "narrator",
+        "text": "Wenna's been breaking it out a sack at a time. The best burn she ever had, she says, and she wasn't there for it."
+      },
+      {
+        "set": {
+          "thornwold_wenna_clamp_seen": true
+        }
+      }
+    ]
+  }
+}

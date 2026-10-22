@@ -3,6 +3,26 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_bend=road",
+        "goto": "bend_road"
+      },
+      {
+        "if": "flag:thornwold_bend=hearth",
+        "goto": "bend_hearth"
+      },
+      {
+        "if": "flag:thornwold_bend=walked",
+        "goto": "at_hearth"
+      },
+      {
+        "if": "flag:thornwold_bend=morning",
+        "goto": "first_light"
+      },
+      {
+        "if": "flag:thornwold_bend=asked",
+        "goto": "asked"
+      },
+      {
         "if": "flag:thornwold_far_shore=up",
         "goto": "home"
       },
@@ -393,10 +413,402 @@
       {
         "choice": [
           {
+            "text": "Can I walk out with you in the morning?",
+            "goto": "ask"
+          },
+          {
             "text": "Good luck, Wenna.",
             "end": true
           }
         ]
+      }
+    ],
+    "ask": [
+      {
+        "say": "wenna_coll",
+        "text": "Walk with me?"
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at you over the lantern a while, the way she looked at the sea off the end of the stage."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I walked out three times on my own and came back in here three times. Smelling my own smoke. Maybe it wants two."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "First light, then. I'll be by the first mark past the wall, where the road starts. Bring your hand."
+      },
+      {
+        "set": {
+          "thornwold_bend": "asked"
+        }
+      },
+      {
+        "if": "quest:the_bend_in_the_road=inactive",
+        "quest_start": "the_bend_in_the_road"
+      }
+    ],
+    "asked": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll is sitting up by Hob's clamp with the lantern on her knee, not sleeping."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "First light. By the first mark, by the wall. I'll not go without you; I said I wouldn't."
+      },
+      {
+        "choice": [
+          {
+            "text": "First light.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "first_light": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll stands under the first waymark's lantern with her own held out at arm's length over the moss, the way you'd hold a lantern over water to see the bottom."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Morning. Near enough. It's always this colour in here."
+      },
+      {
+        "if": "stage:the_bend_in_the_road=first_light",
+        "quest_stage": [
+          "the_bend_in_the_road",
+          "the_bend"
+        ]
+      },
+      {
+        "goto": "fork"
+      }
+    ],
+    "fork": [
+      {
+        "choice": [
+          {
+            "text": "Where was your hearth?",
+            "goto": "where"
+          },
+          {
+            "text": "How does a road lie?",
+            "goto": "lie"
+          },
+          {
+            "text": "Show me.",
+            "goto": "show"
+          },
+          {
+            "text": "Not yet.",
+            "goto": "not_yet"
+          }
+        ]
+      }
+    ],
+    "where": [
+      {
+        "say": "wenna_coll",
+        "text": "Out east of here. Bram's lads'll tell you the cart road runs straight from the wall to the ridge. It does now. It didn't."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "It bent. Here, just past the first mark, east round the hollow, past my hearth, and back on north to the ridge. Forty years I walked that bend with a cart. It was the long way and it was the way."
+      },
+      {
+        "goto": "fork"
+      }
+    ],
+    "lie": [
+      {
+        "say": "wenna_coll",
+        "text": "The night the Spire went out the road straightened itself. Like a man pulling his arm in. Didn't leave a mark. The ruts just went on straight, as if they always had."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I walked out to my clamp three times on the straight road and came back in here every time. Never found the fire. Could smell it, though. My own smoke, the whole way round. That's the lie: it doesn't stop you. It just doesn't take you there."
+      },
+      {
+        "goto": "fork"
+      }
+    ],
+    "not_yet": [
+      {
+        "say": "wenna_coll",
+        "text": "I've waited since the Snuffing. I'll wait while you tie your boots."
+      },
+      {
+        "end": true
+      }
+    ],
+    "show": [
+      {
+        "say": "narrator",
+        "text": "She lowers the lantern to the moss east of the road. In its light there are two grooves under the green, a cart's width apart, going off between the pines where there's no road at all."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember leans after the lantern. The ruts are there in your light too, now that you've seen them."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "There. Proper light goes where things are. I said it would."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Stay in the light. It's lied to me three times. It can lie to you once."
+      },
+      {
+        "set": {
+          "thornwold_bend": "walked"
+        },
+        "quest_stage": [
+          "the_bend_in_the_road",
+          "her_hearth"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "You walk east behind her, off the road, on ruts nobody's used since the Snuffing.",
+        "travel": [
+          "thornwold_colls_hearth",
+          "from_road"
+        ]
+      }
+    ],
+    "at_hearth": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll stands by the sunk grey hump of her clamp with the lantern held out over it, looking at it the way you'd look at somebody asleep."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "All this while. It was right here all this while."
+      },
+      {
+        "if": "flag:thornwold_wenna_clamp_seen",
+        "say": "wenna_coll",
+        "text": "You looked at it. Burned clean through, didn't it. Nobody to shut a vent, and it went all the way down and never once broke out. Best burn I ever had. I wasn't there for it."
+      },
+      {
+        "goto": "hearth_hub"
+      }
+    ],
+    "hearth_hub": [
+      {
+        "choice": [
+          {
+            "text": "What was it like, when the road started lying?",
+            "goto": "that_night"
+          },
+          {
+            "text": "Where does the road go from here?",
+            "goto": "north"
+          },
+          {
+            "text": "What will you do with your light?",
+            "goto": "light"
+          },
+          {
+            "text": "Hang it on the bend's waymark. Let the road be a road again.",
+            "goto": "road"
+          },
+          {
+            "text": "Keep it by your own door. You went a long way for a light of your own.",
+            "goto": "keep_it"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "that_night": [
+      {
+        "say": "wenna_coll",
+        "text": "I'd just lit her. That clamp. Shut the vents for the night and gone in, and the Spire went, and in the morning I came out of the clearing, where I'd been for salt, and the road was straight."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I knew where I'd left her. A collier always knows where her fire is. Didn't help. Knowing where a thing is and getting there aren't the same, it turns out. Nobody tells you that."
+      },
+      {
+        "goto": "hearth_hub"
+      }
+    ],
+    "north": [
+      {
+        "say": "narrator",
+        "text": "She lifts the lantern toward the north side of the hollow. The ruts go on that way between the grey pines and thin out into the moss and the fog, and then there isn't anything."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "On north, round the back of the hollow, and back onto the road under the ridge. The other end of the bend. Nobody's found that end either. I'd not go looking."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "A road's only a road if people can find each other on it. This one's mine and nobody else's, now. The camp side of the wall it's a straight line, and Bram's lads go straight up it to the ridge, and they'd never once find me."
+      },
+      {
+        "goto": "hearth_hub"
+      }
+    ],
+    "light": [
+      {
+        "say": "wenna_coll",
+        "text": "I wanted a light of my own. Sat on a quay counting days for one. Proper light goes where things are; I said that and it's true. It brought me here."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks back along the ruts to where the bend's waymark stands in the fog, its hook empty."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "That's a Keepers' mark at the bend. The Lamp's lot set it, before my mother's time, so a cart'd know to turn. Hang a Keeper's coal on it and the bend's a road again, I'd think. That's what the marks are for. Anybody'd find me. Anybody'd find anybody."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Or I keep it by my door. My own light, at my own hearth, like I wanted. And the road goes on lying about me, and I don't mind. Colliers don't, much."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "You walked out with me. You say."
+      },
+      {
+        "goto": "hearth_hub"
+      }
+    ],
+    "road": [
+      {
+        "say": "wenna_coll",
+        "text": "The road, then."
+      },
+      {
+        "say": "narrator",
+        "text": "She walks back along the ruts to the bend's waymark and reaches up and hangs the lantern on its hook. It swings once and settles, gold behind horn."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog leans back off the bend the way it leans off the woods' other marks: down the ruts to the straight road one way, up through the hollow to the hearth the other, and on north a stone's throw, until the ruts go into the thick. You can see the whole bend from the waymark. It's a road."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "There. Now it's a road. Somebody'll come along it. That's what roads are for. Bram's lads with their straight line, maybe. I'll sell them charcoal to their faces."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I'll not have a light of my own. I'll have the road's. That's more, I think. I'll have to see."
+      },
+      {
+        "say": "narrator",
+        "text": "She goes back to her hut and sits down on the seat by the door for the first time since the Snuffing, and says nothing at all for a while, and then gets up and puts the fire in."
+      },
+      {
+        "set": {
+          "thornwold_bend": "road"
+        },
+        "quest_complete": "the_bend_in_the_road"
+      }
+    ],
+    "bend_road": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll sits on the seat by her hut door with the fire in behind her and her big hands on her knees. Down the ruts the bend's lantern burns on its waymark."
+      },
+      {
+        "if": "!flag:thornwold_beacon_burned=boots",
+        "say": "wenna_coll",
+        "text": "Hob came along it this morning with his cart, the long way, to see. Stood at the waymark a long time. 'Road's a road again,' he says. 'Said I'd come in when it was. Said that once.' Didn't know it was my road he meant. Neither did he."
+      },
+      {
+        "if": "flag:thornwold_beacon_burned=boots",
+        "say": "wenna_coll",
+        "text": "Hob came along it this morning with his cart, to see what the light was. Didn't know me from Abe. Said he'd never seen a hearth out here, and he's been this side of the ridge all his life. Well. He's seen one now."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I'll take my own sacks down the bend to the gap in my own cart, when there's sacks. Bram Kettle can cut himself a new row."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I'll put another clamp up when the cordwood's dry. A collier's not a collier sitting."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye, Wenna.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "bend_hearth": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll sits on the seat by her hut door under her own lantern, gold behind horn on its forked stake, the fire in behind her."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Still here. The road's still lying, down there. Bram's lads go straight past and never know. I hear their cart some mornings. I don't call out."
+      },
+      {
+        "if": "!flag:thornwold_beacon_burned=boots",
+        "say": "wenna_coll",
+        "text": "I took my first sacks down to Hob's clearing myself. Walked in under his lanterns and stood by his cart till he saw me. 'Wenna,' he says. Didn't count. Just said it."
+      },
+      {
+        "if": "flag:thornwold_beacon_burned=boots",
+        "say": "wenna_coll",
+        "text": "I took my first sacks down to Hob's clearing myself and stood by his cart till he saw me. Asked who I was. I told him. He'll forget, out here. I'll tell him again. I've time."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I'll put another clamp up when the cordwood's dry. By my own light. I said I would."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye, Wenna.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "keep_it": [
+      {
+        "say": "wenna_coll",
+        "text": "Mine, then. I said that on a quay every day. I meant it."
+      },
+      {
+        "say": "narrator",
+        "text": "She cuts a forked stake from the cordwood with the hatchet off her hut's wall, drives it in by the door with the back of it, and hangs the lantern in the fork. Gold behind horn, at the height of her shoulder. The hut looks lived in at once."
+      },
+      {
+        "say": "narrator",
+        "text": "Down the ruts the bend's waymark stands in the fog with its hook empty. From here you can hardly see it."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Let the road lie. I know where I am. Anybody wants me, they can ask Hob, and Hob can't tell them. Suits a collier."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "My sacks'll go down with his cart. He'll find me. He'll find me because I'll go and stand where he is."
+      },
+      {
+        "say": "narrator",
+        "text": "She sits down on the seat by the door for the first time since the Snuffing, under her own light, and after a while she gets up and puts the fire in."
+      },
+      {
+        "set": {
+          "thornwold_bend": "hearth"
+        },
+        "quest_complete": "the_bend_in_the_road"
       }
     ]
   }

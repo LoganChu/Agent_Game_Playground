@@ -1,0 +1,32 @@
+{
+  "id": "woods_old_bend",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_bend=road",
+        "say": "narrator",
+        "text": "Two ruts go off east from the straight road, a cart's width apart, plain in the moss. Far along them between the pines a lantern burns on a waymark: the bend. It's a road."
+      },
+      {
+        "if": "!flag:thornwold_bend=road",
+        "say": "narrator",
+        "text": "Two grooves go off east under the moss, a cart's width apart. You only find them because you've walked them. Your ember leans after them."
+      },
+      {
+        "choice": [
+          {
+            "text": "Follow the ruts east to Coll's Hearth.",
+            "travel": [
+              "thornwold_colls_hearth",
+              "from_road"
+            ]
+          },
+          {
+            "text": "Leave them.",
+            "end": true
+          }
+        ]
+      }
+    ]
+  }
+}

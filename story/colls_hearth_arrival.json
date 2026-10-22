@@ -1,0 +1,27 @@
+{
+  "id": "colls_hearth_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The ruts go east between the pines, and bend, the way Wenna said they would, and the fog thins round the bend the way it thins round the colliers' clearing."
+      },
+      {
+        "say": "narrator",
+        "text": "A hollow, green under the grey, the floor black with old charcoal dust. A cone hut with its sods slipping and nobody's smoke. A cordwood stack gone silver. And a clamp, sunk to a low grey hump, the front of it fallen in."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna walks ahead of you to the clamp and stops with the lantern held out over it, and stands there."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "There it is. There it was all along."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I smelled it the whole way round. Three times. It was burning, and I was walking round it."
+      }
+    ]
+  }
+}

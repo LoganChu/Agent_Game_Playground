@@ -1,0 +1,15 @@
+{
+  "id": "woods_first_light",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Morning in the woods, or what passes for it past the wall: the grey goes a little paler and the waymarks' lanterns a little less gold."
+      },
+      {
+        "say": "narrator",
+        "text": "By the first waymark, where the cart road starts north, Wenna Coll is standing with her lantern held out over the moss, waiting. She doesn't look round. She knew you'd come."
+      }
+    ]
+  }
+}
