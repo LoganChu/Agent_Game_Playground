@@ -302,8 +302,8 @@ func _walk_the_far_shore(main: Node, ui: DialogueUI) -> bool:
 
 
 ## Day 57: ask Wenna Coll to walk out with her, go down to the landing and back through the wall for first light,
-## walk the old bend east with her to Coll's Hearth, hang her light on the bend's waymark, and walk the ruts back.
-## True if the walk ends at the landing.
+## walk the old bend east with her to Coll's Hearth, hang her light on the bend's waymark, and walk the ruts back;
+## then out along them once more to find her breaking out the clamp (Day 58). True if the walk ends at the landing.
 func _walk_the_bend(main: Node, ui: DialogueUI) -> bool:
 	var world := GameState.world
 	_npc("wenna_coll").interact()
@@ -335,6 +335,16 @@ func _walk_the_bend(main: Node, ui: DialogueUI) -> bool:
 	if not await _take_exit(main, ui, "thornwold_woods", "back along the ruts"):
 		return false
 	_check(_object("woods_old_bend") != null, "the old ruts east from the straight road")
+	# Day 58: back along the bend, Wenna's up at her clamp with the rake, breaking it out.
+	_object("woods_old_bend").interact()
+	_check(_choose(ui, "Follow the ruts east to Coll's Hearth."), "back along the bend")
+	_finish_dialogue(ui, "the old ruts")
+	if not await _arrived(main, ui, "thornwold_colls_hearth", "along the lit bend"):
+		return false
+	_check(world.get_flag("thornwold_bend_breaking_out") == true
+			and _shown_model(main.get("region"), "clamp_spent_open.glb") == 1, "Wenna breaking out her clamp")
+	if not await _take_exit(main, ui, "thornwold_woods", "back along the ruts again"):
+		return false
 	return await _take_exit(main, ui, "thornwold_landing", "down from thornwold_woods")
 
 
