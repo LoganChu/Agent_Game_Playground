@@ -1444,6 +1444,33 @@ def _ottie(seated: bool, boots: bool = False, cap: bool = False) -> None:
     assemble(b, "ottie_cap" if cap else "ottie")
 
 
+def _bent_arm(b: Body, side: str, hand: Vector, out: Vector, upper_mat, fore_mat, hand_mat,
+              hand_r: float = 0.09) -> Vector:
+    """Replaces one of base_body's straight arms with an arm bent at the elbow reaching `hand`, a point
+    given in the posed body (after `b.torso_rest`, which the arm then follows as the Torso's child).
+    The elbow bows out along `out` as far as two 0.27 m segments need. Returns the elbow, unposed."""
+    for obj in b.parts["Arm" + side]:
+        bpy.data.objects.remove(obj, do_unlink=True)
+    b.parts["Arm" + side] = []
+    waist = Vector((0, 0, b.waist))
+    unpose = Euler(b.torso_rest).to_matrix().inverted()
+    hand = unpose @ (Vector(hand) - waist) + waist
+    out = (unpose @ Vector(out)).normalized()
+    sx = b.shoulder_x if side == "L" else -b.shoulder_x
+    shoulder = Vector((sx, 0, b.shoulder - 0.04))
+    seg = 0.27
+    span = hand - shoulder
+    bow = math.sqrt(max(0.0, seg * seg - (span.length / 2) ** 2))
+    out = (out - span.normalized() * out.dot(span.normalized())).normalized()
+    elbow = shoulder + span / 2 + out * bow
+    arm = b.parts["Arm" + side]
+    arm.append(limb(shoulder, elbow, 0.085, 0.078, upper_mat))
+    arm.append(ball(0.078, elbow, upper_mat, segments=6, rings=4))
+    arm.append(limb(elbow, hand + (elbow - hand).normalized() * 0.06, 0.075, 0.068, fore_mat))
+    arm.append(ball(hand_r, hand, hand_mat, scale=(1.0, 1.1, 1.1), segments=6, rings=4))
+    return elbow
+
+
 def _held_lantern(b: Body, side: str = "R") -> None:
     """A Keeper's lantern held out by its bail in one hand (as Hob's): iron foot and cap, horn lit gold."""
     iron = material("slate", -0.45)
@@ -1472,9 +1499,18 @@ def build_wenna_coll_lantern() -> None:
     _wenna_coll(seated=False, lantern=True)
 
 
-def _wenna_coll(seated: bool, lantern: bool = False) -> None:
+def build_wenna_coll_rake() -> None:
+    """Wenna home at Coll's Hearth (Day 58), breaking out the clamp that burned itself through: standing at
+    its broken front with the hood pushed back, stooped into the work with her knees bent, the clamp rake
+    in both soot-black hands — the back hand at her hip, the front one down the pole — its iron head down
+    in the charcoal in front of her and to her left. The rake is a static extra (the Stool part), so it
+    stays on the ground while she breathes."""
+    _wenna_coll(seated=False, rake=True)
+
+
+def _wenna_coll(seated: bool, lantern: bool = False, rake: bool = False) -> None:
     reset_scene()
-    b = Body(seated=seated, build=1.05)
+    b = Body(seated=seated, build=1.05, crouch=0.06 if rake else 0.0)
     smock = material("ink", 0.22)
     soot = material("ink", 0.1)
     skin = material("driftwood", -0.02)
@@ -1488,9 +1524,13 @@ def _wenna_coll(seated: bool, lantern: bool = False) -> None:
         b.parts["LegL"].append(block((0.5, 0.05, 0.3), (-0.12, -0.38, b.hip - 0.1), smock))
         b.parts["LegL"].append(block((0.5, 0.05, 0.08), (-0.12, -0.38, b.hip - 0.28), hem))
     else:
-        # A dark smock to the shins, silvered at the hem.
-        t.append(limb((0, 0.0, 0.2), (0, 0.0, b.waist + 0.06), 0.31, 0.27, smock, verts=8))
-        t.append(limb((0, 0.0, 0.16), (0, 0.0, 0.24), 0.32, 0.31, hem, verts=8))
+        # A dark smock to the shins, silvered at the hem. Stooped over the rake, the skirt stays with the
+        # legs (the Torso part bends at the waist) and the bodice carries on from the waist up.
+        skirt = b.parts["LegL"] if rake else t
+        skirt.append(limb((0, 0.0, 0.2), (0, 0.0, b.waist + (0.0 if rake else 0.06)), 0.31, 0.28, smock, verts=8))
+        skirt.append(limb((0, 0.0, 0.16), (0, 0.0, 0.24), 0.32, 0.31, hem, verts=8))
+        if rake:
+            t.append(limb((0, 0.0, b.waist - 0.06), (0, 0.0, b.waist + 0.06), 0.28, 0.27, smock, verts=8))
     t.append(ring(0.275, b.waist + 0.03, 0.04, material("driftwood", -0.15)))                 # rope belt
     for side in ("L", "R"):
         b.parts["Arm" + side].append(ball(0.095, b.hand(side), soot, scale=(1.0, 1.1, 1.15), segments=6, rings=4))
@@ -1504,7 +1544,7 @@ def _wenna_coll(seated: bool, lantern: bool = False) -> None:
     t.append(limb(braid[-1], braid[-1] + Vector((-0.01, -0.01, -0.1)), 0.04, 0.02, hem, verts=5))
     for ex in (0.075, -0.075):
         h.append(block((0.08, 0.03, 0.025), (ex, -0.215, b.head + 0.075), material("ink", 0.35)))  # dark brows
-    if not lantern:
+    if not lantern and not rake:
         # The sacking hood up over her head and down over her shoulders like a cape.
         h.append(ball(0.29, (0, 0.1, b.head + 0.05), sacking, scale=(1.05, 1.0, 1.0)))
         h.append(block((0.46, 0.06, 0.08), (0, -0.17, b.head + 0.2), sacking))                  # the hood's brow
@@ -1521,6 +1561,26 @@ def _wenna_coll(seated: bool, lantern: bool = False) -> None:
         b.arm_rest["ArmR"] = (math.radians(-52), 0, math.radians(12))
         b.head_rest = (math.radians(-5), 0, 0)
         assemble(b, "wenna_coll")
+        return
+    if rake:
+        # Stooped into the pull; the hands on the pole, the pole on down to the ground and its head.
+        b.torso_rest = (math.radians(25), 0, 0)
+        b.head_rest = (math.radians(-12), 0, 0)  # the head comes up off the stoop to watch the rake
+        back, front = Vector((0.0, -0.22, 0.82)), Vector((0.1, -0.46, 0.66))
+        for side, hand, out in (("R", back, Vector((-1.0, 0.4, 0.0))), ("L", front, Vector((1.0, 0.2, -0.2)))):
+            _bent_arm(b, side, hand, out, soot, soot, soot, 0.095)
+        along = (front - back).normalized()
+        foot = front + along * ((front.z - 0.08) / -along.z)
+        top = back - along * 0.3
+        pole, iron = material("driftwood", -0.25), material("slate", -0.45)
+        r = b.parts["Stool"]
+        r.append(limb(top, foot, 0.024, 0.024, pole, verts=5))
+        across = along.cross(Vector((0, 0, 1))).normalized()
+        r.append(limb(foot - across * 0.19, foot + across * 0.19, 0.03, 0.03, iron, verts=4))
+        for k in (-0.15, -0.05, 0.05, 0.15):
+            p = foot + across * k
+            r.append(limb(p, p + Vector((along.x, along.y, 0)).normalized() * -0.04 + Vector((0, 0, -0.1)), 0.012, 0.008, iron, verts=4))
+        assemble(b, "wenna_coll_rake")
         return
     _held_lantern(b, "R")
     b.arm_rest["ArmR"] = (math.radians(-36), 0, math.radians(-4))
@@ -1546,21 +1606,16 @@ def build_abe() -> None:
     t.append(limb((0, 0.0, 0.38), (0, 0.0, 0.46), 0.34, 0.34, hem, verts=8))
     t.append(ring(0.32, b.waist + 0.04, 0.07, material("coal", -0.15)))                       # the sash
     t.append(limb((-0.2, -0.25, b.waist + 0.02), (-0.24, -0.27, b.waist - 0.22), 0.03, 0.02, material("coal", -0.15), verts=4))
-    for side in ("L", "R"):
-        hand = b.hand(side)
-        arm = b.parts["Arm" + side]
-        arm.append(limb(hand + Vector((0, 0, 0.26)), hand + Vector((0, 0, 0.02)), 0.08, 0.075, soot))  # bare, sooty forearm
-        arm.append(ball(0.1, hand, soot, scale=(1.0, 1.1, 1.1), segments=6, rings=4))
-        x = hand.x
-        arm.append(limb(Vector((x, 0, hand.z + 0.27)), Vector((x, 0, hand.z + 0.33)), 0.095, 0.095, smock))  # rolled sleeve
+    # Hands on his hips (Day 58: bent at the elbow, fists on the sash, elbows out wide); sleeves rolled
+    # to the elbow over bare, sooty forearms.
+    for side, sx in (("L", 1.0), ("R", -1.0)):
+        elbow = _bent_arm(b, side, Vector((sx * 0.33, 0.04, b.waist + 0.03)), Vector((sx, 0.25, 0.0)), smock, soot, soot, 0.1)
+        b.parts["Arm" + side].append(ball(0.095, elbow, smock, scale=(1.1, 1.1, 0.8), segments=6, rings=4))  # rolled sleeve
     h = b.parts["Head"]
     h.append(ball(0.17, (0, -0.1, b.head - 0.13), material("coal", -0.25), scale=(1.1, 0.75, 0.8)))  # rust-red beard
     h.append(block((0.12, 0.03, 0.05), (0.07, -0.222, b.head + 0.13), soot))                   # soot on the crown
     for ex in (0.075, -0.075):
         h.append(block((0.09, 0.03, 0.03), (ex, -0.215, b.head + 0.075), material("coal", -0.35)))
-    # Hands on his hips: elbows out.
-    b.arm_rest["ArmL"] = (math.radians(-8), math.radians(-10), math.radians(38))
-    b.arm_rest["ArmR"] = (math.radians(-8), math.radians(10), math.radians(-38))
     b.head_rest = (math.radians(-4), 0, 0)
     assemble(b, "abe", scale=1.03)
 
@@ -1624,7 +1679,7 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_wenna, build_wenna_nobrass, build_jory,
             build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad,
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
-            build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_abe, build_tolly,
+            build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
             build_tolly_lantern]
 
 if __name__ == "__main__":

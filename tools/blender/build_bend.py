@@ -1,12 +1,12 @@
 """Builds the kit for Coll's Hearth (Day 57) into the dressing kit: the bend in Thornwold's old cart road
 where Wenna Coll's hearth stood before the road started lying — her clamp, burned right through while
-nobody tended it (`clamp_spent`), and a Keeper's lantern hung on a forked stake by a hut door
+nobody tended it (`clamp_spent`; broken out a sack at a time once she's home, `clamp_spent_open`), and a Keeper's lantern hung on a forked stake by a hut door
 (`hut_lantern`: Wenna's, if she keeps her light at her own door; Hob's, from the Lamp's coal, in the
 colliers' clearing).
 
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_bend.py
-    .tools/bin/blender-py tools/blender/build_bend.py [clamp_spent hut_lantern]
+    .tools/bin/blender-py tools/blender/build_bend.py [clamp_spent clamp_spent_open hut_lantern]
 
 Same conventions as build_dressing/build_woods: origin at the base centre, flat-shaded,
 palette colours and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -31,6 +31,18 @@ def build_clamp_spent() -> None:
     the dome sunk to a low grey hump, the turf slipped and dried silver, the vents cold and open, one
     side broken in where it fell (the finished charcoal showing black inside), the stake ring
     leaning and two stakes down. No smoke, no glow."""
+    _clamp_spent(opened=False)
+
+
+def build_clamp_spent_open() -> None:
+    """The same clamp with Wenna home and breaking it out (Day 58): the fallen-in front raked right open
+    down to the hearth, the inside black with finished charcoal; a fan of it drawn out on the moss in front
+    where she works the rake; four sacks filled and tied standing at the side, an open one slumped at the
+    heap's edge with its mouth rolled down. The rotted sack is gone (she burned it)."""
+    _clamp_spent(opened=True)
+
+
+def _clamp_spent(opened: bool) -> None:
     bd.reset()
     rng = random.Random(570)
     bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0)
@@ -48,6 +60,8 @@ def build_clamp_spent() -> None:
             v.co.z *= 1.0 + rng.uniform(-0.2, 0.05)
             if v.co.y < -0.5 and v.co.x > -0.6:  # the front fell in
                 v.co.z *= 0.45
+            if opened and v.co.y < -0.2 and abs(v.co.x) < 1.0:  # raked open to the hearth
+                v.co.z = min(v.co.z, 0.06 + max(0.0, v.co.y + 0.2) * 0.3)
     bm.to_mesh(dome.data)
     bm.free()
     bd.bp.finish(dome, mat("silverfog", -0.55))
@@ -55,14 +69,35 @@ def build_clamp_spent() -> None:
         a = rng.uniform(0, math.tau)
         d = rng.uniform(0.6, 1.5)
         h = 0.55 * math.sqrt(max(0.0, 1 - (d / 1.6) ** 2))
+        spin = a + rng.uniform(-0.4, 0.4)
+        if opened and math.sin(a) * d < -0.2 and abs(math.cos(a) * d) < 1.0:
+            continue  # raked away with the front
         box("Turf", (0.38, 0.28, 0.05), (math.cos(a) * d, math.sin(a) * d, max(0.0, h - 0.06)),
-            mat("silverfog", (-0.35, -0.45)[i % 2]), a + rng.uniform(-0.4, 0.4))
+            mat("silverfog", (-0.35, -0.45)[i % 2]), spin)
     for k in range(4):  # the vents, cold and open
         a = k * math.pi / 2 + 0.4
+        if opened and math.sin(a) < -0.3:
+            continue
         cyl("Vent", 0.1, 0.12, 0.06, 6, (math.cos(a) * 0.6, math.sin(a) * 0.6, 0.38), mat("ink", -0.1))
-    for i in range(14):  # the broken side: finished charcoal showing black inside
-        box("Charcoal", (0.16, 0.11, 0.09), (rng.uniform(-0.3, 0.6), rng.uniform(-1.25, -0.7), rng.uniform(0.02, 0.22)),
-            mat("ink", (0.05, -0.05)[i % 2]), rng.uniform(0, math.pi))
+    if not opened:
+        for i in range(14):  # the broken side: finished charcoal showing black inside
+            box("Charcoal", (0.16, 0.11, 0.09), (rng.uniform(-0.3, 0.6), rng.uniform(-1.25, -0.7), rng.uniform(0.02, 0.22)),
+                mat("ink", (0.05, -0.05)[i % 2]), rng.uniform(0, math.pi))
+    else:
+        # The opened front: a black bed of charcoal in the hearth, and a fan of it raked out on the moss.
+        bw._lump("Bed", (0.95, 0.75, 0.12), (0.0, -0.75, 0.04), mat("ink", -0.05), rng, 0.1)
+        bw._lump("Fan", (1.1, 0.6, 0.08), (0.05, -1.7, 0.01), mat("ink", 0.05), rng, 0.15)
+        for i in range(34):
+            a = rng.uniform(-1.2, 1.2)
+            d = rng.uniform(0.4, 2.3)
+            box("Charcoal", (0.15, 0.1, 0.08), (math.sin(a) * d * 0.6, -0.6 - d * 0.6 * math.cos(a), rng.uniform(0.03, 0.13)),
+                mat("ink", (0.08, -0.04, 0.0)[i % 3]), rng.uniform(0, math.pi))
+        for k, (x, y) in enumerate(((-1.75, -1.25), (-2.2, -0.9), (-2.0, -1.65), (-2.45, -1.35))):  # filled and tied
+            bw._sack((x, y, 0.0), rng, shade=(-0.2, -0.3)[k % 2])
+        # The open sack she's filling, slumped at the heap's edge, mouth rolled down on the charcoal.
+        bw._lump("Sack", (0.24, 0.22, 0.2), (-1.0, -1.95, 0.2), mat("driftwood", -0.25), rng, 0.08)
+        cyl("Mouth", 0.2, 0.22, 0.08, 7, (-1.0, -1.95, 0.4), mat("driftwood", -0.4))
+        cyl("Coal", 0.17, 0.17, 0.03, 7, (-1.0, -1.95, 0.43), mat("ink", 0.0))
     for i in range(10):  # the stake ring, leaning; two down in the moss
         a = i / 10 * math.tau
         x, y = math.cos(a) * 1.9, math.sin(a) * 1.9
@@ -72,6 +107,9 @@ def build_clamp_spent() -> None:
         else:
             lean = rng.uniform(0.05, 0.18)
             rod("Stake", (x, y, 0), (x * (1 + lean), y * (1 + lean), 0.5), 0.035, mat("driftwood", -0.5), verts=4, r_end=0.02)
+    if opened:
+        bd.export("clamp_spent_open")
+        return
     bw._sack((2.2, 0.4, 0.0), rng, lying=True, shade=-0.5)  # an empty sack, rotted grey
     bd.export("clamp_spent")
 
@@ -104,7 +142,7 @@ def build_hut_lantern() -> None:
     bd.export("hut_lantern")
 
 
-BUILDERS = [build_clamp_spent, build_hut_lantern]
+BUILDERS = [build_clamp_spent, build_clamp_spent_open, build_hut_lantern]
 
 if __name__ == "__main__":
     only = {a for a in sys.argv[1:] if not a.startswith("-")}
