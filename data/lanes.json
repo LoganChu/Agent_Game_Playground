@@ -1,0 +1,76 @@
+{
+  "note": "The Tidewright lanes the Slow Mercy sails (the lane map, Day 59). A port's id is its value of lanes_ferry_at ('' counts as saltmarrow, where the ferry first lies). `map` is a point on the chart, 0..1 from the top-left. A lane's `knots` name the knot of `dialogue` that sails it towards each end; a longer voyage over lanes already sailed plays the destination port's `passage` knot. See docs/TECH.md \"Lanes\".",
+  "dialogue": "oda",
+  "home": "saltmarrow",
+  "ports": [
+    {
+      "id": "saltmarrow",
+      "name": "Saltmarrow",
+      "light": "the Gull's Beacon",
+      "lit": "!flag:saltmarrow_beacon_burned=",
+      "region": "saltmarrow",
+      "map": [0.2, 0.78],
+      "passage": "passage_saltmarrow"
+    },
+    {
+      "id": "thornwold",
+      "name": "Thornwold",
+      "light": "the Ridge Light",
+      "lit": "!flag:thornwold_beacon_burned=",
+      "region": "thornwold_landing",
+      "map": [0.14, 0.4],
+      "passage": "passage_thornwold"
+    },
+    {
+      "id": "fen",
+      "name": "Glasswater Fen",
+      "light": "the Heron Light",
+      "lit": "!flag:fen_beacon_burned=",
+      "known": "quest:a_light_for_thornwold=done",
+      "region": "glasswater_fen",
+      "map": [0.42, 0.14],
+      "passage": "passage_fen"
+    },
+    {
+      "id": "wrackholm",
+      "name": "Wrackholm",
+      "light": "the Wrack Light",
+      "lit": "!flag:wrackholm_beacon_burned=",
+      "known": "flag:fen_oda_lane_asked",
+      "region": "wrackholm",
+      "map": [0.82, 0.26],
+      "passage": "passage_wrackholm"
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "Cindermoor",
+      "text": "The Hearthspire, dark. Nobody lands on Cindermoor while the lights between are dark.",
+      "map": [0.56, 0.56]
+    }
+  ],
+  "lanes": [
+    {
+      "between": ["saltmarrow", "thornwold"],
+      "name": "the Gull lane",
+      "open": "quest:across_the_grey=done",
+      "sailed": "quest:across_the_grey=done",
+      "knots": {"thornwold": "sail_again", "saltmarrow": "back"}
+    },
+    {
+      "between": ["thornwold", "fen"],
+      "name": "north-about",
+      "open": "quest:a_light_for_thornwold=done",
+      "sailed": "flag:fen_landed",
+      "knots": {"fen": "sail_fen", "thornwold": "fen_back"}
+    },
+    {
+      "between": ["fen", "wrackholm"],
+      "name": "east-about",
+      "open": ["flag:fen_oda_lane_asked", "flag:fen_dunstan_met"],
+      "closed_text": "Not this tide. Oda wants her crew rested and you done at the fen.",
+      "sailed": "flag:wrackholm_landed",
+      "knots": {"wrackholm": "sail_wrackholm", "fen": "wrackholm_back"}
+    }
+  ]
+}

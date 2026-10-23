@@ -18,6 +18,8 @@ var game: Dictionary = {}
 ## `sounds` (id -> SoundSynth recipe or {file}) for short.
 var audio: Dictionary = {}
 var sounds: Dictionary = {}
+## The Tidewright lanes (ports, lanes, the ferry dialogue) from data/lanes.json — see Lanes.
+var lanes: Dictionary = {}
 ## Where each record came from (id -> file path), for error messages.
 var sources: Dictionary = {}
 var errors: Array[String] = []
@@ -35,6 +37,9 @@ func load_all(data_root: String = "res://data", story_root: String = "res://stor
 	if audio_data is Dictionary:
 		audio = audio_data
 		sounds = audio.get("sounds", {}) if audio.get("sounds") is Dictionary else {}
+	var lanes_data: Variant = JsonUtil.load_file(data_root.path_join("lanes.json"), errors)
+	if lanes_data is Dictionary:
+		lanes = lanes_data
 	for path in JsonUtil.list_files(story_root, "json"):
 		_load_record(dialogues, "dialogue", path)
 	return errors.is_empty()

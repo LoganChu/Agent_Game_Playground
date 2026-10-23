@@ -11,6 +11,8 @@ extends RefCounted
 ## Events are Dictionaries:
 ##   {"type": "line", "speaker": id, "name": display_name, "text": String}
 ##   {"type": "choices", "options": [{"text": String}]}
+##   {"type": "lane_map"}   — an option with `"lane_map": true` was picked: show the lane map,
+##                            then sail_to(port) (or sail_to("") to come back to the options)
 ##   {"type": "end"}
 
 ## Emitted for every applied effect, so UI can show toasts ("Quest started", "Got item").
@@ -28,6 +30,9 @@ var _steps: Array = []
 var _index := 0
 var _pending_options: Array = []
 var _running := false
+## Waiting on the lane map (a `lane_map` option); the index of the choice step it came from.
+var _awaiting_map := false
+var _map_choice_index := 0
 ## Set by a `travel` effect: [region_id, spawn]; whoever runs the dialogue moves the player
 ## there once it closes (DialogueUI). Cleared on start().
 var pending_travel: Array = []
@@ -49,6 +54,7 @@ func start(id: String, start_knot: String = "start") -> Dictionary:
 		return _end()
 	dialogue_id = id
 	_running = true
+	_awaiting_map = false
 	pending_travel = []
 	if not _jump(start_knot):
 		return _end()
@@ -58,6 +64,8 @@ func start(id: String, start_knot: String = "start") -> Dictionary:
 func next() -> Dictionary:
 	if not _running:
 		return {"type": "end"}
+	if _awaiting_map:
+		return {"type": "lane_map"}
 	if not _pending_options.is_empty():
 		# Waiting for a choice; re-offer it.
 		return _choices_event()
@@ -73,6 +81,7 @@ func next() -> Dictionary:
 			var speaker := str(step["say"])
 			return {"type": "line", "speaker": speaker, "name": speaker_name(speaker), "text": str(step.get("text", ""))}
 		if step.has("choice"):
+			_map_choice_index = _index - 1
 			_pending_options = []
 			for option: Dictionary in step["choice"]:
 				if Conditions.evaluate(option.get("if"), state):
@@ -97,10 +106,26 @@ func choose(option_index: int) -> Dictionary:
 	var option: Dictionary = _pending_options[option_index]
 	_pending_options = []
 	apply_effects(option)
+	if option.get("lane_map", false):
+		_awaiting_map = true
+		return {"type": "lane_map"}
 	if option.get("end", false):
 		return _end()
 	if option.has("goto") and not _jump(str(option["goto"])):
 		return _end()
+	return next()
+
+
+## The lane map's answer: sail for `port_id` (Lanes.voyage picks the knot of this dialogue
+## that sails it), or, for "" or a voyage the ferry won't make, offer the options again.
+func sail_to(port_id: String) -> Dictionary:
+	if not _awaiting_map:
+		return next()
+	_awaiting_map = false
+	var voyage := Lanes.voyage(db, state, port_id) if not port_id.is_empty() else {"ok": false}
+	if bool(voyage.get("ok", false)) and _jump(str(voyage["knot"])):
+		return next()
+	_index = _map_choice_index
 	return next()
 
 
@@ -169,5 +194,6 @@ func _choices_event() -> Dictionary:
 
 func _end() -> Dictionary:
 	_running = false
+	_awaiting_map = false
 	_pending_options = []
 	return {"type": "end"}

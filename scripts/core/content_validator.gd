@@ -7,7 +7,7 @@ extends RefCounted
 
 const STEP_ACTIONS: Array[String] = ["say", "choice", "goto", "end"]
 const STEP_KEYS: Array[String] = ["say", "text", "choice", "goto", "end", "if", "count", "note"]
-const OPTION_KEYS: Array[String] = ["text", "goto", "end", "if", "count", "note"]
+const OPTION_KEYS: Array[String] = ["text", "goto", "end", "if", "count", "note", "lane_map"]
 const ITEM_KINDS: Array[String] = ["remnant", "key", "misc"]
 ## Two props of one family closer than this (metres, ground plane) are variants of one thing.
 const PROP_VARIANT_SPOT := 0.6
@@ -42,6 +42,7 @@ func validate() -> bool:
 	_validate_game()
 	_validate_flags()
 	_validate_audio()
+	_validate_lanes()
 	for id: String in db.items:
 		_validate_item(id, db.items[id])
 	for id: String in db.npcs:
@@ -112,6 +113,115 @@ func _validate_game() -> void:
 				_err(where, "act_ends recap lines need 'text'")
 				continue
 			_ref_condition(where, (line as Dictionary).get("if"))
+
+
+## Every knot of the lanes dialogue the lane map can jump to.
+func _lane_knots() -> Array[String]:
+	var out: Array[String] = []
+	for port: Variant in db.lanes.get("ports", []):
+		if port is Dictionary and (port as Dictionary).has("passage"):
+			out.append(str(port["passage"]))
+	for lane: Variant in db.lanes.get("lanes", []):
+		if lane is Dictionary and (lane as Dictionary).get("knots") is Dictionary:
+			for to: String in lane["knots"]:
+				out.append(str(lane["knots"][to]))
+	return out
+
+
+## data/lanes.json: ports on real regions with flag values of their own, lanes between known
+## ports, every voyage knot in the ferry dialogue and landing where its port is.
+func _validate_lanes() -> void:
+	var where := "data/lanes.json"
+	var dialogue_id := str(db.lanes.get("dialogue", ""))
+	_ref_dialogue(where, dialogue_id)
+	var knots: Dictionary = db.get_dialogue(dialogue_id).get("knots", {})
+	var flag_values := db.flag_values(Lanes.FLAG)
+	var ports: Dictionary = {}
+	for port_v: Variant in db.lanes.get("ports", []):
+		if not port_v is Dictionary:
+			_err(where, "ports must be objects")
+			continue
+		var port: Dictionary = port_v
+		var pw := "%s port %s" % [where, port.get("id", "?")]
+		_require_fields(pw, port, ["id", "name", "light", "region", "passage"])
+		var id := str(port.get("id", ""))
+		if ports.has(id):
+			_err(pw, "duplicate port id")
+		ports[id] = port
+		if id not in flag_values:
+			_err(pw, "port id must be a value of %s (%s)" % [Lanes.FLAG, flag_values])
+		if not db.regions.has(str(port.get("region", ""))):
+			_err(pw, "unknown region '%s'" % port.get("region", ""))
+		_ref_condition(pw, port.get("lit"))
+		_ref_condition(pw, port.get("known"))
+		_check_map_point(pw, port.get("map"))
+		_check_lane_knot(pw, knots, str(port.get("passage", "")), str(port.get("region", "")), id)
+	if not ports.has(str(db.lanes.get("home", ""))):
+		_err(where, "home '%s' is not a port" % db.lanes.get("home", ""))
+	for mark: Variant in db.lanes.get("landmarks", []):
+		if not mark is Dictionary:
+			_err(where, "landmarks must be objects")
+			continue
+		_require_fields(where + " landmark", mark, ["name", "text"])
+		_check_map_point(where + " landmark " + str((mark as Dictionary).get("name", "?")), (mark as Dictionary).get("map"))
+	for lane_v: Variant in db.lanes.get("lanes", []):
+		if not lane_v is Dictionary:
+			_err(where, "lanes must be objects")
+			continue
+		var lane: Dictionary = lane_v
+		var ends: Variant = lane.get("between", [])
+		var lw := "%s lane %s" % [where, lane.get("name", "?")]
+		if not ends is Array or (ends as Array).size() != 2 or not ports.has(str(ends[0])) or not ports.has(str(ends[1])) or str(ends[0]) == str(ends[1]):
+			_err(lw, "'between' must name two different ports")
+			continue
+		_ref_condition(lw, lane.get("open"))
+		_ref_condition(lw, lane.get("sailed"))
+		var lane_knots: Variant = lane.get("knots", {})
+		if not lane_knots is Dictionary:
+			_err(lw, "'knots' must map each end to a knot")
+			continue
+		for end: Variant in ends:
+			var to := str(end)
+			if not (lane_knots as Dictionary).has(to):
+				_err(lw, "no knot sails it towards '%s'" % to)
+				continue
+			_check_lane_knot(lw, knots, str(lane_knots[to]), str((ports[to] as Dictionary).get("region", "")), to)
+
+
+func _check_map_point(where: String, point: Variant) -> void:
+	if not point is Array or (point as Array).size() != 2 \
+			or not (point as Array).all(func(v: Variant) -> bool: return v is float or v is int) or float(point[0]) < 0.0 or float(point[0]) > 1.0 \
+			or float(point[1]) < 0.0 or float(point[1]) > 1.0:
+		_err(where, "'map' must be [x, y] within 0..1")
+
+
+## A voyage knot must exist and (on its own or through a goto) set the ferry's flag to the
+## port and travel to the port's region.
+func _check_lane_knot(where: String, knots: Dictionary, knot_name: String, region: String, port_id: String) -> void:
+	if not knots.has(knot_name):
+		_err(where, "knot '%s' is not in the lanes dialogue" % knot_name)
+		return
+	var seen: Dictionary = {}
+	var queue: Array[String] = [knot_name]
+	var travels := false
+	var sets := false
+	while not queue.is_empty():
+		var k: String = queue.pop_back()
+		if seen.has(k) or not knots.has(k) or not knots[k] is Array:
+			continue
+		seen[k] = true
+		for step: Variant in knots[k]:
+			if not step is Dictionary:
+				continue
+			var st: Dictionary = step
+			if st.get("travel") is Array and str((st["travel"] as Array)[0]) == region:
+				travels = true
+			if st.get("set") is Dictionary and (st["set"] as Dictionary).has(Lanes.FLAG) and str(st["set"][Lanes.FLAG]) == port_id:
+				sets = true
+			if st.has("goto"):
+				queue.append(str(st["goto"]))
+	if not travels or not sets:
+		_err(where, "knot '%s' must set %s=%s and travel to %s" % [knot_name, Lanes.FLAG, port_id, region])
 
 
 func _validate_flags() -> void:
@@ -865,6 +975,12 @@ func _validate_dialogue(id: String, dialogue: Dictionary) -> void:
 	var knots: Dictionary = knots_v
 	var reachable: Dictionary = {"start": true}
 	var queue: Array[String] = ["start"]
+	# The lane map jumps straight into the ferry dialogue's voyage knots.
+	if id == str(db.lanes.get("dialogue", "")):
+		for knot_name in _lane_knots():
+			if knots.has(knot_name) and not reachable.has(knot_name):
+				reachable[knot_name] = true
+				queue.append(knot_name)
 	while not queue.is_empty():
 		var knot_name: String = queue.pop_back()
 		var knot: Variant = knots[knot_name]
@@ -927,6 +1043,11 @@ func _validate_step(where: String, step: Dictionary, knots: Dictionary) -> Array
 			_ref_effects(where, opt)
 			if opt.has("goto"):
 				targets.append(_ref_knot(where, str(opt["goto"]), knots))
+			if opt.has("lane_map"):
+				if not where.begins_with("dialogue %s/" % db.lanes.get("dialogue", "")):
+					_err(where, "a lane_map option only works in the lanes dialogue '%s' (data/lanes.json)" % db.lanes.get("dialogue", ""))
+				if opt.has("goto") or opt.has("end"):
+					_err(where, "a lane_map option opens the map; it can't also goto or end")
 	return targets.filter(func(t: String) -> bool: return not t.is_empty())
 
 
