@@ -115,6 +115,8 @@ func _ready() -> void:
 			add_child(shot)
 		elif arg.begins_with("--region="):
 			GameState.travel(arg.get_slice("=", 1))
+		elif arg.begins_with("--lane-map"):
+			_open_lane_map.call_deferred(arg.get_slice("=", 1) if arg.contains("=") else "")
 		elif arg.begins_with("--pause-menu"):
 			_open_pause_menu.call_deferred(arg.get_slice("=", 1) if arg.contains("=") else "")
 		elif arg.begins_with("--act-end="):
@@ -185,6 +187,34 @@ func _open_pause_menu(page: String) -> void:
 		pause_menu.press("Settings")
 		if page == "controls":
 			pause_menu.press("Controls")
+
+
+## Debug: talks to Oda and opens her lane map, focus on `port` if given (use with a scenario or
+## --flags= that has the ferry in and the first crossing made).
+func _open_lane_map(port: String) -> void:
+	for _i in 6:
+		await get_tree().process_frame
+	# An arrival scene may hold the dialogue box: read it through first.
+	for _i in 200:
+		if not dialogue_ui.is_open():
+			break
+		if dialogue_ui.current_event.get("type") == "choices":
+			dialogue_ui.select((dialogue_ui.current_event["options"] as Array).size() - 1)
+		else:
+			dialogue_ui.advance()
+	await get_tree().process_frame
+	dialogue_ui.open("oda")
+	for _i in 40:
+		if dialogue_ui.current_event.get("type") != "line":
+			break
+		dialogue_ui.advance()
+	var options: Array = dialogue_ui.current_event.get("options", [])
+	for i in options.size():
+		if str((options[i] as Dictionary).get("text", "")) == "Where can you take me?":
+			dialogue_ui.select(i)
+	if not port.is_empty() and dialogue_ui.lane_map.visible:
+		await get_tree().process_frame
+		dialogue_ui.lane_map.focus_port(port)
 
 
 ## Debug-only world setup from `--flags=` / `--quest=` (see the header comment).

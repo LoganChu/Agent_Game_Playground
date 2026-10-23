@@ -20,6 +20,8 @@ var _name_label: Label
 var _text_label: RichTextLabel
 var _continue_hint: Label
 var _choices_box: VBoxContainer
+## Oda's chart, shown in place of the dialogue box for a `lane_map` option.
+var lane_map: LaneMap
 ## Characters of the current line shown so far (fractional; ticks up at the text speed).
 var _revealed := 0.0
 
@@ -34,7 +36,7 @@ func _ready() -> void:
 
 
 func is_open() -> bool:
-	return _panel.visible
+	return _panel.visible or (lane_map != null and lane_map.visible)
 
 
 func open(dialogue_id: String) -> void:
@@ -84,6 +86,14 @@ func select(index: int) -> void:
 		_show(runner.choose(index))
 
 
+## The lane map's answer: a port to sail for, or "" to go back to the options.
+func sail_to(port_id: String) -> void:
+	if current_event.get("type") == "lane_map":
+		lane_map.close()
+		_panel.show()
+		_show(runner.sail_to(port_id))
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_open():
 		return
@@ -130,6 +140,10 @@ func _show(event: Dictionary) -> void:
 				i += 1
 			if _choices_box.get_child_count() > 0:
 				(_choices_box.get_child(0) as Button).call_deferred("grab_focus")
+		"lane_map":
+			finish_reveal()
+			_panel.hide()
+			lane_map.open()
 		_:
 			_close()
 
@@ -137,6 +151,7 @@ func _show(event: Dictionary) -> void:
 func _close() -> void:
 	finish_reveal()
 	_panel.hide()
+	lane_map.close()
 	current_event = {}
 	# Defer unlocking so the key press that closed dialogue doesn't re-trigger interact.
 	(func() -> void: GameState.input_locked = false).call_deferred()
@@ -175,3 +190,8 @@ func _build() -> void:
 	_continue_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_continue_hint.theme_type_variation = UiTheme.HINT
 	vbox.add_child(_continue_hint)
+	lane_map = LaneMap.new()
+	lane_map.name = "LaneMap"
+	add_child(lane_map)
+	lane_map.chosen.connect(sail_to)
+	lane_map.cancelled.connect(sail_to.bind(""))

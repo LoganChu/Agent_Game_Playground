@@ -239,8 +239,16 @@
           },
           {
             "text": "Cast off for Thornwold.",
-            "if": "flag:saltmarrow_ferry_passage",
+            "if": [
+              "flag:saltmarrow_ferry_passage",
+              "!quest:across_the_grey=done"
+            ],
             "goto": "sail"
+          },
+          {
+            "text": "Where can you take me?",
+            "lane_map": true,
+            "if": "quest:across_the_grey=done"
           },
           {
             "text": "Not yet.",
@@ -533,13 +541,8 @@
             "goto": "sleeve_thornwold"
           },
           {
-            "text": "Sail north-about to Glasswater Fen.",
-            "if": "quest:a_light_for_thornwold=done",
-            "goto": "sail_fen"
-          },
-          {
-            "text": "Take me back to Saltmarrow.",
-            "goto": "back"
+            "text": "Where can you take me?",
+            "lane_map": true
           },
           {
             "text": "Not yet.",
@@ -709,16 +712,8 @@
             "goto": "fen_lane"
           },
           {
-            "text": "Sail east-about to Wrackholm.",
-            "if": [
-              "flag:fen_oda_lane_asked",
-              "flag:fen_dunstan_met"
-            ],
-            "goto": "sail_wrackholm"
-          },
-          {
-            "text": "Take me back to Thornwold.",
-            "goto": "fen_back"
+            "text": "Where can you take me?",
+            "lane_map": true
           },
           {
             "text": "Not yet.",
@@ -1015,8 +1010,8 @@
             "goto": "wrackholm_wenna"
           },
           {
-            "text": "Take me back to Glasswater Fen.",
-            "goto": "wrackholm_back"
+            "text": "Where can you take me?",
+            "lane_map": true
           },
           {
             "text": "Not yet.",
@@ -1053,6 +1048,102 @@
         },
         "travel": [
           "glasswater_fen",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "passage_saltmarrow": [
+      {
+        "if": "flag:lanes_ferry_at=wrackholm",
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy home the long way, light to light: west-about to the Heron, round Thornwold's shoulder to the Ridge Light, and down the Gull lane. She puts in at the staithe and the jetty only long enough to take on water."
+      },
+      {
+        "if": "flag:lanes_ferry_at=fen",
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy home light to light: round Thornwold's shoulder to the Ridge Light, and down the Gull lane. She puts in at the jetty only long enough to take on water."
+      },
+      {
+        "say": "oda",
+        "text": "Every lane's a short one, if it's lit at both ends. It's the dark ones that are long."
+      },
+      {
+        "say": "narrator",
+        "text": "Saltmarrow's stilts come up out of the grey one by one, and the Gull burns over them."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "saltmarrow"
+        },
+        "travel": [
+          "saltmarrow",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "passage_thornwold": [
+      {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy west-about to the Heron and puts in at the staithe only long enough to take on water, then back round Thornwold's shoulder with the Heron astern."
+      },
+      {
+        "say": "oda",
+        "text": "Pines. Hear them? I'd know that breathing in my sleep now."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "thornwold"
+        },
+        "travel": [
+          "thornwold_landing",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "passage_fen": [
+      {
+        "say": "narrator",
+        "text": "Oda steers off the Gull and up the lane to the Ridge Light, and puts in at Thornwold's jetty only long enough to take on water. Then north-about, until the reeds start breathing."
+      },
+      {
+        "say": "oda",
+        "text": "Two lanes on one tide. Before the Snuffing that was nothing. Now it's a thing to say out loud."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "fen"
+        },
+        "travel": [
+          "glasswater_fen",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "passage_wrackholm": [
+      {
+        "if": "flag:lanes_ferry_at=saltmarrow",
+        "say": "narrator",
+        "text": "Oda steers off the Gull and sails light to light: the Ridge Light, north-about to the Heron, and east-about with the morning on your right cheek. She puts in at the jetty and the staithe only long enough to take on water."
+      },
+      {
+        "if": "flag:lanes_ferry_at=thornwold",
+        "say": "narrator",
+        "text": "Oda sails light to light: north-about to the Heron, then east-about with the morning on your right cheek. She puts in at the staithe only long enough to take on water."
+      },
+      {
+        "say": "narrator",
+        "text": "She comes in slow by soundings at the last, the Teeth breathing to port, the way she always will."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "wrackholm"
+        },
+        "travel": [
+          "wrackholm",
           "from_ferry"
         ],
         "end": true
