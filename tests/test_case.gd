@@ -42,7 +42,8 @@ func fresh_state(db: ContentDatabase) -> WorldState:
 
 
 ## Runs `dialogue` to its end, picking options by exact text in order (an unmatched or
-## missing pick takes the last option, every menu's way out). Returns the spoken lines
+## missing pick takes the last option, every menu's way out). On the lane map a pick "@<port>"
+## sails there and anything else turns back (also "@" alone). Returns the spoken lines
 ## joined by newlines; every option offered along the way is appended to `offered`.
 func play_dialogue(db: ContentDatabase, state: WorldState, dialogue: String, picks: Array[String], offered: Array[String] = []) -> String:
 	var out: PackedStringArray = []
@@ -54,6 +55,10 @@ func play_dialogue(db: ContentDatabase, state: WorldState, dialogue: String, pic
 		if ev["type"] == "line":
 			out.append(str(ev["text"]))
 			ev = runner.next()
+			continue
+		if ev["type"] == "lane_map":
+			var pick: String = picks.pop_front() if not picks.is_empty() else ""
+			ev = runner.sail_to(pick.substr(1) if pick.begins_with("@") else "")
 			continue
 		var texts: Array[String] = []
 		for option: Dictionary in ev["options"]:

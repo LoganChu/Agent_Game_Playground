@@ -45,6 +45,10 @@ func _run(state: WorldState, dialogue: String, picks: Array[String]) -> Dictiona
 			out.append(str(ev["text"]))
 			ev = runner.next()
 			continue
+		if ev["type"] == "lane_map":
+			var pick: String = picks.pop_front() if not picks.is_empty() else ""
+			ev = runner.sail_to(pick.substr(1) if pick.begins_with("@") else "")
+			continue
 		var texts: Array[String] = []
 		for option: Dictionary in ev["options"]:
 			texts.append(str(option["text"]))
@@ -109,12 +113,12 @@ func test_ferry_oda_and_pell_follow_the_lane() -> void:
 	assert_true(_placed("thornwold_landing", "pell", state) and not _placed("saltmarrow", "pell", state), "Pell crossed with you")
 	assert_false(_placed("shingle_point", "pell", state))
 	# Back again: the ferry and Oda go home; Pell stays sorting Bram's nails.
-	var back := _run(state, "oda", ["Take me back to Saltmarrow."])
+	var back := _run(state, "oda", ["Where can you take me?", "@saltmarrow"])
 	assert_eq(back["travel"], ["saltmarrow", "from_ferry"], "Oda takes you back")
 	assert_eq(state.get_flag("lanes_ferry_at"), "saltmarrow")
 	assert_true(_ferry_shown("saltmarrow", state) and _placed("saltmarrow", "oda", state), "ferry back at Saltmarrow")
 	assert_true(_placed("thornwold_landing", "pell", state), "Pell stays on Thornwold")
-	var again := _run(state, "oda", ["Cast off for Thornwold."])
+	var again := _run(state, "oda", ["Where can you take me?", "@thornwold"])
 	assert_eq(again["travel"], ["thornwold_landing", "from_ferry"], "and out again")
 	assert_false((again["text"] as String).contains("green lantern"), "the second sailing is short")
 	assert_eq(state.get_flag("lanes_ferry_at"), "thornwold")

@@ -9,8 +9,7 @@ extends TestCase
 const HOLM := "wrackholm"
 const FEN := "glasswater_fen"
 const LANE := "Where does the lane go from here?"
-const SAIL := "Sail east-about to Wrackholm."
-const BACK := "Take me back to Glasswater Fen."
+const MAP := "Where can you take me?"
 const NAMES := "The Gannet's crew: Hale Corbet, master. Annis Corbet. Ruan Pask."
 const WRACK := "What would it take to light the Wrack?"
 const READ := "Hold the ember to the board."
@@ -30,6 +29,11 @@ func _lines(state: WorldState, dialogue: String, picks: Array = [], offered: Arr
 	var typed: Array[String] = []
 	typed.assign(picks)
 	return play_dialogue(_db, state, dialogue, typed, offered)
+
+
+## Whether the lane map would sail the ferry to `port` now.
+func _sails(state: WorldState, port: String) -> bool:
+	return bool(Lanes.voyage(_db, state, port).get("ok", false))
 
 
 func _offered(state: WorldState, dialogue: String) -> Array[String]:
@@ -62,7 +66,7 @@ func _done_at_the_fen(met_dunstan: bool = true) -> WorldState:
 func _landed() -> WorldState:
 	var state := _done_at_the_fen()
 	_lines(state, "oda", [LANE])
-	_lines(state, "oda", [SAIL])
+	_lines(state, "oda", [MAP, "@wrackholm"])
 	assert_true(RegionEvents.fire(RegionEvents.arrival(_db.get_region(HOLM), state), state) == "wrackholm_arrival", "the arrival scene")
 	_lines(state, "wrackholm_arrival")
 	return state
@@ -79,28 +83,28 @@ func _props(model: String) -> Array:
 
 func test_oda_sails_east_about_once_told_and_done_here() -> void:
 	var early := _done_at_the_fen(false)
-	assert_false(_offered(early, "oda").has(SAIL), "no Wrackholm before she's said where the lane runs")
+	assert_false(_sails(early, HOLM), "no Wrackholm before she's said where the lane runs")
 	var not_done := _lines(early, "oda", [LANE])
 	assert_true(not_done.contains("You've a look like you're not."), "...and while Dunstan's still out there she won't")
 	assert_true(early.get_flag("fen_oda_lane_asked") == true, "she has said it")
-	assert_false(_offered(early, "oda").has(SAIL), "not done here yet")
+	assert_false(_sails(early, HOLM), "not done here yet")
+	assert_true(str(Lanes.voyage(_db, early, HOLM).get("reason", "")).contains("Not this tide"), "the map says why")
 	var state := _done_at_the_fen()
-	assert_false(_offered(state, "oda").has(SAIL), "found Dunstan, but not told of the lane")
+	assert_false(_sails(state, HOLM), "found Dunstan, but not told of the lane")
 	var told := _lines(state, "oda", [LANE])
 	assert_true(told.contains("done here, near enough") and not told.contains("You've a look like you're not."), "done here now")
-	assert_true(_offered(state, "oda").has(SAIL), "so she offers it")
-	var text := _lines(state, "oda", [SAIL])
+	assert_true(_sails(state, HOLM), "so she sails it")
+	var text := _lines(state, "oda", [MAP, "@wrackholm"])
 	assert_true(text.contains("Nothing answers") and text.contains("Teeth"), "the first sailing is the full scene")
 	assert_eq(state.get_flag("lanes_ferry_at"), HOLM, "the Slow Mercy lies at Wrackholm")
 	assert_true(_db.dialogues["oda"]["knots"]["sail_wrackholm"].any(func(s: Dictionary) -> bool: return s.get("travel", []) == [HOLM, "from_ferry"]),
 			"and the sailing travels to Wrackholm's jetty")
-	var offered := _offered(state, "oda")
-	assert_true(offered.has(BACK) and not offered.has(SAIL) and not offered.has("Take me back to Thornwold."),
-			"lanes run light to light: Wrackholm connects to the fen only")
-	_lines(state, "oda", [BACK])
+	assert_true(_sails(state, "fen") and not _sails(state, HOLM) and not _sails(state, "thornwold"),
+			"lanes run light to light: from Wrackholm, the fen; Thornwold only once the lane back's been sailed")
+	_lines(state, "oda", [MAP, "@fen"])
 	assert_eq(state.get_flag("lanes_ferry_at"), "fen")
 	state.set_flag("wrackholm_landed", true)
-	var again := _lines(state, "oda", [SAIL])
+	var again := _lines(state, "oda", [MAP, "@wrackholm"])
 	assert_false(again.contains("Wenna Garrow swore me"), "later sailings are short")
 	assert_eq(state.get_flag("lanes_ferry_at"), HOLM)
 
@@ -115,7 +119,7 @@ func test_the_sailing_honours_what_was_carried_to_dunstan() -> void:
 		state.set_flag("fen_dunstan_mara", mara)
 		state.set_flag("fen_dunstan_rule", "kept")
 		_lines(state, "oda", [LANE])
-		var text := _lines(state, "oda", [SAIL])
+		var text := _lines(state, "oda", [MAP, "@wrackholm"])
 		assert_true(text.contains(lines[mara]), "Oda on what Mara sent (%s)" % mara)
 		for other: String in lines:
 			if other != mara:
@@ -123,7 +127,7 @@ func test_the_sailing_honours_what_was_carried_to_dunstan() -> void:
 		assert_true(text.contains("Tidewright manners") and not text.contains("he didn't know"), "the rule kept")
 	var asked := _done_at_the_fen()
 	_lines(asked, "oda", [LANE])
-	assert_true(_lines(asked, "oda", [SAIL]).contains("he didn't know"), "the rule asked")
+	assert_true(_lines(asked, "oda", [MAP, "@wrackholm"]).contains("he didn't know"), "the rule asked")
 
 
 func test_the_ferry_and_oda_lie_in_one_place_on_every_lane() -> void:

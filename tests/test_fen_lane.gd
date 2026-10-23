@@ -4,7 +4,7 @@ extends TestCase
 ## big man's rowboat, the letting post) and Corran Teal (the Heron Light).
 
 const FEN := "glasswater_fen"
-const SAIL := "Sail north-about to Glasswater Fen."
+const MAP := "Where can you take me?"
 const ROWBOAT := "Whose rowboat is that, tied at the staithe?"
 const MARA_WORD := "Tie on Mara's word: the stool's still by the door."
 const OWN_WORD := "Tie on word of your own: someone from Saltmarrow came looking."
@@ -32,7 +32,7 @@ func _at_thornwold(lit: bool = true) -> WorldState:
 ## Landed at the fen (the first sailing played).
 func _at_the_fen() -> WorldState:
 	var state := _at_thornwold()
-	_lines(state, "oda", [SAIL])
+	_lines(state, "oda", [MAP, "@fen"])
 	return state
 
 
@@ -40,6 +40,11 @@ func _lines(state: WorldState, dialogue: String, picks: Array = [], offered: Arr
 	var typed: Array[String] = []
 	typed.assign(picks)
 	return play_dialogue(_db, state, dialogue, typed, offered)
+
+
+## Whether the lane map would sail the ferry to `port` now.
+func _sails(state: WorldState, port: String) -> bool:
+	return bool(Lanes.voyage(_db, state, port).get("ok", false))
 
 
 func _offered(state: WorldState, dialogue: String) -> Array[String]:
@@ -66,21 +71,21 @@ func _shown(model: String, state: WorldState) -> int:
 
 func test_oda_sails_north_about_once_the_ridge_light_is_lit() -> void:
 	var dark := _at_thornwold(false)
-	assert_false(_offered(dark, "oda").has(SAIL), "no fen lane while the Ridge Light is dark")
+	assert_false(_sails(dark, "fen"), "no fen lane while the Ridge Light is dark")
 	var state := _at_thornwold()
-	assert_true(_offered(state, "oda").has(SAIL), "Oda offers the fen lane once it's lit")
-	var text := _lines(state, "oda", [SAIL])
+	assert_true(_sails(state, "fen"), "Oda sails the fen lane once it's lit")
+	var text := _lines(state, "oda", [MAP, "@fen"])
 	assert_true(text.contains("listen for") or text.contains("reeds"), "the first sailing is the full scene")
 	assert_eq(state.get_flag("lanes_ferry_at"), "fen", "the Slow Mercy lies at the fen")
 	assert_true(_db.dialogues["oda"]["knots"]["sail_fen"].any(func(s: Dictionary) -> bool: return s.get("travel", []) == [FEN, "from_ferry"]),
 			"and the sailing travels to the fen's staithe")
 	# At the fen Oda runs back to Thornwold; from there the lane again is one line.
-	assert_true(_offered(state, "oda").has("Take me back to Thornwold."), "Oda will run back to Thornwold")
-	assert_false(_offered(state, "oda").has(SAIL), "...and doesn't offer the fen from the fen")
-	_lines(state, "oda", ["Take me back to Thornwold."])
+	assert_true(_sails(state, "thornwold"), "Oda will run back to Thornwold")
+	assert_false(_sails(state, "fen"), "...and doesn't sail to the fen from the fen")
+	_lines(state, "oda", [MAP, "@thornwold"])
 	assert_eq(state.get_flag("lanes_ferry_at"), "thornwold")
 	state.set_flag("fen_landed", true)
-	var again := _lines(state, "oda", [SAIL])
+	var again := _lines(state, "oda", [MAP, "@fen"])
 	assert_false(again.contains("Fen folk used to meet every boat"), "later sailings are short")
 	assert_eq(state.get_flag("lanes_ferry_at"), "fen")
 

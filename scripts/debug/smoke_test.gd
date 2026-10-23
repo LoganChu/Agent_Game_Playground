@@ -167,7 +167,7 @@ func _sail_the_fen_lane(main: Node, ui: DialogueUI) -> void:
 		if oda == null:
 			return
 		oda.interact()
-		_check(_choose(ui, "Sail north-about to Glasswater Fen."), "Oda offers the fen lane once the Ridge Light is lit")
+		_check(_sail(ui, "fen"), "Oda sails the fen lane once the Ridge Light is lit")
 		_finish_dialogue(ui, "oda (sailing to the fen)")
 		for i in 3:
 			await get_tree().physics_frame
@@ -225,7 +225,7 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 	if not await _walk_the_bend(main, ui):
 		return
 	_npc("oda").interact()
-	_check(_choose(ui, "Take me back to Saltmarrow."), "Oda runs the lane home to Saltmarrow")
+	_check(_sail(ui, "saltmarrow"), "Oda runs the lane home to Saltmarrow")
 	_finish_dialogue(ui, "oda (home to Saltmarrow)")
 	if not await _arrived(main, ui, "saltmarrow", "Oda sailed the walk home"):
 		return
@@ -242,6 +242,18 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 			"the east stair counted")
 	_check(_shown_model(village, "brazier_laid.glb") == 1 and _shown_model(village, "brazier_raked.glb") == 0, "the brazier laid, not lit")
 	print("Smoke: the Lamp named, Aldous counted the seventh ('%s')" % world.get_flag("saltmarrow_aldous_novice"))
+	# Day 59: every lane sailed, the lane map takes the long passages light to light and back.
+	_npc("oda").interact()
+	_check(_sail(ui, "wrackholm"), "the lane map sails Saltmarrow to Wrackholm, three lanes in one")
+	_finish_dialogue(ui, "oda (the long passage out)")
+	if not await _arrived(main, ui, "wrackholm", "the long passage out"):
+		return
+	_npc("oda").interact()
+	_check(_sail(ui, "saltmarrow"), "...and the long way home")
+	_finish_dialogue(ui, "oda (the long passage home)")
+	if not await _arrived(main, ui, "saltmarrow", "the long passage home"):
+		return
+	_sailings.append("saltmarrow -> wrackholm -> saltmarrow")
 
 
 ## Day 53: the old Keepers' road north, walked from the ridge with the Ridge Light lit: meet Ottie at the
@@ -405,7 +417,7 @@ func _walk_the_heron(main: Node, ui: DialogueUI, trip: int) -> void:
 	for node in get_tree().get_nodes_in_group("npcs"):
 		if (node as NpcActor).npc_id == "oda" and not node.is_queued_for_deletion():
 			(node as NpcActor).interact()
-			_check(_choose(ui, "Take me back to Thornwold."), "Oda runs back to Thornwold from the fen")
+			_check(_sail(ui, "thornwold"), "Oda runs back to Thornwold from the fen")
 			_finish_dialogue(ui, "oda (back to Thornwold)")
 	for i in 3:
 		await get_tree().physics_frame
@@ -515,7 +527,7 @@ func _sail_to_wrackholm(main: Node, ui: DialogueUI) -> void:
 		return
 	oda.interact()
 	_check(_choose(ui, "Where does the lane go from here?"), "Oda says where the lane runs on")
-	_check(_choose(ui, "Sail east-about to Wrackholm."), "...and, done here, sails it")
+	_check(_sail(ui, "wrackholm"), "...and, done here, sails it")
 	_finish_dialogue(ui, "oda (east-about)")
 	for i in 3:
 		await get_tree().physics_frame
@@ -549,7 +561,7 @@ func _cross_the_teeth(main: Node, ui: DialogueUI) -> void:
 		_check(false, "Oda at the staithe to sail east-about again")
 		return
 	oda.interact()
-	_check(_choose(ui, "Sail east-about to Wrackholm."), "Oda sails east-about again")
+	_check(_sail(ui, "wrackholm"), "Oda sails east-about again")
 	_finish_dialogue(ui, "oda (east-about again)")
 	for i in 3:
 		await get_tree().physics_frame
@@ -612,7 +624,7 @@ func _cross_the_teeth(main: Node, ui: DialogueUI) -> void:
 	_check(_choose(ui, "Wait for the ebb."), "the tide waited down again, the white already back")
 	_finish_dialogue(ui, "the spit's end again")
 	_npc("oda").interact()
-	_check(_choose(ui, "Take me back to Glasswater Fen."), "Oda runs back to the fen")
+	_check(_sail(ui, "fen"), "Oda runs back to the fen")
 	_finish_dialogue(ui, "oda (back to the fen)")
 	for i in 3:
 		await get_tree().physics_frame
@@ -779,6 +791,16 @@ func _check_unmoored_look_away(region: Region) -> void:
 
 
 ## Advances an open dialogue to its next menu and picks the option reading `text`.
+## Opens Oda's lane map and sails for `port` from it (the map showing that port first).
+func _sail(ui: DialogueUI, port: String) -> bool:
+	if not _choose(ui, "Where can you take me?") or ui.current_event.get("type") != "lane_map":
+		return false
+	if not ui.lane_map.visible or not ui.lane_map.port_ids().has(port):
+		return false
+	ui.lane_map.press_port(port)
+	return ui.current_event.get("type") != "lane_map"
+
+
 func _choose(ui: DialogueUI, text: String) -> bool:
 	var steps := 0
 	while ui.is_open() and steps < MAX_DIALOGUE_STEPS:
@@ -1340,6 +1362,17 @@ func _finish_dialogue(ui: DialogueUI, who: String) -> void:
 			var visits: int = seen.get(key, 0)
 			seen[key] = visits + 1
 			ui.select(mini(visits, options.size() - 1))
+		elif ui.current_event.get("type") == "lane_map":
+			# The walk sails on as the old per-lane options did: to the first neighbouring port.
+			var next_port := ""
+			for id in Lanes.known_ports(Content.db, GameState.world):
+				var voyage := Lanes.voyage(Content.db, GameState.world, id)
+				if next_port.is_empty() and bool(voyage.get("ok", false)) and (voyage["route"] as Array).size() == 2:
+					next_port = id
+			if next_port.is_empty():
+				ui.sail_to("")
+			else:
+				ui.lane_map.press_port(next_port)
 		else:
 			ui.advance()
 		steps += 1
