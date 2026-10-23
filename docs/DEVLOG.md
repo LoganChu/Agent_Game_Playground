@@ -2,6 +2,54 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-23 21:00 UTC — Day 60: Word on the Water (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Local `main` matched `origin/main` (`ad03e9e`)
+  this time. Baseline green (417 tests + smoke + launch).
+- **Content (due by Day 61; last Day 57):** of ROADMAP *Next up* #1's candidates I took the small follow-ups over the
+  lane on from Wrackholm — they pay off threads already open (Dunstan's message for Oda has waited since Day 51; nobody
+  on Saltmarrow but Mara had noticed him home) instead of opening a fifth island.
+  - **Oda hears it** — a new option in all four of her port menus once *The Walk Back* is done: "Dunstan had word for
+    you" ("The big man from the rowboat…" after the gull burn). "He's not laughing at the weather. He's laughing at
+    something else." Two winters he crewed for her and laughed at every blow; she never asked what at ("You don't, on a
+    deck"). After the gull burn: "his own sister doesn't know his face, and I do. That's the burn's way round."
+  - **Quest *Word on the Water*** (`word_on_the_water`: `to_dunstan` → `to_oda`). **home:** "Tell him his berth's still
+    swung on the Mercy. He'll not take it." He laughs like an anchor going over: no, thank you, **"it's a stool now"**;
+    Oda: "A man ought to have one thing that stays where he left it." **stayed:** Oda knocks twice on the rail — when he's
+    done turning boards he rides home on the Mercy, **no fare** ("Thirty-eight years sworn and I've never said that to a
+    man"); he'll go home by oar, but wave from the staithe every time the Mercy goes by.
+  - **Saltmarrow notices** (home): **Tam** rang the gate bell "like he was a fire" ("It seemed owed", for a stranger after
+    the gull burn); **Hesk** — "The Tollen shoulders came home… Got it, did he?", and after the knot burn took the knot she
+    mends, "I remember that. I remember that one"; **Pell** on Saltmarrow is learning to whittle on the stool nobody sits
+    on ("a potato with opinions") or, let down, has been told they're "allowed to be cross a bit". **Aldous** (home or
+    stayed, one-time, `saltmarrow_aldous_heard_walk_back`): the Keepers told every island for nine hundred years that the
+    fog doesn't give back what walks into it, and he said it to Mara's face the week Dunstan went — "Then it was a lie. Or
+    it was only true while the Spire burned, and none of us ever asked why that should be."
+  - Checkpoint **`word_on_the_water`** (Saltmarrow, the Mercy at the dock, the berth to carry).
+- **Tests:** `test_word_on_the_water.gd` (9: nothing before he's named, the option at every port with the map still
+  there and "Not yet." last, home end to end, the gull burn, stayed, Tam, Hesk on every burn, Pell, Aldous). 426 tests +
+  smoke + launch pass.
+
+Screenshot: `docs/checkpoints/word_on_the_water.png` (Dunstan on his stool with his cup, Mara by her door).
+
+**Decisions**
+- **The message is a round trip, not a one-liner.** "She'll want to know" begged an answer; carrying Oda's word back and
+  his answer back to her makes the lanes carry something other than the Wakebearer, and gives the stayed ending a seed
+  for its walk home (by oar, waving at the Mercy) without resolving it.
+- **No new flag for what was said** — the quest's stage is the state, and `fen_dunstan_walk` decides which word Oda sends.
+- **Aldous's line foreshadows, it doesn't explain** (mysteries #1 and #3): the saying was true "while the Spire burned".
+  Hesk keeps nothing of Dunstan after the gull burn — the Hushed holding burned memories would be a canon decision about
+  mystery #3, not one to make in a follow-up.
+- After the gull burn the islanders' lines never name him (the burn took him from everyone on Saltmarrow, LORE Day 9).
+
+**Problems / notes**
+- Appending a line to Hesk's `start_knot_burned` put it after the knot's `goto hub`, where it never plays; the test caught
+  it. The validator could flag any step after an unconditional `goto`/`end` (added to the polish pass).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **polish/debt pass eight** (due by Day 62; last Day 54). Fetch before trusting `origin/main`.
+
 ## 2026-10-23 09:00 UTC — Day 59: The lane map (systems)
 
 **Did**

@@ -690,6 +690,30 @@ forget. The fog is thickest and strangest here.
       lit on the boards at his boot.
       His boat waits at the staithe; Saltmarrow "will know where I am, by the stool".
   - Still unknown, for good: **what he put down** ("Still don't know. Still glad. Ask me again in a year").
+- **Word on the Water (Day 60)** (`word_on_the_water`; Saltmarrow notices):
+  - **Oda hears his message** at any port: "Two winters he crewed for me. Every blow we took, he laughed at it like it had
+    told him a joke. I never asked him what at. You don't, on a deck." She'll hear what the something else is "from him,
+    and he'll take a whole tide over the telling". After the `gull` burn: "his own sister doesn't know his face, and I do.
+    That's the burn's way round."
+    - **home:** "Tell him his berth's still swung on the Mercy. He'll not take it." He laughs "like an anchor going over"
+      (two winters on that deck "and she never once let me finish a verse"): **no, and thank you, "it's a stool now"**.
+      Oda: "A man ought to have one thing that stays where he left it. I'll unswing the berth. Not today." (After the
+      gull burn he adds that it's a comfort somebody on the water knows his face — "Don't tell her I said comfort.")
+    - **stayed:** Oda knocks twice on the rail (a Tidewright closing a bargain): **when he's done, he rides home on the
+      Mercy, no fare** — "Thirty-eight years sworn and I've never said that to a man." He'll go **home by oar** ("a Tollen
+      finishes what he starts, even backward") but **wave from the staithe every time the Mercy goes by**; Oda will put
+      the crew to waving back, and keep the berth swung anyway. (His walk home stays open.)
+  - **Saltmarrow (home):** **Tam** rang the gate bell "like he was a fire" (after the gull burn, for a big man nobody knew:
+    "It seemed owed"). **Hesk** saw "the Tollen shoulders" come home rowing the wrong way round — "Got it, did he? Good";
+    after the `knot` burn, which took the knot she mends, "I remember that. I remember that one"; after the `gull` burn
+    only someone rowing backward and the bell. **Pell** (if on Saltmarrow) is being taught to whittle on the stool nobody
+    sits on ("a potato with opinions"); let down, Pell's been told walking off and coming back means you're "allowed to be
+    cross a bit".
+  - **Aldous and the Keepers' saying** (`saltmarrow_aldous_heard_walk_back`, home or stayed): for nine hundred years the
+    Keepers told every island that asked them to go and look that **"the fog doesn't give back what walks into it. What
+    walks in stays walked in."** Aldous said it to Mara the week Dunstan went (after the gull burn: "to somebody on this
+    harbor… I can't think who"). Now: **"Then it was a lie. Or it was only true while the Spire burned, and none of us
+    ever asked why that should be."** *(Foreshadows mysteries #1 and #3; do not explain.)*
 
 ### 4. Wrackholm (Act II — begun Day 40)
 The Tidewrights' own island, east-about from Glasswater ("keep the Heron astern and the morning on your right cheek,

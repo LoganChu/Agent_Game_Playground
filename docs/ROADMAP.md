@@ -478,41 +478,54 @@ each .glb < 5 MB.
       open); her talk and the clamp's description follow. **Abe**'s pose rebuilt with a new **`_bent_arm`** helper (elbows
       out, fists on the sash). `test_clamp_broken_out.gd` (7); the smoke walk goes back along the lit bend to see it.
 
+- [x] [C] **Word on the Water** (Day 60; pays off Dunstan's "Tell Oda I'm not laughing at the weather", Day 51): the
+      message reaches Oda at any port (a new option in all four port menus); she sends word back — **home:** his berth's
+      still swung (he: no, thank you, "it's a stool now"); **stayed:** the Mercy will carry him home, no fare (he: home by
+      oar, but he'll wave from the staithe every time she goes by) — and the answer goes back to her. Quest
+      ***Word on the Water***. **Saltmarrow notices** him home: Tam's gate bell, Hesk ("I remember that one" after the knot
+      burn), Pell learning to whittle on the stool (or "allowed to be cross a bit"), and **Aldous** on the Keepers' nine-
+      hundred-year saying that the fog gives nothing back ("or it was only true while the Spire burned"). Gull-burn variants
+      throughout. `test_word_on_the_water.gd` (9). Checkpoint `word_on_the_water`.
+
 ### Next up
-1. [C] **Day 60: content** (due by Day 61; last Day 57). Candidates: **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper met
-   there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`, `thornwold_far_shore=waiting`
-   — the promise to tell the Spire — and, lightly, `thornwold_bend`). Keep mystery #2 shut: the seventh novice and the
-   roll pay off on Cindermoor, not before; the coal's **cold side** stays unexplained; the bend's lost north end is not a
-   hook to chase. Small follow-ups: Oda hearing Dunstan's message ("not laughing at the weather") when the player next
-   sails with her; Pell/Tam/Aldous noticing Dunstan home; the `stayed` ending's eventual walk home; Abe/Tolly or the Lamp
-   on Wenna's bend (or her charcoal); `waiting` colliers still on the far shore have no way to reach *The Bend in the
-   Road* until asked up (fine — her `home` knot only shows after `up`). Next art-led session ~Day 63 (last Day 58):
-   Wrackholm's empty bracket, the Teeth's broken water, the Saltmarrow dressing follow-ups #6.
-2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+1. [P] **Day 61: polish/debt pass eight** (due by Day 62; last Day 54). Look for: the smoke walk's length and run time
+   (it now sails the lane map and walks most of Act II; split or trim if checks creep past ~3 min); the validator's
+   NPC-exclusivity check not knowing a flag's values follow from each other (Day 58's split rake placement); the
+   `ui_cancel` hint (Day 59); dialogue knots whose `goto hub` hides a later step (Day 60 found one by hand — the validator
+   could flag any step after an unconditional `goto`/`end`); any Known issues in the devlog.
+2. [C] **Next content** (due by ~Day 64; last Day 60). Candidates: **the lane on from Wrackholm** (Cindermoor is "past more
+   besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`,
+   `saltmarrow_aldous_heard_walk_back`, `thornwold_far_shore=waiting` — the promise to tell the Spire — and, lightly,
+   `thornwold_bend`). Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before; the coal's
+   **cold side** stays unexplained; the bend's lost north end is not a hook to chase. Small follow-ups: the `stayed`
+   ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or
+   the Lamp on Wenna's bend (or her charcoal). Next art-led session ~Day 63 (last Day 58): Wrackholm's empty bracket, the
+   Teeth's broken water, the Saltmarrow dressing follow-ups #7 (Pell's "potato with opinions" gull on the crate?).
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode; the menu's "[Esc] back" hint following the pad.
-4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
    would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-6. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-7. [S] Interaction polish: camera framing during dialogue; fade the
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
