@@ -26,6 +26,8 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
     --act-end=act1 --screenshot=/abs/out.png               # show an act's end card (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow --flags=intro_seen \
     --pause-menu[=save|load|chapters|settings|controls] --screenshot=/abs/out.png     # pause menu (on a page) (debug)
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --scenario=lamp_named --region=thornwold_landing \
+    --lane-map[=wrackholm] --settle=60 --screenshot=/abs/out.png   # Oda's lane map (focus on a port) (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png   # the waking (debug args skip the title)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --title --settle=90 --screenshot=/abs/out.png  # the title screen
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
@@ -76,6 +78,7 @@ scripts/
     region_events.gd      RegionEvents — region arrival events (which fires, applying its flags)
     sound_synth.gd        SoundSynth — renders a data/audio.json recipe into an AudioStreamWAV
     sound_bank.gd         SoundBank — rendered sounds by id, cached, rendered off the main thread
+    lanes.gd              Lanes — the lane map's logic: known ports, open lanes, voyage → knot
     act_recap.gd          ActRecap — act_ends in game.json: which acts are reached, recap lines
     json_util.gd, layers.gd
   autoload/    singletons (registered in project.godot)
@@ -98,7 +101,8 @@ scripts/
                Greying's muffle; a child of main), sound_emitter.gd (a prop's positional `sound`)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
-  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel), act_end_card.gd
+  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel),
+               lane_map.gd (`LaneMap`: Oda's chart, a child of DialogueUI — see "The lane map"), act_end_card.gd
                (full-screen end-of-act card: title, recap, coda, "Keep exploring" / "Return to title"),
                menu_screen.gd (`MenuScreen`: the page-based menu panel and the pages both menus
                share — Load, Chapter select (dev), Settings, Controls), pause_menu.gd (`PauseMenu`
@@ -325,8 +329,8 @@ one region (Saltmarrow placements read `!flag:lanes_ferry_at=thornwold`, Thornwo
 `flag:lanes_ferry_at=thornwold` — exact negations). Oda's dialogue sets it and `travel`s; the
 first sailing is the full crossing scene (completes *Across the Grey*), later ones are one
 line. Pell crosses only if `saltmarrow_pell_crossing=aboard` (`thornwold_pell_landed`) and then
-stays on Thornwold. When a ferry/map screen arrives (Milestone 2), it should replace these
-dialogue choices, keeping the flag as the ferry's position.
+stays on Thornwold. (Day 59: the lane map replaced the per-lane sailing choices — see **The lane
+map** below; the flag is still the ferry's position.)
 **The fen lane (Day 29):** `lanes_ferry_at=fen` puts the ferry and Oda at Glasswater Fen's staithe.
 Saltmarrow's placements now read `!…=thornwold` **and** `!…=fen` (one more `!` term per new
 port — keep them exact negations). Oda offers "Sail north-about to Glasswater Fen." on Thornwold once
@@ -419,6 +423,35 @@ last ebb, and reads conditional props by model file (`_shown_model`, reaching in
 After the fen lane the smoke walk **carries the Lamp's name home** (`_carry_the_name_home`, Day 48): back through the
 bramble wall and up the ladder by their `travel` choices, the name said outright, down by the exits (`_take_exit`),
 Oda's lane home to Saltmarrow, Aldous asked for Wynn's sake, and the Wrens' brazier checked raked → laid.
+
+### The lane map (Day 59)
+`data/lanes.json` is the chart: `ports` (`id` = its value of `lanes_ferry_at`, `name`, `light`, `lit`
+and `known` conditions, `region`, `map` [x, y] in 0..1 from the top-left, `passage` knot), `landmarks`
+(drawn only — Cindermoor, dark), `lanes` (`between` two ports, `name`, `open` / `sailed` conditions,
+optional `closed_text`, `knots` {destination port → knot}), `dialogue` (the ferry's: `oda`) and `home`
+(the port `''` means). `Lanes` (scripts/core/lanes.gd) is the logic: `current_port`, `known_ports`,
+`known_lanes`, `route` (BFS over open lanes) and **`voyage(db, state, to)`** → `{ok, knot, route}` or
+`{ok: false, reason}`:
+- a neighbouring port plays that lane's knot (`sail_fen`, `back`…; the first sailings redirect
+  themselves to their arrival story as before);
+- a longer voyage needs **every lane on the way `sailed`** (a new lane is sailed from its near end, with
+  its story) and plays the destination's `passage` knot (`passage_wrackholm`…: one line per start
+  port, "puts in only long enough to take on water", then `set` + `travel` like any sailing).
+In dialogue an **option with `"lane_map": true`** (Oda's "Where can you take me?", at every port once
+*Across the Grey* is done; the first crossing stays the "Cast off for Thornwold." option because it
+ends Act I) makes `DialogueRunner.choose` return `{"type": "lane_map"}` and wait; `sail_to(port)` jumps
+to `voyage`'s knot, and `sail_to("")` (or a voyage the ferry won't make) re-offers the same choice.
+`DialogueUI` hides its box and shows its `LaneMap` child (scripts/ui/lane_map.gd: a drawn chart, a
+flat Button per known port, info line for the focused port, legend, "Not yet."; Esc/B or "Not yet."
+turns back, interact/accept/click on a port sails). Validator (`_validate_lanes`): port ids are
+values of `lanes_ferry_at`, real regions, map points in range, every lane/passage knot exists and
+(through its gotos) sets `lanes_ferry_at` to its port and travels to its region; lane knots count as
+reachable in the ferry dialogue; `lane_map` options only in that dialogue. Tests: `play_dialogue`
+picks `"@<port>"` on the map; `test_lane_map.gd`. The smoke walk sails with `_sail(ui, port)`, its
+region walker sails to the first neighbouring port (as the old option order did), and after the east
+stair it takes the long passages Saltmarrow → Wrackholm → Saltmarrow live.
+**A new port:** add it to `lanes_ferry_at`'s `values`, a port + lane in lanes.json, the lane knots and a
+`passage` knot (lines for each start port 2+ lanes away) in `oda.json`, and the ferry/Oda placements.
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,
@@ -628,6 +661,7 @@ of *effects*, and may be gated by `if` (skipped when false):
   `GameState.travel`). Put it on the last step so the scene finishes first; the destination's
   arrival `events` then fire as usual. Validated: known region and spawn. Used by Oda's ferry
   (`sail`, `sail_again`, `back` in `story/oda.json`).
+- An option's `"lane_map": true` (Day 59) opens the lane map instead of a goto — see "The lane map".
 - `"note"` is ignored (writer comments).
 
 ## Dressing kit (Day 10)

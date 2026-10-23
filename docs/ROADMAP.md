@@ -479,9 +479,7 @@ each .glb < 5 MB.
       out, fists on the sash). `test_clamp_broken_out.gd` (7); the smoke walk goes back along the lit bend to see it.
 
 ### Next up
-1. [S]/[C] **Day 59: systems or content** (both due by ~Day 61; systems last Day 56, content last Day 57). Systems:
-   the Greying v2 #4 (paths that fade — Coll's Hearth fakes it with conditional paint), or the ferry/map screen
-   (Milestone 2). Content candidates: **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper met
+1. [C] **Day 60: content** (due by Day 61; last Day 57). Candidates: **the lane on from Wrackholm** (Cindermoor is "past more besides"; a Keeper met
    there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`, `thornwold_far_shore=waiting`
    — the promise to tell the Spire — and, lightly, `thornwold_bend`). Keep mystery #2 shut: the seventh novice and the
    roll pay off on Cindermoor, not before; the coal's **cold side** stays unexplained; the bend's lost north end is not a
@@ -520,8 +518,14 @@ each .glb < 5 MB.
 
 ## Milestone 2 — Alpha (Act II begins)
 - [x] [C] **The crossing** — landed Day 17 (see Done).
-- [S] **Ferry travel system & map screen** (lanes open beacon to beacon): replace Oda's
-  sail/back dialogue choices with a lane map; `lanes_ferry_at` stays the ferry's position.
+- [x] [S] **Ferry travel system & map screen** (Day 59): `data/lanes.json` + `Lanes` + Oda's "Where can you
+  take me?" → the `LaneMap` chart (islands round dark Cindermoor, lit/unsailed/closed lanes, the ferry's port);
+  neighbouring ports play the lane knots, longer voyages over sailed lanes play a `passage` knot; the first
+  crossing stays Act I's own option. `lanes_ferry_at` stays the ferry's position. Follow-ups: a read-only view
+  of the chart from the journal (a "Lanes" tab) so the player can look without finding Oda; the chart's
+  islands as tiny silhouettes of each island's look (pines, reeds, the yard) instead of one shape; fog
+  drifting over unknown water; the ferry marker sliding along the route when a voyage is chosen; pad
+  focus order checked on a real pad.
   (`pells_pouch` honoured Day 40: Jory's glass float. The beacon-keeper is the Lamp — its name may be in
   Wrackholm's lane-house Book.) Keepers met later should react to `saltmarrow_aldous_confessed` and the Keeper's
   Sleeve-Ember (`future`).
@@ -595,6 +599,8 @@ each .glb < 5 MB.
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 57 (the bend in the road); next content due by Day 61.
 - Last polish/debt session: Day 54 (pass seven); next due by Day 62.
+- Last systems session: Day 59 (the lane map); next due by ~Day 64 (the Greying v2 paths that fade, day/night, or the
+  journal's Lanes tab).
 - Last art session: Day 58 (Wenna breaking out her clamp; Abe's pose). Next art-led session due ~Day 63: Wrackholm
   follow-ups (below) or the Saltmarrow dressing follow-ups.
 - The Northing (Day 53) follow-ups: the cairn's stones are lumps, not coursed slabs (fine at play distance); the ink

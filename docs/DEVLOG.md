@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-23 09:00 UTC — Day 59: The lane map (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale `origin/main` again;
+  fetched and reset local `main` to Day 58's `2c3eec6`. Baseline green (409 tests + smoke + launch).
+- **Systems (due by ~Day 61; last Day 56):** Milestone 2's **ferry travel system & map screen**, which ROADMAP had
+  carried since Day 17 ("replace Oda's sail/back dialogue choices with a lane map"):
+  - **`data/lanes.json`**: the four ports (id = their `lanes_ferry_at` value, name, light, `lit`/`known` conditions,
+    region, chart point, `passage` knot), Cindermoor as a dark landmark, and the three lanes (`open`, `sailed`, the
+    knot that sails each way, Wrackholm's "Not this tide" closed text).
+  - **`Lanes`** (scripts/core/lanes.gd): current port, known ports/lanes, a BFS route over open lanes, and
+    `voyage(to)` → the knot to play or why not. A neighbouring port plays the lane's existing knot (first sailings
+    still redirect to their arrival stories); a longer voyage needs every lane on the way sailed and plays the
+    destination's new **`passage`** knot (four in `oda.json`, a line per start port: "puts in only long enough to
+    take on water").
+  - **Dialogue:** an option with `"lane_map": true` makes the runner return a `lane_map` event and wait;
+    `sail_to(port)` jumps to the voyage's knot, `sail_to("")` re-offers the choice. Oda's per-lane options ("Sail
+    north-about…", "Take me back to…" ×3, the later "Cast off for Thornwold.") are gone; every port offers **"Where can
+    you take me?"** once *Across the Grey* is done. The first crossing stays a plain option (it ends Act I).
+  - **`LaneMap`** (scripts/ui/lane_map.gd), a child of DialogueUI shown in place of the box: a drawn chart (faceted
+    isles round dark Cindermoor and its cold spire, lit isles green with a beacon point and a glow, the ferry's port
+    ringed in ember), lanes solid gold when sailed / dashed gold when not yet / grey dashed when closed, the chosen
+    route in ember, a button per known port, an info line ("Wrackholm — the Wrack Light, lit. By way of Glasswater
+    Fen. Press to sail."), a legend, and "Not yet." (Esc/B too). Interact, accept or a click sails.
+  - **Validator:** lanes.json (port ids are flag values, real regions, chart points in 0..1, every lane/passage knot
+    exists and — through its gotos — sets `lanes_ferry_at` to its port and travels to its region), lane knots count as
+    reachable, `lane_map` options only in the ferry dialogue.
+  - Debug **`--lane-map[=port]`** opens it (reads any arrival scene through first) for screenshots.
+- **Tests:** `test_lane_map.gd` (8: home before the crossing, the chart growing as Oda tells of lanes, the map
+  replacing the options but not Act I's crossing, turning back, neighbour voyages, long voyages both ways and the
+  near-end rule, every passage naming the lights it passes, the validator). `play_dialogue` takes `"@port"` picks on
+  the map; test_crossing / test_fen_lane / test_wrackholm moved from option texts to the map. The smoke walk sails by
+  the map (`_sail`), its region walker sails to the first neighbouring port (same sailings list as before, checked
+  against a baseline run), and after the east stair it takes **Saltmarrow → Wrackholm → Saltmarrow** live.
+  417 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-10-23-lane-map.png` (all four lit, the route to Wrackholm by the fen),
+`docs/screenshots/2026-10-23-lane-map-first.png` (the Ridge Light just lit: the fen dark, its lane dashed).
+
+**Decisions**
+- **The map lives inside Oda's dialogue**, not as a separate travel screen: she's the one who sails, her lines for a
+  first sailing (and everything they react to) stay hers, and the voyage knots didn't need rewriting. The chart only
+  decides *which* knot.
+- **Multi-lane passages only over sailed lanes.** Skipping a new lane's arrival story by sailing past its near port
+  would lose content and break "lanes run light to light"; the refusal says where to go first.
+- **The first crossing is not on the map.** It completes *Across the Grey* and ends Act I; it stays the explicit
+  "Cast off for Thornwold." option until it's done.
+- **A ring round Cindermoor** (now in LORE): Saltmarrow SW, Thornwold W, the fen N, Wrackholm NE, consistent with
+  "north-about" and "east-about"; Cindermoor dark in the middle, not a port.
+
+**Problems / notes**
+- `ui_cancel`'s built-in binding has no physical keycode, so the legend says "[Esc]"/"[B]" itself rather than
+  `InputSetup.hint`.
+- The debug `--lane-map` had to read the Thornwold landing's arrival scene through first: an open event dialogue
+  blocks `DialogueUI.open`.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content** (due by Day 61): the lane on from Wrackholm, or the small follow-ups listed there.
+   Fetch before trusting `origin/main`.
+
 ## 2026-10-22 21:00 UTC — Day 58: Breaking out the clamp; Abe's hands on his hips (art)
 
 **Did**

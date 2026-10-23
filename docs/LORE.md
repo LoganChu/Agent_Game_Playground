@@ -11,6 +11,15 @@ old custom. For nine hundred years the **Hearthspire** — a lighthouse-tower on
 isle of **Cindermoor** — burned with the **Firstflame**. Its light did more than guide ships: it
 held back the **Greying**, a silver sea-fog that makes things *forgotten*.
 
+### The chart (Day 59: Oda's lane map)
+- The islands met so far lie in a ring round Cindermoor, which sits dark in the middle of the chart:
+  **Saltmarrow** to the south-west, **Thornwold** west, **Glasswater Fen** north ("north-about" round
+  Thornwold's shoulder), **Wrackholm** north-east ("east-about" from the fen). The ring goes on past
+  Wrackholm into water nobody has charted for the player yet ("past more besides"). Lanes run light
+  to light round the ring, never across it to Cindermoor.
+- With every lane on the way already sailed, Oda will run several in one passage, putting in at each
+  light "only long enough to take on water". A new lane is always sailed from its near end.
+
 ### The Greying
 - Where the fog lies, memory thins. People forget names, then faces, then why they are standing
   where they are. Objects left in it lose their "meaning" (a key forgets its lock; a road
