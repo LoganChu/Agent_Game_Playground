@@ -91,6 +91,22 @@
         "text": "I can see the beacon from the gate. First time since the Snuffing. I keep looking, in case it goes out."
       },
       {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "tam",
+        "text": "Rang the gate bell when Dunstan came round the breakwater. Rowing backward, lantern in the stern, laughing at the gulls. I rang it like he was a fire. Nobody's said a word against it."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "tam",
+        "text": "Big man rowed in on the evening tide facing backward, lantern in the stern. I rang the gate bell like he was a fire. Don't ask me why. It seemed owed."
+      },
+      {
         "if": "flag:saltmarrow_beacon_burned=knot",
         "say": "tam",
         "text": "Hesk's stopped humming. The lofts are quiet as a church. I don't know if that's better."

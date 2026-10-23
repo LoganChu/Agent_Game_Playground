@@ -108,6 +108,22 @@
         "text": "Is it midwinter? Someone's lit the gull. Over, under, round the gull…"
       },
       {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "hesk",
+        "text": "The Tollen shoulders came home. Rowing the wrong way round. He went north for his name... Got it, did he? Good. Good."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "hesk",
+        "text": "Somebody came in rowing backward, and Tam rang the bell. Is it midwinter again?"
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -123,6 +139,11 @@
       {
         "say": "hesk",
         "text": "I've forgotten what I was mending. There was a knot. There was always a knot."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "hesk",
+        "text": "The Tollen shoulders came home, rowing backward. He went north for his name. I remember that. I remember that one."
       },
       {
         "goto": "hub"

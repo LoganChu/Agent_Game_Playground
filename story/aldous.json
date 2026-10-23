@@ -96,6 +96,54 @@
             "goto": "novice"
           },
           {
+            "text": "Dunstan Tollen walked back out of the fog.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "!flag:saltmarrow_aldous_heard_walk_back"
+            ],
+            "set": {
+              "saltmarrow_aldous_heard_walk_back": true
+            },
+            "goto": "walked_back"
+          },
+          {
+            "text": "The big man on Mara's stool walked back out of the fog.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "flag:saltmarrow_beacon_burned=gull",
+              "!flag:saltmarrow_aldous_heard_walk_back"
+            ],
+            "set": {
+              "saltmarrow_aldous_heard_walk_back": true
+            },
+            "goto": "walked_back"
+          },
+          {
+            "text": "Dunstan Tollen walked back out of the fog. He's staying on the fen to turn the boards for whoever comes next.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "!flag:saltmarrow_aldous_heard_walk_back"
+            ],
+            "set": {
+              "saltmarrow_aldous_heard_walk_back": true
+            },
+            "goto": "walked_back"
+          },
+          {
+            "text": "A Saltmarrow man walked back out of the fog on the fen. He's staying to turn the boards for whoever comes next.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "flag:saltmarrow_beacon_burned=gull",
+              "!flag:saltmarrow_aldous_heard_walk_back"
+            ],
+            "set": {
+              "saltmarrow_aldous_heard_walk_back": true
+            },
+            "goto": "walked_back"
+          },
+          {
             "text": "What happened at the Hearthspire?",
             "goto": "spire"
           },
@@ -714,6 +762,69 @@
       },
       {
         "quest_complete": "the_east_stair"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "walked_back": [
+      {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "aldous",
+        "text": "I know. I watched him come round the breakwater from this bench, rowing the wrong way. I thought it was the drink."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "aldous",
+        "text": "I know. I watched the boat come round the breakwater from this bench, rowing the wrong way. I thought it was the drink."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=stayed",
+        "say": "narrator",
+        "text": "Aldous stops turning the bottle."
+      },
+      {
+        "say": "aldous",
+        "text": "Nine hundred years the Keepers have said it, every midwinter, to every island that asked us to go and look: the fog doesn't give back what walks into it. What walks in stays walked in."
+      },
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "aldous",
+        "text": "I said it to Mara. The week he went. She came up those steps and asked me, a Keeper, whether he'd come back, and I said it to her face."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "aldous",
+        "text": "I said it to somebody on this harbor not long since. I can't think who. It doesn't matter who. I said it."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "player",
+        "text": "He walked back behind my light."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=stayed",
+        "say": "player",
+        "text": "He walked back behind my light. Now he's laying the boards the other way, so others can."
+      },
+      {
+        "say": "aldous",
+        "text": "Then it was a lie. Or it was only true while the Spire burned, and none of us ever asked why that should be."
+      },
+      {
+        "say": "aldous",
+        "text": "I don't know which is worse. I'll sit here and find out."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_confessed=full",
+        "say": "aldous",
+        "text": "Put it on the list, Wakebearer. It's getting to be a long list."
       },
       {
         "goto": "hub"

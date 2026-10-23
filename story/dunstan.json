@@ -720,6 +720,11 @@
       {
         "choice": [
           {
+            "text": "Oda says the Mercy will carry you home when you're done. No fare.",
+            "if": "stage:word_on_the_water=to_dunstan",
+            "goto": "no_fare"
+          },
+          {
             "text": "I'll leave you to it.",
             "end": true
           }
@@ -767,6 +772,11 @@
       {
         "choice": [
           {
+            "text": "Oda says your berth's still swung on the Slow Mercy.",
+            "if": "stage:word_on_the_water=to_dunstan",
+            "goto": "berth"
+          },
+          {
             "text": "Was it worth the walk back?",
             "goto": "worth"
           },
@@ -790,6 +800,71 @@
         "choice": [
           {
             "text": "I'll leave you to your cup.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "berth": [
+      {
+        "say": "narrator",
+        "text": "He laughs: once, from low down, like an anchor going over."
+      },
+      {
+        "say": "dunstan",
+        "text": "Swung, is it. Two winters on that deck and she never once let me finish a verse."
+      },
+      {
+        "say": "dunstan",
+        "text": "No. Tell her no, and thank you, and tell her it's a stool now. She'll know what I mean by a stool."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "dunstan",
+        "text": "And... it's a comfort, somebody on the water knowing my face. Don't tell her I said comfort. She'd never let me aboard again."
+      },
+      {
+        "say": "narrator",
+        "text": "He settles the cup back between his knees.",
+        "quest_stage": [
+          "word_on_the_water",
+          "to_oda"
+        ]
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll tell her.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "no_fare": [
+      {
+        "say": "dunstan",
+        "text": "No fare. From Oda Farrow."
+      },
+      {
+        "say": "narrator",
+        "text": "He sets the board down and wipes his hands on his coat, slowly, as if he wants to be sure of them."
+      },
+      {
+        "say": "dunstan",
+        "text": "I came out by oar. I'll go home by oar; a Tollen finishes what he starts, even backward. But tell her I heard it."
+      },
+      {
+        "say": "dunstan",
+        "text": "And tell her I'll wave from the staithe every time the Mercy goes by. Every time. Till she's sick of it.",
+        "quest_stage": [
+          "word_on_the_water",
+          "to_oda"
+        ]
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll tell her.",
             "end": true
           }
         ]

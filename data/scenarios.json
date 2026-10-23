@@ -496,6 +496,25 @@
       "shot": "--camera=6.6,2.0,3.0:2.6,1.0,5.6"
     },
     {
+      "id": "word_on_the_water",
+      "act": "Act II — The Drift",
+      "title": "Word on the Water",
+      "inherits": "the_walk_back",
+      "region": "saltmarrow",
+      "spawn": "from_ferry",
+      "description": "After The Walk Back, Dunstan rowed home to Saltmarrow facing backward and sits on his stool by Mara's door; Tam rang the gate bell for him, Hesk saw the Tollen shoulders come home, Aldous watched from his bench. The player carried Dunstan's word to Oda (\"not laughing at the weather\") and the Slow Mercy lies at the dock. Oda has sent word back: his berth's still swung. Carry it to him, and his answer back to her.",
+      "flags": {
+        "lanes_ferry_at": "saltmarrow",
+        "fen_dunstan_walk": "home",
+        "saltmarrow_mara_saw_dunstan_home": true
+      },
+      "quests": {
+        "the_walk_back": "done",
+        "word_on_the_water": "to_dunstan"
+      },
+      "shot": "--camera=7.6,2.0,12.8:9.8,1.0,7.8"
+    },
+    {
       "id": "the_northing",
       "act": "Act II — The Drift",
       "title": "The Northing",

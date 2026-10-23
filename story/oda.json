@@ -246,6 +246,58 @@
             "goto": "sail"
           },
           {
+            "text": "Dunstan had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "The big man from the rowboat had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "Dunstan's staying on the fen. Turning the long walk's boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "The big man from the rowboat is staying on the fen, turning the boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "I've brought Dunstan's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
+            "text": "I've brought the big man's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true,
             "if": "quest:across_the_grey=done"
@@ -541,6 +593,58 @@
             "goto": "sleeve_thornwold"
           },
           {
+            "text": "Dunstan had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "The big man from the rowboat had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "Dunstan's staying on the fen. Turning the long walk's boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "The big man from the rowboat is staying on the fen, turning the boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "I've brought Dunstan's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
+            "text": "I've brought the big man's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true
           },
@@ -710,6 +814,58 @@
             "text": "Where does the lane go from here?",
             "if": "quest:a_light_for_glasswater=done",
             "goto": "fen_lane"
+          },
+          {
+            "text": "Dunstan had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "The big man from the rowboat had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "Dunstan's staying on the fen. Turning the long walk's boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "The big man from the rowboat is staying on the fen, turning the boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "I've brought Dunstan's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
+            "text": "I've brought the big man's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
           },
           {
             "text": "Where can you take me?",
@@ -1010,6 +1166,58 @@
             "goto": "wrackholm_wenna"
           },
           {
+            "text": "Dunstan had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "The big man from the rowboat had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "Dunstan's staying on the fen. Turning the long walk's boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "The big man from the rowboat is staying on the fen, turning the boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "I've brought Dunstan's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
+            "text": "I've brought the big man's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true
           },
@@ -1147,6 +1355,147 @@
           "from_ferry"
         ],
         "end": true
+      }
+    ],
+    "dunstan_word": [
+      {
+        "say": "oda",
+        "text": "Did he. Go on, then."
+      },
+      {
+        "say": "player",
+        "text": "He's not laughing at the weather. He's laughing at something else."
+      },
+      {
+        "say": "narrator",
+        "text": "Oda doesn't answer at once. She looks out past the bow, the way she looks at a sky she's making her mind up about."
+      },
+      {
+        "say": "oda",
+        "text": "Two winters he crewed for me. Every blow we took, he laughed at it like it had told him a joke. I never asked him what at. You don't, on a deck."
+      },
+      {
+        "say": "oda",
+        "text": "Something else. Well. I'll hear what, one day. Not from you. From him, and he'll take a whole tide over the telling."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "oda",
+        "text": "And his own sister doesn't know his face, and I do. That's the wrong way round. That's the burn's way round."
+      },
+      {
+        "say": "oda",
+        "text": "Tell him his berth's still swung on the Mercy. He'll not take it. Tell him anyway.",
+        "quest_start": "word_on_the_water"
+      },
+      {
+        "choice": [
+          {
+            "text": "Where can you take me?",
+            "lane_map": true
+          },
+          {
+            "text": "I'll tell him.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "dunstan_stayed_word": [
+      {
+        "say": "oda",
+        "text": "Turning them round?"
+      },
+      {
+        "say": "player",
+        "text": "So the near edge sits proud for whoever walks back. He says he's finished forgetting, and somebody may as well start the other thing."
+      },
+      {
+        "say": "oda",
+        "text": "Mending. Out there. The fen won't thank him for it. Nobody thanks you for a board; they only notice the one that tips."
+      },
+      {
+        "say": "narrator",
+        "text": "She knocks her knuckles twice on the rail, the way Tidewrights do to close a bargain."
+      },
+      {
+        "say": "oda",
+        "text": "That rowboat of his has sat in still water too long. When he's done, the Mercy calls at the fen. Tell him he rides home on my deck, and no fare. Thirty-eight years sworn and I've never said that to a man. He can have it carved.",
+        "quest_start": "word_on_the_water"
+      },
+      {
+        "choice": [
+          {
+            "text": "Where can you take me?",
+            "lane_map": true
+          },
+          {
+            "text": "I'll tell him.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "dunstan_answer": [
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "player",
+        "text": "He says no, and thank you, and it's a stool now. He said you'd know what he means by a stool."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "oda",
+        "text": "A stool."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "narrator",
+        "text": "Something happens at the corner of her mouth that on anybody else would be a smile."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "oda",
+        "text": "Aye, I know. A man ought to have one thing that stays where he left it. I'll unswing the berth. Not today."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "oda",
+        "text": "And if he said anything soft about me knowing his face, you'll have the sense not to bring it aboard. Good."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=stayed",
+        "say": "player",
+        "text": "He'll go home by oar; he came out by oar. But he'll wave from the staithe every time the Mercy goes by, till you're sick of it."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=stayed",
+        "say": "oda",
+        "text": "He will, too. I'll have to put the crew to waving back or he'll sulk the length of the fen."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=stayed",
+        "say": "oda",
+        "text": "By oar. Tollens. I'll keep the berth swung anyway. It's no weight to me."
+      },
+      {
+        "say": "narrator",
+        "text": "That's all the answer it gets. It seems to be enough for both of them.",
+        "quest_complete": "word_on_the_water"
+      },
+      {
+        "choice": [
+          {
+            "text": "Where can you take me?",
+            "lane_map": true
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
       }
     ]
   }

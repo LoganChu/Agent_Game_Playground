@@ -643,10 +643,42 @@
         "text": "Pell doesn't look at you. The bundle stays packed."
       },
       {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "pell",
+        "text": "Dunstan says he walked off once and came back, so I'm allowed to be cross a bit. I'm being cross a bit."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "pell",
+        "text": "The big man on the stool says he walked off once and came back, so I'm allowed to be cross a bit. I'm being cross a bit."
+      },
+      {
         "goto": "hub"
       }
     ],
     "dock_stayed": [
+      {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "pell",
+        "text": "Dunstan lets me sit on the stool when Mara's not looking. NOBODY sits on the stool. He's teaching me to whittle. I did a gull. It looks like a potato with opinions."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "pell",
+        "text": "The big man on Mara's stool's teaching me to whittle. Mara says she doesn't know him from a hake, but she gives him the second cup. I did a gull. It looks like a potato with opinions."
+      },
       {
         "say": "pell",
         "text": "Remember. Something lost. Something GOOD. Not a sock.",

@@ -1,0 +1,16 @@
+{
+  "id": "word_on_the_water",
+  "title": "Word on the Water",
+  "giver": "oda",
+  "description": "Dunstan Tollen sent word to Oda Farrow by you: he's not laughing at the weather, he's laughing at something else. Oda has sent word back.",
+  "stages": [
+    {
+      "id": "to_dunstan",
+      "text": "Oda Farrow has sent word back the way Dunstan's came. Carry it to him."
+    },
+    {
+      "id": "to_oda",
+      "text": "Dunstan has an answer for Oda. Carry it back to the Slow Mercy, wherever she's tied up."
+    }
+  ]
+}

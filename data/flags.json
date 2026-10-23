@@ -699,6 +699,10 @@
     "thornwold_wenna_clamp_seen": {
       "description": "The player looked at Wenna Coll's spent clamp at Coll's Hearth (Wenna has a word for it after).",
       "default": false
+    },
+    "saltmarrow_aldous_heard_walk_back": {
+      "description": "Aldous has been told Dunstan walked back out of the fog (home, or staying on the fen to turn the boards) — one-time: nine hundred years the Keepers said the fog gives nothing back; 'a lie, or only true while the Spire burned'.",
+      "default": false
     }
   }
 }
