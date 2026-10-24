@@ -988,10 +988,17 @@ func _validate_dialogue(id: String, dialogue: Dictionary) -> void:
 		if not knot is Array or (knot as Array).is_empty():
 			_err(kw, "knot must be a non-empty array of steps")
 			continue
-		for step: Variant in knot:
+		var ended_at := -1
+		for i in (knot as Array).size():
+			var step: Variant = knot[i]
 			if not step is Dictionary:
 				_err(kw, "step must be an object")
 				continue
+			if ended_at >= 0:
+				_err(kw, "step %d never plays: step %d always leaves the knot (goto/end/choice) before it" % [i, ended_at])
+				ended_at = -2  # one error per knot
+			elif ended_at == -1 and _always_leaves_knot(step):
+				ended_at = i
 			for target in _validate_step(kw, step, knots):
 				if not reachable.has(target):
 					reachable[target] = true
@@ -1049,6 +1056,29 @@ func _validate_step(where: String, step: Dictionary, knots: Dictionary) -> Array
 				if opt.has("goto") or opt.has("end"):
 					_err(where, "a lane_map option opens the map; it can't also goto or end")
 	return targets.filter(func(t: String) -> bool: return not t.is_empty())
+
+
+## True if a step always jumps or ends, so nothing after it in its knot can play (Day 61): an
+## unconditional goto or end, or an unconditional choice whose every option jumps, ends or opens
+## the lane map (which sails or re-offers the choice), with one option always offered.
+func _always_leaves_knot(step: Dictionary) -> bool:
+	if step.has("if"):
+		return false
+	if step.has("goto") or bool(step.get("end", false)):
+		return true
+	if not step.get("choice") is Array:
+		return false
+	var options: Array = step["choice"]
+	var always_offered := false
+	for option: Variant in options:
+		if not option is Dictionary:
+			return false
+		var opt: Dictionary = option
+		if not (opt.has("goto") or bool(opt.get("end", false)) or bool(opt.get("lane_map", false))):
+			return false
+		if not opt.has("if"):
+			always_offered = true
+	return always_offered
 
 
 func _has_effect(step: Dictionary) -> bool:
@@ -1150,9 +1180,10 @@ func _ref_condition(where: String, condition: Variant) -> void:
 				if not db.flags.has(id):
 					_err(where, "reads undeclared flag '%s'" % id)
 				elif p["op"] == "=":
-					var problem := db.flag_value_error(id, p["value"])
-					if not problem.is_empty():
-						_err(where, "reads " + problem)
+					for value: String in p["values"]:
+						var problem := db.flag_value_error(id, value)
+						if not problem.is_empty():
+							_err(where, "reads " + problem)
 				_flags_read[id] = true
 			"quest":
 				if not db.quests.has(id):
