@@ -1,0 +1,19 @@
+{
+  "id": "provost",
+  "name": "Provost Agathe Lorn",
+  "names": [
+    {
+      "if": "!flag:kindleby_met_provost",
+      "name": "The Provost"
+    }
+  ],
+  "faction": "keepers",
+  "color": "coal",
+  "dialogue": "provost",
+  "model": "res://assets/models/characters/provost.glb",
+  "bio": "Provost of Kindleby, the Keepers' mother-house: second in the order after the High Keeper, and since the Snuffing the most senior Keeper anyone can find. She was on Kindleby that night, not at the Spire, and took in every Keeper who came over in the boats without asking them a thing. Keeps the Vigil Light's key on her belt and the rite in her head: for nine hundred years a Keeper chose what a beacon burned.",
+  "voice": {
+    "sound": "voice_soft",
+    "pitch": 0.88
+  }
+}

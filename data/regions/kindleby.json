@@ -1,0 +1,814 @@
+{
+  "id": "kindleby",
+  "name": "Kindleby",
+  "description": "The Keepers' mother-house, south-about from Wrackholm down the Taper: a pale stone island ringed with candles, where the scattered Keepers have gathered under their Provost since the Snuffing. A stone quay with its bell, the chapter-house up the steps, the Quiet House apart by the water, and on the crown the Vigil Light, dark. The fog stands a cable's width off all round.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.035,
+    "color": "#B8B6B0"
+  },
+  "light": {
+    "note": "Evening under a low lid of cloud: a dull gold smear of sun going down in the west, cool grey everywhere else; the warm things are the candles, the chapter-house windows, the ferry's lantern and the ember.",
+    "sun_color": "#E3C49A",
+    "sun_energy": 0.55,
+    "sun_pitch": -16,
+    "sun_yaw": -100,
+    "ambient_color": "#AFAEAA",
+    "ambient_energy": 0.36,
+    "sky_top": "abyss",
+    "sky_horizon": "#B8B6B0"
+  },
+  "ambience": [
+    {
+      "sound": "surf",
+      "volume": 0.6
+    },
+    {
+      "sound": "harbor_lap",
+      "volume": 0.5
+    },
+    {
+      "sound": "wind_low",
+      "volume": 0.4
+    },
+    {
+      "sound": "embers",
+      "volume": 0.25
+    }
+  ],
+  "footsteps": "stone",
+  "greying": [
+    {
+      "rect": [
+        -34,
+        -30,
+        34,
+        -21
+      ],
+      "strength": 0.95,
+      "falloff": 4.0,
+      "height": 3.2,
+      "note": "The fog all round Kindleby, standing a cable's width off the candle wall like a crowd at a door: north."
+    },
+    {
+      "rect": [
+        -34,
+        -30,
+        -22,
+        26
+      ],
+      "strength": 0.95,
+      "falloff": 4.0,
+      "height": 3.2,
+      "note": "West."
+    },
+    {
+      "rect": [
+        22,
+        -30,
+        34,
+        26
+      ],
+      "strength": 0.95,
+      "falloff": 4.0,
+      "height": 3.2,
+      "note": "East."
+    },
+    {
+      "rect": [
+        -34,
+        15,
+        34,
+        26
+      ],
+      "strength": 0.9,
+      "falloff": 4.0,
+      "height": 3.0,
+      "note": "South, past the landing stage: the way the Slow Mercy came in."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      5,
+      0.5,
+      9
+    ],
+    "from_ferry": [
+      5,
+      0.5,
+      9
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -34,
+      -30,
+      34,
+      26
+    ],
+    "cell": 1.0,
+    "base": -1.6,
+    "seed": 62,
+    "roughness": 0.06,
+    "ragged": 1.2,
+    "ragged_scale": 4.0,
+    "note": "A pale stone island: the quay and the shingle either side of it (south), the steps up to the chapter-house's rise (north), the crown under the Vigil Light (north-west), the Quiet House's shelf by the water (east).",
+    "land": [
+      {
+        "ellipse": [
+          0,
+          -5,
+          19,
+          10.5
+        ],
+        "height": 0.4,
+        "falloff": 3,
+        "note": "the island"
+      },
+      {
+        "ellipse": [
+          4,
+          -10,
+          8,
+          4
+        ],
+        "height": 1.2,
+        "falloff": 5,
+        "ragged": 0.1,
+        "note": "the chapter-house's rise"
+      },
+      {
+        "ellipse": [
+          -9,
+          -10.5,
+          5,
+          4
+        ],
+        "height": 1.6,
+        "falloff": 4,
+        "ragged": 0.3,
+        "note": "the crown under the Vigil Light"
+      }
+    ],
+    "colors": {
+      "ground": "#66705F",
+      "shore": "#A39D90",
+      "shore_height": 0.3,
+      "seabed": "#30383A",
+      "cliff": "#8F897B"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            5,
+            5,
+            0
+          ],
+          [
+            4.6,
+            1,
+            0
+          ],
+          [
+            4.2,
+            -3,
+            0
+          ],
+          [
+            4.0,
+            -6.6,
+            0
+          ]
+        ],
+        "width": 1.8,
+        "color": "#B5AE9F",
+        "note": "the candle-lined steps from the quay up to the chapter-house door"
+      },
+      {
+        "path": [
+          [
+            3.8,
+            -5,
+            0
+          ],
+          [
+            -2,
+            -7,
+            0
+          ],
+          [
+            -7.5,
+            -8.8,
+            0
+          ]
+        ],
+        "width": 1.2,
+        "color": "#A39D90",
+        "note": "the path up to the Vigil Light"
+      },
+      {
+        "path": [
+          [
+            5.5,
+            3,
+            0
+          ],
+          [
+            8.5,
+            1.5,
+            0
+          ],
+          [
+            10.8,
+            -0.6,
+            0
+          ]
+        ],
+        "width": 1.2,
+        "color": "#A39D90",
+        "note": "the path along the water to the Quiet House"
+      }
+    ],
+    "piers": [
+      {
+        "rect": [
+          4,
+          5,
+          6,
+          11
+        ],
+        "deck": 0.275,
+        "note": "The landing stage (dock prop at 5,-0.4,8)."
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/dock.glb",
+      "shape": "dock",
+      "position": [
+        5,
+        -0.4,
+        8
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "wading": [
+        [
+          -0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          0.95,
+          -2.8,
+          0.15
+        ],
+        [
+          -0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          0.95,
+          -0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          0.95,
+          0.15
+        ],
+        [
+          0.95,
+          0.95,
+          0.15
+        ],
+        [
+          -0.95,
+          2.8,
+          0.15
+        ],
+        [
+          0.95,
+          2.8,
+          0.15
+        ]
+      ],
+      "note": "Kindleby's landing stage off the stone quay."
+    },
+    {
+      "model": "res://assets/models/dressing/ferry.glb",
+      "position": [
+        7.9,
+        -0.25,
+        9.5
+      ],
+      "rotation_y": 180,
+      "snap": false,
+      "if": "flag:lanes_ferry_at=kindleby",
+      "light": {
+        "color": "moss",
+        "energy": 1.2,
+        "range": 8.0,
+        "offset": [
+          0,
+          7.6,
+          -1.2
+        ]
+      },
+      "float": {
+        "bob": 0.05,
+        "roll": 1.5,
+        "period": 5.0,
+        "foam": [
+          1.55,
+          4.4
+        ]
+      },
+      "note": "The Slow Mercy alongside the landing stage while she's at Kindleby. Masthead lantern lit."
+    },
+    {
+      "model": "res://assets/models/dressing/vigil_bell.glb",
+      "position": [
+        1.6,
+        0,
+        4.2
+      ],
+      "rotation_y": 10,
+      "collider": [
+        1.5,
+        2.3,
+        0.6
+      ],
+      "note": "The quay bell: one stroke, then three. A boat seen, and welcome. Kindleby answers before you blow."
+    },
+    {
+      "model": "res://assets/models/dressing/chapter_house.glb",
+      "position": [
+        4.0,
+        0,
+        -9.5
+      ],
+      "rotation_y": 0,
+      "collider": [
+        7.4,
+        4.6,
+        3.3
+      ],
+      "note": "The chapter-house of the Keepers' mother-house: pale dressed stone, every tall window lit, candles on every sill, the bell-cote on the east gable. Its door to the sea, up the steps from the quay."
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        -16.0,
+        0,
+        -5.0
+      ],
+      "rotation_y": 90,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ],
+      "note": "The candle wall: a low sea wall all round the island with tallow burning along it, forty candles to each brother and sister, turn and turn, since the Snuffing. Ordinary fire barely helps; barely isn't nothing. The fog stands a cable's width off."
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        -15.22,
+        0,
+        -7.66
+      ],
+      "rotation_y": 59,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        -4.94,
+        0,
+        -13.18
+      ],
+      "rotation_y": 10,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        0.0,
+        0,
+        -13.6
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        4.94,
+        0,
+        -13.18
+      ],
+      "rotation_y": -10,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        9.4,
+        0,
+        -11.96
+      ],
+      "rotation_y": -21,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        12.94,
+        0,
+        -10.05
+      ],
+      "rotation_y": -36,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        15.22,
+        0,
+        -7.66
+      ],
+      "rotation_y": -59,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        16.0,
+        0,
+        -5.0
+      ],
+      "rotation_y": -90,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        15.22,
+        0,
+        -2.34
+      ],
+      "rotation_y": -121,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        12.94,
+        0,
+        0.05
+      ],
+      "rotation_y": -144,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        -4.94,
+        0,
+        3.18
+      ],
+      "rotation_y": 170,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        -9.4,
+        0,
+        1.96
+      ],
+      "rotation_y": 159,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        -12.94,
+        0,
+        0.05
+      ],
+      "rotation_y": 144,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        -15.22,
+        0,
+        -2.34
+      ],
+      "rotation_y": 121,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        2.2,
+        0,
+        3.0
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/candle_ledge.glb",
+      "position": [
+        7.8,
+        0,
+        4.4
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.4,
+        0.7,
+        0.46
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/quiet_house.glb",
+      "position": [
+        12.5,
+        0,
+        -1.5
+      ],
+      "rotation_y": -60,
+      "collider": [
+        4.2,
+        3.4,
+        3.0
+      ],
+      "note": "The Quiet House by the water, apart: where the Keepers keep the Hushed. Shutters and door barred from outside; a candle on the step."
+    },
+    {
+      "model": "res://assets/models/dressing/vigil_light.glb",
+      "position": [
+        -9.0,
+        0,
+        -10.5
+      ],
+      "rotation_y": 20,
+      "collider": [
+        2.9,
+        6.8,
+        2.9
+      ],
+      "note": "Kindleby's beacon, the Vigil Light, dark on the crown of the island (a squat pale tower, candles burning round its foot even here).",
+      "if": "!quest:a_light_for_kindleby=done"
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_skiff.glb",
+      "position": [
+        -4.5,
+        0,
+        4.6
+      ],
+      "rotation_y": 75,
+      "collider": [
+        1.2,
+        0.9,
+        3.4
+      ],
+      "note": "The chapter's skiff, drawn up on the shingle by the quay: the boat that used to take oil and meal to the Northing's stage once a month."
+    },
+    {
+      "model": "res://assets/models/dressing/barrels.glb",
+      "position": [
+        7.6,
+        0,
+        3.6
+      ],
+      "rotation_y": 20,
+      "collider": [
+        1.5,
+        0.9,
+        1.0
+      ],
+      "note": "Tallow, in casks."
+    },
+    {
+      "model": "res://assets/models/dressing/crate.glb",
+      "shape": "crate",
+      "position": [
+        8.8,
+        0,
+        2.6
+      ],
+      "rotation_y": -10,
+      "collider": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -15.5,
+        -0.78,
+        5.0
+      ],
+      "rotation_y": 30,
+      "collider": [
+        2.8,
+        0.6,
+        1.4
+      ],
+      "snap": false,
+      "note": "A low rock off the shore, awash."
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        17.5,
+        -0.8,
+        2.5
+      ],
+      "rotation_y": 110,
+      "snap": false,
+      "note": "A low rock off the shore, awash."
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -2.0,
+        0,
+        -4.0
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        9.5,
+        0,
+        -6.0
+      ],
+      "rotation_y": 60
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -12.0,
+        0,
+        -4.0
+      ],
+      "rotation_y": 120
+    },
+    {
+      "model": "res://assets/models/dressing/grass.glb",
+      "position": [
+        -5.0,
+        0,
+        -12.5
+      ],
+      "rotation_y": 200
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "oda",
+      "position": [
+        5.1,
+        0,
+        10.3
+      ],
+      "rotation_y": 0,
+      "if": "flag:lanes_ferry_at=kindleby",
+      "note": "At the landing stage's end by the Slow Mercy's plank."
+    },
+    {
+      "npc": "tobin",
+      "position": [
+        2.8,
+        0,
+        5.0
+      ],
+      "rotation_y": 120,
+      "note": "By the quay bell with his lighting taper, watching the boat."
+    },
+    {
+      "npc": "provost",
+      "position": [
+        4.0,
+        0,
+        -6.3
+      ],
+      "rotation_y": 0,
+      "note": "At the foot of the chapter-house steps, hands folded, as if she has stood there since the bell."
+    }
+  ],
+  "objects": [
+    {
+      "id": "quiet_house",
+      "prompt": "Look at the Quiet House",
+      "dialogue": "quiet_house",
+      "position": [
+        10.9,
+        0,
+        -0.6
+      ],
+      "reach": 2.0,
+      "note": "Its barred door (quiet_house turned -60: the front faces south-west)."
+    },
+    {
+      "id": "vigil_door",
+      "prompt": "Look at the Vigil Light",
+      "dialogue": "vigil_door",
+      "position": [
+        -8.25,
+        0,
+        -8.45
+      ],
+      "reach": 2.2,
+      "note": "The beacon's door, on the crown."
+    }
+  ],
+  "events": [
+    {
+      "id": "kindleby_arrival",
+      "if": [
+        "flag:lanes_ferry_at=kindleby",
+        "!flag:kindleby_landed"
+      ],
+      "set": {
+        "kindleby_landed": true
+      },
+      "dialogue": "kindleby_arrival",
+      "note": "First landfall at Kindleby."
+    }
+  ]
+}

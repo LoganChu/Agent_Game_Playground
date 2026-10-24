@@ -40,6 +40,16 @@
       "region": "wrackholm",
       "map": [0.82, 0.26],
       "passage": "passage_wrackholm"
+    },
+    {
+      "id": "kindleby",
+      "name": "Kindleby",
+      "light": "the Vigil Light",
+      "lit": "quest:a_light_for_kindleby=done",
+      "known": "flag:wrackholm_oda_lane_asked",
+      "region": "kindleby",
+      "map": [0.86, 0.66],
+      "passage": "passage_kindleby"
     }
   ],
   "landmarks": [
@@ -71,6 +81,13 @@
       "closed_text": "Not this tide. Oda wants her crew rested and you done at the fen.",
       "sailed": "flag:wrackholm_landed",
       "knots": {"wrackholm": "sail_wrackholm", "fen": "wrackholm_back"}
+    },
+    {
+      "between": ["wrackholm", "kindleby"],
+      "name": "the Taper",
+      "open": ["quest:a_light_for_wrackholm=done", "flag:wrackholm_oda_lane_asked"],
+      "sailed": "flag:kindleby_landed",
+      "knots": {"kindleby": "sail_kindleby", "wrackholm": "kindleby_back"}
     }
   ]
 }

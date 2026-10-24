@@ -93,6 +93,7 @@
       {"kind": "noise", "color": "brown", "lowpass": 200, "length": 4.0, "attack": 0.5, "release": 2.0, "gain": 0.2}
     ]},
     "horn_near": {"bus": "Effects", "kind": "tone", "freq": 73, "harmonics": [1.0, 0.8, 0.5, 0.3, 0.15], "vibrato": 3, "vibrato_depth": 0.008, "noise": 0.1, "lowpass": 800, "length": 5.0, "attack": 0.6, "release": 1.5, "gain": 0.75},
+    "quay_bell": {"bus": "Effects", "kind": "chime", "notes": [262, 262, 262, 262], "gap": 0.7, "ring": 2.6, "length": 4.6, "gain": 0.4},
 
     "voice_soft": {"bus": "Voice", "kind": "tone", "freq": 210, "harmonics": [1.0, 0.45, 0.2, 0.1], "slide": 0.92, "noise": 0.15, "lowpass": 2000, "length": 0.09, "attack": 0.012, "release": 0.03, "gain": 0.3},
     "voice_reed": {"bus": "Voice", "kind": "tone", "freq": 230, "harmonics": [0.6, 1.0, 0.7, 0.5, 0.3], "slide": 1.05, "noise": 0.05, "length": 0.08, "attack": 0.008, "release": 0.03, "gain": 0.26},

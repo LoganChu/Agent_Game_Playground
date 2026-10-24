@@ -1,0 +1,13 @@
+{
+  "id": "tobin",
+  "name": "Brother Tobin Ashe",
+  "faction": "keepers",
+  "color": "driftwood",
+  "dialogue": "tobin",
+  "model": "res://assets/models/characters/tobin.glb",
+  "bio": "Kindleby's bell-porter and a candle-warden: a lay brother, Kindleby-born, nineteen, never been to the Spire (he was to be called up this midwinter). Rings the quay bell for every boat — one, then three: a boat seen, and welcome — and keeps his forty candles on the sea wall lit, turn and turn, as every brother and sister on the island has since the Snuffing.",
+  "voice": {
+    "sound": "voice_bright",
+    "pitch": 1.12
+  }
+}

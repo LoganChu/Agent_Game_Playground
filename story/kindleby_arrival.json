@@ -1,0 +1,32 @@
+{
+  "id": "kindleby_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A quay of pale dressed stone, and a sea wall running away from it both ways round the island, and on the wall, a hand apart, candles. Hundreds. Tallow stubs and fresh ones, burning in the still air, old wax run down the stone in long pale tongues."
+      },
+      {
+        "say": "narrator",
+        "text": "Steps climb from the quay between more candles to a long hall of the same pale stone, every tall window lit. Above it, on the crown of the island, a squat beacon-tower, dark. And just past the candles, all the way round, the fog stands and does not come in, like a crowd at a door."
+      },
+      {
+        "say": "narrator",
+        "text": "A young man in a short brown robe stands by the quay bell with its rope still in his hand and a lighting taper in the other, looking at your ember the way children look at the sea."
+      },
+      {
+        "say": "tobin",
+        "text": "You're— that's— is that it? In your hand? Could I— no. No, I mustn't. The Provost said."
+      },
+      {
+        "say": "tobin",
+        "text": "Brother Tobin Ashe. Porter. Welcome to Kindleby, Wakebearer. I'm to take you up. I mean, I'm to tell you she'll see you. I mean— the Provost's at the chapter-house. Up the steps."
+      },
+      {
+        "say": "oda",
+        "text": "Go on. I'll lie here. Mind they don't keep you.",
+        "quest_start": "a_light_for_kindleby"
+      }
+    ]
+  }
+}

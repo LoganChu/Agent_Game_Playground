@@ -1,0 +1,112 @@
+{
+  "id": "tobin",
+  "knots": {
+    "start": [
+      {
+        "say": "tobin",
+        "text": "The Provost says you've bowed to the rite. The old brothers cried. I didn't see it. I've been told not to say.",
+        "if": "flag:kindleby_rite=bowed"
+      },
+      {
+        "say": "tobin",
+        "text": "The Provost says you'll choose for yourself. ...Is it heavy? Choosing?",
+        "if": "flag:kindleby_rite=refused"
+      },
+      {
+        "say": "tobin",
+        "text": "Still lit. All forty. I count them going down the wall and I count them coming back.",
+        "if": "flag:kindleby_rite="
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "What are all the candles for?",
+            "goto": "candles"
+          },
+          {
+            "text": "Who's the Provost?",
+            "if": "!flag:kindleby_met_provost",
+            "goto": "provost"
+          },
+          {
+            "text": "Have you been to the Spire?",
+            "goto": "spire"
+          },
+          {
+            "text": "That house by the water, with its shutters barred.",
+            "goto": "quiet"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "candles": [
+      {
+        "say": "tobin",
+        "text": "Ordinary fire barely helps. Everybody knows that. But barely isn't nothing, is it?"
+      },
+      {
+        "say": "tobin",
+        "text": "Every brother and sister on Kindleby keeps forty lit, turn and turn, day and night, since the Snuffing. The ring's not gone out once. Not once in three months."
+      },
+      {
+        "say": "tobin",
+        "text": "It holds the fog off a cable's width. A cable's width, for three months. ...And you walked through it from the boat like it was weather."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "provost": [
+      {
+        "say": "tobin",
+        "text": "Provost Agathe Lorn. Second in the order, after the High Keeper. She was here the night it went out, not at the Spire."
+      },
+      {
+        "say": "tobin",
+        "text": "When the boats came over from Cindermoor with the ones who'd run, she was on the quay with a lantern. She took in every one, and never asked them a thing. ...Some of them, you'd want to ask."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "spire": [
+      {
+        "say": "tobin",
+        "text": "Me? Kindleby brothers keep candles. The Spire's for the ones that are called up. I was to be called up this midwinter."
+      },
+      {
+        "say": "tobin",
+        "text": "I'd have carried a coal down off the Spire to some island beacon, the way they do. Did. The way they did."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "quiet": [
+      {
+        "say": "tobin",
+        "text": "The Quiet House. That's where we keep the ones the fog had. The Provost brings them in off the boats."
+      },
+      {
+        "say": "tobin",
+        "text": "We're not to go in. Only the Provost and the old brothers. They take the meals in, and they put the bar back after."
+      },
+      {
+        "say": "tobin",
+        "text": "They hum, at night. You can hear them from the bell. Not the same tune. Close, but not the same."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

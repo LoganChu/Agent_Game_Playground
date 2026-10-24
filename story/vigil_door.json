@@ -1,0 +1,28 @@
+{
+  "id": "vigil_door",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Vigil Light: a squat tower of the island's pale stone on the crown of Kindleby, its lantern room cold. The door is banded with iron and locked."
+      },
+      {
+        "say": "narrator",
+        "text": "Your ember leans up toward the cold cradle the way it has at every dark beacon, and gets nothing back."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost has the key. She wears it.",
+        "if": "!stage:a_light_for_kindleby=the_candles"
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody on this island will have the key.",
+        "if": "stage:a_light_for_kindleby=the_candles"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

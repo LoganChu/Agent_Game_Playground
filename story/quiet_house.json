@@ -1,0 +1,22 @@
+{
+  "id": "quiet_house",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A squat house of pale stone by the water, apart from the others. Its shutters are closed and barred from outside, an iron bar across each one, and across the door. A single candle burns on the step."
+      },
+      {
+        "say": "narrator",
+        "text": "Through the boards, very faintly: humming. Several voices, close together. Not quite the same tune."
+      },
+      {
+        "say": "narrator",
+        "text": "There's no latch on this side. Only the bar."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

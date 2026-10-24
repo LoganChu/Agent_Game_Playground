@@ -1198,7 +1198,8 @@
         "flag:saltmarrow_ferry_arrived",
         "!flag:lanes_ferry_at=thornwold",
         "!flag:lanes_ferry_at=fen",
-        "!flag:lanes_ferry_at=wrackholm"
+        "!flag:lanes_ferry_at=wrackholm",
+        "!flag:lanes_ferry_at=kindleby"
       ],
       "light": {
         "color": "moss",
@@ -1317,7 +1318,8 @@
         "flag:saltmarrow_ferry_arrived",
         "!flag:lanes_ferry_at=thornwold",
         "!flag:lanes_ferry_at=fen",
-        "!flag:lanes_ferry_at=wrackholm"
+        "!flag:lanes_ferry_at=wrackholm",
+        "!flag:lanes_ferry_at=kindleby"
       ],
       "note": "Ferry-master at the dock end, by the boarding plank, whenever the Slow Mercy is at Saltmarrow."
     },

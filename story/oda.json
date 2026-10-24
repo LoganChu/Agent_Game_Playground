@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:lanes_ferry_at=kindleby",
+        "goto": "kindleby"
+      },
+      {
         "if": "flag:lanes_ferry_at=wrackholm",
         "goto": "wrackholm"
       },
@@ -1218,6 +1222,11 @@
             "goto": "dunstan_answer"
           },
           {
+            "text": "Where does the lane go from here?",
+            "if": "quest:a_light_for_wrackholm=done",
+            "goto": "wrackholm_lane"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true
           },
@@ -1263,6 +1272,11 @@
     ],
     "passage_saltmarrow": [
       {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy home the long way, light to light: up the Taper to the Wrack, west-about to the Heron, round Thornwold's shoulder to the Ridge Light, and down the Gull lane. She puts in at the hard, the staithe and the jetty only long enough to take on water.",
+        "if": "flag:lanes_ferry_at=kindleby"
+      },
+      {
         "if": "flag:lanes_ferry_at=wrackholm",
         "say": "narrator",
         "text": "Oda takes the Slow Mercy home the long way, light to light: west-about to the Heron, round Thornwold's shoulder to the Ridge Light, and down the Gull lane. She puts in at the staithe and the jetty only long enough to take on water."
@@ -1294,7 +1308,13 @@
     "passage_thornwold": [
       {
         "say": "narrator",
-        "text": "Oda takes the Slow Mercy west-about to the Heron and puts in at the staithe only long enough to take on water, then back round Thornwold's shoulder with the Heron astern."
+        "text": "Oda takes the Slow Mercy up the Taper to the Wrack and west-about to the Heron, putting in at the hard and the staithe only long enough to take on water, then back round Thornwold's shoulder with the Heron astern.",
+        "if": "flag:lanes_ferry_at=kindleby"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy west-about to the Heron and puts in at the staithe only long enough to take on water, then back round Thornwold's shoulder with the Heron astern.",
+        "if": "flag:lanes_ferry_at=wrackholm"
       },
       {
         "say": "oda",
@@ -1314,7 +1334,13 @@
     "passage_fen": [
       {
         "say": "narrator",
-        "text": "Oda steers off the Gull and up the lane to the Ridge Light, and puts in at Thornwold's jetty only long enough to take on water. Then north-about, until the reeds start breathing."
+        "text": "Oda steers off the Gull and up the lane to the Ridge Light, and puts in at Thornwold's jetty only long enough to take on water. Then north-about, until the reeds start breathing.",
+        "if": "flag:lanes_ferry_at=saltmarrow"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy up the Taper to the Wrack and puts in at the hard only long enough to take on water. Then west-about, until the reeds start breathing.",
+        "if": "flag:lanes_ferry_at=kindleby"
       },
       {
         "say": "oda",
@@ -1496,6 +1522,248 @@
             "end": true
           }
         ]
+      }
+    ],
+    "wrackholm_lane": [
+      {
+        "say": "oda",
+        "text": "South-about, down the Taper. Keepers' water. They named it for the long thin candles they burn: a day and a night of it, and the old pilots say it's like steering down a wick.",
+        "set": {
+          "wrackholm_oda_lane_asked": true
+        }
+      },
+      {
+        "say": "oda",
+        "text": "Kindleby at the end of it. The Keepers' mother-house. They'll tell you the Kindling was lit there and rowed out to Cindermoor in an open boat, nine hundred years back. They'll tell you a lot of things."
+      },
+      {
+        "say": "oda",
+        "text": "Keepers pay twice on our decks. On their own island they don't pay at all. I've put in there four times in thirty-eight years, and been thanked every time, and never once been asked in."
+      },
+      {
+        "say": "oda",
+        "text": "You're sworn a friend of the lanes. They'll see the Tidewright on you before they see the ember. Hold your head up.",
+        "if": "flag:wrackholm_sworn=sworn"
+      },
+      {
+        "say": "oda",
+        "text": "Say the word and we'll go south-about. The Wrack's lit; nobody'll say I left a dark light astern."
+      },
+      {
+        "goto": "wrackholm"
+      }
+    ],
+    "sail_kindleby": [
+      {
+        "if": "flag:kindleby_landed",
+        "goto": "sail_kindleby_again"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy off the hard on the ebb and out past the Teeth, the Wrack burning on its stack astern, and puts her south-about down a long grey reach where the water lies very still."
+      },
+      {
+        "say": "oda",
+        "text": "You told the Pask lad Keepers put the Spire out. It's on every deck from here to the Gull by now; Tidewrights talk. I'd not be the one to say it first on Kindleby.",
+        "if": "flag:wrackholm_who_answered=keepers"
+      },
+      {
+        "say": "oda",
+        "text": "If they ask after Wynn Sallow, you'll tell them, I suppose. Keepers wrote half their beacon-keepers off by spring. Keepers don't like being wrong in ink.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "oda",
+        "text": "And you've colliers on the Northing's stage to speak for, waiting on the Spire's boat. Somebody's got to tell the Keepers. Might as well be the one with the ember.",
+        "if": "flag:thornwold_far_shore=waiting"
+      },
+      {
+        "say": "narrator",
+        "text": "Toward evening there's a light ahead. Not one light: dozens, low and yellow, then hundreds, ringing an island like a string of beads. Candles. On a sea wall, on steps, in every window."
+      },
+      {
+        "say": "oda",
+        "text": "Tallow. They're holding the fog off with tallow. ...And look at that, it's working, a bit. A cable's width. That's nine hundred years of practice, that is."
+      },
+      {
+        "say": "narrator",
+        "text": "Before Oda can lift the bone horn, a bell rings from the quay: one stroke, then three.",
+        "sound": "quay_bell"
+      },
+      {
+        "say": "oda",
+        "text": "Answered before I've blown. That's Keepers. They've been watching for us. Watching for you, more like."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "kindleby"
+        },
+        "travel": [
+          "kindleby",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "sail_kindleby_again": [
+      {
+        "say": "narrator",
+        "text": "Oda takes the Slow Mercy south-about down the Taper again, the Wrack astern, until the candles come up out of the grey and the quay bell rings one, then three."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "kindleby"
+        },
+        "travel": [
+          "kindleby",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "kindleby": [
+      {
+        "say": "oda",
+        "text": "I'll lie here. Mind they don't keep you. Keepers are hospitable the way a net is hospitable.",
+        "if": "!flag:kindleby_met_provost"
+      },
+      {
+        "say": "oda",
+        "text": "Lorn. She was Provost when I was a deckhand. She looked at me then the way she'll have looked at you: like a thing to be put in its right place.",
+        "if": [
+          "flag:kindleby_met_provost",
+          "flag:kindleby_rite="
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "You bowed to their rite. Well. You've chosen four times; maybe you've earned letting somebody else. I'd not. But I'm a Tidewright, and we don't let anybody choose our cargo.",
+        "if": "flag:kindleby_rite=bowed"
+      },
+      {
+        "say": "oda",
+        "text": "You told Lorn no. I'd have paid to see her face. ...No I wouldn't. I've seen it.",
+        "if": "flag:kindleby_rite=refused"
+      },
+      {
+        "say": "oda",
+        "text": "Five lights, and one of them tallow. Don't tell her I counted it.",
+        "if": "flag:kindleby_met_provost"
+      },
+      {
+        "choice": [
+          {
+            "text": "Dunstan had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "The big man from the rowboat had word for you.",
+            "if": [
+              "flag:fen_dunstan_walk=home",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_word"
+          },
+          {
+            "text": "Dunstan's staying on the fen. Turning the long walk's boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "!flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "The big man from the rowboat is staying on the fen, turning the boards round.",
+            "if": [
+              "flag:fen_dunstan_walk=stayed",
+              "flag:saltmarrow_beacon_burned=gull",
+              "quest:word_on_the_water=inactive"
+            ],
+            "goto": "dunstan_stayed_word"
+          },
+          {
+            "text": "I've brought Dunstan's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
+            "text": "I've brought the big man's answer.",
+            "if": [
+              "stage:word_on_the_water=to_oda",
+              "flag:saltmarrow_beacon_burned=gull"
+            ],
+            "goto": "dunstan_answer"
+          },
+          {
+            "text": "Where can you take me?",
+            "lane_map": true
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "kindleby_back": [
+      {
+        "say": "oda",
+        "text": "Wrack dead ahead, up the Taper. I'll not pretend I'm sorry to see the candles go astern."
+      },
+      {
+        "say": "narrator",
+        "text": "The candles sink into the grey behind, bead by bead, until there's only the one bell, ringing you away: three, then one."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "wrackholm"
+        },
+        "travel": [
+          "wrackholm",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "passage_kindleby": [
+      {
+        "say": "narrator",
+        "text": "Oda sails light to light: off the Gull to the Ridge Light, north-about to the Heron, east-about to the Wrack, and south-about down the Taper. She puts in at the jetty, the staithe and the hard only long enough to take on water.",
+        "if": "flag:lanes_ferry_at=saltmarrow"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda sails light to light: north-about to the Heron, east-about to the Wrack, and south-about down the Taper. She puts in at the staithe and the hard only long enough to take on water.",
+        "if": "flag:lanes_ferry_at=thornwold"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda sails east-about to the Wrack and puts in at the hard only long enough to take on water, then south-about down the Taper.",
+        "if": "flag:lanes_ferry_at=fen"
+      },
+      {
+        "say": "narrator",
+        "text": "The candles come up out of the grey at the last, and the quay bell rings one, then three, the way it always will."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "kindleby"
+        },
+        "travel": [
+          "kindleby",
+          "from_ferry"
+        ],
+        "end": true
       }
     ]
   }

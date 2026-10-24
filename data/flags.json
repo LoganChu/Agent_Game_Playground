@@ -159,11 +159,12 @@
       "default": false
     },
     "lanes_ferry_at": {
-      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing), 'saltmarrow' (back at the Saltmarrow dock) 'fen' (at Glasswater Fen's staithe, Day 29) or 'wrackholm' (at Wrackholm's jetty, Day 40). Oda and the ferry prop are placed by it; the player travels with her.",
+      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing), 'saltmarrow' (back at the Saltmarrow dock) 'fen' (at Glasswater Fen's staithe, Day 29) 'wrackholm' (at Wrackholm's jetty, Day 40) or 'kindleby' (at Kindleby's quay, Day 62). Oda and the ferry prop are placed by it; the player travels with her.",
       "default": "",
       "values": [
         "",
         "fen",
+        "kindleby",
         "saltmarrow",
         "thornwold",
         "wrackholm"
@@ -702,6 +703,39 @@
     },
     "saltmarrow_aldous_heard_walk_back": {
       "description": "Aldous has been told Dunstan walked back out of the fog (home, or staying on the fen to turn the boards) — one-time: nine hundred years the Keepers said the fog gives nothing back; 'a lie, or only true while the Spire burned'.",
+      "default": false
+    },
+    "wrackholm_oda_lane_asked": {
+      "description": "At Wrackholm with the Wrack lit, Oda told the player where the lane runs on: south-about down the Taper to Kindleby, the Keepers' mother-house (Day 62). Opens the Taper on the lane map.",
+      "default": false
+    },
+    "kindleby_landed": {
+      "description": "The player has come ashore at Kindleby (one-time arrival scene: the candles, the bell that answered before Oda blew, Brother Tobin at the quay).",
+      "default": false
+    },
+    "kindleby_met_provost": {
+      "description": "The player has met Agathe Lorn, Provost of Kindleby, at the chapter-house door (her first words are said once).",
+      "default": false
+    },
+    "kindleby_rite": {
+      "description": "What the player told the Provost about the rite (Day 62): '' (not answered, or 'I'll think on it'), 'bowed' (bow to the rite: the chapter sits and chooses what Kindleby can spare, and the Wakebearer carries its choice up the stair) or 'refused' (the Wakebearer chooses, as on every other island). For Kindleby's burning and the Keepers' arc.",
+      "default": "",
+      "values": [
+        "",
+        "bowed",
+        "refused"
+      ]
+    },
+    "kindleby_provost_heard_aldous": {
+      "description": "The player told the Provost what Aldous said: the High Keeper put the flame out (Day 62). She holds to the order's word, 'the Firstflame failed' — and, if the confession was full, a light went down the stair past him: '...Did he.'",
+      "default": false
+    },
+    "kindleby_provost_heard_lamp": {
+      "description": "The player told the Provost of the Lamp on Thornwold (Day 62): named (thornwold_lamp_name=told: Wynn Sallow, written dead in the Long Book, is struck through, not scraped) or not (left: 'That's not a name, that's a post').",
+      "default": false
+    },
+    "kindleby_told_of_stage": {
+      "description": "The Wakebearer kept the far shore's promise (thornwold_far_shore=waiting): they told the Provost there are colliers waiting on the Northing's boat-stage for the Spire's boat. 'There is no Spire to tell. There's me. Very well: you've told the Spire.' She will put it to the chapter that the skiff goes north.",
       "default": false
     }
   }

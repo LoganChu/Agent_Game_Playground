@@ -1,0 +1,383 @@
+{
+  "id": "provost",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:kindleby_met_provost",
+        "goto": "first"
+      },
+      {
+        "say": "provost",
+        "text": "The chapter will sit. I've said so, and I'll say it again until the candles let it.",
+        "if": "flag:kindleby_rite=bowed"
+      },
+      {
+        "say": "provost",
+        "text": "Still choosing for yourself, Wakebearer? I've not stopped hoping you'll tire of it.",
+        "if": "flag:kindleby_rite=refused"
+      },
+      {
+        "say": "provost",
+        "text": "Wakebearer. Have you thought on the rite?",
+        "if": "stage:a_light_for_kindleby=the_rite"
+      },
+      {
+        "say": "provost",
+        "text": "Wakebearer.",
+        "if": [
+          "flag:kindleby_rite=",
+          "!stage:a_light_for_kindleby=the_rite"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "A tall woman in a white robe stands at the top of the chapter-house steps, a red stole over her shoulders and her hands folded at her waist, as if she has stood exactly there since the bell."
+      },
+      {
+        "say": "provost",
+        "text": "Wakebearer. Forgive me not coming down to the quay. Nobody on Kindleby goes further from the candles than they must. Not even me."
+      },
+      {
+        "say": "provost",
+        "text": "Agathe Lorn. Provost of Kindleby. These days that means I'm the most senior Keeper anyone can find.",
+        "set": {
+          "kindleby_met_provost": true
+        }
+      },
+      {
+        "say": "provost",
+        "text": "Have we met? ...No. I'd remember an ember."
+      },
+      {
+        "say": "provost",
+        "text": "Four lights. The Gull, the Ridge, the Heron, the Wrack. We've had the news of every one off the Tidewright decks, a week late and wrong in the particulars. You'll tell me the particulars, one day."
+      },
+      {
+        "say": "provost",
+        "text": "You carry a sleeve-ember. That's off a Spire robe, and it's been picked off with a thumbnail. ...Aldous Wren. He always did pick at things.",
+        "if": "item:keepers_sleeve_ember"
+      },
+      {
+        "say": "provost",
+        "text": "He ran home to Saltmarrow, then. They all ran, that night. Aldous ran the furthest, and the least far.",
+        "if": "item:keepers_sleeve_ember"
+      },
+      {
+        "say": "provost",
+        "text": "There's a story going round the Tidewright decks that Keepers put the Spire out. On purpose. It started on Wrackholm, they say, from a stranger with an ember.",
+        "if": "flag:wrackholm_who_answered=keepers"
+      },
+      {
+        "say": "provost",
+        "text": "I'd like it to stop. Stories like that get people drowned.",
+        "if": "flag:wrackholm_who_answered=keepers"
+      },
+      {
+        "say": "provost",
+        "text": "And sworn a friend of the lanes, I hear. Their oath is about decks. Ours is about light. A person can carry both, if they're careful which one they set down first.",
+        "if": "flag:wrackholm_sworn=sworn"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "What would it take to light the Vigil Light?",
+            "if": "stage:a_light_for_kindleby=the_candles",
+            "goto": "rite"
+          },
+          {
+            "text": "About the rite...",
+            "if": "stage:a_light_for_kindleby=the_rite",
+            "goto": "rite_answer"
+          },
+          {
+            "text": "Aldous told me the High Keeper put the flame out.",
+            "if": [
+              "!flag:kindleby_provost_heard_aldous",
+              "!flag:saltmarrow_aldous_confessed="
+            ],
+            "set": {
+              "kindleby_provost_heard_aldous": true
+            },
+            "goto": "aldous"
+          },
+          {
+            "text": "Wynn Sallow is alive. He keeps the Ridge Light on Thornwold.",
+            "if": [
+              "!flag:kindleby_provost_heard_lamp",
+              "flag:thornwold_lamp_name=told"
+            ],
+            "set": {
+              "kindleby_provost_heard_lamp": true
+            },
+            "goto": "lamp_told"
+          },
+          {
+            "text": "There's a Keeper at the Ridge Light on Thornwold. He calls himself the Lamp.",
+            "if": [
+              "!flag:kindleby_provost_heard_lamp",
+              "!flag:thornwold_lamp_name=told"
+            ],
+            "set": {
+              "kindleby_provost_heard_lamp": true
+            },
+            "goto": "lamp_left"
+          },
+          {
+            "text": "There are colliers on the Northing's boat-stage, waiting for the Spire's boat. I promised I'd tell the Spire.",
+            "if": [
+              "flag:thornwold_far_shore=waiting",
+              "!flag:kindleby_told_of_stage"
+            ],
+            "set": {
+              "kindleby_told_of_stage": true
+            },
+            "goto": "stage"
+          },
+          {
+            "text": "Who's in the Quiet House?",
+            "goto": "quiet"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "rite": [
+      {
+        "say": "narrator",
+        "text": "Her hand goes to the long iron key on the chain at her belt, and rests there."
+      },
+      {
+        "say": "provost",
+        "text": "The Vigil Light, on the crown of the island above us. Dark, like the rest were. I have the key."
+      },
+      {
+        "say": "provost",
+        "text": "It will be lit, Wakebearer, and you will light it, and I thank the flame for you every night. But not the way the others were."
+      },
+      {
+        "say": "provost",
+        "text": "On four islands now you chose what was burned. You. Alone. A stranger with an ember, at the top of a stair, with whoever happened to be standing near."
+      },
+      {
+        "say": "provost",
+        "text": "That was never how it was done. For nine hundred years a Keeper chose. The chapter sat, and weighed, and chose what an island could spare, and the island never had to. That's what a Keeper is: one who chooses, so that others needn't."
+      },
+      {
+        "say": "provost",
+        "text": "So I'll ask you plainly. Bow to the rite. Let the chapter sit and choose Kindleby's burning, and carry its choice up the stair. That's all.",
+        "quest_stage": [
+          "a_light_for_kindleby",
+          "the_rite"
+        ]
+      },
+      {
+        "goto": "rite_answer"
+      }
+    ],
+    "rite_answer": [
+      {
+        "choice": [
+          {
+            "text": "I'll bow to the rite.",
+            "set": {
+              "kindleby_rite": "bowed"
+            },
+            "goto": "bowed"
+          },
+          {
+            "text": "I'll choose, as I've chosen everywhere.",
+            "set": {
+              "kindleby_rite": "refused"
+            },
+            "goto": "refused"
+          },
+          {
+            "text": "And if the chapter chooses wrong?",
+            "goto": "wrong"
+          },
+          {
+            "text": "I'll think on it.",
+            "goto": "think"
+          }
+        ]
+      }
+    ],
+    "wrong": [
+      {
+        "say": "provost",
+        "text": "Then it will be the chapter's wrong, and not yours. Is that so small a thing to be given?"
+      },
+      {
+        "goto": "rite_answer"
+      }
+    ],
+    "think": [
+      {
+        "say": "provost",
+        "text": "Do. The candles will keep."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bowed": [
+      {
+        "say": "provost",
+        "text": "Thank you."
+      },
+      {
+        "say": "narrator",
+        "text": "For a moment she looks very much older, and then she doesn't."
+      },
+      {
+        "say": "provost",
+        "text": "You don't know what it is to us, to have the thing done properly. Once. Since."
+      },
+      {
+        "say": "provost",
+        "text": "The chapter will sit. Not tonight; there are brothers and sisters on the candles, and the candles come first. But it will sit.",
+        "quest_stage": [
+          "a_light_for_kindleby",
+          "the_chapter"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "refused": [
+      {
+        "say": "provost",
+        "text": "Then the chapter will sit anyway, and choose anyway, and you'll do as you please at the top of the stair."
+      },
+      {
+        "say": "provost",
+        "text": "We'll see which of us Kindleby thanks. I don't think it'll be either.",
+        "quest_stage": [
+          "a_light_for_kindleby",
+          "the_chapter"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "aldous": [
+      {
+        "say": "provost",
+        "text": "Aldous Wren was a door-warden on the east stair, and he was drinking before he was a novice. He told you the High Keeper put out the Firstflame."
+      },
+      {
+        "say": "provost",
+        "text": "The order's word is that the Firstflame failed. The High Keeper was at the flame when it failed, and has not been seen since. That is what the order knows."
+      },
+      {
+        "say": "player",
+        "text": "He saw a light go down the stair past him, that night.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "provost",
+        "text": "...Did he.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "narrator",
+        "text": "She is quiet long enough for a candle on the sill behind her to gutter and recover.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "provost",
+        "text": "If Aldous Wren has seen something, he can come to Kindleby and say it to the chapter. I'd send a boat for him. Tell him so."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lamp_told": [
+      {
+        "say": "provost",
+        "text": "Wynn Sallow."
+      },
+      {
+        "say": "narrator",
+        "text": "She says it like a word in a language she used to speak."
+      },
+      {
+        "say": "provost",
+        "text": "Every beacon-keeper who'd sent no word by spring we wrote into the Long Book among the lost. Wynn Sallow of the Ridge Light among them. Thirty years on that ridge, and I wrote him off in a line."
+      },
+      {
+        "say": "provost",
+        "text": "I'll have the line struck through. We don't scrape a name out of the Long Book. We strike it, so anybody can see it was once wrong."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "lamp_left": [
+      {
+        "say": "provost",
+        "text": "The Lamp. That's not a name, Wakebearer, that's a post. Every beacon-keeper is the Lamp to somebody."
+      },
+      {
+        "say": "provost",
+        "text": "The Ridge Light's keeper is in the Long Book. If he's chosen to go by no name, he'll have had his reasons. It's his to choose."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "stage": [
+      {
+        "say": "provost",
+        "text": "The Northing's stage. Keepers' boats put in there once a month with oil and meal, for longer than anybody's counted."
+      },
+      {
+        "say": "provost",
+        "text": "And they've waited on it three months. For a boat from the Spire."
+      },
+      {
+        "say": "provost",
+        "text": "There is no Spire to tell, Wakebearer. There's me."
+      },
+      {
+        "say": "provost",
+        "text": "Very well. You've told the Spire. When the chapter sits I'll put it to them that the skiff goes north, with oil and meal and a lantern, and brings back whoever wants bringing."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "quiet": [
+      {
+        "say": "provost",
+        "text": "Those the fog had. Brothers and sisters off the Spire who came over in the boats Hushed, and anybody the boats have found drifting since."
+      },
+      {
+        "say": "provost",
+        "text": "We keep them warm, and fed, and near the candles. It's the oldest work of the order, Wakebearer. Older than the beacons. To keep the Hushed."
+      },
+      {
+        "say": "provost",
+        "text": "You can't go in. Not with that in your hand. They've had enough of other people's light."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

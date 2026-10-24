@@ -1,0 +1,22 @@
+{
+  "id": "a_light_for_kindleby",
+  "title": "A Light for Kindleby",
+  "region": "kindleby",
+  "giver": "provost",
+  "future": true,
+  "description": "Kindleby, the Keepers' mother-house, holds the fog off with tallow: a cable's width of candlelight all round the island, kept lit since the Snuffing. Its beacon, the Vigil Light, is dark like the rest.",
+  "stages": [
+    {
+      "id": "the_candles",
+      "text": "Kindleby answered before Oda could blow: a bell from the quay, one, then three. The island is ringed with candles, hundreds of them on the sea wall and the steps, and the fog stands just past them like a crowd at a door. Brother Tobin at the bell says the Provost will see you. She's at the chapter-house, up the steps."
+    },
+    {
+      "id": "the_rite",
+      "text": "The Vigil Light is dark, and Provost Agathe Lorn will see it lit, and by you, but not the way the other four were. For nine hundred years a Keeper chose what a beacon burned: the chapter sat and chose what an island could spare. She asks you to bow to the rite and carry the chapter's choice up the stair. Tell her yes, or no, when you've thought on it."
+    },
+    {
+      "id": "the_chapter",
+      "text": "Whatever you told the Provost, the chapter will sit and choose what Kindleby can spare. It won't sit while there are brothers and sisters on the candles, and there are always brothers and sisters on the candles. The Provost has the Vigil Light's key on her belt."
+    }
+  ]
+}
