@@ -177,12 +177,12 @@ func test_prompts_follow_the_device_used_last() -> void:
 	assert_eq(InputSetup.hint("move_forward"), "[W]", "an action with no pad button keeps its key")
 	assert_false(InputSetup.note_device(button), "no change on a second pad press")
 	var hud := Hud.new()
-	hud._build()
+	hud._ready()
 	assert_true((hud.get("_keys") as Label).text.begins_with("[Back] Journal   [Y] Satchel   [Start] Menu"), "the HUD hint shows pad buttons")
 	var key := InputEventKey.new()
 	key.physical_keycode = KEY_W
 	key.pressed = true
-	hud._input(key)
+	GameState.note_input(key)
 	assert_false(InputSetup.pad_last, "a key press swaps back")
 	assert_true((hud.get("_keys") as Label).text.begins_with("[J] Journal   [I] Satchel   [Esc] Menu"), "and the HUD hint follows")
 	hud.free()
