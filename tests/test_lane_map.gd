@@ -27,10 +27,11 @@ func _crossed(lit: bool = false) -> WorldState:
 ## Every lane sailed once and every light lit, the ferry at `at`.
 func _everywhere(at: String) -> WorldState:
 	var state := _crossed(true)
-	for flag: String in ["fen_landed", "fen_oda_lane_asked", "fen_dunstan_met", "wrackholm_landed"]:
+	for flag: String in ["fen_landed", "fen_oda_lane_asked", "fen_dunstan_met", "wrackholm_landed", "wrackholm_oda_lane_asked", "kindleby_landed"]:
 		state.set_flag(flag, true)
 	state.set_flag("fen_beacon_burned", "channels")
 	state.set_flag("wrackholm_beacon_burned", "board")
+	state.complete_quest("a_light_for_wrackholm")
 	state.set_flag("lanes_ferry_at", at)
 	return state
 
@@ -135,7 +136,8 @@ func test_longer_voyages_go_light_to_light_over_sailed_lanes() -> void:
 	var text := play_dialogue(_db, state, "oda", [MAP, "@wrackholm"])
 	assert_true(text.contains("light to light") and text.contains("Teeth"), "the long passage, told short")
 	assert_eq(state.get_flag("lanes_ferry_at"), "wrackholm")
-	for pair: Array in [["wrackholm", "saltmarrow"], ["wrackholm", "thornwold"], ["saltmarrow", "fen"], ["fen", "saltmarrow"], ["thornwold", "wrackholm"]]:
+	for pair: Array in [["wrackholm", "saltmarrow"], ["wrackholm", "thornwold"], ["saltmarrow", "fen"], ["fen", "saltmarrow"], ["thornwold", "wrackholm"],
+			["kindleby", "saltmarrow"], ["kindleby", "thornwold"], ["kindleby", "fen"], ["saltmarrow", "kindleby"], ["thornwold", "kindleby"], ["fen", "kindleby"]]:
 		var s := _everywhere(pair[0])
 		var to: String = pair[1]
 		var region := str(Lanes.port(_db, to).get("region", ""))
@@ -152,8 +154,8 @@ func test_longer_voyages_go_light_to_light_over_sailed_lanes() -> void:
 func test_every_long_passage_says_where_it_came_from() -> void:
 	# Each passage knot has a line for every port it can start from (a route of 3+ ports).
 	_db = load_content()
-	for to in ["saltmarrow", "thornwold", "fen", "wrackholm"]:
-		for from in ["saltmarrow", "thornwold", "fen", "wrackholm"]:
+	for to in ["saltmarrow", "thornwold", "fen", "wrackholm", "kindleby"]:
+		for from in ["saltmarrow", "thornwold", "fen", "wrackholm", "kindleby"]:
 			var state := _everywhere(from)
 			var voyage := Lanes.voyage(_db, state, to)
 			if not voyage.get("ok", false) or (voyage["route"] as Array).size() < 3:

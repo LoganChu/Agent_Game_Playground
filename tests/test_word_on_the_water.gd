@@ -74,7 +74,7 @@ func test_not_before_he_is_named() -> void:
 
 
 func test_oda_hears_it_at_every_port() -> void:
-	for port: String in ["", "saltmarrow", "thornwold", "fen", "wrackholm"]:
+	for port: String in ["", "saltmarrow", "thornwold", "fen", "wrackholm", "kindleby"]:
 		var state := _after(HOME)
 		state.set_flag("lanes_ferry_at", port)
 		var offered := _offered(state, "oda")

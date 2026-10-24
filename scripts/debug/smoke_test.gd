@@ -248,12 +248,46 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 	_finish_dialogue(ui, "oda (the long passage out)")
 	if not await _arrived(main, ui, "wrackholm", "the long passage out"):
 		return
+	if not await _sail_the_taper(main, ui):
+		return
 	_npc("oda").interact()
-	_check(_sail(ui, "saltmarrow"), "...and the long way home")
+	_check(_sail(ui, "saltmarrow"), "...and the long way home, four lanes in one")
 	_finish_dialogue(ui, "oda (the long passage home)")
 	if not await _arrived(main, ui, "saltmarrow", "the long passage home"):
 		return
-	_sailings.append("saltmarrow -> wrackholm -> saltmarrow")
+	_sailings.append("saltmarrow -> wrackholm -> kindleby -> saltmarrow")
+
+
+## Day 62: with the Wrack lit, Oda tells of the Taper and sails it south-about to Kindleby: the arrival,
+## Brother Tobin at the bell, the Provost and the rite (bowed), the Quiet House. True if the walk is on
+## Kindleby with Oda at the quay.
+func _sail_the_taper(main: Node, ui: DialogueUI) -> bool:
+	var world := GameState.world
+	_npc("oda").interact()
+	_check(_choose(ui, "Where does the lane go from here?"), "Oda asked where the lane runs on from the Wrack")
+	_check(_sail(ui, "kindleby"), "...and sails the Taper")
+	_finish_dialogue(ui, "oda (the Taper)")
+	if not await _arrived(main, ui, "kindleby", "south-about to Kindleby"):
+		return false
+	_check(world.get_flag("kindleby_landed") == true and world.quest_stage("a_light_for_kindleby") == "the_candles",
+			"landed: the candles, A Light for Kindleby begun")
+	var isle: Region = main.get("region")
+	_check(_shown_model(isle, "vigil_light.glb") == 1, "the Vigil Light stands dark on the crown")
+	for id: String in ["tobin", "provost"]:
+		_check(_npc(id) != null and _npc(id).find_child("CharacterRig", true, false) != null, "%s shows its rigged model" % id)
+	_npc("tobin").interact()
+	_check(_choose(ui, "What are all the candles for?"), "Tobin on the candles")
+	_finish_dialogue(ui, "tobin")
+	_npc("provost").interact()
+	_check(_choose(ui, "What would it take to light the Vigil Light?"), "the Provost asked about the light")
+	_check(_choose(ui, "I'll bow to the rite."), "...bowed to the rite")
+	_check(_choose(ui, "Goodbye."), "...and lets you go")
+	_finish_dialogue(ui, "the provost (the rite)")
+	_check(world.get_flag("kindleby_rite") == "bowed" and world.quest_stage("a_light_for_kindleby") == "the_chapter", "the chapter will sit")
+	_object("quiet_house").interact()
+	_finish_dialogue(ui, "the Quiet House")
+	print("Smoke: Kindleby, the rite '%s'" % world.get_flag("kindleby_rite"))
+	return true
 
 
 ## Day 53: the old Keepers' road north, walked from the ridge with the Ridge Light lit: meet Ottie at the

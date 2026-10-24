@@ -132,7 +132,7 @@ func test_the_sailing_honours_what_was_carried_to_dunstan() -> void:
 
 func test_the_ferry_and_oda_lie_in_one_place_on_every_lane() -> void:
 	_db = load_content()
-	for at: String in ["", "saltmarrow", "thornwold", "fen", HOLM]:
+	for at: String in ["", "saltmarrow", "thornwold", "fen", HOLM, "kindleby"]:
 		var state := fresh_state(_db)
 		state.set_flag("saltmarrow_ferry_arrived", true)
 		state.set_flag("lanes_ferry_at", at)
