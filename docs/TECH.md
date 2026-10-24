@@ -37,7 +37,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]  # the procedural sounds as .wav (audio review)
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad provost tobin …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren brazier_ash brazier_raked brazier_laid net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark clamp_rake …]  # Thornwold kit (same kit dir)
@@ -47,6 +47,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 .tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake steps_foot boat_stage stage_lantern drift_fire drift_fire_out drift_shelter]  # the old Keepers' road north (Day 53) and the far shore below it (Day 55) (same kit dir)
 .tools/bin/blender-py tools/blender/build_bend.py [clamp_spent clamp_spent_open hut_lantern]  # Coll's Hearth (Day 57): Wenna's clamp burned through (Day 58: and raked open, sacks filled, front on +Z); a Keeper's lantern on a forked stake by a hut door (glass centre Godot [0, 1.28, 0.32] = its `halo`) (same kit dir)
+.tools/bin/blender-py tools/blender/build_kindleby.py [chapter_house candle_ledge vigil_bell quiet_house vigil_light]  # Kindleby (Day 62): the Keepers' chapter-house, the candle wall (a 2.4 m ledge, candles emissive — no lights), the quay bell, the Quiet House (barred), the Vigil Light (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -454,6 +455,14 @@ region walker sails to the first neighbouring port (as the old option order did)
 stair it takes the long passages Saltmarrow → Wrackholm → Saltmarrow live.
 **A new port:** add it to `lanes_ferry_at`'s `values`, a port + lane in lanes.json, the lane knots and a
 `passage` knot (lines for each start port 2+ lanes away) in `oda.json`, and the ferry/Oda placements.
+
+**Adding a port** (Day 62, Kindleby): a `ports` entry and a lane in `data/lanes.json`; a value of `lanes_ferry_at`
+in `data/flags.json`; the region (Oda + `ferry.glb` placed `if flag:lanes_ferry_at=<port>`, and **Saltmarrow's
+placements negate it** — Saltmarrow's ferry shows for `''` too); in `story/oda.json` a `start` redirect, the port's
+menu knot (with the "word on the water" options and the map), the lane's two knots, the port's `passage` knot (a line
+per start port 3+ lanes away) and a start-from-here line in every other `passage_*` knot that a route can now begin at
+the new port; tests: the port lists in `test_lane_map`, `test_wrackholm` (one Oda, one ferry) and
+`test_word_on_the_water`.
 
 ### Story checkpoints (developer jump points)
 `data/scenarios.json` → `Scenarios` (scripts/core/scenarios.gd): `{id, act, title,

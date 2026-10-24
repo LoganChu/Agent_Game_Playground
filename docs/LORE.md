@@ -15,7 +15,8 @@ held back the **Greying**, a silver sea-fog that makes things *forgotten*.
 - The islands met so far lie in a ring round Cindermoor, which sits dark in the middle of the chart:
   **Saltmarrow** to the south-west, **Thornwold** west, **Glasswater Fen** north ("north-about" round
   Thornwold's shoulder), **Wrackholm** north-east ("east-about" from the fen). The ring goes on past
-  Wrackholm into water nobody has charted for the player yet ("past more besides"). Lanes run light
+  Wrackholm into water nobody has charted for the player yet ("past more besides"); since Day 62, **Kindleby** east, south
+  of Wrackholm, down the Taper. Lanes run light
   to light round the ring, never across it to Cindermoor.
 - With every lane on the way already sailed, Oda will run several in one passage, putting in at each
   light "only long enough to take on water". A new lane is always sailed from its near end.
@@ -1063,6 +1064,48 @@ debts, salvage, and who answers for a thing.
       burn and you can't hurry the breaking"; four sacks tied by it and a fifth open. From then on she's at the clamp, not
       on her seat (`thornwold_bend_breaking_out`).
     - Open (small, not chased): the bend's lost north end under the ridge.
+
+### 5. Kindleby (Act II — begun Day 62)
+The Keepers' **mother-house**, south-about from Wrackholm down **the Taper** (Keepers' water, named for their long thin
+candles: "like steering down a wick"; a day and a night). Keepers say the Kindling was lit here and rowed out to Cindermoor
+in an open boat nine hundred years ago (their saying; not confirmed). Oda has put in four times in thirty-eight years,
+"thanked every time, and never once asked in". Kindleby is the fifth port on the chart (east of Cindermoor, below Wrackholm);
+its light is **the Vigil Light**.
+- **The candles.** Since the Snuffing every brother and sister on Kindleby keeps **forty tallow candles lit, turn and turn**,
+  on a low sea wall that rings the island, on the steps and on every sill. Ordinary fire barely helps — "barely isn't
+  nothing": the ring holds the fog off **a cable's width**, all round, and has not gone out once in three months. The fog
+  stands just past it "like a crowd at a door".
+- **The quay bell** answers a boat before it blows: one stroke, then three ("a boat seen, and welcome"). Kindleby was
+  watching for the Wakebearer.
+- **Brother Tobin Ashe**, bell-porter and candle-warden: a lay brother, Kindleby-born, nineteen, never been to the Spire
+  ("Kindleby brothers keep candles; the Spire's for the ones that are called up"). He was to be called up this midwinter
+  and carry a coal down to an island beacon, as those called up did. Awed by the ember.
+- **Provost Agathe Lorn** (sixties, white robe, red stole, the Vigil Light's key on her belt): second in the order after the
+  High Keeper; **on Kindleby, not at the Spire, the night of the Snuffing**; took in every Keeper who came over in the boats
+  "and never asked them a thing". Holds to **the order's word: "the Firstflame failed. The High Keeper was at the flame when
+  it failed, and has not been seen since."** Knows Aldous Wren (door-warden on the east stair, "drinking before he was a
+  novice"; "ran the furthest, and the least far"). After the first spring, every beacon-keeper who had sent no word was
+  written into **the Long Book** among the lost; a name found again is **struck through, never scraped** ("so anybody can
+  see it was once wrong"). She did not recognise the Wakebearer ("I'd remember an ember").
+- **The rite** (canon, Day 62): for nine hundred years **a Keeper chose what a beacon burned** — the chapter sat, weighed
+  and chose what an island could spare, "and the island never had to. That's what a Keeper is: one who chooses, so that
+  others needn't." The Wakebearer choosing alone, at the top of a stair, "was never how it was done". The Provost asks the
+  Wakebearer to **bow to the rite** (`kindleby_rite`: `bowed` / `refused`); either way **the chapter will sit** and choose
+  — but not while there are brothers and sisters on the candles, and there always are. *(Foreshadows mystery #1: the
+  Keepers have always chosen what is burned. Do not explain.)*
+- **The Quiet House**, apart by the water: where the Keepers keep **the Hushed** — Spire Keepers who came over in the boats
+  Hushed, and anyone the boats have found drifting since. "It's the oldest work of the order, older than the beacons: to
+  keep the Hushed." Shutters and door **barred from outside**; only the Provost and the old brothers go in, with meals,
+  and put the bar back after. The Wakebearer may not go in ("They've had enough of other people's light"). At night they
+  **hum — several voices, close, not quite the same tune** (a faint echo of the Hollow Choir rumor). *(Foreshadows
+  mysteries #1 and #3. Do not explain; do not open the door before Kindleby's burning is written.)*
+- **The far shore's promise kept:** if the colliers waited on the Northing's stage (`thornwold_far_shore=waiting`), the
+  Wakebearer can tell the Provost — "There is no Spire to tell. There's me. Very well: you've told the Spire." When the
+  chapter sits she'll put it to them that **the chapter's skiff** (drawn up by the quay, the boat that took oil and meal to
+  the Northing's stage once a month) goes north with oil, meal and a lantern (`kindleby_told_of_stage`).
+- The story on the Tidewright decks that "Keepers put the Spire out" (`wrackholm_who_answered=keepers`) has reached her:
+  "Stories like that get people drowned."
+- Open: what the chapter chooses and whether the Wakebearer carries it; the Quiet House; the Long Book; the skiff north.
 
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 

@@ -2,6 +2,73 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-24 21:00 UTC — Day 62: Kindleby, the Keepers' mother-house (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale `origin/main` again;
+  fetched and reset local `main` to Day 61's `5eab605`. Baseline green (432 tests + smoke + launch).
+- **Content (due by ~Day 64; last Day 60):** ROADMAP *Next up* #1's main candidate, **the lane on from Wrackholm**, as the
+  fifth island's first part. Act II's outline wanted the Keepers to court the player as the Tidewrights (the oath) and the
+  Unmoored (the fen) have; nobody had met the Keepers as an *order* yet, only three strays (Aldous, the Lamp, Ottie's road).
+  - **The Taper.** At Wrackholm with the Wrack lit, Oda's new "Where does the lane go from here?" tells of the Keepers'
+    water south-about to **Kindleby** ("like steering down a wick"; "thanked every time, and never once asked in";
+    `wrackholm_oda_lane_asked`). The first sailing weighs `wrackholm_who_answered=keepers` ("I'd not be the one to say it
+    first on Kindleby"), `thornwold_lamp_name=told` and `thornwold_far_shore=waiting`; then hundreds of candles ringing an
+    island, and **the quay bell answers before Oda blows** (one stroke, then three — a new `quay_bell` sound). Kindleby is
+    the fifth port on the lane map (`data/lanes.json`: port, the Taper lane); every long passage knot learned to start or
+    end there; Oda's `kindleby` port menu (her "word on the water" options too) and `kindleby_back`.
+  - **New region `kindleby`:** a pale stone island, a quay and landing stage, **a ring of candle ledges** (17) inside the
+    shore with the fog standing a cable's width off all round, the chapter-house up the steps, **the Quiet House** apart
+    by the water, the chapter's skiff drawn up by the quay, the **Vigil Light** dark on the crown. Arrival event →
+    **A Light for Kindleby** (`the_candles` → `the_rite` → `the_chapter`; `future`, the burning is a later session).
+  - **Brother Tobin Ashe** (bell-porter, nineteen, never been to the Spire): the forty candles each ("barely isn't nothing"),
+    the Provost ("never asked them a thing. ...Some of them, you'd want to ask"), being called up, the Quiet House ("they
+    put the bar back after"; humming, "not quite the same tune").
+  - **Provost Agathe Lorn:** weighs the sleeve-ember ("Aldous Wren. He always did pick at things... ran the furthest, and
+    the least far"), the story off the Tidewright decks ("Stories like that get people drowned"), the oath. **The rite:**
+    for nine hundred years a Keeper chose what a beacon burned, "so that others needn't"; she asks the Wakebearer to bow
+    to it (`kindleby_rite` bowed / refused / think on it; "the chapter's wrong, and not yours"). **Aldous's word** (if he
+    confessed) meets the order's ("the Firstflame failed"), and a full confession's light down the stair gets "...Did he."
+    **The Lamp:** named → Wynn Sallow struck through in the Long Book ("never scraped"); not named → "that's not a name,
+    that's a post" (she doesn't hand over the name Paid Twice finds). **The far shore's promise kept** (`waiting`): "There
+    is no Spire to tell. There's me. Very well: you've told the Spire" — the skiff goes north when the chapter sits.
+  - Inspectables: **the Quiet House** (barred from outside; humming) and **the Vigil Light's door** (the key is hers).
+- **Art (folded in):** `tools/blender/build_kindleby.py` — `chapter_house`, `candle_ledge`, `vigil_bell`, `quiet_house`,
+  `vigil_light`; characters `provost` (white robe, red stole, the key, hands folded) and `tobin` (lighting taper, candle).
+- **Tests:** `test_kindleby.gd` (10: the Taper's gating and sailing, the sailing's memory, the layout and the candle ring,
+  the kit, the arrival, the Provost's weighing, the rite three ways with Tobin and Oda after, Aldous and the Lamp, the far
+  shore's promise, the Quiet House and the Vigil door). `test_lane_map`, `test_wrackholm` and `test_word_on_the_water`
+  cover the fifth port. **Smoke walk** sails the Taper from the long passage out (Tobin, the Provost, bowed, the Quiet
+  House) and comes home to Saltmarrow four lanes in one. 442 tests + smoke + launch pass. Checkpoint **`kindleby`**.
+
+Screenshots (`docs/screenshots/2026-10-24-pm-*.png`): `the-provost`, `tobin-at-the-bell`, `the-quiet-house`,
+`lane-map-taper`; `docs/checkpoints/kindleby.png`.
+
+**Decisions**
+- **Kindleby's theme is who chooses what's forgotten.** Four burnings the player chose alone; the Keepers' rite says a
+  Keeper always chose for others. It sets up the next burning as a choice about the choice, and foreshadows mystery #1
+  (the Keepers choosing what the Firstflame burned) without saying a word of it. The Quiet House (barred from outside,
+  humming) foreshadows #1/#3 the same way; nothing about it is explained, and the player cannot go in.
+- **Mystery #2 stays shut:** Tobin never went to the Spire; the Provost wasn't there that night and doesn't know the
+  Wakebearer's face. No novices' roll here (that is the Spire's, in the warden's niche); the Keepers' **Long Book** of the
+  dead/lost is a different book.
+- **The Provost holds the order's word, not the truth:** she says the Firstflame *failed*. She may or may not know better;
+  that is left for Kindleby's later parts.
+- **A real Vigil Light model** rather than reusing Thornwold's beacon (the ridge-kit test rightly pins that to Thornwold).
+- No `kindleby_beacon_burned` flag yet: the validator wants every declared flag set somewhere. The port's `lit` reads
+  `quest:a_light_for_kindleby=done` until the burning is written (then switch to the flag, as the other ports do).
+- Saltmarrow's ferry/Oda placements negate every other port; `kindleby` added (the exclusivity check caught it).
+
+**Problems / notes**
+- None blocking. The candle flames are small at a distance in the Compatibility renderer; the art session might give the
+  ledges a soft `halo` (no OmniLights: the light budget stands).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — an **art-led** session is due (~Day 63; last Day 58): Kindleby's look first (candle glow at
+   distance, the chapter-house interior wall / bell-cote detail, a second Keeper or two on the candles so the island isn't
+   empty), or Wrackholm's empty bracket. Content next ~Day 65 (Kindleby part two: the chapter sits). Fetch before trusting
+   `origin/main`.
+
 ## 2026-10-24 09:00 UTC — Day 61: Polish/debt pass eight
 
 **Did**
