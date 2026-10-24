@@ -7,6 +7,9 @@ signal region_change_requested(region_id: String, spawn: String)
 signal toast(text: String)
 ## Emitted by NPCs/triggers; the dialogue UI listens and runs the conversation.
 signal dialogue_requested(dialogue_id: String, npc_id: String)
+## Emitted when the player swaps between keyboard/mouse and a pad (InputSetup.pad_last), so
+## every prompt can re-label itself.
+signal input_device_changed
 
 ## True while a modal UI (dialogue, menus) owns input; the player stops moving.
 var input_locked := false
@@ -24,6 +27,14 @@ func _ready() -> void:
 	GameSettings.current()
 	world.quest_changed.connect(_on_quest_changed)
 	world.inventory_changed.connect(_on_inventory_changed)
+	# Before any node's _input, so a modal that handles the event still sees the swap.
+	get_tree().root.window_input.connect(note_input)
+
+
+## Notes which device an input event came from (InputSetup.note_device), announcing a swap.
+func note_input(event: InputEvent) -> void:
+	if InputSetup.note_device(event):
+		input_device_changed.emit()
 
 
 func new_game() -> void:

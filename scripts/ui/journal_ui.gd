@@ -20,6 +20,7 @@ var _heading: Label
 var _subheading: Label
 var _body: RichTextLabel
 var _empty: Label
+var _hint: Label
 ## Entries currently listed (JournalModel dictionaries), parallel to _list items.
 var _entries: Array[Dictionary] = []
 
@@ -30,6 +31,12 @@ func _ready() -> void:
 	_root.hide()
 	GameState.world.quest_changed.connect(func(_id: String, _s: String, _st: String) -> void: _refresh_if_open())
 	GameState.world.inventory_changed.connect(func(_id: String, _c: int) -> void: _refresh_if_open())
+	GameState.input_device_changed.connect(_label_hint)
+
+
+## "[Esc] close" / "[B] close", following the device used last.
+func _label_hint() -> void:
+	_hint.text = InputSetup.back_hint() + " close"
 
 
 func is_open() -> bool:
@@ -199,10 +206,10 @@ func _build() -> void:
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	tabs.add_child(spacer)
-	var hint := Label.new()
-	hint.text = "[Esc] close"
-	hint.theme_type_variation = UiTheme.HINT
-	tabs.add_child(hint)
+	_hint = Label.new()
+	_hint.theme_type_variation = UiTheme.HINT
+	tabs.add_child(_hint)
+	_label_hint()
 
 	var split := HBoxContainer.new()
 	split.size_flags_vertical = Control.SIZE_EXPAND_FILL

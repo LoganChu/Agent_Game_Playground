@@ -41,6 +41,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if _root == null:  # tests may build it before it enters the tree
 		_build()
+	GameState.input_device_changed.connect(func() -> void: _hint.text = InputSetup.back_hint() + " back")
 	_root.hide()
 
 
@@ -428,7 +429,7 @@ func _build() -> void:
 	_note.minimum_size_changed.connect(_fit_scroll)
 	_box.add_child(_note)
 	_hint = Label.new()
-	_hint.text = "[Esc] back"
+	_hint.text = InputSetup.back_hint() + " back"
 	_hint.theme_type_variation = UiTheme.HINT
 	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_box.add_child(_hint)

@@ -58,6 +58,7 @@ const PAD_LABELS: Dictionary = {
 	JOY_BUTTON_Y: "Y",
 	JOY_BUTTON_BACK: "Back",
 	JOY_BUTTON_START: "Start",
+	JOY_BUTTON_B: "B",
 }
 
 ## A stick has to lean this far before it counts as "the pad was used" for prompts.
@@ -157,6 +158,12 @@ static func hint(action: String) -> String:
 	if pad_last and PAD_BUTTONS.has(action):
 		return "[%s]" % PAD_LABELS[PAD_BUTTONS[action]]
 	return "[%s]" % key_label(bound_key(action))
+
+
+## "[Esc]" / "[B]" — the hint for backing out of a modal (`ui_cancel`, whose built-in key
+## binding has no physical keycode for `hint` to read).
+static func back_hint() -> String:
+	return "[%s]" % PAD_LABELS[JOY_BUTTON_B] if pad_last else "[Esc]"
 
 
 ## Notes which device `event` came from (a key or mouse click → keyboard; a pad button or a

@@ -29,12 +29,10 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build()
 	GameState.toast.connect(show_toast)
+	# Re-labels the prompts when the player swaps between keyboard and pad.
+	GameState.input_device_changed.connect(_update_key_hint)
 
 
-## Re-labels the prompts when the player swaps between keyboard and pad.
-func _input(event: InputEvent) -> void:
-	if InputSetup.note_device(event):
-		_update_key_hint()
 
 
 func set_focus(target: Interactable) -> void:
@@ -198,7 +196,7 @@ func _make_label(variation: StringName) -> Label:
 ## when it was a pad): the key hint and the "[E] Talk to…" prompt, which stays up under the
 ## pause menu (the player is paused with its focus).
 func _update_key_hint() -> void:
-	var menu := InputSetup.hint("pause") if InputSetup.pad_last else "[Esc]"
+	var menu := InputSetup.hint("pause") if InputSetup.pad_last else InputSetup.back_hint()
 	_keys.text = "%s Journal   %s Satchel   %s Menu" % [InputSetup.hint("journal"), InputSetup.hint("inventory"), menu]
 	if _prompt and _focus and is_instance_valid(_focus):
 		set_focus(_focus)

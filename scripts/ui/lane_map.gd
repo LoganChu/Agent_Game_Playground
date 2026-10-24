@@ -22,6 +22,7 @@ var _focused := ""
 
 
 func _ready() -> void:
+	GameState.input_device_changed.connect(_label_legend)
 	theme = UiTheme.get_theme()
 	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	grow_horizontal = Control.GROW_DIRECTION_BOTH
@@ -45,6 +46,7 @@ func _ready() -> void:
 	_legend.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_legend.custom_minimum_size = Vector2(CHART_SIZE.x, 0)
 	vbox.add_child(_legend)
+	_label_legend()
 	_cancel = Button.new()
 	_cancel.text = "Not yet."
 	_cancel.alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -62,8 +64,6 @@ func open() -> void:
 	var db := Content.db
 	var state := GameState.world
 	var here := Lanes.current_port(db, state)
-	# Built on each open so the back key follows the last device used.
-	_legend.text = "Solid gold: a lane sailed · dashed gold: not sailed yet · grey: not this tide · %s back" % ("[B]" if InputSetup.pad_last else "[Esc]")
 	_heading.text = "The Lanes — the Slow Mercy lies at %s" % Lanes.port(db, here).get("name", "")
 	for id in Lanes.known_ports(db, state):
 		var button := Button.new()
@@ -147,6 +147,11 @@ func _place_buttons() -> void:
 			pos.y = at.y - ISLAND_RADIUS - size.y - 2.0
 		button.position = pos.clamp(Vector2.ZERO, CHART_SIZE - size)
 		button.size = size
+
+
+## The legend, ending in the back key for the device used last.
+func _label_legend() -> void:
+	_legend.text = "Solid gold: a lane sailed · dashed gold: not sailed yet · grey: not this tide · %s back" % InputSetup.back_hint()
 
 
 func _focus_port(id: String) -> void:
