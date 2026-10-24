@@ -302,11 +302,13 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   the clearing until `thornwold_hob_came_in`, then the tally-house step — set by the landing's
   `hob_comes_in` event, Day 27, which needs the Ridge Light lit and Hob paid in either order). The
   conditions must be mutually exclusive, and since Day 38 the validator proves it:
-  `Conditions.joint_witness(conditions, flag_defaults)` searches every combination of the values
+  `Conditions.joint_witness(conditions, flag_defaults)` searches the values
   the conditions mention (each flag at its default, every named value, true, false and one unnamed
   value; quests inactive/done/active at each named stage or another; items 0, 1, each named count)
-  for a state where two placements both hold, and reports it (`{"flag:x": v, …}`). The search is
-  per pair over that pair's terms only (tiny); it gives up past 65 536 states. Since Day 44 a
+  for a state where two placements both hold, and reports it (`{"flag:x": v, …}`). Every term reads
+  one key, so since Day 61 it searches key by key (linear; until then it tried the whole product
+  and gave up past 65 536 states — answering "exclusive"). A flag condition may name several values
+  (`flag:thornwold_bend=road|hearth`, Day 61), so one placement can cover outcomes that look alike. Since Day 44 a
   string flag with a `values` list (all of them have one) is tried at exactly those values, so
   the search is exact for them; true/false flags are still tried at true/false.
 - **Prop variants (Day 44):** two **model** props of one *family* (the same first word of the file
@@ -633,6 +635,7 @@ True/false flags have no list.
 ### Conditions
 String or array of strings (AND). Prefix `!` negates.
 `flag:<id>` (truthy) · `flag:<id>=<value>` (string compare; `flag:x=` means empty) ·
+`flag:<id>=<a>|<b>` (any of them, Day 61; the validator checks each against the flag's `values`) ·
 `quest:<id>=inactive|active|done` · `stage:<quest>=<stage>` · `item:<id>` · `item:<id>>=<n>`
 
 ### Dialogue format (`story/<id>.json`) — decision record
@@ -654,6 +657,9 @@ of *effects*, and may be gated by `if` (skipped when false):
 - `{"choice": [{"text": "...", "if": cond, "goto": knot | "end": true, <effects>}]}` —
   hidden options are filtered; if none are visible the step is skipped.
 - `{"goto": "knot"}`, `{"end": true}` — reaching the end of a knot also ends the dialogue.
+  Nothing may follow a step that always leaves its knot — an unconditional `goto`/`end`, or an
+  unconditional `choice` whose every option jumps/ends/opens the lane map with one option always
+  offered: the validator reports "step N never plays" (Day 61; Day 60 lost a line of Hesk's that way).
 - Effects: `"set": {flag: value}`, `"quest_start": id`, `"quest_stage": [id, stage]`,
   `"quest_complete": id`, `"give_item": id`, `"take_item": id` (+ `"count": n`).
 - `"travel": [region_id, spawn?]` (Day 17) — when the dialogue **closes**, the player is moved
@@ -840,8 +846,11 @@ once, on `drag_ended`) and again on leaving.
   unless another action claims them. `InputSetup.apply_keys` rebuilds the keyboard events;
   pad bindings are untouched (not rebindable yet). HUD/dialogue hints use `InputSetup.hint()`.
 - **Pad prompts (Day 56)**: `InputSetup.pad_last` flips on a pad button or a stick lean
-  ≥ 0.5 and back on a key or mouse click (`note_device`, fed by `Hud._input`, which re-labels
-  its key hint on the swap). While it's set, `hint()` gives the action's pad button
+  ≥ 0.5 and back on a key or mouse click (`note_device`, fed since Day 61 by `GameState.note_input`
+  on the root window's `window_input` — before any node's `_input`, so a modal handling the event
+  still sees it — which emits `GameState.input_device_changed`; the HUD key hint, the journal's
+  "close", the menus' "back" and the lane map's legend re-label on it). `InputSetup.back_hint()` is
+  `[Esc]` / `[B]` for `ui_cancel`, whose built-in key event has no physical keycode for `hint()`. While it's set, `hint()` gives the action's pad button
   (`PAD_LABELS`: A / Y / Back / Start) for actions that have one, the key otherwise.
 - **Dialogue text speed (Day 56)**: `DialogueUI` sets each line's full text and reveals it
   with `RichTextLabel.visible_characters` in `_process` (paused with the tree). Interact/click
@@ -919,6 +928,9 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 ## Testing
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
+- `tests/test_polish_eight.gd` — (Day 61) `flag:x=a|b` conditions (parse, evaluate, joint_witness, the validator checks
+  every alternative), Wenna's single rake/seat placements, joint_witness with no state limit, steps that never play,
+  the back hint following the device in the journal, title menu and lane map.
 - `tests/test_bend_in_the_road.gd` — (Day 57) *The Bend in the Road*: asking Wenna (home from the far shore) starts it;
   the next woods arrival is first light (once; she's by the first waymark); the fork's talk; "Show me." travels to Coll's
   Hearth (arrival once; cold hut, spent clamp, bare waymark; the way back to the woods' `from_bend`); the clamp and her

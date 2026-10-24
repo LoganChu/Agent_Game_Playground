@@ -2,6 +2,52 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-24 09:00 UTC — Day 61: Polish/debt pass eight
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; fetched and reset local `main`
+  to Day 60's `d60b5d8`. Baseline green (426 tests + smoke + launch, 2 min 57 s).
+- **Polish/debt (due by Day 62; last Day 54):** ROADMAP *Next up* #1's list.
+  - **`flag:x=a|b`** — a flag condition may name several values (any of them). `Conditions.parse` adds `values`;
+    `joint_witness` tries each; the validator checks each against the flag's `values` list. Used at once: Day 58 split
+    Wenna's rake placement (and her seat before it) into a `road` and a `hearth` copy because the exclusivity check couldn't
+    know `thornwold_bend_breaking_out` only follows those two; each is one placement again (`thornwold_bend=road|hearth`).
+  - **Steps that never play:** the validator reports any step after one that always leaves its knot — an unconditional
+    `goto`/`end`, or an unconditional `choice` whose every option jumps, ends or opens the lane map, with one option
+    always offered (Day 60's lost Hesk line, by hand). Current content has none.
+  - **`joint_witness` searches key by key.** Every term reads one key and the conditions are all ANDed, so a joint state
+    exists exactly when each key has a value satisfying its own terms. The old search walked the whole product of every
+    key's values (re-parsing the terms for each state) and **gave up past 65 536 states by answering `{}` — "exclusive"**:
+    a pair of placements with enough flags would have passed unproved. Linear now; placement checks 0.6 s → 0.07 s,
+    tests 88 s → 69 s.
+  - **The back hint follows the device:** `InputSetup.back_hint()` (`[Esc]` / `[B]`, for `ui_cancel`, which has no
+    physical keycode to read). Device swaps are now noted once, by `GameState.note_input` on the root window's
+    `window_input` (before any node's `_input`, so a modal that handles the event still sees the swap), and announced
+    as `GameState.input_device_changed`; the HUD key hint, the journal's "close", the menus' "back" and the lane map's
+    legend re-label on it (until now only the HUD and the map, the map only on open).
+  - **Check times:** tests 69 s, smoke 65 s, the whole of `run_checks.sh` under 3 min; nothing to split. A validation run
+    is now ~1.3 s, nearly all region checks (the woods ~0.2 s) — the next thing to profile if tests creep up.
+- **Tests:** `test_polish_eight.gd` (6: alternatives parse/evaluate/witness, the validator on a misspelt alternative,
+  Wenna's single placements per outcome, no state limit, steps that never play and ones that may fall through, the back
+  hint in the journal/title menu/lane map). `test_settings` drives the device swap through `GameState.note_input`.
+  432 tests + smoke + launch pass.
+
+**Decisions**
+- **Alternation, not flag implications.** I first sketched a `requires` field on flags ("breaking_out implies bend is
+  road or hearth") for the witness search to honour; it needs an OR to say anyway, and once conditions have one the
+  placement can simply say it. Smaller language change, no new data field.
+- **The device swap is noted at the window, not in the HUD.** With several UIs wanting it, whichever `_input` ran first
+  would have swallowed the change for the rest; the title screen has no HUD at all.
+- No checkpoint (no new story point); no art.
+
+**Problems / notes**
+- `Conditions.joint_witness` answered "exclusive" on a parse error too; it still does (the error itself is
+  reported by the condition check), noted here in case that ever hides something.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content** (due by ~Day 64; last Day 60): the lane on from Wrackholm, or the small follow-ups
+   listed there. An art-led session is due ~Day 63. Fetch before trusting `origin/main`.
+
 ## 2026-10-23 21:00 UTC — Day 60: Word on the Water (content)
 
 **Did**

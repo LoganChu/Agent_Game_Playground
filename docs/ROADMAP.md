@@ -486,14 +486,16 @@ each .glb < 5 MB.
       burn), Pell learning to whittle on the stool (or "allowed to be cross a bit"), and **Aldous** on the Keepers' nine-
       hundred-year saying that the fog gives nothing back ("or it was only true while the Spire burned"). Gull-burn variants
       throughout. `test_word_on_the_water.gd` (9). Checkpoint `word_on_the_water`.
+- [x] [P] **Polish/debt pass eight** (Day 61): **`flag:x=a|b`** conditions (any of the values; validated per value;
+      Wenna's split seat/rake placements on Coll's Hearth merged back to one each); the validator reports **steps that
+      never play** (after an unconditional goto/end or a choice whose every option leaves); **`joint_witness` searches key by
+      key** (linear — the old product search gave up past 65 536 states and answered "exclusive"; tests 88 s → 69 s); the
+      **back hint** ([Esc]/[B]) follows the device in the journal, menus and lane map via `GameState.input_device_changed`
+      (fed by the root window's `window_input`). `test_polish_eight.gd` (6). Checks under 3 min (tests 69 s, smoke
+      65 s) — no split needed.
 
 ### Next up
-1. [P] **Day 61: polish/debt pass eight** (due by Day 62; last Day 54). Look for: the smoke walk's length and run time
-   (it now sails the lane map and walks most of Act II; split or trim if checks creep past ~3 min); the validator's
-   NPC-exclusivity check not knowing a flag's values follow from each other (Day 58's split rake placement); the
-   `ui_cancel` hint (Day 59); dialogue knots whose `goto hub` hides a later step (Day 60 found one by hand — the validator
-   could flag any step after an unconditional `goto`/`end`); any Known issues in the devlog.
-2. [C] **Next content** (due by ~Day 64; last Day 60). Candidates: **the lane on from Wrackholm** (Cindermoor is "past more
+1. [C] **Next content** (due by ~Day 64; last Day 60). Candidates: **the lane on from Wrackholm** (Cindermoor is "past more
    besides"; a Keeper met there should weigh `wrackholm_sworn`, `thornwold_lamp_name`, `saltmarrow_aldous_novice`,
    `saltmarrow_aldous_heard_walk_back`, `thornwold_far_shore=waiting` — the promise to tell the Spire — and, lightly,
    `thornwold_bend`). Keep mystery #2 shut: the seventh novice and the roll pay off on Cindermoor, not before; the coal's
@@ -501,31 +503,31 @@ each .glb < 5 MB.
    ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or
    the Lamp on Wenna's bend (or her charcoal). Next art-led session ~Day 63 (last Day 58): Wrackholm's empty bracket, the
    Teeth's broken water, the Saltmarrow dressing follow-ups #7 (Pell's "potato with opinions" gull on the crate?).
-3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
-   `Input.get_joy_name`); a resolution/scale option for windowed mode; the menu's "[Esc] back" hint following the pad.
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+   `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
+4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
    would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-7. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
+6. [A] Saltmarrow dressing follow-ups: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [S] Interaction polish: camera framing during dialogue; fade the
+7. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -580,7 +582,8 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 62 (Day 54 was the last). Candidates: the smoke walk only takes *The Far Shore*'s `up` (on the lit, boots path; `waiting`, carried and Hob's paths: `test_far_shore.gd`); the smoke walk only takes *The Northing*'s
+- Next polish/debt pass due by Day 69 (Day 61 was the last). Candidates: region validation is now the validator's cost
+  (~1.2 s of ~1.3 s per run; the woods ~0.2 s) — profile it if tests creep past ~90 s; the smoke walk only takes *The Far Shore*'s `up` (on the lit, boots path; `waiting`, carried and Hob's paths: `test_far_shore.gd`); the smoke walk only takes *The Northing*'s
   `lit` ending on the boots path (others: `test_the_northing.gd`); the smoke walk's `_check_gates` teleports into
   regions and would hold input if an ungated arrival event fired there (Day 53: the old road's event is gated on the
   Ridge Light, and the walk now arrives there first — keep new events gated on how the player gets in); the smoke walk only takes *The Walk Back*'s `stayed`
@@ -610,8 +613,8 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 57 (the bend in the road); next content due by Day 61.
-- Last polish/debt session: Day 54 (pass seven); next due by Day 62.
+- Last content session: Day 60 (Word on the Water); next content due by Day 64.
+- Last polish/debt session: Day 61 (pass eight); next due by Day 69.
 - Last systems session: Day 59 (the lane map); next due by ~Day 64 (the Greying v2 paths that fade, day/night, or the
   journal's Lanes tab).
 - Last art session: Day 58 (Wenna breaking out her clamp; Abe's pose). Next art-led session due ~Day 63: Wrackholm
