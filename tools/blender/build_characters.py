@@ -1672,6 +1672,89 @@ def _tolly(lantern: bool) -> None:
     assemble(b, "tolly")
 
 
+def build_provost() -> None:
+    """Agathe Lorn, Provost of Kindleby (Day 62): the most senior Keeper anyone can find since the
+    Snuffing. Tall and straight-backed in her sixties; a Keeper's long robe kept bone-white (the
+    only clean robe in the Lanternreach), a coal-red stole over the shoulders falling to the knees
+    (rank), the ember stitched bright and new on the breast; iron-grey hair drawn up in a tight
+    knot; a chain at the belt with one long iron key (the Vigil Light's). Her hands are folded in
+    front of her at the waist, one over the other: she is waiting, and she is good at it."""
+    reset_scene()
+    b = Body(build=0.92)
+    robe = material("bone", -0.08)
+    stole = material("coal", -0.3)
+    skin = material("driftwood", 0.12)
+    iron = material("ink", 0.18)
+    base_body(b, skin, robe, material("ink", 0.05), robe)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, 0.04), (0, 0, b.waist + 0.1), 0.34, 0.26, robe, verts=8))            # robe to the ground
+    t.append(limb((0, 0, 0.04), (0, 0, 0.1), 0.35, 0.35, material("bone", -0.2), verts=8))       # a darker hem
+    # The stole: over both shoulders and hanging in two bands down the front to the knees.
+    t.append(ring(0.2, b.shoulder + 0.0, 0.07, stole))
+    for x in (0.1, -0.1):
+        t.append(block((0.09, 0.03, 0.82), (x, -0.25, b.shoulder - 0.45), stole))
+        t.append(block((0.11, 0.035, 0.05), (x, -0.255, b.shoulder - 0.86), material("kindle", -0.3)))  # fringe
+    t.append(ring(0.265, b.waist + 0.04, 0.045, material("coal", -0.5)))                        # cord belt
+    # The ember, stitched bright and new, between the stole's bands.
+    t.append(block((0.09, 0.02, 0.09), (0, -0.255, b.shoulder - 0.2), material("ember", 0.1), rot=(0, math.radians(45), 0)))
+    t.append(block((0.035, 0.02, 0.09), (0, -0.255, b.shoulder - 0.1), material("ember", 0.1)))
+    # The key on its chain at the right hip.
+    t.append(limb((-0.24, -0.1, b.waist), (-0.26, -0.13, b.waist - 0.22), 0.012, 0.012, iron, verts=4))
+    t.append(limb((-0.26, -0.13, b.waist - 0.22), (-0.26, -0.13, b.waist - 0.38), 0.02, 0.016, iron, verts=4))
+    t.append(block((0.06, 0.02, 0.04), (-0.26, -0.13, b.waist - 0.4), iron))
+    h = b.parts["Head"]
+    hair = material("silverfog", -0.15)
+    h.append(ball(b.head_r * 1.04, (0, 0.02, b.head + 0.07), hair, scale=(1.04, 1.0, 0.74)))   # drawn back hard
+    h.append(ball(0.1, (0, 0.12, b.head + 0.24), hair, scale=(1.0, 0.9, 0.9)))                 # the knot, high
+    h.append(block((0.09, 0.02, 0.014), (0, -b.head_r * 0.93, b.head - 0.1), material("coal", -0.4)))  # a level mouth
+    # Hands folded in front at the waist.
+    b.arm_rest["ArmL"] = (math.radians(-38), 0, math.radians(-30))
+    b.arm_rest["ArmR"] = (math.radians(-34), 0, math.radians(32))
+    b.head_rest = (math.radians(-3), 0, 0)
+    assemble(b, "provost", scale=1.04)
+
+
+def build_tobin() -> None:
+    """Brother Tobin Ashe (Day 62), Kindleby's bell-porter and a candle-warden: a lay brother, Kindleby-born,
+    nineteen and never been to the Spire. Round-faced and quick, a shock of straw hair, a short brown lay
+    brother's robe belted up over breeches for the steps, sleeves pushed back, wax on his cuffs; a long
+    lighting taper on a pole in his right hand, its tip alight, and a tallow candle in his left."""
+    reset_scene()
+    b = Body(build=0.9)
+    robe = material("driftwood", -0.4)
+    skin = material("driftwood", 0.2)
+    wax = material("bone", 0.1)
+    base_body(b, skin, material("slate", -0.3), material("ink", 0.05), robe)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, 0.42), (0, 0, b.waist + 0.08), 0.31, 0.26, robe, verts=8))            # robe kirtled to the knee
+    t.append(ring(0.26, b.waist + 0.04, 0.05, material("driftwood", -0.15)))
+    t.append(block((0.07, 0.02, 0.07), (0, -0.25, b.shoulder - 0.18), material("ember", -0.25), rot=(0, math.radians(45), 0)))
+    for side in ("L", "R"):  # sleeves pushed back, wax on the cuffs
+        cuff = b.hand(side) + Vector((0, 0, 0.14))
+        b.parts["Arm" + side].append(limb(cuff, cuff + Vector((0, 0, 0.06)), 0.09, 0.09, wax, verts=6))
+    h = b.parts["Head"]
+    hair = material("kindle", -0.2)
+    h.append(ball(b.head_r * 1.05, (0, 0.04, b.head + 0.06), hair, scale=(1.05, 1.0, 0.75)))
+    for k in range(4):  # a shock of straw hair over the brow
+        a = (k - 1.5) * 0.09
+        h.append(block((0.07, 0.06, 0.05), (a, -0.18, b.head + 0.17 - abs(a) * 0.3), hair, rot=(0.4, 0, a)))
+    h.append(block((0.08, 0.02, 0.02), (0, -b.head_r * 0.94, b.head - 0.1), material("coal", -0.2)))  # a grin
+    # The lighting taper: a pole in the right hand, the wick end alight above his head, out in front.
+    hand = b.hand("R")
+    pole = material("driftwood", -0.2)
+    arm = b.parts["ArmR"]
+    top = hand + Vector((0, -0.12, 1.25))
+    arm.append(limb(hand + Vector((0, 0.02, -0.25)), top, 0.02, 0.016, pole, verts=5))
+    arm.append(limb(top, top + Vector((0, -0.02, 0.06)), 0.018, 0.0, material("ember", 0.1, emissive=True), verts=4))
+    # A tallow candle in the left hand.
+    lh = b.hand("L") + Vector((0, -0.06, 0.04))
+    b.parts["ArmL"].append(limb(lh, lh + Vector((0, 0, 0.2)), 0.035, 0.033, wax, verts=6))
+    b.arm_rest["ArmR"] = (math.radians(-18), 0, math.radians(-4))
+    b.arm_rest["ArmL"] = (math.radians(-40), 0, math.radians(-8))
+    b.head_rest = (math.radians(-6), 0, math.radians(-6))
+    assemble(b, "tobin", scale=0.97)
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
@@ -1680,7 +1763,7 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad,
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
-            build_tolly_lantern]
+            build_tolly_lantern, build_provost, build_tobin]
 
 if __name__ == "__main__":
     import sys
