@@ -6,6 +6,7 @@ extends RefCounted
 ## Terms (prefix any term with "!" to negate it):
 ##   flag:<id>                 flag is truthy
 ##   flag:<id>=<value>         str(flag) == value
+##   flag:<id>=<a>|<b>|…       str(flag) is any of the values (Day 61)
 ##   quest:<id>=<state>        state is inactive | active | done
 ##   stage:<quest_id>=<stage>  quest is active and currently at <stage>
 ##   item:<id>                 player has at least one
@@ -52,7 +53,10 @@ static func parse(term: String) -> Dictionary:
 		"flag":
 			if op == ">=":
 				return {"error": "condition '%s': flags support only '='" % term}
-	return {"negate": negate, "kind": kind, "id": rest, "op": op, "value": value}
+	var parsed := {"negate": negate, "kind": kind, "id": rest, "op": op, "value": value}
+	if kind == "flag" and op == "=":
+		parsed["values"] = Array(value.split("|"))
+	return parsed
 
 
 ## Normalizes a String / Array / null condition into an Array of terms.
@@ -84,7 +88,7 @@ static func _evaluate_term(term: String, state: WorldState) -> bool:
 	match p["kind"]:
 		"flag":
 			var v: Variant = state.get_flag(id, false)
-			result = str(v) == p["value"] if p["op"] == "=" else _truthy(v)
+			result = (p["values"] as Array).has(str(v)) if p["op"] == "=" else _truthy(v)
 		"quest":
 			result = state.quest_state(id) == p["value"]
 		"stage":
@@ -113,9 +117,9 @@ static func _truthy(v: Variant) -> bool:
 ## none of them names; each quest inactive, done, or active at each named stage
 ## (or another); each item at 0, 1 and every named count. Returns that state's assignments
 ## ({"flag:x": v, "quest:q": "active@stage", "item:i": n}), or {} if no such state exists.
-## Used by the validator to prove an NPC's placements never show two at once. Gives up (and
-## returns {}) past `max_states` combinations.
-static func joint_witness(conditions: Array, flag_defaults: Dictionary, flag_values: Dictionary = {}, max_states: int = 65536) -> Dictionary:
+## Used by the validator to prove an NPC's placements never show two at once. (Until Day 61 it
+## tried every combination and gave up past 65536 — answering "exclusive" — now it is linear.)
+static func joint_witness(conditions: Array, flag_defaults: Dictionary, flag_values: Dictionary = {}) -> Dictionary:
 	var domains: Dictionary = {}  # "kind:id" -> Array of candidate values
 	for condition: Variant in conditions:
 		for term in terms(condition):
@@ -131,8 +135,10 @@ static func joint_witness(conditions: Array, flag_defaults: Dictionary, flag_val
 						continue
 					if not domains.has(key):
 						domains[key] = [flag_defaults.get(id, false), true, false, "\u0001other"]
-					if p["op"] == "=" and not (domains[key] as Array).has(p["value"]):
-						(domains[key] as Array).append(p["value"])
+					if p["op"] == "=":
+						for value: String in p["values"]:
+							if not (domains[key] as Array).has(value):
+								(domains[key] as Array).append(value)
 				"quest", "stage":
 					var key := "quest:" + id
 					if not domains.has(key):
@@ -145,34 +151,39 @@ static func joint_witness(conditions: Array, flag_defaults: Dictionary, flag_val
 						domains[key] = [0, 1]
 					if p["op"] == ">=" and not (domains[key] as Array).has(int(p["value"])):
 						(domains[key] as Array).append(int(p["value"]))
-	var keys: Array = domains.keys()
-	var total := 1
-	for key: String in keys:
-		total *= (domains[key] as Array).size()
-		if total > max_states:
-			push_warning("joint_witness: too many states to search (%s…)" % ", ".join(PackedStringArray(keys)))
-			return {}
+	# Every term reads one key, so the conditions (all ANDed) hold together exactly when each
+	# key has a value that satisfies every term on it: search key by key, not the product.
+	var terms_by_key: Dictionary = {}
+	for condition: Variant in conditions:
+		for term in terms(condition):
+			var p := parse(term)
+			var key: String = ("quest:" if p["kind"] == "stage" else p["kind"] + ":") + str(p["id"])
+			if not terms_by_key.has(key):
+				terms_by_key[key] = []
+			(terms_by_key[key] as Array).append(term)
+	var assignment: Dictionary = {}
 	var state := WorldState.new()
-	for n in total:
-		var assignment: Dictionary = {}
-		var rest := n
-		state.flags.clear()
-		state.quests.clear()
-		state.inventory.clear()
-		for key: String in keys:
-			var domain: Array = domains[key]
-			var value: Variant = domain[rest % domain.size()]
-			rest /= domain.size()
-			assignment[key] = value
-			var id := key.substr(key.find(":") + 1)
-			if key.begins_with("flag:"):
-				state.flags[id] = value
-			elif key.begins_with("quest:"):
-				var s := str(value)
-				state.quests[id] = {"state": s.get_slice("@", 0), "stage": s.get_slice("@", 1)} if s.begins_with("active@") \
-						else {"state": s, "stage": ""}
-			else:
-				state.inventory[id] = value
-		if conditions.all(func(c: Variant) -> bool: return evaluate(c, state)):
-			return assignment
-	return {}
+	for key: String in domains:
+		var found := false
+		for value: Variant in domains[key]:
+			_assign(state, key, value)
+			if (terms_by_key.get(key, []) as Array).all(func(t: String) -> bool: return _evaluate_term(t, state)):
+				assignment[key] = value
+				found = true
+				break
+		if not found:
+			return {}
+	return assignment
+
+
+## Sets one joint_witness key ("flag:x", "quest:q" as "active@stage", "item:i") on `state`.
+static func _assign(state: WorldState, key: String, value: Variant) -> void:
+	var id := key.substr(key.find(":") + 1)
+	if key.begins_with("flag:"):
+		state.flags[id] = value
+	elif key.begins_with("quest:"):
+		var s := str(value)
+		state.quests[id] = {"state": s.get_slice("@", 0), "stage": s.get_slice("@", 1)} if s.begins_with("active@") \
+				else {"state": s, "stage": ""}
+	else:
+		state.inventory[id] = value

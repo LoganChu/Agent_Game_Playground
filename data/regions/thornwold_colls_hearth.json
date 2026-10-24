@@ -831,25 +831,10 @@
       "rotation_y": -60,
       "if": [
         "flag:thornwold_far_shore=up",
-        "flag:thornwold_bend=road",
+        "flag:thornwold_bend=road|hearth",
         "!flag:thornwold_bend_breaking_out"
       ],
-      "note": "On her own hut's seat, the fire in behind her, the bend's lantern down the ruts."
-    },
-    {
-      "npc": "wenna_coll",
-      "position": [
-        1.75,
-        0,
-        -1.7
-      ],
-      "rotation_y": -60,
-      "if": [
-        "flag:thornwold_far_shore=up",
-        "flag:thornwold_bend=hearth",
-        "!flag:thornwold_bend_breaking_out"
-      ],
-      "note": "On her own hut's seat under her own light."
+      "note": "On her own hut's seat, the fire in behind her: the bend's lantern down the ruts ('road') or her own light by the door ('hearth')."
     },
     {
       "npc": "wenna_coll",
@@ -863,24 +848,7 @@
       "idle": "breathe",
       "if": [
         "flag:thornwold_far_shore=up",
-        "flag:thornwold_bend=road",
-        "flag:thornwold_bend_breaking_out"
-      ],
-      "note": "At her clamp's open front with the rake, stooped into it, breaking it out a sack at a time."
-    },
-    {
-      "npc": "wenna_coll",
-      "position": [
-        7.4,
-        0,
-        0.9
-      ],
-      "rotation_y": 75,
-      "model": "res://assets/models/characters/wenna_coll_rake.glb",
-      "idle": "breathe",
-      "if": [
-        "flag:thornwold_far_shore=up",
-        "flag:thornwold_bend=hearth",
+        "flag:thornwold_bend=road|hearth",
         "flag:thornwold_bend_breaking_out"
       ],
       "note": "At her clamp's open front with the rake, stooped into it, breaking it out a sack at a time."
