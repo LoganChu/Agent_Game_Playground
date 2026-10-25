@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-25 21:00 UTC — Day 64: Kindleby, part two — the chapter sits, and Kindleby's burning (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale local `main` again;
+  reset `main` to `origin/main` (Day 63's `91bb6f5`). Baseline green (446 tests + smoke + launch).
+- **Content (due ~Day 64-65; last Day 62):** ROADMAP *Next up* #1, Kindleby part two, and its burning in the same
+  session (paying off *A Light for Kindleby* rather than leaving a fifth quest hanging; the quest is no longer `future`).
+  - **What lets the chapter sit.** At `the_chapter`, Tobin ("Why can't the chapter just sit?") all but says it and
+    stops himself ("No. Listen to me. That's yours."); the Provost takes the offer ("...It could. Couldn't it.") and sends
+    the Wakebearer to the crown (`hold_the_ring`). Refused the rite? "You'll keep the door for it to sit. I don't
+    understand you, Wakebearer. Thank you."
+  - **The hour on the crown** (`vigil_door`'s `hold`): the bell once; a sister pinches out her taper; everyone goes in,
+    Tobin last, running; the candles gutter in gaps round the ring — and **the fog doesn't come**. If the Provost was
+    told of the Northing's stage, two sisters run **the skiff north** (`kindleby_skiff_north`; the prop leaves the
+    shingle). Then old **Brother Anselm** (Day 63's brother with the tallow tray) walks into the fog to his shoulders with
+    the bow lantern of the first boat over from Cindermoor and comes back crying: **the Boats' Lantern**, the chapter's
+    choice — *Kindleby can spare a night*. The Provost unlocks the Vigil Light (`feed_the_light`, `kindleby_ring_held`).
+  - **What the chapter weighed** (Provost): the Long Book (no), the candles (no), the boats' night (yes); told it's the
+    only night anybody there saw what happened at the Spire — "Is it? They've never said. ...I never asked them."
+  - **Tobin's coal-pan:** the Spire's little iron pan for a called-up brother, his name in the lid, the letter inside; he
+    held it past the wall every turn to stop wanting a dark Spire. "Choose me. Not their night. Mine's only mine."
+    (carry / keep; handed back after if unburned).
+  - **The burning** (`kindleby_beacon_burned` `boats` / `pan`) × `kindleby_rite`: bowed+boats "Done properly. Once.";
+    refused+boats "You chose as the chapter chose"; bowed+pan "the rite was kept, and broken, the same night"; refused+pan
+    Tobin asking why he'd been crying. After: the Provost can't say how the old Hushed came to the Quiet House; Anselm
+    looks at the sea not knowing what for; Tobin (pan) has "always kept candles"; Oda remembers the boats rowing past her
+    ("I'll not tell them. It won't stick."). As the boats burn, **a face up the steps the Wakebearer almost knows**
+    (mystery #2 hook). Fog leans back past the wall, light warms, the port's `lit` now reads the flag; the candles go on.
+- **Art:** `vigil_light_lit` (`build_kindleby.py` builders are now a dict like Wrackholm's): horn glowing, fire in the
+  cradle, the door open on a dark stair; halo + light + fire sound in the lantern room. **Fixed:** the finial's ember
+  floated a metre in front of the cap since Day 62 — it now sits on the finial (both models); the dressing bounds test
+  gives the Vigil Light the beacons' height allowance.
+- **Tests:** `test_kindleby_chapter.gd` (7). `test_audio` counts five beacon kindles; `test_kindleby_art` counts the lit
+  light's halo. **Smoke walk** offers the ember, holds the ring and burns the boats before sailing home. 453 tests +
+  smoke + launch pass. Checkpoint **`kindleby_lit`**; `kindleby` re-shot (the finial).
+
+Screenshots (`docs/screenshots/2026-10-25-pm-*.png`): `on-the-crown` (holding the ring), `the-vigil-light-lit`;
+`docs/checkpoints/kindleby_lit.png`.
+
+**Decisions**
+- **The Wakebearer is outside while the chapter chooses for them.** The rite is "one who chooses, so that others
+  needn't"; making the player hold the door — literally keeping the fog off the room they're shut out of — is the scene's
+  point, whichever way they answered the rite. Bowing doesn't lock the choice at the cradle: the player can still burn
+  Tobin's pan, and the Provost's line records the rite "kept and broken".
+- **The chapter chooses its own witnesses' night.** Foreshadows mystery #1 (the order choosing what's forgotten for
+  nine hundred years) without a word of explanation; the Provost "never asked them". If burned, Kindleby can never tell
+  anyone what the old ones saw at the Spire; if not, it stays a door for Act III.
+- **Brother Anselm named** (the Day 63 figure) but not made an NPC: he's a figure on the wall, so his story is told by
+  others; talkable later if needed.
+- **The skiff only leaves**; its arrival on the far shore (the colliers, Abe/Tolly) is the next content session's, so
+  `kindleby_skiff_north` is `future`. `kindleby_ring_held` is `future` too (a Keeper met later should know).
+
+**Problems / notes**
+- None blocking. `--only=` isn't a test-runner option (it ran the full suite); fine at ~60 s.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — a **systems** session (due ~Day 65-66; last Day 59): the lane map as a journal tab is the
+   best-sized pick. Polish pass nine by Day 69; content (the skiff on the far shore, Aldous and the Provost's boat, then
+   planning Act II's close) ~Day 66-67. Fetch and reset `main` before trusting it.
+
 ## 2026-10-25 09:00 UTC — Day 63: Kindleby's art pass (art)
 
 **Did**

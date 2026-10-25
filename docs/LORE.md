@@ -1065,7 +1065,7 @@ debts, salvage, and who answers for a thing.
       on her seat (`thornwold_bend_breaking_out`).
     - Open (small, not chased): the bend's lost north end under the ridge.
 
-### 5. Kindleby (Act II — begun Day 62)
+### 5. Kindleby (Act II — Day 62; lit Day 64)
 The Keepers' **mother-house**, south-about from Wrackholm down **the Taper** (Keepers' water, named for their long thin
 candles: "like steering down a wick"; a day and a night). Keepers say the Kindling was lit here and rowed out to Cindermoor
 in an open boat nine hundred years ago (their saying; not confirmed). Oda has put in four times in thirty-eight years,
@@ -1100,14 +1100,48 @@ its light is **the Vigil Light**.
   keep the Hushed." Shutters and door **barred from outside**; only the Provost and the old brothers go in, with meals,
   and put the bar back after. The Wakebearer may not go in ("They've had enough of other people's light"). At night they
   **hum — several voices, close, not quite the same tune** (a faint echo of the Hollow Choir rumor). *(Foreshadows
-  mysteries #1 and #3. Do not explain; do not open the door before Kindleby's burning is written.)*
+  mysteries #1 and #3. Do not explain; do not open the door before Kindleby's burning is written. Day 64: the burning is written and the door
+  stays shut; it stops humming as the Vigil Light catches, then starts again.)*
 - **The far shore's promise kept:** if the colliers waited on the Northing's stage (`thornwold_far_shore=waiting`), the
   Wakebearer can tell the Provost — "There is no Spire to tell. There's me. Very well: you've told the Spire." When the
   chapter sits she'll put it to them that **the chapter's skiff** (drawn up by the quay, the boat that took oil and meal to
   the Northing's stage once a month) goes north with oil, meal and a lantern (`kindleby_told_of_stage`).
 - The story on the Tidewright decks that "Keepers put the Spire out" (`wrackholm_who_answered=keepers`) has reached her:
   "Stories like that get people drowned."
-- Open: what the chapter chooses and whether the Wakebearer carries it; the Quiet House; the Long Book; the skiff north.
+- **The chapter sits (Day 64).** It can't while anyone is on the candles, so the Wakebearer offers the ember to hold the
+  ring (Tobin all but says it first: "No. Listen to me. That's yours."). For an hour the Wakebearer stands on the crown by
+  the Vigil Light while every brother and sister goes into the chapter-house and the candles gutter; **the fog does not
+  come** — the ember alone holds all of Kindleby, as far as the ring ever did and a little further (`kindleby_ring_held`).
+  If the Provost was told of the Northing's stage, **two sisters run the skiff north** with oil, meal and a lantern while
+  the chapter sits (`kindleby_skiff_north`; its landing on the far shore is still to write).
+- **What the chapter weighed:** the Long Book ("a name in it is all some of them have left": no), the candles (forget the
+  vigil and the fog's at the door by morning: no), and **the night the boats came** — chosen. "The old ones don't sleep...
+  Kindleby can spare a night." Told it was the only night anybody there saw what happened at the Spire: "Is it? They've
+  never said. ...I never asked them." *(Mystery #1: the order choosing to forget its own witnesses. Do not explain.)*
+- **Brother Anselm**, the old brother on the wall (Day 63's figure with the tray of tallow), **rowed the first boat over
+  from Cindermoor** the night of the Snuffing. He carried its bow lantern out past the wall into the fog to his shoulders
+  until it went cold and silver: **the Boats' Lantern**, a Remnant made on purpose (the lanterns on the quay, every face up
+  the steps, and whatever they saw and never say). He has not slept a night through since.
+- **Tobin's coal-pan:** the Spire sends a little iron coal-pan in the autumn to whoever it will call up at midwinter, the
+  letter folded inside. Tobin held his out past the wall on every turn since the Snuffing, to stop wanting a Spire that's
+  dark; he offers it to the Wakebearer instead of "their night. Mine's only mine."
+- **Kindleby's burning (`kindleby_beacon_burned`):** the Provost unlocks the Vigil Light herself and doesn't go up ("Nobody
+  chose that I should").
+  - **`boats`** — Kindleby's night of the boats is gone, for everyone on the island: the old ones sleep; nobody remembers how
+    they came over or what from; the Provost "couldn't tell you" how the old Hushed came to the Quiet House ("We've always
+    kept the Hushed"); Anselm goes down to the quay of an evening and looks at the water, not knowing what for. Oda, an
+    off-islander, saw the boats row past her all night off the Taper the week of the Snuffing; "I'll not tell them. It
+    won't stick." As it burns, the Wakebearer sees **a face turned up the steps toward them that they almost know**
+    *(mystery #2 hook, Day 64: someone who came over in the boats knew the novice. Do not explain.)*
+  - **`pan`** — Tobin was never called; he'll keep candles all his life and not think to go if the Spire is lit again ("I've
+    always kept candles. I like it. You can count them"). The old ones still don't sleep.
+  - **The rite kept or broken:** bowed + boats: "Done properly. Once." Refused + boats: "You chose as the chapter chose. I'll
+    not ask whether you meant to." Bowed + pan: the chapter will write that **the rite was kept and broken the same night**
+    ("We write everything down"). Refused + pan: Tobin asked her why he'd been crying.
+  - Either way the fog leans back off the island and the Taper's channel shows plain; the Quiet House stops humming, then
+    starts again; and **the candles go on** — nobody has thought to stop lighting them. "Five lights. The Spire next, I
+    suppose, and the chapter can't sit for that one. There's nobody there to hold the door."
+- Open: the skiff on the far shore; the Quiet House; the Long Book; what Anselm and the old ones saw (burned, or kept).
 
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
@@ -1126,7 +1160,7 @@ its light is **the Vigil Light**.
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
    Keepers quietly feeding it the memories of the Hushed. Oriel could not continue it.
-2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
+2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche. Day 64 hook: a face up Kindleby's steps the Wakebearer almost knows, in the Boats' Lantern as it burns.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —

@@ -501,43 +501,59 @@ each .glb < 5 MB.
       (`keeper_sister`, `keeper_brother`). Fixed: Day 62's stone embers (door, Vigil Light) floated metres off their doors
       (`_diamond`). `test_kindleby_art.gd` (4). Checkpoint `kindleby` refreshed.
 
+- [x] [C] **Kindleby, part two: the chapter sits, and Kindleby's burning** (Day 64): Tobin all but says it, the
+      Wakebearer offers — **the ember holds the ring** from the crown for an hour while every Keeper sits and the candles
+      gutter; the chapter chooses **the night of the boats** and old **Brother Anselm** carries the bow lantern of the first
+      boat over into the fog (**the Boats' Lantern**); the skiff goes north if the Provost was told of the stage
+      (`kindleby_skiff_north`); **Tobin's coal-pan** offered instead ("Mine's only mine"); the Provost unlocks the Vigil
+      Light. The burning (`kindleby_beacon_burned` boats / pan) × the rite (bowed / refused): kept, chosen alike, or "kept,
+      and broken, the same night"; the island after (Provost, Tobin, Oda, the Quiet House, the candles going on). Blender
+      `vigil_light_lit` (and the finial's floating ember fixed). The port's `lit` reads the flag. `test_kindleby_chapter.gd`
+      (7); the smoke walk holds the ring and burns the boats. Checkpoint `kindleby_lit`.
+
 ### Next up
-1. [C] **Kindleby, part two** (content due ~Day 64-65; last content Day 62): **the chapter sits** — what lets it (the candles can't be left; the
-   Wakebearer's ember could hold the ring while they sit?), what it chooses for the Vigil Light and how `kindleby_rite`
-   (bowed / refused / '') plays at the top of the stair; then **Kindleby's burning** (switch the port's `lit` to a
-   `kindleby_beacon_burned` flag then). Keep shut: the Quiet House (barred, humming — mysteries #1/#3), the order's word
-   "the Firstflame failed", the Long Book; mystery #2's roll stays on Cindermoor. Pay off the skiff north to the Northing's
-   stage (`kindleby_told_of_stage`) when the chapter sits. Small follow-ups still open: the `stayed` ending's walk home (by
-   oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or the Lamp on Wenna's
-   bend; Aldous told the Provost would send a boat for him (`kindleby_provost_heard_aldous`).
-2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+1. [S] **A systems session** (due ~Day 65-66; last systems Day 59): the best-sized candidate is **the chart in the
+   journal** — a read-only "Lanes" tab showing the lane map (lit/unsailed/closed, where the Slow Mercy lies) so the player
+   can look without finding Oda (follow-up from Day 59). Alternatives: the Greying v2's ember pushing fog back in a small
+   radius round the player; gamepad rebinding.
+2. [P] **Polish/debt pass nine** (due by Day 69; last Day 61) — see *Known issues* for candidates (the smoke walk only
+   takes Kindleby's `boats` burn on the bowed path: the others are `test_kindleby_chapter.gd`).
+3. [C] **Content after Kindleby** (due ~Day 66-67): pay off **the skiff north** — it reaches the Northing's stage
+   (`kindleby_skiff_north`, `future`): the waiting colliers and the far shore's boat-stage (Abe, Tolly), brought to
+   Kindleby or home along the old road; **Aldous told the Provost would send a boat for him**
+   (`kindleby_provost_heard_aldous`) — his answer on his bench. Then plan **Act II's close**: five lights lit round
+   Cindermoor; what opens the lane in (LORE: lanes never cross to Cindermoor "while the lights between are dark"), the
+   player-memory Remnants system (mystery #2), and a Keeper met later who knows the Wakebearer held Kindleby's door
+   (`kindleby_ring_held`, `future`). Small follow-ups still open: the `stayed` ending's walk home (by oar, waving at the
+   Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or the Lamp on Wenna's bend.
+4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+5. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+7. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
    would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-6. [A] **Dressing follow-ups** (next art-led session due ~Day 68; last Day 63): Kindleby — the Quiet House's step
+8. [A] **Dressing follow-ups** (next art-led session due ~Day 68; last Day 63): Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
    walks off; Wrackholm's empty bracket; the Teeth's broken water; Pell's "potato with opinions" gull on the crate.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-7. [S] Interaction polish: camera framing during dialogue; fade the
+9. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -558,7 +574,8 @@ each .glb < 5 MB.
 - [C] Glasswater Fen (Unmoored), the right-to-forget storyline; Dunstan Tollen. Begun Day 29 (the staithe, Stillhithe, Hesper, Corran, the letting post); Day 33 out to the Heron's legs (Dunstan glimpsed); Day 35 the Heron's burn (lit); Day 37 Dunstan found (his walk back for his name later); Day 40 the lane on to Wrackholm.
 - [C] Wrackholm (the Tidewrights' island: what's owed). Begun Day 40 (the yard, the lane-house, Wenna, Jory, the Gannet's crew); Day 42 the Teeth (the white, the tide, the Wrack's lantern room); Day 43 the Wrack's burning, the horn, the Book, the oath; Day 45 the Lamp's name carried home (Thornwold). Open: the Book's last line (mystery #2); the empty bracket (the Gannet's timber, a year and a tide on).
 - [C] **Kindleby** (the Keepers' mother-house, south-about from Wrackholm down the Taper). Begun Day 62 (the candle ring,
-  Brother Tobin, Provost Agathe Lorn and the rite, the Quiet House, the Vigil Light dark; *A Light for Kindleby* to `the_chapter`).
+  Brother Tobin, Provost Agathe Lorn and the rite, the Quiet House, the Vigil Light dark; *A Light for Kindleby* to `the_chapter`);
+  Day 64 the chapter sits (the ember holds the ring) and Kindleby's burning (the boats' night / Tobin's calling). Open: the skiff north.
 - [S] Day/night cycle & tides; NPC schedules. (Day 42: Wrackholm's tide is a story flag, `wrackholm_tide`, waited
   down at the spit; a real tide system should drive it and keep '' / `low` as its values.)
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
@@ -594,7 +611,8 @@ each .glb < 5 MB.
 - The smoke test's menu walk always burns whichever Remnant is listed first (Act I: currently the
   knot; Thornwold: Hob's boots — it meets Hob before Bram); the other burn paths are covered by
   `test_burning.gd` / `test_thornwold_burning.gd` unit tests only.
-- Next polish/debt pass due by Day 69 (Day 61 was the last). Candidates: region validation is now the validator's cost
+- Next polish/debt pass due by Day 69 (Day 61 was the last). Candidates: the smoke walk only takes Kindleby's `boats` burn,
+  bowed (others: `test_kindleby_chapter.gd`); region validation is now the validator's cost
   (~1.2 s of ~1.3 s per run; the woods ~0.2 s) — profile it if tests creep past ~90 s; the smoke walk only takes *The Far Shore*'s `up` (on the lit, boots path; `waiting`, carried and Hob's paths: `test_far_shore.gd`); the smoke walk only takes *The Northing*'s
   `lit` ending on the boots path (others: `test_the_northing.gd`); the smoke walk's `_check_gates` teleports into
   regions and would hold input if an ungated arrival event fired there (Day 53: the old road's event is gated on the
