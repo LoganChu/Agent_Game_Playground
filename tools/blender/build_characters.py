@@ -1755,6 +1755,96 @@ def build_tobin() -> None:
     assemble(b, "tobin", scale=0.97)
 
 
+def _keeper_robe(b: Body, robe, hem, skirt_part: str = "Torso") -> None:
+    """A Kindleby Keeper's everyday robe: long, undyed grey-white wool to the ground, a darker hem, a cord
+    belt and the ember stitched on the breast (worn, but not faded like Aldous's)."""
+    t = b.parts["Torso"]
+    skirt = b.parts[skirt_part]
+    skirt.append(limb((0, 0, 0.04), (0, 0, b.waist + (0.0 if skirt_part != "Torso" else 0.1)), 0.33, 0.26, robe, verts=8))
+    skirt.append(limb((0, 0, 0.04), (0, 0, 0.12), 0.34, 0.34, hem, verts=8))
+    if skirt_part != "Torso":
+        t.append(limb((0, 0, b.waist - 0.06), (0, 0, b.waist + 0.08), 0.27, 0.26, robe, verts=8))
+    t.append(ring(0.27, b.waist + 0.04, 0.045, material("driftwood", -0.3)))
+    t.append(block((0.075, 0.02, 0.075), (0, -0.25, b.shoulder - 0.18), material("ember", -0.15), rot=(0, math.radians(45), 0)))
+
+
+def build_keeper_sister() -> None:
+    """A sister on the candles at Kindleby (Day 63, set dressing): one of the brothers and sisters who keep
+    forty lit each, turn and turn, round the sea wall. Grey robe and the hood up against the damp off the
+    fog; stooped from the waist over the wall with her lighting taper out in the right hand, its lit tip
+    down to a guttering wick; a bundle of fresh candles tied with twine in the crook of her left arm. The
+    taper is a static extra (the Stool part) so its tip stays on the wick while she breathes."""
+    reset_scene()
+    b = Body(build=0.9, crouch=0.03)
+    robe, hem = material("bone", -0.3), material("bone", -0.45)
+    skin = material("driftwood", 0.15)
+    wax = material("bone", 0.1)
+    base_body(b, skin, robe, material("ink", 0.05), robe)
+    _keeper_robe(b, robe, hem, skirt_part="LegL")
+    h = b.parts["Head"]
+    h.append(ball(0.285, (0, 0.07, b.head + 0.04), robe, scale=(1.02, 1.0, 1.02)))           # the hood up
+    h.append(block((0.42, 0.06, 0.07), (0, -0.18, b.head + 0.2), material("bone", -0.38)))    # its brow
+    b.parts["Torso"].append(ball(0.33, (0, 0.05, b.shoulder - 0.04), robe, scale=(1.0, 0.85, 0.5)))  # hood's cape
+    b.torso_rest = (math.radians(22), 0, 0)
+    b.head_rest = (math.radians(6), 0, 0)  # looking down at the wick
+    hand = Vector((-0.16, -0.5, 0.86))
+    _bent_arm(b, "R", hand, Vector((-1.0, 0.3, -0.2)), robe, robe, skin)
+    # The taper: butt by the hip, through the hand, the lit tip forward and down to the wall top.
+    tip = Vector((-0.12, -0.98, 0.7))
+    along = (tip - hand).normalized()
+    butt = hand - along * 0.45
+    pole = material("driftwood", -0.2)
+    s = b.parts["Stool"]
+    s.append(limb(butt, tip, 0.016, 0.012, pole, verts=5))
+    s.append(limb(tip, tip + along * 0.05, 0.014, 0.0, material("ember", 0.1, emissive=True), verts=4))
+    # A bundle of fresh candles in the crook of the left arm.
+    lh = Vector((0.14, -0.34, 0.98))
+    _bent_arm(b, "L", lh, Vector((1.0, 0.2, -0.3)), robe, robe, skin)
+    for k in range(5):
+        x = 0.06 + (k % 3) * 0.035
+        z = 1.0 + (k // 3) * 0.035
+        b.parts["Torso"].append(limb((x, -0.3, z), (x + 0.2, -0.36, z + 0.06), 0.017, 0.017, wax, verts=5))
+    b.parts["Torso"].append(limb((0.15, -0.31, 1.0), (0.15, -0.31, 1.06), 0.06, 0.06, material("driftwood", -0.1), verts=6))
+    assemble(b, "keeper_sister", scale=0.98)
+
+
+def build_keeper_brother() -> None:
+    """An old brother on the candles at Kindleby (Day 63, set dressing): bald on top with a white fringe and
+    a short white beard, the same grey robe, carrying a shallow wooden tray of new tallow candles in both
+    hands at his waist down the wall to whoever's turn it is. Half a dozen old Keepers like him came over
+    in the boats; Tobin says the old brothers go in to the Quiet House with meals."""
+    reset_scene()
+    b = Body(build=0.95)
+    robe, hem = material("bone", -0.34), material("bone", -0.48)
+    skin = material("driftwood", 0.05)
+    wax = material("bone", 0.1)
+    base_body(b, skin, robe, material("ink", 0.05), robe)
+    _keeper_robe(b, robe, hem)
+    h = b.parts["Head"]
+    white = material("bone", 0.05)
+    h.append(ball(b.head_r * 1.03, (0, 0.06, b.head - 0.02), white, scale=(1.04, 0.95, 0.62)))  # the fringe, round the back
+    h.append(ball(0.13, (0, -0.13, b.head - 0.17), white, scale=(1.15, 0.75, 0.85)))            # a short white beard, under the chin
+    for ex in (0.075, -0.075):
+        h.append(block((0.08, 0.03, 0.025), (ex, -0.215, b.head + 0.075), white))                 # white brows
+    # The tray, carried level in front at the waist; candles lying in it in two rows.
+    tray = material("driftwood", -0.35)
+    for side, x in (("L", 0.2), ("R", -0.2)):
+        _bent_arm(b, side, Vector((x, -0.34, b.waist + 0.22)), Vector((1.0 if side == "L" else -1.0, 0.4, -0.3)), robe, robe, skin)
+    t = b.parts["Torso"]
+    z = b.waist + 0.2
+    t.append(block((0.5, 0.3, 0.03), (0, -0.4, z), tray))
+    for y in (-0.27, -0.53):
+        t.append(block((0.52, 0.025, 0.07), (0, y, z + 0.035), tray))
+    for x in (-0.25, 0.25):
+        t.append(block((0.025, 0.28, 0.07), (x, -0.4, z + 0.035), tray))
+    for row, y in enumerate((-0.33, -0.43)):
+        for k in range(5):
+            x = -0.17 + k * 0.085
+            t.append(limb((x, y + row * 0.0, z + 0.035), (x, y - 0.1, z + 0.035), 0.016, 0.016, wax, verts=5))
+    b.head_rest = (math.radians(4), 0, math.radians(-4))
+    assemble(b, "keeper_brother", scale=0.96)
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
@@ -1763,7 +1853,7 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad,
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
-            build_tolly_lantern, build_provost, build_tobin]
+            build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother]
 
 if __name__ == "__main__":
     import sys
