@@ -7,7 +7,7 @@ blow), the **quiet_house** (a small stone house by the water, its shutters barre
 
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_kindleby.py
-    .tools/bin/blender-py tools/blender/build_kindleby.py [chapter_house candle_ledge vigil_bell quiet_house vigil_light]
+    .tools/bin/blender-py tools/blender/build_kindleby.py [chapter_house candle_ledge vigil_bell quiet_house vigil_light vigil_light_lit]
 
 Same conventions as build_dressing/build_bend: origin at the base centre, flat-shaded, palette colours
 and tonal shades, Blender -Y = Godot +Z = the front, merged by material.
@@ -227,12 +227,16 @@ def build_quiet_house() -> None:
     bd.export("quiet_house")
 
 
-def build_vigil_light() -> None:
+def build_vigil_light(lit: bool = False) -> None:
     """Kindleby's beacon, the Vigil Light (~2.8 m square, 6.6 m to the finial): a squat square tower of
     the island's pale dressed stone, battered at the foot, an iron-banded door on the front (-Y) with
     the Keepers' ember cut over it, a ring of candle niches round the base (all lit: the Keepers keep
     their vigil even here), and a lantern room of horn panes in an iron frame under a slate cap. The
-    cradle inside is cold; the horn is dull."""
+    cradle inside is cold; the horn is dull.
+
+    `lit` (Day 64, `vigil_light_lit`, after Kindleby's burning): the horn glows gold, a fire stands in
+    the cradle (coals, ember tongues, a kindle heart, as at the Wrack), and the door stands open on the
+    dark stair."""
     bd.reset()
     rng = random.Random(624)
     STONE = (mat("bone", -0.2), mat("bone", -0.3), mat("bone", -0.12))
@@ -250,17 +254,32 @@ def build_vigil_light() -> None:
     for side in range(4):
         a = side * math.pi / 2
         cx, cy = math.cos(a) * 0.8, math.sin(a) * 0.8
-        box("Horn", (0.08 if abs(cx) > 0.1 else 1.5, 1.5 if abs(cx) > 0.1 else 0.08, 1.0), (cx, cy, 4.62), mat("silverfog", -0.35), 0)
+        pane = bd.horn("kindle", 0.3, glow=0.35) if lit else mat("silverfog", -0.35)
+        box("Horn", (0.08 if abs(cx) > 0.1 else 1.5, 1.5 if abs(cx) > 0.1 else 0.08, 1.0), (cx, cy, 4.62), pane, 0)
     cyl("Cradle", 0.35, 0.45, 0.3, 6, (0, 0, 4.6), IRON)
+    if lit:
+        # The fire in the cradle, seen through the horn.
+        cyl("Coals", 0.3, 0.22, 0.12, 7, (0, 0, 4.88), mat("coal", 0.0, emissive=True))
+        for k in range(6):
+            a = k / 6 * math.tau + 0.2
+            r = 0.12 + 0.04 * (k % 2)
+            h = 0.4 + 0.1 * ((k * 3) % 5) / 4
+            tongue = cyl("Tongue", 0.1, 0.0, h, 4, (math.cos(a) * r, math.sin(a) * r, 4.96), mat("ember", 0.0, emissive=True), a)
+            tongue.rotation_euler = (math.sin(a) * 0.22, -math.cos(a) * 0.22, 0)
+        cyl("Heart", 0.1, 0.0, 0.6, 5, (0, 0, 4.96), mat("kindle", 0.0, emissive=True))
     cyl("Cap", 1.45, 0.15, 0.8, 4, (0, 0, 5.7), mat("slate", -0.3), math.radians(45))
     rod("Finial", (0, 0, 6.45), (0, 0, 6.85), 0.04, IRON)
-    box("Ember", (0.2, 0.06, 0.2), (0, -1.0, 6.62), mat("ember", -0.4))
+    _diamond("Ember", (0.2, 0.06, 0.2), (0, 0, 6.83), mat("ember", -0.4))  # on the finial (Day 64: it hung 1 m off the cap)
     # Door and the ember over it.
     box("DoorFrame", (1.0, 0.1, 1.95), (0, -1.22, 0.8), STONE[2])
-    box("Door", (0.75, 0.1, 1.7), (0, -1.26, 0.8), WOOD)
-    for z in (1.2, 2.0):
-        beam("Band", (-0.36, -1.32, z), (0.36, -1.32, z), 0.05, IRON)
-    box("Lock", (0.1, 0.06, 0.14), (0.25, -1.34, 1.5), IRON)
+    if lit:
+        # Open: the door swung in out of sight, the dark of the stair in the doorway.
+        box("Doorway", (0.75, 0.06, 1.7), (0, -1.28, 0.8), mat("ink", -0.6))  # proud of the frame, where the door stood
+    else:
+        box("Door", (0.75, 0.1, 1.7), (0, -1.26, 0.8), WOOD)
+        for z in (1.2, 2.0):
+            beam("Band", (-0.36, -1.32, z), (0.36, -1.32, z), 0.05, IRON)
+        box("Lock", (0.1, 0.06, 0.14), (0.25, -1.34, 1.5), IRON)
     _diamond("Sigil", (0.22, 0.06, 0.22), (0, -1.24, 2.95), mat("ember", -0.35))
     # Candle niches round the batter: the vigil kept even at the dark light.
     for k in range(10):
@@ -270,13 +289,20 @@ def build_vigil_light() -> None:
         r = 1.95
         x, y = math.cos(a) * r, math.sin(a) * r
         _candle(x, y, 0.0, rng, tallow, flame)
-    bd.export("vigil_light")
+    bd.export("vigil_light_lit" if lit else "vigil_light")
 
 
-BUILDERS = [build_chapter_house, build_candle_ledge, build_vigil_bell, build_quiet_house, build_vigil_light]
+BUILDERS = {
+    "chapter_house": build_chapter_house,
+    "candle_ledge": build_candle_ledge,
+    "vigil_bell": build_vigil_bell,
+    "quiet_house": build_quiet_house,
+    "vigil_light": build_vigil_light,
+    "vigil_light_lit": lambda: build_vigil_light(lit=True),
+}
 
 if __name__ == "__main__":
     only = {a for a in sys.argv[1:] if not a.startswith("-")}
-    for build in BUILDERS:
-        if not only or build.__name__.removeprefix("build_") in only:
+    for key, build in BUILDERS.items():
+        if not only or key in only:
             build()
