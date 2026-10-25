@@ -33,6 +33,16 @@ def _candle(x: float, y: float, z: float, rng: random.Random, tallow, flame) -> 
     cyl("Flame", 0.022, 0.0, 0.07, 4, (x, y, z + h + 0.01), flame)
 
 
+def _diamond(name: str, size: tuple, loc: tuple, material) -> bpy.types.Object:
+    """A box turned 45° about Y in place, standing on loc (the Keepers' ember cut in stone). The primitives
+    bake their location into the mesh, so it is built on the origin, turned, then moved (Day 63: turning
+    it where it stood swung it round the model's origin — Day 62's door embers hung in the air)."""
+    obj = box(name, size, (0, 0, -size[2] / 2), material)
+    obj.rotation_euler = (0, math.radians(45), 0)
+    obj.location = (loc[0], loc[1], loc[2] + size[2] / 2)
+    return obj
+
+
 def build_chapter_house() -> None:
     """Kindleby's chapter-house (~7.4 × 3.6 m, 5.6 m to the bell-cote): a long hall of pale dressed
     stone in courses, a steep slate roof, buttresses between four tall lit windows on the front (-Y),
@@ -70,12 +80,31 @@ def build_chapter_house() -> None:
             frac = i / 6
             box("Gable", (0.3, max(0.1, 2 * half * (1 - frac - 1 / 6) - 0.2), rise / 6 + 0.02), (gx * 0.98, 0, top + rise * frac), STONE[0])
     beam("Ridge", (-w / 2 - 0.25, 0, top + rise + 0.02), (w / 2 + 0.25, 0, top + rise + 0.02), 0.12, ROOF)
-    # The bell-cote on the east gable: two stone piers and a little roof, the bell hung between.
+    # The bell-cote on the east gable (Day 63: opened to the sea so it reads as a cote, not a chimney): two
+    # stone piers across the gable top, an arch between them, a little pitched cap with the ember on its
+    # finial, the bell hung on its headstock in the opening and the rope down the outside of the gable.
     cx = w / 2 - 0.15
-    for py in (-0.32, 0.32):
-        box("Cote", (0.26, 0.18, 0.95), (cx, py, top + rise - 0.1), STONE[0])
-    box("CoteCap", (0.4, 0.9, 0.12), (cx, 0, top + rise + 0.85), ROOF)
-    cyl("Bell", 0.2, 0.1, 0.32, 8, (cx, 0, top + rise + 0.3), mat("ember", -0.55))
+    base = top + rise - 0.25
+    pier_h = 1.25
+    for px in (-0.42, 0.42):
+        box("Cote", (0.24, 0.42, pier_h), (cx + px, 0, base), STONE[0])
+    box("CoteSill", (1.12, 0.48, 0.12), (cx, 0, base - 0.02), STONE[2])
+    box("CoteArch", (1.08, 0.42, 0.2), (cx, 0, base + pier_h - 0.05), STONE[0])
+    for side in (-1, 1):  # the cap: two slate slabs pitched along the gable
+        bpy.ops.mesh.primitive_cube_add(size=1)
+        cap = bpy.context.active_object
+        cap.name = "CoteCap"
+        cap.scale = (0.72, 0.62, 0.08)
+        bpy.ops.object.transform_apply(scale=True)
+        cap.rotation_euler = (0, side * math.radians(35), 0)
+        cap.location = (cx + side * 0.28, 0, base + pier_h + 0.33)
+        bd.bp.finish(cap, ROOF)
+    rod("Finial", (cx, 0, base + pier_h + 0.5), (cx, 0, base + pier_h + 0.78), 0.03, IRON)
+    _diamond("CoteEmber", (0.14, 0.04, 0.14), (cx, 0, base + pier_h + 0.72), mat("ember", -0.35))
+    beam("Headstock", (cx - 0.36, 0, base + pier_h - 0.12), (cx + 0.36, 0, base + pier_h - 0.12), 0.08, WOOD)
+    cyl("Bell", 0.26, 0.12, 0.42, 10, (cx, 0, base + pier_h - 0.62), mat("ember", -0.5))
+    cyl("BellLip", 0.28, 0.26, 0.05, 10, (cx, 0, base + pier_h - 0.64), mat("ember", -0.4))
+    rod("BellRope", (cx + 0.2, -0.12, base + pier_h - 0.55), (cx + 0.32, -0.3, 0.9), 0.02, mat("driftwood", -0.1), verts=4)
     # Buttresses and tall lit windows along the front; candles on every sill.
     front = -d / 2
     for i, x in enumerate((-2.55, -0.9, 0.9, 2.55)):
@@ -96,11 +125,22 @@ def build_chapter_house() -> None:
     beam("DoorSplit", (0, front - 0.14, 0.32), (0, front - 0.14, 2.12), 0.04, IRON)
     for z in (0.75, 1.65):
         beam("Strap", (-0.5, front - 0.14, z), (0.5, front - 0.14, z), 0.05, IRON)
-    box("Ember", (0.26, 0.06, 0.26), (0, front - 0.06, 2.62), mat("ember", -0.3), math.radians(0))
-    bpy.context.active_object.rotation_euler = (0, math.radians(45), 0)
-    # Steps down from the door.
+    _diamond("Ember", (0.26, 0.06, 0.26), (0, front - 0.06, 2.62), mat("ember", -0.3))
+    # A hood moulding over the door: dressed voussoirs stepping up to a point (Day 63).
+    for k in range(4):
+        dx = 0.78 - k * 0.2
+        for s in (-1, 1):
+            box("Hood", (0.22, 0.1, 0.12), (s * dx, front - 0.1, 2.0 + k * 0.14), STONE[2])
+    box("HoodKey", (0.2, 0.1, 0.18), (0, front - 0.1, 2.56), STONE[2])
+    # Steps down from the door, candles at both ends of each (Day 63: the steps were lore'd as candle-lined).
     for k in range(2):
-        box("Step", (1.8 - k * 0.3, 0.4, 0.15), (0, front - 0.35 - k * 0.35, 0.15 - k * 0.15), STONE[1])
+        sw = 1.8 - k * 0.3
+        sy = front - 0.35 - k * 0.35
+        sz = 0.15 - k * 0.15
+        box("Step", (sw, 0.4, 0.15), (0, sy, sz), STONE[1])
+        for s in (-1, 1):
+            for j in range(2):
+                _candle(s * (sw / 2 - 0.1 - j * 0.12), sy - 0.05 + j * 0.06, sz + 0.15, rng, tallow, flame)
     bd.export("chapter_house")
 
 
@@ -221,8 +261,7 @@ def build_vigil_light() -> None:
     for z in (1.2, 2.0):
         beam("Band", (-0.36, -1.32, z), (0.36, -1.32, z), 0.05, IRON)
     box("Lock", (0.1, 0.06, 0.14), (0.25, -1.34, 1.5), IRON)
-    sigil = box("Sigil", (0.22, 0.06, 0.22), (0, -1.24, 2.95), mat("ember", -0.35))
-    sigil.rotation_euler = (0, math.radians(45), 0)
+    _diamond("Sigil", (0.22, 0.06, 0.22), (0, -1.24, 2.95), mat("ember", -0.35))
     # Candle niches round the batter: the vigil kept even at the dark light.
     for k in range(10):
         a = k / 10 * math.tau + 0.3
