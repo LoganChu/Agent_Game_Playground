@@ -1075,6 +1075,8 @@ its light is **the Vigil Light**.
   on a low sea wall that rings the island, on the steps and on every sill. Ordinary fire barely helps — "barely isn't
   nothing": the ring holds the fog off **a cable's width**, all round, and has not gone out once in three months. The fog
   stands just past it "like a crowd at a door".
+  There is always someone on the wall (Day 63): a sister with her hood up and her taper to a guttering wick, an old
+  brother — one of those who came over in the boats — bringing a tray of new tallow down the wall to whoever's turn it is.
 - **The quay bell** answers a boat before it blows: one stroke, then three ("a boat seen, and welcome"). Kindleby was
   watching for the Wakebearer.
 - **Brother Tobin Ashe**, bell-porter and candle-warden: a lay brother, Kindleby-born, nineteen, never been to the Spire

@@ -2,6 +2,54 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-25 09:00 UTC — Day 63: Kindleby's art pass (art)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale local `main` again;
+  fetched and fast-forwarded `main` to Day 62's `6223752`. Baseline green (442 tests + smoke + launch, 3 min 13 s).
+- **Art (due ~Day 63; last Day 58):** ROADMAP *Next up* #1, Kindleby first.
+  - **The candle ring glows.** Every candle ledge carries a soft `halo` (2.4 m, strength 0.6, a little bloom) over its
+    candles, so the ring reads round the island from the quay, from the crown and from the sea — the island's whole idea
+    ("the ring holds the fog off a cable's width") is now visible at a glance. The Quiet House's step candle and the
+    chapter-house's step candles have a smaller one each. Glows, not lights: the light budget stands.
+  - **The chapter-house** (`build_kindleby.py`): the bell-cote read as a chimney (two piers one behind the other from the
+    front). Now an **open cote** across the east gable — two piers, an arch, a pitched slate cap with the ember on an iron
+    finial, the bell on its headstock in the opening, the rope down the gable. A hood of dressed voussoirs over the door;
+    **candles at both ends of both steps** (LORE already had the steps candle-lined).
+  - **Someone on the wall** (`build_characters.py`, figures — model props with an idle, not NPCs): **a sister on the
+    candles** (`keeper_sister`: grey robe, hood up, stooped from the waist over the south wall by the skiff, her taper's
+    lit tip down to a wick — a static extra so it stays on the wick while she breathes — fresh candles in the crook of
+    her arm) and **an old brother** (`keeper_brother`: bald with a white fringe and beard, carrying a tray of new tallow
+    down the west wall). Shared `_keeper_robe`. LORE: one line ("there is always someone on the wall").
+  - **Fixed: floating embers.** Day 62's stone embers over the chapter-house door and the Vigil Light's door hung in
+    the air — about two metres off to the side (the little diamonds in Day 62's screenshots). The kit's primitives bake
+    their location into the mesh, so setting `rotation_euler` afterwards turned the box about the *model's* origin. New
+    `_diamond()` builds on the origin, turns, then moves. Checked the other kit scripts: the other post-hoc rotations are
+    on cones (not baked) or set location after, so fine.
+- **Tests:** `test_kindleby_art.gd` (4: a halo on every ledge and the two step candles, all built, no lights; the bell-cote
+  over the ridge; the two figures — breathing, unconditional, collidable, inside the clear, clear of the NPCs, the
+  sister's taper tip over the wall top among the candles, the brother by the wall; the Vigil Light's bronze on the door's
+  centre line — fails on Day 62's model). 446 tests + smoke + launch pass. Checkpoint **`kindleby`** re-shot.
+
+Screenshots (`docs/screenshots/2026-10-25-am-*.png`): `the-candle-ring` (from the sea), `the-chapter-house`,
+`a-sister-on-the-candles`; `docs/checkpoints/kindleby.png`.
+
+**Decisions**
+- **Figures, not NPCs.** The roadmap asked for people so the island isn't empty; giving them dialogue would have been
+  content (and more canon to keep shut around the Quiet House). As figures they cost nothing in story and can be made
+  talkable in part two if the chapter sitting wants them (e.g. the ember holding the ring while they go in).
+- **Unconditional.** "There always are" brothers and sisters on the candles is the reason the chapter can't sit; the
+  figures leave when that is written, not before.
+- Wrackholm's empty bracket, the Teeth's water and Pell's whittled gull moved into the dressing follow-ups for the next
+  art session (~Day 68).
+
+**Problems / notes**
+- None blocking. Lineup close-ups show the sister's hood reads a little like a cap from the front; fine at play distance.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content** (due ~Day 64-65; last Day 62): **Kindleby part two, the chapter sits**. A
+   polish/debt pass is due by ~Day 69 (last Day 61). Fetch and fast-forward before trusting local `main`.
+
 ## 2026-10-24 21:00 UTC — Day 62: Kindleby, the Keepers' mother-house (content)
 
 **Did**
