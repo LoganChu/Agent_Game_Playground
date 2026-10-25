@@ -5,17 +5,48 @@
       {
         "say": "tobin",
         "text": "The Provost says you've bowed to the rite. The old brothers cried. I didn't see it. I've been told not to say.",
-        "if": "flag:kindleby_rite=bowed"
+        "if": [
+          "flag:kindleby_rite=bowed",
+          "stage:a_light_for_kindleby=the_chapter"
+        ]
       },
       {
         "say": "tobin",
         "text": "The Provost says you'll choose for yourself. ...Is it heavy? Choosing?",
-        "if": "flag:kindleby_rite=refused"
+        "if": [
+          "flag:kindleby_rite=refused",
+          "stage:a_light_for_kindleby=the_chapter"
+        ]
       },
       {
         "say": "tobin",
         "text": "Still lit. All forty. I count them going down the wall and I count them coming back.",
         "if": "flag:kindleby_rite="
+      },
+      {
+        "say": "tobin",
+        "text": "They're saying you'll hold the wall. All of it. On your own. ...I'll run, when the bell goes. I'm always last.",
+        "if": "stage:a_light_for_kindleby=hold_the_ring"
+      },
+      {
+        "say": "tobin",
+        "text": "The chapter's come out. Nobody'll say what it chose. Brother Anselm's been crying.",
+        "if": "stage:a_light_for_kindleby=feed_the_light"
+      },
+      {
+        "say": "tobin",
+        "text": "I keep candles. Forty, turn and turn. People keep asking me am I all right. I'm all right.",
+        "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "tobin",
+        "text": "The old brothers keep going down to the quay of an evening and looking at the water. I asked Brother Anselm what for. He didn't know.",
+        "if": "flag:kindleby_beacon_burned=boats"
+      },
+      {
+        "say": "tobin",
+        "text": "The skiff's gone north with two of the sisters: oil and meal, and a lantern in the bow. It used to go every month. It's not been off the shingle since the Snuffing.",
+        "if": "flag:kindleby_skiff_north"
       },
       {
         "goto": "hub"
@@ -40,6 +71,28 @@
           {
             "text": "That house by the water, with its shutters barred.",
             "goto": "quiet"
+          },
+          {
+            "text": "Why can't the chapter just sit?",
+            "if": "stage:a_light_for_kindleby=the_chapter",
+            "goto": "why_not"
+          },
+          {
+            "text": "What would you spare, if you were choosing?",
+            "if": [
+              "stage:a_light_for_kindleby=feed_the_light",
+              "!item:tobins_pan"
+            ],
+            "goto": "spare"
+          },
+          {
+            "text": "Here. Your coal-pan back.",
+            "if": [
+              "quest:a_light_for_kindleby=done",
+              "item:tobins_pan"
+            ],
+            "take_item": "tobins_pan",
+            "goto": "pan_back"
           },
           {
             "text": "Goodbye.",
@@ -72,7 +125,8 @@
       },
       {
         "say": "tobin",
-        "text": "When the boats came over from Cindermoor with the ones who'd run, she was on the quay with a lantern. She took in every one, and never asked them a thing. ...Some of them, you'd want to ask."
+        "text": "When the boats came over from Cindermoor with the ones who'd run, she was on the quay with a lantern. She took in every one, and never asked them a thing. ...Some of them, you'd want to ask.",
+        "if": "!flag:kindleby_beacon_burned=boats"
       },
       {
         "goto": "hub"
@@ -81,11 +135,22 @@
     "spire": [
       {
         "say": "tobin",
-        "text": "Me? Kindleby brothers keep candles. The Spire's for the ones that are called up. I was to be called up this midwinter."
+        "text": "Me? Kindleby brothers keep candles. The Spire's for the ones that are called up."
       },
       {
         "say": "tobin",
-        "text": "I'd have carried a coal down off the Spire to some island beacon, the way they do. Did. The way they did."
+        "text": "I was to be called up this midwinter.",
+        "if": "!flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "tobin",
+        "text": "I'd have carried a coal down off the Spire to some island beacon, the way they do. Did. The way they did.",
+        "if": "!flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "tobin",
+        "text": "Not me, though. I've always kept candles. I like it. You can count them.",
+        "if": "flag:kindleby_beacon_burned=pan"
       },
       {
         "goto": "hub"
@@ -103,6 +168,89 @@
       {
         "say": "tobin",
         "text": "They hum, at night. You can hear them from the bell. Not the same tune. Close, but not the same."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "why_not": [
+      {
+        "say": "tobin",
+        "text": "Because there's forty candles to each of us, and if the chapter sits, nobody's on them. An hour without the ring and the fog'd be on the steps."
+      },
+      {
+        "say": "tobin",
+        "text": "If something could hold the wall for an hour, all of it, on its own..."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks at your hand, and then quickly at the bell."
+      },
+      {
+        "say": "tobin",
+        "text": "No. Listen to me. That's yours."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "spare": [
+      {
+        "say": "narrator",
+        "text": "He goes very still. Then he takes something out of his robe: a little iron pan with a lid and a carrying ring, gone cold and silver."
+      },
+      {
+        "say": "tobin",
+        "text": "My coal-pan. The Spire sends one in the autumn, to whoever it'll call up at midwinter, to carry a coal down in. My name's on the lid. The letter's inside."
+      },
+      {
+        "say": "tobin",
+        "text": "I've held it out past the wall every turn since the Snuffing. In the fog, till my arm shook. There's no Spire to be called up to. I'd like to stop wanting it."
+      },
+      {
+        "say": "tobin",
+        "text": "If you're choosing for yourself, Wakebearer, choose me. Not their night. Mine's only mine."
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll carry it.",
+            "give_item": "tobins_pan",
+            "goto": "spare_given"
+          },
+          {
+            "text": "Keep it, Tobin.",
+            "goto": "spare_kept"
+          }
+        ]
+      }
+    ],
+    "spare_given": [
+      {
+        "say": "tobin",
+        "text": "It's lighter than it looks. ...It isn't, is it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "spare_kept": [
+      {
+        "say": "tobin",
+        "text": "I'll keep holding it out, then. On my turn. It'll keep."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pan_back": [
+      {
+        "say": "narrator",
+        "text": "He takes it in both hands and holds it against his chest, cold as it is."
+      },
+      {
+        "say": "tobin",
+        "text": "It'll warm. ...I'll stop holding it out. I think I'll stop."
       },
       {
         "goto": "hub"

@@ -5,7 +5,13 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.035,
-    "color": "#B8B6B0"
+    "color": "#B8B6B0",
+    "overrides": [
+      {
+        "if": "!flag:kindleby_beacon_burned=",
+        "density": 0.024
+      }
+    ]
   },
   "light": {
     "note": "Evening under a low lid of cloud: a dull gold smear of sun going down in the west, cool grey everywhere else; the warm things are the candles, the chapter-house windows, the ferry's lantern and the ember.",
@@ -16,7 +22,16 @@
     "ambient_color": "#AFAEAA",
     "ambient_energy": 0.36,
     "sky_top": "abyss",
-    "sky_horizon": "#B8B6B0"
+    "sky_horizon": "#B8B6B0",
+    "overrides": [
+      {
+        "if": "!flag:kindleby_beacon_burned=",
+        "sun_color": "#EBCB98",
+        "sun_energy": 0.7,
+        "ambient_energy": 0.42,
+        "sky_horizon": "#C4BDB0"
+      }
+    ]
   },
   "ambience": [
     {
@@ -48,7 +63,8 @@
       "strength": 0.95,
       "falloff": 4.0,
       "height": 3.2,
-      "note": "The fog all round Kindleby, standing a cable's width off the candle wall like a crowd at a door: north."
+      "note": "The fog all round Kindleby, standing a cable's width off the candle wall like a crowd at a door: north.",
+      "if": "flag:kindleby_beacon_burned="
     },
     {
       "rect": [
@@ -60,7 +76,8 @@
       "strength": 0.95,
       "falloff": 4.0,
       "height": 3.2,
-      "note": "West."
+      "note": "West.",
+      "if": "flag:kindleby_beacon_burned="
     },
     {
       "rect": [
@@ -72,7 +89,8 @@
       "strength": 0.95,
       "falloff": 4.0,
       "height": 3.2,
-      "note": "East."
+      "note": "East.",
+      "if": "flag:kindleby_beacon_burned="
     },
     {
       "rect": [
@@ -84,7 +102,60 @@
       "strength": 0.9,
       "falloff": 4.0,
       "height": 3.0,
-      "note": "South, past the landing stage: the way the Slow Mercy came in."
+      "note": "South, past the landing stage: the way the Slow Mercy came in.",
+      "if": "flag:kindleby_beacon_burned="
+    },
+    {
+      "rect": [
+        -34,
+        -30,
+        34,
+        -26
+      ],
+      "strength": 0.7,
+      "falloff": 4.0,
+      "height": 2.6,
+      "if": "!flag:kindleby_beacon_burned=",
+      "note": "After Kindleby's burning (Day 64): the fog leans back off the ring under the Vigil Light, out over the water. North."
+    },
+    {
+      "rect": [
+        -34,
+        -30,
+        -28,
+        26
+      ],
+      "strength": 0.7,
+      "falloff": 4.0,
+      "height": 2.6,
+      "if": "!flag:kindleby_beacon_burned=",
+      "note": "After the burning: west."
+    },
+    {
+      "rect": [
+        28,
+        -30,
+        34,
+        26
+      ],
+      "strength": 0.7,
+      "falloff": 4.0,
+      "height": 2.6,
+      "if": "!flag:kindleby_beacon_burned=",
+      "note": "After the burning: east."
+    },
+    {
+      "rect": [
+        -34,
+        21,
+        34,
+        26
+      ],
+      "strength": 0.65,
+      "falloff": 4.0,
+      "height": 2.4,
+      "if": "!flag:kindleby_beacon_burned=",
+      "note": "After the burning: south, the Taper's channel grey and plain."
     }
   ],
   "spawn_points": {
@@ -781,6 +852,48 @@
       "if": "!quest:a_light_for_kindleby=done"
     },
     {
+      "model": "res://assets/models/dressing/vigil_light_lit.glb",
+      "position": [
+        -9.0,
+        0,
+        -10.5
+      ],
+      "rotation_y": 20,
+      "collider": [
+        2.9,
+        6.8,
+        2.9
+      ],
+      "note": "The Vigil Light lit (Day 64): gold through the horn panes, a fire in the cradle, the door left open.",
+      "if": "quest:a_light_for_kindleby=done",
+      "halo": [
+        0,
+        5.1,
+        0
+      ],
+      "halo_size": 6.0,
+      "halo_bloom": 0.35,
+      "light": {
+        "color": "kindle",
+        "energy": 2.0,
+        "range": 14.0,
+        "offset": [
+          0,
+          5.1,
+          0
+        ]
+      },
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          4,
+          0
+        ],
+        "range": 20
+      }
+    },
+    {
       "model": "res://assets/models/characters/keeper_sister.glb",
       "position": [
         -4.62,
@@ -825,7 +938,8 @@
         0.9,
         3.4
       ],
-      "note": "The chapter's skiff, drawn up on the shingle by the quay: the boat that used to take oil and meal to the Northing's stage once a month."
+      "note": "The chapter's skiff, drawn up on the shingle by the quay: the boat that used to take oil and meal to the Northing's stage once a month. Gone north to the Northing's stage while the chapter sat, if the Provost was told of the colliers (Day 64).",
+      "if": "!flag:kindleby_skiff_north"
     },
     {
       "model": "res://assets/models/dressing/barrels.glb",

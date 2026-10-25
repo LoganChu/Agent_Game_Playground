@@ -45,7 +45,7 @@
       "id": "kindleby",
       "name": "Kindleby",
       "light": "the Vigil Light",
-      "lit": "quest:a_light_for_kindleby=done",
+      "lit": "!flag:kindleby_beacon_burned=",
       "known": "flag:wrackholm_oda_lane_asked",
       "region": "kindleby",
       "map": [0.86, 0.66],

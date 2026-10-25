@@ -593,6 +593,25 @@
         "a_light_for_kindleby": "the_candles"
       },
       "shot": "--camera=-6,5.5,12:5,1.2,-5"
+    },
+    {
+      "id": "kindleby_lit",
+      "act": "Act II — The Drift",
+      "title": "Kindleby's burning",
+      "inherits": "kindleby",
+      "region": "kindleby",
+      "spawn": "from_ferry",
+      "description": "The Wakebearer held the ring from the crown while the chapter sat; the chapter chose Kindleby's night of the boats, old Brother Anselm carried the lantern into the fog, and the Wakebearer (having bowed to the rite) burned it in the Vigil Light. The fog leans back off the island; nobody on Kindleby remembers how the old ones came over.",
+      "flags": {
+        "kindleby_met_provost": true,
+        "kindleby_rite": "bowed",
+        "kindleby_ring_held": true,
+        "kindleby_beacon_burned": "boats"
+      },
+      "quests": {
+        "a_light_for_kindleby": "done"
+      },
+      "shot": "--camera=-1,5,12:-8,3.5,-9"
     }
   ]
 }

@@ -1638,17 +1638,41 @@
       {
         "say": "oda",
         "text": "You bowed to their rite. Well. You've chosen four times; maybe you've earned letting somebody else. I'd not. But I'm a Tidewright, and we don't let anybody choose our cargo.",
-        "if": "flag:kindleby_rite=bowed"
+        "if": [
+          "flag:kindleby_rite=bowed",
+          "flag:kindleby_beacon_burned="
+        ]
       },
       {
         "say": "oda",
         "text": "You told Lorn no. I'd have paid to see her face. ...No I wouldn't. I've seen it.",
-        "if": "flag:kindleby_rite=refused"
+        "if": [
+          "flag:kindleby_rite=refused",
+          "flag:kindleby_beacon_burned="
+        ]
       },
       {
         "say": "oda",
         "text": "Five lights, and one of them tallow. Don't tell her I counted it.",
-        "if": "flag:kindleby_met_provost"
+        "if": [
+          "flag:kindleby_met_provost",
+          "flag:kindleby_beacon_burned="
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "They've forgotten the boats. I saw them come in, the week of the Snuffing: I was lying off the Taper for the weather, and they rowed past me all night with lanterns in their bows. ...I'll not tell them. It won't stick.",
+        "if": "flag:kindleby_beacon_burned=boats"
+      },
+      {
+        "say": "oda",
+        "text": "The lad at their bell doesn't remember he was ever going anywhere. Well. Most of us never were.",
+        "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "oda",
+        "text": "Five lights. Every one of them yours, whoever did the choosing.",
+        "if": "!flag:kindleby_beacon_burned="
       },
       {
         "choice": [

@@ -3,6 +3,18 @@
   "knots": {
     "start": [
       {
+        "if": "quest:a_light_for_kindleby=done",
+        "goto": "lit"
+      },
+      {
+        "if": "stage:a_light_for_kindleby=feed_the_light",
+        "goto": "cradle"
+      },
+      {
+        "if": "stage:a_light_for_kindleby=hold_the_ring",
+        "goto": "hold"
+      },
+      {
         "say": "narrator",
         "text": "The Vigil Light: a squat tower of the island's pale stone on the crown of Kindleby, its lantern room cold. The door is banded with iron and locked."
       },
@@ -22,6 +34,300 @@
       },
       {
         "end": true
+      }
+    ],
+    "hold": [
+      {
+        "say": "narrator",
+        "text": "You stand at the Vigil Light's door on the crown and lift the ember. From here the whole ring is below you: the wall round the island, candles all the way along it, and the fog standing off past them."
+      },
+      {
+        "say": "narrator",
+        "text": "Down at the quay the bell goes once, and then nothing. On the south wall a sister straightens from her candles and looks up the hill at you. Then she pinches her taper out.",
+        "sound": "quay_bell"
+      },
+      {
+        "say": "narrator",
+        "text": "One by one along the ring they leave the wall. Brothers and sisters, the old ones who came over in the boats, Tobin last of all, running. They go up the candle-lined steps into the chapter-house, and the door shuts behind them."
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody tends the candles. They gutter in the wind off the sea, one and then another, all round the island, until there are dark gaps in the ring."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog doesn't come. It leans toward the dark places on the wall, the way a crowd leans at a door, and stops. The ember is warm and steady in your hand, and the fog stands back from all of it, as far as the ring ever held it and a little further."
+      },
+      {
+        "say": "narrator",
+        "text": "An hour. Through the tall windows you can see them on their benches in rows, and the Provost standing. You can't hear a word of it."
+      },
+      {
+        "say": "narrator",
+        "text": "Halfway through, the door opens on two sisters with a sack of meal and a cask of oil between them. They run the chapter's skiff down the shingle, hang a lantern in its bow and row north into the fog. Nobody calls them back.",
+        "if": "flag:kindleby_told_of_stage",
+        "set": {
+          "kindleby_skiff_north": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "Then the door opens and they come down the steps without a word and go back to the wall, and the tapers go along the ring, and it is whole again before the last of the light has gone out of the west."
+      },
+      {
+        "say": "narrator",
+        "text": "Last of all an old brother climbs down off the south wall onto the shingle with a lantern in his hands, unlit, and walks out into the fog until it is up to his shoulders. He stands there a long time. You hold the ember up for him."
+      },
+      {
+        "say": "narrator",
+        "text": "When he comes back up the shingle the lantern is cold and silver, and he is crying, and the sister on the wall takes his arm."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost comes up the path to the crown with the lantern in both hands, the old brother's tears still on it."
+      },
+      {
+        "say": "provost",
+        "text": "The chapter has sat, and weighed, and chosen. The first time since the Snuffing, and you held the door for it.",
+        "set": {
+          "kindleby_ring_held": true
+        }
+      },
+      {
+        "say": "provost",
+        "text": "Kindleby can spare a night. This lantern hung at the bow of the first boat over from Cindermoor, the night the Spire went dark. Brother Anselm rowed that boat. It holds that night: the lanterns on the quay, every face that came up those steps out of the dark."
+      },
+      {
+        "say": "provost",
+        "text": "And whatever they saw before they ran, that none of them sleeps for. Brother Anselm hasn't slept a night through since. None of the old ones have."
+      },
+      {
+        "say": "provost",
+        "text": "You bowed to the rite. Carry it up.",
+        "if": "flag:kindleby_rite=bowed"
+      },
+      {
+        "say": "provost",
+        "text": "You'll do as you please at the top of the stair. I know. Carry it up anyway, and look at it while you're deciding.",
+        "if": "flag:kindleby_rite=refused"
+      },
+      {
+        "say": "narrator",
+        "text": "She puts the lantern in your hands, takes the long key from her belt and unlocks the Vigil Light's door. It swings in on a dark stair.",
+        "give_item": "boats_lantern",
+        "quest_stage": [
+          "a_light_for_kindleby",
+          "feed_the_light"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "The cradle's at the top. I'll not come up. Nobody chose that I should."
+      },
+      {
+        "end": true
+      }
+    ],
+    "cradle": [
+      {
+        "say": "narrator",
+        "text": "You go in under the ember cut in the stone and up the stair inside the wall, round and round in the dark, and come out in the lantern room. Horn panes, scraped thin. An iron cradle, pale ash in it. Below the panes, all round, the ring of candles."
+      },
+      {
+        "say": "narrator",
+        "text": "You lift the ember. The cradle leans to it, the way the others did. Empty. Waiting."
+      },
+      {
+        "say": "narrator",
+        "text": "The Boats' Lantern hangs from your hand, cold, heavy as a full one. The chapter's choice.",
+        "if": "item:boats_lantern"
+      },
+      {
+        "say": "narrator",
+        "text": "Tobin's coal-pan is in your satchel, small and cold, his name scratched in the lid.",
+        "if": "item:tobins_pan"
+      },
+      {
+        "say": "narrator",
+        "text": "You have nothing to set in it. The Provost had the chapter's choice; Kindleby will have to give you something.",
+        "if": [
+          "!item:boats_lantern",
+          "!item:tobins_pan"
+        ]
+      },
+      {
+        "goto": "waiting"
+      }
+    ],
+    "waiting": [
+      {
+        "say": "narrator",
+        "text": "The cradle waits. Whatever you set in it, Kindleby will never remember again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Set the Boats' Lantern in the cradle.",
+            "if": "item:boats_lantern",
+            "goto": "weigh_boats"
+          },
+          {
+            "text": "Set Tobin's coal-pan in the cradle.",
+            "if": "item:tobins_pan",
+            "goto": "weigh_pan"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "weigh_boats": [
+      {
+        "say": "narrator",
+        "text": "The lantern is a night three months gone. Lanterns all along the quay. Boats coming in out of the dark from Cindermoor, rowed till the oars bled. Faces coming up the candle-lined steps one after another, and the Provost at the top taking every hand."
+      },
+      {
+        "say": "narrator",
+        "text": "And behind the faces, what they saw at the Spire before they ran. You can't see it. It's in there, under the rest, the way a coal is under its ash."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and Kindleby will never have had that night. The old brothers and sisters will sleep. Nobody on Kindleby will remember how they came over, or what from. If anyone ever asks them what happened at the Spire, they won't know there was anything to tell."
+      },
+      {
+        "say": "narrator",
+        "text": "The chapter chose it. You bowed.",
+        "if": "flag:kindleby_rite=bowed"
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Kindleby's night of the boats.",
+            "take_item": "boats_lantern",
+            "set": {
+              "kindleby_beacon_burned": "boats"
+            },
+            "goto": "burn_boats"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "weigh_pan": [
+      {
+        "say": "narrator",
+        "text": "The pan is small and cold. In it: a letter come down from the Spire in the autumn with his name on it, read till it tore along the folds. Nineteen midwinters watching the boats go up to Cindermoor with the ones who were called. Lying awake on his turn, thinking what the Spire's stair would feel like under his feet."
+      },
+      {
+        "say": "narrator",
+        "text": "And since the Snuffing, the wanting, with nothing left at the end of it."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and Tobin Ashe will never have been called. He'll keep candles all his life and not wonder what else there was. If the Spire is ever lit again, he won't think to go."
+      },
+      {
+        "say": "narrator",
+        "text": "The chapter's choice is still in your other hand. You bowed to the rite.",
+        "if": [
+          "flag:kindleby_rite=bowed",
+          "item:boats_lantern"
+        ]
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Tobin's calling.",
+            "take_item": "tobins_pan",
+            "set": {
+              "kindleby_beacon_burned": "pan"
+            },
+            "goto": "burn_pan"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "burn_boats": [
+      {
+        "say": "narrator",
+        "text": "You set the lantern in the cradle. For a moment the lantern room is full of lantern-light, the quay below you crowded, a boat bumping the stage, somebody lifted out of it by the arms. A face turned up the steps toward you that you almost know."
+      },
+      {
+        "say": "narrator",
+        "text": "Then the glass takes the flame."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "burn_pan": [
+      {
+        "say": "narrator",
+        "text": "You set the coal-pan in the cradle and lift its lid. Where a coal would have gone there's only the folded letter. It catches along the folds first, where it was read most."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "kindle": [
+      {
+        "say": "narrator",
+        "text": "The Vigil Light catches. Gold comes out through the horn panes, and down on the ring every candle bends the same way at once, as if a door had opened somewhere.",
+        "sound": "kindle"
+      },
+      {
+        "say": "narrator",
+        "text": "The fog leans back off Kindleby: past the wall, past the cable's width, out over the water, until the Taper's channel shows grey and plain to the south."
+      },
+      {
+        "quest_complete": "a_light_for_kindleby"
+      },
+      {
+        "say": "narrator",
+        "text": "Down on the south wall an old brother is standing with a cold candle in his hand, looking out at the sea. He doesn't know what for. He lights it and goes on.",
+        "if": "flag:kindleby_beacon_burned=boats"
+      },
+      {
+        "say": "narrator",
+        "text": "Down at the quay a young man at the bell rope has stopped, and is wiping his face, and doesn't know why. He goes on.",
+        "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "narrator",
+        "text": "By the water, behind its barred shutters, the Quiet House has stopped humming. After a while it starts again."
+      },
+      {
+        "say": "narrator",
+        "text": "All round the ring the brothers and sisters straighten from their candles and look up the hill. Then they bend to them again. Nobody tells them to stop."
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "The Vigil Light burns gold behind its horn panes, its door standing open on the stair. The fog keeps well off Kindleby now."
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a quay full of lanterns. Then it's only fire.",
+        "if": "flag:kindleby_beacon_burned=boats"
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a letter opening along its folds. Then it's only fire.",
+        "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "narrator",
+        "text": "Below, the candles go on all round the wall. Nobody has stopped lighting them. Nobody has thought to."
       }
     ]
   }

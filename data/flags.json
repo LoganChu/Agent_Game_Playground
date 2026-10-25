@@ -737,6 +737,25 @@
     "kindleby_told_of_stage": {
       "description": "The Wakebearer kept the far shore's promise (thornwold_far_shore=waiting): they told the Provost there are colliers waiting on the Northing's boat-stage for the Spire's boat. 'There is no Spire to tell. There's me. Very well: you've told the Spire.' She will put it to the chapter that the skiff goes north.",
       "default": false
+    },
+    "kindleby_ring_held": {
+      "description": "The Wakebearer held Kindleby's ring from the crown while the chapter sat (Day 64): every brother and sister off the candles for an hour, the candles let gutter, the fog held off by the ember alone. The chapter chose the boats' night, and an old brother, Anselm, carried the Boats' Lantern out into the fog to make it a Remnant. For the Keepers' arc: Keepers met later can know the Wakebearer held Kindleby's door.",
+      "default": false,
+      "future": true
+    },
+    "kindleby_skiff_north": {
+      "description": "While the chapter sat, two sisters ran the chapter's skiff down the shingle and rowed north with oil, meal and a lantern for the colliers waiting on the Northing's stage (only if kindleby_told_of_stage; Day 64). The skiff is gone from the quay. Its landing on the far shore is a later session's.",
+      "default": false,
+      "future": true
+    },
+    "kindleby_beacon_burned": {
+      "description": "What fed the Vigil Light (Kindleby's burning, Day 64): '' (not lit), 'boats' (the chapter's choice, the Boats' Lantern: Kindleby's night of the boats is gone — the lanterns on the quay, the faces up the steps, what the ones who came over from the Spire saw and never said; nobody on Kindleby remembers how they came) or 'pan' (Tobin's coal-pan: Tobin Ashe was never called up and will never think to go). Read with kindleby_rite: bowed and pan is the rite kept and broken the same night.",
+      "default": "",
+      "values": [
+        "",
+        "boats",
+        "pan"
+      ]
     }
   }
 }

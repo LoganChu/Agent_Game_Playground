@@ -3,7 +3,6 @@
   "title": "A Light for Kindleby",
   "region": "kindleby",
   "giver": "provost",
-  "future": true,
   "description": "Kindleby, the Keepers' mother-house, holds the fog off with tallow: a cable's width of candlelight all round the island, kept lit since the Snuffing. Its beacon, the Vigil Light, is dark like the rest.",
   "stages": [
     {
@@ -17,6 +16,14 @@
     {
       "id": "the_chapter",
       "text": "Whatever you told the Provost, the chapter will sit and choose what Kindleby can spare. It won't sit while there are brothers and sisters on the candles, and there are always brothers and sisters on the candles. The Provost has the Vigil Light's key on her belt."
+    },
+    {
+      "id": "hold_the_ring",
+      "text": "The chapter can sit for an hour if nobody is on the candles, and your ember can hold the fog off all of Kindleby alone. The Provost has agreed: go up to the crown and stand by the Vigil Light, where every candle on the ring can see you."
+    },
+    {
+      "id": "feed_the_light",
+      "text": "You held the ring while the chapter sat. It chose Kindleby's night of the boats, and the Provost has given you the Boats' Lantern and unlocked the Vigil Light. The cradle is up the stair. Whatever you told her, what you set in it is yours."
     }
   ]
 }

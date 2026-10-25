@@ -9,12 +9,18 @@
       {
         "say": "provost",
         "text": "The chapter will sit. I've said so, and I'll say it again until the candles let it.",
-        "if": "flag:kindleby_rite=bowed"
+        "if": [
+          "flag:kindleby_rite=bowed",
+          "stage:a_light_for_kindleby=the_chapter"
+        ]
       },
       {
         "say": "provost",
         "text": "Still choosing for yourself, Wakebearer? I've not stopped hoping you'll tire of it.",
-        "if": "flag:kindleby_rite=refused"
+        "if": [
+          "flag:kindleby_rite=refused",
+          "stage:a_light_for_kindleby=the_chapter"
+        ]
       },
       {
         "say": "provost",
@@ -28,6 +34,20 @@
           "flag:kindleby_rite=",
           "!stage:a_light_for_kindleby=the_rite"
         ]
+      },
+      {
+        "say": "provost",
+        "text": "The crown, Wakebearer. They'll not leave the wall till they see you up there.",
+        "if": "stage:a_light_for_kindleby=hold_the_ring"
+      },
+      {
+        "say": "provost",
+        "text": "The door's open, and the cradle's at the top. I've nothing to add to what the chapter said.",
+        "if": "stage:a_light_for_kindleby=feed_the_light"
+      },
+      {
+        "if": "quest:a_light_for_kindleby=done",
+        "goto": "after"
       },
       {
         "goto": "hub"
@@ -146,6 +166,16 @@
           {
             "text": "Who's in the Quiet House?",
             "goto": "quiet"
+          },
+          {
+            "text": "My ember could hold the ring while the chapter sits.",
+            "if": "stage:a_light_for_kindleby=the_chapter",
+            "goto": "offer"
+          },
+          {
+            "text": "What else did the chapter weigh?",
+            "if": "stage:a_light_for_kindleby=feed_the_light",
+            "goto": "weighed"
           },
           {
             "text": "Goodbye.",
@@ -365,7 +395,13 @@
     "quiet": [
       {
         "say": "provost",
-        "text": "Those the fog had. Brothers and sisters off the Spire who came over in the boats Hushed, and anybody the boats have found drifting since."
+        "text": "Those the fog had. Brothers and sisters off the Spire who came over in the boats Hushed, and anybody the boats have found drifting since.",
+        "if": "!flag:kindleby_beacon_burned=boats"
+      },
+      {
+        "say": "provost",
+        "text": "Those the fog had. Brothers and sisters off the Spire, and anybody found drifting. How the old ones came to us, I couldn't tell you. We've always kept the Hushed.",
+        "if": "flag:kindleby_beacon_burned=boats"
       },
       {
         "say": "provost",
@@ -374,6 +410,155 @@
       {
         "say": "provost",
         "text": "You can't go in. Not with that in your hand. They've had enough of other people's light."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "offer": [
+      {
+        "say": "provost",
+        "text": "...It could. Couldn't it."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks past you, down the steps and along the wall, to a sister bent over her candles with her hood up."
+      },
+      {
+        "say": "provost",
+        "text": "Every one of them on the wall since the Snuffing, turn and turn. Some of the old ones haven't sat down an hour together in three months."
+      },
+      {
+        "say": "provost",
+        "text": "An hour is all the chapter needs, if it's let."
+      },
+      {
+        "say": "provost",
+        "text": "You refused the rite, and you'll keep the door for it to sit. I don't understand you, Wakebearer. Thank you.",
+        "if": "flag:kindleby_rite=refused"
+      },
+      {
+        "say": "provost",
+        "text": "Go up to the crown and stand by the Vigil Light, where every candle on the ring can see you. When they see you there, we'll let them gutter.",
+        "quest_stage": [
+          "a_light_for_kindleby",
+          "hold_the_ring"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "weighed": [
+      {
+        "say": "provost",
+        "text": "We weighed the Long Book, and wouldn't. A name in it is all some of them have left."
+      },
+      {
+        "say": "provost",
+        "text": "We weighed the candles. If Kindleby forgot the vigil we'd stop lighting them, and the fog would be at the door by morning."
+      },
+      {
+        "say": "provost",
+        "text": "And we weighed the night the boats came. The old ones don't sleep, Wakebearer. Brother Anselm sits up on the wall till dawn and calls it his turn. Kindleby can spare a night."
+      },
+      {
+        "choice": [
+          {
+            "text": "It's the only night anybody here saw what happened at the Spire.",
+            "goto": "weighed_spire"
+          },
+          {
+            "text": "Then I'll think on it.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "weighed_spire": [
+      {
+        "say": "provost",
+        "text": "Is it? They've never said."
+      },
+      {
+        "say": "narrator",
+        "text": "Her hand is on the key at her belt again."
+      },
+      {
+        "say": "provost",
+        "text": "I never asked them, Wakebearer. I told you that. Carry it up, or don't. It's been chosen."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "after": [
+      {
+        "say": "provost",
+        "text": "Done properly. Once.",
+        "if": [
+          "flag:kindleby_rite=bowed",
+          "flag:kindleby_beacon_burned=boats"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "She touches the key at her belt, and seems to remember it is only a key now.",
+        "if": [
+          "flag:kindleby_rite=bowed",
+          "flag:kindleby_beacon_burned=boats"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "You chose as the chapter chose. I'll not ask whether you meant to.",
+        "if": [
+          "flag:kindleby_rite=refused",
+          "flag:kindleby_beacon_burned=boats"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "You bowed to the rite, Wakebearer. On those steps. And then you went up the stair and did as you pleased.",
+        "if": [
+          "flag:kindleby_rite=bowed",
+          "flag:kindleby_beacon_burned=pan"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "The chapter will write it down: that the rite was kept, and broken, the same night. We write everything down.",
+        "if": [
+          "flag:kindleby_rite=bowed",
+          "flag:kindleby_beacon_burned=pan"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "You said you'd choose, and you chose. Brother Tobin came to me after and asked why he'd been crying. I couldn't tell him.",
+        "if": [
+          "flag:kindleby_rite=refused",
+          "flag:kindleby_beacon_burned=pan"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "Brother Anselm keeps going down to the quay of an evening and looking at the water. I've told him there's nothing coming.",
+        "if": "flag:kindleby_beacon_burned=boats"
+      },
+      {
+        "say": "provost",
+        "text": "The old ones still don't sleep. I'd thought, by now, one of them might tell me why.",
+        "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "provost",
+        "text": "The skiff's gone north, as I said it would. Two of my sisters, with oil and meal and a lantern. If the Northing's stage still has anybody on it, they'll bring them.",
+        "if": "flag:kindleby_skiff_north"
+      },
+      {
+        "say": "provost",
+        "text": "Five lights, Wakebearer. The Spire next, I suppose, and the chapter can't sit for that one. There's nobody there to hold the door."
       },
       {
         "goto": "hub"
