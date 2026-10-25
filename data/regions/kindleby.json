@@ -357,7 +357,15 @@
         4.6,
         3.3
       ],
-      "note": "The chapter-house of the Keepers' mother-house: pale dressed stone, every tall window lit, candles on every sill, the bell-cote on the east gable. Its door to the sea, up the steps from the quay."
+      "note": "The chapter-house of the Keepers' mother-house: pale dressed stone, every tall window lit, candles on every sill, the bell-cote on the east gable. Its door to the sea, up the steps from the quay. Day 63: an open bell-cote, a hood over the door, candles on both steps; the halo is the step candles.",
+      "halo": [
+        0,
+        0.55,
+        2.0
+      ],
+      "halo_size": 2.6,
+      "halo_strength": 0.35,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -372,7 +380,15 @@
         0.7,
         0.46
       ],
-      "note": "The candle wall: a low sea wall all round the island with tallow burning along it, forty candles to each brother and sister, turn and turn, since the Snuffing. Ordinary fire barely helps; barely isn't nothing. The fog stands a cable's width off."
+      "note": "The candle wall: a low sea wall all round the island with tallow burning along it, forty candles to each brother and sister, turn and turn, since the Snuffing. Ordinary fire barely helps; barely isn't nothing. The fog stands a cable's width off. Day 63: each length of wall carries a soft halo (a glow, not a light — the light budget) so the ring reads round the island from the quay and the crown.",
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -386,7 +402,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -400,7 +424,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -414,7 +446,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -428,7 +468,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -442,7 +490,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -456,7 +512,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -470,7 +534,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -484,7 +556,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -498,7 +578,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -512,7 +600,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -526,7 +622,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -540,7 +644,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -554,7 +666,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -568,7 +688,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -582,7 +710,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/candle_ledge.glb",
@@ -596,7 +732,15 @@
         2.4,
         0.7,
         0.46
-      ]
+      ],
+      "halo": [
+        0,
+        0.82,
+        0
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.6,
+      "halo_bloom": 0.15
     },
     {
       "model": "res://assets/models/dressing/quiet_house.glb",
@@ -611,7 +755,14 @@
         3.4,
         3.0
       ],
-      "note": "The Quiet House by the water, apart: where the Keepers keep the Hushed. Shutters and door barred from outside; a candle on the step."
+      "note": "The Quiet House by the water, apart: where the Keepers keep the Hushed. Shutters and door barred from outside; a candle on the step. Day 63: the step candle's halo, so it reads from the path.",
+      "halo": [
+        0.35,
+        0.45,
+        1.75
+      ],
+      "halo_size": 0.9,
+      "halo_strength": 0.55
     },
     {
       "model": "res://assets/models/dressing/vigil_light.glb",
@@ -628,6 +779,38 @@
       ],
       "note": "Kindleby's beacon, the Vigil Light, dark on the crown of the island (a squat pale tower, candles burning round its foot even here).",
       "if": "!quest:a_light_for_kindleby=done"
+    },
+    {
+      "model": "res://assets/models/characters/keeper_sister.glb",
+      "position": [
+        -4.62,
+        0,
+        2.2
+      ],
+      "rotation_y": -8,
+      "idle": "breathe",
+      "collider": [
+        0.6,
+        1.6,
+        0.6
+      ],
+      "note": "A sister on the candles (Day 63): hood up, stooped over the south wall with her taper to a guttering wick, fresh candles in the crook of her arm. Forty each, turn and turn; there is always someone on the wall."
+    },
+    {
+      "model": "res://assets/models/characters/keeper_brother.glb",
+      "position": [
+        -8.2,
+        0,
+        0.4
+      ],
+      "rotation_y": 75,
+      "idle": "breathe",
+      "collider": [
+        0.6,
+        1.6,
+        0.6
+      ],
+      "note": "An old brother (Day 63) bringing a tray of new tallow down the wall to whoever's turn it is: one of the old Keepers who came over in the boats."
     },
     {
       "model": "res://assets/models/dressing/keeper_skiff.glb",
