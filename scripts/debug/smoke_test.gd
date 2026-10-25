@@ -259,7 +259,8 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 
 
 ## Day 62: with the Wrack lit, Oda tells of the Taper and sails it south-about to Kindleby: the arrival,
-## Brother Tobin at the bell, the Provost and the rite (bowed), the Quiet House. True if the walk is on
+## Brother Tobin at the bell, the Provost and the rite (bowed), the Quiet House; Day 64: the ring held from the
+## crown, the chapter's choice (the Boats' Lantern) burned in the Vigil Light. True if the walk is on
 ## Kindleby with Oda at the quay.
 func _sail_the_taper(main: Node, ui: DialogueUI) -> bool:
 	var world := GameState.world
@@ -287,6 +288,24 @@ func _sail_the_taper(main: Node, ui: DialogueUI) -> bool:
 	_object("quiet_house").interact()
 	_finish_dialogue(ui, "the Quiet House")
 	print("Smoke: Kindleby, the rite '%s'" % world.get_flag("kindleby_rite"))
+	# Day 64: the ember holds the ring from the crown while the chapter sits; the chapter's choice burned.
+	_npc("provost").interact()
+	_check(_choose(ui, "My ember could hold the ring while the chapter sits."), "the ember offered for the ring")
+	_check(_choose(ui, "Goodbye."), "...and she sends you up")
+	_finish_dialogue(ui, "the provost (the ring)")
+	_object("vigil_door").interact()
+	_finish_dialogue(ui, "the vigil door (holding the ring)")
+	_check(world.get_flag("kindleby_ring_held") == true and world.item_count("boats_lantern") == 1
+			and world.quest_stage("a_light_for_kindleby") == "feed_the_light", "the chapter sat and chose; the Boats' Lantern in hand")
+	_object("vigil_door").interact()
+	_check(_choose(ui, "Set the Boats' Lantern in the cradle."), "the lantern to the cradle")
+	_check(_choose(ui, "Burn Kindleby's night of the boats."), "...and burned")
+	_finish_dialogue(ui, "the Vigil Light (the burning)")
+	await get_tree().process_frame
+	_check(world.get_flag("kindleby_beacon_burned") == "boats" and world.quest_state("a_light_for_kindleby") == WorldState.QUEST_DONE,
+			"Kindleby's burning")
+	_check(_shown_model(isle, "vigil_light.glb") == 0 and _shown_model(isle, "vigil_light_lit.glb") == 1, "the Vigil Light lit on the crown")
+	print("Smoke: Kindleby lit ('%s')" % world.get_flag("kindleby_beacon_burned"))
 	return true
 
 

@@ -61,7 +61,7 @@ func test_the_candle_ring_glows() -> void:
 		var node := region._build_prop(prop)
 		built += node.find_children("*", "LanternHalo", true, false).size()
 		node.free()
-	assert_eq(built, ledges.size() + 2, "every halo built")
+	assert_eq(built, ledges.size() + 3, "every halo built (the ledges, the two step candles, the lit Vigil Light)")
 	region.free()
 
 

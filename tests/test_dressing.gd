@@ -52,7 +52,7 @@ func test_every_model_loads_small_and_upright() -> void:
 		if path.ends_with("ferry.glb"):
 			limit = Vector3(12.0, 9.0, 12.0)
 		elif path.get_file().begins_with("thornwold_beacon") or path.get_file().begins_with("heron_light") \
-				or path.get_file().begins_with("wrack_light"):
+				or path.get_file().begins_with("wrack_light") or path.get_file().begins_with("vigil_light"):
 			limit = Vector3(8.0, 11.0, 8.0)
 		elif path.ends_with("lane_house.glb"):
 			limit = Vector3(12.0, 7.0, 8.0)  # Wrackholm's lane-house is the one long hall (10 m)

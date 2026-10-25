@@ -219,7 +219,7 @@ func test_story_sounds_play_from_dialogue() -> void:
 		_collect_sounds(db.get_dialogue(id), used)
 	for needed: String in ["kindle", "horn_far", "horn_near"]:
 		assert_true(used.has(needed), "the story plays %s" % needed)
-	assert_eq(int(used.get("kindle", 0)), 4, "every beacon catches with a sound")
+	assert_eq(int(used.get("kindle", 0)), 5, "every beacon catches with a sound")
 
 
 func _collect_sounds(node: Variant, out: Dictionary) -> void:
