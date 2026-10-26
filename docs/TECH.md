@@ -28,6 +28,8 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow --
     --pause-menu[=save|load|chapters|settings|controls] --screenshot=/abs/out.png     # pause menu (on a page) (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --scenario=lamp_named --region=thornwold_landing \
     --lane-map[=wrackholm] --settle=60 --screenshot=/abs/out.png   # Oda's lane map (focus on a port) (debug)
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --scenario=kindleby_lit \
+    --journal=lanes --settle=60 --screenshot=/abs/out.png          # the journal on a tab (journal|satchel|lanes) (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png   # the waking (debug args skip the title)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --title --settle=90 --screenshot=/abs/out.png  # the title screen
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
@@ -102,7 +104,7 @@ scripts/
                Greying's muffle; a child of main), sound_emitter.gd (a prop's positional `sound`)
                Node groups: npcs, pickups, inspectables, exits (used by the smoke test)
   player/      player.gd — third-person controller, orbit camera, interaction sensor
-  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I two-tab panel),
+  ui/          dialogue_ui.gd, hud.gd, journal_ui.gd (J/I/L three-tab panel: journal, satchel, the chart),
                lane_map.gd (`LaneMap`: Oda's chart, a child of DialogueUI — see "The lane map"), act_end_card.gd
                (full-screen end-of-act card: title, recap, coda, "Keep exploring" / "Return to title"),
                menu_screen.gd (`MenuScreen`: the page-based menu panel and the pages both menus
@@ -453,6 +455,14 @@ reachable in the ferry dialogue; `lane_map` options only in that dialogue. Tests
 picks `"@<port>"` on the map; `test_lane_map.gd`. The smoke walk sails with `_sail(ui, port)`, its
 region walker sails to the first neighbouring port (as the old option order did), and after the east
 stair it takes the long passages Saltmarrow → Wrackholm → Saltmarrow live.
+**The chart in the journal (Day 65):** the journal's third tab (**L**, rebindable; the pad's **LB/RB** step
+between tabs — `tab_left`/`tab_right`, pad-only actions) shows the same `LaneMap` built `read_only` with a smaller
+`chart_size` (`JournalUI.CHART_SIZE`): no frame, no "Not yet.", focus starts where the Slow Mercy lies, pressing a
+port only tells of it ("Oda can sail you there." / why not), Esc is the journal's. It shows once `chart` in
+lanes.json holds (`Lanes.chart_known`; `quest:across_the_grey=done`), else "No chart yet." The tab labels carry
+the bound keys (none on a pad). Debug: `--journal=journal|satchel|lanes` opens the journal on a tab (reads an
+arrival scene through first, like `--lane-map`). Tests: `test_lanes_tab.gd`; the smoke walk presses L, LB/RB and,
+back at Saltmarrow after the east stair, checks the chart's ports and that pressing one sails nowhere.
 **A new port:** add it to `lanes_ferry_at`'s `values`, a port + lane in lanes.json, the lane knots and a
 `passage` knot (lines for each start port 2+ lanes away) in `oda.json`, and the ferry/Oda placements.
 

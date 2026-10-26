@@ -2,6 +2,50 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-26 09:00 UTC — Day 65: the chart in the journal (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale local `main` again;
+  reset `main` to `origin/main` (Day 64's `9815359`).
+- **Systems (due ~Day 65-66; last Day 59):** ROADMAP *Next up* #1, **the chart in the journal** (the Day 59 follow-up).
+  The player could only see the lanes by finding Oda; with five ports and long passages, "where is the ferry, what's lit,
+  where can I go" deserved a look from anywhere.
+  - **A third journal tab, Lanes (L).** The same `LaneMap` Oda opens, built `read_only` with a smaller `chart_size`
+    (640×340, unframed, inside the journal panel): every known port, lit and dark lights, sailed / unsailed / closed
+    lanes, the ring where the Slow Mercy lies (focus starts there). Focusing a port tells of its light and the way —
+    "Oda can sail you there." or why not ("Oda sails a new lane from its near end…") — and nothing sails; no "Not yet.";
+    Esc/B closes the journal as on the other tabs. Redrawn each time it opens.
+  - **No chart before the first crossing.** `chart` in `data/lanes.json` (`quest:across_the_grey=done`,
+    `Lanes.chart_known`, validated): before it the tab says "No chart yet. The Tidewrights keep the lanes; their
+    ferry-master will show you, once you sail with her."
+  - **Input.** `lanes` is a new rebindable action (L; the Controls page lists it); the pad's **LB/RB** step between
+    journal tabs (`tab_left`/`tab_right`, pad-only, wrapping). The tab buttons now carry the *bound* keys
+    ("Journal [J]" followed a rebinding only in the HUD before) and drop them on a pad, where the hint reads
+    "[LB] [RB] tabs  [B] close".
+  - Debug: `--journal=journal|satchel|lanes` opens the journal on a tab (shares `--lane-map`'s arrival read-through).
+- **Tests:** `test_lanes_tab.gd` (7: chart known after the crossing; the validator checks `chart`; no chart before;
+  read-only — every known port, focus at the ferry, nothing sails, the reasons, redrawn on reopen; Oda's chart still sails
+  with "Not yet."; tab labels follow keys/pad; the bindings). `test_polish_eight` expects the pad hint with the tabs.
+  **Smoke walk** presses L / RB / LB in its journal check and, back at Saltmarrow after the east stair, opens the chart
+  and presses a port. 460 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-26-am-*.png`): `the-lanes-tab` (at `kindleby_lit`), `no-chart-yet` (Act I).
+
+**Decisions**
+- **Reuse the LaneMap, don't fork it.** One drawing of the chart means art follow-ups (island silhouettes, drifting fog)
+  land in both places; the read-only switch is three small branches (frame, "Not yet.", what pressing does).
+- **The chart appears after the first crossing,** not when Oda arrives: it's hers, and Act I's crossing is still its own
+  ending, not a map choice.
+- **No pad button for Lanes;** the pad reaches it with Back then RB/LB. Pad face buttons are scarce and the shoulders
+  make three tabs cheap. The HUD hint stays "Journal / Satchel / Menu" for now (logged for polish nine).
+
+**Problems / notes**
+- None blocking. The legend wraps to two lines at the journal's width (readable; noted for polish nine).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content** (due ~Day 66-67; last Day 64): the skiff north reaches the far shore's stage, and
+   Aldous's answer to the Provost's boat. Art ~Day 68, polish pass nine by Day 69. Fetch and reset `main` before trusting it.
+
 ## 2026-10-25 21:00 UTC — Day 64: Kindleby, part two — the chapter sits, and Kindleby's burning (content)
 
 **Did**

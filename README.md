@@ -18,7 +18,7 @@ On Windows/macOS, install Godot 4.7.2 yourself and open `project.godot`.
 
 **Controls:** WASD / left stick to move · right-mouse drag, Q/R or right stick to turn the
 camera · E / Enter / A to talk, pick up and continue · 1–9 or click to choose · F5 quicksave ·
-J / View button journal · I / Y satchel (inventory) · Esc / B close panel · Esc / P / Start pause menu (save slots, load, settings, return to title, quit) · F9 quickload.
+J / View button journal · I / Y satchel (inventory) · L lanes (the chart, after the first crossing) · LB / RB journal tabs · Esc / B close panel · Esc / P / Start pause menu (save slots, load, settings, return to title, quit) · F9 quickload.
 The game opens on a title screen: **Continue** picks up the most recent save (quicksave or slot).
 Keys can be rebound, and volumes, text size and camera sensitivity/invert set, under
 **Esc → Settings** (saved to `user://settings.cfg`, separate from save games).
