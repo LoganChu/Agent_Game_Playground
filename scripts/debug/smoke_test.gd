@@ -242,6 +242,7 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 			"the east stair counted")
 	_check(_shown_model(village, "brazier_laid.glb") == 1 and _shown_model(village, "brazier_raked.glb") == 0, "the brazier laid, not lit")
 	print("Smoke: the Lamp named, Aldous counted the seventh ('%s')" % world.get_flag("saltmarrow_aldous_novice"))
+	await _check_lanes_tab(main.get("journal_ui"))
 	# Day 59: every lane sailed, the lane map takes the long passages light to light and back.
 	_npc("oda").interact()
 	_check(_sail(ui, "wrackholm"), "the lane map sails Saltmarrow to Wrackholm, three lanes in one")
@@ -1113,10 +1114,47 @@ func _check_journal(journal: JournalUI) -> void:
 	_check(journal.entry_count() == items.size(), "satchel lists carried items")
 	if not items.is_empty():
 		_check(journal.detail_text().contains(str(items[0]["description"])), "satchel shows item description")
+	_press("lanes")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(journal.tab == JournalUI.Tab.LANES and journal.chart_shown() == Lanes.chart_known(Content.db, GameState.world),
+			"L shows the Lanes tab (the chart once the first crossing is made)")
+	_press("tab_right")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(journal.tab == JournalUI.Tab.JOURNAL, "the next-tab button wraps round to the journal")
+	_press("tab_left")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(journal.tab == JournalUI.Tab.LANES, "and back")
 	_press("ui_cancel")
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_check(not journal.is_open() and not GameState.input_locked, "Esc closes the journal and unlocks input")
+
+
+## Day 65: after the crossings, L shows Oda's chart in the journal, read-only — every known
+## port on it, pressing one tells of it and sails nowhere; Esc closes as on the other tabs.
+func _check_lanes_tab(journal: JournalUI) -> void:
+	var world := GameState.world
+	var at := str(world.get_flag(Lanes.FLAG, ""))
+	_press("lanes")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(journal.chart_shown(), "L opens the chart in the journal after the crossing")
+	var chart := journal.lane_chart()
+	var ports := chart.port_ids()
+	ports.sort()
+	var known: Array = Lanes.known_ports(Content.db, world)
+	known.sort()
+	_check(ports == known, "the journal's chart shows every known port (%s)" % [ports])
+	chart.press_port("thornwold")
+	_check(journal.is_open() and str(world.get_flag(Lanes.FLAG, "")) == at and chart.info_text().contains("Oda can sail you there"),
+			"pressing a port on the journal's chart tells of it and sails nowhere")
+	_press("ui_cancel")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(not journal.is_open() and not GameState.input_locked, "Esc closes the chart")
 
 
 ## Esc pauses; saving into a slot (overwrite asks twice) and loading it back through the

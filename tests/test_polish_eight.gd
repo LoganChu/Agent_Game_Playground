@@ -110,7 +110,7 @@ func test_the_back_hint_follows_the_device() -> void:
 	button.button_index = JOY_BUTTON_B
 	button.pressed = true
 	GameState.note_input(button)
-	assert_eq(hints.call(), ["[B] close", "[B] back", "[B] back"], "a pad")
+	assert_eq(hints.call(), ["[LB] [RB] tabs   [B] close", "[B] back", "[B] back"], "a pad (the journal's tabs on the shoulders since Day 65)")
 	var key := InputEventKey.new()
 	key.physical_keycode = KEY_J
 	key.pressed = true
