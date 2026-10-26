@@ -903,6 +903,21 @@ debts, salvage, and who answers for a thing.
       (The brazier's ash shows raked after a `full` confession, as Day 16 said; grey all the way down after `grudging`
       until this scene.)
 
+  - **Established in play (Day 66 — a boat for Aldous, after the Provost's offer):** (`a_boat_for_aldous`, `saltmarrow_aldous_boat`)
+    - **Agathe Lorn was Sister Agathe** when Aldous was on the stair; she put him on report twice in one winter, and both
+      times he'd earned it. "She'll hear a thing if it's said to her properly, in a room, with the candles lit. She'll not
+      come looking for it." He has not been in a boat since the one that brought him to Saltmarrow and **won't get in one to
+      be weighed by a chapter** ("They'd find me light. They'd be right."). He puts the bottle down to say so.
+    - **letter** — he writes it on the back of an old tide-table torn off the harbor wall, slowly, crossing out, "mostly
+      apologising"; after a `full` confession **the rest is the stair, all of it: the light going down past him and which
+      way it went** ("It looks smaller, written"). "Give it her in her hand. Not on a table." **Aldous's Letter** is carried to
+      Kindleby: the Provost reads it twice standing at the door; he spelled her name wrong, as he always did; he'll come
+      "when the Spire's lit, or when it isn't worth lighting" — a door-warden's answer. She puts him **on the page at the
+      back of the Long Book for what was seen — "not who was lost: what was seen. It's empty. It's been empty a long while.
+      I never asked why."** (`kindleby_provost_read_letter`; *mystery #1: nine hundred years of the order writing down its
+      lost and never its witnesses. Do not explain.* The chapter now has a Keeper's written word, for Act III.)
+    - **no** — "Tell her I'm sorry about the reports. She'll know what that means. It means no."
+
   - **Established in play (Day 49 — the fifth, on Thornwold's ridge; salt-row path only):** (`the_fifth`, `thornwold_hob_ladder`)
     - **Hob goes up.** Asked from the tally-house step ("You keep looking up at the ridge"), he leans his rake on the bench
       and goes on ahead up the lanterns. **Pell**, if on Thornwold and keeping his count-stick, gives it back: "Finders keep
@@ -1027,7 +1042,7 @@ debts, salvage, and who answers for a thing.
         them; Wenna scratches another stroke; the Lamp keeps the whole coal for them ("I sat on that bollard thirty winters
         waiting for a boat that always came. Waiting for one that won't is harder").
     - Open: the **cold side of the coal** (it faced the Spire; kept "anyway"); the **stage's lantern burning for a boat**;
-      on `waiting`, the promise to the Spire ~~Wenna's clamp out along the lying cart road~~ (paid Day 57, below).
+      on `waiting`, ~~the promise to the Spire~~ (kept Day 62 on Kindleby; the skiff answers it Day 66 — see Kindleby) ~~Wenna's clamp out along the lying cart road~~ (paid Day 57, below).
 
   - **Established in play (Day 57 — the bend in the road; after *The Far Shore*'s `up`):** (`the_bend_in_the_road`, `thornwold_bend`)
     - **The bend.** The old cart road did not always run straight from the wall to the ridge: just past the first waymark it
@@ -1141,7 +1156,31 @@ its light is **the Vigil Light**.
   - Either way the fog leans back off the island and the Taper's channel shows plain; the Quiet House stops humming, then
     starts again; and **the candles go on** — nobody has thought to stop lighting them. "Five lights. The Spire next, I
     suppose, and the chapter can't sit for that one. There's nobody there to hold the door."
-- Open: the skiff on the far shore; the Quiet House; the Long Book; what Anselm and the old ones saw (burned, or kept).
+- **The skiff on the far shore (Day 66, `the_skiff_north`, `thornwold_skiff`).** **Sister Hild Garrow** (forties, big in the
+  shoulders, calls the sea "the wet") rowed the chapter's skiff north once a month for twelve years and left oil and meal on
+  the Northing's stage for the Ridge Light, and never once saw who carried it up; after the Snuffing the Provost said nobody
+  goes out in the wet, so nobody did — "We were the boat, near enough." With young **Sister Pim** at the bow lantern (an
+  ordinary flame) she brings the skiff in to the stage and the line pulls on **the bright side of the ring**. The Drays agree
+  for once ("I said a boat." "...He did say a boat."). Kindleby "takes in whoever the boats bring"; Half isn't Hushed —
+  they'd sleep in the chapter-house by the fire. Wenna, for the first time in her life, **wants telling**:
+  - **home** — she takes the meal ("Keep your lantern, sister"), Hild presses the oil on her, and the three go up the steps
+    as on *The Far Shore*'s `up` (Ottie's lantern left on the bracket "for the skiff, next time"); "Tell your Provost we
+    went home. She can send the meal to the Lamp." The Provost: "I'd have kept them, gladly."
+  - **kindleby** — one more stroke on the bollard, then **a line drawn back through the whole count**; everybody on the
+    shore gets in, low in the water (Ottie, who carried the lantern down: "Never been in anything wetter than a ditch. ...
+    Wenna's going"; Hob: "I'll count you all the way"). "Tell them we went to keep candles. They'll laugh. Let them." On
+    Kindleby: **Wenna keeps forty candles on the west wall** ("A clamp's a fire you keep shut. This is a fire you keep
+    open. Same hands"; "I've got forty, and not one of them's mine"); **the Provost sat her down the first night and wrote
+    down how the Half-Hushing came on — when, and what went first** *(mystery #1/#3: the order's interest in the Hushed.
+    Do not explain)*. Abe asks for sixty (a wick trims to a thumbnail, not a barleycorn); **Tolly keeps his candles by the
+    Quiet House** and doesn't like a door barred on the outside, nor the humming — "like a lot of people trying to remember
+    one"; Ottie looks north from the quay between turns; Hob counts the candles, "I'll never get to the end of it. I don't
+    want to." The Provost has given them the chapter-house fire: "We'll keep them." The Lamp saw a lantern go south off the
+    stage one night and keeps the coal anyway. Wenna's clamp at the bend stays lost (*The Bend in the Road* never opens).
+  - **empty** — if they'd already gone up, the sisters find the fire raked out, leave the meal by the bollard "the way I
+    always did. Somebody always carried it up", and row back.
+- Open: the Quiet House; the Long Book (and its empty page for what was seen); what Anselm and the old ones saw (burned, or
+  kept); the colliers on Kindleby (Ottie looking north; whether anyone goes home).
 
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 

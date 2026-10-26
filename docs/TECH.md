@@ -16,6 +16,7 @@ tools/run_checks.sh               # import + tests + smoke playthrough + launch 
 GODOT=.tools/bin/godot
 $GODOT --headless --path . --import                         # parse scripts, import assets
 $GODOT --headless --path . -s res://tests/run_tests.gd      # unit + content tests
+$GODOT --headless --path . -s res://tests/run_tests.gd -- --only=skiff   # just the test files whose name contains it
 $GODOT --headless --path . -- --smoke-test                  # automated playthrough
 $GODOT --path .                                             # play (opens on the title screen)
 $GODOT --path . -- --region=saltmarrow                      # start in a region (debug)

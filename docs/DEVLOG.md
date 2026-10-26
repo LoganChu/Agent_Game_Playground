@@ -2,6 +2,59 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-26 21:00 UTC — Day 66: the skiff north, and a boat for Aldous (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Local `main` matched `origin/main` (Day 65's
+  `5eb90c5`) this time. (My first background baseline run raced my first data edits and was void; the committed tree's
+  checks are green per Day 65 and the full run below is green.)
+- **Content (due ~Day 66-67; last Day 64):** ROADMAP *Next up* #1, both payoffs it named.
+  - **The skiff north lands.** Once `kindleby_skiff_north`, going down to the far shore plays `skiff_landing`: a small
+    ordinary lantern through the wool, Kindleby's skiff brought in under the stage, its line pulling on **the bright side
+    of the ring**. New NPC **Sister Hild Garrow** (keeper_sister model; twelve years rowing oil and meal out to the stage for
+    the Ridge Light, never once saw who carried it up) and Sister Pim (a figure at the line). The Drays agree for once.
+    Quest **The Skiff North** (`rowing_north` → `the_word`; started as the skiff leaves in `vigil_door`, or by the Provost
+    for older saves).
+  - **Wenna wants telling** (`thornwold_skiff`): **home** — takes the meal, leaves the lantern, and the existing *Far Shore*
+    `up` sequence plays with skiff-aware lines (Ottie's lantern "for the skiff, next time"; "Tell your Provost we went
+    home"), so `thornwold_far_shore` becomes `up` and the whole homecoming / bend chain follows unchanged. **kindleby** — a
+    line drawn through her whole count on the bollard, and everybody on the shore gets in (Ottie if he carried the lantern
+    down, Hob if he went); on Kindleby **Wenna and Abe keep candles on the west wall, Tolly by the Quiet House, Hob counts
+    the candles, Ottie looks north from the quay** — each with a short scene; the Provost wrote down how Wenna's
+    Half-Hushing came on. **empty** — if they'd already gone up, the sisters leave the meal and row back. The skiff is back
+    on Kindleby's shingle afterwards with Hild beside it; the Provost, the Lamp and the boat-stage inspectable all follow.
+  - **A Boat for Aldous** (new quest, from the Provost's "Tell him so"): Aldous puts the bottle down — Agathe Lorn put him on
+    report twice in one winter — and won't be weighed by a chapter. **"Then don't go"** (`no`: "Tell her I'm sorry about the
+    reports... It means no.") or **"Then write it down"** (`letter`): **Aldous's Letter** (key item), carried to Kindleby;
+    the Provost reads it twice at the door and puts him **on the empty page at the back of the Long Book for what was
+    seen** (`kindleby_provost_read_letter`, `future`). The full confession's light-down-the-stair rides in the letter.
+- **Tests:** `test_skiff_north.gd` (8: the quest starts as the skiff leaves / for old saves; the landing scene once, who's
+  on the stage, Wenna's choices; home; south with everybody; south with Ottie home and with/without Hob; the stage found
+  empty; the letter delivered; Aldous refuses). The test runner now takes `-- --only=<text>` (Day 64 wanted it).
+  468 tests + smoke + launch pass. Checkpoints **`skiff_in`**, **`colliers_on_kindleby`**.
+
+Screenshots (`docs/screenshots/2026-10-26-pm-*.png`): `the-skiff-at-the-stage`, `colliers-on-the-candles`.
+
+**Decisions**
+- **"Home" reuses *The Far Shore*'s `up`, rather than a new homecoming.** The woods, the Lamp's coal, Coll's Hearth and the
+  bend are all keyed on `thornwold_far_shore=up`; setting it keeps one homecoming to maintain and lets the skiff simply
+  change who's watching them go.
+- **"Kindleby" takes everyone on the shore.** Splitting Ottie and Hob off to Thornwold would have needed a dozen new
+  clearing placements; and Hob goes where the four go, Ottie where Wenna goes. It costs Wenna her hearth: the bend never
+  opens on this path, which is the point of the choice. The Keepers taking Half-Hushed colliers in "and writing it all
+  down" foreshadows mystery #1 without a word of explanation.
+- **Aldous doesn't go to Kindleby.** His running is his character; a letter lets the chapter hold a Keeper's written word
+  for Act III without moving him off his bench. The Long Book's empty page for "what was seen" sits with the chapter
+  choosing its witnesses' night (Day 64).
+
+**Problems / notes**
+- None blocking. The smoke walk never sees the skiff (it takes the far shore's `up`) — covered by tests; logged for polish
+  nine. No sound plays as the skiff comes in (there's no oar/creak recipe yet).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **art** (due ~Day 67-68; last Day 63), then polish pass nine by Day 69. Content next ~Day 69-70:
+   plan and begin Act II's close. Fetch and reset `main` before trusting it.
+
 ## 2026-10-26 09:00 UTC — Day 65: the chart in the journal (systems)
 
 **Did**

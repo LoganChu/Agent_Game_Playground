@@ -515,20 +515,29 @@ each .glb < 5 MB.
       closed lanes, where the Slow Mercy lies; focusing a port tells of its light and the way ("Oda can sail you there." or
       why not); nothing sails. The pad's **LB/RB** step between journal tabs; the tab labels carry the bound keys.
       `--journal=<tab>` debug arg. `test_lanes_tab.gd` (7); the smoke walk presses L and LB/RB and checks the chart.
+- [x] [C] **The skiff north, and a boat for Aldous** (Day 66): Kindleby's skiff comes in to the Northing's stage (arrival
+      scene; **Sister Hild Garrow**, new NPC, and Sister Pim) where the colliers waited; Wenna wants telling — **home** up the
+      steps (*The Far Shore*'s `up` homecoming follows) or **south to Kindleby** (everybody on the shore gets in; Wenna, the
+      Drays, Ottie and Hob keep candles on Kindleby's walls) — or, if they'd already gone up, the stage is found **empty**
+      (`thornwold_skiff`; quest *The Skiff North*). **Aldous's answer** on his bench to the Provost's boat: no, or a letter
+      carried to Kindleby (*A Boat for Aldous*; the Long Book's empty page for what was seen; `kindleby_provost_read_letter`,
+      `future`). The skiff back on Kindleby's shingle; the Lamp, the stage, the Provost follow. `test_skiff_north.gd` (8);
+      checkpoints `skiff_in`, `colliers_on_kindleby`; the test runner takes `-- --only=<text>`.
 
 ### Next up
-1. [C] **Content after Kindleby** (due ~Day 66-67; last Day 64): pay off **the skiff north** — it reaches the Northing's stage
-   (`kindleby_skiff_north`, `future`): the waiting colliers and the far shore's boat-stage (Abe, Tolly), brought to
-   Kindleby or home along the old road; **Aldous told the Provost would send a boat for him**
-   (`kindleby_provost_heard_aldous`) — his answer on his bench. Then plan **Act II's close**: five lights lit round
-   Cindermoor; what opens the lane in (LORE: lanes never cross to Cindermoor "while the lights between are dark"), the
-   player-memory Remnants system (mystery #2), and a Keeper met later who knows the Wakebearer held Kindleby's door
-   (`kindleby_ring_held`, `future`). Small follow-ups still open: the `stayed` ending's walk home (by oar, waving at the
-   Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or the Lamp on Wenna's bend.
+1. [A] **Art session** (due ~Day 67-68; last Day 63) — see *Dressing follow-ups* below; the skiff on the far shore could use
+   its bow lantern lit (a `halo`) and Sister Pim a pose at the line.
 2. [P] **Polish/debt pass nine** (due by Day 69; last Day 61) — see *Known issues* for candidates (the smoke walk only
    takes Kindleby's `boats` burn on the bowed path: the others are `test_kindleby_chapter.gd`; the HUD key hint doesn't
-   mention L once the chart is known; the lane map's legend wraps to two lines at the journal's width).
-3. [A] **Art session** (due ~Day 68; last Day 63) — see *Dressing follow-ups* below.
+   mention L once the chart is known; the lane map's legend wraps to two lines at the journal's width; the smoke walk
+   never sees the skiff — it takes the far shore's `up` — nor Aldous's letter: both are `test_skiff_north.gd`).
+3. [C] **Plan and begin Act II's close** (next content due ~Day 69-70; last Day 66): five lights lit round Cindermoor; what
+   opens the lane in (LORE: lanes never cross to Cindermoor "while the lights between are dark"), the player-memory
+   Remnants system (mystery #2), and a Keeper met later who knows the Wakebearer held Kindleby's door
+   (`kindleby_ring_held`, `future`) or read Aldous's letter (`kindleby_provost_read_letter`, `future`). Small follow-ups
+   still open: the `stayed` ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing
+   Dunstan's home; Abe/Tolly or the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go
+   home?); Tobin/Oda noticing the colliers on the wall.
 4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
@@ -578,7 +587,8 @@ each .glb < 5 MB.
 - [C] Wrackholm (the Tidewrights' island: what's owed). Begun Day 40 (the yard, the lane-house, Wenna, Jory, the Gannet's crew); Day 42 the Teeth (the white, the tide, the Wrack's lantern room); Day 43 the Wrack's burning, the horn, the Book, the oath; Day 45 the Lamp's name carried home (Thornwold). Open: the Book's last line (mystery #2); the empty bracket (the Gannet's timber, a year and a tide on).
 - [C] **Kindleby** (the Keepers' mother-house, south-about from Wrackholm down the Taper). Begun Day 62 (the candle ring,
   Brother Tobin, Provost Agathe Lorn and the rite, the Quiet House, the Vigil Light dark; *A Light for Kindleby* to `the_chapter`);
-  Day 64 the chapter sits (the ember holds the ring) and Kindleby's burning (the boats' night / Tobin's calling). Open: the skiff north.
+  Day 64 the chapter sits (the ember holds the ring) and Kindleby's burning (the boats' night / Tobin's calling); Day 66 the skiff
+  north (the colliers home, or keeping candles on Kindleby) and Aldous's letter. Open: the Quiet House, the Long Book.
 - [S] Day/night cycle & tides; NPC schedules. (Day 42: Wrackholm's tide is a story flag, `wrackholm_tide`, waited
   down at the spit; a real tide system should drive it and keep '' / `low` as its values.)
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
@@ -646,7 +656,7 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 64 (Kindleby part two); next content due by ~Day 67.
+- Last content session: Day 66 (the skiff north, Aldous's letter); next content due by ~Day 70.
 - Last polish/debt session: Day 61 (pass eight); next due by Day 69.
 - Last systems session: Day 65 (the journal's Lanes tab); next due by ~Day 71 (the Greying v2's ember pushing fog
   back, day/night, or gamepad rebinding).
