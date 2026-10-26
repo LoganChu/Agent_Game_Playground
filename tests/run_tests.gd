@@ -15,8 +15,12 @@ func _initialize() -> void:
 	var failed := 0
 	var started := Time.get_ticks_msec()
 	var timings: Array[Array] = []  # [msec, name]
+	var only := ""  # `-- --only=<text>` runs only the test files whose name contains it
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--only="):
+			only = arg.trim_prefix("--only=")
 	for path in JsonUtil.list_files(TEST_DIR, "gd"):
-		if not path.get_file().begins_with("test_"):
+		if not path.get_file().begins_with("test_") or (only != "" and not path.get_file().contains(only)):
 			continue
 		var script := load(path) as GDScript
 		if script == null:
