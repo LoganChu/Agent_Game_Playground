@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_skiff=kindleby",
+        "goto": "kindleby"
+      },
+      {
         "if": "flag:thornwold_bend=road",
         "goto": "bend_road"
       },
@@ -268,7 +272,18 @@
       {
         "say": "ottie",
         "text": "I'll leave the lantern on the bracket. For the boat. Somebody should be lit for it, if it comes.",
-        "if": "flag:thornwold_northing=carried"
+        "if": [
+          "flag:thornwold_northing=carried",
+          "!flag:thornwold_skiff=home"
+        ]
+      },
+      {
+        "say": "ottie",
+        "text": "I'll leave the lantern on the bracket. For the skiff, next time. Somebody should be lit for it.",
+        "if": [
+          "flag:thornwold_northing=carried",
+          "flag:thornwold_skiff=home"
+        ]
       },
       {
         "say": "hob",
@@ -292,7 +307,18 @@
       },
       {
         "say": "wenna_coll",
-        "text": "Tell the boat we went home. If it comes."
+        "text": "Tell the boat we went home. If it comes.",
+        "if": "!flag:thornwold_skiff=home"
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Tell your Provost we went home, sister. And thank her. She can send the meal to the Lamp.",
+        "if": "flag:thornwold_skiff=home"
+      },
+      {
+        "say": "narrator",
+        "text": "Behind you the sisters cast off, and Kindleby's small yellow lantern goes away south into the wool.",
+        "if": "flag:thornwold_skiff=home"
       },
       {
         "set": {
@@ -354,6 +380,13 @@
       }
     ],
     "waiting": [
+      {
+        "if": [
+          "flag:thornwold_skiff_landed",
+          "flag:thornwold_skiff="
+        ],
+        "goto": "skiff"
+      },
       {
         "say": "narrator",
         "text": "Wenna is on the end of the stage, her nail in her hand. There are more strokes on the bollard than last time."
@@ -821,6 +854,252 @@
           "thornwold_bend": "hearth"
         },
         "quest_complete": "the_bend_in_the_road"
+      }
+    ],
+    "skiff": [
+      {
+        "say": "narrator",
+        "text": "Wenna stands at the end of the stage by the skiff's line where it goes round the ring. She has her nail in her hand, and she hasn't scratched anything with it."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "A boat came."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Not the Spire's. Kindleby's, she says, wherever that is when it's at home. Meal and oil and a lantern with an ordinary flame in it. A boat's a boat."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I said every day on that bollard I'd get in it when it came. Now it's here, I find I want somebody to tell me. That's a new one. I've never wanted telling in my life."
+      },
+      {
+        "goto": "skiff_hub"
+      }
+    ],
+    "skiff_hub": [
+      {
+        "choice": [
+          {
+            "text": "What's on Kindleby?",
+            "goto": "skiff_what"
+          },
+          {
+            "text": "Take the meal and go home, Wenna. Up the steps. The road's lit.",
+            "goto": "skiff_home"
+          },
+          {
+            "text": "Go with the sisters. Kindleby keeps a fire that's never out.",
+            "goto": "skiff_kindleby"
+          },
+          {
+            "text": "Not yet.",
+            "goto": "skiff_not_yet"
+          }
+        ]
+      }
+    ],
+    "skiff_what": [
+      {
+        "say": "hild",
+        "text": "Kindleby? Candles. Forty to a body, turn and turn, all round the wall, and the fog stood off past them like a crowd at a door. A chapter-house with a fire that's never been let out. Bread. Bells. More bells than you'd want."
+      },
+      {
+        "say": "hild",
+        "text": "And the Vigil Light lit, now, since the Wakebearer went up the stair. You'd hardly know the place.",
+        "if": "!flag:kindleby_beacon_burned="
+      },
+      {
+        "say": "wenna_coll",
+        "text": "And the house by the water? There's always a house by the water."
+      },
+      {
+        "say": "hild",
+        "text": "The Quiet House. That's for the Hushed. The Provost keeps them; it's the oldest work of the order. You're not Hushed. Half isn't Hushed. You'd sleep in the chapter-house with the rest of us, and keep candles if you'd a mind to."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Keep candles. Forty of them."
+      },
+      {
+        "say": "narrator",
+        "text": "She turns the end of her braid in her fingers, the silver part, and lets it go."
+      },
+      {
+        "goto": "skiff_hub"
+      }
+    ],
+    "skiff_not_yet": [
+      {
+        "say": "wenna_coll",
+        "text": "It's been three months coming. It can wait while you think."
+      },
+      {
+        "end": true
+      }
+    ],
+    "skiff_home": [
+      {
+        "set": {
+          "thornwold_skiff": "home"
+        }
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Home."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I'll take the meal. Meal's meal. Keep your lantern, sister. An ordinary flame barely helps, you say, and I've walked round my own fire three times by worse."
+      },
+      {
+        "say": "hild",
+        "text": "Barely isn't nothing. Take the oil, then. For whatever you do find."
+      },
+      {
+        "quest_complete": "the_skiff_north"
+      },
+      {
+        "goto": "up"
+      }
+    ],
+    "skiff_kindleby": [
+      {
+        "set": {
+          "thornwold_skiff": "kindleby"
+        }
+      },
+      {
+        "say": "wenna_coll",
+        "text": "The boat, then. I said I'd get in it. I'll get in it."
+      },
+      {
+        "say": "narrator",
+        "text": "She takes the nail and scratches one more stroke on the bollard's cap. Then she draws it back through the whole long count, end to end, once, hard."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Abe. Tolly. In."
+      },
+      {
+        "say": "abe",
+        "text": "Told you it was coming."
+      },
+      {
+        "say": "tolly",
+        "text": "I'll sit at the back. If it sinks I want to see it coming."
+      },
+      {
+        "say": "ottie",
+        "text": "Never been in anything wetter than a ditch.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "ottie",
+        "text": "...Wenna's going. I'll go. I'll leave the lantern on the bracket, for the next one.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "hob",
+        "text": "Four in a boat. I'll count you in the boat. I'll count you all the way. Somebody's to.",
+        "if": [
+          "flag:thornwold_hob_came_in",
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_northing=carried"
+        ]
+      },
+      {
+        "say": "hob",
+        "text": "Three in a boat, and Ottie home in his boots. That's four. I'll count the three all the way. Somebody's to.",
+        "if": [
+          "flag:thornwold_hob_came_in",
+          "flag:thornwold_hob_ladder=gone",
+          "flag:thornwold_northing=lit"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "They get down into the skiff the way colliers get into anything, like sacks into a cart, and it sits low in the water with all of them in it. Sister Pim takes the bow lantern. Sister Hild takes the oars."
+      },
+      {
+        "say": "hild",
+        "text": "Kindleby by morning, or the morning after. Sit still, and bail when I say."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "If anybody on Thornwold asks after the colliers, tell them we went to keep candles. They'll laugh. Let them."
+      },
+      {
+        "say": "narrator",
+        "text": "The line comes off the ring. The skiff goes out past the end of the stage into the wool, the lantern last, and then there's only the sound of the oars, and then not that."
+      },
+      {
+        "quest_complete": "the_skiff_north"
+      }
+    ],
+    "kindleby": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll stands on Kindleby's west wall with her sacking hood up against the wet and a sister's taper in her hand, going along a row of candles one by one, the way she'd go round the vents of a clamp."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Forty. Turn and turn. I took a turn the first night and they've let me keep it."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "A clamp's a fire you keep shut. This is a fire you keep open. Same hands."
+      },
+      {
+        "goto": "kindleby_hub"
+      }
+    ],
+    "kindleby_hub": [
+      {
+        "choice": [
+          {
+            "text": "Did you find what you wanted here?",
+            "goto": "kindleby_light"
+          },
+          {
+            "text": "Do you miss your hearth?",
+            "goto": "kindleby_hearth"
+          },
+          {
+            "text": "Goodbye, Wenna.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "kindleby_light": [
+      {
+        "say": "wenna_coll",
+        "text": "I wanted a light of my own. I've got forty, and not one of them's mine. Funny how a thing comes."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "The Provost sat me down the first night and asked how the Half-Hushing came on. When, and what went first. Wrote it all down, every word. They write everything down here."
+      },
+      {
+        "goto": "kindleby_hub"
+      }
+    ],
+    "kindleby_hearth": [
+      {
+        "say": "wenna_coll",
+        "text": "It's out along the cart road somewhere, lying. It'll keep. Clamps keep."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks north over the candles, where there's nothing to see but the fog standing off a cable's width away."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Somebody'll find it. Or nobody will, and it'll still be there. That's the same thing, to a clamp."
+      },
+      {
+        "goto": "kindleby_hub"
       }
     ]
   }

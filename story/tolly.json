@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_skiff=kindleby",
+        "goto": "kindleby"
+      },
+      {
         "if": "flag:thornwold_far_shore=up",
         "goto": "home"
       },
@@ -18,7 +22,15 @@
       {
         "say": "tolly",
         "text": "Still not coming. I'm only saying.",
-        "if": "flag:thornwold_far_shore=waiting"
+        "if": [
+          "flag:thornwold_far_shore=waiting",
+          "!flag:thornwold_skiff_landed"
+        ]
+      },
+      {
+        "say": "tolly",
+        "text": "Don't. I know. He's going to be like this for a year.",
+        "if": "flag:thornwold_skiff_landed"
       },
       {
         "goto": "hub"
@@ -104,6 +116,32 @@
         "choice": [
           {
             "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "kindleby": [
+      {
+        "say": "narrator",
+        "text": "Tolly Dray keeps his forty candles along the east wall, by the house down at the water, and looks at the house more than at the candles."
+      },
+      {
+        "say": "tolly",
+        "text": "Door on that house is barred. On the outside. Shutters too. Who bars a door on the outside?"
+      },
+      {
+        "say": "tolly",
+        "text": "Abe says people who don't want it opened. First thing he's said in forty years I couldn't argue with. I didn't like it."
+      },
+      {
+        "say": "tolly",
+        "text": "They hum in there, nights. I lie by the chapter-house fire and listen. Not the same tune, quite. Like a lot of people trying to remember one."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye, Tolly.",
             "end": true
           }
         ]

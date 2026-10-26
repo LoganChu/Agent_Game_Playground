@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_skiff=kindleby",
+        "goto": "kindleby"
+      },
+      {
         "if": "flag:thornwold_far_shore=up",
         "goto": "home"
       },
@@ -18,7 +22,15 @@
       {
         "say": "abe",
         "text": "Still coming. Don't you start.",
-        "if": "flag:thornwold_far_shore=waiting"
+        "if": [
+          "flag:thornwold_far_shore=waiting",
+          "!flag:thornwold_skiff_landed"
+        ]
+      },
+      {
+        "say": "abe",
+        "text": "Came, didn't it. Forty years he's been right about everything. He can have a turn at the other thing.",
+        "if": "flag:thornwold_skiff_landed"
       },
       {
         "goto": "hub"
@@ -111,6 +123,32 @@
         "choice": [
           {
             "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "kindleby": [
+      {
+        "say": "narrator",
+        "text": "Abe Dray stands on Kindleby's west wall with his sleeves rolled and a taper in his big hand, trimming wicks with his thumbnail."
+      },
+      {
+        "say": "abe",
+        "text": "Forty a body, turn and turn. They gave us forty each. I said a collier can keep sixty and not look. The sister wrote it down."
+      },
+      {
+        "say": "abe",
+        "text": "Tolly says you trim a wick to a barleycorn. It's a thumbnail. It's always been a thumbnail."
+      },
+      {
+        "say": "abe",
+        "text": "It's not a clamp. But you keep it the same way: don't let it out, don't let it run. Turns out I'm good at it. Who knew. Not Tolly."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye, Abe.",
             "end": true
           }
         ]

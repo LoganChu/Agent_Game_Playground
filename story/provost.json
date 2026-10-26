@@ -164,6 +164,11 @@
             "goto": "stage"
           },
           {
+            "text": "Aldous Wren wrote to you.",
+            "if": "item:aldous_letter",
+            "goto": "letter"
+          },
+          {
             "text": "Who's in the Quiet House?",
             "goto": "quiet"
           },
@@ -332,6 +337,10 @@
       {
         "say": "provost",
         "text": "If Aldous Wren has seen something, he can come to Kindleby and say it to the chapter. I'd send a boat for him. Tell him so."
+      },
+      {
+        "if": "quest:a_boat_for_aldous=inactive",
+        "quest_start": "a_boat_for_aldous"
       },
       {
         "goto": "hub"
@@ -552,13 +561,82 @@
         "if": "flag:kindleby_beacon_burned=pan"
       },
       {
+        "if": [
+          "flag:kindleby_skiff_north",
+          "flag:thornwold_skiff=",
+          "quest:the_skiff_north=inactive"
+        ],
+        "quest_start": "the_skiff_north"
+      },
+      {
         "say": "provost",
         "text": "The skiff's gone north, as I said it would. Two of my sisters, with oil and meal and a lantern. If the Northing's stage still has anybody on it, they'll bring them.",
-        "if": "flag:kindleby_skiff_north"
+        "if": [
+          "flag:kindleby_skiff_north",
+          "flag:thornwold_skiff="
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "The skiff came back light. Sister Hild says your colliers took the meal and went home up the steps. Good. I'd have kept them, gladly.",
+        "if": "flag:thornwold_skiff=home"
+      },
+      {
+        "say": "provost",
+        "text": "Your colliers are on my wall. They keep candles better than half my sisters; Wenna Coll says a candle's only a clamp turned inside out. I've given them the chapter-house fire. We'll keep them.",
+        "if": "flag:thornwold_skiff=kindleby"
+      },
+      {
+        "say": "provost",
+        "text": "The skiff came back with nobody in it. Sister Hild says the stage was empty and the fire raked out. She left the meal anyway. She always did.",
+        "if": "flag:thornwold_skiff=empty"
       },
       {
         "say": "provost",
         "text": "Five lights, Wakebearer. The Spire next, I suppose, and the chapter can't sit for that one. There's nobody there to hold the door."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "letter": [
+      {
+        "say": "narrator",
+        "text": "You give it into her hand. She looks at the outside a long moment, then unfolds it and reads it standing at the door, all the way through, and then again from the top. A candle on the sill behind her gutters and recovers, twice.",
+        "take_item": "aldous_letter"
+      },
+      {
+        "say": "provost",
+        "text": "He spelled my name wrong. He always did."
+      },
+      {
+        "say": "provost",
+        "text": "He says a light went down the east stair past him, the night the Spire went dark. Going down. Not going out.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "provost",
+        "text": "He says he'll come when the Spire's lit, or when it isn't worth lighting, whichever's first. A door-warden's answer. He always had one."
+      },
+      {
+        "say": "narrator",
+        "text": "She folds it along his folds and puts it in her sleeve."
+      },
+      {
+        "say": "provost",
+        "text": "There's a page at the back of the Long Book for what was seen. Not who was lost: what was seen. It's empty. It's been empty a long while. I never asked why."
+      },
+      {
+        "say": "provost",
+        "text": "I'll put him on it. In my own hand. The chapter can read it when it next sits, and do as it likes."
+      },
+      {
+        "set": {
+          "kindleby_provost_read_letter": true
+        }
+      },
+      {
+        "quest_complete": "a_boat_for_aldous"
       },
       {
         "goto": "hub"

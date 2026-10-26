@@ -1,0 +1,14 @@
+{
+  "id": "hild",
+  "name": "Sister Hild Garrow",
+  "faction": "keepers",
+  "color": "driftwood",
+  "dialogue": "hild",
+  "model": "res://assets/models/characters/keeper_sister.glb",
+  "idle": "breathe",
+  "bio": "A sister of Kindleby, forties, big in the shoulders: for twelve years she rowed the chapter's skiff north once a month and left oil and meal on the Northing's boat-stage for the Ridge Light, and never once saw who carried it up. Rowed north again while the chapter sat, with young Sister Pim, to bring back whoever wanted bringing. Plain-spoken; calls the sea 'the wet'.",
+  "voice": {
+    "sound": "voice_soft",
+    "pitch": 0.94
+  }
+}

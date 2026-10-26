@@ -942,6 +942,25 @@
       "if": "!flag:kindleby_skiff_north"
     },
     {
+      "model": "res://assets/models/dressing/keeper_skiff.glb",
+      "position": [
+        -4.5,
+        0,
+        4.6
+      ],
+      "rotation_y": 75,
+      "collider": [
+        1.2,
+        0.9,
+        3.4
+      ],
+      "note": "The chapter's skiff back on the shingle from the Northing's stage (The Skiff North, Day 66).",
+      "if": [
+        "flag:kindleby_skiff_north",
+        "flag:thornwold_skiff=home|kindleby|empty"
+      ]
+    },
+    {
       "model": "res://assets/models/dressing/barrels.glb",
       "position": [
         7.6,
@@ -1066,6 +1085,113 @@
       ],
       "rotation_y": 0,
       "note": "At the foot of the chapter-house steps, hands folded, as if she has stood there since the bell."
+    },
+    {
+      "npc": "hild",
+      "position": [
+        -3.6,
+        0,
+        6.2
+      ],
+      "rotation_y": 200,
+      "if": [
+        "flag:kindleby_skiff_north",
+        "flag:thornwold_skiff=home|kindleby|empty"
+      ],
+      "note": "Sister Hild by the chapter's skiff, back from the Northing's stage, scraping its bottom."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        -12.0,
+        0,
+        -0.4
+      ],
+      "rotation_y": -36,
+      "if": [
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "On the west wall with a taper, keeping forty candles (The Skiff North, kindleby)."
+    },
+    {
+      "npc": "abe",
+      "position": [
+        -14.2,
+        0,
+        -2.7
+      ],
+      "rotation_y": -59,
+      "if": [
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "Along the wall from Wenna, trimming wicks with his thumbnail."
+    },
+    {
+      "npc": "tolly",
+      "position": [
+        9.6,
+        0,
+        1.6
+      ],
+      "rotation_y": 120,
+      "if": [
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "On the east wall by the Quiet House, looking at its barred door more than at his candles."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        6.2,
+        0,
+        7.4
+      ],
+      "rotation_y": 20,
+      "if": [
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up",
+        "flag:thornwold_northing=carried",
+        "!flag:thornwold_ottie_cap"
+      ],
+      "note": "At the quay's end looking north, between turns on the candles."
+    },
+    {
+      "npc": "ottie",
+      "position": [
+        6.2,
+        0,
+        7.4
+      ],
+      "rotation_y": 20,
+      "model": "res://assets/models/characters/ottie_cap.glb",
+      "if": [
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up",
+        "flag:thornwold_northing=carried",
+        "flag:thornwold_ottie_cap"
+      ],
+      "note": "The same, in his cap."
+    },
+    {
+      "npc": "hob",
+      "position": [
+        14.2,
+        0,
+        -7.2
+      ],
+      "rotation_y": 121,
+      "model": "res://assets/models/characters/hob_lantern.glb",
+      "idle": "breathe",
+      "if": [
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up",
+        "flag:thornwold_hob_came_in",
+        "flag:thornwold_hob_ladder=gone"
+      ],
+      "note": "On the east wall with his lantern held out, counting candles."
     }
   ],
   "objects": [

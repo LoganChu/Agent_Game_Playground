@@ -1,0 +1,122 @@
+{
+  "id": "skiff_landing",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_far_shore=up",
+        "goto": "empty"
+      },
+      {
+        "say": "narrator",
+        "text": "Out past the end of the boat-stage something comes through the wool low on the water: a lantern first, a small yellow flame, ordinary as a kitchen's, and then a bow under it, and oars."
+      },
+      {
+        "say": "narrator",
+        "text": "Two sisters in white habits, the hems gone black with the wet, bring a skiff in under the stage. The big one in the stern throws a line round the bollard's ring without looking, and it pulls on the bright side, where the ring was always pulled."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna Coll is on her feet at the end of the stage. She doesn't help with the line. She stands with her nail shut in her fist and watches the rope go round the ring as if it might come off again."
+      },
+      {
+        "say": "hild",
+        "text": "Kindleby skiff. Sister Hild Garrow, and that's Sister Pim at the bow. Oil, meal and a lantern, by the Provost's word, and room for whoever wants bringing."
+      },
+      {
+        "say": "hild",
+        "text": "Twelve years I've rowed this wet once a month and left the meal on that stage, and never once seen a soul on it. And now look at it. A crowd."
+      },
+      {
+        "say": "abe",
+        "text": "Told you. Told you a boat'd come."
+      },
+      {
+        "say": "tolly",
+        "text": "You said the Spire's."
+      },
+      {
+        "say": "abe",
+        "text": "I said a boat."
+      },
+      {
+        "say": "tolly",
+        "text": "...He did say a boat."
+      },
+      {
+        "say": "ottie",
+        "text": "There. A boat. I said. Didn't I say?",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "hob",
+        "text": "Two more. Two more on the stage. That's six. No. Two Keepers and the four. I'll count them separate.",
+        "if": [
+          "flag:thornwold_hob_came_in",
+          "flag:thornwold_hob_ladder=gone"
+        ]
+      },
+      {
+        "if": "quest:the_skiff_north=inactive",
+        "quest_start": "the_skiff_north"
+      },
+      {
+        "if": "stage:the_skiff_north=rowing_north",
+        "quest_stage": [
+          "the_skiff_north",
+          "the_word"
+        ]
+      }
+    ],
+    "empty": [
+      {
+        "say": "narrator",
+        "text": "Out past the end of the boat-stage something comes through the wool low on the water: a lantern first, a small yellow flame, and then a bow under it, and oars."
+      },
+      {
+        "say": "narrator",
+        "text": "Two sisters in white habits bring a skiff in under the stage and throw a line round the bollard's ring. The big one in the stern looks along the shingle at the raked-out fire and the kettle left on its stone."
+      },
+      {
+        "say": "hild",
+        "text": "Kindleby skiff. Sister Hild Garrow, and that's Sister Pim. Oil, meal and a lantern for whoever's on the Northing's stage, by the Provost's word."
+      },
+      {
+        "say": "hild",
+        "text": "...Nobody's on the Northing's stage."
+      },
+      {
+        "say": "player",
+        "text": "They went home. Up the steps and along the old road, to their own clearing."
+      },
+      {
+        "say": "hild",
+        "text": "Did they. Good. That's better than us, then."
+      },
+      {
+        "say": "hild",
+        "text": "Somebody's left a light on the bracket for us. That's manners.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "hild",
+        "text": "We'll leave the meal on the stage, the way I always did. Somebody always carried it up. I never once saw who."
+      },
+      {
+        "say": "narrator",
+        "text": "Sister Pim sets the sack and the cask by the bollard, under the long count of days with its last stroke struck through. Then they cast off, and the skiff goes back out past the end of the stage into the wool, the lantern last."
+      },
+      {
+        "set": {
+          "thornwold_skiff": "empty"
+        }
+      },
+      {
+        "if": "quest:the_skiff_north=inactive",
+        "quest_start": "the_skiff_north"
+      },
+      {
+        "quest_complete": "the_skiff_north"
+      }
+    ]
+  }
+}

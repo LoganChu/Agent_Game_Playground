@@ -744,9 +744,8 @@
       "future": true
     },
     "kindleby_skiff_north": {
-      "description": "While the chapter sat, two sisters ran the chapter's skiff down the shingle and rowed north with oil, meal and a lantern for the colliers waiting on the Northing's stage (only if kindleby_told_of_stage; Day 64). The skiff is gone from the quay. Its landing on the far shore is a later session's.",
-      "default": false,
-      "future": true
+      "description": "While the chapter sat, two sisters ran the chapter's skiff down the shingle and rowed north with oil, meal and a lantern for the colliers waiting on the Northing's stage (only if kindleby_told_of_stage; Day 64). The skiff is gone from Kindleby's quay until it lands on the far shore and rows back (thornwold_skiff, Day 66).",
+      "default": false
     },
     "kindleby_beacon_burned": {
       "description": "What fed the Vigil Light (Kindleby's burning, Day 64): '' (not lit), 'boats' (the chapter's choice, the Boats' Lantern: Kindleby's night of the boats is gone — the lanterns on the quay, the faces up the steps, what the ones who came over from the Spire saw and never said; nobody on Kindleby remembers how they came) or 'pan' (Tobin's coal-pan: Tobin Ashe was never called up and will never think to go). Read with kindleby_rite: bowed and pan is the rite kept and broken the same night.",
@@ -756,6 +755,34 @@
         "boats",
         "pan"
       ]
+    },
+    "thornwold_skiff_landed": {
+      "description": "The player has seen Kindleby's skiff in at the Northing's boat-stage (one-time arrival scene on the far shore once kindleby_skiff_north: Sister Hild Garrow and Sister Pim with oil, meal and a lantern; Day 66).",
+      "default": false
+    },
+    "thornwold_skiff": {
+      "description": "What came of Kindleby's skiff on the far shore (Day 66): '' (not landed, or landed and waiting on the Wakebearer's word), 'home' (Wenna Coll took the meal and went home up the Keepers' steps: thornwold_far_shore becomes 'up' and the homecoming follows), 'kindleby' (whoever was on the shore got into the skiff: Wenna and the Drays — Ottie if he carried the lantern down, Hob if he went — keep candles on Kindleby now) or 'empty' (the colliers had already gone up before it landed; the sisters left the meal on the stage and rowed back). The skiff is back on Kindleby's shingle once it is set.",
+      "default": "",
+      "values": [
+        "",
+        "home",
+        "kindleby",
+        "empty"
+      ]
+    },
+    "saltmarrow_aldous_boat": {
+      "description": "Aldous's answer to the Provost's offer of a boat (kindleby_provost_heard_aldous; Day 66): '' (not told yet), 'letter' (he won't get in a boat to be weighed by a chapter, but he wrote it down: the player carries Aldous's Letter to Kindleby) or 'no' (he won't go and won't write: 'Tell her I'm sorry about the reports').",
+      "default": "",
+      "values": [
+        "",
+        "letter",
+        "no"
+      ]
+    },
+    "kindleby_provost_read_letter": {
+      "description": "The Provost read Aldous Wren's letter (Day 66): she puts him on the page at the back of the Long Book for what was seen — empty a long while. For the Keepers' arc and Act III (the chapter has a Keeper's written word that the High Keeper put the flame out).",
+      "default": false,
+      "future": true
     }
   }
 }

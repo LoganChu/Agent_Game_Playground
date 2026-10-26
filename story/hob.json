@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_skiff=kindleby",
+        "goto": "kindleby"
+      },
+      {
         "if": [
           "flag:thornwold_hob_ladder=gone",
           "!flag:thornwold_far_shore=up"
@@ -965,6 +969,34 @@
         ],
         "say": "hob",
         "text": "Wenna brings her sacks to my cart herself. Stands by it till I see her. Out east somewhere, she lives. Road won't say where. Doesn't matter. She comes."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye, Hob.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "kindleby": [
+      {
+        "say": "narrator",
+        "text": "Hob stands on Kindleby's east wall with his lantern held out over a row of candles, and his lips move."
+      },
+      {
+        "say": "hob",
+        "text": "Forty. Forty. Forty. Every brother, every sister, forty each, all the way round. I've never had so much to count. I'll never get to the end of it. I don't want to."
+      },
+      {
+        "say": "hob",
+        "text": "Four colliers by the chapter-house fire of a night. I count them before I sleep. Four.",
+        "if": "flag:thornwold_northing=carried"
+      },
+      {
+        "say": "hob",
+        "text": "Three by the chapter-house fire of a night, and Ottie home on Thornwold in his boots. Four. I count them before I sleep.",
+        "if": "flag:thornwold_northing=lit"
       },
       {
         "choice": [

@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_skiff=kindleby",
+        "goto": "kindleby"
+      },
+      {
         "if": "flag:thornwold_far_shore=up",
         "goto": "home_four"
       },
@@ -668,9 +672,17 @@
         "text": "I've told her come up. She says when the boat comes. You try. You've the face for it. Proper light in your hand."
       },
       {
-        "if": "flag:thornwold_far_shore=waiting",
+        "if": [
+          "flag:thornwold_far_shore=waiting",
+          "!flag:thornwold_skiff_landed"
+        ],
         "say": "ottie",
         "text": "Waiting, then. I'm getting better at it. Not much."
+      },
+      {
+        "say": "ottie",
+        "text": "Boat came. Not the one. She's thinking. Wenna never thought about a thing in her life before she did it; I don't know what's got into her. You, I'd say.",
+        "if": "flag:thornwold_skiff_landed"
       },
       {
         "choice": [
@@ -761,6 +773,36 @@
       },
       {
         "goto": "home_hub"
+      }
+    ],
+    "kindleby": [
+      {
+        "say": "narrator",
+        "text": "Ottie Swale stands at the end of Kindleby's quay looking out to sea, where there's nothing but water and the fog standing off past the candles."
+      },
+      {
+        "say": "ottie",
+        "text": "Can't see Thornwold. Can't smell a clamp. Sea every way you look. I don't care for it."
+      },
+      {
+        "say": "ottie",
+        "text": "I keep candles with Wenna in the day, and come down here between. Somebody should look north."
+      },
+      {
+        "say": "ottie",
+        "text": "Hob counts us every morning. We're all here. That's something.",
+        "if": [
+          "flag:thornwold_hob_came_in",
+          "flag:thornwold_hob_ladder=gone"
+        ]
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye, Ottie.",
+            "end": true
+          }
+        ]
       }
     ]
   }

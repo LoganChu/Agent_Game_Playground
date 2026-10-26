@@ -1,0 +1,128 @@
+{
+  "id": "hild",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:thornwold_skiff=kindleby",
+        "goto": "kindleby"
+      },
+      {
+        "if": "flag:thornwold_skiff=home",
+        "goto": "home"
+      },
+      {
+        "if": "flag:thornwold_skiff=empty",
+        "goto": "empty"
+      },
+      {
+        "say": "narrator",
+        "text": "Sister Hild Garrow sits on the kerb of the stage by the skiff with her forearms on her knees, the way somebody sits who has rowed a long way and will row a long way back."
+      },
+      {
+        "say": "hild",
+        "text": "Whoever wants bringing, the Provost said. I'm not to argue and I'm not to hurry them. She's sat on that stage three months. She'll not be hurried by me."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Twelve years you rowed out here?",
+            "goto": "twelve"
+          },
+          {
+            "text": "What does the Provost want with them?",
+            "goto": "want"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "twelve": [
+      {
+        "say": "hild",
+        "text": "Once a month, oil and meal on the stage for the Ridge Light. You'd come back the month after and it'd be gone, every time. Somebody always carried it up. Never saw who; never thought to wait."
+      },
+      {
+        "say": "hild",
+        "text": "Then the Snuffing, and the Provost said nobody goes out in the wet while it's like this. So nobody did. Three months that meal's not come, and three months they've sat here waiting for a boat. We were the boat, near enough. I've been thinking about that the whole way."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "want": [
+      {
+        "say": "hild",
+        "text": "Want? Nothing. To feed them. Kindleby takes in whoever the boats bring; it always has. We took in the Spire's own that came over in the boats, and never asked them a thing."
+      },
+      {
+        "say": "hild",
+        "text": "And the Hushed, in the Quiet House. That's the oldest work there is. But these aren't Hushed. Half isn't Hushed. They'd sleep in the chapter-house by the fire, with us."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "kindleby": [
+      {
+        "say": "narrator",
+        "text": "Sister Hild is turning the chapter's skiff over on the shingle to scrape its bottom, her habit tucked up and her arms white to the elbow with salt."
+      },
+      {
+        "say": "hild",
+        "text": "Your colliers keep candles like they were born to it. The big one says forty's nothing and asks for sixty. The thin one stands and looks at the Quiet House. I've told him it's not his business. He says that's what he doesn't like about it."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "home": [
+      {
+        "say": "narrator",
+        "text": "Sister Hild is turning the chapter's skiff over on the shingle to scrape its bottom, her habit tucked up and her arms white to the elbow with salt."
+      },
+      {
+        "say": "hild",
+        "text": "They took the meal and went up the steps, and left me my lantern. Good. I'll row the meal out next month anyway, and leave it on the stage. Somebody always carries it up."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "empty": [
+      {
+        "say": "narrator",
+        "text": "Sister Hild is turning the chapter's skiff over on the shingle to scrape its bottom, her habit tucked up and her arms white to the elbow with salt."
+      },
+      {
+        "say": "hild",
+        "text": "Nobody on the stage. I left the meal anyway, the way I always did. Somebody'll carry it up. Somebody always did."
+      },
+      {
+        "choice": [
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ]
+  }
+}

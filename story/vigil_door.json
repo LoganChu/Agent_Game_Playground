@@ -68,7 +68,8 @@
         "if": "flag:kindleby_told_of_stage",
         "set": {
           "kindleby_skiff_north": true
-        }
+        },
+        "quest_start": "the_skiff_north"
       },
       {
         "say": "narrator",

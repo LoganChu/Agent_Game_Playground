@@ -68,7 +68,8 @@
       "clear": true,
       "if": [
         "flag:thornwold_hob_ladder=gone",
-        "!flag:thornwold_far_shore=up"
+        "!flag:thornwold_far_shore=up",
+        "!flag:thornwold_skiff=kindleby"
       ],
       "note": "Hob's lantern, stood on a stone by the colliers' fire."
     }
@@ -342,7 +343,10 @@
         ],
         "range": 8
       },
-      "if": "!flag:thornwold_far_shore=up",
+      "if": [
+        "!flag:thornwold_far_shore=up",
+        "!flag:thornwold_skiff=kindleby"
+      ],
       "note": "The colliers' driftwood fire: the sea's leavings, so the fog lets it be."
     },
     {
@@ -355,6 +359,20 @@
       "rotation_y": 20,
       "if": "flag:thornwold_far_shore=up",
       "note": "Raked out when they went up the steps; the kettle left on its stone."
+    },
+    {
+      "model": "res://assets/models/dressing/drift_fire_out.glb",
+      "position": [
+        -7.0,
+        0,
+        2.5
+      ],
+      "rotation_y": 20,
+      "if": [
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "Raked out when they got into Kindleby's skiff (The Skiff North, kindleby)."
     },
     {
       "model": "res://assets/models/dressing/drift_shelter.glb",
@@ -515,6 +533,51 @@
       ],
       "rotation_y": 110,
       "scale": 1.2
+    },
+    {
+      "model": "res://assets/models/dressing/keeper_skiff.glb",
+      "position": [
+        5.5,
+        -0.5,
+        -11.6
+      ],
+      "rotation_y": 180,
+      "snap": false,
+      "float": {
+        "bob": 0.04,
+        "roll": 2.0,
+        "period": 3.8,
+        "foam": [
+          0.6,
+          1.6
+        ],
+        "foam_y": 0.2
+      },
+      "if": [
+        "flag:thornwold_skiff_landed",
+        "flag:thornwold_skiff="
+      ],
+      "note": "Kindleby's skiff (The Skiff North, Day 66): alongside the stage's west kerb, its line round the bollard's ring, a small yellow lantern in the bow."
+    },
+    {
+      "model": "res://assets/models/characters/keeper_sister.glb",
+      "position": [
+        7.1,
+        0,
+        -10.2
+      ],
+      "rotation_y": 250,
+      "idle": "breathe",
+      "collider": [
+        0.6,
+        1.6,
+        0.6
+      ],
+      "if": [
+        "flag:thornwold_skiff_landed",
+        "flag:thornwold_skiff="
+      ],
+      "note": "Sister Pim, young, at the skiff's line on the stage, holding it as if the stage might drift."
     }
   ],
   "npcs": [
@@ -526,7 +589,10 @@
         -13.4
       ],
       "rotation_y": 180,
-      "if": "!flag:thornwold_far_shore=up",
+      "if": [
+        "!flag:thornwold_far_shore=up",
+        "!flag:thornwold_skiff=kindleby"
+      ],
       "note": "At the end of the boat-stage on a folded sack, looking out to sea for a boat."
     },
     {
@@ -537,7 +603,10 @@
         1.5
       ],
       "rotation_y": -57,
-      "if": "!flag:thornwold_far_shore=up",
+      "if": [
+        "!flag:thornwold_far_shore=up",
+        "!flag:thornwold_skiff=kindleby"
+      ],
       "note": "By the fire, hands on his hips: the boat's coming."
     },
     {
@@ -548,7 +617,10 @@
         1.2
       ],
       "rotation_y": 45,
-      "if": "!flag:thornwold_far_shore=up",
+      "if": [
+        "!flag:thornwold_far_shore=up",
+        "!flag:thornwold_skiff=kindleby"
+      ],
       "note": "Across the fire from him, arms folded: it isn't."
     },
     {
@@ -562,7 +634,8 @@
       "if": [
         "flag:thornwold_northing=carried",
         "!flag:thornwold_far_shore=up",
-        "!flag:thornwold_ottie_cap"
+        "!flag:thornwold_ottie_cap",
+        "!flag:thornwold_skiff=kindleby"
       ],
       "note": "Ottie, come down with the lantern (The Northing, carried): by Wenna on the stage, under the light he hung."
     },
@@ -578,7 +651,8 @@
       "if": [
         "flag:thornwold_northing=carried",
         "!flag:thornwold_far_shore=up",
-        "flag:thornwold_ottie_cap"
+        "flag:thornwold_ottie_cap",
+        "!flag:thornwold_skiff=kindleby"
       ],
       "note": "The same, in his cap."
     },
@@ -595,9 +669,24 @@
       "if": [
         "flag:thornwold_hob_came_in",
         "flag:thornwold_hob_ladder=gone",
-        "!flag:thornwold_far_shore=up"
+        "!flag:thornwold_far_shore=up",
+        "!flag:thornwold_skiff=kindleby"
       ],
       "note": "Hob, come down the steps with his own lantern (The Fifth, gone): by the fire, the light held out."
+    },
+    {
+      "npc": "hild",
+      "position": [
+        7.6,
+        0,
+        -7.8
+      ],
+      "rotation_y": 160,
+      "if": [
+        "flag:thornwold_skiff_landed",
+        "flag:thornwold_skiff="
+      ],
+      "note": "Sister Hild Garrow, on the stage's kerb by the skiff, waiting on Wenna's word."
     }
   ],
   "objects": [
@@ -645,6 +734,17 @@
         "thornwold_far_shore_reached": true
       },
       "dialogue": "thornwold_far_shore_arrival"
+    },
+    {
+      "id": "skiff_landing",
+      "if": [
+        "flag:kindleby_skiff_north",
+        "!flag:thornwold_skiff_landed"
+      ],
+      "set": {
+        "thornwold_skiff_landed": true
+      },
+      "dialogue": "skiff_landing"
     }
   ],
   "exits": [

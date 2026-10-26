@@ -18,7 +18,15 @@
       {
         "say": "narrator",
         "text": "After them, smaller and rougher, scratched with a nail: strokes in fives, days, and more of them every time you come down. Wenna's.",
-        "if": "flag:thornwold_far_shore=waiting"
+        "if": [
+          "flag:thornwold_far_shore=waiting",
+          "!flag:thornwold_skiff=kindleby"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "After them, smaller and rougher, scratched with a nail: strokes in fives, days, a long count of them. One line is drawn back through the whole count, end to end, hard.",
+        "if": "flag:thornwold_skiff=kindleby"
       },
       {
         "say": "narrator",
@@ -34,6 +42,14 @@
         "say": "narrator",
         "text": "At the corner a timber post holds an iron bracket out over the water. Its hook is empty. That's where the boat's lantern went, you'd guess: the light the keeper climbed down to, once a winter.",
         "if": "!flag:thornwold_northing=carried"
+      },
+      {
+        "say": "narrator",
+        "text": "Kindleby's skiff lies alongside, its line round the ring, pulling on the bright side.",
+        "if": [
+          "flag:thornwold_skiff_landed",
+          "flag:thornwold_skiff="
+        ]
       },
       {
         "set": {

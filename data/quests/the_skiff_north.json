@@ -1,0 +1,17 @@
+{
+  "id": "the_skiff_north",
+  "title": "The Skiff North",
+  "region": "thornwold_far_shore",
+  "giver": "provost",
+  "description": "While Kindleby's chapter sat, two sisters ran the chapter's skiff down the shingle and rowed north into the fog with oil, meal and a lantern, for the colliers you said were waiting on the Northing's boat-stage. The Provost sent it to bring back whoever wants bringing.",
+  "stages": [
+    {
+      "id": "rowing_north",
+      "text": "Kindleby's skiff has gone north round the islands to the Keepers' boat-stage under the Northing's cliff on Thornwold. Go down the Keepers' steps to the far shore and see it in."
+    },
+    {
+      "id": "the_word",
+      "text": "Kindleby's skiff is tied up at the Northing's boat-stage, the first boat at that ring since the Snuffing. Sister Hild Garrow will take back whoever wants bringing. Wenna Coll sat on that stage counting days for a boat; now there's one, she wants somebody to tell her what to do. Tell her."
+    }
+  ]
+}

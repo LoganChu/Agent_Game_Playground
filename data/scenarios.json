@@ -612,6 +612,52 @@
         "a_light_for_kindleby": "done"
       },
       "shot": "--camera=-1,5,12:-8,3.5,-9"
+    },
+    {
+      "id": "skiff_in",
+      "act": "Act II — The Drift",
+      "title": "The skiff at the stage",
+      "inherits": "the_far_shore",
+      "region": "thornwold_far_shore",
+      "spawn": "from_steps",
+      "description": "The colliers were told to wait on the Northing's stage, and the Provost of Kindleby was told of them; while the chapter sat, the chapter's skiff rowed north. It's tied up at the stage's ring now, Sister Hild and Sister Pim with oil, meal and a lantern, and Wenna Coll wants telling: home, or Kindleby.",
+      "flags": {
+        "thornwold_met_wenna_coll": true,
+        "thornwold_far_shore": "waiting",
+        "wrackholm_oda_lane_asked": true,
+        "kindleby_landed": true,
+        "kindleby_met_provost": true,
+        "kindleby_rite": "bowed",
+        "kindleby_ring_held": true,
+        "kindleby_beacon_burned": "boats",
+        "kindleby_told_of_stage": true,
+        "kindleby_skiff_north": true,
+        "thornwold_skiff_landed": true,
+        "lanes_ferry_at": "thornwold"
+      },
+      "quests": {
+        "the_far_shore": "done",
+        "a_light_for_kindleby": "done",
+        "the_skiff_north": "the_word"
+      },
+      "shot": "--camera=1,4.5,-2:7,1,-12"
+    },
+    {
+      "id": "colliers_on_kindleby",
+      "act": "Act II — The Drift",
+      "title": "Colliers on the candles",
+      "inherits": "skiff_in",
+      "region": "kindleby",
+      "spawn": "from_ferry",
+      "description": "Wenna told to go with the sisters: everyone on the far shore got into Kindleby's skiff. Wenna and Abe keep candles on the west wall, Tolly on the east by the Quiet House, Hob counts them all, and Ottie looks north from the quay.",
+      "flags": {
+        "thornwold_skiff": "kindleby",
+        "lanes_ferry_at": "kindleby"
+      },
+      "quests": {
+        "the_skiff_north": "done"
+      },
+      "shot": "--camera=-6.5,3,2.5:-13,0.8,-1.5"
     }
   ]
 }

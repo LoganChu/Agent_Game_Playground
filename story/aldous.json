@@ -144,6 +144,14 @@
             "goto": "walked_back"
           },
           {
+            "text": "The Provost of Kindleby says she'd send a boat for you.",
+            "if": [
+              "flag:kindleby_provost_heard_aldous",
+              "flag:saltmarrow_aldous_boat="
+            ],
+            "goto": "provost_boat"
+          },
+          {
             "text": "What happened at the Hearthspire?",
             "goto": "spire"
           },
@@ -825,6 +833,115 @@
         "if": "flag:saltmarrow_aldous_confessed=full",
         "say": "aldous",
         "text": "Put it on the list, Wakebearer. It's getting to be a long list."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "provost_boat": [
+      {
+        "if": "quest:a_boat_for_aldous=inactive",
+        "quest_start": "a_boat_for_aldous"
+      },
+      {
+        "say": "narrator",
+        "text": "Aldous stops with the bottle halfway to his mouth, and then puts it down on the bench beside him, which you have not seen him do."
+      },
+      {
+        "say": "aldous",
+        "text": "Agathe Lorn. Provost, is she. She was Sister Agathe when I was on the stair. She put me on report twice in one winter, and both times I'd earned it."
+      },
+      {
+        "say": "aldous",
+        "text": "A boat. For me. To sit in front of the chapter and say it."
+      },
+      {
+        "say": "aldous",
+        "text": "Did she ask about the light on the stair? No. She said if I'd seen something. That's Agathe. She'll hear a thing if it's said to her properly, in a room, with the candles lit. She'll not come looking for it.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "aldous",
+        "text": "I came down the east stair with a light going past me and I didn't stop till this bench. I've not been in a boat since the one that brought me. I'll not get in one now to be weighed by a chapter. They'd find me light. They'd be right.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "aldous",
+        "text": "I ran down the east stair and I didn't stop till this bench. I've not been in a boat since the one that brought me. I'll not get in one now to be weighed by a chapter. They'd find me light. They'd be right.",
+        "if": "!flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "choice": [
+          {
+            "text": "Then write it down. I'll carry it to her.",
+            "goto": "provost_letter"
+          },
+          {
+            "text": "Then don't go.",
+            "goto": "provost_no"
+          }
+        ]
+      }
+    ],
+    "provost_letter": [
+      {
+        "set": {
+          "saltmarrow_aldous_boat": "letter"
+        }
+      },
+      {
+        "say": "aldous",
+        "text": "Write it."
+      },
+      {
+        "say": "narrator",
+        "text": "He finds a stub of pencil in his sleeve and tears an old tide-table off the harbor wall behind him. He writes on the back of it slowly, for a long time, with his tongue in the corner of his mouth like a novice, and crosses out, and writes again. Then he folds it twice and writes on the outside."
+      },
+      {
+        "say": "aldous",
+        "text": "Don't read it. You'd only be disappointed. It's mostly apologising."
+      },
+      {
+        "say": "aldous",
+        "text": "The rest is the stair. All of it. The light going down past me, and which way it went. I've never written it down. It looks smaller, written.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "aldous",
+        "text": "Give it her in her hand. Not on a table. She'll know the difference.",
+        "give_item": "aldous_letter"
+      },
+      {
+        "if": "stage:a_boat_for_aldous=tell_aldous",
+        "quest_stage": [
+          "a_boat_for_aldous",
+          "the_letter"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "provost_no": [
+      {
+        "set": {
+          "saltmarrow_aldous_boat": "no"
+        }
+      },
+      {
+        "say": "aldous",
+        "text": "I won't."
+      },
+      {
+        "say": "aldous",
+        "text": "Tell her— no. Tell her I'm sorry about the reports. She'll know what that means. It means no."
+      },
+      {
+        "say": "narrator",
+        "text": "He picks the bottle up again, and looks at it, and doesn't drink."
+      },
+      {
+        "quest_complete": "a_boat_for_aldous"
       },
       {
         "goto": "hub"

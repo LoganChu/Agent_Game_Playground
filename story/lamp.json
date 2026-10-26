@@ -155,7 +155,15 @@
       {
         "say": "lamp",
         "text": "Still on the stage, are they. I sat on that bollard thirty winters waiting for a boat that always came. Waiting for one that won't is harder. I'll keep the coal for them. All of it.",
-        "if": "flag:thornwold_far_shore=waiting"
+        "if": [
+          "flag:thornwold_far_shore=waiting",
+          "!flag:thornwold_skiff=kindleby"
+        ]
+      },
+      {
+        "say": "lamp",
+        "text": "I saw a lantern go south off the Northing's stage one night, low on the water, slow. Keepers' skiff, the one that brought my meal. They'll have gone in it, the lot of them. A Keepers' boat came for them after all. Not the one. ...I'll keep the coal. Somebody might want it back.",
+        "if": "flag:thornwold_skiff=kindleby"
       },
       {
         "goto": "hub"

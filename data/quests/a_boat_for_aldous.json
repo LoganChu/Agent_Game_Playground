@@ -1,0 +1,17 @@
+{
+  "id": "a_boat_for_aldous",
+  "title": "A Boat for Aldous",
+  "region": "saltmarrow",
+  "giver": "provost",
+  "description": "Provost Agathe Lorn holds to the order's word: the Firstflame failed. But if Aldous Wren saw something, he can come to Kindleby and say it to the chapter, and she would send a boat for him.",
+  "stages": [
+    {
+      "id": "tell_aldous",
+      "text": "The Provost would send a boat for Brother Aldous, if he'll come to Kindleby and say to the chapter what he saw. Tell him so; he's on his bench by Saltmarrow harbor."
+    },
+    {
+      "id": "the_letter",
+      "text": "Aldous won't get in a boat to be weighed by a chapter. He wrote it down instead, on the back of a tide-table. Carry his letter to the Provost on Kindleby."
+    }
+  ]
+}
