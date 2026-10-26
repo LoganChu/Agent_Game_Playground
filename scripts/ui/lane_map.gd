@@ -5,6 +5,9 @@ extends PanelContainer
 ## gold, lanes not yet sailed dashed, lanes the ferry won't sail yet grey. Focusing a port
 ## shows its light and the way there; pressing it sails (if the ferry will), "Not yet" or
 ## Esc goes back to Oda's options. Owned by DialogueUI, which holds the input lock.
+##
+## `read_only` (Day 65) is the journal's Lanes tab: the same chart, smaller and unframed,
+## where focusing a port tells of it and nothing sails; the journal owns Esc and the lock.
 
 signal chosen(port_id: String)
 signal cancelled
@@ -19,32 +22,38 @@ var _legend: Label
 var _cancel: Button
 var _buttons: Dictionary = {}  # port id -> Button
 var _focused := ""
+## Set before adding to the tree: a chart to look at, not sail from (the journal's Lanes tab).
+var read_only := false
+var chart_size := CHART_SIZE
 
 
 func _ready() -> void:
 	GameState.input_device_changed.connect(_label_legend)
 	theme = UiTheme.get_theme()
-	set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	grow_horizontal = Control.GROW_DIRECTION_BOTH
-	grow_vertical = Control.GROW_DIRECTION_BOTH
+	if read_only:
+		add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	else:
+		set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+		grow_horizontal = Control.GROW_DIRECTION_BOTH
+		grow_vertical = Control.GROW_DIRECTION_BOTH
 	var vbox := VBoxContainer.new()
 	add_child(vbox)
 	_heading = Label.new()
 	_heading.theme_type_variation = UiTheme.HEADING
 	vbox.add_child(_heading)
 	_chart = Control.new()
-	_chart.custom_minimum_size = CHART_SIZE
+	_chart.custom_minimum_size = chart_size
 	_chart.clip_contents = true
 	_chart.draw.connect(_draw_chart)
 	vbox.add_child(_chart)
 	_info = Label.new()
 	_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_info.custom_minimum_size = Vector2(CHART_SIZE.x, 0)
+	_info.custom_minimum_size = Vector2(chart_size.x, 0)
 	vbox.add_child(_info)
 	_legend = Label.new()
 	_legend.theme_type_variation = UiTheme.HINT
 	_legend.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_legend.custom_minimum_size = Vector2(CHART_SIZE.x, 0)
+	_legend.custom_minimum_size = Vector2(chart_size.x, 0)
 	vbox.add_child(_legend)
 	_label_legend()
 	_cancel = Button.new()
@@ -53,6 +62,7 @@ func _ready() -> void:
 	_cancel.pressed.connect(func() -> void: cancelled.emit())
 	_cancel.focus_entered.connect(_focus_port.bind(""))
 	vbox.add_child(_cancel)
+	_cancel.visible = not read_only
 	hide()
 
 
@@ -76,9 +86,10 @@ func open() -> void:
 		_buttons[id] = button
 	show()
 	_place_buttons.call_deferred()
-	var first: Button = _buttons.get(_first_destination(here), _cancel)
+	var start := here if read_only else _first_destination(here)
+	var first: Button = _buttons.get(start, _cancel)
 	first.call_deferred("grab_focus")
-	_focus_port(_first_destination(here))
+	_focus_port(start)
 
 
 func close() -> void:
@@ -102,6 +113,9 @@ func info_text() -> String:
 
 ## A port pressed (or the smoke test's pick): sails if the ferry will, else says why not.
 func press_port(id: String) -> void:
+	if read_only:
+		_focus_port(id)
+		return
 	var voyage := Lanes.voyage(Content.db, GameState.world, id)
 	if bool(voyage.get("ok", false)):
 		chosen.emit(id)
@@ -111,7 +125,7 @@ func press_port(id: String) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not visible:
+	if not visible or read_only:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
@@ -134,7 +148,7 @@ func _first_destination(here: String) -> String:
 
 func _point(map: Variant) -> Vector2:
 	var p: Array = map if map is Array else [0.5, 0.5]
-	return Vector2(float(p[0]), float(p[1])) * CHART_SIZE
+	return Vector2(float(p[0]), float(p[1])) * chart_size
 
 
 func _place_buttons() -> void:
@@ -143,15 +157,16 @@ func _place_buttons() -> void:
 		var at := _point(Lanes.port(Content.db, id).get("map"))
 		var size := button.get_combined_minimum_size()
 		var pos := at + Vector2(-size.x * 0.5, ISLAND_RADIUS + 2.0)
-		if at.y > CHART_SIZE.y * 0.7:
+		if at.y > chart_size.y * 0.7:
 			pos.y = at.y - ISLAND_RADIUS - size.y - 2.0
-		button.position = pos.clamp(Vector2.ZERO, CHART_SIZE - size)
+		button.position = pos.clamp(Vector2.ZERO, chart_size - size)
 		button.size = size
 
 
 ## The legend, ending in the back key for the device used last.
 func _label_legend() -> void:
-	_legend.text = "Solid gold: a lane sailed · dashed gold: not sailed yet · grey: not this tide · %s back" % InputSetup.back_hint()
+	_legend.text = "Solid gold: a lane sailed · dashed gold: not sailed yet · grey: not this tide · %s %s" \
+			% [InputSetup.back_hint(), "close" if read_only else "back"]
 
 
 func _focus_port(id: String) -> void:
@@ -169,13 +184,14 @@ func _focus_port(id: String) -> void:
 	if id == Lanes.current_port(db, state):
 		line += " The Slow Mercy is moored here."
 	elif bool(voyage.get("ok", false)):
+		var press := "Oda can sail you there." if read_only else "Press to sail."
 		var path: Array = voyage["route"]
 		if path.size() == 2:
 			var lane_name := str(Lanes.lane_between(db, path[0], path[1]).get("name", ""))
-			line += " %s. Press to sail." % (lane_name.left(1).to_upper() + lane_name.substr(1))
+			line += " %s. %s" % [lane_name.left(1).to_upper() + lane_name.substr(1), press]
 		else:
 			var via: Array = path.slice(1, path.size() - 1).map(func(p: String) -> String: return str(Lanes.port(db, p).get("name", p)))
-			line += " By way of %s. Press to sail." % ", ".join(via)
+			line += " By way of %s. %s" % [", ".join(via), press]
 	else:
 		line += " " + str(voyage.get("reason", ""))
 	_info.text = line
@@ -190,12 +206,12 @@ func _draw_chart() -> void:
 	var fog := PropFactory.color("silverfog")
 	var kindle := PropFactory.color("kindle")
 	var ember := PropFactory.color("ember")
-	_chart.draw_rect(Rect2(Vector2.ZERO, CHART_SIZE), abyss.lerp(ink, 0.35))
+	_chart.draw_rect(Rect2(Vector2.ZERO, chart_size), abyss.lerp(ink, 0.35))
 	# Faint chart lines, like a pilot's grid.
-	for x in range(0, int(CHART_SIZE.x) + 1, 60):
-		_chart.draw_line(Vector2(x, 0), Vector2(x, CHART_SIZE.y), Color(tide, 0.12), 1.0)
-	for y in range(0, int(CHART_SIZE.y) + 1, 60):
-		_chart.draw_line(Vector2(0, y), Vector2(CHART_SIZE.x, y), Color(tide, 0.12), 1.0)
+	for x in range(0, int(chart_size.x) + 1, 60):
+		_chart.draw_line(Vector2(x, 0), Vector2(x, chart_size.y), Color(tide, 0.12), 1.0)
+	for y in range(0, int(chart_size.y) + 1, 60):
+		_chart.draw_line(Vector2(0, y), Vector2(chart_size.x, y), Color(tide, 0.12), 1.0)
 	var route: Array = []
 	if not _focused.is_empty():
 		route = Lanes.voyage(db, state, _focused).get("route", [])

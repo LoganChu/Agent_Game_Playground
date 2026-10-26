@@ -21,6 +21,11 @@ static func current_port(db: ContentDatabase, state: WorldState) -> String:
 	return at if not at.is_empty() else str(db.lanes.get("home", ""))
 
 
+## Whether the player has seen Oda's chart (the journal's Lanes tab shows it from then on).
+static func chart_known(db: ContentDatabase, state: WorldState) -> bool:
+	return db.lanes.has("chart") and Conditions.evaluate(db.lanes["chart"], state)
+
+
 static func port(db: ContentDatabase, id: String) -> Dictionary:
 	for entry: Dictionary in db.lanes.get("ports", []):
 		if str(entry.get("id", "")) == id:

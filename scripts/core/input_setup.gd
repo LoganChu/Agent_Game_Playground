@@ -17,6 +17,9 @@ const BINDINGS: Dictionary = {
 	"quick_load": [KEY_F9],
 	"journal": [KEY_J],
 	"inventory": [KEY_I],
+	"lanes": [KEY_L],
+	"tab_left": [],
+	"tab_right": [],
 	"pause": [KEY_ESCAPE, KEY_P],
 }
 
@@ -24,7 +27,7 @@ const BINDINGS: Dictionary = {
 ## Esc/P/Start so the menu can always be reached.
 const REBINDABLE: Array[String] = [
 	"move_forward", "move_back", "move_left", "move_right", "interact", "camera_left",
-	"camera_right", "journal", "inventory", "quick_save", "quick_load",
+	"camera_right", "journal", "inventory", "lanes", "quick_save", "quick_load",
 ]
 
 ## Keys a rebinding can't take (Esc backs out of every menu).
@@ -40,6 +43,9 @@ const ACTION_LABELS: Dictionary = {
 	"camera_right": "Turn camera right",
 	"journal": "Journal",
 	"inventory": "Satchel",
+	"lanes": "Lanes (the chart)",
+	"tab_left": "Previous journal tab",
+	"tab_right": "Next journal tab",
 	"quick_save": "Quicksave",
 	"quick_load": "Quickload",
 	"pause": "Menu",
@@ -49,6 +55,8 @@ const PAD_BUTTONS: Dictionary = {
 	"interact": JOY_BUTTON_A,
 	"journal": JOY_BUTTON_BACK,
 	"inventory": JOY_BUTTON_Y,
+	"tab_left": JOY_BUTTON_LEFT_SHOULDER,
+	"tab_right": JOY_BUTTON_RIGHT_SHOULDER,
 	"pause": JOY_BUTTON_START,
 }
 
@@ -59,6 +67,8 @@ const PAD_LABELS: Dictionary = {
 	JOY_BUTTON_BACK: "Back",
 	JOY_BUTTON_START: "Start",
 	JOY_BUTTON_B: "B",
+	JOY_BUTTON_LEFT_SHOULDER: "LB",
+	JOY_BUTTON_RIGHT_SHOULDER: "RB",
 }
 
 ## A stick has to lean this far before it counts as "the pad was used" for prompts.

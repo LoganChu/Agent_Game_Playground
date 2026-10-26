@@ -1,15 +1,20 @@
 class_name JournalUI
 extends CanvasLayer
-## Full-screen book panel with two tabs: the quest Journal (J) and the Satchel (I).
-## Pressing a tab's key opens it (or closes the panel if that tab is already showing);
-## Esc / gamepad B closes. Locks player input while open. Content comes from JournalModel.
+## Full-screen book panel with three tabs: the quest Journal (J), the Satchel (I) and the
+## Lanes (L, Day 65: Oda's chart to look at, read-only, once the first crossing is made).
+## Pressing a tab's key opens it (or closes the panel if that tab is already showing); the
+## pad's shoulder buttons step between tabs; Esc / gamepad B closes. Locks player input
+## while open. Content comes from JournalModel and Lanes.
 
 signal opened(tab: int)
 signal closed
 
-enum Tab { JOURNAL, SATCHEL }
+enum Tab { JOURNAL, SATCHEL, LANES }
 
-const TAB_NAMES: Array[String] = ["Journal  [J]", "Satchel  [I]"]
+const TAB_NAMES: Array[String] = ["Journal", "Satchel", "Lanes"]
+const TAB_ACTIONS: Array[String] = ["journal", "inventory", "lanes"]
+## The read-only chart's size inside the panel (Oda's is LaneMap.CHART_SIZE).
+const CHART_SIZE := Vector2(640, 340)
 
 var tab: Tab = Tab.JOURNAL
 
@@ -21,6 +26,9 @@ var _subheading: Label
 var _body: RichTextLabel
 var _empty: Label
 var _hint: Label
+var _split: Control
+var _lanes: LaneMap
+var _no_chart: Label
 ## Entries currently listed (JournalModel dictionaries), parallel to _list items.
 var _entries: Array[Dictionary] = []
 
@@ -32,11 +40,17 @@ func _ready() -> void:
 	GameState.world.quest_changed.connect(func(_id: String, _s: String, _st: String) -> void: _refresh_if_open())
 	GameState.world.inventory_changed.connect(func(_id: String, _c: int) -> void: _refresh_if_open())
 	GameState.input_device_changed.connect(_label_hint)
+	GameSettings.current().changed.connect(_label_hint)
 
 
-## "[Esc] close" / "[B] close", following the device used last.
+## Tab keys and "[Esc] close" / "[LB] [RB] tabs  [B] close", following the bindings and the
+## device used last.
 func _label_hint() -> void:
+	for i in _tab_buttons.size():
+		_tab_buttons[i].text = TAB_NAMES[i] if InputSetup.pad_last else "%s  %s" % [TAB_NAMES[i], InputSetup.hint(TAB_ACTIONS[i])]
 	_hint.text = InputSetup.back_hint() + " close"
+	if InputSetup.pad_last:
+		_hint.text = "%s %s tabs   %s" % [InputSetup.hint("tab_left"), InputSetup.hint("tab_right"), _hint.text]
 
 
 func is_open() -> bool:
@@ -71,15 +85,31 @@ func entry_count() -> int:
 	return _entries.size()
 
 
+## The Lanes tab's chart (tests, screenshots).
+func lane_chart() -> LaneMap:
+	return _lanes
+
+
+## True when the Lanes tab shows the chart rather than "no chart yet".
+func chart_shown() -> bool:
+	return is_open() and tab == Tab.LANES and _lanes.visible
+
+
 func _unhandled_input(event: InputEvent) -> void:
-	for pair: Array in [["journal", Tab.JOURNAL], ["inventory", Tab.SATCHEL]]:
-		if event.is_action_pressed(pair[0]):
-			if is_open() and tab == pair[1]:
+	for i in TAB_ACTIONS.size():
+		if event.is_action_pressed(TAB_ACTIONS[i]):
+			if is_open() and tab == i:
 				close()
 			else:
-				open(pair[1])
+				open(i as Tab)
 			get_viewport().set_input_as_handled()
 			return
+	if is_open():
+		for pair: Array in [["tab_left", -1], ["tab_right", 1]]:
+			if event.is_action_pressed(pair[0]):
+				open(posmod(tab + int(pair[1]), TAB_NAMES.size()) as Tab)
+				get_viewport().set_input_as_handled()
+				return
 	if is_open() and event.is_action_pressed("ui_cancel"):
 		close()
 		get_viewport().set_input_as_handled()
@@ -93,6 +123,12 @@ func _refresh_if_open() -> void:
 func _refresh() -> void:
 	for i in _tab_buttons.size():
 		_tab_buttons[i].button_pressed = i == tab
+	_split.visible = tab != Tab.LANES
+	if tab == Tab.LANES:
+		_show_lanes()
+		return
+	_lanes.close()
+	_no_chart.hide()
 	var previous := _selected_id()
 	_entries = JournalModel.quest_entries(Content.db, GameState.world) if tab == Tab.JOURNAL \
 			else JournalModel.item_entries(Content.db, GameState.world)
@@ -124,6 +160,15 @@ func _refresh() -> void:
 		_heading.text = ""
 		_subheading.text = ""
 		_body.text = ""
+
+
+func _show_lanes() -> void:
+	var known := Lanes.chart_known(Content.db, GameState.world)
+	_no_chart.visible = not known
+	if known:
+		_lanes.open()
+	else:
+		_lanes.close()
 
 
 func _selected_id() -> String:
@@ -215,6 +260,20 @@ func _build() -> void:
 	split.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	split.add_theme_constant_override("separation", 20)
 	outer.add_child(split)
+	_split = split
+
+	_lanes = LaneMap.new()
+	_lanes.name = "LaneChart"
+	_lanes.read_only = true
+	_lanes.chart_size = CHART_SIZE
+	_lanes.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	outer.add_child(_lanes)
+	_no_chart = Label.new()
+	_no_chart.text = "No chart yet. The Tidewrights keep the lanes; their ferry-master will show you, once you sail with her."
+	_no_chart.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_no_chart.theme_type_variation = UiTheme.HINT
+	_no_chart.hide()
+	outer.add_child(_no_chart)
 
 	var left := VBoxContainer.new()
 	left.custom_minimum_size.x = 300

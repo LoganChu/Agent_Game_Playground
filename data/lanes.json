@@ -1,7 +1,8 @@
 {
-  "note": "The Tidewright lanes the Slow Mercy sails (the lane map, Day 59). A port's id is its value of lanes_ferry_at ('' counts as saltmarrow, where the ferry first lies). `map` is a point on the chart, 0..1 from the top-left. A lane's `knots` name the knot of `dialogue` that sails it towards each end; a longer voyage over lanes already sailed plays the destination port's `passage` knot. See docs/TECH.md \"Lanes\".",
+  "note": "The Tidewright lanes the Slow Mercy sails (the lane map, Day 59). A port's id is its value of lanes_ferry_at ('' counts as saltmarrow, where the ferry first lies). `map` is a point on the chart, 0..1 from the top-left. A lane's `knots` name the knot of `dialogue` that sails it towards each end; a longer voyage over lanes already sailed plays the destination port's `passage` knot. `chart` is when the journal's Lanes tab shows the chart (after the first crossing). See docs/TECH.md \"Lanes\".",
   "dialogue": "oda",
   "home": "saltmarrow",
+  "chart": "quest:across_the_grey=done",
   "ports": [
     {
       "id": "saltmarrow",

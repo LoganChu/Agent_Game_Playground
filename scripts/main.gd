@@ -117,6 +117,8 @@ func _ready() -> void:
 			GameState.travel(arg.get_slice("=", 1))
 		elif arg.begins_with("--lane-map"):
 			_open_lane_map.call_deferred(arg.get_slice("=", 1) if arg.contains("=") else "")
+		elif arg.begins_with("--journal="):
+			_open_journal.call_deferred(arg.get_slice("=", 1))
 		elif arg.begins_with("--pause-menu"):
 			_open_pause_menu.call_deferred(arg.get_slice("=", 1) if arg.contains("=") else "")
 		elif arg.begins_with("--act-end="):
@@ -133,7 +135,7 @@ static func wants_title(args: PackedStringArray) -> bool:
 		if arg == "--title":
 			return true
 	for arg in args:
-		for skip: String in ["--scenario=", "--region=", "--flags=", "--quest=", "--act-end=", "--pause-menu", "--screenshot="]:
+		for skip: String in ["--scenario=", "--region=", "--flags=", "--quest=", "--act-end=", "--pause-menu", "--journal=", "--screenshot="]:
 			if arg.begins_with(skip):
 				return false
 	return true
@@ -192,17 +194,7 @@ func _open_pause_menu(page: String) -> void:
 ## Debug: talks to Oda and opens her lane map, focus on `port` if given (use with a scenario or
 ## --flags= that has the ferry in and the first crossing made).
 func _open_lane_map(port: String) -> void:
-	for _i in 6:
-		await get_tree().process_frame
-	# An arrival scene may hold the dialogue box: read it through first.
-	for _i in 200:
-		if not dialogue_ui.is_open():
-			break
-		if dialogue_ui.current_event.get("type") == "choices":
-			dialogue_ui.select((dialogue_ui.current_event["options"] as Array).size() - 1)
-		else:
-			dialogue_ui.advance()
-	await get_tree().process_frame
+	await _read_through_arrival()
 	dialogue_ui.open("oda")
 	for _i in 40:
 		if dialogue_ui.current_event.get("type") != "line":
@@ -215,6 +207,27 @@ func _open_lane_map(port: String) -> void:
 	if not port.is_empty() and dialogue_ui.lane_map.visible:
 		await get_tree().process_frame
 		dialogue_ui.lane_map.focus_port(port)
+
+
+## Debug: opens the journal on a tab (`journal`, `satchel` or `lanes`).
+func _open_journal(which: String) -> void:
+	await _read_through_arrival()
+	var index := JournalUI.TAB_ACTIONS.find({"satchel": "inventory"}.get(which, which))
+	journal_ui.open(maxi(index, 0) as JournalUI.Tab)
+
+
+## Debug: an arrival scene may hold the dialogue box; reads it through (last option each time).
+func _read_through_arrival() -> void:
+	for _i in 6:
+		await get_tree().process_frame
+	for _i in 200:
+		if not dialogue_ui.is_open():
+			break
+		if dialogue_ui.current_event.get("type") == "choices":
+			dialogue_ui.select((dialogue_ui.current_event["options"] as Array).size() - 1)
+		else:
+			dialogue_ui.advance()
+	await get_tree().process_frame
 
 
 ## Debug-only world setup from `--flags=` / `--quest=` (see the header comment).

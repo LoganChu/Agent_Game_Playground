@@ -134,6 +134,7 @@ func _validate_lanes() -> void:
 	var where := "data/lanes.json"
 	var dialogue_id := str(db.lanes.get("dialogue", ""))
 	_ref_dialogue(where, dialogue_id)
+	_ref_condition(where + " chart", db.lanes.get("chart"))
 	var knots: Dictionary = db.get_dialogue(dialogue_id).get("knots", {})
 	var flag_values := db.flag_values(Lanes.FLAG)
 	var ports: Dictionary = {}
