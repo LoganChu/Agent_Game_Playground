@@ -21,6 +21,8 @@ import bpy  # noqa: F401  (must be imported before mathutils when running as the
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build_dressing as bd  # noqa: E402  (materials, primitives, merge + export)
+import build_characters as bc  # noqa: E402  (Sister Pim's hand on the stern line)
+from mathutils import Vector  # noqa: E402
 
 mat, box, cyl, beam, rod = bd.mat, bd.box, bd.cyl, bd.beam, bd.rod
 
@@ -292,6 +294,124 @@ def build_vigil_light(lit: bool = False) -> None:
     bd.export("vigil_light_lit" if lit else "vigil_light")
 
 
+# Kindleby's skiff (Day 67): a working boat, not the Heron's drowned one — dry, a little longer, tarred
+# dark below a pale strake and the Keepers' ember on both bows. Origin on the keel, like keeper_skiff.
+KSKIFF = dict(length=2.9, half_beam=0.55, depth=0.42, sheer=0.46)
+# Where the far shore puts the stage version and the sister holding its line, in Godot world space
+# (data/regions/thornwold_far_shore.json; tests/test_kindleby_skiff.gd pins these to the region).
+FAR_SKIFF_AT, FAR_SKIFF_ROT = Vector((5.5, -0.5, -11.6)), 180.0
+FAR_PIM_AT, FAR_PIM_ROT, FAR_PIM_SCALE = Vector((7.1, 0.7, -10.2)), 251.0, 0.98
+# The boat-stage's mooring ring (boat_stage at (8.0, 0.72, -14.9), rotation_y 180: its ring at model
+# (0.55, 0.24, 0.32)) and the top of the west kerb the painter lies over on its way there.
+FAR_RING = Vector((7.45, 1.04, -14.66))
+FAR_KERB_X, FAR_KERB_TOP = 6.88, 0.97
+
+
+def _to_model(world: Vector, at: Vector, rot_deg: float) -> Vector:
+    """A Godot world point in a placed model's Blender space (undoes `position` and `rotation_y`)."""
+    d = world - at
+    a = math.radians(rot_deg)
+    x = d.x * math.cos(a) - d.z * math.sin(a)
+    z = d.x * math.sin(a) + d.z * math.cos(a)
+    return Vector((x, -z, d.y))
+
+
+def _to_world(p: Vector, at: Vector, rot_deg: float, scale: float = 1.0) -> Vector:
+    """A Blender model-space point where the placed model puts it in Godot world space."""
+    gx, gy, gz = p.x * scale, p.z * scale, -p.y * scale
+    a = math.radians(rot_deg)
+    return at + Vector((gx * math.cos(a) + gz * math.sin(a), gy, -gx * math.sin(a) + gz * math.cos(a)))
+
+
+def _rope(name: str, points: list, material, radius: float = 0.016) -> None:
+    for p0, p1 in zip(points, points[1:]):
+        rod(name, tuple(p0), tuple(p1), radius, material, verts=4)
+
+
+def kindleby_skiff_lantern() -> Vector:
+    """The bow lantern's glass centre in Godot model space (the stage placement's `halo`)."""
+    st = bd.hull_stations(KSKIFF["length"], KSKIFF["half_beam"], KSKIFF["depth"], KSKIFF["sheer"])
+    g = Vector((0, st[0][0] + 0.2, st[0][2] + 0.24))
+    return Vector((g.x, g.z, -g.y))
+
+
+def _kindleby_skiff(stage: bool) -> None:
+    """Kindleby's skiff (Day 67), the boat that took oil and meal north to the Northing's stage once a month:
+    clinker boards tarred dark to the waterline under a pale strake and a bone gunwale, the ember painted on
+    both bows, dry floorboards, two oars shipped along the thwarts, and a horn lantern hung from a crook on
+    the stem-post. Drawn up on Kindleby's shingle (`kindleby_skiff`) she's empty, the lantern cold and the
+    painter coiled in the bow. `stage`: alongside the Northing's boat-stage (`kindleby_skiff_stage`) — the
+    lantern lit, three sacks of meal and an oil crock amidships, the painter run up over the kerb to the
+    stage's ring, and a stern line up to Sister Pim's hands on the stage."""
+    bd.reset()
+    tar, strake, rail = mat("ink", 0.12), mat("driftwood", -0.1), mat("bone", -0.12)
+    st = bd.hull_stations(KSKIFF["length"], KSKIFF["half_beam"], KSKIFF["depth"], KSKIFF["sheer"])
+    bd.hull("Hull", st, KSKIFF["depth"], KSKIFF["sheer"], tar)
+    bd.gunwale("Gunwale", st, rail, thick=0.06)
+    bd.gunwale("Strake", st, strake, thick=0.05, drop=0.1)
+    sheer = KSKIFF["sheer"]
+    wood = mat("driftwood", -0.3)
+    for y in (-0.4, 0.5):
+        box("Thwart", (KSKIFF["half_beam"] * 1.75, 0.2, 0.045), (0, y, sheer - 0.1), wood)
+    box("Floorboards", (0.5, 1.9, 0.03), (0, 0.05, 0.1), mat("driftwood", -0.2))
+    # The ember on both bows: a small diamond of ember paint on the strake, Kindleby's mark.
+    y0, w0, z0, _ = st[1]
+    for side in (-1, 1):
+        mark = box("Ember", (0.03, 0.09, 0.09), (0, 0, -0.045), mat("ember", -0.1))
+        mark.rotation_euler = (math.radians(45), 0, 0)
+        mark.location = (side * (w0 + 0.06), y0 + 0.05, z0 - 0.12)
+    # Two oars shipped along the thwarts, blades aft.
+    for x in (-0.18, 0.18):
+        rod("Oar", (x, -0.85, sheer - 0.04), (x, 0.95, sheer - 0.03), 0.024, rail)
+        beam("OarBlade", (x, 0.95, sheer - 0.03), (x, 1.35, sheer - 0.02), 0.02, rail, width=0.12)
+    # The stem-post and its crook, the lantern hung inboard over the bow.
+    bow = Vector((0, st[0][0] + 0.06, st[0][2]))
+    post = mat("driftwood", -0.35)
+    top = bow + Vector((0, 0.0, 0.34))
+    rod("StemPost", tuple(bow - Vector((0, 0, 0.2))), tuple(top), 0.04, post, verts=5)
+    iron = mat("ink", 0.2)
+    hook = Vector((0, st[0][0] + 0.2, top.z + 0.04))
+    beam("Crook", tuple(top), tuple(hook), 0.022, iron)
+    glass = Vector((0, hook.y, hook.z - 0.16))
+    rod("Bail", tuple(hook), tuple(glass + Vector((0, 0, 0.1))), 0.008, iron, verts=3)
+    panes = mat("kindle", 0.0, emissive=True) if stage else mat("kindle", -0.5)
+    box("LanternPanes", (0.12, 0.12, 0.15), (glass.x, glass.y, glass.z - 0.075), panes)
+    cyl("LanternFoot", 0.09, 0.09, 0.03, 4, (glass.x, glass.y, glass.z - 0.1), iron, rot_z=math.radians(45))
+    cyl("LanternCap", 0.09, 0.02, 0.06, 4, (glass.x, glass.y, glass.z + 0.075), iron, rot_z=math.radians(45))
+    rope = mat("driftwood", 0.05)
+    eye = bow + Vector((0, -0.02, 0.06))
+    if not stage:
+        # The painter coiled on the bow's floorboards.
+        c = Vector((0.05, bow.y + 0.42, 0.14))
+        _rope("Painter", [eye, eye + Vector((0, 0.15, -0.1)), c + Vector((0.13, 0, 0))], rope, 0.014)
+        for k, r in enumerate((0.13, 0.11, 0.09)):
+            ring = [c + Vector((math.cos(a) * r, math.sin(a) * r * 0.9, 0.012 * k))
+                    for a in (i / 8 * math.tau for i in range(9))]
+            _rope("Coil", ring, rope, 0.014)
+        bd.export("kindleby_skiff")
+        return
+    # The load amidships: three sacks of meal and a stoppered oil crock.
+    sack = mat("bone", -0.28)
+    for x, y, rz in ((-0.17, -0.1, 0.2), (0.17, -0.05, -0.15), (0.0, 0.18, 0.05)):
+        cyl("Sack", 0.14, 0.11, 0.26, 7, (x, y, 0.13), sack, rot_z=rz)
+        cyl("SackNeck", 0.05, 0.035, 0.07, 5, (x, y, 0.39), mat("bone", -0.4))
+    cyl("Crock", 0.11, 0.08, 0.26, 7, (0.0, 0.75, 0.13), mat("coal", -0.25))
+    cyl("CrockStopper", 0.04, 0.035, 0.05, 5, (0.0, 0.75, 0.39), wood)
+    # The painter: up from the stem over the west kerb to the stage's ring.
+    eye_w = _to_world(eye, FAR_SKIFF_AT, FAR_SKIFF_ROT)
+    t = (FAR_KERB_X - eye_w.x) / (FAR_RING.x - eye_w.x)
+    over = eye_w.lerp(FAR_RING, t)
+    over.y = FAR_KERB_TOP + 0.02
+    _rope("Painter", [eye, _to_model(over, FAR_SKIFF_AT, FAR_SKIFF_ROT), _to_model(FAR_RING, FAR_SKIFF_AT, FAR_SKIFF_ROT)],
+          rope)
+    # The stern line, from a cleat on the stage-side quarter up to Pim's hands.
+    cleat = Vector((-KSKIFF["half_beam"] * 0.6, st[-2][0], st[-2][2] + 0.02))
+    box("Cleat", (0.05, 0.16, 0.04), tuple(cleat - Vector((0, 0, 0.03))), wood)
+    hand = _to_model(_to_world(bc.PIM_LINE_HAND, FAR_PIM_AT, FAR_PIM_ROT, FAR_PIM_SCALE), FAR_SKIFF_AT, FAR_SKIFF_ROT)
+    _rope("SternLine", [cleat, hand], rope)
+    bd.export("kindleby_skiff_stage")
+
+
 BUILDERS = {
     "chapter_house": build_chapter_house,
     "candle_ledge": build_candle_ledge,
@@ -299,6 +419,8 @@ BUILDERS = {
     "quiet_house": build_quiet_house,
     "vigil_light": build_vigil_light,
     "vigil_light_lit": lambda: build_vigil_light(lit=True),
+    "kindleby_skiff": lambda: _kindleby_skiff(stage=False),
+    "kindleby_skiff_stage": lambda: _kindleby_skiff(stage=True),
 }
 
 if __name__ == "__main__":

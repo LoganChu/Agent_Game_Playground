@@ -1845,6 +1845,85 @@ def build_keeper_brother() -> None:
     assemble(b, "keeper_brother", scale=0.96)
 
 
+# Sister Pim's leading hand on the skiff's stern line (posed body, before the 0.98 scale): build_kindleby's
+# kindleby_skiff_stage runs the line from its stern cleat up to here.
+PIM_LINE_HAND = Vector((-0.04, -0.42, 0.86))
+
+
+def _bare_keeper_head(b: Body, hair, hood) -> None:
+    """A Keeper with the hood pushed back: hair over the crown and the hood lying in folds on the shoulders."""
+    h = b.parts["Head"]
+    h.append(ball(b.head_r * 1.04, (0, 0.03, b.head + 0.07), hair, scale=(1.04, 1.0, 0.78)))
+    b.parts["Torso"].append(ball(0.3, (0, 0.12, b.shoulder + 0.02), hood, scale=(1.05, 0.75, 0.45)))
+
+
+def build_keeper_pim() -> None:
+    """Sister Pim (Day 67), the young sister who rowed north with Hild to the Northing's stage: slight, the
+    hood pushed back off dark hair tied at the nape, the grey robe kilted up a little for the boat. She has
+    the skiff's stern line in both hands at her waist and leans back on it, holding on as if the stage might
+    drift; the line's slack runs back from her hands to a coil at her heels (a static Stool extra)."""
+    reset_scene()
+    b = Body(build=0.86)
+    robe, hem = material("bone", -0.28), material("bone", -0.44)
+    skin = material("driftwood", 0.22)
+    hair = material("ink", 0.25)
+    base_body(b, skin, robe, material("ink", 0.05), robe)
+    _keeper_robe(b, robe, hem, skirt_part="LegL")
+    _bare_keeper_head(b, hair, robe)
+    b.parts["Head"].append(ball(0.07, (0, 0.2, b.head - 0.08), hair))  # the knot at her nape
+    b.torso_rest = (math.radians(-9), 0, 0)  # leaning back on the line
+    b.head_rest = (math.radians(10), 0, math.radians(4))  # eyes on the boat below
+    rh = PIM_LINE_HAND
+    lh = rh + Vector((0.08, 0.13, 0.1))
+    _bent_arm(b, "R", rh, Vector((-1.0, 0.2, -0.4)), robe, robe, skin, 0.08)
+    _bent_arm(b, "L", lh, Vector((1.0, 0.1, -0.4)), robe, robe, skin, 0.08)
+    rope = material("driftwood", 0.05)
+    s = b.parts["Stool"]
+    s.append(limb(rh, lh, 0.016, 0.016, rope, verts=4))
+    tail = [lh, lh + Vector((0.1, 0.15, -0.25)), Vector((0.26, 0.2, 0.25)), Vector((0.3, 0.3, 0.03))]
+    for p0, p1 in zip(tail, tail[1:]):
+        s.append(limb(p0, p1, 0.015, 0.015, rope, verts=4))
+    c = Vector((0.3, 0.42, 0.02))
+    for k, r in enumerate((0.13, 0.1)):
+        pts = [c + Vector((math.cos(a) * r, math.sin(a) * r, 0.02 * k)) for a in (i / 8 * math.tau for i in range(9))]
+        for p0, p1 in zip(pts, pts[1:]):
+            s.append(limb(p0, p1, 0.015, 0.015, rope, verts=4))
+    assemble(b, "keeper_pim", scale=0.98)
+
+
+def build_hild() -> None:
+    """Sister Hild Garrow (Day 67): forties, big in the shoulders, twelve years at the oars to the Northing's
+    stage and back. Hood pushed back off short iron-grey hair, the grey robe kilted to the shin over sea boots,
+    sleeves rolled over brown forearms, a sacking apron, and one of the skiff's oars stood up beside her, its
+    blade over her head, her right hand round the loom."""
+    reset_scene()
+    b = Body(build=1.12)
+    robe, hem = material("bone", -0.36), material("bone", -0.5)
+    skin = material("driftwood", -0.05)
+    base_body(b, skin, material("slate", -0.4), material("ink", 0.0), robe)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, 0.3), (0, 0, b.waist + 0.08), 0.34, 0.28, robe, verts=8))           # kilted to the shin
+    t.append(limb((0, 0, 0.3), (0, 0, 0.38), 0.35, 0.35, hem, verts=8))
+    t.append(ring(0.29, b.waist + 0.04, 0.05, material("driftwood", -0.3)))
+    t.append(block((0.075, 0.02, 0.075), (0, -0.27, b.shoulder - 0.18), material("ember", -0.15), rot=(0, math.radians(45), 0)))
+    t.append(block((0.34, 0.03, 0.42), (0, -0.3, b.waist - 0.24), material("driftwood", -0.45)))  # sacking apron
+    _bare_keeper_head(b, material("slate", -0.05), robe)
+    for side in ("L", "R"):  # sleeves rolled to the elbow
+        cuff = b.hand(side) + Vector((0, 0, 0.2))
+        b.parts["Arm" + side].append(limb(cuff, cuff + Vector((0, 0, 0.07)), 0.095, 0.095, robe, verts=6))
+    # The oar stood on its handle end by her right foot, the loom through her hand, the blade overhead.
+    hand = Vector((-0.4, -0.12, 1.02))
+    _bent_arm(b, "R", hand, Vector((-1.0, 0.3, -0.3)), robe, skin, skin, 0.095)
+    oar = material("bone", -0.15)
+    foot, top = Vector((-0.44, -0.16, 0.0)), Vector((-0.38, -0.1, 2.0))
+    s = b.parts["Stool"]
+    s.append(limb(foot, top, 0.028, 0.026, oar, verts=6))
+    s.append(block((0.15, 0.035, 0.5), (top.x, top.y, top.z + 0.22), oar))
+    b.arm_rest["ArmL"] = (math.radians(-6), 0, math.radians(4))
+    b.head_rest = (math.radians(-3), 0, math.radians(-5))
+    assemble(b, "hild", scale=1.0)
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
@@ -1853,7 +1932,8 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_yard_smock, build_yard_smock_mallet, build_yard_shawl, build_yard_lad,
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
-            build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother]
+            build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother,
+            build_keeper_pim, build_hild]
 
 if __name__ == "__main__":
     import sys

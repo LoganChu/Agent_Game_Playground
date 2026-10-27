@@ -652,10 +652,32 @@ def build_beacon_lit() -> None:
     export("beacon_lit")
 
 
+def build_pell_gull() -> None:
+    """Pell's first whittled gull (Day 67), "a potato with opinions", modelled where it sits on a crate's lid
+    (place it with the crate's own position and rotation): a pale lumpy body far too round, a head on no neck
+    at all, one wing carved and the other only begun, a beak hacked out too long, and the shavings round it
+    on the lid where Pell gave up and went off to ask Dunstan something."""
+    reset()
+    z = 0.8
+    wood, cut = mat("bone", -0.08), mat("driftwood", 0.15)
+    cyl("Body", 0.1, 0.075, 0.13, 6, (0.04, 0.02, z), wood, rot_z=0.3)
+    cyl("Rump", 0.075, 0.03, 0.06, 6, (0.04, 0.02, z + 0.13), wood, rot_z=0.3)
+    cyl("Head", 0.065, 0.045, 0.09, 6, (0.04, -0.07, z + 0.15), wood, rot_z=0.6)
+    beam("Beak", (0.04, -0.12, z + 0.2), (0.05, -0.24, z + 0.18), 0.025, mat("ember", -0.35))
+    for ex in (0.0, 0.08):
+        box("Eye", (0.018, 0.018, 0.018), (ex, -0.115, z + 0.2), mat("ink", 0.1))
+    beam("Wing", (0.13, 0.0, z + 0.1), (0.15, 0.13, z + 0.06), 0.02, cut, width=0.07)  # the one carved wing
+    rnd = random.Random(67)
+    for _ in range(9):
+        x, y = rnd.uniform(-0.3, 0.3), rnd.uniform(-0.28, 0.3)
+        box("Shaving", (0.05, 0.015, 0.012), (x, y, z), cut, rot_z=rnd.uniform(0, 3.1))
+    export("pell_gull")
+
+
 BUILDERS = [build_dock, build_rowboat, build_rowboat_upturned, build_moored_boat, build_smokehouse, build_barrel,
             build_barrels, build_crate, build_lantern_post, build_signal_lantern, build_fence, build_stool, build_cups,
             build_net_racks, build_driftwood_log, build_wreck, build_reeds, build_grass, build_beacon_lit,
-            build_ferry, build_bundle]
+            build_ferry, build_bundle, build_pell_gull]
 
 if __name__ == "__main__":
     only = [a for a in sys.argv[1:] if not a.startswith("-")]
