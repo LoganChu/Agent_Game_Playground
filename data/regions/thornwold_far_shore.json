@@ -535,7 +535,7 @@
       "scale": 1.2
     },
     {
-      "model": "res://assets/models/dressing/keeper_skiff.glb",
+      "model": "res://assets/models/dressing/kindleby_skiff_stage.glb",
       "position": [
         5.5,
         -0.5,
@@ -557,16 +557,24 @@
         "flag:thornwold_skiff_landed",
         "flag:thornwold_skiff="
       ],
-      "note": "Kindleby's skiff (The Skiff North, Day 66): alongside the stage's west kerb, its line round the bollard's ring, a small yellow lantern in the bow."
+      "note": "Kindleby's skiff (The Skiff North, Day 66; Day 67 her own model): alongside the stage's west kerb, the painter over the kerb to the bollard's ring, a small lantern lit in the bow (its `halo`), meal and oil aboard, the stern line up to Sister Pim's hands.",
+      "halo": [
+        0,
+        0.8,
+        1.25
+      ],
+      "halo_size": 2.4,
+      "halo_strength": 0.9,
+      "halo_bloom": 0.4
     },
     {
-      "model": "res://assets/models/characters/keeper_sister.glb",
+      "model": "res://assets/models/characters/keeper_pim.glb",
       "position": [
         7.1,
         0,
         -10.2
       ],
-      "rotation_y": 250,
+      "rotation_y": 251,
       "idle": "breathe",
       "collider": [
         0.6,
@@ -577,7 +585,7 @@
         "flag:thornwold_skiff_landed",
         "flag:thornwold_skiff="
       ],
-      "note": "Sister Pim, young, at the skiff's line on the stage, holding it as if the stage might drift."
+      "note": "Sister Pim, young, leaning back on the skiff's stern line on the stage, holding it as if the stage might drift (Day 67: keeper_pim; build_kindleby.py runs the line to her hand, so moving her means rebuilding kindleby_skiff_stage)."
     }
   ],
   "npcs": [

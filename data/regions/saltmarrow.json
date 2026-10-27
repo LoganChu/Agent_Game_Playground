@@ -528,6 +528,20 @@
       ]
     },
     {
+      "model": "res://assets/models/dressing/pell_gull.glb",
+      "position": [
+        4,
+        0,
+        10
+      ],
+      "if": [
+        "flag:fen_dunstan_walk=home",
+        "flag:saltmarrow_ferry_arrived",
+        "!flag:thornwold_pell_landed"
+      ],
+      "note": "Pell's first whittled gull, \"a potato with opinions\", on the crate's lid in its shavings (Dunstan home and teaching Pell to whittle; Pell still on Saltmarrow). Modelled at its place on the crate: same position as the crate."
+    },
+    {
       "model": "res://assets/models/pine_tree.glb",
       "shape": "pine",
       "position": [

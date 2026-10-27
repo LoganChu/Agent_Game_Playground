@@ -926,7 +926,7 @@
       "note": "An old brother (Day 63) bringing a tray of new tallow down the wall to whoever's turn it is: one of the old Keepers who came over in the boats."
     },
     {
-      "model": "res://assets/models/dressing/keeper_skiff.glb",
+      "model": "res://assets/models/dressing/kindleby_skiff.glb",
       "position": [
         -4.5,
         0,
@@ -942,7 +942,7 @@
       "if": "!flag:kindleby_skiff_north"
     },
     {
-      "model": "res://assets/models/dressing/keeper_skiff.glb",
+      "model": "res://assets/models/dressing/kindleby_skiff.glb",
       "position": [
         -4.5,
         0,
@@ -1089,16 +1089,16 @@
     {
       "npc": "hild",
       "position": [
-        -3.6,
+        -2.2,
         0,
-        6.2
+        4.2
       ],
       "rotation_y": 200,
       "if": [
         "flag:kindleby_skiff_north",
         "flag:thornwold_skiff=home|kindleby|empty"
       ],
-      "note": "Sister Hild by the chapter's skiff, back from the Northing's stage, scraping its bottom."
+      "note": "Sister Hild on the shingle by the chapter's skiff, back from the Northing's stage, one of its oars stood up beside her (Day 67: moved up out of the wet)."
     },
     {
       "npc": "wenna_coll",
