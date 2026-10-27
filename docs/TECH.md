@@ -50,7 +50,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_ridge.py [thornwold_beacon (+ _lit) keeper_lodge ridge_steps keeper_ladder waymark_cap sack_dropped ridge_outcrops (+ _low) heather_silver waymark_tumbled]  # the ridge and the way up (same kit dir)
 .tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake steps_foot boat_stage stage_lantern drift_fire drift_fire_out drift_shelter]  # the old Keepers' road north (Day 53) and the far shore below it (Day 55) (same kit dir)
 .tools/bin/blender-py tools/blender/build_bend.py [clamp_spent clamp_spent_open hut_lantern]  # Coll's Hearth (Day 57): Wenna's clamp burned through (Day 58: and raked open, sacks filled, front on +Z); a Keeper's lantern on a forked stake by a hut door (glass centre Godot [0, 1.28, 0.32] = its `halo`) (same kit dir)
-.tools/bin/blender-py tools/blender/build_kindleby.py [chapter_house candle_ledge vigil_bell quiet_house vigil_light vigil_light_lit]  # Kindleby (Day 62): the Keepers' chapter-house, the candle wall (a 2.4 m ledge, candles emissive — no lights), the quay bell, the Quiet House (barred), the Vigil Light (Day 64: `vigil_light_lit` — horn glowing, a fire in the cradle, the door open; the pane centre is Godot y ≈ 5.1 = its `halo`/`light`; the finial's ember now sits on the finial; Day 63: the chapter-house's open bell-cote, door hood and step candles; `_diamond` turns a box 45° in place — the primitives bake their location, so `obj.rotation_euler` on a placed box swings it round the model origin) (same kit dir)
+.tools/bin/blender-py tools/blender/build_kindleby.py [chapter_house candle_ledge vigil_bell quiet_house vigil_light vigil_light_lit kindleby_skiff kindleby_skiff_stage]  # Kindleby (Day 62): the Keepers' chapter-house, the candle wall (a 2.4 m ledge, candles emissive — no lights), the quay bell, the Quiet House (barred), the Vigil Light (Day 64: `vigil_light_lit` — horn glowing, a fire in the cradle, the door open; the pane centre is Godot y ≈ 5.1 = its `halo`/`light`; the finial's ember now sits on the finial; Day 63: the chapter-house's open bell-cote, door hood and step candles; `_diamond` turns a box 45° in place — the primitives bake their location, so `obj.rotation_euler` on a placed box swings it round the model origin) (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -761,6 +761,18 @@ the skirt goes in `LegL` so the waist stoop doesn't swing it), `abe` (hands on h
 (Day 58) replaces base_body's straight arm with one bent at the elbow (two 0.27 m segments) reaching a hand point given in
 the *posed* body (after `torso_rest`), the elbow bowing along `out` — for poses a rigid arm can't make (Abe's fists on his
 hips, two hands on one pole). Leave `arm_rest` at zero for such arms; the idles still add their small swings.
+**Kindleby's skiff (Day 67, `build_kindleby.py`):** `kindleby_skiff` (on the shingle: dry, cold lantern, painter
+coiled) and `kindleby_skiff_stage` (alongside the Northing's stage), whose **lines are built against the far shore's
+placements**: the painter runs over the west kerb to the boat-stage's mooring ring and the stern line up to Sister Pim's
+leading hand (`build_characters.PIM_LINE_HAND`, posed body coords). `FAR_SKIFF_AT/ROT`, `FAR_PIM_AT/ROT/SCALE`, `FAR_RING`
+mirror the region; `_to_model`/`_to_world` convert between Godot world space and a placed model's Blender space.
+`tests/test_kindleby_skiff.gd` pins the placements and checks both rope ends land within 6 cm of the ring and the hand —
+move the skiff, Pim or the stage and rebuild the model. Its bow lantern's glass centre is `[0, 0.8, 1.25]` (the `halo`).
+Characters: `keeper_pim` (leaning back on a line; the slack and its coil a Stool extra) and `hild` (an oar stood beside
+her, a Stool extra); `_bare_keeper_head` = a Keeper with the hood pushed back. `build_dressing.py pell_gull` is modelled
+at its place on a full-size crate's lid (z 0.8): place it with the crate's position.
+**New .glb files need `godot --headless --import` before a screenshot shows them** (a non-imported model is silently
+missing from the scene).
 **The Far Shore (Day 55, `thornwold_far_shore`):** a sea region under a 14 m `rect` cliff on +Z (its top walkable but
 never reachable, like the ridge's drop), two ellipse buttresses closing the beach's ends, and the boat-stage as a `path`
 land feature 2.6 m wide at 0.7 m (painted pale) running out north. The Greying is one 0.6 "lid" over the sea and the

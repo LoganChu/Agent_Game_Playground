@@ -1160,7 +1160,10 @@ its light is **the Vigil Light**.
   shoulders, calls the sea "the wet") rowed the chapter's skiff north once a month for twelve years and left oil and meal on
   the Northing's stage for the Ridge Light, and never once saw who carried it up; after the Snuffing the Provost said nobody
   goes out in the wet, so nobody did — "We were the boat, near enough." With young **Sister Pim** at the bow lantern (an
-  ordinary flame) she brings the skiff in to the stage and the line pulls on **the bright side of the ring**. The Drays agree
+  ordinary flame) she brings the skiff in to the stage and the line pulls on **the bright side of the ring**. (Kindleby's
+  skiff is a working boat — tarred dark below a pale strake, **the ember painted on both bows**, the lantern hung from a
+  crook on the stem-post; on the stage Pim holds her stern line and leans back on it "as if the stage might drift", and
+  Hild stands by with an oar.) The Drays agree
   for once ("I said a boat." "...He did say a boat."). Kindleby "takes in whoever the boats bring"; Half isn't Hushed —
   they'd sleep in the chapter-house by the fire. Wenna, for the first time in her life, **wants telling**:
   - **home** — she takes the meal ("Keep your lantern, sister"), Hild presses the oil on her, and the three go up the steps

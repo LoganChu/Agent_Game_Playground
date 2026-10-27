@@ -523,49 +523,57 @@ each .glb < 5 MB.
       carried to Kindleby (*A Boat for Aldous*; the Long Book's empty page for what was seen; `kindleby_provost_read_letter`,
       `future`). The skiff back on Kindleby's shingle; the Lamp, the stage, the Provost follow. `test_skiff_north.gd` (8);
       checkpoints `skiff_in`, `colliers_on_kindleby`; the test runner takes `-- --only=<text>`.
+- [x] [A] **Art: Kindleby's skiff, Pim and Hild, Pell's gull** (Day 67): Kindleby's skiff gets her own model (she borrowed
+      the Heron's drowned one — half full of water, its painter climbing into the air toward a fen leg): `kindleby_skiff`
+      (tarred, dry, the ember on both bows, oars shipped, lantern cold, painter coiled) on the shingle, and
+      `kindleby_skiff_stage` at the Northing's stage — the bow lantern **lit with a halo**, meal and oil aboard, the painter
+      over the kerb to the stage's ring and **the stern line up to Sister Pim's hands**. **Sister Pim** (`keeper_pim`) leans
+      back on the line, hood down; **Sister Hild** (`hild`) has her own model, an oar stood beside her, and on Kindleby stands
+      on the shingle (Day 66 had her knee-deep in the sea). **Pell's whittled gull** ("a potato with opinions") on a Saltmarrow
+      crate once Dunstan is home. `test_kindleby_skiff.gd` (5).
 
 ### Next up
-1. [A] **Art session** (due ~Day 67-68; last Day 63) — see *Dressing follow-ups* below; the skiff on the far shore could use
-   its bow lantern lit (a `halo`) and Sister Pim a pose at the line.
-2. [P] **Polish/debt pass nine** (due by Day 69; last Day 61) — see *Known issues* for candidates (the smoke walk only
+1. [P] **Polish/debt pass nine** (due by Day 69; last Day 61) — see *Known issues* for candidates (the smoke walk only
    takes Kindleby's `boats` burn on the bowed path: the others are `test_kindleby_chapter.gd`; the HUD key hint doesn't
    mention L once the chart is known; the lane map's legend wraps to two lines at the journal's width; the smoke walk
-   never sees the skiff — it takes the far shore's `up` — nor Aldous's letter: both are `test_skiff_north.gd`).
-3. [C] **Plan and begin Act II's close** (next content due ~Day 69-70; last Day 66): five lights lit round Cindermoor; what
+   never sees the skiff — it takes the far shore's `up` — nor Aldous's letter: both are `test_skiff_north.gd`; a validator
+   check that NPCs stand above the waterline unless marked wading — Hild stood in Kindleby's sea from Day 66 to 67).
+2. [C] **Plan and begin Act II's close** (next content due ~Day 69-70; last Day 66): five lights lit round Cindermoor; what
    opens the lane in (LORE: lanes never cross to Cindermoor "while the lights between are dark"), the player-memory
    Remnants system (mystery #2), and a Keeper met later who knows the Wakebearer held Kindleby's door
    (`kindleby_ring_held`, `future`) or read Aldous's letter (`kindleby_provost_read_letter`, `future`). Small follow-ups
    still open: the `stayed` ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing
    Dunstan's home; Abe/Tolly or the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go
    home?); Tobin/Oda noticing the colliers on the wall.
-4. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-7. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
    would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-8. [A] **Dressing follow-ups** (next art-led session due ~Day 68; last Day 63): Kindleby — the Quiet House's step
+7. [A] **Dressing follow-ups** (next art-led session due ~Day 71-72; last Day 67): Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
-   walks off; Wrackholm's empty bracket; the Teeth's broken water; Pell's "potato with opinions" gull on the crate.
+   walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); a sound as the skiff comes in (oars, a creak); Hild scraping the
+   skiff's bottom on Kindleby (a stooped pose with a scraper); the skiff's tar reads pale in the Compatibility renderer.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-9. [S] Interaction polish: camera framing during dialogue; fade the
+8. [S] Interaction polish: camera framing during dialogue; fade the
    player model when the camera is pushed in close behind them (a wall at their back).
    (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
 
@@ -660,8 +668,8 @@ each .glb < 5 MB.
 - Last polish/debt session: Day 61 (pass eight); next due by Day 69.
 - Last systems session: Day 65 (the journal's Lanes tab); next due by ~Day 71 (the Greying v2's ember pushing fog
   back, day/night, or gamepad rebinding).
-- Last art session: Day 63 (Kindleby's art pass). Next art-led session due ~Day 68: Wrackholm/Kindleby
-  follow-ups (below) or the Saltmarrow dressing follow-ups.
+- Last art session: Day 67 (Kindleby's skiff, Pim and Hild, Pell's gull). Next art-led session due ~Day 71-72:
+  Wrackholm/Kindleby follow-ups or the Saltmarrow dressing follow-ups.
 - The Northing (Day 53) follow-ups: the cairn's stones are lumps, not coursed slabs (fine at play distance); the ink
   scorch paint round its foot is angular; there are no step models at the head of the Keepers' steps (the waymark and the
   inspectable stand for them); (the flanks' drop: Day 54); Ottie's seated home sits on the cold

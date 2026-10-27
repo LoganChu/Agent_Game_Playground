@@ -2,6 +2,56 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-27 09:00 UTC — Day 67: Kindleby's skiff, Pim on the line, Hild, and Pell's gull (art)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD with a stale local `main` again;
+  reset `main` to `origin/main` (Day 66's `97e46c0`).
+- **Art (due ~Day 67-68; last Day 63):** ROADMAP *Next up* #1 — the skiff's lantern and Pim's pose, and what looking at
+  them turned up.
+  - **Kindleby's skiff gets her own model.** Day 64/66 reused the Heron's `keeper_skiff` — the drowned one, half full of
+    still water, with its painter modelled climbing 1.4 m into the air to a fen leg; on Kindleby's shingle that rope stood
+    up out of the boat at nothing. `build_kindleby.py` now builds **`kindleby_skiff`** (a working boat: tarred dark below a
+    pale strake and a bone gunwale, **the ember painted on both bows**, dry floorboards, oars shipped, a horn lantern on a
+    crook off the stem-post, cold; the painter coiled in the bow) for both shingle placements, and
+    **`kindleby_skiff_stage`** at the Northing's stage: the bow lantern **lit, with a `halo`**, three sacks of meal and an
+    oil crock aboard, **the painter over the west kerb to the stage's mooring ring**, and **the stern line up to Sister
+    Pim's hands**. The lines are built against the far shore's placements (`_to_model`/`_to_world`); the test checks both
+    rope ends land within 6 cm of the ring and of Pim's hand.
+  - **Sister Pim** (`keeper_pim`): young, hood pushed back off dark hair knotted at the nape, leaning back on the line with
+    both hands at her waist, its slack running back to a coil at her heels; turned to face the stern cleat.
+  - **Sister Hild** (`hild`): she wore the stooped candle-sister with a taper. Now big in the shoulders, hood down over
+    iron-grey hair, robe kilted over sea boots, sleeves rolled, a sacking apron, an oar stood up beside her. On Kindleby her
+    Day 66 spot was 0.8 m *under* the sea (she stood knee-deep by the skiff); she's on the shingle now.
+  - **Pell's gull** (`build_dressing.py pell_gull`): "a potato with opinions" — too round, no neck, one wing carved and one
+    begun, the beak hacked out too long, shavings on the lid — on a Saltmarrow crate once Dunstan is home teaching Pell to
+    whittle (and Pell isn't away on Thornwold).
+- **Tests:** `test_kindleby_skiff.gd` (5: Kindleby's own skiff, nothing climbing out of it, lantern cold; the stage skiff
+  where her lines were built, the halo in the lit panes, the painter on the ring, the stern line in Pim's hand; the stage
+  deck height; Hild's model and dry feet; the gull on a full-size crate's lid and its conditions). `test_skiff_north` and
+  `test_kindleby_chapter` follow the new model names. 473 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-27-am-*.png`): `the-skiff-on-the-line`, `hild-on-the-shingle`,
+`a-potato-with-opinions`. Checkpoints `skiff_in` and `colliers_on_kindleby` re-shot.
+
+**Decisions**
+- **Build the ropes into the boat, against the placements,** rather than a rope prop or a rope in Pim's model: one
+  static model holds both ends, and the test fails loudly if anyone moves the skiff, Pim or the stage without rebuilding.
+  The skiff's `float` roll (2°) moves the far ends a few centimetres — invisible at play distance.
+- **The halo, not a light** (the light budget): the stage already has the Ridge Light's lantern when `carried`.
+- **Hild's oar rather than the "scraping its bottom" pose** for now: one model serves the stage and the shingle; a stooped
+  scraper pose is logged with the dressing follow-ups.
+
+**Problems / notes**
+- A freshly built .glb is silently missing from screenshots until `godot --headless --import` runs — cost me two shots of
+  an empty crate; noted in TECH.md.
+- Nothing checked that NPCs stand on dry ground; logged for polish nine (Hild stood in the sea for a day).
+- The skiff's tar reads pale in the Compatibility renderer (noted with the colour check).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **polish pass nine** (due by Day 69; last Day 61), then content ~Day 69-70: plan and begin Act
+   II's close. Fetch and reset `main` before trusting it.
+
 ## 2026-10-26 21:00 UTC — Day 66: the skiff north, and a boat for Aldous (content)
 
 **Did**
