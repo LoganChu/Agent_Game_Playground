@@ -122,7 +122,7 @@ func test_holding_the_ring() -> void:
 			assert_eq(state.quest_stage("a_light_for_kindleby"), "feed_the_light")
 			assert_eq(held.contains("row north into the fog"), told, "the skiff goes north only if she was told (%s)" % told)
 			assert_eq(state.get_flag("kindleby_skiff_north") == true, told)
-			assert_eq(_shown("keeper_skiff", state), 0 if told else 1, "the skiff gone from the shingle (%s)" % told)
+			assert_eq(_shown("kindleby_skiff", state), 0 if told else 1, "the skiff gone from the shingle (%s)" % told)
 			assert_eq(_lines(state, "tobin").contains("The skiff's gone north"), told)
 			var cradle := _lines(state, "vigil_door", ["Not yet."])
 			assert_true(cradle.contains("The chapter's choice.") and not cradle.contains("Tobin's coal-pan"), "up the stair")
