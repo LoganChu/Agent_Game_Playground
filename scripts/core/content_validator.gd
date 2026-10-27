@@ -11,6 +11,8 @@ const OPTION_KEYS: Array[String] = ["text", "goto", "end", "if", "count", "note"
 const ITEM_KINDS: Array[String] = ["remnant", "key", "misc"]
 ## Two props of one family closer than this (metres, ground plane) are variants of one thing.
 const PROP_VARIANT_SPOT := 0.6
+## How far under the water an NPC's feet may be before the placement must say "wading" (surf at the ankles).
+const DRY_FEET := 0.1
 
 var db: ContentDatabase
 var errors: Array[String] = []
@@ -929,6 +931,7 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 		elif not field.near_reachable(reachable, pos.x, pos.z, float(spot[2])):
 			_err(where, "%s at %s can't be reached on foot from the default spawn" % [spot[0], pos])
 	_validate_greying_budget(where, region, field, reachable, spots)
+	_check_npcs_dry(where, region, field)
 	if not piers_ok:
 		return
 	for pier: Dictionary in ground.get("piers", []):
@@ -936,6 +939,26 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 		var mid := Vector2((float(r[0]) + float(r[2])) * 0.5, (float(r[1]) + float(r[3])) * 0.5)
 		if not field.near_reachable(reachable, mid.x, mid.y, 0.1):
 			_err(where, "pier %s can't be walked onto from the default spawn (does it touch land?)" % [r])
+
+
+## NPCs stand on dry ground or a deck (Day 68: Hild stood 0.8 m under Kindleby's sea for a
+## day). A placement that means its NPC to stand in the water says `"wading": true`.
+func _check_npcs_dry(where: String, region: Dictionary, field: TerrainField) -> void:
+	if field.water_level == -INF:
+		return
+	for placement: Dictionary in region.get("npcs", []):
+		var npc_id := str(placement.get("npc", ""))
+		var wading: Variant = placement.get("wading", false)
+		if not wading is bool:
+			_err(where, "npc '%s' placement 'wading' must be true or false" % npc_id)
+		elif wading:
+			continue
+		var pos := JsonUtil.to_vector3(placement.get("position"))
+		# A placement's y lifts it off the ground (a seat, a tussock).
+		var feet := field.surface_at(pos.x, pos.z) + pos.y
+		if feet < field.water_level - DRY_FEET:
+			_err(where, "npc '%s' at %s stands %.2f m under the water (move it, or mark the placement \"wading\")" \
+					% [npc_id, pos, field.water_level - feet])
 
 
 ## Piers: a grid-aligned `rect` and a numeric `deck` above the water. Returns false if any

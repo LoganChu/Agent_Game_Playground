@@ -1248,6 +1248,7 @@
         0.15,
         -29.6
       ],
+      "wading": true,
       "rotation_y": -95,
       "if": [
         "quest:a_light_for_glasswater=done",
@@ -1263,6 +1264,7 @@
         0.15,
         -29.6
       ],
+      "wading": true,
       "rotation_y": -95,
       "if": [
         "quest:a_light_for_glasswater=done",

@@ -1145,9 +1145,9 @@
     {
       "npc": "ottie",
       "position": [
-        6.2,
+        5.6,
         0,
-        7.4
+        7.0
       ],
       "rotation_y": 20,
       "if": [
@@ -1156,14 +1156,14 @@
         "flag:thornwold_northing=carried",
         "!flag:thornwold_ottie_cap"
       ],
-      "note": "At the quay's end looking north, between turns on the candles."
+      "note": "At the quay looking north, between turns on the candles. (Day 68: on the deck — he stood 1.1 m under the sea off its east side.)"
     },
     {
       "npc": "ottie",
       "position": [
-        6.2,
+        5.6,
         0,
-        7.4
+        7.0
       ],
       "rotation_y": 20,
       "model": "res://assets/models/characters/ottie_cap.glb",
