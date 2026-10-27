@@ -182,7 +182,9 @@ Every record lives in its own file whose name equals its `id`.
                "position": [...], "rotation_y": deg, "scale": 1.0, "if": condition,
                "snap": true,                            // false = absolute y (docks, stilts in water)
                "light": {"color": "kindle", "energy": 1.0, "range": 6, "offset": [x,y,z]}}],  // model props only
-  "npcs":    [{"npc": id, "position": [...], "rotation_y": deg, "if": condition}],
+  "npcs":    [{"npc": id, "position": [...], "rotation_y": deg, "if": condition,
+               "wading": true}],   // wading (Day 68): the validator lets this NPC stand in the water; without
+                                   // it the feet (ground or deck + position y) must be ≤ 0.1 m under water_level
   "pickups": [{"id": unique, "item": id, "position": [...], "count": 1, "if": condition,
                "set": {flag: value}, "quest_stage": [quest, stage]}],
   "objects": [{"id": unique, "prompt": "Examine ...", "dialogue": id, "position": [...],

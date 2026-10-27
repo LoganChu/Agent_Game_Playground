@@ -2,6 +2,48 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-27 21:00 UTC — Day 68: polish pass nine — nobody stands in the sea
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Local `main` matched `origin/main` (Day 67's
+  `feec319`). The baseline run's tests finished green before my first edit; its smoke/launch steps then saw my new
+  validator check mid-edit (void, and useful: see below).
+- **Polish/debt (due by Day 69; last Day 61):** ROADMAP *Next up* #1.
+  - **NPCs stand dry** (the Day 67 follow-up): the validator now checks every NPC placement in a region with water — the
+    feet (ground or pier deck, plus the placement's own y) may be at most 0.1 m under `water_level`, unless the placement
+    says `"wading": true`. It found two at once:
+    - **Ottie on Kindleby** (*Colliers on the candles*, Day 66) "at the quay's end looking north" was 0.2 m off the
+      deck's east side — **1.1 m under the sea**, only his head above it. Moved onto the deck (5.6, 7.0), clear of Oda and
+      the spawn.
+    - **Dunstan on his tussock** in the mere (Day 37/38): boots in the water by design — marked `wading`.
+  - **The HUD names [L] Lanes** once the chart is known: "[J] Journal   [L] Lanes   [I] Satchel   [Esc] Menu". Re-labelled
+    when a quest changes and on every region (re)build, so a load picks it up. On a pad it's left out (Lanes has no pad
+    button; LB/RB in the journal reach it).
+  - **The journal chart's legend on one line:** at 640 px the Day 65 legend wrapped to two lines. The read-only chart gets
+    a short form ("Gold: sailed · dashed: not yet · grey: not this tide · [Esc] close"); Oda's 720 px chart keeps the long
+    one. `LaneMap.legend_fits()` measures with `UiTheme` (a Control outside the tree doesn't inherit the game theme — my
+    first test measured at Godot's default 16 px and passed the old text too).
+- **Tests:** `test_polish_nine.gd` (4: the Lanes hint before/after the crossing, on a pad, after a load; the legend fits
+  and the long one wouldn't; every NPC dry or wading, Ottie on the deck; the validator catches an NPC in the sea and a
+  non-bool `wading`). 477 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-27-pm-*.png`): `ottie-on-the-quay` (with the new key hint),
+`the-legend-on-one-line`.
+
+**Decisions**
+- **A validator rule, not a test per NPC:** Hild (Day 66) and Ottie (Day 66) were both placed in the same session without
+  a screenshot that showed them; a content-wide rule catches the next one at import, the way unreachable spots are caught.
+- **0.1 m of slack** so a figure at the tide-line isn't an error; anything deeper must say it means it.
+- **Short legend only for the journal** rather than a smaller font: the text-size setting stays honest, and at 1.5× text it
+  still wraps (autowrap keeps it readable) — noted as a known issue rather than fought.
+
+**Problems / notes**
+- None blocking. The smoke walk still never sees the skiff or Aldous's letter (tests cover both); carried to polish ten.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content: plan and begin Act II's close** (due ~Day 69-70; last Day 66). Fetch and reset `main`
+   before trusting it.
+
 ## 2026-10-27 09:00 UTC — Day 67: Kindleby's skiff, Pim on the line, Hild, and Pell's gull (art)
 
 **Did**
