@@ -31,6 +31,9 @@ func _ready() -> void:
 	GameState.toast.connect(show_toast)
 	# Re-labels the prompts when the player swaps between keyboard and pad.
 	GameState.input_device_changed.connect(_update_key_hint)
+	# The Lanes key joins the hint once the chart is known (a quest finishing, or a load).
+	GameState.world.quest_changed.connect(_on_quest_changed)
+	GameState.region_change_requested.connect(_on_region_change)
 
 
 
@@ -194,12 +197,24 @@ func _make_label(variation: StringName) -> Label:
 
 ## Follows the player's key bindings (GameSettings) and the device used last (pad buttons
 ## when it was a pad): the key hint and the "[E] Talk to…" prompt, which stays up under the
-## pause menu (the player is paused with its focus).
+## pause menu (the player is paused with its focus). Lanes is named once the chart is known,
+## on keys only — a pad reaches it from the journal (LB/RB).
 func _update_key_hint() -> void:
 	var menu := InputSetup.hint("pause") if InputSetup.pad_last else InputSetup.back_hint()
-	_keys.text = "%s Journal   %s Satchel   %s Menu" % [InputSetup.hint("journal"), InputSetup.hint("inventory"), menu]
+	var lanes := ""
+	if not InputSetup.pad_last and Lanes.chart_known(Content.db, GameState.world):
+		lanes = "%s Lanes   " % InputSetup.hint("lanes")
+	_keys.text = "%s Journal   %s%s Satchel   %s Menu" % [InputSetup.hint("journal"), lanes, InputSetup.hint("inventory"), menu]
 	if _prompt and _focus and is_instance_valid(_focus):
 		set_focus(_focus)
+
+
+func _on_quest_changed(_id: String, _state: String, _stage: String) -> void:
+	_update_key_hint()
+
+
+func _on_region_change(_region: String, _spawn: String) -> void:
+	_update_key_hint()
 
 
 ## The interaction prompt's text ("" when hidden; tests).

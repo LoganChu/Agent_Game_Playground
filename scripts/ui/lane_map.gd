@@ -163,10 +163,23 @@ func _place_buttons() -> void:
 		button.size = size
 
 
-## The legend, ending in the back key for the device used last.
+## The legend, ending in the back key for the device used last. The journal's narrower chart
+## gets the short form, so it stays on one line.
 func _label_legend() -> void:
-	_legend.text = "Solid gold: a lane sailed · dashed gold: not sailed yet · grey: not this tide · %s %s" \
-			% [InputSetup.back_hint(), "close" if read_only else "back"]
+	if read_only:
+		_legend.text = "Gold: sailed · dashed: not yet · grey: not this tide · %s close" % InputSetup.back_hint()
+	else:
+		_legend.text = "Solid gold: a lane sailed · dashed gold: not sailed yet · grey: not this tide · %s back" \
+				% InputSetup.back_hint()
+
+
+## True when the legend fits on one line at the chart's width, in the game's theme at the
+## current text size (tests).
+func legend_fits() -> bool:
+	var theme := UiTheme.get_theme()
+	var font := theme.get_font(&"font", UiTheme.HINT)
+	var size := theme.get_font_size(&"font_size", UiTheme.HINT)
+	return font.get_string_size(_legend.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x <= chart_size.x
 
 
 func _focus_port(id: String) -> void:
