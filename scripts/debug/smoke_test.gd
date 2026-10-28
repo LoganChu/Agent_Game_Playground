@@ -1114,6 +1114,7 @@ func _check_journal(journal: JournalUI) -> void:
 	_check(journal.entry_count() == items.size(), "satchel lists carried items")
 	if not items.is_empty():
 		_check(journal.detail_text().contains(str(items[0]["description"])), "satchel shows item description")
+	await _check_remember(journal, items)
 	_press("lanes")
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -1131,6 +1132,35 @@ func _check_journal(journal: JournalUI) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_check(not journal.is_open() and not GameState.input_locked, "Esc closes the journal and unlocks input")
+
+
+## Day 70: E on a Remnant in the satchel plays its memory in the dialogue box and comes back to
+## the satchel on the same entry, the world unchanged.
+func _check_remember(journal: JournalUI, items: Array[Dictionary]) -> void:
+	var index := items.find_custom(func(e: Dictionary) -> bool: return not str(e["memory"]).is_empty())
+	_check(index >= 0, "something in the satchel to remember")
+	if index < 0:
+		return
+	var list := journal.get("_list") as ItemList
+	list.select(index)
+	list.item_selected.emit(index)
+	var before := JSON.stringify(GameState.world.to_dict())
+	var ui: DialogueUI = get_tree().get_first_node_in_group(&"dialogue_ui")
+	_press("interact")
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(ui.is_open() and not journal.is_open() and journal.is_remembering(), "E on a Remnant plays its memory")
+	for i in 40:
+		if not ui.is_open():
+			break
+		ui.press_continue()
+		ui.press_continue()
+		await get_tree().process_frame
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(journal.is_open() and journal.tab == JournalUI.Tab.SATCHEL and journal.selected_memory() == str(items[index]["memory"]),
+			"the memory ends back in the satchel on the same entry")
+	_check(GameState.input_locked and JSON.stringify(GameState.world.to_dict()) == before, "remembering changed nothing")
 
 
 ## Day 65: after the crossings, L shows Oda's chart in the journal, read-only — every known
