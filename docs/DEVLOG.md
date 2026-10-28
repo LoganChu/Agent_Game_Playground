@@ -2,6 +2,54 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-28 21:00 UTC — Day 70: remembering from the satchel (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 69's `ca16ef4`).
+- **Systems (due Day 70-71; last Day 65):** ROADMAP *Next up* #1 — look at a Remnant from the satchel.
+  - **Item `memory`:** an item may name a dialogue (`story/memory_<item>.json`) the satchel plays on **[E] Remember** —
+    interact on the satchel, Enter / pad A on the list, or a button under the item text (its hint follows the binding and
+    the device). The panel steps aside with input still locked, the memory plays in the dialogue box, and the satchel comes
+    back on the same entry. `JournalModel` entries carry `memory`; `JournalUI.remember()` / `end_remembering()` and a
+    `remembering` signal.
+  - **Memories may only speak:** the validator refuses any effect but `sound` in a memory dialogue (no flags, quests, items
+    or travel — it can be replayed any number of times from anywhere), a non-string memory, or an unknown one.
+  - **Content:** the **Stair-Taper** replays its stair, holding on past where the Vigil Light's smoke let go — and once
+    Aldous has seen it, it's "burned down past the third landing"; once he has told of the counting (full confession),
+    "Under somebody's breath, the landings are being counted. You can't tell whose breath it is." **All twelve carried
+    Remnants** hum the edges of their owners' memories (the pebble's lullaby stopping at the same turn; the knot's first
+    net; Mara's brother; Corran's turnings; Hesper's name called out; Wenna's note and the boats; Hob's waiting; the salt
+    trade; Jory's day on the white; the night of the boats — put down "before you see it too"; the Gannet's three voices;
+    Tobin's calling). Each opens on a new procedural `remnant_hum`. Canon in LORE (*Beacons and Remnants*, Day 70).
+  - Debug `--journal=satchel --remember` for screenshots.
+- **Tests:** `test_remember.gd` (6: every Remnant has a memory and nothing else does; memories change nothing and replay the
+  same; the Stair-Taper's three states; the validator; the model entry; the satchel's Remember flow — not on the journal tab
+  or a token, the panel steps aside, input locked, double press ignored, back on the same entry). The smoke walk remembers
+  live (`_check_remember`: E in the satchel → dialogue box → read through → back in the satchel, world unchanged).
+  491 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-28-pm-*.png`): `remember-in-the-satchel`, `remembering-the-stair`.
+
+**Decisions**
+- **A whole dialogue per memory, not a knot in a shared file:** each memory starts at `start`, so the orphan check and the
+  every-path-terminates test cover them for free, and the item reference counts as the dialogue's use.
+- **Memories are still:** repeatable from anywhere means any effect would be an exploit or a bug; story reactions to
+  remembering (an NPC noticing, a flag) belong in the world's dialogues instead.
+- **Every Remnant gets one now** (a test holds future ones to it) rather than only the Stair-Taper — the satchel's Remember
+  button would otherwise appear on some Remnants and not others for no reason a player could see. Carried memories stay
+  their owners': edges, never the whole, and no new names or facts beyond each item's own text.
+- **The panel steps aside** rather than the memory playing inside the journal: the dialogue box already handles typing,
+  voices, pad prompts and sounds.
+
+**Problems / notes**
+- None blocking. At the Stair-Taper checkpoint the camera sits in the Wakebearer's head while the dialogue box is up (the
+  spawn's camera, not this feature) — noted with "a memory's own look" as a follow-up.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **art (due ~Day 71-72; last Day 67): dressing follow-ups**. Then content ~Day 72-73: the ring's
+   last gap. Fetch and reset `main` before trusting it.
+
 ## 2026-10-28 09:00 UTC — Day 69: Act II's close begins — what the ember keeps (content)
 
 **Did**

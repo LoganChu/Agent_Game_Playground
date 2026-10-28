@@ -44,6 +44,12 @@ held back the **Greying**, a silver sea-fog that makes things *forgotten*.
   Stair-Taper). Only the ember gives them up — they are never found lying in the fog — and to anyone else they are ordinary
   things. No beacon of the ring asks for one. *(Mystery #2: the ember holds the Wakebearer's past. Whether the Hearthspire
   asks for them is Act III's question. Do not explain.)*
+- *Canon (Day 70, remembering):* the Wakebearer can **hold a Remnant close and catch the edges of what it keeps** —
+  sensations and moments, never the whole (a carried Remnant's memory stays its owner's: "It isn't yours to look at for
+  long"). Remembering takes nothing from a Remnant and can be done any number of times. An **own** Remnant replays its memory
+  whole as far as it goes and no further: the Stair-Taper's stair goes on turning, and the name doesn't come. Once Aldous
+  has told of the counting, the stair has it too: "Under somebody's breath, the landings are being counted. You can't tell
+  whose breath it is." *(Mystery #2. Do not explain.)*
 
 ### Wakebearers
 Folk legend: when the flame fails, it "wakes" someone — puts an ember in a living hand.

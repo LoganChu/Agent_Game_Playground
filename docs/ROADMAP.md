@@ -546,11 +546,19 @@ each .glb < 5 MB.
       does), **Aldous** cut it — and, confessed in full, heard the light going down the stair counting landings. Quest
       *What the Ember Keeps* (`future`: stays open into Act III). `test_stair_taper.gd` (8); checkpoint `the_stair_taper`.
 
+- [x] [S] **Remembering from the satchel** (Day 70): an item's `memory` dialogue plays on **[E] Remember** (interact, Enter
+      / pad A on the list, or the button under the text); the panel steps aside for the dialogue box and comes back on the
+      same entry. Memories may only speak (and play `sound`) — the validator refuses any other effect. Every Remnant has one
+      (twelve carried Remnants hum the edges of their owners' memories; the Stair-Taper replays its stair, with Aldous's
+      "third landing" and, after a full confession, the counting); new sound `remnant_hum`; debug `--remember`. The smoke
+      walk remembers live. `test_remember.gd` (6).
+
 ### Next up
-1. [S] **Systems (due Day 70-71; last Day 65): look at a Remnant from the satchel.** An item may carry a `memory`
-   dialogue knot that plays from the satchel ("[E] Remember" on the selected entry): the Stair-Taper replays its stair (and
-   later own Remnants theirs); carried Remnants show what they hold. Validate the knots; screenshot the satchel's own
-   section. Alternatives if that runs short: the Greying v2's ember pushing fog back in a small radius; gamepad rebinding.
+1. [A] **Art (due ~Day 71-72; last Day 67): dressing follow-ups** (item 7 below) — Hild scraping the skiff on Kindleby (a
+   stooped pose with a scraper), someone at the quay bell's rope when Tobin walks off, Wrackholm's empty bracket, the
+   Teeth's broken water; or the skiff's pale tar in the Compatibility renderer. Remembering follow-up if it fits: a memory's
+   own look (the world dimmed behind the dialogue box while remembering; the camera currently sits in the player's head at
+   the Stair-Taper checkpoint's spawn).
 2. [C] **Act II's close, step 2 — the ring's last gap** (next content due ~Day 72-73; last Day 69): see LORE *Act II's
    close*. Oda on the Low Water once Kindleby is lit (`lanes.json`: a sixth port in the south between Kindleby and
    Saltmarrow, known but its lane closed until asked); then the island itself (working name Lowsong; the fog heard as
@@ -681,8 +689,8 @@ each .glb < 5 MB.
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 69 (Act II's close planned; the Stair-Taper); next content due by ~Day 72-73.
 - Last polish/debt session: Day 68 (pass nine); next due by Day 76.
-- Last systems session: Day 65 (the journal's Lanes tab); next due by ~Day 70-71 (the Greying v2's ember pushing fog
-  back, day/night, or gamepad rebinding).
+- Last systems session: Day 70 (remembering from the satchel); next due by ~Day 75-76 (the Greying v2's ember pushing
+  fog back, day/night, or gamepad rebinding).
 - Last art session: Day 67 (Kindleby's skiff, Pim and Hild, Pell's gull). Next art-led session due ~Day 71-72:
   Wrackholm/Kindleby follow-ups or the Saltmarrow dressing follow-ups.
 - The Northing (Day 53) follow-ups: the cairn's stones are lumps, not coursed slabs (fine at play distance); the ink

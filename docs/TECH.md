@@ -640,6 +640,14 @@ with `--camera=`.
 - Item: `id, name, description, kind (own|remnant|key|misc), color?, future?` — `own` (Day 69): a Remnant holding the
   Wakebearer's own memory, given only by dialogue (the validator refuses one as a pickup); the satchel lists them first as
   "Remnant · your own" in pale `kindle` (`JournalModel` entries carry `own`, and `remnant` is true for them too).
+- Item `memory?` (Day 70): a dialogue id (`story/memory_<item>.json` by convention) the satchel plays on **Remember**
+  (`[E]`/interact on the satchel, Enter or pad A on the list, or the button under the text; `JournalModel` entries carry
+  `memory`). `JournalUI.remember()` hides the panel with input still locked, opens the memory in the dialogue box, and
+  `end_remembering()` (deferred after the box's own unlock) reopens the satchel on the same entry; the `remembering` signal
+  fires as it starts. A memory may be replayed any number of times, so the validator lets its steps only speak and play a
+  `sound` — any other effect (flags, quests, items, travel) is an error; the item reference counts as the dialogue's use.
+  Every Remnant (`remnant`/`own`) has one, and nothing else does (`test_remember.gd`); each opens on `remnant_hum`.
+  Debug: `--journal=satchel --remember` plays the first entry's memory (screenshots).
 - Quest: `id, title, description, stages: [{id, text}], giver?, region?, future?` — first
   stage is entered on `quest_start`. `future: true` silences the "never completed" warning
   for a quest whose ending isn't written yet (e.g. *Across the Grey*, the Act II bridge).
@@ -962,6 +970,12 @@ writes each as a .wav (never commit them).
 WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
 
 ## Testing
+- `tests/test_remember.gd` — (Day 70) remembering from the satchel: every Remnant holds a memory and nothing else does;
+  memories change nothing and replay the same; the Stair-Taper's stair (Aldous's "third landing" and, after a full
+  confession, the counting); the validator refuses a memory with an effect, a non-string or unknown memory; JournalModel
+  entries carry it; the satchel's Remember (not on the journal tab or a token; the button's hint; the panel steps aside,
+  input stays locked, a second press is ignored; back on the same entry). The smoke walk remembers live from the satchel
+  (`_check_remember`: E plays it in the dialogue box, read through, back in the satchel, the world unchanged).
 - `tests/test_content.gd` — content loads, all references valid, every dialogue terminates,
   validator catches deliberately broken links.
 - `tests/test_polish_eight.gd` — (Day 61) `flag:x=a|b` conditions (parse, evaluate, joint_witness, the validator checks
