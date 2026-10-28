@@ -209,11 +209,14 @@ func _open_lane_map(port: String) -> void:
 		dialogue_ui.lane_map.focus_port(port)
 
 
-## Debug: opens the journal on a tab (`journal`, `satchel` or `lanes`).
+## Debug: opens the journal on a tab (`journal`, `satchel` or `lanes`); with `--remember`, plays
+## the first satchel entry's memory (Day 70).
 func _open_journal(which: String) -> void:
 	await _read_through_arrival()
 	var index := JournalUI.TAB_ACTIONS.find({"satchel": "inventory"}.get(which, which))
 	journal_ui.open(maxi(index, 0) as JournalUI.Tab)
+	if "--remember" in OS.get_cmdline_user_args():
+		journal_ui.remember()
 
 
 ## Debug: an arrival scene may hold the dialogue box; reads it through (last option each time).

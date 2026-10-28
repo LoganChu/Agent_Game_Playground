@@ -5,9 +5,14 @@ extends CanvasLayer
 ## Pressing a tab's key opens it (or closes the panel if that tab is already showing); the
 ## pad's shoulder buttons step between tabs; Esc / gamepad B closes. Locks player input
 ## while open. Content comes from JournalModel and Lanes.
+## A satchel entry with a `memory` (Day 70) can be remembered: interact (or Enter / pad A on the
+## list, or the Remember button) hides the panel, plays the memory in the dialogue box, and opens
+## the satchel again on the same entry when it ends.
 
 signal opened(tab: int)
 signal closed
+## A memory began playing from the satchel (item id, memory dialogue id).
+signal remembering(item_id: String, memory: String)
 
 enum Tab { JOURNAL, SATCHEL, LANES }
 
@@ -29,6 +34,9 @@ var _hint: Label
 var _split: Control
 var _lanes: LaneMap
 var _no_chart: Label
+var _remember: Button
+## The item whose memory is playing ("" when none); the satchel reopens on it afterwards.
+var _remembering := ""
 ## Entries currently listed (JournalModel dictionaries), parallel to _list items.
 var _entries: Array[Dictionary] = []
 
@@ -49,6 +57,7 @@ func _label_hint() -> void:
 	for i in _tab_buttons.size():
 		_tab_buttons[i].text = TAB_NAMES[i] if InputSetup.pad_last else "%s  %s" % [TAB_NAMES[i], InputSetup.hint(TAB_ACTIONS[i])]
 	_hint.text = InputSetup.back_hint() + " close"
+	_remember.text = "%s Remember" % InputSetup.hint("interact")
 	if InputSetup.pad_last:
 		_hint.text = "%s %s tabs   %s" % [InputSetup.hint("tab_left"), InputSetup.hint("tab_right"), _hint.text]
 
@@ -110,9 +119,59 @@ func _unhandled_input(event: InputEvent) -> void:
 				open(posmod(tab + int(pair[1]), TAB_NAMES.size()) as Tab)
 				get_viewport().set_input_as_handled()
 				return
+	if is_open() and tab == Tab.SATCHEL and event.is_action_pressed("interact"):
+		remember()
+		get_viewport().set_input_as_handled()
+		return
 	if is_open() and event.is_action_pressed("ui_cancel"):
 		close()
 		get_viewport().set_input_as_handled()
+
+
+## The memory of the selected satchel entry ("" when it has none, or the satchel isn't showing).
+func selected_memory() -> String:
+	var selected := _list.get_selected_items()
+	if not is_open() or tab != Tab.SATCHEL or selected.is_empty() or selected[0] >= _entries.size():
+		return ""
+	return str(_entries[selected[0]].get("memory", ""))
+
+
+## True while a memory started from the satchel is playing.
+func is_remembering() -> bool:
+	return not _remembering.is_empty()
+
+
+## Plays the selected entry's memory: the panel steps aside (input stays locked) for the dialogue
+## box, and comes back on the same entry when the memory ends.
+func remember() -> void:
+	var memory := selected_memory()
+	if memory.is_empty():
+		return
+	var dialogue := get_tree().get_first_node_in_group(&"dialogue_ui") as DialogueUI if is_inside_tree() else null
+	_remembering = _selected_id()
+	_root.hide()
+	remembering.emit(_remembering, memory)
+	if dialogue == null:
+		return # tests drive the memory themselves, then call end_remembering()
+	dialogue.open(memory)
+	await dialogue.closed
+	# The dialogue unlocks input on a deferred call queued before `closed`; reopen after it.
+	end_remembering.call_deferred()
+
+
+## Back to the satchel on the remembered entry. Input is still locked here only by the satchel
+## itself (when no dialogue box played the memory), so it is taken over rather than refused.
+func end_remembering() -> void:
+	if _remembering.is_empty():
+		return
+	var item := _remembering
+	_remembering = ""
+	GameState.input_locked = false
+	open(Tab.SATCHEL)
+	for i in _entries.size():
+		if str(_entries[i]["id"]) == item:
+			_list.select(i)
+			_show_entry(i)
 
 
 func _refresh_if_open() -> void:
@@ -160,6 +219,7 @@ func _refresh() -> void:
 		_heading.text = ""
 		_subheading.text = ""
 		_body.text = ""
+		_remember.hide()
 
 
 func _show_lanes() -> void:
@@ -200,6 +260,7 @@ func _show_entry(index: int) -> void:
 		if int(entry["count"]) > 1:
 			_subheading.text += "  ·  carrying %d" % int(entry["count"])
 		lines.append(str(entry["description"]))
+	_remember.visible = tab == Tab.SATCHEL and not str(entry.get("memory", "")).is_empty()
 	# Remnants are called out in ember (the Wakebearer's own in pale kindle); everything else uses the
 	# theme's subheading colour.
 	if entry.get("remnant", false):
@@ -255,7 +316,6 @@ func _build() -> void:
 	_hint = Label.new()
 	_hint.theme_type_variation = UiTheme.HINT
 	tabs.add_child(_hint)
-	_label_hint()
 
 	var split := HBoxContainer.new()
 	split.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -284,6 +344,7 @@ func _build() -> void:
 	_list = ItemList.new()
 	_list.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_list.item_selected.connect(_show_entry)
+	_list.item_activated.connect(func(_i: int) -> void: remember())
 	left.add_child(_list)
 	_empty = Label.new()
 	_empty.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -304,3 +365,11 @@ func _build() -> void:
 	_body.bbcode_enabled = true
 	_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	right.add_child(_body)
+	_remember = Button.new()
+	_remember.name = "Remember"
+	_remember.focus_mode = Control.FOCUS_NONE
+	_remember.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	_remember.pressed.connect(remember)
+	_remember.hide()
+	right.add_child(_remember)
+	_label_hint()

@@ -46,7 +46,8 @@ static func quest_entries(db: ContentDatabase, world: WorldState) -> Array[Dicti
 
 
 ## One entry per carried item, the Wakebearer's own Remnants first, then other Remnants, then keys, then everything else, by name.
-## Entry: {id, name, kind, kind_label, count, description, remnant: bool (own ones too), own: bool}
+## Entry: {id, name, kind, kind_label, count, description, remnant: bool (own ones too), own: bool,
+##         memory: String (the item's `memory` dialogue, played on "Remember"; "" when it has none)}
 static func item_entries(db: ContentDatabase, world: WorldState) -> Array[Dictionary]:
 	var entries: Array[Dictionary] = []
 	for id: String in world.inventory:
@@ -64,6 +65,7 @@ static func item_entries(db: ContentDatabase, world: WorldState) -> Array[Dictio
 			"description": str(item.get("description", "")),
 			"remnant": kind == "remnant" or kind == "own",
 			"own": kind == "own",
+			"memory": str(item.get("memory", "")),
 		})
 	entries.sort_custom(_item_before)
 	return entries

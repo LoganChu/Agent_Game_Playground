@@ -385,6 +385,36 @@ func _validate_item(id: String, item: Dictionary) -> void:
 		_err(where, "invalid color '%s' (palette name or #hex)" % item["color"])
 	if str(item.get("kind", "")) not in ITEM_KINDS:
 		_err(where, "kind must be one of %s" % [ITEM_KINDS])
+	if item.has("memory"):
+		_check_memory(where, item["memory"])
+
+
+## An item's `memory` (Day 70) is a dialogue the satchel plays on "Remember". Remembering can be
+## done any number of times from anywhere, so the memory may only speak (and play sounds): no
+## flags, quests, items or travel.
+func _check_memory(where: String, memory: Variant) -> void:
+	if not memory is String or str(memory).is_empty():
+		_err(where, "'memory' must be a dialogue id")
+		return
+	_ref_dialogue(where, str(memory))
+	var knots: Variant = db.get_dialogue(str(memory)).get("knots", {})
+	if not knots is Dictionary:
+		return
+	for knot_name: String in knots:
+		if not knots[knot_name] is Array:
+			continue
+		for step: Variant in knots[knot_name]:
+			if not step is Dictionary:
+				continue
+			var parts: Array = [step]
+			if (step as Dictionary).get("choice") is Array:
+				parts.append_array(step["choice"])
+			for part: Variant in parts:
+				if not part is Dictionary:
+					continue
+				for key in DialogueRunner.EFFECT_KEYS:
+					if key != "sound" and (part as Dictionary).has(key):
+						_err(where, "memory '%s' knot '%s' has '%s': a memory may only speak" % [memory, knot_name, key])
 
 
 ## data/audio.json: every sound a valid recipe (or file) on a real bus, and every sound the
