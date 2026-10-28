@@ -637,7 +637,9 @@ with `--camera=`.
   keeps the standing `aldous` for anywhere else he might be placed.
   The character lineup shows such models after the NPCs as "Name (model)".
 - `data/game.json` also takes `player_model` (the Wakebearer character scene) and `act_ends`.
-- Item: `id, name, description, kind (remnant|key|misc), color?, future?`
+- Item: `id, name, description, kind (own|remnant|key|misc), color?, future?` — `own` (Day 69): a Remnant holding the
+  Wakebearer's own memory, given only by dialogue (the validator refuses one as a pickup); the satchel lists them first as
+  "Remnant · your own" in pale `kindle` (`JournalModel` entries carry `own`, and `remnant` is true for them too).
 - Quest: `id, title, description, stages: [{id, text}], giver?, region?, future?` — first
   stage is entered on `quest_start`. `future: true` silences the "never completed" warning
   for a quest whose ending isn't written yet (e.g. *Across the Grey*, the Act II bridge).

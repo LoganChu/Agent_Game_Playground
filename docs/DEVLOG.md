@@ -2,6 +2,51 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-28 09:00 UTC — Day 69: Act II's close begins — what the ember keeps (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 68's `f9170cb`).
+- **Content (due ~Day 69-70; last Day 66):** ROADMAP *Next up* #1 — plan and begin Act II's close.
+  - **The plan** is in LORE (*Act II's close*, marked not-canon-until-written): (1) the ember gives back the Wakebearer's own
+    Remnants; (2) the ring's last gap — the chart's ring is open in the south between Kindleby and Saltmarrow, "the Low
+    Water", one more island (working name Lowsong, the fog heard as voices); (3) a Keeper who knows what the Wakebearer did
+    on Kindleby; (4) the sixth light and a second own Remnant; (5) every light on the ring lit — "the lights between" — the
+    lane in to Cindermoor on Oda's chart and the `act2` end card.
+  - **Own Remnants (system):** item kind `own`. Listed first in the satchel as "Remnant · your own" in pale kindle; the
+    validator refuses one as a pickup ("only the ember gives those up"). Canon in LORE (*Beacons and Remnants*).
+  - **The Stair-Taper:** as the Vigil Light catches, its smoke closes round the Wakebearer's hand and leaves a notched stub
+    of white candle — a memory of their own (cold stone turning left, a notch under the thumb, someone a turn above saying a
+    name that doesn't come). Saves lit before today get it at the lit door. Quest **What the Ember Keeps** (`future`).
+  - **Who knows it:** the **Provost** (a novice's light for the Spire's east stair, a notch to a landing; Aldous cut them;
+    "they all had the same face under the hood"; "Keep it out of the chapter's sight... They'd want to weigh it"); **Tobin**
+    from his pan's letter — or, if the pan burned, "I feel like I ought to know that"; **Aldous** on Saltmarrow ("That's one
+    of mine"), who, if he confessed in full, tells the one thing he left out: whoever carried the light down the east stair
+    the night of the Snuffing was **counting the landings** — "I heard them counting."
+- **Tests:** `test_stair_taper.gd` (8: given as the fifth light catches on either burn, once; old saves at the door; kind
+  `own` sorts first; the Provost with and without the letter; Tobin by burn; Aldous across confession × novice answers; the
+  validator refuses an own pickup; the checkpoint). 485 tests + smoke + launch pass.
+
+Screenshot (`docs/screenshots/2026-10-28-am-the-stair-taper-in-the-satchel.png`). Checkpoint `the_stair_taper`.
+
+**Decisions**
+- **Begin the close with mystery #2's Act II beat** ("the player's own memories start surfacing as Remnants" — in the arc
+  outline since Day 1 and never written) rather than the sixth island: it gives the remaining Act II sessions a spine
+  (one own Remnant per light from here) and it pays into three hooks already planted (Aldous's seventh novice, the light
+  "going down, not going out", the face up Kindleby's steps).
+- **A new item kind, not a flag on Remnants:** own Remnants must never be offered to a beacon's cradle or lie in the fog,
+  and a kind is what the satchel, the validator and later the burning menus already switch on.
+- **A sixth island to close the ring** rather than lighting the lane in at five: the chart has a plain gap in the south and
+  the landmark text has said "while the lights between are dark" since Day 59. Kept as a plan (working names) until written.
+- **Nobody says what the taper means.** The Provost and Aldous circle it; the item text says "Not yet."
+
+**Problems / notes**
+- None blocking. The satchel shows an item's text but can't replay a Remnant's memory — the next systems item.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **systems (due Day 70-71; last Day 65): look at a Remnant from the satchel** (an item's `memory`
+   knot; the Stair-Taper first). Then content ~Day 72-73: the ring's last gap. Fetch and reset `main` before trusting it.
+
 ## 2026-10-27 21:00 UTC — Day 68: polish pass nine — nobody stands in the sea
 
 **Did**

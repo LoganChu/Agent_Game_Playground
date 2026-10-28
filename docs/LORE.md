@@ -39,6 +39,11 @@ held back the **Greying**, a silver sea-fog that makes things *forgotten*.
   rope that remembers a knot). Whichever Remnant feeds the beacon is *burned*: the island
   remembers everything else, but that one memory is gone for good. This is the core moral
   mechanic.
+- *Canon (Day 69, Act II's close):* **the Wakebearer's own Remnants.** From the fifth light on, a beacon catching can give
+  something back to the ember's hand: a Remnant that holds **a memory of the Wakebearer's own** (the first: Kindleby's
+  Stair-Taper). Only the ember gives them up — they are never found lying in the fog — and to anyone else they are ordinary
+  things. No beacon of the ring asks for one. *(Mystery #2: the ember holds the Wakebearer's past. Whether the Hearthspire
+  asks for them is Act III's question. Do not explain.)*
 
 ### Wakebearers
 Folk legend: when the flame fails, it "wakes" someone — puts an ember in a living hand.
@@ -1184,6 +1189,27 @@ its light is **the Vigil Light**.
     always did. Somebody always carried it up", and row back.
 - Open: the Quiet House; the Long Book (and its empty page for what was seen); what Anselm and the old ones saw (burned, or
   kept); the colliers on Kindleby (Ottie looking north; whether anyone goes home).
+- **What the ember keeps (Day 69, `kindleby_stair_taper`; quest *What the Ember Keeps*).** As the Vigil Light catches, smoke
+  comes down the stair — more than a fire that size should make — and closes round the Wakebearer's hand. When it clears
+  they are holding **the Stair-Taper**: a stub of thin white tallow candle a hand-span long, burned down past the third
+  notch, **notched at every landing**. It hums like a Remnant, and the memory in it is **the Wakebearer's own** (cold stone
+  turning always to the left; a notch under the thumb; someone a turn above holding "a light that isn't a candle", saying a
+  name the Wakebearer knows is theirs, and it doesn't come). To anybody else it's a candle-end. It is the first of the
+  Wakebearer's **own Remnants** (see *Beacons and Remnants*).
+  - **The Provost:** a novice's stair-taper. The Spire's **east stair is two hundred and some steps in the dark** with the
+    wind coming down off the lantern room; a novice is given a lit taper at the foot to hold for the keepers going down, a
+    notch to every landing "so they'll know where they are when it blows out". Novices carry them; brothers have lamps.
+    **Brother Aldous cut them** ("the one thing he did sober, all his life"). "I'd not remember a novice. ...they all had
+    the same face under the hood: frightened, and trying not to be." If she read Aldous's letter, she remembers "going down,
+    not going out" and doesn't finish. **"Keep it out of the chapter's sight. ...They'd want to weigh it."** *(Mystery #1:
+    the Keepers choose what is burned. Do not explain.)*
+  - **Tobin** knows it from the letter in his coal-pan (they'd give him one at the foot of the east stair; he lay awake
+    counting landings) — unless the pan fed the Vigil Light: then "I feel like I ought to know that... It's gone."
+  - **Aldous** (on Saltmarrow): "That's one of mine" — cut with the same knife for thirty-one years, kept on a shelf in the
+    warden's niche at the foot of the east stair. "Somebody went up a long way with it." If he confessed in full, he adds the
+    one thing he left out: **whoever carried the light down the east stair the night of the Snuffing was counting the
+    landings under their breath — "I heard them counting."** "Don't light it. A taper's for the stair. You'll know which
+    stair." *(Mystery #2 hook. Do not explain.)*
 
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
@@ -1198,11 +1224,28 @@ its light is **the Vigil Light**.
 - **Act III — The Spire (Cindermoor):** confront what put out the Firstflame and decide what
   the Lanternreach should remember — or whether it should forget.
 
+### Act II's close (plan, Day 69 — not canon until written)
+The order the remaining Act II sessions should take. Names here are working names; LORE records them as canon only when
+the content lands.
+1. **What the ember keeps** (Day 69, written): the fifth light gives back the Wakebearer's first own Remnant.
+2. **The ring's last gap.** The chart's ring is open in the south, between Kindleby and Saltmarrow: water the Tidewrights
+   don't sail ("the Low Water" — Oda: the fog there sings, and ferrymen won't sail what they can hear and can't see). One
+   more island and its light (working name **Lowsong**: a scatter of skerries where the Greying is heard as voices, the
+   Hollow Choir rumor heard close — a mystery #4 foreshadow, *never* Isolde's name yet). Opened by asking Oda once
+   Kindleby is lit. Kindleby's skiff (Hild) could take the Wakebearer where the Slow Mercy won't.
+3. **A Keeper who knows.** On the sixth island, or come by Keeper boat: a Keeper who has heard that the Wakebearer held
+   Kindleby's door for the chapter (`kindleby_ring_held`), that Aldous wrote to the Provost (`kindleby_provost_read_letter`),
+   or that the Wakebearer carries a novice's taper (`kindleby_provost_saw_taper`) — and what the chapter would make of each.
+4. **The sixth light**, and the second own Remnant (a further memory of the east stair; never yet a face or a name).
+5. **Act II's end:** every light on the ring lit — "the lights between" — and the lane in to Cindermoor shows on Oda's chart.
+   The `act2` end card (recap of every burning and who went where) and its coda; Act III — The Spire — begins on the
+   crossing in.
+
 ## Long-term mysteries (payoff over months)
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
    Keepers quietly feeding it the memories of the Hushed. Oriel could not continue it.
-2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche. Day 64 hook: a face up Kindleby's steps the Wakebearer almost knows, in the Boats' Lantern as it burns.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
+2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche. Day 64 hook: a face up Kindleby's steps the Wakebearer almost knows, in the Boats' Lantern as it burns. Day 69 hook: the Stair-Taper, a novice's light for the east stair, given back by the ember as the fifth light catches; Aldous heard the light going down the stair counting landings.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —
