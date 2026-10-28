@@ -8,7 +8,7 @@ extends RefCounted
 const STEP_ACTIONS: Array[String] = ["say", "choice", "goto", "end"]
 const STEP_KEYS: Array[String] = ["say", "text", "choice", "goto", "end", "if", "count", "note"]
 const OPTION_KEYS: Array[String] = ["text", "goto", "end", "if", "count", "note", "lane_map"]
-const ITEM_KINDS: Array[String] = ["remnant", "key", "misc"]
+const ITEM_KINDS: Array[String] = ["own", "remnant", "key", "misc"]
 ## Two props of one family closer than this (metres, ground plane) are variants of one thing.
 const PROP_VARIANT_SPOT := 0.6
 ## How far under the water an NPC's feet may be before the placement must say "wading" (surf at the ankles).
@@ -601,6 +601,8 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		var item_id := str(pickup.get("item", ""))
 		if not db.items.has(item_id):
 			_err(where, "pickup '%s' gives unknown item '%s'" % [pid, item_id])
+		elif str(db.get_item(item_id).get("kind", "")) == "own":
+			_err(where, "pickup '%s' lies about: '%s' is the Wakebearer's own, and only the ember gives those up" % [pid, item_id])
 		_items_obtainable[item_id] = true
 		_ref_condition(where, pickup.get("if"))
 		for flag_id: String in (pickup.get("set", {}) as Dictionary):

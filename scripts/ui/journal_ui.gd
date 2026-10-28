@@ -144,7 +144,7 @@ func _refresh() -> void:
 			var count: int = entry["count"]
 			_list.add_item(str(entry["name"]) + (" ×%d" % count if count > 1 else ""))
 			if entry["remnant"]:
-				_list.set_item_custom_fg_color(i, PropFactory.color("ember"))
+				_list.set_item_custom_fg_color(i, PropFactory.color("kindle" if entry["own"] else "ember"))
 		if entry["id"] == previous:
 			select_index = i
 	var has_entries := not _entries.is_empty()
@@ -200,9 +200,10 @@ func _show_entry(index: int) -> void:
 		if int(entry["count"]) > 1:
 			_subheading.text += "  ·  carrying %d" % int(entry["count"])
 		lines.append(str(entry["description"]))
-	# Remnants are called out in ember; everything else uses the theme's subheading colour.
+	# Remnants are called out in ember (the Wakebearer's own in pale kindle); everything else uses the
+	# theme's subheading colour.
 	if entry.get("remnant", false):
-		_subheading.add_theme_color_override("font_color", PropFactory.color("ember"))
+		_subheading.add_theme_color_override("font_color", PropFactory.color("kindle" if entry.get("own", false) else "ember"))
 	else:
 		_subheading.remove_theme_color_override("font_color")
 	_body.text = "\n".join(lines)

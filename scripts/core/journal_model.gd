@@ -4,9 +4,11 @@ extends RefCounted
 ## world state. Pure logic so the ordering and text rules are unit-testable; JournalUI only
 ## renders what this returns.
 
-## Sort order of item kinds in the satchel; unknown kinds go last.
-const KIND_ORDER: Array[String] = ["remnant", "key", "misc"]
+## Sort order of item kinds in the satchel; unknown kinds go last. `own` (Day 69): Remnants the
+## ember gives up that hold the Wakebearer's own memories.
+const KIND_ORDER: Array[String] = ["own", "remnant", "key", "misc"]
 const KIND_LABELS: Dictionary = {
+	"own": "Remnant · your own",
 	"remnant": "Remnant",
 	"key": "Key item",
 	"misc": "Oddment",
@@ -43,8 +45,8 @@ static func quest_entries(db: ContentDatabase, world: WorldState) -> Array[Dicti
 	return active
 
 
-## One entry per carried item, Remnants first, then keys, then everything else, by name.
-## Entry: {id, name, kind, kind_label, count, description, remnant: bool}
+## One entry per carried item, the Wakebearer's own Remnants first, then other Remnants, then keys, then everything else, by name.
+## Entry: {id, name, kind, kind_label, count, description, remnant: bool (own ones too), own: bool}
 static func item_entries(db: ContentDatabase, world: WorldState) -> Array[Dictionary]:
 	var entries: Array[Dictionary] = []
 	for id: String in world.inventory:
@@ -60,7 +62,8 @@ static func item_entries(db: ContentDatabase, world: WorldState) -> Array[Dictio
 			"kind_label": str(KIND_LABELS.get(kind, kind.capitalize())),
 			"count": count,
 			"description": str(item.get("description", "")),
-			"remnant": kind == "remnant",
+			"remnant": kind == "remnant" or kind == "own",
+			"own": kind == "own",
 		})
 	entries.sort_custom(_item_before)
 	return entries
