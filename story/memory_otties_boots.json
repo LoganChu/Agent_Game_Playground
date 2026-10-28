@@ -1,0 +1,23 @@
+{
+  "id": "memory_otties_boots",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The leather is cold and silver. Under its hum, Hob's memory, not yours:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Four colliers going up the slope after a lantern, not looking back. A log seat by a cold hut. A man sitting on it, and the light going, and going, and the boots beside him."
+      },
+      {
+        "say": "narrator",
+        "text": "It's mostly the waiting. He kept all of it."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

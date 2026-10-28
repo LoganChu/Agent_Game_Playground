@@ -3,5 +3,6 @@
   "name": "The Gannet's Crew Board",
   "kind": "remnant",
   "color": "slate",
-  "description": "The black board off the Gannet's transom, prised off with the warden's leave: GANNET of Wrackholm. Sworn: HALE CORBET, master. ANNIS CORBET. RUAN PASK. The chalk your ember brought back. The yard keeps what the sea gives back, and what nobody comes for goes out to the Wrack. A Remnant: the crew's names, for everyone on Wrackholm."
+  "description": "The black board off the Gannet's transom, prised off with the warden's leave: GANNET of Wrackholm. Sworn: HALE CORBET, master. ANNIS CORBET. RUAN PASK. The chalk your ember brought back. The yard keeps what the sea gives back, and what nobody comes for goes out to the Wrack. A Remnant: the crew's names, for everyone on Wrackholm.",
+  "memory": "memory_gannets_crew_board"
 }

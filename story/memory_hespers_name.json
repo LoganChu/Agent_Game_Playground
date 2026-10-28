@@ -1,0 +1,23 @@
+{
+  "id": "memory_hespers_name",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The letters along the reed won't keep still. Under its hum, somebody else's memory:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "A woman's voice saying a name out over still water, again and again, a little quieter each time, the way you call somebody who's walking away."
+      },
+      {
+        "say": "narrator",
+        "text": "You can nearly hear the name. You can't."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

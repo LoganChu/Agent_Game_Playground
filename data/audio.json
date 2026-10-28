@@ -53,6 +53,10 @@
       {"kind": "tone", "freq": 49, "harmonics": [1.0, 0.35, 0.1], "length": 0.35, "attack": 0.01, "decay": 0.12, "gain": 1.0},
       {"kind": "noise", "color": "brown", "lowpass": 300, "length": 1.4, "attack": 0.02, "release": 1.2, "gain": 0.35}
     ]},
+    "remnant_hum": {"bus": "Effects", "kind": "mix", "length": 3.0, "gain": 0.55, "parts": [
+      {"kind": "tone", "freq": 110, "harmonics": [1.0, 0.5, 0.2], "vibrato": 4.5, "vibrato_depth": 0.01, "lowpass": 900, "length": 3.0, "attack": 0.9, "release": 1.6, "gain": 0.8},
+      {"kind": "chime", "notes": [330, 247], "gap": 0.6, "ring": 2.0, "length": 2.8, "attack": 0.3, "gain": 0.3}
+    ]},
 
     "step_shingle": {"bus": "Effects", "kind": "mix", "length": 0.16, "gain": 0.45, "parts": [
       {"kind": "noise", "color": "white", "lowpass": 3200, "highpass": 500, "length": 0.16, "attack": 0.004, "decay": 0.04, "gain": 0.7},

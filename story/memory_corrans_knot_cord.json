@@ -1,0 +1,23 @@
+{
+  "id": "memory_corrans_knot_cord",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Your fingers walk the knots, and the fen opens round them, somebody else's fen:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Left at the drowned alder. Two lengths of the pole. A channel narrowing to a reed's width, and the turn you'd never see unless your hand had made it a thousand times."
+      },
+      {
+        "say": "narrator",
+        "text": "Seventy years of turnings, too many to hold at once. Nobody else alive knows them."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

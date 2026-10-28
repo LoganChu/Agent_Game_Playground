@@ -1,0 +1,23 @@
+{
+  "id": "memory_dunstans_gull",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The little gull is warm. Under its hum, Mara's memory, not yours:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "A boy's knife on driftwood. A small girl on a doorstep watching the shavings blow, and a big brother who always had something in his pockets for her."
+      },
+      {
+        "say": "narrator",
+        "text": "You put it away gently. It isn't yours to look at for long."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

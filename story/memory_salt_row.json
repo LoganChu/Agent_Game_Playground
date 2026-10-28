@@ -1,0 +1,23 @@
+{
+  "id": "memory_salt_row",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Your thumb runs down the notches. Under the stick's hum, the camp's memory:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Crocks of salt handed up the jetty, sacks of charcoal handed down. Years of it. Somebody's joke at the tally board, the same joke every time, and everybody laughing anyway."
+      },
+      {
+        "say": "narrator",
+        "text": "And the last notch, still pale."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

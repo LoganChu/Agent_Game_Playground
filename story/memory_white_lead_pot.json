@@ -1,0 +1,23 @@
+{
+  "id": "memory_white_lead_pot",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The pot's bail creaks in your hand. Under its hum, Jory's memory:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "A boy of seven in the bottom of a boat, the white water all round the Teeth, his brother's back bending at the oars ahead of him and the pot of white held tight between his knees."
+      },
+      {
+        "say": "narrator",
+        "text": "One day. He kept every minute of it."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

@@ -3,5 +3,6 @@
   "name": "Hesper's Name",
   "kind": "remnant",
   "color": "silverfog",
-  "description": "A reed-stem from Stillhithe's pool, silvered from end to end, with something lettered along it you can't read in any light. Hesper Vail said her name out over the water until it didn't come back, and lifted this out of the reeds where it went: the last thing she kept, the thing she kept to meet the boats with. A Remnant, given on purpose."
+  "description": "A reed-stem from Stillhithe's pool, silvered from end to end, with something lettered along it you can't read in any light. Hesper Vail said her name out over the water until it didn't come back, and lifted this out of the reeds where it went: the last thing she kept, the thing she kept to meet the boats with. A Remnant, given on purpose.",
+  "memory": "memory_hespers_name"
 }

@@ -1,0 +1,23 @@
+{
+  "id": "memory_boats_lantern",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The brown glass hums with a whole island's night. You hold it, and the edges of it come:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Lanterns all along the quay. Faces coming up the steps out of the dark, one after another, and the chapter at the top of the steps taking them in with blankets and no questions."
+      },
+      {
+        "say": "narrator",
+        "text": "And under the faces, something the ones who came over saw. You put the lantern down before you see it too."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

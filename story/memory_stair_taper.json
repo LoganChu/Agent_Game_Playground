@@ -1,0 +1,45 @@
+{
+  "id": "memory_stair_taper",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You close your hand round the taper. It hums the way a Remnant hums, and what it hums is yours.",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Cold stone under your feet, turning always to the left. Your thumb finds a notch: a landing. Then another."
+      },
+      {
+        "say": "narrator",
+        "text": "Under somebody's breath, the landings are being counted. You can't tell whose breath it is.",
+        "if": [
+          "flag:saltmarrow_aldous_saw_taper",
+          "flag:saltmarrow_aldous_confessed=full"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody a turn above you holds a light that isn't a candle, and says a name, and you know the name is yours, and it doesn't come."
+      },
+      {
+        "say": "narrator",
+        "text": "You hold on past where it let go of you in the Vigil Light's smoke. The stair goes on turning. The name doesn't come."
+      },
+      {
+        "say": "narrator",
+        "text": "Then it's a candle-end in your hand again, notched, burned down past the third landing.",
+        "if": "flag:saltmarrow_aldous_saw_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "Then it's a candle-end in your hand again, notched, cold at the wick.",
+        "if": "!flag:saltmarrow_aldous_saw_taper"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

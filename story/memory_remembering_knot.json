@@ -1,0 +1,23 @@
+{
+  "id": "memory_remembering_knot",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The cord turns over in your palm, tying itself. Under its hum, somebody else's memory, very old:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Many hands on wet cord by a fire on the shingle. Somebody laughing as the first knot holds a net heavy with fish, and somebody else saying: again, show me again."
+      },
+      {
+        "say": "narrator",
+        "text": "Then the knot unties, and begins again."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

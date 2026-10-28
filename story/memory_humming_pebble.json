@@ -1,0 +1,23 @@
+{
+  "id": "memory_humming_pebble",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You hold the pebble to your ear. It hums somebody else's memory, and held close you catch the edges of it.",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "A woman's voice, low, over the creak of a cradle in a stilt house, singing the tide out. It gets to the same turn of the tune every time, and stops, and starts again."
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody on Saltmarrow can finish it. Neither can you."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "memory_wennas_answer",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The brass is cold at your lips. Under its hum, somebody else's memory:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "A note going out long and two short over the Teeth, and boats' lanterns turning home toward it out of the murk. Fifty years of them, one after another."
+      },
+      {
+        "say": "narrator",
+        "text": "And one at dusk, the night the Spire went dark."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

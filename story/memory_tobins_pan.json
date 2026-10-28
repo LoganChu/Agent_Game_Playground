@@ -1,0 +1,23 @@
+{
+  "id": "memory_tobins_pan",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The pan is cold, and the letter inside it crackles. Under its hum, Tobin's memory:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "A boy reading a letter by a candle until it's soft at every fold. The Spire seen from a long way off, lit, the most beautiful thing in the world. Lying awake in the dark, counting landings he hasn't climbed yet."
+      },
+      {
+        "say": "narrator",
+        "text": "Everything he wanted it to be."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

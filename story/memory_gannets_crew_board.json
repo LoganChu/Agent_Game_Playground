@@ -1,0 +1,23 @@
+{
+  "id": "memory_gannets_crew_board",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The chalk names stand out under your hand. Under the board's hum, Wrackholm's memory:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Three voices calling across a deck in a blow: a master, a woman at the sheet, a young man laughing at the bow. The board under them, wet and black."
+      },
+      {
+        "say": "narrator",
+        "text": "The voices go. The names stay."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}
