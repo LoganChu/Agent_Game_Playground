@@ -169,6 +169,17 @@
             "goto": "letter"
           },
           {
+            "text": "This came out of the Vigil Light's smoke, into my hand.",
+            "if": [
+              "item:stair_taper",
+              "!flag:kindleby_provost_saw_taper"
+            ],
+            "set": {
+              "kindleby_provost_saw_taper": true
+            },
+            "goto": "taper"
+          },
+          {
             "text": "Who's in the Quiet House?",
             "goto": "quiet"
           },
@@ -637,6 +648,53 @@
       },
       {
         "quest_complete": "a_boat_for_aldous"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "taper": [
+      {
+        "say": "narrator",
+        "text": "She doesn't take it. She looks at it in your hand, and runs her eye down the notches the way you'd count stairs."
+      },
+      {
+        "say": "provost",
+        "text": "A stair-taper. The east stair at the Spire is two hundred and some steps in the dark, with the wind coming down it off the lantern room. A novice is given one of these at the foot, lit, to hold for the keepers going down. A notch for every landing, so they'll know where they are when it blows out."
+      },
+      {
+        "say": "provost",
+        "text": "Brother Aldous cut them. It was the one thing he did sober, all his life, and he did it well."
+      },
+      {
+        "say": "provost",
+        "text": "I said I'd remember an ember. I'd not remember a novice. There were a great many novices, and they all had the same face under the hood: frightened, and trying not to be."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at your face as if trying it under a hood.",
+        "if": "flag:kindleby_provost_read_letter"
+      },
+      {
+        "say": "provost",
+        "text": "A light went down the east stair, he wrote. Going down. Not going out.",
+        "if": "flag:kindleby_provost_read_letter"
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't finish. A candle on the sill behind her leans, and straightens.",
+        "if": "flag:kindleby_provost_read_letter"
+      },
+      {
+        "say": "provost",
+        "text": "Keep it out of the chapter's sight, Wakebearer. Out of mine, now I've seen it. They'd want to weigh it."
+      },
+      {
+        "if": "stage:what_the_ember_keeps=the_taper",
+        "quest_stage": [
+          "what_the_ember_keeps",
+          "a_novices_light"
+        ]
       },
       {
         "goto": "hub"

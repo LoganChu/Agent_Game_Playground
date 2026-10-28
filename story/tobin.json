@@ -95,6 +95,17 @@
             "goto": "pan_back"
           },
           {
+            "text": "Do you know what this is? It came out of the Vigil Light's smoke.",
+            "if": [
+              "item:stair_taper",
+              "!flag:kindleby_tobin_saw_taper"
+            ],
+            "set": {
+              "kindleby_tobin_saw_taper": true
+            },
+            "goto": "taper"
+          },
+          {
             "text": "Goodbye.",
             "end": true
           }
@@ -251,6 +262,46 @@
       {
         "say": "tobin",
         "text": "It'll warm. ...I'll stop holding it out. I think I'll stop."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "taper": [
+      {
+        "say": "tobin",
+        "text": "That's a stair-taper! The letter said—",
+        "if": "!flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "narrator",
+        "text": "He stops, and looks at the candles on the wall instead.",
+        "if": "!flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "tobin",
+        "text": "The letter in my pan said they'd give me one at the foot of the east stair. Notched, a notch to every landing. I used to lie awake counting them: what landing I'd have got to by now.",
+        "if": "!flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "tobin",
+        "text": "That one's been carried. Look, it's burned down past the third notch. ...Where would you get a novice's taper?",
+        "if": "!flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "tobin",
+        "text": "A candle-end with notches cut in. For counting, maybe.",
+        "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "narrator",
+        "text": "He turns it over in your hand without taking it, and frowns.",
+        "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "tobin",
+        "text": "Funny. I feel like I ought to know that. Like a word you've got on your tongue. ...It's gone.",
+        "if": "flag:kindleby_beacon_burned=pan"
       },
       {
         "goto": "hub"

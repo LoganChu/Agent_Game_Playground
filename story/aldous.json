@@ -152,6 +152,17 @@
             "goto": "provost_boat"
           },
           {
+            "text": "Look at this, Brother. It came out of the smoke on Kindleby, into my hand.",
+            "if": [
+              "item:stair_taper",
+              "!flag:saltmarrow_aldous_saw_taper"
+            ],
+            "set": {
+              "saltmarrow_aldous_saw_taper": true
+            },
+            "goto": "taper"
+          },
+          {
             "text": "What happened at the Hearthspire?",
             "goto": "spire"
           },
@@ -942,6 +953,58 @@
       },
       {
         "quest_complete": "a_boat_for_aldous"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "taper": [
+      {
+        "say": "narrator",
+        "text": "He puts the bottle down without looking where. It finds the slate on its own."
+      },
+      {
+        "say": "aldous",
+        "text": "That's one of mine."
+      },
+      {
+        "say": "aldous",
+        "text": "Off my shelf in the niche at the foot of the east stair. I cut them. Thirty-one years, a notch to a landing, the same knife. You'd hand one to a novice lit, and they'd hold it on their landing while the keepers came down with the coals, and if the wind took it they'd count notches with their thumb till they knew where they were."
+      },
+      {
+        "say": "aldous",
+        "text": "That one's been burned down past the third landing. Somebody went up a long way with it."
+      },
+      {
+        "say": "aldous",
+        "text": "Seven lights up and seven down, I told you. Every night of that winter. And you bring me a taper out of a fire.",
+        "if": "!flag:saltmarrow_aldous_novice="
+      },
+      {
+        "say": "aldous",
+        "text": "You asked me could it have been you. I said I didn't know. I still don't know. I like it less.",
+        "if": "flag:saltmarrow_aldous_novice=self"
+      },
+      {
+        "say": "aldous",
+        "text": "I told you a light went down the east stair past me, the night it went dark. Going down, not going out. I didn't tell you the rest, because it's nothing. Whoever carried it was counting. Under their breath, the landings. I heard them counting.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "narrator",
+        "text": "He looks at the taper and not at you.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "aldous",
+        "text": "Don't light it. A taper's for the stair. You'll know which stair."
+      },
+      {
+        "if": "stage:what_the_ember_keeps=the_taper",
+        "quest_stage": [
+          "what_the_ember_keeps",
+          "a_novices_light"
+        ]
       },
       {
         "goto": "hub"

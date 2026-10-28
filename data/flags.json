@@ -783,6 +783,23 @@
       "description": "The Provost read Aldous Wren's letter (Day 66): she puts him on the page at the back of the Long Book for what was seen — empty a long while. For the Keepers' arc and Act III (the chapter has a Keeper's written word that the High Keeper put the flame out).",
       "default": false,
       "future": true
+    },
+    "kindleby_stair_taper": {
+      "description": "The ember gave something back (Day 69, What the Ember Keeps): as the Vigil Light caught, its smoke closed round the Wakebearer's hand and left the Stair-Taper in it — the Wakebearer's first own Remnant (item kind 'own'), a novice's notched taper for the Spire's east stair. Given in the Vigil Light's kindling, or at the lit door for saves from before Day 69.",
+      "default": false
+    },
+    "kindleby_provost_saw_taper": {
+      "description": "The Provost of Kindleby saw the Stair-Taper (Day 69): a novice's light for the east stair; she'd not remember a novice — they all had the same face under the hood. 'Keep it out of the chapter's sight. They'd want to weigh it.' For the Keepers' arc: a Keeper who has seen the Wakebearer carry a novice's taper.",
+      "default": false,
+      "future": true
+    },
+    "kindleby_tobin_saw_taper": {
+      "description": "Brother Tobin saw the Stair-Taper (Day 69): he knows it from the letter in his coal-pan — unless the pan fed the Vigil Light (kindleby_beacon_burned=pan), when he feels he ought to know it and doesn't.",
+      "default": false
+    },
+    "saltmarrow_aldous_saw_taper": {
+      "description": "Brother Aldous saw the Stair-Taper (Day 69): one of his, cut in the warden's niche at the foot of the east stair, a notch to a landing. If he confessed in full, he tells that the light that went down the stair past him the night of the Snuffing went down counting landings.",
+      "default": false
     }
   }
 }

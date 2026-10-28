@@ -1,0 +1,17 @@
+{
+  "id": "what_the_ember_keeps",
+  "title": "What the Ember Keeps",
+  "region": "kindleby",
+  "future": true,
+  "description": "As the Vigil Light caught, the smoke came down the stair and closed round your hand, and when it cleared you were holding a notched stub of candle that hums like a Remnant. The memory in it is your own. Five lights lit, and the ember has given something back.",
+  "stages": [
+    {
+      "id": "the_taper",
+      "text": "Something of yours came out of the Vigil Light's smoke: a notched stub of white candle, humming like a Remnant. Someone who knew the Spire might know what it is: the Provost of Kindleby, or Brother Aldous Wren on Saltmarrow."
+    },
+    {
+      "id": "a_novices_light",
+      "text": "A novice's stair-taper: cut to the Spire's east stair, a notch to every landing, so a novice holding a light for the keepers going down would know where they were in the dark. Brother Aldous Wren cut them, in the warden's niche at the foot of that stair. You don't remember carrying one. You remember the notches. The ember may give up more of what it keeps as the lights are lit."
+    }
+  ]
+}

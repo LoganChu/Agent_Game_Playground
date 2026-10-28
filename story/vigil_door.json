@@ -309,9 +309,18 @@
       {
         "say": "narrator",
         "text": "All round the ring the brothers and sisters straighten from their candles and look up the hill. Then they bend to them again. Nobody tells them to stop."
+      },
+      {
+        "goto": "taper",
+        "note": "Day 69: the ember gives something back as the fifth light catches (What the Ember Keeps)."
       }
     ],
     "lit": [
+      {
+        "if": "!flag:kindleby_stair_taper",
+        "goto": "taper_late",
+        "note": "Saves where Kindleby was lit before Day 69."
+      },
       {
         "say": "narrator",
         "text": "The Vigil Light burns gold behind its horn panes, its door standing open on the stair. The fog keeps well off Kindleby now."
@@ -329,6 +338,45 @@
       {
         "say": "narrator",
         "text": "Below, the candles go on all round the wall. Nobody has stopped lighting them. Nobody has thought to."
+      }
+    ],
+    "taper_late": [
+      {
+        "say": "narrator",
+        "text": "The Vigil Light burns gold behind its horn panes. You put your hand to the open door, and the smoke coming down the stair finds it, and closes round it."
+      },
+      {
+        "goto": "taper"
+      }
+    ],
+    "taper": [
+      {
+        "say": "narrator",
+        "text": "Smoke comes down the stair from the cradle, more of it than a fire that size should make, and curls round your hand where the ember is. It's warm. It's the ember's warmth, and then it isn't only the ember's."
+      },
+      {
+        "say": "narrator",
+        "text": "When it clears there's something in your fingers that wasn't there before: a stub of thin white candle, a hand-span long, notched down its side at even spaces."
+      },
+      {
+        "say": "narrator",
+        "text": "It hums. Every Remnant you've carried has hummed with somebody's memory. This one hums with yours."
+      },
+      {
+        "say": "narrator",
+        "text": "Cold stone under your feet, turning always to the left. Your thumb finds a notch: a landing. Then another. Somebody a turn above you holds a light that isn't a candle, and says a name, and you know the name is yours, and it doesn't come."
+      },
+      {
+        "say": "narrator",
+        "text": "Then it's a candle-end in a smoky doorway, and the ember lies quiet in your palm, the way a hand does when it has put something down.",
+        "give_item": "stair_taper",
+        "set": {
+          "kindleby_stair_taper": true
+        },
+        "quest_start": "what_the_ember_keeps"
+      },
+      {
+        "end": true
       }
     ]
   }

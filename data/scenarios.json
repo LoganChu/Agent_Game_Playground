@@ -658,6 +658,25 @@
         "the_skiff_north": "done"
       },
       "shot": "--camera=-6.5,3,2.5:-13,0.8,-1.5"
+    },
+    {
+      "id": "the_stair_taper",
+      "act": "Act II — The Drift",
+      "title": "What the ember keeps",
+      "inherits": "kindleby_lit",
+      "region": "kindleby",
+      "spawn": "from_ferry",
+      "description": "Kindleby lit: as the Vigil Light caught, its smoke closed round the Wakebearer's hand and left a notched novice's stair-taper in it, humming with a memory of the Wakebearer's own. The Provost, Brother Tobin and (on Saltmarrow) Brother Aldous know what it is.",
+      "flags": {
+        "kindleby_stair_taper": true
+      },
+      "quests": {
+        "what_the_ember_keeps": "the_taper"
+      },
+      "items": {
+        "stair_taper": 1
+      },
+      "shot": "--journal=satchel"
     }
   ]
 }
