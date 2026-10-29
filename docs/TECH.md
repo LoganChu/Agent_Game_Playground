@@ -437,7 +437,9 @@ Oda's lane home to Saltmarrow, Aldous asked for Wynn's sake, and the Wrens' braz
 ### The lane map (Day 59)
 `data/lanes.json` is the chart: `ports` (`id` = its value of `lanes_ferry_at`, `name`, `light`, `lit`
 and `known` conditions, `region`, `map` [x, y] in 0..1 from the top-left, `passage` knot), `landmarks`
-(drawn only — Cindermoor, dark), `lanes` (`between` two ports, `name`, `open` / `sailed` conditions,
+(drawn only, never sailed to: `name`, `text`, `map`, optional `known` condition and `look` — `"spire"` for Cindermoor,
+dark, or `"water"` for water Oda won't sail, a patch of fog with skerries in it: the Low Water, Day 72; `Lanes.known_landmarks`;
+the validator checks `known` and `look`), `lanes` (`between` two ports, `name`, `open` / `sailed` conditions,
 optional `closed_text`, `knots` {destination port → knot}), `dialogue` (the ferry's: `oda`) and `home`
 (the port `''` means). `Lanes` (scripts/core/lanes.gd) is the logic: `current_port`, `known_ports`,
 `known_lanes`, `route` (BFS over open lanes) and **`voyage(db, state, to)`** → `{ok, knot, route}` or

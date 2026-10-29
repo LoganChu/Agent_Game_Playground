@@ -561,43 +561,46 @@ each .glb < 5 MB.
       player hides the Wakebearer's body (no more looking out through their head). `test_hild_scraping.gd` (4).
 
 ### Next up
-1. [C] **Act II's close, step 2 — the ring's last gap** (next content due ~Day 72-73; last Day 69): see LORE *Act II's
-   close*. Oda on the Low Water once Kindleby is lit (`lanes.json`: a sixth port in the south between Kindleby and
-   Saltmarrow, known but its lane closed until asked); then the island itself (working name Lowsong; the fog heard as
-   voices). Small follow-ups still open: the `stayed`
+1. [P] **Polish ten** (due ~Day 73-74; last Day 68): interaction polish (#8 below — camera framing during dialogue, a
+   fade of the close-camera body), plus any bugs met on the way; check the Low Water chart mark on a real screen.
+2. [C] **Act II's close, step 2b — rowing out to the Low Water** (next content due ~Day 75-76; last Day 72): Hild's
+   skiff is clean (`kindleby_hild_low_water`; "Is she clean yet?" → yes, a day on), the Provost's "nobody goes out in the
+   wet" then yes, the rowing out past the candles into fog that sings (`choir_far`; a skiff `travel`), and **Lowsong**
+   itself — skerries, shallow water to wade between them, the Greying heard as voices, a Keepers' light and its Keeper
+   alone (LORE *Act II's close* step 3: the Keeper who knows). Small follow-ups still open: the `stayed`
    ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
-   colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; Hild's dialogue could mention the scraping now she's
-   at it (the weed from the Northing's water).
-2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+   colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Provost and Tobin on the Low Water (Lowsong's
+   Keeper in the Long Book); the Low Water from Saltmarrow's side (Aldous, Mara — the Gull looks south over it).
+3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
    would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-6. [A] **Dressing follow-ups** (next art-led session due ~Day 75-76; last Day 71): Kindleby — the Quiet House's step
+7. [A] **Dressing follow-ups** (next art-led session due ~Day 75-76; last Day 71): Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
    walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); a sound as the skiff comes in (oars, a creak); (Hild scraping the
    skiff: Day 71 — a scrape sound on her strokes would suit the audio pass); the skiff's tar reads pale in the Compatibility renderer.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-7. [S] Interaction polish: camera framing during dialogue; a fade (rather than Day 71's hide) of the player model when
+8. [S] Interaction polish: camera framing during dialogue; a fade (rather than Day 71's hide) of the player model when
    the camera is pushed in close behind them. (Facing while talking landed Day 14; the key hint hides in dialogue since
    Day 15; the body hides under 0.9 m since Day 71.)
 
@@ -621,6 +624,9 @@ each .glb < 5 MB.
   Brother Tobin, Provost Agathe Lorn and the rite, the Quiet House, the Vigil Light dark; *A Light for Kindleby* to `the_chapter`);
   Day 64 the chapter sits (the ember holds the ring) and Kindleby's burning (the boats' night / Tobin's calling); Day 66 the skiff
   north (the colliers home, or keeping candles on Kindleby) and Aldous's letter. Open: the Quiet House, the Long Book.
+- [x] [C] **The ring's last gap, begun** (Day 72): Oda tells of the Low Water once Kindleby is lit and marks it on the chart
+  (a `water` landmark — not a port); Sister Hild will row there once the skiff is scraped (*The Low Water*, `future`); Hild
+  met on the shingle if the skiff never went north; she talks about the scraping. Next: the rowing out and Lowsong.
 - [S] Day/night cycle & tides; NPC schedules. (Day 42: Wrackholm's tide is a story flag, `wrackholm_tide`, waited
   down at the spit; a real tide system should drive it and keep '' / `low` as its values.)
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).

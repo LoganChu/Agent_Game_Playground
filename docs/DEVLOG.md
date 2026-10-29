@@ -2,6 +2,59 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-29 21:00 UTC — Day 72: the ring's last gap — the Low Water (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 71's `4f88d43`).
+- **Content (due ~Day 72-73; last Day 69):** ROADMAP *Next up* #1 — Act II's close, step 2, first half.
+  - **Oda on the Low Water:** at Kindleby's quay once the Vigil Light is lit, "Where does the ring go from here?" — the
+    ring is open in the south between Kindleby and the Gull: shallow water among skerries, a Keepers' light on the biggest,
+    and the fog there **sings** ("Ferrymen won't sail what they can hear and can't see"); pilots' talk calls it **the Hollow
+    Choir** ("It's not the wind"). Two ways in (why go round / is there a light), a line if the ember held Kindleby's ring.
+    She smudges it onto her chart and starts **The Low Water** (`future`) — "ask a Keeper".
+  - **The chart's mark:** landmarks in `lanes.json` take an optional `known` condition and a `look` — `spire` (Cindermoor)
+    or `water`: a patch of fog with five tiny skerries, named beside it. Not a port: the Mercy won't sail it, and the
+    voyage logic is untouched. `Lanes.known_landmarks`; the validator checks `known` and `look`.
+  - **Hild will row:** on the shingle at the skiff she hears the Choir told of ("like the chapter at evening office in the
+    next room, and the door shut"), names the rock — **Lowsong** — and its Keeper, alone, unheard from since the Snuffing
+    and written in the Long Book; she'll row the Wakebearer out once the Northing's weed is off the skiff's bottom
+    (`kindleby_hild_low_water`, stage `the_skiff`; "Is she clean yet?" — not yet). The Provost's yes is foretold two ways
+    (she sent the skiff north once already, or not).
+  - **Hild if the skiff never went north:** a second placement (Kindleby lit, `!kindleby_skiff_north`) — met fresh,
+    scraping it anyway: "A boat you stop looking after starts forgetting she's a boat." So the Low Water opens on every
+    path, not only the far-shore one.
+  - **"You're scraping her."** (Day 71's follow-up) — the Northing's weed, and the colliers' company if they came back in her.
+  - **`choir_far`:** a new procedural sound (four close, slightly mistuned voices over a breath of noise) on Oda's and
+    Hild's telling of the singing.
+  - Canon in LORE (*The chart*, *Kindleby*; *Act II's close* step 2 marked begun).
+- **Tests:** `test_low_water.gd` (7: Oda's telling only once lit, the quest and the chart mark, no new port, asking again;
+  the light branch and the ring-held line; the sound; Hild on all four skiff outcomes; the scraping talk; Hild's two
+  placements exclusive and at one spot; the validator on landmarks). `test_hild_scraping` skips Hild's own other placement
+  in its clear-of-everyone check. 502 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-29-pm-*.png`): `low-water-on-the-chart`, `low-water-in-the-journal`.
+
+**Decisions**
+- **A landmark, not a port:** a port needs a region and a ferry lane, and the whole point is that the Slow Mercy won't go.
+  The rowing out will be a dialogue `travel` from Hild's skiff, like the Teeth's crossing on foot.
+- **Name it Lowsong now:** the working name read well in Hild's mouth (the old brothers' name for the rock), so it's canon.
+  The Choir stays a rumor heard close; no Isolde.
+- **Lowsong's Keeper is the "Keeper who knows"** (step 3) — placed there so steps 2-4 happen on one island rather than
+  bringing a Keeper by boat.
+- **The validator's exclusivity check** caught Hild able to stand on the far shore and Kindleby at once (an impossible
+  save, but cheap to rule out): the new placement also needs `!thornwold_skiff_landed`.
+- **Water labels sit to the left of the patch:** below it ran off the journal's smaller chart; above it collided with
+  Cindermoor's name; to the right, Kindleby's button.
+
+**Problems / notes**
+- None blocking. Next up rotates to polish (last Day 68); the rowing out is content's next turn.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **polish ten** (due ~Day 73-74): camera framing during dialogue, a fade for the close-camera
+   body, bugs met. Then content ~Day 75-76: rowing out to the Low Water and Lowsong. Fetch and reset `main` before
+   trusting it.
+
 ## 2026-10-29 09:00 UTC — Day 71: Hild at work, a memory's own look (art)
 
 **Did**

@@ -18,6 +18,13 @@ held back the **Greying**, a silver sea-fog that makes things *forgotten*.
   Wrackholm into water nobody has charted for the player yet ("past more besides"); since Day 62, **Kindleby** east, south
   of Wrackholm, down the Taper. Lanes run light
   to light round the ring, never across it to Cindermoor.
+- *Canon (Day 72):* the ring is open in the **south**, between Kindleby and the Gull: **the Low Water**, shallow water
+  among a scatter of skerries ("you'd think you could wade it"), with **a Keepers' light on Lowsong rock**, the biggest of
+  them. Pilots went round it even before the Snuffing: the fog there **sings** — "voices, near enough, a lot of them, none
+  of them saying anything you can catch" — and "ferrymen won't sail what they can hear and can't see". Deck talk calls it
+  **the Hollow Choir** ("it's the drowned, or the Hushed gone out over the water, or the wind in the skerries. I've heard
+  it. It's not the wind." — Oda). Oda smudges it onto her chart as fog with rocks in it — a mark, not a port — and won't
+  sail it; the Slow Mercy draws too much for that water anyway. It was Keepers' water: they rowed out to their own light.
 - With every lane on the way already sailed, Oda will run several in one passage, putting in at each
   light "only long enough to take on water". A new lane is always sailed from its near end.
 
@@ -1193,6 +1200,18 @@ its light is **the Vigil Light**.
     stage one night and keeps the coal anyway. Wenna's clamp at the bend stays lost (*The Bend in the Road* never opens).
   - **empty** — if they'd already gone up, the sisters find the fire raked out, leave the meal by the bollard "the way I
     always did. Somebody always carried it up", and row back.
+- **The Low Water from Kindleby (Day 72, quest *The Low Water*).** Asked at the quay once the Vigil Light is lit, Oda tells
+  of the ring's southern gap (see *The chart*) and sends the Wakebearer to the Keepers: "They've a skiff on that shingle,
+  when it's home, and they've never been afraid of anything but being wrong." **Sister Hild** has come by the edge of it
+  twice, rowing home from the Northing in a westerly with the lantern out: "like the chapter at evening office in the next
+  room, and the door shut. You can't make out the words. You keep thinking you nearly can." The light is on **Lowsong**
+  (the old brothers' name for the rock), kept by **a Keeper alone, the way the beacon-keepers are**; nobody has had word
+  since the Snuffing, the Provost wrote them in the Long Book, and nobody has rowed out to ask. Hild will row the
+  Wakebearer out in the chapter's skiff once she has the Northing's weed off its bottom ("I'll not take a foul bottom over
+  shallows I can't see"); the Provost will say nobody goes out in the wet, and then yes ("because it's a Keepers' light,
+  and it's you asking"). If the skiff never went north, Hild is met on the shingle scraping it anyway: "A boat you stop
+  looking after starts forgetting she's a boat." *(The rowing out, Lowsong and its Keeper: next. The Choir stays a rumor
+  heard close — never Isolde's name yet.)*
 - Open: the Quiet House; the Long Book (and its empty page for what was seen); what Anselm and the old ones saw (burned, or
   kept); the colliers on Kindleby (Ottie looking north; whether anyone goes home).
 - **What the ember keeps (Day 69, `kindleby_stair_taper`; quest *What the Ember Keeps*).** As the Vigil Light catches, smoke
@@ -1234,7 +1253,8 @@ its light is **the Vigil Light**.
 The order the remaining Act II sessions should take. Names here are working names; LORE records them as canon only when
 the content lands.
 1. **What the ember keeps** (Day 69, written): the fifth light gives back the Wakebearer's first own Remnant.
-2. **The ring's last gap.** The chart's ring is open in the south, between Kindleby and Saltmarrow: water the Tidewrights
+2. **The ring's last gap** (begun Day 72: Oda's telling, the chart's mark and Hild's promise are canon — see *The chart*
+   and *Kindleby*; the rowing out and Lowsong itself still to write). The chart's ring is open in the south, between Kindleby and Saltmarrow: water the Tidewrights
    don't sail ("the Low Water" — Oda: the fog there sings, and ferrymen won't sail what they can hear and can't see). One
    more island and its light (working name **Lowsong**: a scatter of skerries where the Greying is heard as voices, the
    Hollow Choir rumor heard close — a mystery #4 foreshadow, *never* Isolde's name yet). Opened by asking Oda once
