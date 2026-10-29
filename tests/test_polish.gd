@@ -80,6 +80,9 @@ func test_camera_snaps_in_and_eases_out() -> void:
 	assert_true(out > 2.0 and out < 7.0, "eases back out (%.2f)" % out)
 	assert_true(is_equal_approx(out, 2.0 + Player.CAMERA_RETURN_SPEED * 0.1), "at CAMERA_RETURN_SPEED")
 	assert_eq(Player.next_camera_distance(6.9, 7.0, 1.0), 7.0, "never overshoots the full distance")
+	# Day 71: pushed right in (a wall at the player's back), the camera would sit in the Wakebearer's head.
+	assert_false(Player.shows_body(0.3), "the body is hidden with the camera inside it")
+	assert_true(Player.shows_body(1.5) and Player.shows_body(Player.CAMERA_DISTANCE), "and drawn otherwise")
 
 
 func test_save_slot_labels() -> void:
