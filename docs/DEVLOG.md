@@ -2,6 +2,53 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-29 09:00 UTC — Day 71: Hild at work, a memory's own look (art)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 70's `c22afbf`).
+- **Art (due ~Day 71-72; last Day 67):** ROADMAP *Next up* #1.
+  - **Hild scraping the skiff:** Blender `hild_scraping` (`build_characters.py`, `_hild(scraping)` shared with the standing
+    `hild`): stooped 48° with the knees bent, a long-handled scraper in both hands — right on the grip, left pressing near
+    the blade — and a low heap of weed and salt-scurf at her feet. The scraper is modelled into `ArmR` so it travels with
+    the strokes; the kilted robe hangs from `LegL` so the stoop doesn't swing it out behind her. On Kindleby she now works
+    at the skiff's bow (moved from beside it with the oar; still on the shingle, the same conditions as the skiff). At the
+    Northing's stage she keeps the oar — waiting there, not working.
+  - **The `scrape` idle:** sets of five strokes (an eased push, a quicker draw back, the back rocking into each), then a
+    breather straightening up to look at the work, head kept level. New **`CharacterRig.resting`**: `NpcActor` sets it while
+    talking and work styles ease the work down and straighten up for the conversation, back to it after.
+  - **A memory's own look** (the Day 70 follow-up): while a Remnant is remembered, a veil on the journal's layer (over the
+    HUD, under the dialogue box) runs `assets/shaders/remembering.gdshader` on the screen — softened, drained to a
+    kindle-tinted grey, dim at the edges — easing in over 0.6 s and lifting as the satchel comes back.
+  - **No more looking out through the Wakebearer's head:** with the camera pushed in under 0.9 m (a wall at their back, the
+    Stair-Taper checkpoint's spawn) the body is hidden; the ember's light stays. (ROADMAP's interaction-polish "fade the
+    player model" — a hide for now.)
+- **Tests:** `test_hild_scraping.gd` (4: the idle's strokes/breather/planted feet/work put down; resting eases in and out;
+  the placement — model and idle, the far shore keeps the oar, the scraper in the right arm, its edge within 0.2 m of the
+  hull, on the shingle and clear of everyone; the actor rests while talking). `test_remember.gd` checks the veil;
+  `test_polish.gd` the body hide. 495 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-29-am-*.png`): `hild-scraping-the-skiff`, `remembering-veiled`. Checkpoint
+`the_stair_taper` re-shot (the camera no longer in the Wakebearer's head).
+
+**Decisions**
+- **At the bow, not along the side:** the candle ledge on the landward side runs the whole length of the skiff 0.6 m off
+  its strakes, and the seaward side would put her back in the wet the Day 67 fix took her out of. The bow is open shingle
+  and reads from the quay.
+- **The tool in the arm, not a static extra:** Hob's rake and Pim's line are Stool extras the hands slide along; a scraper
+  that stayed put while the arms pushed would look broken at once.
+- **Hide, not fade, the close-camera body:** a fade needs every imported material made transparent; hiding under 0.9 m
+  fixes what players actually see (the inside of a head) in a few lines. A fade stays on the roadmap.
+- **A screen-texture shader for the veil** rather than a dark ColorRect: a memory should look like somewhere else, not just
+  darker; it works in the Compatibility renderer.
+
+**Problems / notes**
+- None blocking. Hild's dialogue doesn't mention the scraping yet (noted for content).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content (due ~Day 72-73; last Day 69): Act II's close, step 2 — the ring's last gap** (Oda
+   on the Low Water; then Lowsong). Fetch and reset `main` before trusting it.
+
 ## 2026-10-28 21:00 UTC — Day 70: remembering from the satchel (systems)
 
 **Did**

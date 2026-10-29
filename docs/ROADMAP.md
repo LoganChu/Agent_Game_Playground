@@ -553,50 +553,53 @@ each .glb < 5 MB.
       "third landing" and, after a full confession, the counting); new sound `remnant_hum`; debug `--remember`. The smoke
       walk remembers live. `test_remember.gd` (6).
 
+- [x] [A] **Art: Hild at work, a memory's own look** (Day 71): Blender `hild_scraping` — Hild stooped at the bow of
+      Kindleby's drawn-up skiff, knees bent, a long-handled scraper in both hands (modelled into the right arm), a heap of
+      weed at her feet; new `scrape` idle (sets of strokes, a breather to look at the work) that puts the work down and
+      straightens up while she talks (`CharacterRig.resting`, set by `NpcActor`). While a Remnant is remembered the world
+      behind the dialogue box goes soft, drained and dim (`remembering.gdshader` veil). The camera pushed right in on the
+      player hides the Wakebearer's body (no more looking out through their head). `test_hild_scraping.gd` (4).
+
 ### Next up
-1. [A] **Art (due ~Day 71-72; last Day 67): dressing follow-ups** (item 7 below) — Hild scraping the skiff on Kindleby (a
-   stooped pose with a scraper), someone at the quay bell's rope when Tobin walks off, Wrackholm's empty bracket, the
-   Teeth's broken water; or the skiff's pale tar in the Compatibility renderer. Remembering follow-up if it fits: a memory's
-   own look (the world dimmed behind the dialogue box while remembering; the camera currently sits in the player's head at
-   the Stair-Taper checkpoint's spawn).
-2. [C] **Act II's close, step 2 — the ring's last gap** (next content due ~Day 72-73; last Day 69): see LORE *Act II's
+1. [C] **Act II's close, step 2 — the ring's last gap** (next content due ~Day 72-73; last Day 69): see LORE *Act II's
    close*. Oda on the Low Water once Kindleby is lit (`lanes.json`: a sixth port in the south between Kindleby and
    Saltmarrow, known but its lane closed until asked); then the island itself (working name Lowsong; the fog heard as
    voices). Small follow-ups still open: the `stayed`
    ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
-   colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper.
-3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+   colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; Hild's dialogue could mention the scraping now she's
+   at it (the weed from the Northing's water).
+2. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
    would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-7. [A] **Dressing follow-ups** (next art-led session due ~Day 71-72; last Day 67): Kindleby — the Quiet House's step
+6. [A] **Dressing follow-ups** (next art-led session due ~Day 75-76; last Day 71): Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
-   walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); a sound as the skiff comes in (oars, a creak); Hild scraping the
-   skiff's bottom on Kindleby (a stooped pose with a scraper); the skiff's tar reads pale in the Compatibility renderer.
+   walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); a sound as the skiff comes in (oars, a creak); (Hild scraping the
+   skiff: Day 71 — a scrape sound on her strokes would suit the audio pass); the skiff's tar reads pale in the Compatibility renderer.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [S] Interaction polish: camera framing during dialogue; fade the
-   player model when the camera is pushed in close behind them (a wall at their back).
-   (Facing while talking landed Day 14; the key hint hides in dialogue since Day 15.)
+7. [S] Interaction polish: camera framing during dialogue; a fade (rather than Day 71's hide) of the player model when
+   the camera is pushed in close behind them. (Facing while talking landed Day 14; the key hint hides in dialogue since
+   Day 15; the body hides under 0.9 m since Day 71.)
 
 ## Milestone 2 — Alpha (Act II begins)
 - [x] [C] **The crossing** — landed Day 17 (see Done).
@@ -691,8 +694,8 @@ each .glb < 5 MB.
 - Last polish/debt session: Day 68 (pass nine); next due by Day 76.
 - Last systems session: Day 70 (remembering from the satchel); next due by ~Day 75-76 (the Greying v2's ember pushing
   fog back, day/night, or gamepad rebinding).
-- Last art session: Day 67 (Kindleby's skiff, Pim and Hild, Pell's gull). Next art-led session due ~Day 71-72:
-  Wrackholm/Kindleby follow-ups or the Saltmarrow dressing follow-ups.
+- Last art session: Day 71 (Hild at work on the skiff; the remembering veil). Next art-led session due ~Day 75-76:
+  Wrackholm/Kindleby follow-ups (the quay bell's rope, the empty bracket, the Teeth's broken water) or Saltmarrow's.
 - The Northing (Day 53) follow-ups: the cairn's stones are lumps, not coursed slabs (fine at play distance); the ink
   scorch paint round its foot is angular; there are no step models at the head of the Keepers' steps (the waymark and the
   inspectable stand for them); (the flanks' drop: Day 54); Ottie's seated home sits on the cold

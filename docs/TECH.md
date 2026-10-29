@@ -134,7 +134,9 @@ Scenes are mostly built in code from data so content never requires editing `.ts
 **Camera (Day 15):** the player's orbit camera is placed by a `SpringArm3D` that only
 measures: it sweeps a 0.3 m sphere (`Player.CAMERA_PROBE_RADIUS`) out to 7 m on the world and
 camera layers; the camera jumps in to a hit at once and eases back out at
-`CAMERA_RETURN_SPEED` (`Player.next_camera_distance`). Every model prop with a `collider`
+`CAMERA_RETURN_SPEED` (`Player.next_camera_distance`). Pushed in under `CAMERA_HIDE_BODY` (0.9 m; Day 71) the
+Wakebearer's body is hidden (`Player.shows_body`; the ember's light stays) so the camera never looks out through the
+inside of their head. Every model prop with a `collider`
 whose mesh is ≥ `Region.CAMERA_BLOCK_MIN_HEIGHT` (2.4 m) tall gets a `CameraBlocker` (layer 4
 only) over its mesh bounds from the collider's top up — roofs, eaves, canopies. Automatic,
 no data field.
@@ -630,6 +632,12 @@ with `--camera=`.
   in his left hand on his thigh, the right hand rubbing his knee, and late in every `BOTTLE_PERIOD`
   (14 s) a swig (`bottle_swig`, 0..1: up 0.9 s, drink 1.4 s, down 1.2 s) — the bottle arm comes up
   and in (`SWIG_LIFT`/`SWIG_IN`), the head goes back (`SWIG_HEAD`), the shoulders lean back a little.
+  Day 71: `scrape` — a stooped model working a tool held in both hands (Hild at Kindleby's skiff): sets of
+  `SCRAPE_SET` strokes (`scrape_stroke`, 0..1: an eased push over 65% of `SCRAPE_PERIOD`, a quicker draw back), the
+  arms pushing together and the back rocking into each, then a `SCRAPE_BREATHER` straightening up
+  (`scrape_breather`, `SCRAPE_STRAIGHTEN`) with the head kept level. The tool is modelled into the right arm so it
+  travels with the strokes. **`CharacterRig.resting`** (set by `NpcActor` while talking) eases `rest` to 1 at
+  `REST_RATE`: work styles put the work down and straighten up for the conversation.
 - **Placement poses (Day 28):** a region's NPC placement may carry its own `model` and `idle`,
   which override the NPC's for that spot (`Region.placed_npc_data`; validated like the NPC's). Hob
   stands raking (`hob`, `rake`) in the clearing and sits on the camp bench (`hob_seated`, `sit`).
@@ -648,6 +656,10 @@ with `--camera=`.
   `sound` — any other effect (flags, quests, items, travel) is an error; the item reference counts as the dialogue's use.
   Every Remnant (`remnant`/`own`) has one, and nothing else does (`test_remember.gd`); each opens on `remnant_hum`.
   Debug: `--journal=satchel --remember` plays the first entry's memory (screenshots).
+  **A memory's own look (Day 71):** while remembering, `JournalUI`'s `RememberVeil` (a full-screen ColorRect on the
+  journal's layer 8 — over the HUD, under the dialogue box's 10) runs `assets/shaders/remembering.gdshader` on the screen
+  texture: a little softened (mip blur), drained toward a `kindle`-tinted grey, darker at the edges; `amount` eases in
+  over `VEIL_FADE` and drops to 0 when the satchel comes back (`veil_amount()` for tests). Works in Compatibility.
 - Quest: `id, title, description, stages: [{id, text}], giver?, region?, future?` — first
   stage is entered on `quest_start`. `future: true` silences the "never completed" warning
   for a quest whose ending isn't written yet (e.g. *Across the Grey*, the Act II bridge).
@@ -781,7 +793,9 @@ mirror the region; `_to_model`/`_to_world` convert between Godot world space and
 `tests/test_kindleby_skiff.gd` pins the placements and checks both rope ends land within 6 cm of the ring and the hand —
 move the skiff, Pim or the stage and rebuild the model. Its bow lantern's glass centre is `[0, 0.8, 1.25]` (the `halo`).
 Characters: `keeper_pim` (leaning back on a line; the slack and its coil a Stool extra) and `hild` (an oar stood beside
-her, a Stool extra); `_bare_keeper_head` = a Keeper with the hood pushed back. `build_dressing.py pell_gull` is modelled
+her, a Stool extra); `hild_scraping` (Day 71: stooped, knees bent, the scraper in both hands modelled into `ArmR`; its edge
+at `HILD_SCRAPER_EDGE` — `tests/test_hild_scraping.gd` checks the Kindleby placement puts it within 0.2 m of the skiff's
+hull, so move the skiff or Hild together; the kilted robe hangs from `LegL` so the stoop doesn't swing it out); `_bare_keeper_head` = a Keeper with the hood pushed back. `build_dressing.py pell_gull` is modelled
 at its place on a full-size crate's lid (z 0.8): place it with the crate's position.
 **New .glb files need `godot --headless --import` before a screenshot shows them** (a non-imported model is silently
 missing from the scene).
@@ -970,6 +984,11 @@ writes each as a .wav (never commit them).
 WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
 
 ## Testing
+- `tests/test_hild_scraping.gd` — (Day 71) the `scrape` idle (strokes, the breather, feet planted, the work put down
+  while resting, easing in and out); Hild's Kindleby placement (the scraping model and idle exactly when the skiff is
+  home; the far shore keeps the oar; the scraper in the right arm; its edge on the hull; on the shingle and clear of
+  everyone); `NpcActor` sets `resting` while talking. `test_remember.gd` checks the veil; `test_polish.gd` the
+  close-camera body hide.
 - `tests/test_remember.gd` — (Day 70) remembering from the satchel: every Remnant holds a memory and nothing else does;
   memories change nothing and replay the same; the Stair-Taper's stair (Aldous's "third landing" and, after a full
   confession, the counting); the validator refuses a memory with an effect, a non-string or unknown memory; JournalModel
