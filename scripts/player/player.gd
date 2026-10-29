@@ -21,6 +21,9 @@ const EMBER_LIGHT_ENERGY := 0.6
 const CAMERA_DISTANCE := 7.0
 const CAMERA_PROBE_RADIUS := 0.3
 const CAMERA_RETURN_SPEED := 4.0
+## Pushed in closer than this (a wall at the player's back), the camera would sit inside the
+## Wakebearer: the body is hidden (the ember's light stays) until it pulls back out.
+const CAMERA_HIDE_BODY := 0.9
 
 var focus: Interactable = null
 
@@ -135,6 +138,15 @@ func _update_camera_distance(delta: float) -> void:
 	var target := _camera_arm.get_hit_length()
 	_camera_distance = next_camera_distance(_camera_distance, target, delta)
 	_camera.position = Vector3(0, 0, _camera_distance)
+	var shown := shows_body(_camera_distance)
+	for part in _visual.get_children():
+		if not part is Light3D:
+			(part as Node3D).visible = shown
+
+
+## Whether the body is drawn with the camera `distance` behind the pivot.
+static func shows_body(distance: float) -> bool:
+	return distance >= CAMERA_HIDE_BODY
 
 
 static func next_camera_distance(current: float, target: float, delta: float) -> float:

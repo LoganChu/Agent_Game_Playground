@@ -7,12 +7,16 @@ extends CanvasLayer
 ## while open. Content comes from JournalModel and Lanes.
 ## A satchel entry with a `memory` (Day 70) can be remembered: interact (or Enter / pad A on the
 ## list, or the Remember button) hides the panel, plays the memory in the dialogue box, and opens
-## the satchel again on the same entry when it ends.
+## the satchel again on the same entry when it ends. Meanwhile the world behind goes soft, drained
+## and dim (Day 71: a memory's own look).
 
 signal opened(tab: int)
 signal closed
 ## A memory began playing from the satchel (item id, memory dialogue id).
 signal remembering(item_id: String, memory: String)
+
+## Seconds for the world to go soft behind a memory.
+const VEIL_FADE := 0.6
 
 enum Tab { JOURNAL, SATCHEL, LANES }
 
@@ -37,6 +41,9 @@ var _no_chart: Label
 var _remember: Button
 ## The item whose memory is playing ("" when none); the satchel reopens on it afterwards.
 var _remembering := ""
+## The world behind a memory (Day 71): soft, drained and dim while the dialogue box plays it.
+var _veil: ColorRect
+var _veil_tween: Tween
 ## Entries currently listed (JournalModel dictionaries), parallel to _list items.
 var _entries: Array[Dictionary] = []
 
@@ -150,6 +157,7 @@ func remember() -> void:
 	var dialogue := get_tree().get_first_node_in_group(&"dialogue_ui") as DialogueUI if is_inside_tree() else null
 	_remembering = _selected_id()
 	_root.hide()
+	_fade_veil(1.0)
 	remembering.emit(_remembering, memory)
 	if dialogue == null:
 		return # tests drive the memory themselves, then call end_remembering()
@@ -166,12 +174,36 @@ func end_remembering() -> void:
 		return
 	var item := _remembering
 	_remembering = ""
+	_fade_veil(0.0)
 	GameState.input_locked = false
 	open(Tab.SATCHEL)
 	for i in _entries.size():
 		if str(_entries[i]["id"]) == item:
 			_list.select(i)
 			_show_entry(i)
+
+
+## How far the world is veiled for a memory (0..1; for tests).
+func veil_amount() -> float:
+	return float((_veil.material as ShaderMaterial).get_shader_parameter("amount")) if _veil.visible else 0.0
+
+
+## Eases the memory veil in (1) or straight off (0: the satchel's own shade takes over).
+func _fade_veil(to: float) -> void:
+	if _veil_tween:
+		_veil_tween.kill()
+	var look := _veil.material as ShaderMaterial
+	if to <= 0.0:
+		_veil.hide()
+		look.set_shader_parameter("amount", 0.0)
+		return
+	_veil.show()
+	if not is_inside_tree():
+		look.set_shader_parameter("amount", to)
+		return
+	look.set_shader_parameter("amount", 0.0)
+	_veil_tween = create_tween()
+	_veil_tween.tween_method(func(v: float) -> void: look.set_shader_parameter("amount", v), 0.0, to, VEIL_FADE)
 
 
 func _refresh_if_open() -> void:
@@ -271,6 +303,15 @@ func _show_entry(index: int) -> void:
 
 
 func _build() -> void:
+	_veil = ColorRect.new()
+	_veil.name = "RememberVeil"
+	_veil.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_veil.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var veil_look := ShaderMaterial.new()
+	veil_look.shader = preload("res://assets/shaders/remembering.gdshader")
+	_veil.material = veil_look
+	_veil.hide()
+	add_child(_veil)
 	_root = Control.new()
 	_root.name = "JournalRoot"
 	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

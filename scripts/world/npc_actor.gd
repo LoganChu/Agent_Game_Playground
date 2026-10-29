@@ -4,7 +4,8 @@ extends Interactable
 ## animated by a CharacterRig in its `idle` style), or a primitive figure tinted by the NPC's
 ## signature color when it has none; talking starts the NPC's dialogue. While talking the
 ## NPC turns to face the player (unless its data says `"faces_player": false`, e.g. Hesk at
-## her net), and turns back to its placed facing when the dialogue closes.
+## her net), and turns back to its placed facing when the dialogue closes. A working idle
+## ("scrape") puts the work down while talking.
 
 ## How quickly the NPC turns towards the player and back (1/s, exponential ease).
 const TURN_SPEED := 6.0
@@ -16,6 +17,7 @@ var npc_data: Dictionary = {}
 var _face_yaw := 0.0
 var _talking := false
 var _body: Node3D
+var _rig: CharacterRig
 var _label: Label3D
 ## Body yaw to start from (set by take_over before the body is built).
 var _start_yaw := 0.0
@@ -93,6 +95,8 @@ func _process(delta: float) -> void:
 	# closed again, turn back to the placed facing.
 	if _talking and not GameState.input_locked:
 		_talking = false
+	if _rig:
+		_rig.resting = _talking
 	if _body == null:
 		return
 	var target := _face_yaw if _talking else 0.0
@@ -115,6 +119,7 @@ func _build_body() -> void:
 	if model:
 		model.name = "Model"
 		body.add_child(model)
+		_rig = model.get_node_or_null("CharacterRig") as CharacterRig
 	else:
 		body.add_child(PropFactory.mesh_instance(PropFactory.cylinder(0.25, 0.42, 1.0, 6), tint, Vector3(0, 0.5, 0)))
 		var head := SphereMesh.new()

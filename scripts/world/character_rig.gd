@@ -6,11 +6,12 @@ extends Node
 ## breathing and a slow sway always, hands working in the "mend" style, a slow draw of the
 ## clamp rake in the "rake" style (Hob Marl), the hammer and chisel in the "chisel" style (the
 ## Lamp at the lantern bench), a seated rest in the "sit" style (Hob on the camp bench), a swig
-## now and then in the "bottle" style (Aldous on his bench), and a leg/arm swing
+## now and then in the "bottle" style (Aldous on his bench), strokes along a hull in the "scrape"
+## style (Hild at Kindleby's skiff, pausing while she talks), and a leg/arm swing
 ## while `move_speed` is above zero. No skeletons or animation tracks to maintain.
 
 const PARTS: Array[String] = ["LegL", "LegR", "Torso", "Head", "ArmL", "ArmR"]
-const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel", "sit", "still", "bottle"]
+const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel", "sit", "still", "bottle", "scrape"]
 ## The "chisel" beat: two taps, then a pause (seconds).
 const CHISEL_PERIOD := 3.4
 ## The "sit" doze: once a cycle the head sinks, holds, and comes up with a start (seconds).
@@ -23,6 +24,15 @@ const BOTTLE_PERIOD := 14.0
 const SWIG_LIFT := 1.35
 const SWIG_IN := 0.45
 const SWIG_HEAD := 0.42
+## The "scrape" work: one stroke (a slow push along the strake, a quicker draw back), SCRAPE_SET
+## strokes, then a breather straightening up to look at the work (seconds).
+const SCRAPE_PERIOD := 1.5
+const SCRAPE_SET := 5
+const SCRAPE_BREATHER := 3.0
+## How far a scraper straightens off the stoop for a breather or to talk (radians).
+const SCRAPE_STRAIGHTEN := 0.32
+## How fast the work stops when talking starts and resumes after (1/s).
+const REST_RATE := 1.5
 ## Looking away (a figure's `averts`): how far the head turns from the player (radians), how
 ## much of that the shoulders take, how far the chin drops, and how fast it comes on (1/s).
 const AVERT_YAW := 1.1
@@ -39,8 +49,14 @@ const AVERT_RADIUS := 6.0
 ## "still" (a seated Unmoored by the pools: slow shallow breath, the hands quiet, the head
 ## drifting down to look into the water and, a long while later, up again) or "bottle" (a
 ## seated Aldous: the bottle turning in his hand on his thigh, and once a cycle a swig — it comes
-## up to his mouth, his head goes back, and down it comes again; the other hand rubs his knee).
+## up to his mouth, his head goes back, and down it comes again; the other hand rubs his knee) or
+## "scrape" (a stooped model working a scraper held in both hands: sets of strokes, then a
+## breather; `resting` stops the work and straightens her up).
 var style := "breathe"
+## Set while the character is talking: work styles ("scrape") put the work down and straighten up.
+var resting := false
+## 0..1, eased toward `resting` (public so tests can set it).
+var rest := 0.0
 ## A foot comes down (twice per walk cycle, while walking): the player's footsteps.
 signal footfall
 
@@ -111,6 +127,7 @@ func _process(delta: float) -> void:
 			footfall.emit()
 	if avert_if != null:
 		_update_avert(delta)
+	rest = move_toward(rest, 1.0 if resting else 0.0, delta * REST_RATE)
 	pose(_time, _walk_phase, _walk_blend)
 
 
@@ -222,6 +239,18 @@ func pose(t: float, walk_phase: float = 0.0, walk: float = 0.0) -> void:
 		# The bottle hand: turning it a little on his thigh, then up and in to his mouth.
 		_offset("ArmL", Vector3.ZERO, Vector3(-SWIG_LIFT * swig, 0.06 * sin(t * 0.8) * (1.0 - swig), -SWIG_IN * swig))
 		_offset("ArmR", Vector3.ZERO, Vector3(0.05 * sin(t * 1.3), 0, -0.02 * breath))
+	elif style == "scrape":
+		var still := 1.0 - walk
+		var stroke := scrape_stroke(t) * still * (1.0 - rest)
+		var up := maxf(scrape_breather(t) * (1.0 - rest), rest) * still
+		_offset("Torso", Vector3(0, abs(swing) * 0.03, 0),
+			Vector3(0.02 * breath + 0.05 * stroke - SCRAPE_STRAIGHTEN * up + 0.06 * walk, 0.05 * swing, 0.015 * sin(t * 0.6)),
+			Vector3(1.0 + 0.012 * breath, 1.0 + 0.02 * breath, 1.0 + 0.012 * breath))
+		# The head keeps its eyes level as the back comes up.
+		_offset("Head", Vector3.ZERO, Vector3(0.6 * SCRAPE_STRAIGHTEN * up - 0.015 * breath, 0.04 * sin(t * 0.37), 0.0))
+		# Both hands on the one scraper: the arms push and draw together.
+		_offset("ArmL", Vector3.ZERO, Vector3(-0.2 * stroke + 0.2 * up - 0.45 * swing, 0, 0.02 * breath))
+		_offset("ArmR", Vector3.ZERO, Vector3(-0.2 * stroke + 0.2 * up + 0.45 * swing, 0, -0.02 * breath))
 	elif style == "mend":
 		# Small alternating pulls of the needle through the mesh.
 		_offset("ArmL", Vector3.ZERO, Vector3(0.12 * sin(t * 3.1), 0.08 * sin(t * 1.55), 0))
@@ -254,6 +283,26 @@ static func chisel_listen(t: float) -> float:
 	if p < 0.0 or p > 2.8:
 		return 0.0
 	return smoothstep(0.0, 0.6, p) * (1.0 - smoothstep(2.1, 2.8, p))
+
+
+## How far the scraper has been pushed along the strake at time `t` (0 = drawn back, 1 = the
+## stroke's end): an eased push over most of each SCRAPE_PERIOD, a quicker draw back; nothing
+## during the breather after every SCRAPE_SET strokes.
+static func scrape_stroke(t: float) -> float:
+	var p := fmod(t, SCRAPE_PERIOD * SCRAPE_SET + SCRAPE_BREATHER)
+	if p >= SCRAPE_PERIOD * SCRAPE_SET:
+		return 0.0
+	var x := fmod(p, SCRAPE_PERIOD) / SCRAPE_PERIOD
+	return smoothstep(0.0, 0.65, x) if x < 0.65 else 1.0 - smoothstep(0.65, 1.0, x)
+
+
+## How far a scraper has straightened for the breather at time `t` (0..1): up after each set
+## of strokes, a look at the work, and back down to it.
+static func scrape_breather(t: float) -> float:
+	var p := fmod(t, SCRAPE_PERIOD * SCRAPE_SET + SCRAPE_BREATHER) - SCRAPE_PERIOD * SCRAPE_SET
+	if p < 0.0:
+		return 0.0
+	return smoothstep(0.0, 0.8, p) * (1.0 - smoothstep(SCRAPE_BREATHER - 0.9, SCRAPE_BREATHER, p))
 
 
 ## How far a sitter has nodded off at time `t` (0 = awake, 1 = chin down): late in each
