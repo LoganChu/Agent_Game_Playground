@@ -144,7 +144,7 @@ func test_hild_at_the_skiff() -> void:
 	assert_true(field.height_at(at.x, at.z) > float(_content().get_region(BY).get("water_level", 0.0)) + 0.1,
 		"on the shingle, not in the sea")
 	for other: Dictionary in _content().get_region(BY)["npcs"]:
-		if other != placed:
+		if other != placed and other["npc"] != "hild":  # her other placement (Day 72: the skiff never went north) is the same spot
 			var there := JsonUtil.to_vector3(other["position"])
 			assert_true(Vector2(at.x, at.z).distance_to(Vector2(there.x, there.z)) > 1.2, "clear of %s" % other["npc"])
 
