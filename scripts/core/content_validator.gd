@@ -166,7 +166,11 @@ func _validate_lanes() -> void:
 			_err(where, "landmarks must be objects")
 			continue
 		_require_fields(where + " landmark", mark, ["name", "text"])
-		_check_map_point(where + " landmark " + str((mark as Dictionary).get("name", "?")), (mark as Dictionary).get("map"))
+		var mw := where + " landmark " + str((mark as Dictionary).get("name", "?"))
+		_check_map_point(mw, (mark as Dictionary).get("map"))
+		_ref_condition(mw, (mark as Dictionary).get("known"))
+		if str((mark as Dictionary).get("look", "spire")) not in Lanes.LANDMARK_LOOKS:
+			_err(mw, "look must be one of %s" % [Lanes.LANDMARK_LOOKS])
 	for lane_v: Variant in db.lanes.get("lanes", []):
 		if not lane_v is Dictionary:
 			_err(where, "lanes must be objects")

@@ -9,6 +9,7 @@ extends RefCounted
 ## in at each light only to take on water, and the destination's `passage` knot tells it.
 
 const FLAG := "lanes_ferry_at"
+const LANDMARK_LOOKS: Array[String] = ["spire", "water"]
 
 
 static func data(db: ContentDatabase) -> Dictionary:
@@ -49,6 +50,16 @@ static func known_ports(db: ContentDatabase, state: WorldState) -> Array[String]
 	for entry: Dictionary in db.lanes.get("ports", []):
 		if Conditions.evaluate(entry.get("known"), state):
 			out.append(str(entry.get("id", "")))
+	return out
+
+
+## The chart's landmarks the player knows of (each `known` condition, if any), in data order. A landmark is
+## drawn, never sailed to: Cindermoor's dark Spire, or water Oda won't sail (`look`: "spire" | "water").
+static func known_landmarks(db: ContentDatabase, state: WorldState) -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for mark: Dictionary in db.lanes.get("landmarks", []):
+		if Conditions.evaluate(mark.get("known"), state):
+			out.append(mark)
 	return out
 
 

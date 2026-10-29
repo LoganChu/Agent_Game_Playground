@@ -239,16 +239,24 @@ func _draw_chart() -> void:
 			_chart.draw_line(a, b, ember if on_route else Color(kindle, 0.75), 4.0 if on_route else 3.0, true)
 		else:
 			_chart.draw_dashed_line(a, b, ember if on_route else Color(kindle, 0.6), 3.0, 12.0)
-	for mark: Dictionary in db.lanes.get("landmarks", []):
+	for mark in Lanes.known_landmarks(db, state):
 		var c := _point(mark.get("map"))
-		_draw_island(c, ISLAND_RADIUS * 1.8, Color(ink, 1.0).lerp(fog, 0.15), false)
-		# The dark Spire: a cold spike on the isle.
-		_chart.draw_colored_polygon(PackedVector2Array([c + Vector2(-5, 6), c + Vector2(5, 6), c + Vector2(0, -26)]), Color(fog, 0.45))
+		var below := ISLAND_RADIUS * 1.8
+		if str(mark.get("look", "spire")) == "water":
+			# Water nobody sails: a patch of fog and a few skerries in it, no lane drawn in.
+			below = _draw_fog_water(c, Color(fog, 1.0), Color(ink, 1.0).lerp(fog, 0.25))
+		else:
+			_draw_island(c, ISLAND_RADIUS * 1.8, Color(ink, 1.0).lerp(fog, 0.15), false)
+			# The dark Spire: a cold spike on the isle.
+			_chart.draw_colored_polygon(PackedVector2Array([c + Vector2(-5, 6), c + Vector2(5, 6), c + Vector2(0, -26)]), Color(fog, 0.45))
 		var font := get_theme_default_font()
 		var text := str(mark.get("name", ""))
 		var fsize := get_theme_default_font_size()
 		var w := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, fsize).x
-		_chart.draw_string(font, c + Vector2(-w * 0.5, ISLAND_RADIUS * 1.8 + fsize + 4), text, HORIZONTAL_ALIGNMENT_LEFT, -1, fsize, Color(fog, 0.6))
+		var at := c + Vector2(-w * 0.5, below + fsize + 4)
+		if str(mark.get("look", "spire")) == "water":
+			at = c + Vector2(-below - w, fsize * 0.35)  # beside the fog: water lies low on the chart, under Cindermoor's name
+		_chart.draw_string(font, at, text, HORIZONTAL_ALIGNMENT_LEFT, -1, fsize, Color(fog, 0.6))
 	var here := Lanes.current_port(db, state)
 	for id in Lanes.known_ports(db, state):
 		var c := _point(Lanes.port(db, id).get("map"))
@@ -267,6 +275,22 @@ func _on_route(route: Array, a: String, b: String) -> bool:
 		if (route[i] == a and route[i + 1] == b) or (route[i] == b and route[i + 1] == a):
 			return true
 	return false
+
+
+## Unsailed water on the chart: soft fog puffs with a scatter of tiny skerries; returns how far out from the
+## centre the label should go.
+func _draw_fog_water(c: Vector2, fog: Color, rock: Color) -> float:
+	var r := ISLAND_RADIUS * 1.6
+	for i in 7:
+		var a := TAU * float(i) / 7.0
+		_chart.draw_circle(c + Vector2(cos(a) * r * 0.9, sin(a) * r * 0.45), r * 0.7, Color(fog, 0.07))
+	_chart.draw_circle(c, r, Color(fog, 0.08))
+	for spot: Vector2 in [Vector2(-0.7, 0.1), Vector2(-0.2, -0.3), Vector2(0.35, 0.2), Vector2(0.8, -0.15), Vector2(0.05, 0.35)]:
+		_draw_island(c + spot * r, ISLAND_RADIUS * 0.28, rock, false)
+	for row: float in [-0.55, 0.6]:
+		var y := c.y + row * r
+		_chart.draw_dashed_line(Vector2(c.x - r * 1.3, y), Vector2(c.x + r * 1.3, y), Color(fog, 0.25), 1.0, 5.0)
+	return r * 1.7
 
 
 ## A faceted low-poly isle; a lit one carries its beacon as a bright point.
