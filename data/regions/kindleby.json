@@ -1089,16 +1089,18 @@
     {
       "npc": "hild",
       "position": [
-        -2.2,
+        -2.3,
         0,
-        4.2
+        5.05
       ],
-      "rotation_y": 200,
+      "rotation_y": 255,
       "if": [
         "flag:kindleby_skiff_north",
         "flag:thornwold_skiff=home|kindleby|empty"
       ],
-      "note": "Sister Hild on the shingle by the chapter's skiff, back from the Northing's stage, one of its oars stood up beside her (Day 67: moved up out of the wet)."
+      "note": "Sister Hild on the shingle at the chapter's skiff, back from the Northing's stage, stooped at its bow with a scraper taking the weed off its strakes (Day 67: moved up out of the wet; Day 71: at work).",
+      "model": "res://assets/models/characters/hild_scraping.glb",
+      "idle": "scrape"
     },
     {
       "npc": "wenna_coll",

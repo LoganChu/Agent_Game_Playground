@@ -1891,19 +1891,29 @@ def build_keeper_pim() -> None:
     assemble(b, "keeper_pim", scale=0.98)
 
 
-def build_hild() -> None:
+# Hild scraping the skiff (Day 71; posed body, before the Rig scale): the scraper blade's edge, where
+# kindleby.json stands her so that it meets the hull's strake (tests/test_hild_scraping.gd checks it).
+HILD_SCRAPER_EDGE = Vector((0.21, -0.95, 0.44))
+
+
+def _hild(scraping: bool) -> None:
     """Sister Hild Garrow (Day 67): forties, big in the shoulders, twelve years at the oars to the Northing's
     stage and back. Hood pushed back off short iron-grey hair, the grey robe kilted to the shin over sea boots,
-    sleeves rolled over brown forearms, a sacking apron, and one of the skiff's oars stood up beside her, its
-    blade over her head, her right hand round the loom."""
+    sleeves rolled over brown forearms, a sacking apron. Standing (`hild`): one of the skiff's oars stood up
+    beside her, its blade over her head, her right hand round the loom. `scraping` (`hild_scraping`, Day 71):
+    stooped at the drawn-up skiff's side, knees bent, a long-handled scraper in both hands — the right on the
+    grip, the left pressing down near the blade — taking a winter's weed and salt off the strakes; a heap of
+    what's come off at her feet. The scraper is part of the right arm, so it travels with the strokes."""
     reset_scene()
-    b = Body(build=1.12)
+    b = Body(build=1.12, crouch=0.06 if scraping else 0.0)
     robe, hem = material("bone", -0.36), material("bone", -0.5)
     skin = material("driftwood", -0.05)
     base_body(b, skin, material("slate", -0.4), material("ink", 0.0), robe)
     t = b.parts["Torso"]
-    t.append(limb((0, 0, 0.3), (0, 0, b.waist + 0.08), 0.34, 0.28, robe, verts=8))           # kilted to the shin
-    t.append(limb((0, 0, 0.3), (0, 0, 0.38), 0.35, 0.35, hem, verts=8))
+    # Stooped, the kilted robe hangs from the hips (a still leg part) instead of swinging out with the torso.
+    skirt = b.parts["LegL"] if scraping else t
+    skirt.append(limb((0, 0, 0.3), (0, 0, b.waist + 0.08), 0.34, 0.28, robe, verts=8))           # kilted to the shin
+    skirt.append(limb((0, 0, 0.3), (0, 0, 0.38), 0.35, 0.35, hem, verts=8))
     t.append(ring(0.29, b.waist + 0.04, 0.05, material("driftwood", -0.3)))
     t.append(block((0.075, 0.02, 0.075), (0, -0.27, b.shoulder - 0.18), material("ember", -0.15), rot=(0, math.radians(45), 0)))
     t.append(block((0.34, 0.03, 0.42), (0, -0.3, b.waist - 0.24), material("driftwood", -0.45)))  # sacking apron
@@ -1911,17 +1921,51 @@ def build_hild() -> None:
     for side in ("L", "R"):  # sleeves rolled to the elbow
         cuff = b.hand(side) + Vector((0, 0, 0.2))
         b.parts["Arm" + side].append(limb(cuff, cuff + Vector((0, 0, 0.07)), 0.095, 0.095, robe, verts=6))
+    s = b.parts["Stool"]
+    if scraping:
+        b.torso_rest = (math.radians(48), 0, 0)
+        b.head_rest = (math.radians(-30), 0, math.radians(-4))  # the head up off the stoop, eyes on the strake
+        grip, press = Vector((-0.04, -0.44, 0.66)), Vector((0.05, -0.62, 0.58))
+        _bent_arm(b, "R", grip, Vector((-1.0, 0.3, -0.4)), robe, skin, skin, 0.095)
+        _bent_arm(b, "L", press, Vector((1.0, 0.2, -0.5)), robe, skin, skin, 0.095)
+        # The scraper, built posed and carried back into the arm's unposed frame (the Torso turns it).
+        along = (HILD_SCRAPER_EDGE - grip).normalized()
+        back = grip - along * 0.12
+        neck = HILD_SCRAPER_EDGE - along * 0.08
+        waist = Vector((0, 0, b.waist))
+        unpose = Euler(b.torso_rest).to_matrix().inverted()
+        def u(p: Vector) -> Vector:
+            return unpose @ (p - waist) + waist
+        handle, iron = material("driftwood", -0.1), material("slate", 0.1)
+        arm = b.parts["ArmR"]
+        arm.append(limb(u(back), u(neck), 0.026, 0.024, handle, verts=5))
+        across = along.cross(Vector((0, 0, 1))).normalized()
+        arm.append(limb(u(neck), u(HILD_SCRAPER_EDGE), 0.03, 0.03, iron, verts=4))  # the ferrule and tang
+        arm.append(limb(u(HILD_SCRAPER_EDGE - across * 0.12), u(HILD_SCRAPER_EDGE + across * 0.12), 0.04, 0.014, iron, verts=4))
+        # What's come off the strakes: a low heap of weed and salt-scurf at her feet, toward the boat.
+        weed = material("moss", -0.45)
+        s.append(ball(0.16, (0.2, -0.7, 0.02), weed, scale=(1.3, 0.8, 0.3)))
+        s.append(ball(0.09, (-0.1, -0.75, 0.02), material("silverfog", -0.2), scale=(1.2, 0.9, 0.35)))
+        assemble(b, "hild_scraping", scale=1.0)
+        return
     # The oar stood on its handle end by her right foot, the loom through her hand, the blade overhead.
     hand = Vector((-0.4, -0.12, 1.02))
     _bent_arm(b, "R", hand, Vector((-1.0, 0.3, -0.3)), robe, skin, skin, 0.095)
     oar = material("bone", -0.15)
     foot, top = Vector((-0.44, -0.16, 0.0)), Vector((-0.38, -0.1, 2.0))
-    s = b.parts["Stool"]
     s.append(limb(foot, top, 0.028, 0.026, oar, verts=6))
     s.append(block((0.15, 0.035, 0.5), (top.x, top.y, top.z + 0.22), oar))
     b.arm_rest["ArmL"] = (math.radians(-6), 0, math.radians(4))
     b.head_rest = (math.radians(-3), 0, math.radians(-5))
     assemble(b, "hild", scale=1.0)
+
+
+def build_hild() -> None:
+    _hild(scraping=False)
+
+
+def build_hild_scraping() -> None:
+    _hild(scraping=True)
 
 
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
@@ -1933,7 +1977,7 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
             build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother,
-            build_keeper_pim, build_hild]
+            build_keeper_pim, build_hild, build_hild_scraping]
 
 if __name__ == "__main__":
     import sys
