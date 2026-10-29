@@ -97,6 +97,13 @@
       {"kind": "noise", "color": "brown", "lowpass": 200, "length": 4.0, "attack": 0.5, "release": 2.0, "gain": 0.2}
     ]},
     "horn_near": {"bus": "Effects", "kind": "tone", "freq": 73, "harmonics": [1.0, 0.8, 0.5, 0.3, 0.15], "vibrato": 3, "vibrato_depth": 0.008, "noise": 0.1, "lowpass": 800, "length": 5.0, "attack": 0.6, "release": 1.5, "gain": 0.75},
+    "choir_far": {"bus": "Effects", "kind": "mix", "length": 4.5, "gain": 0.4, "parts": [
+      {"kind": "tone", "freq": 196, "harmonics": [1.0, 0.4, 0.15], "vibrato": 4.1, "vibrato_depth": 0.012, "lowpass": 700, "length": 4.5, "attack": 1.6, "release": 2.2, "gain": 0.5},
+      {"kind": "tone", "freq": 201, "harmonics": [1.0, 0.3, 0.2], "vibrato": 5.3, "vibrato_depth": 0.015, "lowpass": 650, "length": 4.2, "attack": 2.0, "release": 1.8, "gain": 0.4},
+      {"kind": "tone", "freq": 247, "harmonics": [1.0, 0.35], "vibrato": 3.7, "vibrato_depth": 0.01, "lowpass": 800, "length": 3.8, "attack": 1.8, "release": 1.6, "gain": 0.35},
+      {"kind": "tone", "freq": 294, "harmonics": [1.0, 0.2], "vibrato": 4.8, "vibrato_depth": 0.014, "lowpass": 900, "length": 3.4, "attack": 2.2, "release": 1.2, "gain": 0.25},
+      {"kind": "noise", "color": "pink", "lowpass": 600, "highpass": 120, "length": 4.5, "attack": 1.5, "release": 2.5, "gain": 0.15}
+    ]},
     "quay_bell": {"bus": "Effects", "kind": "chime", "notes": [262, 262, 262, 262], "gap": 0.7, "ring": 2.6, "length": 4.6, "gain": 0.4},
 
     "voice_soft": {"bus": "Voice", "kind": "tone", "freq": 210, "harmonics": [1.0, 0.45, 0.2, 0.1], "slide": 0.92, "noise": 0.15, "lowpass": 2000, "length": 0.09, "attack": 0.012, "release": 0.03, "gain": 0.3},

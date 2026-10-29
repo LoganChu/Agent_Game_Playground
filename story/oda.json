@@ -1729,6 +1729,11 @@
             "goto": "dunstan_answer"
           },
           {
+            "text": "Where does the ring go from here?",
+            "if": "!flag:kindleby_beacon_burned=",
+            "goto": "kindleby_low_water"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true
           },
@@ -1788,6 +1793,86 @@
           "from_ferry"
         ],
         "end": true
+      }
+    ],
+    "kindleby_low_water": [
+      {
+        "say": "oda",
+        "text": "From here? Back up the Taper, the way we came. That's the ring, near enough: five lights and the Gull, and Cindermoor dark in the middle.",
+        "set": {
+          "kindleby_oda_low_water_asked": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "She looks south, past the candles, where the grey goes on."
+      },
+      {
+        "say": "oda",
+        "text": "Near enough. There's water between here and the Gull that nobody sails. The Low Water. On the old charts it's a scatter of rock, and between the rocks the sea's so shallow you'd think you could wade it. Pilots went round. Even before the Snuffing, they went round."
+      },
+      {
+        "choice": [
+          {
+            "text": "Why go round?",
+            "goto": "low_water_sings"
+          },
+          {
+            "text": "Is there a light out there?",
+            "goto": "low_water_light"
+          }
+        ]
+      }
+    ],
+    "low_water_sings": [
+      {
+        "say": "oda",
+        "text": "Because it sings. The fog. Out there you can hear it: voices, near enough, a lot of them, none of them saying anything you can catch. Ferrymen won't sail what they can hear and can't see. Not my grandmother, and not me.",
+        "sound": "choir_far"
+      },
+      {
+        "say": "oda",
+        "text": "The old pilots call it the Choir. The Hollow Choir. You'll hear that on any deck after the second bottle: it's the drowned, or the Hushed gone out over the water, or it's the wind in the skerries. I've heard it. It's not the wind."
+      },
+      {
+        "goto": "low_water_chart"
+      }
+    ],
+    "low_water_light": [
+      {
+        "say": "oda",
+        "text": "Was. The old charts have one: a Keepers' light on the biggest of the rocks. Keepers' water, that; they rowed it out to their own, and we went round. I couldn't tell you who keeps it. I couldn't tell you if anybody does, now."
+      },
+      {
+        "say": "oda",
+        "text": "And before you ask why we went round: it sings. The fog out there. Voices, near enough, a lot of them. Ferrymen won't sail what they can hear and can't see.",
+        "sound": "choir_far"
+      },
+      {
+        "goto": "low_water_chart"
+      }
+    ],
+    "low_water_chart": [
+      {
+        "say": "oda",
+        "text": "You held their whole ring with that ember for an hour. I've a deckhand says you'd hold the Low Water off too. I've a deckhand who talks too much.",
+        "if": "flag:kindleby_ring_held"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda takes the chart out of her coat, wets a thumb on the ink-stick and smudges a patch of grey into the gap south of the ring, and a few dots in it for the rocks."
+      },
+      {
+        "say": "oda",
+        "text": "There. It's on the chart. I'll not sail it. The Mercy draws too much for that water anyway, and she's got more sense than I have."
+      },
+      {
+        "say": "oda",
+        "text": "If you want rowing out there, ask a Keeper. They've a skiff on that shingle, when it's home, and they've never been afraid of anything but being wrong.",
+        "quest_start": "the_low_water"
+      },
+      {
+        "goto": "kindleby"
       }
     ]
   }

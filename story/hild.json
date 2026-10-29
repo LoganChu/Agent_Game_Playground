@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "!flag:kindleby_skiff_north",
+        "goto": "never"
+      },
+      {
         "if": "flag:thornwold_skiff=kindleby",
         "goto": "kindleby"
       },
@@ -82,6 +86,20 @@
       {
         "choice": [
           {
+            "text": "Would you row me out to the Low Water?",
+            "if": "stage:the_low_water=ask_a_keeper",
+            "goto": "low_water"
+          },
+          {
+            "text": "Is she clean yet?",
+            "if": "stage:the_low_water=the_skiff",
+            "goto": "not_yet"
+          },
+          {
+            "text": "You're scraping her.",
+            "goto": "scraping"
+          },
+          {
             "text": "Goodbye.",
             "end": true
           }
@@ -99,6 +117,20 @@
       },
       {
         "choice": [
+          {
+            "text": "Would you row me out to the Low Water?",
+            "if": "stage:the_low_water=ask_a_keeper",
+            "goto": "low_water"
+          },
+          {
+            "text": "Is she clean yet?",
+            "if": "stage:the_low_water=the_skiff",
+            "goto": "not_yet"
+          },
+          {
+            "text": "You're scraping her.",
+            "goto": "scraping"
+          },
           {
             "text": "Goodbye.",
             "end": true
@@ -118,10 +150,151 @@
       {
         "choice": [
           {
+            "text": "Would you row me out to the Low Water?",
+            "if": "stage:the_low_water=ask_a_keeper",
+            "goto": "low_water"
+          },
+          {
+            "text": "Is she clean yet?",
+            "if": "stage:the_low_water=the_skiff",
+            "goto": "not_yet"
+          },
+          {
+            "text": "You're scraping her.",
+            "goto": "scraping"
+          },
+          {
             "text": "Goodbye.",
             "end": true
           }
         ]
+      }
+    ],
+    "never": [
+      {
+        "say": "narrator",
+        "text": "A big sister with her habit tucked up is scraping the bottom of the chapter's skiff where it lies on the shingle, her arms white to the elbow with salt."
+      },
+      {
+        "say": "hild",
+        "text": "Hild Garrow. I rowed this skiff north to the Northing once a month for twelve years: oil and meal on the boat-stage for the Ridge Light. Then the Snuffing, and the Provost said nobody goes out in the wet while it's like this. So she's sat."
+      },
+      {
+        "say": "hild",
+        "text": "I scrape her anyway. A boat you stop looking after starts forgetting she's a boat."
+      },
+      {
+        "goto": "never_hub"
+      }
+    ],
+    "never_hub": [
+      {
+        "choice": [
+          {
+            "text": "Would you row me out to the Low Water?",
+            "if": "stage:the_low_water=ask_a_keeper",
+            "goto": "low_water"
+          },
+          {
+            "text": "Is she clean yet?",
+            "if": "stage:the_low_water=the_skiff",
+            "goto": "not_yet"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "scraping": [
+      {
+        "say": "hild",
+        "text": "Weed. The Northing's water grows it on a hull like a beard on a brother who's stopped caring. Twelve years I've had it off her every month, and I'll have it off her now."
+      },
+      {
+        "say": "hild",
+        "text": "Your colliers were good company on the way back, mind. Big one wanted to row. I let him, once.",
+        "if": "flag:thornwold_skiff=kindleby"
+      },
+      {
+        "say": "hild",
+        "text": "A clean bottom's a quick boat, and a quick boat comes home. That's all the theology I've got."
+      },
+      {
+        "goto": "back_to_it"
+      }
+    ],
+    "back_to_it": [
+      {
+        "choice": [
+          {
+            "text": "Would you row me out to the Low Water?",
+            "if": "stage:the_low_water=ask_a_keeper",
+            "goto": "low_water"
+          },
+          {
+            "text": "Is she clean yet?",
+            "if": "stage:the_low_water=the_skiff",
+            "goto": "not_yet"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "low_water": [
+      {
+        "say": "narrator",
+        "text": "Hild puts the scraper down across the strakes and straightens, a hand in the small of her back."
+      },
+      {
+        "say": "hild",
+        "text": "The Low Water. Who told you of that? ...A Tidewright. They would. They go round it like it's a grave."
+      },
+      {
+        "say": "hild",
+        "text": "I've come by the edge of it. Twice, rowing home from the Northing in a westerly, with the lantern out. You hear them before you lose the light: like the chapter at evening office in the next room, and the door shut. You can't make out the words. You keep thinking you nearly can.",
+        "sound": "choir_far"
+      },
+      {
+        "say": "hild",
+        "text": "There's a light out there. Lowsong, the old brothers call the rock it's on. A Keeper on it, alone, the way the beacon-keepers are. Nobody's had word since the Snuffing. The Provost wrote them in the Long Book with the rest, and nobody's rowed out to ask."
+      },
+      {
+        "say": "hild",
+        "text": "The Provost said nobody goes out in the wet. Then she sent me north anyway, because you asked her. She'll say yes again. She'll not like it.",
+        "if": "flag:kindleby_skiff_north"
+      },
+      {
+        "say": "hild",
+        "text": "The Provost says nobody goes out in the wet. She'll say it again. Then she'll say yes, because it's a Keepers' light, and it's you asking.",
+        "if": "!flag:kindleby_skiff_north"
+      },
+      {
+        "say": "hild",
+        "text": "But she's to be scraped first, every strake. I'll not take a foul bottom over shallows I can't see. When she's clean, I'll row you. Come and find me.",
+        "set": {
+          "kindleby_hild_low_water": true
+        },
+        "quest_stage": [
+          "the_low_water",
+          "the_skiff"
+        ]
+      },
+      {
+        "goto": "back_to_it"
+      }
+    ],
+    "not_yet": [
+      {
+        "say": "hild",
+        "text": "Not yet. Another day at her, maybe two. You'll know when: I'll be sat on the kerb with my hands in my lap, looking at nothing, like I've done something."
+      },
+      {
+        "goto": "back_to_it"
       }
     ]
   }

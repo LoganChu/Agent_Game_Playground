@@ -1103,6 +1103,23 @@
       "idle": "scrape"
     },
     {
+      "npc": "hild",
+      "position": [
+        -2.3,
+        0,
+        5.05
+      ],
+      "rotation_y": 255,
+      "if": [
+        "!flag:kindleby_skiff_north",
+        "!flag:kindleby_beacon_burned=",
+        "!flag:thornwold_skiff_landed"
+      ],
+      "note": "Sister Hild at the chapter's skiff when it never went north (Day 72): once the Vigil Light is lit she is out on the shingle scraping it anyway, stooped at its bow where she works when it's back from the Northing.",
+      "model": "res://assets/models/characters/hild_scraping.glb",
+      "idle": "scrape"
+    },
+    {
       "npc": "wenna_coll",
       "position": [
         -12.0,

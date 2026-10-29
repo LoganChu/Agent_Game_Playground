@@ -797,6 +797,15 @@
       "description": "Brother Tobin saw the Stair-Taper (Day 69): he knows it from the letter in his coal-pan — unless the pan fed the Vigil Light (kindleby_beacon_burned=pan), when he feels he ought to know it and doesn't.",
       "default": false
     },
+    "kindleby_oda_low_water_asked": {
+      "description": "Oda told of the Low Water (Day 72, Act II's close step 2; asked at Kindleby's quay once the Vigil Light is lit): shallow water south of the ring between Kindleby and the Gull, skerries and a Keepers' light on Lowsong rock, where the fog is heard singing ('the Hollow Choir', pilots' talk). Tidewrights go round it; the Slow Mercy won't sail it. The chart shows it from then on (a landmark, not a port). Starts The Low Water.",
+      "default": false
+    },
+    "kindleby_hild_low_water": {
+      "description": "Sister Hild will row the Wakebearer out to the Low Water in the chapter's skiff once its bottom is scraped clean (Day 72). The rowing out and Lowsong itself are the next content (future).",
+      "default": false,
+      "future": true
+    },
     "saltmarrow_aldous_saw_taper": {
       "description": "Brother Aldous saw the Stair-Taper (Day 69): one of his, cut in the warden's niche at the foot of the east stair, a notch to a landing. If he confessed in full, he tells that the light that went down the stair past him the night of the Snuffing went down counting landings.",
       "default": false

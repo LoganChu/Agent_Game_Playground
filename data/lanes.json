@@ -57,7 +57,15 @@
     {
       "name": "Cindermoor",
       "text": "The Hearthspire, dark. Nobody lands on Cindermoor while the lights between are dark.",
+      "look": "spire",
       "map": [0.56, 0.56]
+    },
+    {
+      "name": "the Low Water",
+      "text": "Shallow water south of the ring between Kindleby and the Gull, a scatter of skerries and a Keepers' light on the biggest. Tidewrights go round it: the fog there sings.",
+      "look": "water",
+      "known": "flag:kindleby_oda_low_water_asked",
+      "map": [0.56, 0.85]
     }
   ],
   "lanes": [
