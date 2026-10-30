@@ -59,6 +59,9 @@ var resting := false
 var rest := 0.0
 ## A foot comes down (twice per walk cycle, while walking): the player's footsteps.
 signal footfall
+## A work stroke begins (each push of a "scrape", not while resting or walking): the NPC's
+## work sound (data/audio.json `work`).
+signal work_stroke
 
 ## Horizontal speed in m/s; drives the walk swing (0 = standing).
 var move_speed := 0.0
@@ -73,6 +76,7 @@ var _rest: Dictionary = {}    # part name -> Transform3D
 var _time := 0.0
 var _walk_phase := 0.0
 var _walk_blend := 0.0
+var _stroke := -1
 var _stride := 0
 var _avert := 0.0       # 0..1, eased
 var _avert_side := 1.0  # which way the head turns: +1 = toward the model's +X, -1 = -X
@@ -128,6 +132,12 @@ func _process(delta: float) -> void:
 	if avert_if != null:
 		_update_avert(delta)
 	rest = move_toward(rest, 1.0 if resting else 0.0, delta * REST_RATE)
+	if style == "scrape":
+		var stroke := scrape_stroke_index(_time)
+		if stroke != _stroke:
+			_stroke = stroke
+			if stroke >= 0 and rest < 0.5 and _walk_blend < 0.5:
+				work_stroke.emit()
 	pose(_time, _walk_phase, _walk_blend)
 
 
@@ -294,6 +304,16 @@ static func scrape_stroke(t: float) -> float:
 		return 0.0
 	var x := fmod(p, SCRAPE_PERIOD) / SCRAPE_PERIOD
 	return smoothstep(0.0, 0.65, x) if x < 0.65 else 1.0 - smoothstep(0.65, 1.0, x)
+
+
+## Which stroke of the "scrape" is under way at time `t` (counting from 0), or -1 during a
+## breather.
+static func scrape_stroke_index(t: float) -> int:
+	var cycle := SCRAPE_PERIOD * SCRAPE_SET + SCRAPE_BREATHER
+	var p := fmod(t, cycle)
+	if p >= SCRAPE_PERIOD * SCRAPE_SET:
+		return -1
+	return int(t / cycle) * SCRAPE_SET + int(p / SCRAPE_PERIOD)
 
 
 ## How far a scraper has straightened for the breather at time `t` (0..1): up after each set

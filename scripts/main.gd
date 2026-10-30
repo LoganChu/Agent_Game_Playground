@@ -58,8 +58,12 @@ func _ready() -> void:
 	title_screen = TitleScreen.new()
 	add_child(title_screen)
 	title_screen.new_game_requested.connect(start_new_game)
-	title_screen.opened.connect(func() -> void: hud.visible = false)
-	title_screen.closed.connect(func() -> void: hud.visible = true)
+	title_screen.opened.connect(func() -> void:
+		hud.visible = false
+		audio.play_music(str((Content.db.audio.get("music", {}) as Dictionary).get("title", ""))))
+	title_screen.closed.connect(func() -> void:
+		hud.visible = true
+		audio.stop_music())
 	pause_menu.title_requested.connect(return_to_title)
 	act_end_card.title_requested.connect(return_to_title)
 	dialogue_ui.closed.connect(_check_act_end)

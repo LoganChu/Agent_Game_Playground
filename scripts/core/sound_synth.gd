@@ -16,12 +16,17 @@ extends RefCounted
 ##   chirps   calls scattered over the length: `rate` per second, `freq` Hz (±`spread`),
 ##            `call` s each, `slide`, `pulses` (calls per burst, e.g. a gull's kee-kee)
 ##   chime    `notes` [Hz…] struck `gap` s apart, each ringing `ring` s
+##   melody   `notes` [[pitch, beats]…] played in turn at `tempo` bpm (Day 74, the music): a
+##            pitch is a name ("D4", "F#3", "Bb2"), Hz, or "-" for a rest; each note comes in
+##            over `note_attack` s, then rings down over `ring` s (plucked, may overlap the
+##            next) or, with no `ring`, holds `legato` of its length and lets go over
+##            `note_release` s (bowed, blown); `harmonics`, `vibrato`/`vibrato_depth`, `lowpass`
 ##   mix      `parts` [recipes], summed (each at its own gain), then the whole at `gain`
 ## A recipe with `loop: true` is rendered a little long and its tail crossfaded into its
 ## head, so it repeats without a seam.
 
 const MIX_RATE := 22050
-const KINDS: Array[String] = ["noise", "crackle", "tone", "chirps", "chime", "mix"]
+const KINDS: Array[String] = ["noise", "crackle", "tone", "chirps", "chime", "melody", "mix"]
 const NOISE_COLORS: Array[String] = ["white", "pink", "brown"]
 ## Seconds of a loop's tail crossfaded into its head.
 const LOOP_FADE := 0.4
@@ -29,6 +34,8 @@ const LOOP_FADE := 0.4
 const MAX_LENGTH := 20.0
 ## Seconds faded at a one-shot's very end so it never clicks off.
 const TAIL := 0.005
+## Semitones above C of each note letter (melody pitches).
+const NOTE_STEPS := {"C": 0, "D": 2, "E": 4, "F": 5, "G": 7, "A": 9, "B": 11}
 
 
 ## The stream for `recipe`: 16-bit mono at MIX_RATE, looping forward if the recipe loops.
@@ -85,6 +92,8 @@ static func _render(recipe: Dictionary, count: int, rng: RandomNumberGenerator, 
 			out = _chirps(recipe, count, rng)
 		"chime":
 			out = _chime(recipe, count, rng)
+		"melody":
+			out = _melody(recipe, count)
 		"mix":
 			out = PackedFloat32Array()
 			out.resize(count)
@@ -184,6 +193,101 @@ static func _chime(recipe: Dictionary, count: int, rng: RandomNumberGenerator) -
 		if start < count:
 			_add_tone(out, start, mini(ring, count - start), float(notes[n]), shape, rng)
 	return out
+
+
+static func _melody(recipe: Dictionary, count: int) -> PackedFloat32Array:
+	var out := PackedFloat32Array()
+	out.resize(count)
+	var beat := beat_seconds(recipe)
+	var t := 0.0
+	for note: Variant in recipe.get("notes", []):
+		var pitch: Variant = note[0] if note is Array and not (note as Array).is_empty() else note
+		var beats := float(note[1]) if note is Array and (note as Array).size() > 1 else 1.0
+		var hz := note_hz(pitch)
+		if hz > 0.0:
+			_add_note(out, int(t * MIX_RATE), hz, beats * beat, recipe)
+		t += beats * beat
+	_filter(out, float(recipe.get("lowpass", 0.0)), float(recipe.get("highpass", 0.0)))
+	return out
+
+
+## Seconds per beat of a melody.
+static func beat_seconds(recipe: Dictionary) -> float:
+	return 60.0 / maxf(1.0, float(recipe.get("tempo", 60.0)))
+
+
+## Seconds from a melody's first note to the end of its last (rests included).
+static func melody_seconds(recipe: Dictionary) -> float:
+	var beats := 0.0
+	for note: Variant in recipe.get("notes", []):
+		beats += float(note[1]) if note is Array and (note as Array).size() > 1 else 1.0
+	return beats * beat_seconds(recipe)
+
+
+## Hz of a melody pitch: a note name ("A4" = 440, "F#3", "Bb2"), a number of Hz, 0 for a rest
+## ("-" or ""), -1 if it can't be read.
+static func note_hz(pitch: Variant) -> float:
+	if pitch is float or pitch is int:
+		return float(pitch) if float(pitch) >= 0.0 else -1.0
+	var text := str(pitch).strip_edges()
+	if text.is_empty() or text == "-":
+		return 0.0
+	var letter := text.substr(0, 1).to_upper()
+	if not NOTE_STEPS.has(letter):
+		return -1.0
+	var semis: int = NOTE_STEPS[letter]
+	var rest := text.substr(1)
+	if rest.begins_with("#"):
+		semis += 1
+		rest = rest.substr(1)
+	elif rest.begins_with("b"):
+		semis -= 1
+		rest = rest.substr(1)
+	if not rest.is_valid_int():
+		return -1.0
+	var midi := (int(rest) + 1) * 12 + semis
+	return 440.0 * pow(2.0, (midi - 69) / 12.0)
+
+
+## One melody note of `seconds` at `start`: plucked (rings down over the recipe's `ring`) or
+## held (`legato` of its length, then `note_release`).
+static func _add_note(out: PackedFloat32Array, start: int, hz: float, seconds: float, recipe: Dictionary) -> void:
+	# Only the sounding partials: [multiple, amplitude].
+	var partials: Array[Vector2] = []
+	var harmonics: Array = recipe.get("harmonics", [1.0, 0.3])
+	for k in harmonics.size():
+		if float(harmonics[k]) != 0.0:
+			partials.append(Vector2(k + 1, float(harmonics[k])))
+	var attack := maxf(0.001, float(recipe.get("note_attack", 0.02))) * MIX_RATE
+	var ring := float(recipe.get("ring", 0.0))
+	var release := maxf(0.005, float(recipe.get("note_release", 0.15))) * MIX_RATE
+	var held := clampf(float(recipe.get("legato", 0.9)), 0.05, 1.0) * seconds * MIX_RATE
+	var vib_rate := float(recipe.get("vibrato", 0.0))
+	var vib_depth := float(recipe.get("vibrato_depth", 0.0))
+	# A plucked note is cut once it has rung down to ~0.3 %.
+	var length := int(ring * 2.0 * MIX_RATE) if ring > 0.0 else int(held + release)
+	var fall := exp(-1.0 / (ring * 0.35 * MIX_RATE)) if ring > 0.0 else 1.0
+	var env := 1.0
+	var phase := 0.0
+	for i in length:
+		var at := start + i
+		if at >= out.size():
+			break
+		var f := hz
+		if vib_rate > 0.0:
+			# The vibrato comes in after the note has spoken.
+			f *= 1.0 + vib_depth * minf(1.0, i / (0.25 * MIX_RATE)) * sin(TAU * vib_rate * i / MIX_RATE)
+		phase += TAU * f / MIX_RATE
+		var v := 0.0
+		for partial in partials:
+			v += partial.y * sin(phase * partial.x)
+		var shape := minf(1.0, i / attack)
+		if ring > 0.0:
+			shape *= env
+			env *= fall
+		elif i > held:
+			shape *= maxf(0.0, 1.0 - (i - held) / release)
+		out[at] += v * shape
 
 
 ## Adds a tone of `length` samples at `start` (phase-continuous; `slide`, `vibrato`, its own

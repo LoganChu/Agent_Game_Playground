@@ -458,6 +458,25 @@ func _validate_audio() -> void:
 	if events is Dictionary:
 		for key: String in events:
 			_ref_sound(where + " events." + key, str(events[key]))
+	var music: Variant = db.audio.get("music", {})
+	if music is Dictionary and (music as Dictionary).has("title"):
+		_ref_music(where + " music.title", str(music["title"]))
+		_ref_loop(where + " music.title", str(music["title"]))
+	var work: Variant = db.audio.get("work", {})
+	if not work is Dictionary:
+		_err(where, "'work' must map idle styles to {sound, volume, range}")
+	else:
+		for style: String in work:
+			if style == "note":
+				continue
+			if style not in CharacterRig.STYLES:
+				_err(where, "work '%s' is not an idle style (%s)" % [style, CharacterRig.STYLES])
+			if not work[style] is Dictionary or not (work[style] as Dictionary).has("sound"):
+				_err(where, "work '%s' must be {sound, volume, range}" % style)
+				continue
+			_ref_sound(where + " work." + style, str(work[style]["sound"]))
+			if bool((db.sounds.get(str(work[style]["sound"]), {}) as Dictionary).get("loop", false)):
+				_err(where, "work '%s' plays once a stroke; '%s' loops" % [style, work[style]["sound"]])
 
 
 func _check_recipe(where: String, recipe: Dictionary, depth: int = 0) -> void:
@@ -465,7 +484,7 @@ func _check_recipe(where: String, recipe: Dictionary, depth: int = 0) -> void:
 	if kind not in SoundSynth.KINDS:
 		_err(where, "kind must be one of %s" % [SoundSynth.KINDS])
 		return
-	for key: String in ["length", "gain", "attack", "decay", "release", "lowpass", "highpass", "freq", "rate", "swell", "gusts", "pitch"]:
+	for key: String in ["length", "gain", "attack", "decay", "release", "lowpass", "highpass", "freq", "rate", "swell", "gusts", "pitch", "tempo", "ring", "note_attack", "note_release", "legato"]:
 		if recipe.has(key) and (not (recipe[key] is float or recipe[key] is int) or float(recipe[key]) < 0.0):
 			_err(where, "'%s' must be a number ≥ 0" % key)
 	if depth == 0 and not recipe.has("length"):
@@ -478,15 +497,46 @@ func _check_recipe(where: String, recipe: Dictionary, depth: int = 0) -> void:
 		_err(where, "color '%s' must be one of %s" % [recipe["color"], SoundSynth.NOISE_COLORS])
 	if kind == "chime" and (not recipe.get("notes") is Array or (recipe["notes"] as Array).is_empty()):
 		_err(where, "a chime needs 'notes'")
+	if kind == "melody":
+		_check_melody(where, recipe)
 	if kind == "mix":
 		if not recipe.get("parts") is Array or (recipe["parts"] as Array).is_empty():
 			_err(where, "a mix needs 'parts'")
 		else:
 			for part: Variant in recipe["parts"]:
 				if part is Dictionary:
-					_check_recipe(where + " part", part, depth + 1)
+					# A part without its own length runs the whole mix's.
+					var sub: Dictionary = (part as Dictionary).duplicate()
+					if not sub.has("length") and recipe.has("length"):
+						sub["length"] = recipe["length"]
+					_check_recipe(where + " part", sub, depth + 1)
 				else:
 					_err(where, "mix parts must be recipes")
+
+
+## A melody: notes as [pitch, beats] with readable pitches, and all of it inside its length.
+func _check_melody(where: String, recipe: Dictionary) -> void:
+	var notes: Variant = recipe.get("notes")
+	if not notes is Array or (notes as Array).is_empty():
+		_err(where, "a melody needs 'notes' [[pitch, beats]…]")
+		return
+	for note: Variant in notes:
+		if not note is Array or (note as Array).size() != 2 or not (note[1] is float or note[1] is int) or float(note[1]) <= 0.0:
+			_err(where, "melody note %s must be [pitch, beats > 0]" % [note])
+		elif SoundSynth.note_hz(note[0]) < 0.0:
+			_err(where, "melody pitch '%s' must be a note name (\"D4\", \"F#3\"), Hz or \"-\"" % [note[0]])
+	if float(recipe.get("tempo", 60.0)) <= 0.0:
+		_err(where, "tempo must be > 0")
+	var length := float(recipe.get("length", SoundSynth.MAX_LENGTH))
+	if SoundSynth.melody_seconds(recipe) > length + 0.001:
+		_err(where, "the melody runs %.2f s, longer than its length (%.2f s)" % [SoundSynth.melody_seconds(recipe), length])
+
+
+## Music is a sound on the Music bus.
+func _ref_music(where: String, id: String) -> void:
+	_ref_sound(where, id)
+	if db.sounds.has(id) and str((db.sounds[id] as Dictionary).get("bus", "")) != "Music":
+		_err(where, "music '%s' must be on the Music bus" % id)
 
 
 func _ref_sound(where: String, id: String) -> void:
@@ -1197,6 +1247,10 @@ func _ref_effects(where: String, step: Dictionary) -> void:
 		_ref_sound(where, str(step["sound"]))
 		if db.sounds.has(str(step["sound"])) and bool((db.sounds[str(step["sound"])] as Dictionary).get("loop", false)):
 			_err(where, "a dialogue sound plays once; '%s' loops" % step["sound"])
+	if step.has("music"):
+		_ref_music(where, str(step["music"]))
+		if db.sounds.has(str(step["music"])) and bool((db.sounds[str(step["music"])] as Dictionary).get("loop", false)):
+			_err(where, "dialogue music is a one-shot cue; '%s' loops" % step["music"])
 	if step.has("travel"):
 		var target: Variant = step["travel"]
 		if not target is Array or (target as Array).size() not in [1, 2]:

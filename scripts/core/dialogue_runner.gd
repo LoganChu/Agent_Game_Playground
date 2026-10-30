@@ -18,7 +18,7 @@ extends RefCounted
 ## Emitted for every applied effect, so UI can show toasts ("Quest started", "Got item").
 signal effect_applied(kind: String, data: Dictionary)
 
-const EFFECT_KEYS: Array[String] = ["set", "quest_start", "quest_stage", "quest_complete", "give_item", "take_item", "travel", "sound"]
+const EFFECT_KEYS: Array[String] = ["set", "quest_start", "quest_stage", "quest_complete", "give_item", "take_item", "travel", "sound", "music"]
 const SPECIAL_SPEAKERS: Dictionary = {"player": "You", "narrator": ""}
 const MAX_STEPS_PER_ADVANCE := 1000
 
@@ -168,6 +168,9 @@ func apply_effects(step: Dictionary) -> void:
 	if step.has("sound"):
 		# A story sound (a horn, a beacon catching): whoever runs the dialogue plays it.
 		effect_applied.emit("sound", {"sound": str(step["sound"])})
+	if step.has("music"):
+		# A music cue (a beacon's lighting), on the Music bus.
+		effect_applied.emit("music", {"music": str(step["music"])})
 	if step.has("travel"):
 		var target: Array = step["travel"]
 		pending_travel = [str(target[0]), str(target[1]) if target.size() > 1 else "default"]

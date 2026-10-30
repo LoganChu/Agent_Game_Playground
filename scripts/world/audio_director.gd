@@ -8,6 +8,8 @@ extends Node
 ##   - dialogue voices: a few blips per line in the speaker's `voice` ({sound, pitch});
 ##   - story sounds from a dialogue step's `sound` (a horn, a beacon catching);
 ##   - cues for quests and items gained, and a tick for UI buttons;
+##   - music (Day 74): the title theme behind the title screen, a dialogue step's `music` cue
+##     (each beacon's lighting) — one piece at a time, the last fading out as the next comes in;
 ##   - the Greying: the Ambience bus muffled with depth and the ember's heartbeat under it,
 ##     and a sound when the fog turns the player back.
 ## Config is data/audio.json; see docs/TECH.md "Audio".
@@ -23,6 +25,9 @@ const MAX_BLIPS := 6
 const OPEN_CUTOFF := 20000.0
 ## Recently played one-shot ids, newest last (tests and the smoke run read it).
 const HISTORY := 48
+## Seconds music takes to come in, and to fade out when it stops or gives way.
+const MUSIC_IN := 1.5
+const MUSIC_OUT := 2.0
 
 var history: Array[String] = []
 
@@ -42,6 +47,10 @@ var _last_counts: Dictionary = {}
 ## Pending voice blips: [seconds until, sound id, pitch].
 var _blips: Array[Array] = []
 var _rng := RandomNumberGenerator.new()
+## The music playing or waiting to be rendered, its player and its level (0..1).
+var _music_id := ""
+var _music: AudioStreamPlayer
+var _music_level := 0.0
 
 
 func _ready() -> void:
@@ -104,6 +113,9 @@ static func cue_sounds(db: ContentDatabase) -> Array:
 	for key: String in ["heart", "turn_back"]:
 		if greying.has(key):
 			ids.append(str(greying[key]))
+	var music: Dictionary = db.audio.get("music", {})
+	if music.has("title"):
+		ids.append(str(music["title"]))
 	var voice: Dictionary = db.audio.get("player_voice", {})
 	if voice.has("sound"):
 		ids.append(str(voice["sound"]))
@@ -243,10 +255,87 @@ func pending_blips() -> int:
 	return _blips.size()
 
 
-## The dialogue runner's effects: a step's `sound` plays.
+## The dialogue runner's effects: a step's `sound` plays, and its `music`.
 func on_dialogue_effect(kind: String, data: Dictionary) -> void:
 	if kind == "sound":
 		play(str(data.get("sound", "")))
+	elif kind == "music":
+		play_music(str(data.get("music", "")))
+
+
+## Starts music `id` (a sound on the Music bus): it comes in over MUSIC_IN once rendered, and
+## whatever was playing fades out. A loop plays until stopped; a cue until it ends. Returns
+## false if there's no such sound.
+func play_music(id: String) -> bool:
+	if not Content.db.sounds.has(id):
+		return false
+	if id == _music_id:
+		return true
+	_fade_out_music(MUSIC_OUT)
+	_music_id = id
+	SoundBank.warm(Content.db, [id])
+	_music = AudioStreamPlayer.new()
+	_music.name = "Music_" + id
+	_music.bus = SoundBank.bus(Content.db, id)
+	_music.volume_db = linear_to_db(0.0001)
+	_music.finished.connect(_on_music_finished.bind(_music))
+	add_child(_music)
+	_music_level = 0.0
+	history.append("music:" + id)
+	if history.size() > HISTORY:
+		history.pop_front()
+	return true
+
+
+## Fades the music out over `fade` s (0 = at once).
+func stop_music(fade: float = MUSIC_OUT) -> void:
+	_fade_out_music(fade)
+	_music_id = ""
+
+
+## The music playing or about to (rendering), "" for none (tests).
+func music_id() -> String:
+	return _music_id
+
+
+## Whether music is audible now (tests).
+func is_music_playing() -> bool:
+	return _music != null and _music.playing
+
+
+func _fade_out_music(fade: float) -> void:
+	if _music == null:
+		return
+	var old := _music
+	_music = null
+	if fade <= 0.0 or not old.playing:
+		old.stop()
+		old.queue_free()
+		return
+	var tween := old.create_tween()
+	tween.tween_property(old, "volume_db", linear_to_db(0.0001), fade)
+	tween.tween_callback(func() -> void:
+		old.stop()
+		old.queue_free())
+
+
+func _on_music_finished(player: AudioStreamPlayer) -> void:
+	if player == _music:
+		_music = null
+		_music_id = ""
+	player.queue_free()
+
+
+func _update_music(delta: float) -> void:
+	if _music == null:
+		return
+	if not _music.playing:
+		if not SoundBank.is_ready(Content.db, _music_id) or not _music.is_inside_tree():
+			return
+		_music.stream = SoundBank.stream(Content.db, _music_id)
+		_music.play()
+	_music_level = move_toward(_music_level, 1.0, delta / MUSIC_IN)
+	_music.volume_db = linear_to_db(maxf(0.0001, _music_level))
 
 
 ## The Greying turned the player back.
@@ -255,6 +344,7 @@ func on_turned_back() -> void:
 
 
 func _process(delta: float) -> void:
+	_update_music(delta)
 	for id: String in _layers.keys():
 		var player: AudioStreamPlayer = _layers[id]
 		var target := float(_targets.get(id, 0.0))

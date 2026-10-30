@@ -6,6 +6,7 @@ extends Interactable
 ## NPC turns to face the player (unless its data says `"faces_player": false`, e.g. Hesk at
 ## her net), and turns back to its placed facing when the dialogue closes. A working idle
 ## ("scrape") puts the work down while talking, and the name over the head is hidden then.
+## A working idle with a sound in data/audio.json `work` is heard from the NPC on every stroke.
 
 ## How quickly the NPC turns towards the player and back (1/s, exponential ease).
 const TURN_SPEED := 6.0
@@ -21,6 +22,11 @@ var _rig: CharacterRig
 var _label: Label3D
 ## Body yaw to start from (set by take_over before the body is built).
 var _start_yaw := 0.0
+## The work sound's player (a working idle with a `work` sound) and its sound id.
+var _work_player: AudioStreamPlayer3D
+var _work_id := ""
+## Work strokes heard so far (tests).
+var work_sounds_played := 0
 
 
 func setup(id: String, data: Dictionary) -> void:
@@ -107,6 +113,40 @@ func _process(delta: float) -> void:
 		_body.rotation.y = turn_step(_body.rotation.y, target, delta)
 
 
+## The idle's work sound (data/audio.json `work`), played from the hands on each stroke.
+func _add_work_sound(body: Node3D) -> void:
+	var spec: Variant = (Content.db.audio.get("work", {}) as Dictionary).get(_rig.style)
+	if not spec is Dictionary or not (spec as Dictionary).has("sound"):
+		return
+	_work_id = str(spec["sound"])
+	SoundBank.warm(Content.db, [_work_id])
+	_work_player = AudioStreamPlayer3D.new()
+	_work_player.name = "WorkSound"
+	_work_player.position = Vector3(0, 0.5, 0.6)
+	_work_player.max_distance = float(spec.get("range", SoundEmitter.RANGE))
+	_work_player.unit_size = _work_player.max_distance * 0.25
+	_work_player.volume_db = linear_to_db(maxf(0.0001, float(spec.get("volume", 1.0))))
+	_work_player.bus = SoundBank.bus(Content.db, _work_id)
+	body.add_child(_work_player)
+	_rig.work_stroke.connect(_on_work_stroke)
+
+
+func _on_work_stroke() -> void:
+	if not SoundBank.is_ready(Content.db, _work_id):
+		return
+	_work_player.stream = SoundBank.stream(Content.db, _work_id)
+	_work_player.pitch_scale = randf_range(0.92, 1.08)
+	work_sounds_played += 1
+	if _work_player.is_inside_tree():
+		_work_player.play()
+
+
+func _exit_tree() -> void:
+	if _work_player:
+		_work_player.stop()
+		_work_player.stream = null
+
+
 func _build_body() -> void:
 	var tint := PropFactory.color(str(npc_data.get("color", "slate")))
 	var body := StaticBody3D.new()
@@ -123,6 +163,8 @@ func _build_body() -> void:
 		model.name = "Model"
 		body.add_child(model)
 		_rig = model.get_node_or_null("CharacterRig") as CharacterRig
+		if _rig:
+			_add_work_sound(body)
 	else:
 		body.add_child(PropFactory.mesh_instance(PropFactory.cylinder(0.25, 0.42, 1.0, 6), tint, Vector3(0, 0.5, 0)))
 		var head := SphereMesh.new()
