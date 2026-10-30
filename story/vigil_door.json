@@ -283,7 +283,8 @@
       {
         "say": "narrator",
         "text": "The Vigil Light catches. Gold comes out through the horn panes, and down on the ring every candle bends the same way at once, as if a door had opened somewhere.",
-        "sound": "kindle"
+        "sound": "kindle",
+        "music": "music_lighting"
       },
       {
         "say": "narrator",

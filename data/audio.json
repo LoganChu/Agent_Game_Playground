@@ -20,6 +20,14 @@
     "heart": "ember_heart",
     "turn_back": "turn_back"
   },
+  "music": {
+    "note": "Music on the Music bus (Day 74): `title` loops behind the title screen and fades out as play begins; a dialogue step's `music` plays a one-shot cue (each beacon's lighting: `music_lighting`). One piece at a time; a new one fades the last out.",
+    "title": "music_title"
+  },
+  "work": {
+    "note": "A working idle's sound (Day 74): each stroke of an NPC's `scrape` plays `sound` from where they stand (positional, heard within `range` m).",
+    "scrape": {"sound": "scrape_hull", "volume": 0.7, "range": 12}
+  },
   "events": {
     "quest_start": "quest_start",
     "quest_update": "quest_update",
@@ -103,6 +111,26 @@
       {"kind": "tone", "freq": 247, "harmonics": [1.0, 0.35], "vibrato": 3.7, "vibrato_depth": 0.01, "lowpass": 800, "length": 3.8, "attack": 1.8, "release": 1.6, "gain": 0.35},
       {"kind": "tone", "freq": 294, "harmonics": [1.0, 0.2], "vibrato": 4.8, "vibrato_depth": 0.014, "lowpass": 900, "length": 3.4, "attack": 2.2, "release": 1.2, "gain": 0.25},
       {"kind": "noise", "color": "pink", "lowpass": 600, "highpass": 120, "length": 4.5, "attack": 1.5, "release": 2.5, "gain": 0.15}
+    ]},
+    "music_title": {"bus": "Music", "kind": "mix", "length": 18, "loop": true, "gain": 0.55, "parts": [
+      {"kind": "melody", "tempo": 60, "harmonics": [1.0, 0.35, 0.12, 0.05], "note_attack": 0.09, "legato": 0.92, "note_release": 0.4, "vibrato": 4.8, "vibrato_depth": 0.006, "lowpass": 1800, "gain": 0.55,
+        "notes": [["-", 1], ["A3", 1], ["D4", 1.5], ["E4", 0.5], ["F4", 2], ["E4", 1], ["D4", 1], ["C4", 1], ["A3", 3], ["-", 1], ["G3", 1], ["A3", 1], ["D4", 3]]},
+      {"kind": "melody", "tempo": 60, "harmonics": [1.0, 0.0, 0.3, 0.0, 0.1], "note_attack": 0.004, "ring": 2.2, "lowpass": 2500, "gain": 0.32,
+        "notes": [["D3", 1], ["A3", 1], ["F4", 1], ["A3", 1], ["D3", 1], ["A3", 1], ["E4", 1], ["A3", 1], ["C3", 1], ["G3", 1], ["E4", 1], ["G3", 1], ["A2", 1], ["E3", 1], ["C4", 1], ["E3", 1], ["D3", 1], ["A3", 1]]},
+      {"kind": "tone", "freq": 73.4, "harmonics": [1.0, 0.5, 0.25], "vibrato": 0.3, "vibrato_depth": 0.002, "lowpass": 420, "gain": 0.16},
+      {"kind": "tone", "freq": 110, "harmonics": [1.0, 0.3], "vibrato": 0.23, "vibrato_depth": 0.003, "lowpass": 420, "gain": 0.09}
+    ]},
+    "music_lighting": {"bus": "Music", "kind": "mix", "length": 10, "release": 1.2, "gain": 0.6, "parts": [
+      {"kind": "melody", "tempo": 72, "harmonics": [1.0, 0.35, 0.12, 0.05], "note_attack": 0.07, "legato": 0.95, "note_release": 0.9, "vibrato": 5.0, "vibrato_depth": 0.007, "lowpass": 2400, "gain": 0.5,
+        "notes": [["-", 2], ["A4", 0.5], ["D5", 1], ["E5", 0.5], ["F#5", 1.5], ["E5", 0.5], ["D5", 0.5], ["A5", 4]]},
+      {"kind": "melody", "tempo": 72, "harmonics": [1.0, 0.0, 0.3, 0.0, 0.1], "note_attack": 0.004, "ring": 2.6, "lowpass": 3000, "gain": 0.32,
+        "notes": [["-", 2], ["D4", 0.5], ["F#4", 0.5], ["A4", 0.5], ["D5", 0.5], ["A3", 0.5], ["E4", 0.5], ["A4", 0.5], ["C#5", 0.5], ["D4", 0.5], ["F#4", 0.5], ["A4", 0.5], ["D5", 3]]},
+      {"kind": "tone", "freq": 146.8, "harmonics": [1.0, 0.4, 0.2], "lowpass": 600, "length": 10, "attack": 1.6, "release": 3.0, "gain": 0.2},
+      {"kind": "tone", "freq": 220, "harmonics": [1.0, 0.3], "lowpass": 600, "length": 10, "attack": 2.2, "release": 3.0, "gain": 0.12}
+    ]},
+    "scrape_hull": {"bus": "Effects", "kind": "mix", "length": 0.8, "gain": 0.5, "parts": [
+      {"kind": "noise", "color": "white", "lowpass": 3800, "highpass": 900, "gusts": 0.06, "gust_depth": 0.7, "length": 0.8, "attack": 0.12, "release": 0.3, "gain": 0.8},
+      {"kind": "crackle", "rate": 90, "pop": 0.002, "lowpass": 5000, "bed": 0.0, "length": 0.75, "attack": 0.1, "release": 0.3, "gain": 0.5}
     ]},
     "quay_bell": {"bus": "Effects", "kind": "chime", "notes": [262, 262, 262, 262], "gap": 0.7, "ring": 2.6, "length": 4.6, "gain": 0.4},
 

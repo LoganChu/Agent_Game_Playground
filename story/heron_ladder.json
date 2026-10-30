@@ -319,7 +319,8 @@
       {
         "say": "narrator",
         "text": "The Heron Light catches. Gold comes out through the horn panes, low and warm, and lies down on the mere, and the mere holds it the way it holds a face.",
-        "sound": "kindle"
+        "sound": "kindle",
+        "music": "music_lighting"
       },
       {
         "say": "narrator",

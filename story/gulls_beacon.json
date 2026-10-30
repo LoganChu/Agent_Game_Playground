@@ -221,7 +221,8 @@
       {
         "say": "narrator",
         "text": "The Gull's Beacon catches. Light pours out of the lantern room, gold and steady, and the iron gull on the roof throws a long shadow across the headland.",
-        "sound": "kindle"
+        "sound": "kindle",
+        "music": "music_lighting"
       },
       {
         "say": "narrator",

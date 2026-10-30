@@ -274,7 +274,8 @@
       {
         "say": "narrator",
         "text": "The Wrack Light catches. Gold comes out through the horn panes and goes down onto the Teeth, and every timber round you is lit along its length: KITTIWAKE, HONEST WEIGHT, TWO SISTERS, FAIR RETURN, the lead tags bright as coins.",
-        "sound": "kindle"
+        "sound": "kindle",
+        "music": "music_lighting"
       },
       {
         "say": "narrator",
