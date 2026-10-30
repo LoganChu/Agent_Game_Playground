@@ -303,6 +303,13 @@ func _sail_the_taper(main: Node, ui: DialogueUI) -> bool:
 	_check(_choose(ui, "Burn Kindleby's night of the boats."), "...and burned")
 	_finish_dialogue(ui, "the Vigil Light (the burning)")
 	await get_tree().process_frame
+	# Day 74: the lighting's music cue comes in on the Music bus.
+	var audio: AudioDirector = main.audio
+	_check(audio.music_id() == "music_lighting", "the lighting's music cue (%s)" % audio.music_id())
+	var waited := Time.get_ticks_msec()
+	while not audio.is_music_playing() and Time.get_ticks_msec() - waited < 10000:
+		await get_tree().process_frame
+	_check(audio.is_music_playing(), "...and it plays")
 	_check(world.get_flag("kindleby_beacon_burned") == "boats" and world.quest_state("a_light_for_kindleby") == WorldState.QUEST_DONE,
 			"Kindleby's burning")
 	_check(_shown_model(isle, "vigil_light.glb") == 0 and _shown_model(isle, "vigil_light_lit.glb") == 1, "the Vigil Light lit on the crown")
@@ -1303,6 +1310,13 @@ func _start_from_title(main: Node) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	_check(not is_equal_approx(player.camera_yaw(), yaw), "the camera drifts behind the title")
+	# Day 74: the title theme, once rendered.
+	var audio: AudioDirector = main.audio
+	_check(audio.music_id() == str(Content.db.audio["music"]["title"]), "the title theme is up (%s)" % audio.music_id())
+	var waited := Time.get_ticks_msec()
+	while not audio.is_music_playing() and Time.get_ticks_msec() - waited < 10000:
+		await get_tree().process_frame
+	_check(audio.is_music_playing(), "...and plays behind the title")
 	# The page was built before this run moved the saves aside; rebuild it on the scratch dir.
 	title._show_page(MenuScreen.Page.MAIN)
 	_check(title.buttons()[0].text == "New game" and title.buttons()[1].disabled, "no saves: New game first, Load greyed")
@@ -1310,6 +1324,7 @@ func _start_from_title(main: Node) -> void:
 	for i in 3:
 		await get_tree().physics_frame
 	_check(not title.is_open() and hud.visible, "New game closes the title")
+	_check(audio.music_id() == "", "the theme fades out as play begins")
 
 
 ## Pause menu → Return to title (twice: unsaved progress) resets the world behind the title;

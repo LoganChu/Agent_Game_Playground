@@ -10,6 +10,7 @@ func test_synth_renders_every_kind_deterministically() -> void:
 		"tone": {"kind": "tone", "freq": 220, "harmonics": [1.0, 0.5], "slide": 0.8, "length": 0.3, "decay": 0.1},
 		"chirps": {"kind": "chirps", "freq": 1500, "rate": 4, "call": 0.1, "pulses": 2, "length": 1.0},
 		"chime": {"kind": "chime", "notes": [523, 659], "gap": 0.1, "ring": 0.4, "length": 0.6},
+		"melody": {"kind": "melody", "tempo": 240, "notes": [["A4", 1], ["-", 0.5], ["C#5", 1]], "ring": 0.1, "length": 0.7},
 		"mix": {"kind": "mix", "length": 0.4, "parts": [{"kind": "tone", "freq": 100, "length": 0.2}, {"kind": "noise", "length": 0.4}]},
 	}
 	for kind: String in SoundSynth.KINDS:
