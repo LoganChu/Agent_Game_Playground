@@ -2,6 +2,56 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-30 21:00 UTC — Day 74: the Music bus speaks; Hild's scraper is heard (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 73's `97a2d49`).
+- **Systems (due ~Day 74; last Day 70):** ROADMAP *Next up* #1 — the audio follow-ups (music, the scrape).
+  - **`melody`, a new SoundSynth kind:** `notes` as `[pitch, beats]` at a `tempo` — pitches by name (`"D4"`, `"F#3"`,
+    `"Bb2"`), Hz, or `"-"` for a rest; plucked (`ring`, notes overlap as they ring down) or held (`legato`, `note_release`),
+    with `note_attack`, a vibrato that comes in after the note speaks, and a low-pass.
+  - **The title theme** (`music_title`, an 18 s loop at 60 bpm in D dorian): a breathy reed-like lead (*A–D, E–F, E D C, A…
+    G A D*) over a plucked harp walking Dm–C–Am–D and a low D/A drone. It plays behind the title screen, fading in once
+    rendered (~1.5 s on a worker thread) and out over 2 s as play begins; back again on Return to title.
+  - **The lighting cue** (`music_lighting`, 10 s): the theme's opening lifted into D major and up an octave (*A–D E F#…
+    A*), a harp arpeggio and a swelling drone, two beats after the beacon's `kindle`. A new dialogue effect `"music"`
+    plays it; added to all five lightings (the Gull, the Ridge, the Heron, the Wrack, the Vigil Light).
+  - **`AudioDirector` music:** `play_music`/`stop_music` — one piece at a time, the last fading under the next; loops play
+    until stopped, cues until they end.
+  - **Hild's scraper is heard:** `audio.json work` maps an idle style to a sound; `CharacterRig.work_stroke` fires at each
+    push of a `scrape` (not in the breather, not while she talks) and `NpcActor` plays `scrape_hull` (a rasp of filtered
+    noise and grit) from her hands, positional within 12 m.
+  - **Validator:** melody notes and pitches, a melody running past its piece (a part without a length is checked against
+    the mix's), music on the Music bus (the title a loop, a dialogue cue not), `work` styles real and their sounds one-shots.
+- **Tests:** `test_music.gd` (8: note names; a melody in time, held and plucked; the two pieces — buses, loop, a clean wrap;
+  every `kindle` carries the cue and the runner hands it on; the director's one-at-a-time state; the validator; stroke
+  counting and the signal, none while resting; Hild's work sound and Mara without one). `test_audio.gd` renders a melody
+  among every kind. The smoke walk now hears the title theme start (and stop on New game) and the Vigil Light's cue play.
+  517 tests + smoke + launch pass.
+
+No screenshots this run: nothing visible changed.
+
+**Decisions**
+- **A synth kind, not audio files:** keeps the no-binary-audio rule (Day 46) and makes the music editable as data; when real
+  recordings come, `"file"` replaces the recipe and nothing else changes.
+- **Dialogue `music` beside `kindle` rather than a rule "kindle means music":** explicit, so a later lighting can choose a
+  different cue (Act II's sixth light should have its own).
+- **D dorian for the world, D major for a lighting:** the same opening phrase, brightened, so the beacons' cue is heard as
+  the world's tune being lit, not a separate jingle.
+- **No in-tree playback in unit tests:** the test runner's root isn't in the tree; the director and the work player
+  guard `is_inside_tree()` and the smoke walk checks real playback.
+- **Plucked notes cut at 2× `ring`** (~0.3 % left) and silent partials skipped: the theme renders in ~1.5 s instead of 2.5.
+
+**Problems / notes**
+- None blocking. Nobody has heard the music: it wants the owner's ear (ROADMAP #5, with the levels pass —
+  `tools/debug/export_sounds.gd -- /abs/dir music_title music_lighting scrape_hull`).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content (due ~Day 75)**: rowing out to the Low Water and Lowsong (the skiff clean, the
+   Provost's yes, the fog that sings, Lowsong's Keeper). Oars as the skiff goes out fit there. Fetch and reset `main`
+   before trusting it.
+
 ## 2026-10-30 09:00 UTC — Day 73: framed conversations, the body fades (polish ten)
 
 **Did**

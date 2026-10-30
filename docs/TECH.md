@@ -945,7 +945,9 @@ No audio files yet: every sound is a **procedural placeholder**, a small recipe 
 16-bit mono, 22 050 Hz). Kinds: `noise` (white/pink/brown, low/high-pass, `swell` for the
 sea, `gusts` for wind), `crackle` (fire), `tone` (harmonics, slide, vibrato, breath — horns,
 voices, ticks), `chirps` (calls scattered over a loop — gulls, birds, frogs), `chime` (struck
-notes — quest cues), `mix` (parts summed). One-shots take `attack`/`decay`/`release`;
+notes — quest cues), `melody` (Day 74: `notes` `[[pitch, beats]…]` at `tempo` bpm, a pitch a
+name like `"F#3"`, Hz, or `"-"` for a rest; plucked with `ring`, else held for `legato` of the
+note and let go over `note_release`; `note_attack`, `vibrato` — the music), `mix` (parts summed). One-shots take `attack`/`decay`/`release`;
 `loop: true` renders a little long and crossfades the tail into the head (seamless; tests check
 the wrap). Renders are seeded by the sound's id, so a sound is the same every run. To swap in a
 recording later, replace the recipe with `{"bus": …, "file": "res://assets/audio/x.ogg"}`.
@@ -977,11 +979,22 @@ it uses (ambience on arrival, prop sounds as it builds; every one-shot cue at st
   (`ember_knock`, Day 47) where Aldous can't find the seventh novice's face.
 - **Cues**: `audio.json events` — quest started/updated/done chimes, an item gained, a tick
   on every button press (any `BaseButton` added to the tree) and on focus moves.
+- **Music** (Day 74): `audio.json music.title` (a loop on the Music bus) plays while the title
+  screen is open (main: `title_screen.opened/closed` → `play_music`/`stop_music`), and a dialogue
+  step's `"music": "<id>"` effect plays a one-shot cue — `music_lighting` with every beacon's
+  `kindle`. One piece at a time: a new one fades the last out over `MUSIC_OUT` and comes in over
+  `MUSIC_IN` once rendered (the 18 s theme takes ~1.5 s on a worker thread, so it arrives a beat
+  after the title). `music_id()` / `is_music_playing()`; history logs `music:<id>`.
+- **Work sounds** (Day 74): `audio.json work` maps an idle style to `{sound, volume, range}`;
+  `CharacterRig.work_stroke` fires at each push of a `scrape` (not while resting or walking) and
+  `NpcActor` plays it from a positional `WorkSound` player at the hands — Hild's `scrape_hull`.
 - **The Greying**: a low-pass on the Ambience bus closes toward `greying.muffle_cutoff` with
   depth, the ember's heartbeat (`greying.heart`) comes up under it, and `turn_back` plays when
   the fog turns the player back.
 The validator checks every recipe (kind, bus, numbers, length ≤ 20 s, colours, mix parts),
-every sound named anywhere (regions, props, NPC voices, dialogue, footsteps, events), that
+every sound named anywhere (regions, props, NPC voices, dialogue, footsteps, events, music, work),
+melodies (readable pitches, `[pitch, beats]` notes, inside the piece's length), that music is
+on the Music bus (the title a loop, a dialogue cue not), that work sounds are one-shots, that
 layers and prop sounds loop and dialogue sounds don't, and warns on a sound never played.
 `main.audio.history` lists recent one-shots (the smoke run checks footsteps on the dock,
 Pell's blips, the Greying's muffle and heart, the turn-back, the gulls back on the headland).

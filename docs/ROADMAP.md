@@ -566,10 +566,15 @@ each .glb < 5 MB.
       floating name hides while the dialogue box names them; the close-camera body fades between 1.6 m and 0.9 m instead of
       popping. Debug `--talk=<npc_id>`. `test_polish_ten.gd` (7).
 
+- [x] [S] **Music and work sounds** (Day 74): a `melody` synth kind (notes by name at a tempo, plucked or held); the
+      Music bus finally speaks — **the title theme** (an 18 s D-dorian loop: a breathy lead over a plucked harp and a
+      drone) behind the title screen, fading as play begins, and **a lighting cue** (the theme's opening lifted into D
+      major) at all five beacons (dialogue `music`); one piece at a time, the last fading under the next. Hild's scraper
+      is heard on each stroke (`audio.json work`, `CharacterRig.work_stroke`). Validator checks melodies, music buses and
+      work sounds; the smoke walk hears both pieces. `test_music.gd` (8).
+
 ### Next up
-1. [S] **Systems (due ~Day 74; last Day 70)** — pick from #5/#6/#8: the Greying v2 or audio follow-ups (music
-   on the title / at lightings; a scrape sound on Hild's strokes; oars as the skiff comes in) are the strongest.
-2. [C] **Act II's close, step 2b — rowing out to the Low Water** (content due ~Day 75-76; last Day 72): Hild's
+1. [C] **Act II's close, step 2b — rowing out to the Low Water** (content due ~Day 75; last Day 72): Hild's
    skiff is clean (`kindleby_hild_low_water`; "Is she clean yet?" → yes, a day on), the Provost's "nobody goes out in the
    wet" then yes, the rowing out past the candles into fog that sings (`choir_far`; a skiff `travel`), and **Lowsong**
    itself — skerries, shallow water to wade between them, the Greying heard as voices, a Keepers' light and its Keeper
@@ -578,36 +583,37 @@ each .glb < 5 MB.
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
    colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Provost and Tobin on the Low Water (Lowsong's
    Keeper in the Long Book); the Low Water from Saltmarrow's side (Aldous, Mara — the Gull looks south over it).
-3. [P] **Color grading pass on a Vulkan machine** — also check the Low Water chart mark and the conversation framing
+2. [P] **Color grading pass on a Vulkan machine** — also check the Low Water chart mark and the conversation framing
    on a real screen — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
-   **music** (the Music bus is still silent: a sparse procedural motif on the title screen and at each lighting
-   would do for now); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
+   **music** (title theme and lighting cue landed Day 74: an owner listen; a quiet motif for Act ends and the ferry
+   crossings; a sparse in-world piece per island later — or real recordings); oars as the skiff comes in (with the
+   rowing out); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-7. [A] **Dressing follow-ups** (next art-led session due ~Day 75-76; last Day 71): Kindleby — the Quiet House's step
+6. [A] **Dressing follow-ups** (next art-led session due ~Day 75-76; last Day 71): Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
    walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); a sound as the skiff comes in (oars, a creak); (Hild scraping the
-   skiff: Day 71 — a scrape sound on her strokes would suit the audio pass); the skiff's tar reads pale in the Compatibility renderer.
+   skiff: Day 71; her scrape sound: Day 74); the skiff's tar reads pale in the Compatibility renderer.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
+7. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
    (Hesk, Aldous on the bench); a framed shot for two-NPC scenes (Hild and the Provost) — today it frames whoever was
    talked to; in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
 
