@@ -2,6 +2,54 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-30 09:00 UTC — Day 73: framed conversations, the body fades (polish ten)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 72's `7f1de24`). Baseline checks green (502 tests) before any change.
+- **Polish ten (due ~Day 73-74; last Day 68):** ROADMAP *Next up* #1, the interaction-polish item.
+  - **Conversations are framed:** pressing [E] on an NPC now goes through `Player.talk_to(npc)`, which (setting on) eases
+    the camera over 0.7 s to look past the Wakebearer's shoulder at them — along the line between the two, swung 0.8 rad
+    to whichever side is nearer the current view, pitched to -14°, the arm at 4.4 m, the pivot slid 40 % towards them.
+    When the dialogue closes it eases back to exactly where the player left it. The spring arm still sweeps from the
+    moved pivot, so a framed camera never goes into walls (on the Mercy's deck it pulls in tight).
+  - **"Frame conversations"** in Settings (`[camera] dialogue`, default on) for players who'd rather keep their own camera.
+  - **The speaker's floating name hides** while talking — the dialogue box already names them, and the label sat right
+    over the framed faces.
+  - **The close-camera body fades** (Day 71's hide, now a fade): between 1.6 m and 0.9 m every mesh of the Wakebearer
+    fades through `GeometryInstance3D.transparency`; under 0.9 m it's hidden; at full opacity the meshes stay out of the
+    alpha pass. The ember's light is never faded.
+  - Debug **`--talk=<npc_id>`**: walks up to the NPC (1.6 m off, the first side with ground at their level — in front,
+    then the sides, then behind) and talks as [E] would, for screenshots. The first try put the Wakebearer in Kindleby's
+    harbour off the end of the landing stage, so it ray-checks the ground.
+- **Tests:** `test_polish_ten.gd` (7: the opacity curve; the meshes fade, hide and come back solid, the ember light
+  untouched; `dialogue_yaw`'s sides and the ±PI seam; easing in and out with the player's own yaw kept; nobody to frame on
+  top; the setting's round trip and reset; the name hidden while talking). `test_settings.gd` presses the new toggle.
+  509 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-30-am-*.png`): `talking-to-mara`, `talking-to-hild`.
+
+**Decisions**
+- **Offset on the pitch node, not the player's yaw:** the framing is an additive yaw on `CameraPitch` blended by a weight,
+  so the player's own yaw and pitch are never overwritten and "back where you left it" is exact, even if the dialogue
+  closes mid-ease. Movement follows `view_yaw()` so walking off during the ease-out goes where the screen points.
+- **Nearer side, not a fixed shoulder:** a fixed side could swing the camera nearly 180°; the nearer of the two keeps the
+  move small and readable.
+- **Hide only the speaker's name:** other NPCs' names stay — they tell the player who's around, and they're far off.
+- **`transparency` rather than per-material alpha:** it works on the imported .glb materials untouched and in the
+  Compatibility renderer.
+- **Next up reordered:** systems (last Day 70) goes before content next run; content is due by Day 76.
+
+**Problems / notes**
+- None blocking. Seated NPCs (Hesk, Aldous on the bench) could be framed a touch lower, and two-NPC scenes frame only
+  the one talked to — noted in ROADMAP #8. The Low Water chart mark and the framing still want a look on a real screen
+  (folded into the owner's Vulkan check).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **systems (due ~Day 74; last Day 70)**: an audio follow-up (music sketch at the title and the
+   lightings, the scrape/oar sounds) or a Greying v2 piece. Then content ~Day 75-76: rowing out to the Low Water and
+   Lowsong. Fetch and reset `main` before trusting it.
+
 ## 2026-10-29 21:00 UTC — Day 72: the ring's last gap — the Low Water (content)
 
 **Did**

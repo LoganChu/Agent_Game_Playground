@@ -560,10 +560,16 @@ each .glb < 5 MB.
       behind the dialogue box goes soft, drained and dim (`remembering.gdshader` veil). The camera pushed right in on the
       player hides the Wakebearer's body (no more looking out through their head). `test_hild_scraping.gd` (4).
 
+- [x] [P] **Polish ten: framed conversations, the body fades** (Day 73): talking to an NPC eases the camera round past
+      the Wakebearer's shoulder to them (the nearer side, lower and closer, the pivot slid towards them; back to the
+      player's own camera when the dialogue closes), with a **Frame conversations** setting to turn it off; the speaker's
+      floating name hides while the dialogue box names them; the close-camera body fades between 1.6 m and 0.9 m instead of
+      popping. Debug `--talk=<npc_id>`. `test_polish_ten.gd` (7).
+
 ### Next up
-1. [P] **Polish ten** (due ~Day 73-74; last Day 68): interaction polish (#8 below — camera framing during dialogue, a
-   fade of the close-camera body), plus any bugs met on the way; check the Low Water chart mark on a real screen.
-2. [C] **Act II's close, step 2b — rowing out to the Low Water** (next content due ~Day 75-76; last Day 72): Hild's
+1. [S] **Systems (due ~Day 74; last Day 70)** — pick from #5/#6/#8: the Greying v2 or audio follow-ups (music
+   on the title / at lightings; a scrape sound on Hild's strokes; oars as the skiff comes in) are the strongest.
+2. [C] **Act II's close, step 2b — rowing out to the Low Water** (content due ~Day 75-76; last Day 72): Hild's
    skiff is clean (`kindleby_hild_low_water`; "Is she clean yet?" → yes, a day on), the Provost's "nobody goes out in the
    wet" then yes, the rowing out past the candles into fog that sings (`choir_far`; a skiff `travel`), and **Lowsong**
    itself — skerries, shallow water to wade between them, the Greying heard as voices, a Keepers' light and its Keeper
@@ -572,7 +578,8 @@ each .glb < 5 MB.
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
    colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Provost and Tobin on the Low Water (Lowsong's
    Keeper in the Long Book); the Low Water from Saltmarrow's side (Aldous, Mara — the Gull looks south over it).
-3. [P] **Color grading pass on a Vulkan machine** — sandbox screenshots (Compatibility
+3. [P] **Color grading pass on a Vulkan machine** — also check the Low Water chart mark and the conversation framing
+   on a real screen — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
@@ -600,9 +607,9 @@ each .glb < 5 MB.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [S] Interaction polish: camera framing during dialogue; a fade (rather than Day 71's hide) of the player model when
-   the camera is pushed in close behind them. (Facing while talking landed Day 14; the key hint hides in dialogue since
-   Day 15; the body hides under 0.9 m since Day 71.)
+8. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
+   (Hesk, Aldous on the bench); a framed shot for two-NPC scenes (Hild and the Provost) — today it frames whoever was
+   talked to; in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
 
 ## Milestone 2 — Alpha (Act II begins)
 - [x] [C] **The crossing** — landed Day 17 (see Done).

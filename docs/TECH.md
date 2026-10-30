@@ -31,6 +31,8 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --scenario=lamp_named 
     --lane-map[=wrackholm] --settle=60 --screenshot=/abs/out.png   # Oda's lane map (focus on a port) (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --scenario=kindleby_lit \
     --journal=lanes --settle=60 --screenshot=/abs/out.png          # the journal on a tab (journal|satchel|lanes) (debug)
+xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow --flags=intro_seen \
+    --talk=mara --settle=120 --screenshot=/abs/out.png     # walk up to an NPC and talk (conversation framing) (debug)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --screenshot=/abs/out.png   # the waking (debug args skip the title)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --title --settle=90 --screenshot=/abs/out.png  # the title screen
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
@@ -136,7 +138,18 @@ measures: it sweeps a 0.3 m sphere (`Player.CAMERA_PROBE_RADIUS`) out to 7 m on 
 camera layers; the camera jumps in to a hit at once and eases back out at
 `CAMERA_RETURN_SPEED` (`Player.next_camera_distance`). Pushed in under `CAMERA_HIDE_BODY` (0.9 m; Day 71) the
 Wakebearer's body is hidden (`Player.shows_body`; the ember's light stays) so the camera never looks out through the
-inside of their head. Every model prop with a `collider`
+inside of their head; since Day 73 it fades in between 0.9 m and `CAMERA_FADE_BODY` (1.6 m) rather than popping
+(`Player.body_opacity` → `GeometryInstance3D.transparency` on every mesh of the model; solid meshes stay out of the
+alpha pass at 1).
+**Conversation framing (Day 73):** `Player.talk_to(npc)` (the [E] path) turns the Wakebearer and, unless the setting
+`[camera] dialogue` is off, calls `frame_towards(offset)`: the view swings to look along the line from the Wakebearer
+to the NPC, `DIALOGUE_SIDE` (0.8 rad) to whichever side is nearer the current yaw (`Player.dialogue_yaw`), pitch
+-14°, arm 4.4 m, pivot slid 40 % of the way to them (≤ 1.2 m), eased over 0.7 s. The offset rides on the
+`CameraPitch` node's yaw, so the player's own yaw/pitch (`camera_yaw()`, `_pitch`) is kept underneath and the camera
+eases back to it when input unlocks; movement follows `view_yaw()`. The spring arm still sweeps from the moved pivot,
+so a framed camera never goes through walls. The speaking NPC's floating name hides while talking (the dialogue box
+names them). Debug: `--talk=<npc_id>` walks up to an NPC (1.6 m off, the first side with ground at their level) and
+talks, for screenshots. Every model prop with a `collider`
 whose mesh is ≥ `Region.CAMERA_BLOCK_MIN_HEIGHT` (2.4 m) tall gets a `CameraBlocker` (layer 4
 only) over its mesh bounds from the collider's top up — roofs, eaves, canopies. Automatic,
 no data field.
@@ -895,6 +908,7 @@ once, on `drag_ended`) and again on leaving.
            text_speed = 0..400 chars/s (presets Slow 25 / Normal 50 / Fast 100 / Instant 0)
            window_mode = "windowed" | "fullscreen", vsync = bool   (Day 56; DisplayServer)
 [camera]   sensitivity = 0.25..2.5, invert_x, invert_y   (Player reads them per event)
+           dialogue = bool (default true; Day 73: "Frame conversations")
 [pad]      stick_deadzone = 0.05..0.5 (default 0.2) → InputMap deadzone of the PAD_AXES actions
 [keys]     <action> = "<key name>"   only rebound actions, e.g. interact = "F"
 ```
@@ -986,6 +1000,11 @@ writes each as a .wav (never commit them).
 WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
 
 ## Testing
+- `tests/test_polish_ten.gd` — (Day 73) the close-camera body fade (`body_opacity` between the hide and fade
+  distances; every model mesh fades, hidden at 0, out of the alpha pass at 1; the ember light untouched); conversation
+  framing (`dialogue_yaw` sides and the ±PI seam; easing in, the pivot slide, the shorter arm, the player's own yaw
+  kept, easing back out; nothing for someone on top); the setting's round trip; the speaker's name hidden while
+  talking. `test_settings.gd` presses the menu toggle.
 - `tests/test_hild_scraping.gd` — (Day 71) the `scrape` idle (strokes, the breather, feet planted, the work put down
   while resting, easing in and out); Hild's Kindleby placement (the scraping model and idle exactly when the skiff is
   home; the far shore keeps the oar; the scraper in the right arm; its edge on the hull; on the shingle and clear of
