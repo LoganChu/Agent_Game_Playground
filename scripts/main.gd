@@ -15,6 +15,7 @@ extends Node3D
 ##                         --flags=intro_seen,saltmarrow_beacon_burned=knot --quest=a_light_for_saltmarrow
 ##   --act-end=<id>        show that act's end card for the current state (debug/screenshots)
 ##   --pause-menu[=save|load|chapters|settings|controls]  open the pause menu (on that page) after loading (screenshots)
+##   --talk=<npc_id>       walk up to that NPC and talk, as [E] would (conversation framing; screenshots)
 ##   --scenario=<id>       start at a story checkpoint from data/scenarios.json (see README);
 ##                         --scenario=list prints them and quits
 
@@ -119,6 +120,8 @@ func _ready() -> void:
 			_open_lane_map.call_deferred(arg.get_slice("=", 1) if arg.contains("=") else "")
 		elif arg.begins_with("--journal="):
 			_open_journal.call_deferred(arg.get_slice("=", 1))
+		elif arg.begins_with("--talk="):
+			_talk_to.call_deferred(arg.get_slice("=", 1))
 		elif arg.begins_with("--pause-menu"):
 			_open_pause_menu.call_deferred(arg.get_slice("=", 1) if arg.contains("=") else "")
 		elif arg.begins_with("--act-end="):
@@ -135,7 +138,7 @@ static func wants_title(args: PackedStringArray) -> bool:
 		if arg == "--title":
 			return true
 	for arg in args:
-		for skip: String in ["--scenario=", "--region=", "--flags=", "--quest=", "--act-end=", "--pause-menu", "--journal=", "--screenshot="]:
+		for skip: String in ["--scenario=", "--region=", "--flags=", "--quest=", "--act-end=", "--pause-menu", "--journal=", "--talk=", "--screenshot="]:
 			if arg.begins_with(skip):
 				return false
 	return true
@@ -217,6 +220,35 @@ func _open_journal(which: String) -> void:
 	journal_ui.open(maxi(index, 0) as JournalUI.Tab)
 	if "--remember" in OS.get_cmdline_user_args():
 		journal_ui.remember()
+
+
+## Debug: walks the Wakebearer up to an NPC (1.6 m off them, on the first side with ground at
+## their level — in front first) and talks, as [E] would — the conversation framing included (Day 73).
+func _talk_to(npc_id: String) -> void:
+	await _read_through_arrival()
+	var player := get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP) as Player
+	for node in get_tree().get_nodes_in_group("npcs"):
+		var npc := node as NpcActor
+		if npc == null or npc.npc_id != npc_id or not npc.can_interact():
+			continue
+		var front := npc.global_transform.basis.z
+		front.y = 0.0
+		front = front.normalized()
+		var space := player.get_world_3d().direct_space_state
+		for turn: float in [0.0, PI * 0.5, -PI * 0.5, PI]:
+			var side := front.rotated(Vector3.UP, turn)
+			var spot := npc.global_position + side * 1.6
+			var ray := PhysicsRayQueryParameters3D.create(spot + Vector3.UP * 1.5, spot + Vector3.DOWN * 1.5, 1 << (Layers.WORLD - 1))
+			var hit := space.intersect_ray(ray)
+			if hit.is_empty() or absf((hit["position"] as Vector3).y - npc.global_position.y) > 0.5:
+				continue
+			player.place_at((hit["position"] as Vector3) + Vector3.UP * 0.1)
+			player.turn_camera(atan2(side.x, side.z) - player.camera_yaw())
+			for _i in 4:
+				await get_tree().physics_frame
+			player.talk_to(npc)
+			return
+	push_warning("--talk: no NPC '%s' here with ground beside them" % npc_id)
 
 
 ## Debug: an arrival scene may hold the dialogue box; reads it through (last option each time).

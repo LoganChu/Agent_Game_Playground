@@ -5,7 +5,7 @@ extends Interactable
 ## signature color when it has none; talking starts the NPC's dialogue. While talking the
 ## NPC turns to face the player (unless its data says `"faces_player": false`, e.g. Hesk at
 ## her net), and turns back to its placed facing when the dialogue closes. A working idle
-## ("scrape") puts the work down while talking.
+## ("scrape") puts the work down while talking, and the name over the head is hidden then.
 
 ## How quickly the NPC turns towards the player and back (1/s, exponential ease).
 const TURN_SPEED := 6.0
@@ -97,6 +97,9 @@ func _process(delta: float) -> void:
 		_talking = false
 	if _rig:
 		_rig.resting = _talking
+	# The dialogue box names the speaker; their floating name would only sit over the framing.
+	if _label:
+		_label.visible = not _talking
 	if _body == null:
 		return
 	var target := _face_yaw if _talking else 0.0

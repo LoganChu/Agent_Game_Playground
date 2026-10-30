@@ -6,7 +6,7 @@ extends CanvasLayer
 ## pause menu's Save); this class builds the pages both menus offer:
 ##   Load        the F5 quicksave and the manual slots (SaveSystem), with region and time
 ##   Chapters    debug builds: jump to a story checkpoint in data/scenarios.json
-##   Settings    volumes, text size and speed, camera sensitivity and invert, stick deadzone,
+##   Settings    volumes, text size and speed, camera sensitivity, invert and conversation framing, stick deadzone,
 ##               display (window mode, vsync), Controls, Reset
 ##   Controls    rebind each action (press the action, then the new key; Esc cancels)
 ## Settings are saved to user://settings.cfg as they change (a dragged slider once, when it
@@ -257,6 +257,7 @@ func _build_settings() -> void:
 		GameSettings.SENSITIVITY_MAX * 100.0, 5.0, "%d%%", func(value: float) -> void: settings.set_camera_sensitivity(value / 100.0))
 	_add_toggle("Invert camera left/right: " + _on_off(settings.invert_x), func() -> void: settings.set_invert_x(not settings.invert_x))
 	_add_toggle("Invert camera up/down: " + _on_off(settings.invert_y), func() -> void: settings.set_invert_y(not settings.invert_y))
+	_add_toggle("Frame conversations: " + _on_off(settings.dialogue_camera), func() -> void: settings.set_dialogue_camera(not settings.dialogue_camera))
 	_add_slider("Stick deadzone", settings.stick_deadzone * 100.0, GameSettings.DEADZONE_MIN * 100.0,
 		GameSettings.DEADZONE_MAX * 100.0, 5.0, "%d%%", func(value: float) -> void: settings.set_stick_deadzone(value / 100.0))
 	_add_toggle("Display: " + settings.window_mode_label(), settings.cycle_window_mode)

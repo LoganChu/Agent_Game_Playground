@@ -22,8 +22,22 @@ const CAMERA_DISTANCE := 7.0
 const CAMERA_PROBE_RADIUS := 0.3
 const CAMERA_RETURN_SPEED := 4.0
 ## Pushed in closer than this (a wall at the player's back), the camera would sit inside the
-## Wakebearer: the body is hidden (the ember's light stays) until it pulls back out.
+## Wakebearer: the body is hidden (the ember's light stays) until it pulls back out. Between
+## CAMERA_HIDE_BODY and CAMERA_FADE_BODY it fades rather than popping.
 const CAMERA_HIDE_BODY := 0.9
+const CAMERA_FADE_BODY := 1.6
+const CAMERA_PITCH := -28.0
+const CAMERA_PIVOT := Vector3(0, 1.2, 0)
+## Talking to an NPC (GameSettings.dialogue_camera), the camera eases round to look past the
+## Wakebearer's shoulder at them: DIALOGUE_SIDE off the line between the two, a little lower
+## and closer, with the pivot slid DIALOGUE_PIVOT_SHARE of the way towards them (at most
+## DIALOGUE_PIVOT_MAX). It eases back to where the player left it once the dialogue closes.
+const DIALOGUE_DISTANCE := 4.4
+const DIALOGUE_PITCH := -14.0
+const DIALOGUE_SIDE := 0.8
+const DIALOGUE_PIVOT_SHARE := 0.4
+const DIALOGUE_PIVOT_MAX := 1.2
+const DIALOGUE_EASE_SECONDS := 0.7
 
 var focus: Interactable = null
 
@@ -42,6 +56,16 @@ var _ember := 1.0
 var _flicker_time := 0.0
 ## Where the NPC we're talking to stands (the Wakebearer turns to it while input is locked).
 var _talk_to: Variant = null
+## The player's own camera pitch (the mouse sets it; dialogue framing blends away from it).
+var _pitch := deg_to_rad(CAMERA_PITCH)
+## Conversation framing: how far in (0..1), the view yaw it frames to, and the pivot's slide.
+var _framing := 0.0
+var _framing_on := false
+var _frame_yaw := 0.0
+var _frame_pivot := Vector3.ZERO
+## The model's meshes and their current fade (1 = opaque), for the close-camera fade.
+var _body_meshes: Array[GeometryInstance3D] = []
+var _body_opacity := 1.0
 
 
 func _ready() -> void:
@@ -61,7 +85,7 @@ func _physics_process(delta: float) -> void:
 	if not GameState.input_locked:
 		input = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 		_camera_yaw.rotation.y += Input.get_axis("camera_right", "camera_left") * CAMERA_TURN_SPEED * GameSettings.current().yaw_factor() * delta
-	var basis_y := Basis(Vector3.UP, _camera_yaw.rotation.y)
+	var basis_y := Basis(Vector3.UP, view_yaw())
 	var direction := basis_y * Vector3(input.x, 0, input.y)
 	var target := direction * SPEED
 	velocity.x = move_toward(velocity.x, target.x, ACCEL * delta * SPEED)
@@ -89,12 +113,22 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		var turn := GameSettings.current().mouse_turn((event as InputEventMouseMotion).relative, MOUSE_SENSITIVITY)
 		_camera_yaw.rotation.y -= turn.x
-		_camera_pitch.rotation.x = clampf(_camera_pitch.rotation.x - turn.y, deg_to_rad(-60), deg_to_rad(-5))
+		_pitch = clampf(_pitch - turn.y, deg_to_rad(-60), deg_to_rad(-5))
 	elif event.is_action_pressed("interact") and focus and is_instance_valid(focus):
 		get_viewport().set_input_as_handled()
 		if focus is NpcActor:
-			_talk_to = focus.global_position
-		focus.interact()
+			talk_to(focus as NpcActor)
+		else:
+			focus.interact()
+
+
+## Opens a conversation with `npc`: the Wakebearer turns to them and (by the setting) the
+## camera frames the two.
+func talk_to(npc: NpcActor) -> void:
+	_talk_to = npc.global_position
+	if GameSettings.current().dialogue_camera:
+		frame_towards(npc.global_position - global_position)
+	npc.interact()
 
 
 func place_at(pos: Vector3) -> void:
@@ -112,6 +146,7 @@ func set_ember(value: float) -> void:
 func _process(delta: float) -> void:
 	_flicker_time += delta
 	_update_ember_light()
+	_update_framing(delta)
 	_update_camera_distance(delta)
 
 
@@ -120,9 +155,53 @@ func turn_camera(radians: float) -> void:
 	_camera_yaw.rotation.y = wrapf(_camera_yaw.rotation.y + radians, -PI, PI)
 
 
-## The orbit camera's current yaw (for tests).
+## The orbit camera's yaw as the player set it (for tests).
 func camera_yaw() -> float:
 	return _camera_yaw.rotation.y
+
+
+## The yaw the camera actually looks along: the player's plus any conversation framing.
+func view_yaw() -> float:
+	return _camera_yaw.rotation.y + _camera_pitch.rotation.y
+
+
+## How far the conversation framing has eased in (0 = the player's own camera, 1 = framed).
+func framing() -> float:
+	return _framing
+
+
+## Starts framing a conversation with someone standing `offset` away (while input stays locked).
+func frame_towards(offset: Vector3) -> void:
+	var to := Vector3(offset.x, 0.0, offset.z)
+	if to.length() < 0.3:
+		return
+	_frame_yaw = dialogue_yaw(view_yaw(), to)
+	_frame_pivot = (to * DIALOGUE_PIVOT_SHARE).limit_length(DIALOGUE_PIVOT_MAX)
+	_framing_on = true
+
+
+## The view yaw that frames someone `to` away (horizontal): looking along the line from the
+## Wakebearer to them, swung DIALOGUE_SIDE to whichever side is nearer the `current` yaw.
+static func dialogue_yaw(current: float, to: Vector3) -> float:
+	var behind := atan2(-to.x, -to.z)
+	var left := wrapf(behind + DIALOGUE_SIDE, -PI, PI)
+	var right := wrapf(behind - DIALOGUE_SIDE, -PI, PI)
+	return left if absf(angle_difference(current, left)) <= absf(angle_difference(current, right)) else right
+
+
+## Eases the framing in while a framed conversation holds input, and back out after; the
+## offset rides on the pitch node, so the player's own yaw and pitch are kept underneath.
+func _update_framing(delta: float) -> void:
+	if _framing_on and not GameState.input_locked and _framing > 0.0:
+		_framing_on = false
+	var target := 1.0 if _framing_on else 0.0
+	_framing = move_toward(_framing, target, delta / DIALOGUE_EASE_SECONDS)
+	var w := smoothstep(0.0, 1.0, _framing)
+	_camera_pitch.rotation.y = angle_difference(_camera_yaw.rotation.y, _frame_yaw) * w
+	_camera_pitch.rotation.x = lerpf(_pitch, deg_to_rad(DIALOGUE_PITCH), w)
+	_camera_yaw.position = CAMERA_PIVOT + _frame_pivot * w
+	if _camera_arm:
+		_camera_arm.spring_length = lerpf(CAMERA_DISTANCE, DIALOGUE_DISTANCE, w)
 
 
 ## How far the camera currently sits behind the pivot (for tests).
@@ -138,15 +217,30 @@ func _update_camera_distance(delta: float) -> void:
 	var target := _camera_arm.get_hit_length()
 	_camera_distance = next_camera_distance(_camera_distance, target, delta)
 	_camera.position = Vector3(0, 0, _camera_distance)
-	var shown := shows_body(_camera_distance)
-	for part in _visual.get_children():
-		if not part is Light3D:
-			(part as Node3D).visible = shown
+	_apply_body_opacity(body_opacity(_camera_distance))
+
+
+## Fades every mesh of the body (not the ember's light); hidden outright at 0.
+func _apply_body_opacity(opacity: float) -> void:
+	if opacity == _body_opacity:
+		return
+	_body_opacity = opacity
+	for mesh in _body_meshes:
+		mesh.visible = opacity > 0.0
+		mesh.transparency = 1.0 - opacity
 
 
 ## Whether the body is drawn with the camera `distance` behind the pivot.
 static func shows_body(distance: float) -> bool:
-	return distance >= CAMERA_HIDE_BODY
+	return body_opacity(distance) > 0.0
+
+
+## How opaque the body is drawn with the camera `distance` behind the pivot: gone inside
+## CAMERA_HIDE_BODY, fading in up to CAMERA_FADE_BODY, solid beyond.
+static func body_opacity(distance: float) -> float:
+	if distance < CAMERA_HIDE_BODY:
+		return 0.0
+	return smoothstep(CAMERA_HIDE_BODY, CAMERA_FADE_BODY, distance)
 
 
 static func next_camera_distance(current: float, target: float, delta: float) -> float:
@@ -240,17 +334,20 @@ func _build_body() -> void:
 	light.position = ember_pos
 	_visual.add_child(light)
 	_ember_light = light
+	_body_meshes.clear()
+	for node in _visual.find_children("*", "GeometryInstance3D", true, false):
+		_body_meshes.append(node as GeometryInstance3D)
 
 
 func _build_camera() -> void:
 	_camera_yaw = Node3D.new()
 	_camera_yaw.name = "CameraYaw"
 	_camera_yaw.top_level = false
-	_camera_yaw.position = Vector3(0, 1.2, 0)
+	_camera_yaw.position = CAMERA_PIVOT
 	add_child(_camera_yaw)
 	_camera_pitch = Node3D.new()
 	_camera_pitch.name = "CameraPitch"
-	_camera_pitch.rotation.x = deg_to_rad(-28)
+	_camera_pitch.rotation.x = _pitch
 	_camera_yaw.add_child(_camera_pitch)
 	# The arm only measures (no children); `_update_camera_distance` places the camera.
 	var arm := SpringArm3D.new()

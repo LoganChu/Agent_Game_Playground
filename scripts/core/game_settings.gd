@@ -1,7 +1,7 @@
 class_name GameSettings
 extends RefCounted
 ## Player settings: audio bus volumes, text size and dialogue text speed, camera
-## sensitivity/invert, stick deadzone, window mode and vsync, and keyboard rebinding. Persisted to `user://settings.cfg` (ConfigFile), never in save games, so they
+## sensitivity/invert, conversation framing, stick deadzone, window mode and vsync, and keyboard rebinding. Persisted to `user://settings.cfg` (ConfigFile), never in save games, so they
 ## carry across playthroughs. `current()` is the live instance the game reads; tests make
 ## their own with a scratch `path`.
 ##
@@ -46,6 +46,8 @@ var text_speed := DEFAULT_TEXT_SPEED
 var camera_sensitivity := 1.0
 var invert_x := false
 var invert_y := false
+## Whether the camera swings round to frame both speakers while talking.
+var dialogue_camera := true
 var stick_deadzone := DEFAULT_DEADZONE
 ## "windowed" or "fullscreen" (WINDOW_MODES).
 var window_mode := "windowed"
@@ -81,6 +83,7 @@ func reset_values() -> void:
 	camera_sensitivity = 1.0
 	invert_x = false
 	invert_y = false
+	dialogue_camera = true
 	stick_deadzone = DEFAULT_DEADZONE
 	window_mode = "windowed"
 	vsync = true
@@ -169,6 +172,11 @@ func set_invert_x(value: bool) -> void:
 
 func set_invert_y(value: bool) -> void:
 	invert_y = value
+	changed.emit()
+
+
+func set_dialogue_camera(value: bool) -> void:
+	dialogue_camera = value
 	changed.emit()
 
 
@@ -318,6 +326,7 @@ func save() -> bool:
 	cfg.set_value("camera", "sensitivity", camera_sensitivity)
 	cfg.set_value("camera", "invert_x", invert_x)
 	cfg.set_value("camera", "invert_y", invert_y)
+	cfg.set_value("camera", "dialogue", dialogue_camera)
 	cfg.set_value("pad", "stick_deadzone", stick_deadzone)
 	for action: String in keys:
 		cfg.set_value("keys", action, OS.get_keycode_string(keys[action] as Key))
@@ -344,6 +353,7 @@ func load_file() -> bool:
 	camera_sensitivity = clampf(float(cfg.get_value("camera", "sensitivity", 1.0)), SENSITIVITY_MIN, SENSITIVITY_MAX)
 	invert_x = bool(cfg.get_value("camera", "invert_x", false))
 	invert_y = bool(cfg.get_value("camera", "invert_y", false))
+	dialogue_camera = bool(cfg.get_value("camera", "dialogue", true))
 	stick_deadzone = clampf(float(cfg.get_value("pad", "stick_deadzone", DEFAULT_DEADZONE)), DEADZONE_MIN, DEADZONE_MAX)
 	if cfg.has_section("keys"):
 		for action in cfg.get_section_keys("keys"):
