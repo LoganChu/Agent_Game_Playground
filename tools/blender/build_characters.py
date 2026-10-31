@@ -1968,6 +1968,36 @@ def build_hild_scraping() -> None:
     _hild(scraping=True)
 
 
+def build_iver() -> None:
+    """Brother Iver Lusk (Day 75), the Keeper of Lowsong: seventies, thirty-one winters alone on the rock. Thin
+    and long, stooped at the neck; the hood down off thin white hair grown long to the collar; a short white
+    beard gone yellow at the mouth. His grey robe is salt-stiff, and from the knee down it has gone the silver
+    of the Hushed (the fog's been at it while he sat out listening). A sealskin cape over the shoulders. His
+    own small Keeper's lamp held out low in his right hand, lit — the only light he's kept. His head is turned
+    and tilted, an ear to the water: he is listening even while he talks."""
+    reset_scene()
+    b = Body(build=0.86)
+    robe, hem = material("bone", -0.42), material("silverfog", 0.05)
+    skin = material("driftwood", 0.0)
+    base_body(b, skin, robe, material("ink", 0.05), robe)
+    _keeper_robe(b, robe, hem)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, 0.06), (0, 0, 0.5), 0.335, 0.31, hem, verts=8))                        # silvered to the knee
+    t.append(ball(0.34, (0, 0.06, b.shoulder - 0.06), material("ink", 0.3), scale=(1.0, 0.85, 0.45)))  # sealskin cape
+    h = b.parts["Head"]
+    white = material("bone", 0.0)
+    h.append(ball(b.head_r * 1.05, (0, 0.06, b.head + 0.02), white, scale=(1.05, 1.0, 0.8)))   # thin white hair, long
+    h.append(block((0.3, 0.1, 0.22), (0, 0.13, b.head - 0.17), white))                           # down to the collar
+    h.append(ball(0.12, (0, -0.13, b.head - 0.17), material("bone", -0.12), scale=(1.1, 0.7, 0.9)))  # yellowed beard
+    t.append(ball(0.3, (0, 0.12, b.shoulder + 0.02), robe, scale=(1.05, 0.75, 0.45)))           # the hood, down
+    _held_lantern(b, "R")
+    b.arm_rest["ArmR"] = (math.radians(-14), 0, math.radians(-6))
+    b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(6))
+    b.torso_rest = (math.radians(7), 0, 0)
+    b.head_rest = (math.radians(4), math.radians(14), math.radians(22))  # an ear to the water
+    assemble(b, "iver", scale=0.99)
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
@@ -1977,7 +2007,7 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
             build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother,
-            build_keeper_pim, build_hild, build_hild_scraping]
+            build_keeper_pim, build_hild, build_hild_scraping, build_iver]
 
 if __name__ == "__main__":
     import sys
