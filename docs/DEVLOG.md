@@ -2,6 +2,58 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-31 21:00 UTC — Day 76: Lowsong dressed — the Keeper's lamp in the fog, the stacks, the oars (art)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 75's `bf60afa`).
+- **Art (due ~Day 76; last Day 71):** ROADMAP *Next up* #1, Lowsong dressed.
+  - **Iver's lamp reads through the fog:** a new NPC **`halo`** (`{"part": "ArmR"}`, optional `size`/`strength`; on the
+    NPC or one placement) hangs a `LanternHalo` on the centre of that rig part's emissive surface — the lit horn of the
+    held lantern — as a child of the arm, so it sways with his breathing. From the landing his lamp is now the one warm
+    point under the dark tower. Hob's lantern (the far shore, the ridge) and Wenna's (the woods, the bend, Kindleby) got
+    the same glow (7 placements). A part without a lit surface gets nothing, whatever the data says.
+  - **The bothy keeps a fire in:** a thin column of peat smoke from the stub chimney (`BOTHY_SMOKE` in
+    `build_lowsong.py`, the region's `smoke`; a chimney lip added). The window stays dark — the lamp is still his only
+    light.
+  - **Sea stacks** (`lowsong_stack`, new Blender model): ~5 m leaning columns of dark stepped stone, a weed band at the
+    waterline, gull-limed ledges near the top. Five of them in the deeper water round the field, out of wading reach, so
+    the Low Water reads as a maze of rock from the knoll and from the landing.
+  - **The cairns weeded:** a black-green wrack skirt round each foot and salt crusted in the joints.
+  - **Faint shadows:** region light **`shadow`** (the sun's shadow opacity 0..1, tweened with the mood) — 0.3 on
+    Lowsong, where the mood note always said "no shadows to speak of" but the low sun drew hard ones across the landing.
+    Prop **`shadow: false`** for the stacks.
+  - **Hild's oars:** an `oars` recipe (three strokes: water drawn past the hull on a 1.4 s swell, a thole-pin knock at
+    each catch) as a dialogue `sound` on the rowing out (Hild's "Shove her off", the arrival's first line) and on both
+    ways of rowing back.
+  - Checked Hild on the landing stands clear of the skiff (she does). Checkpoint `lowsong` re-shot.
+- **Tests:** `test_lowsong_dressed.gd` (7: the lamp's glow on his arm and none for someone without a lantern; every Hob/Wenna
+  lantern placement glows; the validator on halos, light `shadow`, prop `shadow`; the chimney under the smoke; the stacks
+  out of reach, under water at the foot, seen from the knoll, > 4.5 m; the mood's shadow reaching the sun and back; the
+  oars' three strokes and every skiff `travel` carrying them). `test_lowsong.gd`'s rowing-out sounds now expect the oars
+  first. 533 tests + smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-31-pm-*.png`): `lowsong-bothy-smoke`, `stacks-from-the-knoll`,
+`landing-soft-shadows`.
+
+**Decisions**
+- **A halo on the NPC, found from the mesh, not a lamp prop on the hook:** Iver carries his lamp in every line of
+  canon ("held out low"), so hanging it on the hook would contradict him. Finding the emissive surface on the part
+  means no hand-measured offsets per character and the glow follows the idle for free.
+- **Shadow opacity as a mood key rather than turning shadows off:** it tweens with the rest of the mood, so a later
+  lighting of Lowsong could bring them back with the warmth.
+- **Smoke but no lit window:** a banked peat fire is plausible for thirty-one winters out there, but the "only warm
+  thing" is his lamp; a glowing window would compete with it.
+
+**Problems / notes**
+- None blocking. The smoke column is PropSmoke's standard (puffier than a "thread"); the stacks' feet float a little
+  over deep seabed, hidden by the water tint. Both in the ROADMAP notes.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content (due ~Day 78-79)**: *A Light for Lowsong* — what the Low Water burns when the fog leaves
+   nothing lying, and Iver's choice to stop listening. A systems session (the Greying v2's ember pushing fog back, or
+   day/night) is due by ~Day 78-80 too. Fetch and reset `main` before trusting it.
+
 ## 2026-10-31 09:00 UTC — Day 75: rowing out to the Low Water — Lowsong and its Keeper (content)
 
 **Did**

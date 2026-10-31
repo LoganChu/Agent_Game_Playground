@@ -53,7 +53,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake steps_foot boat_stage stage_lantern drift_fire drift_fire_out drift_shelter]  # the old Keepers' road north (Day 53) and the far shore below it (Day 55) (same kit dir)
 .tools/bin/blender-py tools/blender/build_bend.py [clamp_spent clamp_spent_open hut_lantern]  # Coll's Hearth (Day 57): Wenna's clamp burned through (Day 58: and raked open, sacks filled, front on +Z); a Keeper's lantern on a forked stake by a hut door (glass centre Godot [0, 1.28, 0.32] = its `halo`) (same kit dir)
 .tools/bin/blender-py tools/blender/build_kindleby.py [chapter_house candle_ledge vigil_bell quiet_house vigil_light vigil_light_lit kindleby_skiff kindleby_skiff_stage]  # Kindleby (Day 62): the Keepers' chapter-house, the candle wall (a 2.4 m ledge, candles emissive — no lights), the quay bell, the Quiet House (barred), the Vigil Light (Day 64: `vigil_light_lit` — horn glowing, a fire in the cradle, the door open; the pane centre is Godot y ≈ 5.1 = its `halo`/`light`; the finial's ember now sits on the finial; Day 63: the chapter-house's open bell-cote, door hood and step candles; `_diamond` turns a box 45° in place — the primitives bake their location, so `obj.rotation_euler` on a placed box swings it round the model origin) (same kit dir)
-.tools/bin/blender-py tools/blender/build_lowsong.py [lowsong_light lowsong_cairn]  # Lowsong (Day 75): the Low Water's cold light (round dark tower, door at model +Z, bothy behind at -Z: a second collider at offset [0, 0, -2.05]; an empty lamp hook at LAMP_HOOK for a later lit variant) and the old brothers' wading cairns (same kit dir)
+.tools/bin/blender-py tools/blender/build_lowsong.py [lowsong_light lowsong_cairn lowsong_stack]  # Lowsong (Day 75): the Low Water's cold light (round dark tower, door at model +Z, bothy behind at -Z: a second collider at offset [0, 0, -2.05]; an empty lamp hook at LAMP_HOOK for a later lit variant; Day 76: the bothy chimney's smoke vent at BOTHY_SMOKE, pinned by tests/test_lowsong_dressed.gd) and the old brothers' wading cairns (Day 76: weeded); Day 76: `lowsong_stack`, a ~5 m sea stack (stand its foot ~0.7 m under the water line, `snap: false`) (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -184,7 +184,7 @@ Every record lives in its own file whose name equals its `id`.
           "overrides": [{"if": condition, "density": 0.007, "color": "..."}]},  // first match wins
   "light": {"sun_color": "kindle", "sun_energy": 1.0, "sun_pitch": -42, "sun_yaw": -35,
             "ambient_color": "silverfog", "ambient_energy": 0.3, "sky_top": "tide",
-            "sky_horizon": "silverfog", "note": "...",
+            "sky_horizon": "silverfog", "shadow": 1.0, "note": "...",  // shadow = sun shadow opacity 0..1 (Day 76)
             "overrides": [{"if": condition, <any light key>...}]},  // see "Atmosphere"
   "greying": [{"rect"|"ellipse": [...], "strength": 1, "falloff": 2, "height": 2.4,
                "if": condition, "note": "..."}],        // fog areas that drain the ember — see "The Greying"
@@ -304,6 +304,12 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   a wide, faint glow over the whole quad (the fog lit round a beacon). The lit Ridge Light on the
   woods' skyline uses size 14 / strength 1 / bloom 0.35 (it is ~60 m off); on the ridge a size-6
   halo beside the real light. Every `lantern_post` carries one at `[0, 1.85, 0.58]`.
+- **NPC `halo`** (Day 76; on the NPC or on one placement, which overrides it like `model`/`idle`):
+  `{"part": "ArmR", "size": 1.8, "strength": 0.8}` hangs a `LanternHalo` on the centre of that rig part's first
+  emissive surface (a held lantern's lit horn — `NpcActor.glow_centre`) as a child of the part, so it sways with the
+  idle. No emissive surface there, no halo (silently). Brother Iver carries one; so do the `hob_lantern` and
+  `wenna_coll_lantern` placements. Validated: part in `CharacterRig.PARTS`, size > 0, strength 0..2.
+- `"shadow": false` (model props, Day 76) — the model casts no shadow (Lowsong's sea stacks).
 - `"idle": "still"` (Day 30) makes the prop a **figure**: its `model` must be a character model
   (`assets/models/characters/`, the rig contract) and it is built with `CharacterRig.instantiate` in
   that idle style — set dressing that breathes (the Unmoored by Stillhithe's pools), no name, no
