@@ -4,7 +4,8 @@
     "start": [
       {
         "say": "narrator",
-        "text": "Hild rows the way she talks: plainly, and without hurry. Kindleby's candles go small astern, a row of sparks along the wall, then a smudge, then gone."
+        "text": "Hild rows the way she talks: plainly, and without hurry. Kindleby's candles go small astern, a row of sparks along the wall, then a smudge, then gone.",
+        "sound": "oars"
       },
       {
         "say": "hild",

@@ -27,6 +27,7 @@
       {
         "say": "hild",
         "text": "Good. In you get. Eyes on the ember, ears to yourself.",
+        "sound": "oars",
         "travel": [
           "kindleby",
           "from_skiff"

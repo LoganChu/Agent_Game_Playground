@@ -145,6 +145,11 @@
       {"kind": "noise", "color": "white", "lowpass": 3800, "highpass": 900, "gusts": 0.06, "gust_depth": 0.7, "length": 0.8, "attack": 0.12, "release": 0.3, "gain": 0.8},
       {"kind": "crackle", "rate": 90, "pop": 0.002, "lowpass": 5000, "bed": 0.0, "length": 0.75, "attack": 0.1, "release": 0.3, "gain": 0.5}
     ]},
+    "oars": {"bus": "Effects", "kind": "mix", "length": 4.4, "gain": 0.55, "parts": [
+      {"kind": "noise", "color": "pink", "lowpass": 1600, "highpass": 180, "swell": 1.4, "swell_depth": 1.0, "length": 4.4, "attack": 0.2, "release": 0.6, "gain": 0.8},
+      {"kind": "noise", "color": "brown", "lowpass": 420, "swell": 1.4, "swell_depth": 0.8, "length": 4.4, "attack": 0.3, "release": 0.6, "gain": 0.45},
+      {"kind": "chime", "notes": [118, 124, 116], "gap": 1.4, "ring": 0.14, "harmonics": [1.0, 0.5, 0.25], "length": 4.4, "gain": 0.55}
+    ]},
     "quay_bell": {"bus": "Effects", "kind": "chime", "notes": [262, 262, 262, 262], "gap": 0.7, "ring": 2.6, "length": 4.6, "gain": 0.4},
 
     "voice_soft": {"bus": "Voice", "kind": "tone", "freq": 210, "harmonics": [1.0, 0.45, 0.2, 0.1], "slide": 0.92, "noise": 0.15, "lowpass": 2000, "length": 0.09, "attack": 0.012, "release": 0.03, "gain": 0.3},

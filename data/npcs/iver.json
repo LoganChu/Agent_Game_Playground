@@ -6,6 +6,11 @@
   "dialogue": "iver",
   "model": "res://assets/models/characters/iver.glb",
   "idle": "breathe",
+  "halo": {
+    "part": "ArmR",
+    "size": 1.6,
+    "strength": 0.9
+  },
   "bio": "Keeper of Lowsong, the light on the biggest rock of the Low Water: seventies, thirty-one winters alone out there, rowing in to Kindleby at midsummer for oil and an argument about the Long Book's commas. Since the Snuffing he has kept one small lamp lit and sat out on the rock listening to the fog sing; his hem has gone the silver of the Hushed. He lost his boat the second week, listening.",
   "voice": {
     "sound": "voice_hollow",

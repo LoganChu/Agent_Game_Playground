@@ -1214,6 +1214,9 @@
       ],
       "rotation_y": 121,
       "model": "res://assets/models/characters/hob_lantern.glb",
+      "halo": {
+        "part": "ArmR"
+      },
       "idle": "breathe",
       "if": [
         "flag:thornwold_skiff=kindleby",

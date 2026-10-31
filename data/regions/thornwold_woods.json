@@ -2045,6 +2045,9 @@
       ],
       "rotation_y": -12,
       "model": "res://assets/models/characters/wenna_coll_lantern.glb",
+      "halo": {
+        "part": "ArmR"
+      },
       "idle": "breathe",
       "if": [
         "flag:thornwold_far_shore=up",
@@ -2061,6 +2064,9 @@
       ],
       "rotation_y": -12,
       "model": "res://assets/models/characters/wenna_coll_lantern.glb",
+      "halo": {
+        "part": "ArmR"
+      },
       "idle": "breathe",
       "if": [
         "flag:thornwold_far_shore=up",
@@ -2077,6 +2083,9 @@
       ],
       "rotation_y": 95,
       "model": "res://assets/models/characters/wenna_coll_lantern.glb",
+      "halo": {
+        "part": "ArmR"
+      },
       "idle": "breathe",
       "if": [
         "flag:thornwold_far_shore=up",
@@ -2116,6 +2125,9 @@
       ],
       "rotation_y": 40,
       "model": "res://assets/models/characters/hob_lantern.glb",
+      "halo": {
+        "part": "ArmR"
+      },
       "idle": "breathe",
       "if": [
         "flag:thornwold_hob_came_in",

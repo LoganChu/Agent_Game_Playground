@@ -16,7 +16,8 @@
     "ambient_color": "#B4BAC0",
     "ambient_energy": 0.4,
     "sky_top": "slate",
-    "sky_horizon": "#B4BAC0"
+    "sky_horizon": "#B4BAC0",
+    "shadow": 0.3
   },
   "ambience": [
     {
@@ -265,7 +266,14 @@
           ]
         }
       ],
-      "note": "Lowsong's light (Day 75), cold since the Snuffing: a squat round tower of dark sea-worn stone on the rock's knoll, its door to the east and the landing, the Keeper's bothy against its back. An empty iron hook by the door for the Keeper's own small lamp, which he carries."
+      "smoke": [
+        [
+          1.0,
+          2.7,
+          -2.5
+        ]
+      ],
+      "note": "Lowsong's light (Day 75), cold since the Snuffing: a squat round tower of dark sea-worn stone on the rock's knoll, its door to the east and the landing, the Keeper's bothy against its back. An empty iron hook by the door for the Keeper's own small lamp, which he carries. Day 76: a thin thread of peat smoke from the bothy's stub chimney — he keeps a fire in, low."
     },
     {
       "model": "res://assets/models/dressing/kindleby_skiff.glb",
@@ -594,6 +602,92 @@
         5.4
       ],
       "rotation_y": 20
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_stack.glb",
+      "position": [
+        8.5,
+        -0.95,
+        -10.5
+      ],
+      "rotation_y": 15,
+      "scale": 1.0,
+      "snap": false,
+      "shadow": false,
+      "collider": [
+        2.0,
+        5.0,
+        2.0
+      ],
+      "note": "Sea stacks (Day 76) stood up out of the deeper water round the field, their feet in weed, gull-limed at the top: so the Low Water reads as a maze of rock from Lowsong's knoll."
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_stack.glb",
+      "position": [
+        -14.5,
+        -0.95,
+        9.8
+      ],
+      "rotation_y": -40,
+      "scale": 1.2,
+      "snap": false,
+      "shadow": false,
+      "collider": [
+        2.0,
+        5.0,
+        2.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_stack.glb",
+      "position": [
+        23.5,
+        -0.95,
+        -9.5
+      ],
+      "rotation_y": 70,
+      "scale": 0.85,
+      "snap": false,
+      "shadow": false,
+      "collider": [
+        2.0,
+        5.0,
+        2.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_stack.glb",
+      "position": [
+        -26.5,
+        -0.95,
+        -12.5
+      ],
+      "rotation_y": 120,
+      "scale": 1.1,
+      "snap": false,
+      "shadow": false,
+      "collider": [
+        2.0,
+        5.0,
+        2.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_stack.glb",
+      "position": [
+        0.5,
+        -0.95,
+        13.5
+      ],
+      "rotation_y": -100,
+      "scale": 0.9,
+      "snap": false,
+      "shadow": false,
+      "collider": [
+        2.0,
+        5.0,
+        2.0
+      ]
     }
   ],
   "npcs": [

@@ -940,6 +940,9 @@
       ],
       "rotation_y": 150,
       "model": "res://assets/models/characters/hob_lantern.glb",
+      "halo": {
+        "part": "ArmR"
+      },
       "if": [
         "flag:thornwold_hob_came_in",
         "flag:thornwold_hob_ladder=up"

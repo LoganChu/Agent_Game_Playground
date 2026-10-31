@@ -814,6 +814,9 @@
       ],
       "rotation_y": -105,
       "model": "res://assets/models/characters/wenna_coll_lantern.glb",
+      "halo": {
+        "part": "ArmR"
+      },
       "idle": "breathe",
       "if": [
         "flag:thornwold_far_shore=up",
