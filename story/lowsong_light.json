@@ -1,0 +1,21 @@
+{
+  "id": "lowsong_light",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Lowsong's light is cold: dull horn, a black cradle, salt run down the stone in pale streaks from the gallery. Against its back a turf-roofed bothy, a water butt at the corner. The iron hook by the door is empty."
+      },
+      {
+        "say": "narrator",
+        "text": "The step has gone green. Nobody has gone in and out much, these three months.",
+        "if": "!flag:lowsong_met_keeper"
+      },
+      {
+        "say": "narrator",
+        "text": "It wants a memory, like all of them. Out here the fog gives none up: it only sings.",
+        "if": "quest:a_light_for_lowsong=active"
+      }
+    ]
+  }
+}

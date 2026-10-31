@@ -180,6 +180,15 @@
             "goto": "taper"
           },
           {
+            "text": "Sister Hild would row me out to the Low Water, with your leave.",
+            "if": [
+              "flag:kindleby_hild_low_water",
+              "stage:the_low_water=the_skiff",
+              "!flag:kindleby_provost_low_water"
+            ],
+            "goto": "low_water"
+          },
+          {
             "text": "Who's in the Quiet House?",
             "goto": "quiet"
           },
@@ -694,6 +703,51 @@
         "quest_stage": [
           "what_the_ember_keeps",
           "a_novices_light"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "low_water": [
+      {
+        "say": "provost",
+        "text": "The Low Water."
+      },
+      {
+        "say": "narrator",
+        "text": "She is quiet long enough for a candle on the wall to gutter and be lit again."
+      },
+      {
+        "say": "provost",
+        "text": "Nobody goes out in the wet, Wakebearer. I said it the night of the Snuffing, and I've said it every morning since, and I've meant it every time."
+      },
+      {
+        "say": "provost",
+        "text": "I said it, and then I sent Hild north anyway, because you asked. I begin to think I only keep the rule so I've something to break for you.",
+        "if": "flag:kindleby_skiff_north"
+      },
+      {
+        "say": "provost",
+        "text": "Lowsong is Brother Iver Lusk's. Thirty-one winters alone on that rock. He'd row in at midsummer for his oil and argue the whole chapter round about the Long Book's commas, and row out again before Compline so nobody could answer him."
+      },
+      {
+        "say": "provost",
+        "text": "I wrote him in the Long Book three months ago, under the Snuffing, with the rest we've had no word of. I wrote him the way we write the drowned. Nobody went to see. I didn't send anybody to see."
+      },
+      {
+        "say": "provost",
+        "text": "It's a Keepers' light. And it's you asking."
+      },
+      {
+        "say": "provost",
+        "text": "Yes. Go. Tell Hild she's to bring you both back, and she's not to stop and listen.",
+        "set": {
+          "kindleby_provost_low_water": true
+        },
+        "quest_stage": [
+          "the_low_water",
+          "row_out"
         ]
       },
       {

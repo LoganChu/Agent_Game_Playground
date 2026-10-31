@@ -168,6 +168,11 @@
       5,
       0.5,
       9
+    ],
+    "from_skiff": [
+      -1.2,
+      0.5,
+      3.4
     ]
   },
   "ground": {
@@ -939,7 +944,10 @@
         3.4
       ],
       "note": "The chapter's skiff, drawn up on the shingle by the quay: the boat that used to take oil and meal to the Northing's stage once a month. Gone north to the Northing's stage while the chapter sat, if the Provost was told of the colliers (Day 64).",
-      "if": "!flag:kindleby_skiff_north"
+      "if": [
+        "!flag:kindleby_skiff_north",
+        "!flag:lowsong_out"
+      ]
     },
     {
       "model": "res://assets/models/dressing/kindleby_skiff.glb",
@@ -957,7 +965,8 @@
       "note": "The chapter's skiff back on the shingle from the Northing's stage (The Skiff North, Day 66).",
       "if": [
         "flag:kindleby_skiff_north",
-        "flag:thornwold_skiff=home|kindleby|empty"
+        "flag:thornwold_skiff=home|kindleby|empty",
+        "!flag:lowsong_out"
       ]
     },
     {
@@ -1096,7 +1105,8 @@
       "rotation_y": 255,
       "if": [
         "flag:kindleby_skiff_north",
-        "flag:thornwold_skiff=home|kindleby|empty"
+        "flag:thornwold_skiff=home|kindleby|empty",
+        "!flag:lowsong_out"
       ],
       "note": "Sister Hild on the shingle at the chapter's skiff, back from the Northing's stage, stooped at its bow with a scraper taking the weed off its strakes (Day 67: moved up out of the wet; Day 71: at work).",
       "model": "res://assets/models/characters/hild_scraping.glb",
@@ -1113,7 +1123,8 @@
       "if": [
         "!flag:kindleby_skiff_north",
         "!flag:kindleby_beacon_burned=",
-        "!flag:thornwold_skiff_landed"
+        "!flag:thornwold_skiff_landed",
+        "!flag:lowsong_out"
       ],
       "note": "Sister Hild at the chapter's skiff when it never went north (Day 72): once the Vigil Light is lit she is out on the shingle scraping it anyway, stooped at its bow where she works when it's back from the Northing.",
       "model": "res://assets/models/characters/hild_scraping.glb",

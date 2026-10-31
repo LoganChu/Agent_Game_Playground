@@ -112,6 +112,19 @@
       {"kind": "tone", "freq": 294, "harmonics": [1.0, 0.2], "vibrato": 4.8, "vibrato_depth": 0.014, "lowpass": 900, "length": 3.4, "attack": 2.2, "release": 1.2, "gain": 0.25},
       {"kind": "noise", "color": "pink", "lowpass": 600, "highpass": 120, "length": 4.5, "attack": 1.5, "release": 2.5, "gain": 0.15}
     ]},
+    "choir_near": {"bus": "Ambience", "kind": "mix", "length": 16, "loop": true, "gain": 0.35, "note": "The Hollow Choir close (Day 75, Lowsong): five held voices coming in and out of a slow D, never quite together, over a breath of noise.", "parts": [
+      {"kind": "melody", "tempo": 60, "legato": 0.95, "note_attack": 1.6, "note_release": 1.8, "harmonics": [1.0, 0.35, 0.15], "vibrato": 4.3, "vibrato_depth": 0.012, "lowpass": 900, "gain": 0.45, "seed": 1,
+        "notes": [["-", 1], ["D4", 5], ["-", 2], ["E4", 4], ["-", 4]]},
+      {"kind": "melody", "tempo": 60, "legato": 0.95, "note_attack": 1.6, "note_release": 1.8, "harmonics": [1.0, 0.35, 0.15], "vibrato": 5.1, "vibrato_depth": 0.012, "lowpass": 800, "gain": 0.4, "seed": 2,
+        "notes": [["A3", 4], ["-", 3], ["G3", 6], ["-", 3]]},
+      {"kind": "melody", "tempo": 60, "legato": 0.95, "note_attack": 1.6, "note_release": 1.8, "harmonics": [1.0, 0.35, 0.15], "vibrato": 3.8, "vibrato_depth": 0.012, "lowpass": 1000, "gain": 0.3, "seed": 3,
+        "notes": [["-", 5], ["F4", 3], ["E4", 3], ["-", 5]]},
+      {"kind": "melody", "tempo": 60, "legato": 0.95, "note_attack": 1.6, "note_release": 1.8, "harmonics": [1.0, 0.35, 0.15], "vibrato": 4.7, "vibrato_depth": 0.012, "lowpass": 600, "gain": 0.35, "seed": 4,
+        "notes": [["D3", 7], ["-", 1], ["C3", 6], ["-", 2]]},
+      {"kind": "melody", "tempo": 60, "legato": 0.95, "note_attack": 1.6, "note_release": 1.8, "harmonics": [1.0, 0.35, 0.15], "vibrato": 5.6, "vibrato_depth": 0.012, "lowpass": 1100, "gain": 0.18, "seed": 5,
+        "notes": [["-", 9], ["A4", 4], ["-", 3]]},
+      {"kind": "noise", "color": "pink", "lowpass": 700, "highpass": 150, "swell": 8, "swell_depth": 0.4, "gain": 0.12}
+    ]},
     "music_title": {"bus": "Music", "kind": "mix", "length": 18, "loop": true, "gain": 0.55, "parts": [
       {"kind": "melody", "tempo": 60, "harmonics": [1.0, 0.35, 0.12, 0.05], "note_attack": 0.09, "legato": 0.92, "note_release": 0.4, "vibrato": 4.8, "vibrato_depth": 0.006, "lowpass": 1800, "gain": 0.55,
         "notes": [["-", 1], ["A3", 1], ["D4", 1.5], ["E4", 0.5], ["F4", 2], ["E4", 1], ["D4", 1], ["C4", 1], ["A3", 3], ["-", 1], ["G3", 1], ["A3", 1], ["D4", 3]]},

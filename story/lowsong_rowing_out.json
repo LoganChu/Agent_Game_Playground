@@ -1,0 +1,40 @@
+{
+  "id": "lowsong_rowing_out",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Hild rows the way she talks: plainly, and without hurry. Kindleby's candles go small astern, a row of sparks along the wall, then a smudge, then gone."
+      },
+      {
+        "say": "hild",
+        "text": "Ring's north of us now. You'll not see it again till we're back. Keep your eyes on the ember and your ears to yourself."
+      },
+      {
+        "say": "narrator",
+        "text": "Then the singing. Not ahead of you: around you. Voices, a great many, near enough to be in the boat with you, none of them saying anything you can catch.",
+        "sound": "choir_far"
+      },
+      {
+        "say": "hild",
+        "text": "...That's it. Evening office, and the door shut. Louder than I remember. Louder."
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't stop rowing. Black rocks go by close enough to touch, streaming, and she threads them without looking round. Ahead, on the biggest of them, a squat dark tower; and under it one small light, a lamp held out low by someone standing very still."
+      },
+      {
+        "say": "hild",
+        "text": "He's alive, then. Iver Lusk. ...He'll have been listening to that for three months."
+      },
+      {
+        "say": "hild",
+        "text": "I'll bide with the boat. Go on up. Mind the cairns: the old brothers stood one wherever the bottom will bear you, and nowhere else.",
+        "quest_stage": [
+          "the_low_water",
+          "lowsong"
+        ]
+      }
+    ]
+  }
+}

@@ -3,6 +3,18 @@
   "knots": {
     "start": [
       {
+        "if": "flag:lowsong_out",
+        "goto": "lowsong"
+      },
+      {
+        "if": "stage:the_low_water=row_out",
+        "goto": "clean"
+      },
+      {
+        "if": "flag:lowsong_landed",
+        "goto": "again"
+      },
+      {
         "if": "!flag:kindleby_skiff_north",
         "goto": "never"
       },
@@ -294,7 +306,114 @@
         "text": "Not yet. Another day at her, maybe two. You'll know when: I'll be sat on the kerb with my hands in my lap, looking at nothing, like I've done something."
       },
       {
+        "say": "hild",
+        "text": "And you've not been up the steps to the Provost. I'll not row out there without her leave, Wakebearer. Not there.",
+        "if": "!flag:kindleby_provost_low_water"
+      },
+      {
         "goto": "back_to_it"
+      }
+    ],
+    "clean": [
+      {
+        "say": "narrator",
+        "text": "Hild is sitting on the shingle by the skiff with her hands in her lap, looking at nothing. The skiff lies right way up behind her, her bottom black and clean as a boot."
+      },
+      {
+        "say": "hild",
+        "text": "She's clean. Every strake."
+      },
+      {
+        "say": "hild",
+        "text": "And the Provost's said yes. She sent a novice running down to tell me before you were off the steps. I'm to bring you both back, and I'm not to stop and listen."
+      },
+      {
+        "say": "hild",
+        "text": "I'll not. Probably."
+      },
+      {
+        "goto": "row_choice"
+      }
+    ],
+    "row_choice": [
+      {
+        "choice": [
+          {
+            "text": "Row me out to Lowsong.",
+            "set": {
+              "lowsong_out": true
+            },
+            "goto": "row_out"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "row_out": [
+      {
+        "say": "hild",
+        "text": "Shove her off with me, then. Mind your feet on the weed. What's left of it.",
+        "travel": [
+          "lowsong",
+          "from_skiff"
+        ]
+      }
+    ],
+    "again": [
+      {
+        "say": "narrator",
+        "text": "Hild is at the skiff again, though there's nothing left on her bottom to scrape. She straightens when she sees you."
+      },
+      {
+        "say": "hild",
+        "text": "Back out? She's ready when you are. She's always ready. It's me that has to think about it."
+      },
+      {
+        "goto": "row_choice"
+      }
+    ],
+    "lowsong": [
+      {
+        "say": "narrator",
+        "text": "Hild stands on the landing by the drawn-up skiff, an oar stood beside her, looking out the way the singing is."
+      },
+      {
+        "say": "hild",
+        "text": "I said I'd not stop and listen. I'm not stopping. I'm stood still, which is different.",
+        "if": "!flag:lowsong_met_keeper"
+      },
+      {
+        "say": "hild",
+        "text": "Is he all there, Iver? ...You needn't say. I saw his hem from here.",
+        "if": "flag:lowsong_met_keeper"
+      },
+      {
+        "choice": [
+          {
+            "text": "Take me back to Kindleby.",
+            "set": {
+              "lowsong_out": false
+            },
+            "goto": "row_back"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "row_back": [
+      {
+        "say": "hild",
+        "text": "Good. In you get. Eyes on the ember, ears to yourself.",
+        "travel": [
+          "kindleby",
+          "from_skiff"
+        ]
       }
     ]
   }

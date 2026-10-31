@@ -1,0 +1,14 @@
+{
+  "id": "a_light_for_lowsong",
+  "title": "A Light for Lowsong",
+  "giver": "iver",
+  "region": "lowsong",
+  "future": true,
+  "description": "The sixth light of the ring, on Lowsong rock in the Low Water, has been cold since the Snuffing. Its Keeper is alive. The fog out there sings.",
+  "stages": [
+    {
+      "id": "the_singing",
+      "text": "Lowsong's light wants a memory, like every beacon. But Brother Iver Lusk says the fog on the Low Water leaves nothing lying for anyone to find: three months and not a pebble, not a button. It only sings. He keeps one small lamp and sits out on the rock listening for the one voice he can nearly make out."
+    }
+  ]
+}

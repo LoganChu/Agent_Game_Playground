@@ -802,13 +802,33 @@
       "default": false
     },
     "kindleby_hild_low_water": {
-      "description": "Sister Hild will row the Wakebearer out to the Low Water in the chapter's skiff once its bottom is scraped clean (Day 72). The rowing out and Lowsong itself are the next content (future).",
-      "default": false,
-      "future": true
+      "description": "Sister Hild will row the Wakebearer out to the Low Water in the chapter's skiff once its bottom is scraped clean (Day 72); she rows them once the Provost gives leave (Day 75).",
+      "default": false
     },
     "saltmarrow_aldous_saw_taper": {
       "description": "Brother Aldous saw the Stair-Taper (Day 69): one of his, cut in the warden's niche at the foot of the east stair, a notch to a landing. If he confessed in full, he tells that the light that went down the stair past him the night of the Snuffing went down counting landings.",
       "default": false
+    },
+    "kindleby_provost_low_water": {
+      "description": "The Provost gave leave for Hild to row the Wakebearer out to the Low Water (Day 75): nobody goes out in the wet, and then yes — it's a Keepers' light, and it's the Wakebearer asking. She wrote Lowsong's Keeper, Brother Iver Lusk, in the Long Book with the drowned.",
+      "default": false
+    },
+    "lowsong_out": {
+      "description": "Kindleby's skiff is out at Lowsong with Hild and the Wakebearer (Day 75): set as Hild rows out, cleared as she rows back. Hild and the skiff are on Lowsong's landing while it holds, and off Kindleby's shingle.",
+      "default": false
+    },
+    "lowsong_landed": {
+      "description": "The Wakebearer has been rowed out to Lowsong once (Day 75, the arrival event lowsong_rowing_out: past Kindleby's candles into the singing).",
+      "default": false
+    },
+    "lowsong_met_keeper": {
+      "description": "The Wakebearer met Brother Iver Lusk, Keeper of Lowsong, alive on his rock with one small lamp lit and the light cold (Day 75). Completes The Low Water and opens A Light for Lowsong.",
+      "default": false
+    },
+    "lowsong_keeper_saw_taper": {
+      "description": "Brother Iver saw the Stair-Taper (Day 75): a stair-taper, burned past the third notch — and the nearest voice in the Choir went quiet while it was out. (Mystery #2/#4 foreshadow; future.)",
+      "default": false,
+      "future": true
     }
   }
 }

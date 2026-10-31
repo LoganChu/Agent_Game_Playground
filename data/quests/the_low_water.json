@@ -3,7 +3,6 @@
   "title": "The Low Water",
   "giver": "oda",
   "region": "kindleby",
-  "future": true,
   "description": "The chart's ring of lights is open in the south, between Kindleby and the Gull: the Low Water, shallow and full of skerries, with a Keepers' light on the biggest rock. The Tidewrights go round it. Out there the fog sings.",
   "stages": [
     {
@@ -12,7 +11,15 @@
     },
     {
       "id": "the_skiff",
-      "text": "Sister Hild Garrow will row you out to the Low Water in the chapter's skiff, once she has the weed off its bottom: she won't take a foul hull over shallows she can't see. The light out there is on Lowsong rock, and nobody has had word from its Keeper since the Snuffing."
+      "text": "Sister Hild Garrow will row you out to the Low Water in the chapter's skiff, once she has the weed off its bottom: she won't take a foul hull over shallows she can't see. Nor will she row without the Provost's leave, and the Provost says nobody goes out in the wet. The light out there is on Lowsong rock, and nobody has had word from its Keeper since the Snuffing."
+    },
+    {
+      "id": "row_out",
+      "text": "The Provost has said yes: it's a Keepers' light, and it's you asking. She wrote its Keeper, Brother Iver Lusk, in the Long Book three months ago with the drowned. Hild has been at the skiff's bottom all the while. Find her on the shingle."
+    },
+    {
+      "id": "lowsong",
+      "text": "Hild has rowed you out through the singing to Lowsong. The light on the rock is dark, but somebody is standing below it with a small lamp. Wade out to the rock, cairn to cairn."
     }
   ]
 }

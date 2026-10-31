@@ -1,0 +1,37 @@
+{
+  "id": "lowsong_row_back",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Kindleby's skiff lies drawn up on the shingle, Hild's oars across the thwarts and her lantern lit in the bow."
+      },
+      {
+        "choice": [
+          {
+            "text": "Ask Hild to row you back to Kindleby.",
+            "if": "flag:lowsong_out",
+            "set": {
+              "lowsong_out": false
+            },
+            "goto": "back"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "back": [
+      {
+        "say": "hild",
+        "text": "Good. In you get. Eyes on the ember, ears to yourself.",
+        "travel": [
+          "kindleby",
+          "from_skiff"
+        ]
+      }
+    ]
+  }
+}

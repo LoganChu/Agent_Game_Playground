@@ -677,6 +677,26 @@
         "stair_taper": 1
       },
       "shot": "--journal=satchel"
+    },
+    {
+      "id": "lowsong",
+      "act": "Act II — The Drift",
+      "title": "The Low Water",
+      "inherits": "the_stair_taper",
+      "region": "lowsong",
+      "spawn": "from_skiff",
+      "description": "Oda told of the ring's southern gap; the Provost said nobody goes out in the wet, and then yes; Hild rowed the Wakebearer out from Kindleby into the singing fog of the Low Water to Lowsong's landing. The light on the rock is cold, and its Keeper is standing under it with a small lamp.",
+      "flags": {
+        "kindleby_oda_low_water_asked": true,
+        "kindleby_hild_low_water": true,
+        "kindleby_provost_low_water": true,
+        "lowsong_out": true,
+        "lowsong_landed": true
+      },
+      "quests": {
+        "the_low_water": "lowsong"
+      },
+      "shot": "--camera=24,5.5,11:-12,1,-2"
     }
   ]
 }

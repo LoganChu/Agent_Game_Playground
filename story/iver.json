@@ -1,0 +1,204 @@
+{
+  "id": "iver",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:lowsong_met_keeper",
+        "goto": "first"
+      },
+      {
+        "say": "iver",
+        "text": "Still here. Still listening. Don't mind me."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "An old Keeper stands on the rock below the dark light with a small lamp held out low in one hand, his head turned to the water. He doesn't turn it when you come up. The hem of his robe has gone the silver of the Hushed, knee-deep."
+      },
+      {
+        "say": "iver",
+        "text": "Hush a moment. ...There. Did you hear her? No. Nobody does, the first time."
+      },
+      {
+        "say": "iver",
+        "text": "You've a light in your hand that isn't a candle, and Hild Garrow's skiff on my landing. Then I've not gone the way of the others yet. I did wonder."
+      },
+      {
+        "say": "iver",
+        "text": "Iver Lusk. Keeper of Lowsong, thirty-one winters. Not much of a keeper these three months. You'll have noticed the light.",
+        "set": {
+          "lowsong_met_keeper": true
+        },
+        "quest_complete": "the_low_water"
+      },
+      {
+        "quest_start": "a_light_for_lowsong"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "The Provost wrote you in the Long Book, with the drowned.",
+            "if": "flag:kindleby_provost_low_water",
+            "goto": "book"
+          },
+          {
+            "text": "Who is singing?",
+            "goto": "choir"
+          },
+          {
+            "text": "Why is the light cold?",
+            "goto": "light"
+          },
+          {
+            "text": "The chapter sat while Kindleby was lit. I held the ring for them.",
+            "if": "flag:kindleby_ring_held",
+            "goto": "ring"
+          },
+          {
+            "text": "Aldous Wren wrote to the Provost.",
+            "if": "flag:kindleby_provost_read_letter",
+            "goto": "aldous"
+          },
+          {
+            "text": "This came out of the Vigil Light's smoke, into my hand.",
+            "if": [
+              "item:stair_taper",
+              "!flag:lowsong_keeper_saw_taper"
+            ],
+            "set": {
+              "lowsong_keeper_saw_taper": true
+            },
+            "goto": "taper"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "book": [
+      {
+        "say": "narrator",
+        "text": "He laughs: one breath, through the nose."
+      },
+      {
+        "say": "iver",
+        "text": "With the drowned. Agathe would. She writes a tidy hand, and she'd sooner have a man tidy in the Book than untidy on a rock."
+      },
+      {
+        "say": "iver",
+        "text": "Nobody came to see because nobody goes out in the wet. I know. I'd have said the same. I'd have written her in it too, and spelled her right."
+      },
+      {
+        "say": "iver",
+        "text": "I had a boat. I lost her the second week. Not on purpose: I was sitting out here listening, and the painter worked loose, and I watched her go out into the singing and never once thought to wade after her."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "choir": [
+      {
+        "say": "iver",
+        "text": "The Hollow Choir, the pilots say, and they think it's the drowned. It isn't. The drowned don't sing. I've buried enough of them off this rock to know."
+      },
+      {
+        "say": "iver",
+        "text": "It's people. A great many people, all trying to remember the one thing at once, and none of them can get to the end of it."
+      },
+      {
+        "say": "iver",
+        "text": "Most of them I can't pick apart. There's one I can. Nearer than the rest. A woman, I think. She's been at it longer than the others, and she's tired. Some nights she nearly gets a word out."
+      },
+      {
+        "say": "iver",
+        "text": "So I sit out here to catch it when she does. That's what's become of my light, if you want it plain. I've been listening instead."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "light": [
+      {
+        "say": "iver",
+        "text": "Cold since the Snuffing, the same as every one of them. She was lit from the Spire every midwinter, and there's no Spire to light her now."
+      },
+      {
+        "say": "iver",
+        "text": "I know what she wants. The old ones told us that much in the novitiate: a beacon takes a memory. Something the fog's made solid, to burn."
+      },
+      {
+        "say": "iver",
+        "text": "But the fog out here leaves nothing lying. Three months, and not a pebble, not a button, not a scrap of anything on these rocks. On the islands, I'm told, it leaves things on the shingle. Here it only sings. Whatever it carries, it keeps."
+      },
+      {
+        "say": "iver",
+        "text": "So I keep the little lamp. And I listen."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ring": [
+      {
+        "say": "narrator",
+        "text": "He looks at the ember a long while, the way he's been looking at the water."
+      },
+      {
+        "say": "iver",
+        "text": "Held it. Kindleby's ring, with that, while the chapter sat on its hands."
+      },
+      {
+        "say": "iver",
+        "text": "They'll have written it down: that the ring was held by somebody not under the rule. Agathe will have written it very small. And one day the chapter will weigh it. They weigh everything, in the end. It's what they're for."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "aldous": [
+      {
+        "say": "iver",
+        "text": "Aldous Wren. Alive? ...He cut the tapers for the east stair. Couldn't keep a candle lit in a flat calm nor a vow in a dry month, and the best hand with a knife the Spire ever had."
+      },
+      {
+        "say": "iver",
+        "text": "And he wrote to Agathe, after all of it. Then he's put something down he'd sooner have carried. That's Aldous. He never could carry a thing quietly."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "taper": [
+      {
+        "say": "narrator",
+        "text": "He holds his lamp to it. For the first time since you came up the rock, he isn't listening to the water."
+      },
+      {
+        "say": "iver",
+        "text": "A stair-taper. Burned past the third notch. ...You'd want to keep that out of the chapter's sight. They'd weigh it."
+      },
+      {
+        "say": "iver",
+        "text": "Put it away now. Not for them. Because she went quiet when you took it out."
+      },
+      {
+        "say": "narrator",
+        "text": "The singing hasn't stopped. But somewhere in it, nearer than the rest, one voice has."
+      },
+      {
+        "goto": "hub"
+      }
+    ]
+  }
+}

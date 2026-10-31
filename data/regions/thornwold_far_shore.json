@@ -692,7 +692,8 @@
       "rotation_y": 160,
       "if": [
         "flag:thornwold_skiff_landed",
-        "flag:thornwold_skiff="
+        "flag:thornwold_skiff=",
+        "!flag:lowsong_out"
       ],
       "note": "Sister Hild Garrow, on the stage's kerb by the skiff, waiting on Wenna's word."
     }

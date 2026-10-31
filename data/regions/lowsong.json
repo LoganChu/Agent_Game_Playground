@@ -1,0 +1,666 @@
+{
+  "id": "lowsong",
+  "name": "Lowsong",
+  "description": "The Low Water, the ring's southern gap: a scatter of black skerries in shallow grey water and fog, a landing of shingle on the east, a way to wade from cairn to cairn, and on the biggest rock a squat dark Keepers' light. The fog here sings.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.055,
+    "color": "#B4BAC0"
+  },
+  "light": {
+    "note": "Fog lit from nowhere: no shadows to speak of, the water and the skerries the same grey, the Keeper's lamp the only warm thing.",
+    "sun_color": "#C3C8CC",
+    "sun_energy": 0.45,
+    "sun_pitch": -30,
+    "sun_yaw": 140,
+    "ambient_color": "#B4BAC0",
+    "ambient_energy": 0.4,
+    "sky_top": "slate",
+    "sky_horizon": "#B4BAC0"
+  },
+  "ambience": [
+    {
+      "sound": "choir_near",
+      "volume": 0.9
+    },
+    {
+      "sound": "surf_far",
+      "volume": 0.5
+    },
+    {
+      "sound": "wind_low",
+      "volume": 0.4
+    }
+  ],
+  "footsteps": "shingle",
+  "footsteps_raised": "stone",
+  "water": {
+    "swell": 0.25,
+    "wash": 0.4,
+    "foam": 0.9,
+    "note": "Low, slack water among the skerries: hardly a swell, foam where it lips over the rock."
+  },
+  "greying": [
+    {
+      "rect": [
+        -28,
+        -20,
+        28,
+        20
+      ],
+      "strength": 0.45,
+      "falloff": 3.0,
+      "height": 2.6,
+      "note": "The Low Water's fog, over everything: you hear the Choir in it."
+    },
+    {
+      "ellipse": [
+        -15.0,
+        -2.4,
+        5.5,
+        4.5
+      ],
+      "strength": 1.0,
+      "falloff": 2.0,
+      "clear": true,
+      "note": "Round the light and the Keeper's lamp: he's kept one small flame, and the fog stands back from it a little."
+    },
+    {
+      "ellipse": [
+        18.5,
+        3.5,
+        3.5,
+        2.6
+      ],
+      "strength": 1.0,
+      "falloff": 2.0,
+      "clear": true,
+      "note": "The landing, where Hild sits with the skiff's lantern lit."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      17.4,
+      0.5,
+      2.8
+    ],
+    "from_skiff": [
+      17.4,
+      0.5,
+      2.8
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -30,
+      -22,
+      30,
+      22
+    ],
+    "cell": 1.0,
+    "base": -1.6,
+    "seed": 75,
+    "roughness": 0.05,
+    "ragged": 1.0,
+    "ragged_scale": 3.0,
+    "wade_depth": 0.4,
+    "note": "The Low Water: the landing skerry (east), a wading way in two legs by a middle skerry, Lowsong rock (west) with the light's knoll; shallow water all round going deep at the edges.",
+    "land": [
+      {
+        "ellipse": [
+          18.5,
+          3.5,
+          4.5,
+          3.2
+        ],
+        "height": 0.25,
+        "falloff": 1.5,
+        "note": "the landing skerry"
+      },
+      {
+        "path": [
+          [
+            15.5,
+            2.6,
+            -0.5
+          ],
+          [
+            10.5,
+            0.8,
+            -0.5
+          ],
+          [
+            5.0,
+            1.0,
+            -0.5
+          ]
+        ],
+        "width": 2.8,
+        "falloff": 1.0,
+        "ragged": 0.3,
+        "note": "the wading way, first leg"
+      },
+      {
+        "ellipse": [
+          2.0,
+          0.6,
+          3.4,
+          2.4
+        ],
+        "height": 0.3,
+        "falloff": 1.2,
+        "ragged": 0.4,
+        "note": "the middle skerry"
+      },
+      {
+        "path": [
+          [
+            -0.5,
+            0.0,
+            -0.5
+          ],
+          [
+            -5.0,
+            -0.8,
+            -0.5
+          ],
+          [
+            -9.0,
+            -1.5,
+            -0.45
+          ],
+          [
+            -12.5,
+            -2.3,
+            0.5
+          ]
+        ],
+        "width": 2.8,
+        "falloff": 1.0,
+        "ragged": 0.3,
+        "note": "the wading way, second leg"
+      },
+      {
+        "ellipse": [
+          -15.0,
+          -2.4,
+          5.5,
+          4.2
+        ],
+        "height": 0.55,
+        "falloff": 3.5,
+        "ragged": 0.5,
+        "note": "Lowsong rock"
+      },
+      {
+        "ellipse": [
+          -16.5,
+          -3.2,
+          3.6,
+          3.2
+        ],
+        "height": 1.3,
+        "falloff": 2.5,
+        "ragged": 0.2,
+        "note": "the knoll under the light"
+      }
+    ],
+    "colors": {
+      "ground": "#4C524E",
+      "shore": "#6E6C64",
+      "shore_height": 0.25,
+      "seabed": "#343C3E",
+      "cliff": "#3A3E40"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            -10.0,
+            -1.7,
+            0
+          ],
+          [
+            -13.2,
+            -2.6,
+            0
+          ],
+          [
+            -14.6,
+            -3.2,
+            0
+          ]
+        ],
+        "width": 1.1,
+        "color": "#5E605A",
+        "note": "the Keeper's path up the rock to the door"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/lowsong_light.glb",
+      "position": [
+        -16.5,
+        0,
+        -3.2
+      ],
+      "rotation_y": 90,
+      "collider": [
+        3.2,
+        6.4,
+        3.2
+      ],
+      "colliders": [
+        {
+          "size": [
+            1.9,
+            2.2,
+            3.1
+          ],
+          "offset": [
+            0,
+            0,
+            -2.05
+          ]
+        }
+      ],
+      "note": "Lowsong's light (Day 75), cold since the Snuffing: a squat round tower of dark sea-worn stone on the rock's knoll, its door to the east and the landing, the Keeper's bothy against its back. An empty iron hook by the door for the Keeper's own small lamp, which he carries."
+    },
+    {
+      "model": "res://assets/models/dressing/kindleby_skiff.glb",
+      "position": [
+        20.2,
+        0,
+        5.0
+      ],
+      "rotation_y": 120,
+      "collider": [
+        1.2,
+        0.9,
+        3.4
+      ],
+      "note": "Kindleby's skiff drawn up on the landing skerry's shingle, Hild's oars across the thwarts."
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_cairn.glb",
+      "position": [
+        13.2,
+        0,
+        1.6
+      ],
+      "rotation_y": 10,
+      "collider": [
+        0.8,
+        1.2,
+        0.8
+      ],
+      "note": "The old brothers' cairns, a pale stone on each: where the shallows will bear you, from the landing to the rock."
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_cairn.glb",
+      "position": [
+        7.0,
+        0,
+        0.4
+      ],
+      "rotation_y": -20,
+      "collider": [
+        0.8,
+        1.2,
+        0.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_cairn.glb",
+      "position": [
+        -2.6,
+        0,
+        -0.2
+      ],
+      "rotation_y": 35,
+      "collider": [
+        0.8,
+        1.2,
+        0.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_cairn.glb",
+      "position": [
+        -8.2,
+        0,
+        -1.2
+      ],
+      "rotation_y": -5,
+      "collider": [
+        0.8,
+        1.2,
+        0.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        14,
+        -0.55,
+        -4.5
+      ],
+      "rotation_y": 30,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ],
+      "note": "Skerries that bear nobody: black slabs just awash all through the Low Water."
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        9,
+        -0.55,
+        6
+      ],
+      "rotation_y": -40,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        3,
+        -0.55,
+        -6
+      ],
+      "rotation_y": 10,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -4,
+        -0.55,
+        6
+      ],
+      "rotation_y": 70,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -6,
+        -0.55,
+        -6.5
+      ],
+      "rotation_y": -20,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        22,
+        -0.55,
+        -3
+      ],
+      "rotation_y": 45,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -24,
+        -0.55,
+        5
+      ],
+      "rotation_y": -60,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        10,
+        -0.55,
+        -9
+      ],
+      "rotation_y": 100,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -2,
+        -0.55,
+        10
+      ],
+      "rotation_y": 15,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        16,
+        -0.55,
+        9
+      ],
+      "rotation_y": -10,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -22,
+        -0.55,
+        -10
+      ],
+      "rotation_y": 20,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/teeth_rock.glb",
+      "position": [
+        -10,
+        -0.55,
+        9
+      ],
+      "rotation_y": 120,
+      "snap": false,
+      "wading": [
+        [
+          0,
+          0,
+          1.05
+        ]
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -20.5,
+        0,
+        1.5
+      ],
+      "rotation_y": 40,
+      "collider": [
+        2.4,
+        1.2,
+        1.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -11,
+        0,
+        -7.5
+      ],
+      "rotation_y": -60,
+      "collider": [
+        2.4,
+        1.2,
+        1.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -21,
+        0,
+        -6.5
+      ],
+      "rotation_y": 10,
+      "collider": [
+        2.4,
+        1.2,
+        1.8
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/driftwood_log.glb",
+      "position": [
+        16.6,
+        0,
+        5.4
+      ],
+      "rotation_y": 20
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "iver",
+      "position": [
+        -13.0,
+        0,
+        -1.9
+      ],
+      "rotation_y": 100,
+      "note": "Brother Iver Lusk on the rock below his light's door, his lamp held out low, his head turned to the water."
+    },
+    {
+      "npc": "hild",
+      "position": [
+        18.6,
+        0,
+        4.4
+      ],
+      "rotation_y": 280,
+      "if": "flag:lowsong_out",
+      "note": "Sister Hild on the landing by the drawn-up skiff, an oar stood beside her, looking out where the singing is."
+    }
+  ],
+  "objects": [
+    {
+      "id": "lowsong_door",
+      "prompt": "Look at the light",
+      "dialogue": "lowsong_light",
+      "position": [
+        -14.4,
+        0,
+        -3.2
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        1.5,
+        0
+      ]
+    },
+    {
+      "id": "lowsong_skiff",
+      "prompt": "Row back to Kindleby",
+      "dialogue": "lowsong_row_back",
+      "position": [
+        19.6,
+        0,
+        5.4
+      ],
+      "reach": 2.0,
+      "glint": false
+    }
+  ],
+  "events": [
+    {
+      "id": "lowsong_rowing_out",
+      "if": [
+        "flag:lowsong_out",
+        "!flag:lowsong_landed"
+      ],
+      "set": {
+        "lowsong_landed": true
+      },
+      "dialogue": "lowsong_rowing_out",
+      "note": "The first rowing out from Kindleby: past the candles into the singing."
+    }
+  ]
+}
