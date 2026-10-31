@@ -148,7 +148,7 @@ func test_rowing_out_into_the_singing() -> void:
 	for step: Dictionary in _content().dialogues["lowsong_rowing_out"]["knots"]["start"]:
 		if step.has("sound"):
 			sounds.append(str(step["sound"]))
-	assert_eq(sounds, ["choir_far"], "the singing heard as it closes round the boat")
+	assert_eq(sounds, ["oars", "choir_far"], "the oars, then the singing heard as it closes round the boat")
 	state.set_flag("lowsong_landed", true)
 	assert_false(Conditions.evaluate(event["if"], state), "once")
 
