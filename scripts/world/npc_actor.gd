@@ -7,6 +7,9 @@ extends Interactable
 ## her net), and turns back to its placed facing when the dialogue closes. A working idle
 ## ("scrape") puts the work down while talking, and the name over the head is hidden then.
 ## A working idle with a sound in data/audio.json `work` is heard from the NPC on every stroke.
+## An NPC carrying a lit lantern can say `"halo": {"part": "ArmR"}` (optional `size`,
+## `strength`): a LanternHalo hangs on that part's glowing surface and moves with the arm, so
+## the lantern reads through the fog (Brother Iver's lamp on Lowsong).
 
 ## How quickly the NPC turns towards the player and back (1/s, exponential ease).
 const TURN_SPEED := 6.0
@@ -141,6 +144,36 @@ func _on_work_stroke() -> void:
 		_work_player.play()
 
 
+## Hangs a halo on the glowing (emissive) surface of the model part `halo.part`; false when the
+## part or a glowing surface on it isn't there.
+static func add_lantern_halo(model: Node, halo: Dictionary) -> bool:
+	var part := model.find_child(str(halo.get("part", "ArmR")), true, false) as MeshInstance3D
+	if part == null or part.mesh == null:
+		return false
+	var at: Variant = glow_centre(part.mesh)
+	if at == null:
+		return false
+	part.add_child(LanternHalo.build(at, float(halo.get("size", LanternHalo.SIZE)),
+		float(halo.get("strength", LanternHalo.STRENGTH))))
+	return true
+
+
+## The centre of a mesh's first emissive surface (a lantern's lit horn), or null.
+static func glow_centre(mesh: Mesh) -> Variant:
+	for i in mesh.get_surface_count():
+		var material := mesh.surface_get_material(i) as BaseMaterial3D
+		if material == null or not material.emission_enabled:
+			continue
+		var points: PackedVector3Array = mesh.surface_get_arrays(i)[Mesh.ARRAY_VERTEX]
+		if points.is_empty():
+			continue
+		var box := AABB(points[0], Vector3.ZERO)
+		for point in points:
+			box = box.expand(point)
+		return box.get_center()
+	return null
+
+
 func _exit_tree() -> void:
 	if _work_player:
 		_work_player.stop()
@@ -165,6 +198,8 @@ func _build_body() -> void:
 		_rig = model.get_node_or_null("CharacterRig") as CharacterRig
 		if _rig:
 			_add_work_sound(body)
+		if npc_data.get("halo") is Dictionary:
+			add_lantern_halo(model, npc_data["halo"])
 	else:
 		body.add_child(PropFactory.mesh_instance(PropFactory.cylinder(0.25, 0.42, 1.0, 6), tint, Vector3(0, 0.5, 0)))
 		var head := SphereMesh.new()

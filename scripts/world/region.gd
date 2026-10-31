@@ -231,11 +231,11 @@ func _build(kind: String, entry: Dictionary) -> Node3D:
 	return null
 
 
-## An NPC's data as placed by `entry`: a placement's own `model` and `idle` (a pose for that
-## spot, e.g. Hob seated on the camp bench) override the NPC's.
+## An NPC's data as placed by `entry`: a placement's own `model`, `idle` and `halo` (a pose for
+## that spot, e.g. Hob seated on the camp bench or holding the Lamp's lantern) override the NPC's.
 static func placed_npc_data(npc: Dictionary, entry: Dictionary) -> Dictionary:
 	var data := npc.duplicate()
-	for key: String in ["model", "idle"]:
+	for key: String in ["model", "idle", "halo"]:
 		if entry.has(key):
 			data[key] = entry[key]
 	return data
@@ -314,6 +314,10 @@ func _build_prop(prop: Dictionary) -> Node3D:
 				node.add_child(SoundEmitter.build(prop["sound"]))
 			if prop.get("over_water", false) == true:
 				draw_over_water(node)
+			if prop.get("shadow", true) == false:
+				# Casts no shadow (Lowsong's stacks: the fog lights everything from nowhere).
+				for mesh in node.find_children("*", "GeometryInstance3D", true, false):
+					(mesh as GeometryInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			if prop.get("float") is Dictionary:
 				node = FloatingProp.wrap(node, prop["float"], float(prop.get("scale", 1.0)))
 	if node == null:

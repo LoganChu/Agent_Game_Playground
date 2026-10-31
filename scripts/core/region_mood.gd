@@ -29,7 +29,8 @@ static func fog(region_data: Dictionary, state: WorldState) -> Dictionary:
 
 ## Keys a region's `light` block (and its overrides) may set, with defaults: a soft kindle
 ## sun from the south-west, cool silverfog ambient, a tide-blue sky fading into the fog.
-## Colours are palette names or #hex; `sun_pitch`/`sun_yaw` are degrees.
+## Colours are palette names or #hex; `sun_pitch`/`sun_yaw` are degrees; `shadow` is the sun's
+## shadow opacity 0..1 (Day 76: Lowsong's fog lights everything from nowhere, so its shadows are faint).
 const LIGHT_DEFAULTS := {
 	"sun_color": "kindle",
 	"sun_energy": 1.1,
@@ -39,6 +40,7 @@ const LIGHT_DEFAULTS := {
 	"ambient_energy": 0.3,
 	"sky_top": "tide",
 	"sky_horizon": "silverfog",
+	"shadow": 1.0,
 }
 const LIGHT_COLOR_KEYS := ["sun_color", "ambient_color", "sky_top", "sky_horizon"]
 

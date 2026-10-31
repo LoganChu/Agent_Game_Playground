@@ -357,6 +357,23 @@ func _check_prop_smoke(where: String, prop: Dictionary, model: String) -> void:
 			_err(where, "prop smoke vent must be [x, y, z]")
 
 
+## An NPC's (or placement's) `halo`: {"part": one of the rig parts, optional `size` > 0 and
+## `strength` 0..2} — a glow on that part's lit lantern.
+func _check_npc_halo(where: String, data: Dictionary) -> void:
+	if not data.has("halo"):
+		return
+	if not data["halo"] is Dictionary:
+		_err(where, "halo must be {\"part\": ..., \"size\": ..., \"strength\": ...}")
+		return
+	var halo: Dictionary = data["halo"]
+	if str(halo.get("part", "")) not in CharacterRig.PARTS:
+		_err(where, "halo part must be one of %s" % [CharacterRig.PARTS])
+	if halo.has("size") and not ((halo["size"] is float or halo["size"] is int) and float(halo["size"]) > 0.0):
+		_err(where, "halo size must be a number > 0")
+	if halo.has("strength") and not ((halo["strength"] is float or halo["strength"] is int) and float(halo["strength"]) >= 0.0 and float(halo["strength"]) <= 2.0):
+		_err(where, "halo strength must be 0..2")
+
+
 ## `halo` (model props only): [x, y, z] in model space where a soft lantern glow hangs, with an
 ## optional `halo_size` (metres, > 0), `halo_strength` and `halo_bloom` (0..2).
 func _check_prop_halo(where: String, prop: Dictionary, model: String) -> void:
@@ -580,6 +597,7 @@ func _validate_npc(id: String, npc: Dictionary) -> void:
 		_err(where, "faces_player must be true or false")
 	if npc.has("idle") and str(npc["idle"]) not in CharacterRig.STYLES:
 		_err(where, "idle must be one of %s" % [CharacterRig.STYLES])
+	_check_npc_halo(where, npc)
 	if npc.has("names"):
 		if not npc["names"] is Array:
 			_err(where, "names must be a list of {if, name}")
@@ -639,6 +657,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 			_ref_character_model(where, str(placement["model"]))
 		if placement.has("idle") and str(placement["idle"]) not in CharacterRig.STYLES:
 			_err(where, "npc '%s' placement idle must be one of %s" % [npc_id, CharacterRig.STYLES])
+		_check_npc_halo("%s npc '%s'" % [where, npc_id], placement)
 		if not db.npcs.has(npc_id):
 			_err(where, "places unknown npc '%s'" % npc_id)
 		else:
@@ -662,6 +681,8 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_check_prop_float(where, prop, model)
 		_check_prop_wading(where, prop, model)
 		_check_prop_over_water(where, prop, model)
+		if prop.has("shadow") and not prop["shadow"] is bool:
+			_err(where, "prop 'shadow' must be true or false")
 		_check_prop_smoke(where, prop, model)
 		_check_prop_halo(where, prop, model)
 		_check_prop_figure(where, prop, model)
@@ -877,6 +898,8 @@ func _check_region_light(where: String, region: Dictionary) -> void:
 					_err(where, "light %s has unknown color '%s'" % [key, block[key]])
 			elif not (block[key] is float or block[key] is int):
 				_err(where, "light %s must be a number" % key)
+			elif key == "shadow" and (float(block[key]) < 0.0 or float(block[key]) > 1.0):
+				_err(where, "light shadow must be 0..1")
 
 
 ## Greying areas: well-formed shapes and numbers, and no spawn point in the fog (the player

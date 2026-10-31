@@ -104,6 +104,7 @@ func _resolve(fog: Dictionary, light: Dictionary) -> Dictionary:
 		"ambient_energy": float(light["ambient_energy"]),
 		"sky_top": PropFactory.color(str(light["sky_top"])),
 		"sky_horizon": PropFactory.color(str(light["sky_horizon"])),
+		"shadow": clampf(float(light["shadow"]), 0.0, 1.0),
 	}
 
 
@@ -122,6 +123,7 @@ func _show(mood: Dictionary) -> void:
 	sun.light_color = mood["sun_color"]
 	sun.light_energy = mood["sun_energy"]
 	sun.rotation_degrees = mood["sun_rotation"]
+	sun.shadow_opacity = mood["shadow"]
 	sky_material.set_shader_parameter("sky_top", mood["sky_top"])
 	sky_material.set_shader_parameter("sky_horizon", mood["sky_horizon"])
 	sky_material.set_shader_parameter("sun_color", mood["sun_color"])
