@@ -573,32 +573,50 @@ each .glb < 5 MB.
       is heard on each stroke (`audio.json work`, `CharacterRig.work_stroke`). Validator checks melodies, music buses and
       work sounds; the smoke walk hears both pieces. `test_music.gd` (8).
 
+- [x] [C] **Rowing out to the Low Water — Lowsong** (Day 75; Act II's close step 2b): the Provost's "nobody goes out
+      in the wet", then yes (`kindleby_provost_low_water`; she wrote Lowsong's Keeper in the Long Book with the drowned);
+      Hild's skiff clean by then; "Row me out to Lowsong." → `lowsong_out` + skiff `travel`; while out, Hild and the skiff
+      are on Lowsong's landing, not Kindleby's shingle (and not the far shore's stage). New region **Lowsong**
+      (`lowsong`): a shingle landing, a wading way cairn to cairn (`wade_depth` 0.4) by a middle skerry, the rock with its
+      **cold light** and bothy (Blender `build_lowsong.py`: `lowsong_light`, `lowsong_cairn`); the arrival
+      `lowsong_rowing_out` (the singing closes round the boat); **Brother Iver Lusk** (new Blender character `iver`) —
+      the Choir close (one voice nearer than the rest), the fog that leaves nothing to burn, and what he makes of the ring
+      held, Aldous's letter and the Stair-Taper. *The Low Water* done; *A Light for Lowsong* (`future`) begun. Hild rows
+      back (and out again) whenever asked. `choir_near` ambience loop (held melody voices). Checkpoint `lowsong`.
+      `test_lowsong.gd` (9).
+
 ### Next up
-1. [C] **Act II's close, step 2b — rowing out to the Low Water** (content due ~Day 75; last Day 72): Hild's
-   skiff is clean (`kindleby_hild_low_water`; "Is she clean yet?" → yes, a day on), the Provost's "nobody goes out in the
-   wet" then yes, the rowing out past the candles into fog that sings (`choir_far`; a skiff `travel`), and **Lowsong**
-   itself — skerries, shallow water to wade between them, the Greying heard as voices, a Keepers' light and its Keeper
-   alone (LORE *Act II's close* step 3: the Keeper who knows). Small follow-ups still open: the `stayed`
+1. [A] **Lowsong dressed** (art due ~Day 76; last Day 71): Iver's lamp read at a distance (a `halo` on his lamp, or the
+   lamp on the hook beside him) and a lit-window/bothy smoke touch; Hild on the landing with the oar (`hild.glb`) — check
+   she stands clear of the skiff; more skerry silhouettes in the fog (a tall stack or two so the field reads from the
+   rock); weed and salt on the cairns; the skiff's tar pale in the Compatibility renderer (also on Kindleby). Oars as the
+   skiff goes out / comes in (a dialogue `sound` on the row-out and row-back lines — an `oars` recipe).
+2. [C] **A Light for Lowsong** (content due ~Day 78-79; Act II's close steps 3-4): what the Low Water burns when the fog
+   leaves nothing lying (the Choir won't condense; perhaps the nearest voice, the Wakebearer's own Remnants, or Iver's lamp
+   and what he's been listening for — he must choose to stop listening); a Keeper who knows, carried on (what Iver would
+   tell the chapter); the sixth light and the second own Remnant (a further memory of the east stair; never a face or a
+   name); Iver's fate (stays, or rows home with Hild). Then Act II's end (the lights between; the lane in to Cindermoor).
+   Small follow-ups still open: the `stayed`
    ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
-   colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Provost and Tobin on the Low Water (Lowsong's
-   Keeper in the Long Book); the Low Water from Saltmarrow's side (Aldous, Mara — the Gull looks south over it).
-2. [P] **Color grading pass on a Vulkan machine** — also check the Low Water chart mark and the conversation framing
+   colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; Tobin and Oda on Lowsong (Iver alive; the Provost
+   striking him out of the Book?); the Low Water from Saltmarrow's side (Aldous, Mara — the Gull looks south over it).
+3. [P] **Color grading pass on a Vulkan machine** — also check the Low Water chart mark and the conversation framing
    on a real screen — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); the ember light
    pushing fog back in a small radius around the player; paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. Consider a story flag
    when the player is first turned back (an NPC remarks on it).
-5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (title theme and lighting cue landed Day 74: an owner listen; a quiet motif for Act ends and the ferry
    crossings; a sparse in-world piece per island later — or real recordings); oars as the skiff comes in (with the
@@ -606,14 +624,14 @@ each .glb < 5 MB.
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-6. [A] **Dressing follow-ups** (next art-led session due ~Day 75-76; last Day 71): Kindleby — the Quiet House's step
+7. [A] **Dressing follow-ups** (next art-led session due ~Day 75-76; last Day 71): Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
    walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); a sound as the skiff comes in (oars, a creak); (Hild scraping the
    skiff: Day 71; her scrape sound: Day 74); the skiff's tar reads pale in the Compatibility renderer.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-7. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
+8. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
    (Hesk, Aldous on the bench); a framed shot for two-NPC scenes (Hild and the Provost) — today it frames whoever was
    talked to; in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
 
@@ -640,6 +658,9 @@ each .glb < 5 MB.
 - [x] [C] **The ring's last gap, begun** (Day 72): Oda tells of the Low Water once Kindleby is lit and marks it on the chart
   (a `water` landmark — not a port); Sister Hild will row there once the skiff is scraped (*The Low Water*, `future`); Hild
   met on the shingle if the skiff never went north; she talks about the scraping. Next: the rowing out and Lowsong.
+- [C] **Lowsong** (the Low Water's light, the sixth of the ring). Begun Day 75 (the Provost's yes, the rowing out, the cairns,
+  the cold light, Brother Iver Lusk and the Choir close; *A Light for Lowsong* to `the_singing`). Next: what it burns, the
+  sixth light, the second own Remnant, Iver's choice.
 - [S] Day/night cycle & tides; NPC schedules. (Day 42: Wrackholm's tide is a story flag, `wrackholm_tide`, waited
   down at the spit; a real tide system should drive it and keep '' / `low` as its values.)
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).

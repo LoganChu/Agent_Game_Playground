@@ -2,6 +2,65 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-10-31 09:00 UTC — Day 75: rowing out to the Low Water — Lowsong and its Keeper (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). `main` was already at `origin/main` (Day 74's
+  `fbc5aa3`); baseline 517 tests green.
+- **Content (due ~Day 75; last Day 72):** ROADMAP *Next up* #1 — Act II's close, step 2b.
+  - **The Provost's leave:** once Hild has said she'll row, the Provost can be asked — "Nobody goes out in the wet,
+    Wakebearer", then yes ("It's a Keepers' light. And it's you asking."; if she sent the skiff north already: "I begin to
+    think I only keep the rule so I've something to break for you"). Lowsong's Keeper is **Brother Iver Lusk**, and she
+    wrote him in the Long Book "the way we write the drowned". `kindleby_provost_low_water`; *The Low Water* → `row_out`.
+  - **Hild's clean skiff:** until then "Is she clean yet?" is still "Not yet" and now adds she'll not row without the
+    Provost's leave; after it she's on the shingle with her hands in her lap ("She's clean. Every strake.") and rows on
+    "Row me out to Lowsong." (`lowsong_out`, a `travel` to the new region). Back on Kindleby later she'll row out again.
+  - **New region `lowsong`:** a shingle landing (the skiff drawn up, Hild with her oar), the old brothers' **cairns**
+    marking a wading way in two legs by a middle skerry, and the rock with the **cold light** and the Keeper's bothy;
+    black skerries awash all round in fog that drains the ember gently, with the fog standing back from the landing and
+    from Iver's lamp (`clear` areas). The **Choir close** is the ambience (`choir_near`: five held voices on a slow D
+    that never quite line up). Arrival `lowsong_rowing_out`: Kindleby's candles going small astern, the singing closing
+    round the boat ("Louder than I remember"), the lamp under the dark tower — "He's alive, then."
+  - **Brother Iver Lusk** (new NPC + Blender character): thin, old, the hood down off long white hair, a sealskin cape,
+    his hem silver to the knee, his own small lamp held out low, his head turned to the water. He lost his boat the second
+    week, listening. **The Choir:** "a great many people, all trying to remember the one thing at once" (Tolly's words
+    for the Quiet House), and **one voice nearer than the rest — a woman's, tired, who nearly gets a word out** (mystery
+    #4 foreshadow, no name). **The light:** a beacon takes a memory, but the fog here leaves nothing lying: "Here it only
+    sings. Whatever it carries, it keeps." **What he makes of the Wakebearer** (Act II's close step 3, begun): the ring
+    held, Aldous's letter, and the Stair-Taper — "she went quiet when you took it out" (`lowsong_keeper_saw_taper`,
+    future). Meeting him completes *The Low Water* and starts **A Light for Lowsong** (`future`).
+  - **One skiff, one place:** while `lowsong_out` holds Hild and the skiff are on Lowsong's landing, not on Kindleby's
+    shingle or the far shore's stage (every placement reads the flag, so the validator's exclusivity proof holds). Hild,
+    or the skiff itself, rows the Wakebearer back to a new Kindleby spawn `from_skiff`.
+  - Blender: `build_lowsong.py` (`lowsong_light`, `lowsong_cairn`), `build_characters.py iver`.
+  - Checkpoint `lowsong`.
+- **Tests:** `test_lowsong.gd` (9: the Provost's no-then-yes both ways; Hild won't row without leave, then does; the skiff in
+  one place; the rowing out and its one-time event; meeting the Keeper and the quests; what he hears of (ring, letter,
+  taper once); rowing back and out again; never a name in the Choir; assets, the loop, the checkpoint). 526 tests +
+  smoke + launch pass.
+
+Screenshots (`docs/screenshots/2026-10-31-am-*.png`): `lowsong-landing`, `talking-to-iver`.
+
+**Decisions**
+- **"A day on" is the walk up the steps:** with no day/night yet, the skiff is clean once the Provost has said yes — Hild
+  keeps scraping while you're up there. It keeps the Provost's yes in the player's hands and avoids a timer.
+- **Lowsong as its own region reached by Hild, not a lane:** the Mercy won't sail it (canon), so the chart stays a
+  landmark and the voyage logic is untouched. The skiff is a two-way `travel` gated by one flag.
+- **The light is cold and the fog gives nothing up:** the sixth beacon's question (what to burn where no Remnant lies) is
+  left open on purpose for *A Light for Lowsong*; Iver's listening is both why the light is cold and the mystery-#4 hook.
+- **Iver hears the news from the Wakebearer, not by rumour:** he's been alone three months, so the "Keeper who knows"
+  reacts to what he's told — the flags pick what there is to tell.
+- **Dropped `future` from *The Low Water* and `kindleby_hild_low_water`:** both are paid off now (the Provost's option
+  reads the flag).
+
+**Problems / notes**
+- None blocking. Iver's lamp is an emissive mesh only — it doesn't read from the landing in the fog (ROADMAP #1, a halo).
+  The overview camera clips Hild at the frame edge; the checkpoint's own camera is set higher.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **art (due ~Day 76; last Day 71)**: Lowsong dressed (Iver's lamp halo, skerry stacks, oars
+   sound on the rowing). Then content ~Day 78-79: *A Light for Lowsong*. Fetch and reset `main` before trusting it.
+
 ## 2026-10-30 21:00 UTC — Day 74: the Music bus speaks; Hild's scraper is heard (systems)
 
 **Did**

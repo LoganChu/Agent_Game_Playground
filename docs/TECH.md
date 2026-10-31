@@ -42,7 +42,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]  # the procedural sounds as .wav (audio review)
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad provost tobin keeper_sister keeper_brother …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad provost tobin keeper_sister keeper_brother keeper_pim hild hild_scraping iver …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren brazier_ash brazier_raked brazier_laid net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark clamp_rake …]  # Thornwold kit (same kit dir)
@@ -53,6 +53,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake steps_foot boat_stage stage_lantern drift_fire drift_fire_out drift_shelter]  # the old Keepers' road north (Day 53) and the far shore below it (Day 55) (same kit dir)
 .tools/bin/blender-py tools/blender/build_bend.py [clamp_spent clamp_spent_open hut_lantern]  # Coll's Hearth (Day 57): Wenna's clamp burned through (Day 58: and raked open, sacks filled, front on +Z); a Keeper's lantern on a forked stake by a hut door (glass centre Godot [0, 1.28, 0.32] = its `halo`) (same kit dir)
 .tools/bin/blender-py tools/blender/build_kindleby.py [chapter_house candle_ledge vigil_bell quiet_house vigil_light vigil_light_lit kindleby_skiff kindleby_skiff_stage]  # Kindleby (Day 62): the Keepers' chapter-house, the candle wall (a 2.4 m ledge, candles emissive — no lights), the quay bell, the Quiet House (barred), the Vigil Light (Day 64: `vigil_light_lit` — horn glowing, a fire in the cradle, the door open; the pane centre is Godot y ≈ 5.1 = its `halo`/`light`; the finial's ember now sits on the finial; Day 63: the chapter-house's open bell-cote, door hood and step candles; `_diamond` turns a box 45° in place — the primitives bake their location, so `obj.rotation_euler` on a placed box swings it round the model origin) (same kit dir)
+.tools/bin/blender-py tools/blender/build_lowsong.py [lowsong_light lowsong_cairn]  # Lowsong (Day 75): the Low Water's cold light (round dark tower, door at model +Z, bothy behind at -Z: a second collider at offset [0, 0, -2.05]; an empty lamp hook at LAMP_HOOK for a later lit variant) and the old brothers' wading cairns (same kit dir)
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/prop_lineup.tscn \
@@ -220,6 +221,14 @@ the waterline, so set `colors.shore`/`seabed` to the floor colour too.
 far below (-6) and the walkable top a `land` rect at 0 with a short falloff (2 m → a cliff). The
 low ground is walkable but never *reachable*, so the bounds check (reachable cells only) passes;
 a prop on the drop uses `"snap": false` (the ladder's feet at y -2.95 so its head meets the lip).
+**Wading ways (Day 75, `lowsong`):** `ground.wade_depth` (default 0.35) is how far under `water_level` the ground may lie
+and still be walked; Lowsong uses 0.4 with its wading `path`s at -0.5 (0.25 under). Where a wading path meets a higher
+rock, run the path's last point up onto the rock (`[-12.5, -2.3, 0.5]`) and give the rock a long falloff (3.5 for a 2 m
+rise): a smoothstep falloff is 1.5× steeper than its average, so a 2 m falloff on a 2.1 m rise is a cliff.
+**A boat that is in one place (Day 75):** Kindleby's skiff and Hild are on Lowsong's landing while `lowsong_out` holds and
+on Kindleby's shingle (or the far shore's stage) otherwise — every placement of Hild and both skiff props read the flag,
+so `joint_witness` proves the placements exclusive. Set it on the option that rows out, clear it on the one that rows
+back, and put the `travel` on the line after.
 **Arrival events need the way in:** `_check_ground` in the smoke test (and any debug
 `--region=`) teleports into every region on a new game, so an event whose `if` is only
 `!flag:seen` fires there and holds input. Gate it on how the player gets in (the ridge's on

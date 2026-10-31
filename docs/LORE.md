@@ -77,7 +77,7 @@ burns. The last recorded Wakebearer was **Isolde Vane**, 300 years ago.
 | **The Keepers of the Spire** | Robed order that tended the Hearthspire. Now scattered, ashamed, secretive. | Relight the Hearthspire the "proper" way — by their rites. | Want to control the Wakebearer. |
 | **The Tidewrights** | Guild of ferrymen, net-makers and salvagers. Practical, clannish. | Keep the sea lanes and trade alive. | Transactional; respect deeds. |
 | **The Unmoored** | People who have *chosen* to walk into the fog to forget grief or guilt. | To be left alone; some want the fog to spread. | Wary; the player's ember hurts them. |
-| **The Hollow Choir** *(rumor)* | Said to be singers in the deep fog. | Unknown. | Unknown. |
+| **The Hollow Choir** *(rumor)* | Said to be singers in the deep fog; heard close on the Low Water (Day 75): "a great many people, all trying to remember the one thing at once", one voice nearer than the rest. | Unknown. | Unknown. |
 
 ## Starting regions
 ### 1. Saltmarrow (starting island — *Vertical Slice*)
@@ -1210,8 +1210,30 @@ its light is **the Vigil Light**.
   Wakebearer out in the chapter's skiff once she has the Northing's weed off its bottom ("I'll not take a foul bottom over
   shallows I can't see"); the Provost will say nobody goes out in the wet, and then yes ("because it's a Keepers' light,
   and it's you asking"). If the skiff never went north, Hild is met on the shingle scraping it anyway: "A boat you stop
-  looking after starts forgetting she's a boat." *(The rowing out, Lowsong and its Keeper: next. The Choir stays a rumor
-  heard close — never Isolde's name yet.)*
+  looking after starts forgetting she's a boat." *(The Choir stays a rumor heard close — never Isolde's name yet.)*
+- **Lowsong (Day 75; *The Low Water* done, *A Light for Lowsong* begun).** The Provost, asked, says nobody goes out in the
+  wet ("I begin to think I only keep the rule so I've something to break for you", if she sent the skiff north) and then
+  yes: "It's a Keepers' light. And it's you asking." Lowsong's Keeper is **Brother Iver Lusk**, thirty-one winters alone on
+  the rock, who rowed in at midsummer for oil and to argue the chapter round about the Long Book's commas; **she wrote him
+  in the Long Book under the Snuffing "the way we write the drowned"** and sent nobody to see. Hild rows the Wakebearer out
+  past the candles: the singing closes round the boat ("Louder than I remember"), and Hild threads the skerries without
+  looking round. **Lowsong** is a scatter of black skerries in water shallow enough to wade, the way marked by **the old
+  brothers' cairns** (a pale stone on each, wherever the bottom will bear you), from a shingle landing to the biggest rock,
+  where the light stands: a squat round tower of dark sea-worn stone, salt-streaked, a turf-roofed bothy against its back,
+  **cold since the Snuffing**. Iver is alive under it, holding **one small lamp** — the only light he's kept — his hem gone
+  the silver of the Hushed to the knee. He lost his boat the second week, listening, and never thought to wade after it.
+  - **The Choir, close:** "It's people. A great many people, all trying to remember the one thing at once, and none of
+    them can get to the end of it" (Tolly's words for the Quiet House's humming — mystery #3). **One voice is nearer than
+    the rest: a woman's, he thinks, at it longer than the others, and tired; some nights she nearly gets a word out.** He
+    sits out to catch it, and that is what became of his light. *(Mystery #4 foreshadow: never her name.)*
+  - **The light:** a beacon takes a memory, but **the fog on the Low Water leaves nothing lying** — not a pebble, not a
+    button in three months. "Here it only sings. Whatever it carries, it keeps." *(What Lowsong burns is the next content's
+    question: A Light for Lowsong.)*
+  - **What he makes of the Wakebearer:** the ring held (`kindleby_ring_held`) — the chapter will have written that it was
+    held by "somebody not under the rule", very small, and one day they'll weigh it; Aldous's letter
+    (`kindleby_provost_read_letter`) — Aldous cut the east stair's tapers, "never could carry a thing quietly"; **the
+    Stair-Taper** — "Burned past the third notch... Put it away now. Not for them. Because she went quiet when you took it
+    out": somewhere in the singing, one voice stopped (`lowsong_keeper_saw_taper`). *(Mystery #2/#4. Do not explain.)*
 - Open: the Quiet House; the Long Book (and its empty page for what was seen); what Anselm and the old ones saw (burned, or
   kept); the colliers on Kindleby (Ottie looking north; whether anyone goes home).
 - **What the ember keeps (Day 69, `kindleby_stair_taper`; quest *What the Ember Keeps*).** As the Vigil Light catches, smoke
@@ -1253,13 +1275,13 @@ its light is **the Vigil Light**.
 The order the remaining Act II sessions should take. Names here are working names; LORE records them as canon only when
 the content lands.
 1. **What the ember keeps** (Day 69, written): the fifth light gives back the Wakebearer's first own Remnant.
-2. **The ring's last gap** (begun Day 72: Oda's telling, the chart's mark and Hild's promise are canon — see *The chart*
-   and *Kindleby*; the rowing out and Lowsong itself still to write). The chart's ring is open in the south, between Kindleby and Saltmarrow: water the Tidewrights
+2. **The ring's last gap** (Day 72: Oda's telling, the chart's mark and Hild's promise; Day 75: the Provost's yes, the
+   rowing out, Lowsong and Brother Iver — canon, see *The chart* and *Kindleby*). The chart's ring is open in the south, between Kindleby and Saltmarrow: water the Tidewrights
    don't sail ("the Low Water" — Oda: the fog there sings, and ferrymen won't sail what they can hear and can't see). One
    more island and its light (working name **Lowsong**: a scatter of skerries where the Greying is heard as voices, the
    Hollow Choir rumor heard close — a mystery #4 foreshadow, *never* Isolde's name yet). Opened by asking Oda once
    Kindleby is lit. Kindleby's skiff (Hild) could take the Wakebearer where the Slow Mercy won't.
-3. **A Keeper who knows.** On the sixth island, or come by Keeper boat: a Keeper who has heard that the Wakebearer held
+3. **A Keeper who knows.** *(Begun Day 75: Iver hears of the ring held, Aldous's letter and the taper — see Lowsong.)* On the sixth island, or come by Keeper boat: a Keeper who has heard that the Wakebearer held
    Kindleby's door for the chapter (`kindleby_ring_held`), that Aldous wrote to the Provost (`kindleby_provost_read_letter`),
    or that the Wakebearer carries a novice's taper (`kindleby_provost_saw_taper`) — and what the chapter would make of each.
 4. **The sixth light**, and the second own Remnant (a further memory of the east stair; never yet a face or a name).
