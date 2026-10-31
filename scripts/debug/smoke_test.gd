@@ -251,6 +251,8 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 		return
 	if not await _sail_the_taper(main, ui):
 		return
+	if not await _row_to_lowsong(main, ui):
+		return
 	_npc("oda").interact()
 	_check(_sail(ui, "saltmarrow"), "...and the long way home, four lanes in one")
 	_finish_dialogue(ui, "oda (the long passage home)")
@@ -314,6 +316,43 @@ func _sail_the_taper(main: Node, ui: DialogueUI) -> bool:
 			"Kindleby's burning")
 	_check(_shown_model(isle, "vigil_light.glb") == 0 and _shown_model(isle, "vigil_light_lit.glb") == 1, "the Vigil Light lit on the crown")
 	print("Smoke: Kindleby lit ('%s')" % world.get_flag("kindleby_beacon_burned"))
+	return true
+
+
+## Day 72/75: with Kindleby lit, Oda tells of the Low Water; Hild will row once the skiff is clean and the
+## Provost says yes; Hild rows the Wakebearer out to Lowsong (the singing, the cairns, Brother Iver under the cold
+## light) and back. True if the walk is back on Kindleby with Oda at the quay.
+func _row_to_lowsong(main: Node, ui: DialogueUI) -> bool:
+	var world := GameState.world
+	_npc("oda").interact()
+	_check(_choose(ui, "Where does the ring go from here?"), "Oda asked where the ring goes on")
+	_check(_choose(ui, "Why go round?"), "...and why the Mercy goes round")
+	_leave_dialogue(ui, "oda (the Low Water)")  # her first option is the lane map: don't sail off
+	_npc("hild").interact()
+	_check(_choose(ui, "Would you row me out to the Low Water?"), "Hild asked to row")
+	_finish_dialogue(ui, "hild (the Low Water)")
+	_npc("provost").interact()
+	_check(_choose(ui, "Sister Hild would row me out to the Low Water, with your leave."), "the Provost asked for leave")
+	_leave_dialogue(ui, "the provost (the Low Water)")
+	_check(world.quest_stage("the_low_water") == "row_out", "the Provost said yes")
+	_npc("hild").interact()
+	_check(_choose(ui, "Row me out to Lowsong."), "Hild rows out")
+	_finish_dialogue(ui, "hild (rowing out)")
+	if not await _arrived(main, ui, "lowsong", "rowed out to Lowsong"):
+		return false
+	_check(world.get_flag("lowsong_landed") == true and world.quest_stage("the_low_water") == "lowsong", "the rowing out played")
+	_check(_npc("iver") != null and _npc("iver").find_child("CharacterRig", true, false) != null, "Brother Iver shows his rigged model")
+	_npc("iver").interact()
+	_finish_dialogue(ui, "iver (first meeting)")
+	_check(world.quest_state("the_low_water") == WorldState.QUEST_DONE and world.quest_stage("a_light_for_lowsong") == "the_singing",
+			"the Keeper met: The Low Water done, A Light for Lowsong begun")
+	_npc("hild").interact()
+	_check(_choose(ui, "Take me back to Kindleby."), "Hild rows back")
+	_finish_dialogue(ui, "hild (rowing back)")
+	if not await _arrived(main, ui, "kindleby", "rowed back to Kindleby"):
+		return false
+	_check(world.get_flag("lowsong_out") == false and _npc("hild") != null, "Hild and the skiff back on the shingle")
+	print("Smoke: Lowsong, the Keeper met")
 	return true
 
 
@@ -1488,6 +1527,18 @@ func _press(action: String) -> void:
 
 ## Clicks through an open dialogue. Picks option 0 the first time a menu is seen, then 1,
 ## and so on, so hub menus that loop back eventually reach their last ("goodbye") option.
+## Plays the open dialogue out taking every menu's last option (its way out).
+func _leave_dialogue(ui: DialogueUI, who: String) -> void:
+	var steps := 0
+	while ui.is_open() and steps < MAX_DIALOGUE_STEPS:
+		if ui.current_event.get("type") == "choices":
+			ui.select((ui.current_event["options"] as Array).size() - 1)
+		else:
+			ui.advance()
+		steps += 1
+	_check(not ui.is_open(), "dialogue with %s finishes" % who)
+
+
 func _finish_dialogue(ui: DialogueUI, who: String) -> void:
 	var steps := 0
 	var seen: Dictionary = {}
