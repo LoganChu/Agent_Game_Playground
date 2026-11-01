@@ -26,6 +26,15 @@ const WALK_SPEED := 5.0
 const MAX_ONE_WAY_EMBER := 0.45
 const DEFAULT_FALLOFF := 2.0
 const DEFAULT_HEIGHT := 2.4
+## The ember's own light holds the fog back round the Wakebearer (Day 78; look only — the
+## drain still reads the fog that presses in, so the validator's budgets are unchanged).
+## Pool radius in metres with a full ember and with a spent one; the fog thins by
+## EMBER_POOL_PUSH at the centre, easing to nothing at the radius.
+const EMBER_POOL_RADIUS := 3.4
+const EMBER_POOL_RADIUS_SPENT := 1.1
+const EMBER_POOL_PUSH := 0.85
+## Inner fraction of the radius held at full push.
+const EMBER_POOL_CORE := 0.35
 
 
 ## The region's areas whose `if` holds under `state`.
@@ -185,3 +194,18 @@ static func _heap_pop(heap: Array) -> Array:
 		heap[i] = swap
 		i = smallest
 	return top
+
+
+## Radius of the ember's pool of clear for an ember level 0..1: it gutters as the ember wanes,
+## so the fog closing in is how the player feels the ember going.
+static func ember_pool_radius(ember: float) -> float:
+	return lerpf(EMBER_POOL_RADIUS_SPENT, EMBER_POOL_RADIUS, clampf(ember, 0.0, 1.0))
+
+
+## How much the ember's pool thins the fog at `p` (0 = not at all, EMBER_POOL_PUSH at the centre);
+## mirrors the fog shader's `ember_pool` term.
+static func ember_pool_push(center: Vector2, radius: float, p: Vector2, push: float = EMBER_POOL_PUSH) -> float:
+	if radius <= 0.0:
+		return 0.0
+	var d := center.distance_to(p)
+	return push * (1.0 - smoothstep(radius * EMBER_POOL_CORE, radius, d))

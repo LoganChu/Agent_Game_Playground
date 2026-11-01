@@ -9,6 +9,12 @@ uniform vec4 fog_color : source_color = vec4(0.78, 0.8, 0.83, 1.0);
 uniform float opacity = 1.0;   // tweened for fade in/out when the story changes the areas
 uniform float recut = 1.0;     // 0 → 1 dissolves the old lantern cut (UV2.x) into the new (UV2.y)
 uniform float drift = 0.12;    // wind speed of the noise, m/s-ish
+// The ember's pool (Greying.ember_pool_push): xyz = the Wakebearer's hand, w = radius (0 = none).
+uniform vec4 ember_pool = vec4(0.0);
+uniform float ember_push = 0.0;
+// The leaning wall of fog at the pool's edge catches the ember's light (a faint warm rim).
+uniform vec4 ember_tint : source_color = vec4(1.0, 0.6, 0.28, 1.0);
+uniform float ember_rim = 0.32;
 
 varying vec3 world_pos;
 
@@ -36,6 +42,15 @@ void fragment() {
 	float a = mix(UV2.x, UV2.y, recut) * opacity * mix(0.35, 1.0, n);
 	// Fade layers right in front of the camera so walking into the fog doesn't hit a wall.
 	a *= smoothstep(0.4, 4.0, -VERTEX.z);
-	ALBEDO = fog_color.rgb;
+	vec3 col = fog_color.rgb;
+	// The ember's pool: the fog thins round the hand (the edge ragged with the same noise, so it reads
+	// as fog leaning away, not a cut-out disc) and its leaning wall catches the light.
+	if (ember_pool.w > 0.0) {
+		float d = distance(world_pos.xz, ember_pool.xz) + (n - 0.5) * ember_pool.w * 0.25;
+		a *= 1.0 - ember_push * (1.0 - smoothstep(ember_pool.w * 0.35, ember_pool.w, d));
+		float rim = smoothstep(ember_pool.w * 0.35, ember_pool.w * 0.8, d) * (1.0 - smoothstep(ember_pool.w * 0.8, ember_pool.w * 1.5, d));
+		col = mix(col, ember_tint.rgb, rim * ember_rim * ember_push);
+	}
+	ALBEDO = col;
 	ALPHA = clamp(a, 0.0, 1.0);
 }

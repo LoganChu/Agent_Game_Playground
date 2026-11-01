@@ -45,6 +45,19 @@ func fade(to_visible: bool) -> void:
 		tween.tween_callback(queue_free)
 
 
+## Where the ember's pool of clear is this frame (see Greying.ember_pool_radius); radius 0 hides it.
+func set_pool(center: Vector3, radius: float, push: float) -> void:
+	if _material == null:
+		return
+	_material.set_shader_parameter("ember_pool", Vector4(center.x, center.y, center.z, radius))
+	_material.set_shader_parameter("ember_push", push)
+
+
+## The pool the shader was last given: Vector4(x, y, z, radius) (for tests).
+func pool() -> Vector4:
+	return _material.get_shader_parameter("ember_pool") if _material else Vector4.ZERO
+
+
 func _set_opacity(value: float) -> void:
 	_material.set_shader_parameter("opacity", value)
 

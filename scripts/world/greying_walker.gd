@@ -10,6 +10,8 @@ signal turned_back
 
 const TURN_BACK_TEXT := "You forget why you came."
 const FADE_SECONDS := 0.9
+## Saved world flag: the Greying has turned the Wakebearer back at least once (NPCs remark on it).
+const TURNED_BACK_FLAG := "greying_turned_back"
 
 var meter := EmberMeter.new()
 ## Fog depth under the player on the last physics frame.
@@ -20,6 +22,7 @@ var region: Region
 var hud: Hud
 
 var _last_clear := Vector3.INF
+var _pool_time := 0.0
 
 
 func _ready() -> void:
@@ -43,7 +46,21 @@ func _physics_process(delta: float) -> void:
 	if depth < Greying.CLEAR_DEPTH and player.is_on_floor():
 		_last_clear = p
 	player.set_ember(meter.ember)
+	_open_pool(p, delta)
 	ember_changed.emit(meter.ember, depth)
+
+
+## The ember's light holds a pool of clear round the Wakebearer, guttering as the ember wanes
+## and breathing with the hand's flicker.
+func _open_pool(p: Vector3, delta: float) -> void:
+	_pool_time += delta
+	var breath := 1.0 + 0.04 * sin(_pool_time * 2.3) + 0.025 * sin(_pool_time * 5.7 + 1.3)
+	region.set_ember_pool(p + Vector3.UP, pool_radius() * breath, Greying.EMBER_POOL_PUSH)
+
+
+## The pool's radius for the ember right now (before the breathing).
+func pool_radius() -> float:
+	return Greying.ember_pool_radius(meter.ember)
 
 
 ## Where the player is returned when the ember runs out.
@@ -60,6 +77,7 @@ func _turn_back() -> void:
 	if hud:
 		await hud.fade_screen(1.0, FADE_SECONDS)
 	player.place_at(target)
+	GameState.world.set_flag(TURNED_BACK_FLAG, true)
 	meter.refill()
 	depth = 0.0
 	player.set_ember(meter.ember)

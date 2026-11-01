@@ -1395,7 +1395,8 @@ func _flag_exempt(id: String) -> bool:
 
 func _check_orphans() -> void:
 	for id: String in db.flags:
-		if not _flags_set.has(id):
+		# `set_by_code` (Day 78): set by a system, not by content (the Greying's turn-back).
+		if not _flags_set.has(id) and not bool((db.flags[id] as Dictionary).get("set_by_code", false)):
 			_err("data/flags.json", "flag '%s' is declared but never set by any content" % id)
 		elif not _flags_read.has(id) and not _flag_exempt(id):
 			_warn("data/flags.json", "flag '%s' is set but never read (mark \"future\" or \"read_by_code\" if intentional)" % id)

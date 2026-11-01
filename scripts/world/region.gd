@@ -30,6 +30,8 @@ var _greying_clears: Array[Dictionary] = []
 ## `_greying_blend` (0 → 1 over GreyingFog.FADE_SECONDS in `_process`; 1 = settled).
 var _greying_from: Array[Dictionary] = []
 var _greying_blend := 1.0
+## The ember's pool last given to the fog: [center, radius, push] (see set_ember_pool).
+var _ember_pool: Array = [Vector3.ZERO, 0.0, 0.0]
 
 
 func build(id: String) -> void:
@@ -121,6 +123,7 @@ func _refresh_greying(world: WorldState, animate: bool) -> void:
 		if want and fog == null:
 			fog = GreyingFog.new()
 			fog.setup(areas[i], fog_surface, clears)
+			fog.set_pool(_ember_pool[0], _ember_pool[1], _ember_pool[2])
 			add_child(fog)
 			if animate:
 				fog.fade(true)
@@ -157,6 +160,15 @@ func footstep_surface(pos: Vector3) -> String:
 	if field.water_level > -INF and ground < field.water_level - 0.02:
 		return "wade"
 	return surface
+
+
+## Opens the ember's pool of clear in every shown fog layer (GreyingWalker, each frame). Fog
+## built later (an area coming in) picks the pool up on the next call.
+func set_ember_pool(center: Vector3, radius: float, push: float) -> void:
+	_ember_pool = [center, radius, push]
+	for fog: GreyingFog in _greying_fog.values():
+		if is_instance_valid(fog):
+			fog.set_pool(center, radius, push)
 
 
 ## Fog depth (0..1) of the Greying at x/z right now (eased while the fog re-cuts).
