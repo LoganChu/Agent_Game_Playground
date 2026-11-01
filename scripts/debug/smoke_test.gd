@@ -1099,6 +1099,10 @@ func _check_greying(main: Node) -> void:
 	_check(walker.depth > 0.5, "the headland lies deep in the Greying (depth %s)" % walker.depth)
 	_check(walker.meter.ember < 0.95, "the Greying drains the ember (%s)" % walker.meter.ember)
 	_check(hud.is_meter_shown(), "ember meter shows in the Greying")
+	var pooled := region.find_children("GreyingFog*", "GreyingFog", false, false)
+	_check(not pooled.is_empty() and (pooled[0] as GreyingFog).pool().w > Greying.EMBER_POOL_RADIUS_SPENT \
+			and Vector2((pooled[0] as GreyingFog).pool().x, (pooled[0] as GreyingFog).pool().z).distance_to(Vector2(player.global_position.x, player.global_position.z)) < 1.0,
+			"the ember holds the fog back round the Wakebearer")
 	var audio: AudioDirector = main.get("audio")
 	_check(audio.ambience_cutoff() < 4000.0 and audio.is_heart_playing(), "the Greying muffles the ambience (%d Hz) and the ember's heart beats" % audio.ambience_cutoff())
 	audio.history.clear()
@@ -1110,6 +1114,7 @@ func _check_greying(main: Node) -> void:
 	_check(walker.turning_back and GameState.input_locked, "an empty ember turns the player back")
 	await walker.turned_back
 	_check(audio.history.has("turn_back"), "turning back has its sound")
+	_check(bool(GameState.world.get_flag(GreyingWalker.TURNED_BACK_FLAG)), "the first turn-back is remembered")
 	walker.meter.drain_scale = 1.0
 	for i in 5:
 		await get_tree().physics_frame
