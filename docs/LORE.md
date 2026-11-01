@@ -48,7 +48,7 @@ held back the **Greying**, a silver sea-fog that makes things *forgotten*.
   mechanic.
 - *Canon (Day 69, Act II's close):* **the Wakebearer's own Remnants.** From the fifth light on, a beacon catching can give
   something back to the ember's hand: a Remnant that holds **a memory of the Wakebearer's own** (the first: Kindleby's
-  Stair-Taper). Only the ember gives them up — they are never found lying in the fog — and to anyone else they are ordinary
+  Stair-Taper; the second, Lowsong's Hood-Pin, Day 77). Only the ember gives them up — they are never found lying in the fog — and to anyone else they are ordinary
   things. No beacon of the ring asks for one. *(Mystery #2: the ember holds the Wakebearer's past. Whether the Hearthspire
   asks for them is Act III's question. Do not explain.)*
 - *Canon (Day 70, remembering):* the Wakebearer can **hold a Remnant close and catch the edges of what it keeps** —
@@ -77,7 +77,7 @@ burns. The last recorded Wakebearer was **Isolde Vane**, 300 years ago.
 | **The Keepers of the Spire** | Robed order that tended the Hearthspire. Now scattered, ashamed, secretive. | Relight the Hearthspire the "proper" way — by their rites. | Want to control the Wakebearer. |
 | **The Tidewrights** | Guild of ferrymen, net-makers and salvagers. Practical, clannish. | Keep the sea lanes and trade alive. | Transactional; respect deeds. |
 | **The Unmoored** | People who have *chosen* to walk into the fog to forget grief or guilt. | To be left alone; some want the fog to spread. | Wary; the player's ember hurts them. |
-| **The Hollow Choir** *(rumor)* | Said to be singers in the deep fog; heard close on the Low Water (Day 75): "a great many people, all trying to remember the one thing at once", one voice nearer than the rest. | Unknown. | Unknown. |
+| **The Hollow Choir** *(rumor)* | Said to be singers in the deep fog; heard close on the Low Water (Day 75): "a great many people, all trying to remember the one thing at once", one voice nearer than the rest; it goes quiet when the Wakebearer's own Remnants are out (Day 75/77), and further off once Lowsong is lit. | Unknown. | Unknown. |
 
 ## Starting regions
 ### 1. Saltmarrow (starting island — *Vertical Slice*)
@@ -1227,13 +1227,39 @@ its light is **the Vigil Light**.
     the rest: a woman's, he thinks, at it longer than the others, and tired; some nights she nearly gets a word out.** He
     sits out to catch it, and that is what became of his light. *(Mystery #4 foreshadow: never her name.)*
   - **The light:** a beacon takes a memory, but **the fog on the Low Water leaves nothing lying** — not a pebble, not a
-    button in three months. "Here it only sings. Whatever it carries, it keeps." *(What Lowsong burns is the next content's
-    question: A Light for Lowsong.)*
+    button in three months. "Here it only sings. Whatever it carries, it keeps." *(Answered Day 77: see A Light for
+    Lowsong.)*
   - **What he makes of the Wakebearer:** the ring held (`kindleby_ring_held`) — the chapter will have written that it was
     held by "somebody not under the rule", very small, and one day they'll weigh it; Aldous's letter
     (`kindleby_provost_read_letter`) — Aldous cut the east stair's tapers, "never could carry a thing quietly"; **the
     Stair-Taper** — "Burned past the third notch... Put it away now. Not for them. Because she went quiet when you took it
     out": somewhere in the singing, one voice stopped (`lowsong_keeper_saw_taper`). *(Mystery #2/#4. Do not explain.)*
+- **A Light for Lowsong (Day 77; `lowsong_beacon_burned`).** The fog on the Low Water leaves nothing lying, so Lowsong's
+  Remnant is **made on purpose**: the old ones told the novices a thing they were never to try — that **a Keeper with a true
+  light beside him can put a memory down into a thing he's holding, and the fog will go hard round it** (forbidden because
+  "a Remnant made is a Remnant burned", and what a Keeper carries is the chapter's to weigh; "the chapter's written me with
+  the drowned. And you've a true light by you"). Iver offers two things and asks the Wakebearer to choose ("I'd only choose
+  wrong"): **his lamp** (his three months' listening and the nearest voice — he resists once: "She nearly had a word out last
+  night") or **his cell key** on Kindleby, carried thirty-one years for a week each midsummer (the steps, evening office
+  through the wall, Agathe's tidy hand, the commas). Made, a Remnant is "still mine till it burns ... like a coat on a peg"
+  and can be given back. **The cradle will not take the Stair-Taper**: it leans past it to the ember, and the ember closes
+  on it (canon: no beacon of the ring asks for an own Remnant). Lit, **the Choir goes further off, out past the skerries**,
+  "the way voices in the next room go quiet when somebody shuts the door"; the fog thins over the rock and the wading way.
+  - **lamp** — Iver never heard her; the singing is "wind in the skerries. I've lived with it thirty-one years." He rows
+    home with Hild without looking back (`lowsong_iver_home`) and keeps candles by the chapter-house; **the Provost struck
+    him out of the Long Book's drowned, the first line she has ever struck**, with him watching. "It's a strange thing, to be
+    glad of a hole and not know the shape of it." Nobody tells him what he listened for.
+  - **key** — Iver doesn't know Kindleby ("Is it far?") and keeps the light, listening, glad of it; the nearest voice is
+    "nearer since the light caught. Some nights now I think she'll get it out." Hild: "He asked me my name. Thirty years."
+    The Provost writes him in the Book again, **under the light, where the living go**: "He'll not know. I will."
+  - **The Hood-Pin** (`lowsong_hood_pin`) — the ember gives back the Wakebearer's **second own Remnant** as the sixth light
+    catches: a novice's hood-pin of yellowed bone. **The east stair again: wind coming down off the lantern room, smelling of
+    oil and something hotter, pushing the hood back; a hand from a turn above pulls it forward and pins it — "Keep it up.
+    Nobody's to see your face on this stair tonight." The Wakebearer is counting the landings out loud; the hand says
+    "Hush", and they go on counting under their breath.** Never a face (they never look up) or a name. Iver: hood-pins were
+    given out at the foot of the stair with the tapers, so the wind wouldn't have a novice's hood back. If he still listens,
+    **the nearest voice stops again while it's out** ("She stops when you take out the things that are yours"); if not, he
+    thinks something stopped, and decides it's the wind. *(Mystery #2/#4. Do not explain.)*
 - Open: the Quiet House; the Long Book (and its empty page for what was seen); what Anselm and the old ones saw (burned, or
   kept); the colliers on Kindleby (Ottie looking north; whether anyone goes home).
 - **What the ember keeps (Day 69, `kindleby_stair_taper`; quest *What the Ember Keeps*).** As the Vigil Light catches, smoke
@@ -1281,10 +1307,10 @@ the content lands.
    more island and its light (working name **Lowsong**: a scatter of skerries where the Greying is heard as voices, the
    Hollow Choir rumor heard close — a mystery #4 foreshadow, *never* Isolde's name yet). Opened by asking Oda once
    Kindleby is lit. Kindleby's skiff (Hild) could take the Wakebearer where the Slow Mercy won't.
-3. **A Keeper who knows.** *(Begun Day 75: Iver hears of the ring held, Aldous's letter and the taper — see Lowsong.)* On the sixth island, or come by Keeper boat: a Keeper who has heard that the Wakebearer held
+3. **A Keeper who knows.** *(Written Day 75/77: Iver hears of the ring held, Aldous's letter and the taper; he knows the hood-pin; what he'd carry to the chapter depends on what burned — see Lowsong.)* On the sixth island, or come by Keeper boat: a Keeper who has heard that the Wakebearer held
    Kindleby's door for the chapter (`kindleby_ring_held`), that Aldous wrote to the Provost (`kindleby_provost_read_letter`),
    or that the Wakebearer carries a novice's taper (`kindleby_provost_saw_taper`) — and what the chapter would make of each.
-4. **The sixth light**, and the second own Remnant (a further memory of the east stair; never yet a face or a name).
+4. **The sixth light**, and the second own Remnant (written Day 77: Iver's lamp or his cell key; the Hood-Pin).
 5. **Act II's end:** every light on the ring lit — "the lights between" — and the lane in to Cindermoor shows on Oda's chart.
    The `act2` end card (recap of every burning and who went where) and its coda; Act III — The Spire — begins on the
    crossing in.
@@ -1293,7 +1319,7 @@ the content lands.
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
    Keepers quietly feeding it the memories of the Hushed. Oriel could not continue it.
-2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche. Day 64 hook: a face up Kindleby's steps the Wakebearer almost knows, in the Boats' Lantern as it burns. Day 69 hook: the Stair-Taper, a novice's light for the east stair, given back by the ember as the fifth light catches; Aldous heard the light going down the stair counting landings.)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
+2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche. Day 64 hook: a face up Kindleby's steps the Wakebearer almost knows, in the Boats' Lantern as it burns. Day 69 hook: the Stair-Taper, a novice's light for the east stair, given back by the ember as the fifth light catches; Aldous heard the light going down the stair counting landings. Day 77 hook: the Hood-Pin — the Wakebearer was the one counting, and someone a turn above hid their face on the stair "tonight".)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —

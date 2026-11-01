@@ -2,6 +2,62 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-01 09:00 UTC — Day 77: A Light for Lowsong — Iver's lamp or his key, and the Hood-Pin (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 76's `8bfb571`).
+- **Content:** ROADMAP *Next up* #1 — Act II's close steps 3-4, *A Light for Lowsong* (no longer `future`).
+  - **A Remnant made on purpose:** with the quest active, "Then it'll have to be something of yours." Iver tells what the
+    novices were never to try — a Keeper with a true light beside him can put a memory down into a thing he holds and the
+    fog goes hard round it — and offers two things, asking the Wakebearer to choose: **his lamp** (his listening; he
+    resists once, "She nearly had a word out last night", and gives it when pressed with his own words) or **his cell key**
+    (Kindleby, thirty-one midsummers; "A drowned man doesn't want a key"). New items `iver_lamp`, `iver_key` (remnants with
+    memories); stage `put_down`; `lowsong_iver_gave`. Either can be **given back** until it burns. While you carry his
+    lamp he stands on the rock with empty hands (`iver_nolamp`).
+  - **The cradle** (Lowsong's door now goes up the stair once the quest is active): weigh and burn either, or try **the
+    Stair-Taper — the cradle leans past it to the ember, and the ember won't let go** (canon: no beacon asks for an own
+    Remnant; the nearest voice stops if Iver has seen it). Lit: the sixth `kindle` + lighting cue, the fog leans back
+    (region `fog`/`light`/`greying` overrides), **the Choir goes off past the skerries** (a quieter `choir_near` layer, a
+    fire's crackle), the lit model `lowsong_light_lit` with halo, light and fire sound.
+  - **The Hood-Pin:** the ember gives back the Wakebearer's second own Remnant (`hood_pin`, `memory_hood_pin`,
+    `what_the_ember_keeps` → `the_hood_pin`): the east stair, the wind off the lantern room, a hand pinning the hood
+    forward — "Nobody's to see your face on this stair tonight" — and the Wakebearer counting the landings aloud until the
+    hand says hush. Iver knows the pin (`lowsong_keeper_saw_pin`).
+  - **Iver's fate:** *lamp* — he never heard her ("That's wind"), waits on the landing and rows home with Hild
+    (`lowsong_iver_home`); on Kindleby by the chapter-house steps: "Agathe's struck me out of the Book." *key* — he keeps
+    the rock not knowing Kindleby; "She's nearer since the light caught." Hild reacts to both; the Provost hears either
+    (`kindleby_provost_heard_iver`): the first line she's ever struck, or writing him in again "under the light".
+  - Blender: `build_lowsong.py lowsong_light_lit`, `build_characters.py iver_nolamp`. Checkpoint `lowsong_lit`.
+  - LORE: *A Light for Lowsong* canon, the second own Remnant, the Choir row, Act II's close steps 3-4 marked written.
+- **Tests:** `test_light_for_lowsong.gd` (9: the two offers; the lamp pressed for and the empty-handed model; given back
+  and the key instead; the cradle refuses the taper and isn't reachable before the meeting; both burnings end to end
+  incl. the row home, Kindleby placement, Hild and the Provost; the Hood-Pin, its memory and Iver's two reactions; the
+  lit light, Choir volume and assets; never a name). Beacon counts in `test_audio`/`test_music` are six now. The smoke walk
+  makes the key a Remnant and lights Lowsong. 542 tests + smoke + launch pass.
+
+Screenshots: `docs/checkpoints/lowsong_lit.png`; `docs/screenshots/2026-11-01-am-iver-on-the-landing.png`,
+`2026-11-01-am-iver-home.png`.
+
+**Decisions**
+- **The Remnant is made, not found:** canon says the Low Water's fog keeps what it carries, so the answer had to come from
+  a person. A Keeper putting a memory down on purpose echoes Anselm's lantern on Kindleby and the letting post, and it
+  makes the choice Iver's consent and the Wakebearer's selection at once ("I'd only choose wrong").
+- **The taper refused rather than not offered:** the player will want to try it; showing the cradle pass it by says more
+  about own Remnants than a missing option, without explaining anything (Act III asks whether the Spire wants them).
+- **Not the nearest voice:** she never condenses (mystery #4 must stay open); the lamp burns *Iver's hearing of her*, so
+  one outcome closes his thread and the other keeps a listener on the rock for later.
+- **Iver goes home only by the skiff's rowing back** (the flag is set on the row), so his placement is always one place.
+
+**Problems / notes**
+- None blocking. The validator's one-place proof can't see that `lowsong_iver_home` implies the lamp burning, so
+  Kindleby's placement states both.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **systems (due ~Day 78)**: the Greying v2's ember pushing fog back, or day/night. Then content
+   ~Day 79-80: **Act II's end** (every light lit, the lane in to Cindermoor, the `act2` end card). Polish pass by ~Day 81.
+   Fetch and reset `main` before trusting it.
+
 ## 2026-10-31 21:00 UTC — Day 76: Lowsong dressed — the Keeper's lamp in the fog, the stacks, the oars (art)
 
 **Did**
