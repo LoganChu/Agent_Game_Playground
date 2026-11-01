@@ -865,6 +865,15 @@
     "kindleby_provost_heard_iver": {
       "description": "The Provost heard what became of Brother Iver after Lowsong's light was lit (Day 77): home (she struck him out of the Long Book's drowned, her first line ever struck) or staying on the rock not knowing Kindleby (she writes him in again, under the light).",
       "default": false
+    },
+    "greying_turned_back": {
+      "description": "The Greying has turned the Wakebearer back at least once (the ember ran out: \"You forget why you came.\"). Set by GreyingWalker, saved; NPCs may remark on it (Aldous, Day 78).",
+      "default": false,
+      "set_by_code": true
+    },
+    "saltmarrow_aldous_heard_turned_back": {
+      "description": "Player told Aldous the fog turned them back; he told of the ember's ring of clear and Isolde's ember walking her out (Day 78).",
+      "default": false
     }
   }
 }

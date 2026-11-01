@@ -163,6 +163,17 @@
             "goto": "taper"
           },
           {
+            "text": "I went into the fog and came out again not knowing why I'd gone.",
+            "if": [
+              "flag:greying_turned_back",
+              "!flag:saltmarrow_aldous_heard_turned_back"
+            ],
+            "set": {
+              "saltmarrow_aldous_heard_turned_back": true
+            },
+            "goto": "turned_back"
+          },
+          {
             "text": "What happened at the Hearthspire?",
             "goto": "spire"
           },
@@ -1005,6 +1016,41 @@
           "what_the_ember_keeps",
           "a_novices_light"
         ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "turned_back": [
+      {
+        "say": "narrator",
+        "text": "He looks at your hand before he looks at you, the way a man checks a lamp's wick before he asks where you've been with it."
+      },
+      {
+        "say": "aldous",
+        "text": "But you came out. That's the part to hold on to."
+      },
+      {
+        "say": "aldous",
+        "text": "It keeps back off a lit ember. Not far. A boat's length, when it's burning well; you'll have seen it lean away from you, the way it leans off a lantern. When that ring's closing on your boots, the ember's telling you. Turn round then, not after."
+      },
+      {
+        "say": "aldous",
+        "text": "And it took the errand and left you the rest? It does that. Takes the newest thing first. A man forgets what he went up the stair for long before he forgets the stair.",
+        "if": "!flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "aldous",
+        "text": "It took the errand and left you the rest. The fog takes the newest thing first. I've watched it do the opposite to men, though. You're not a man it does the opposite to.",
+        "if": "flag:saltmarrow_aldous_confessed=full"
+      },
+      {
+        "say": "aldous",
+        "text": "The books say Isolde Vane's ember walked her out of the grey every time, back to where she'd last stood clear. They don't say how it knew the way. Nobody ever wrote down what an ember knows."
+      },
+      {
+        "say": "narrator",
+        "text": "He goes back to his slate. After a while: \"Don't make a habit of it.\""
       },
       {
         "goto": "hub"
