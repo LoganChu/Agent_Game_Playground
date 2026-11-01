@@ -566,6 +566,19 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
   (`Greying.worst_case_areas`) is every fog area plus only the **unconditional** clear areas — a
   lantern the story may take away doesn't count toward the spawn-clear and ember-budget checks.
 
+- **The ember's pool (Day 78):** the Wakebearer's ember holds a pool of clear in every fog layer — **look only**
+  (`Region.greying_depth`, the drain and the validator's budgets ignore it). `GreyingWalker._open_pool` each physics
+  frame → `Region.set_ember_pool(hand, radius, push)` → `GreyingFog.set_pool` on each shown layer (fog built later
+  starts with the last pool). Shader uniforms `ember_pool` (xyz = hand, w = radius; 0 = none) and `ember_push`: alpha
+  × (1 − push × (1 − smoothstep(0.35 r, r, d))), `d` jittered by the fog noise; the wall just outside takes a warm rim
+  (`ember_tint`, `ember_rim`). Radius `Greying.ember_pool_radius(ember)` = `EMBER_POOL_RADIUS_SPENT` (1.1 m) →
+  `EMBER_POOL_RADIUS` (3.4 m), × a small breath; push `EMBER_POOL_PUSH` 0.85 (never a hole). `Greying.ember_pool_push`
+  mirrors the shader term — keep `EMBER_POOL_CORE` and the shader's 0.35 in step (`test_ember_pool.gd` checks).
+  The environment fog's Greying thickening (`follow_greying`) is not pooled.
+- **Turned back (Day 78):** the first time the ember runs out, `GreyingWalker` sets the saved flag
+  `greying_turned_back` (`TURNED_BACK_FLAG`). Flags a system sets carry **`"set_by_code": true`** in
+  `data/flags.json`, which exempts them from the validator's "never set by any content" check.
+
 ### Atmosphere & water (Day 12)
 `Atmosphere` (child of main) owns the `WorldEnvironment` and the sun. A region's mood =
 `RegionMood.fog` + `RegionMood.light` (every key optional, defaults in
@@ -1141,6 +1154,8 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
   ridge's light vs the woods' halo, fog/light overrides in all three regions, the woods' fog leaning
   back but staying); Hob's daylight arrival event (only paid, once, either order) and his move to the
   camp; Bram, Pell, Oda and the Lamp after (the stair's sliver showing); the `thornwold_lit` checkpoint.
+- `tests/test_ember_pool.gd` — the ember's pool of clear (radius, push, shader, region/walker plumbing, look only),
+  the code-set turn-back flag and Aldous's remark (Day 78).
 - `tests/test_greying.gd` — area depth/falloff, Gull's Head fog leaning back after the burn,
   EmberMeter drain/refill/emptied, the ember-cost map, the fog layer mesh, validator checks
   (malformed areas, spawn in fog, ember budget on a 120 m fixture strip).

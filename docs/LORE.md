@@ -68,6 +68,12 @@ burns. The last recorded Wakebearer was **Isolde Vane**, 300 years ago.
   came** and find themselves back at the fog's edge, the ember slowly warming again. They
   remember everything but the errand. (Hook for later: why the ember always "walks them
   back" — something in it knows the way out. Do not explain yet.)
+- *Canon (Day 78, the ember's ring):* a lit ember keeps the fog off **about a boat's length** round the hand — the fog
+  leans away from it as it leans off a lantern, never wholly — and the ring **closes as the ember wanes**: "When that
+  ring's closing on your boots, the ember's telling you. Turn round then, not after." (Aldous.) The fog **takes the
+  newest thing first** — the errand before the stair. The books say **Isolde Vane's ember walked her out of the grey
+  every time**, back to where she'd last stood clear; "Nobody ever wrote down what an ember knows." (Still unexplained.)
+  Aldous hears of it once the Wakebearer has been turned back (`greying_turned_back`).
 - Relit beacons leave **pockets** of Greying behind: on Gull's Head, a lip of fog on the
   seaward edge of the headland and a thinning bank on the water west of the lofts.
 

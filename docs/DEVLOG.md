@@ -2,6 +2,58 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-01 21:00 UTC — Day 78: the ember holds the fog back (systems)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to `origin/main`
+  (Day 77's `6cf8682`).
+- **Systems (due ~Day 78; last Day 74):** ROADMAP *Next up* #1 — the Greying v2's **ember pushing fog back**.
+  - **The ember's pool:** every Greying fog layer now thins round the Wakebearer's hand — `EMBER_POOL_PUSH` (0.85) held
+    through the inner 35 % of the radius, easing to nothing at the edge; the edge is ragged with the fog's own noise so
+    it reads as fog leaning away, not a disc cut out. The leaning wall catches a faint warm rim (`ember_tint`,
+    `ember_rim` 0.32). New `greying_fog.gdshader` uniforms `ember_pool` (hand xyz, radius) and `ember_push`.
+  - **It gutters with the ember:** radius = `Greying.ember_pool_radius(ember)`, 3.4 m full → 1.1 m spent, breathing with
+    the hand's flicker. Walking deep, the ring visibly closes on your boots before "You forget why you came."
+  - Plumbing: `GreyingWalker._open_pool` each physics frame → `Region.set_ember_pool` → `GreyingFog.set_pool` on every
+    shown layer; fog the story brings in later starts with the current pool. `Greying.ember_pool_push` mirrors the
+    shader term for tests.
+  - **The first turn-back is remembered:** `greying_turned_back` (saved world flag), set by `GreyingWalker` when the
+    ember runs out. New flag key **`set_by_code`** — the validator no longer demands content set it (a flag without it
+    still must be set by content).
+  - **Aldous on being turned back** (`saltmarrow_aldous_heard_turned_back`): "I went into the fog and came out again not
+    knowing why I'd gone." — the fog keeps off a lit ember "a boat's length… When that ring's closing on your boots, the
+    ember's telling you"; it takes the newest thing first (a darker line after the full confession); Isolde Vane's ember
+    walked her out of the grey every time, "Nobody ever wrote down what an ember knows." Diegetic tutorial for the pool;
+    the walk-back hook stays unexplained.
+- **Tests:** `test_ember_pool.gd` (9: radius with the ember; the push profile; the shader carries the pool; the region
+  hands it to shown and later fog; the walker centres it at the hand and it closes as the ember drains; look-only — the
+  drain depth is unchanged; the flag declared/set by code/validator-clean; an unset flag still errors; Aldous's knot
+  both ways and once only). The smoke walk checks the pool round the player in the headland fog and the flag after
+  its turn-back. 551 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-11-01-pm-ember-pool.png` and `…-ember-pool-off.png` (the same spot with the push at 0,
+for comparison) — Gull's Head before the burn.
+
+**Decisions**
+- **Look only; the drain is unchanged.** The ember drains from the fog pressing in, not from the clear it makes, so the
+  validator's ember budgets (≤ 0.45 one way) and every tuned region stay exactly as they were. Making the pool lower
+  the drain would have quietly halved the Greying's threat everywhere.
+- **Never a hole (push 0.85, not 1):** the fog should lean, not part — the Greying is still the place's master.
+- **Radius tied to the ember, not to depth:** the closing ring is the warning the meter already gives, now in the world,
+  so a player who hides the HUD in their head still feels it.
+- **`set_by_code` instead of a fake content setter:** honest about where the flag comes from, and the orphan check still
+  bites for everything else.
+
+**Problems / notes**
+- In the Compatibility renderer the pool is subtle: most of the grey round the player is the *environment* fog
+  (thickened with depth by `follow_greying`), which the pool doesn't touch, and the warm rim barely shows. Added to the
+  Vulkan colour-check item; if it still reads weakly there, ease the environment thickening near the player or raise
+  `ember_rim`.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **content (due ~Day 79-80): Act II's end** (every light lit, the lane in to Cindermoor, the
+   `act2` end card). Polish pass by ~Day 81. Fetch and reset `main` before trusting it.
+
 ## 2026-11-01 09:00 UTC — Day 77: A Light for Lowsong — Iver's lamp or his key, and the Hood-Pin (content)
 
 **Did**
