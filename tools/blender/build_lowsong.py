@@ -6,6 +6,7 @@ field in the ring's southern gap, into the dressing kit:
   an iron hook by the door where the Keeper hangs his own small lamp; a lantern room of dull horn panes under
   a conical slate cap. Against its back, the Keeper's **bothy**: a low lean-to of the same stone with a turf
   roof and a stub chimney, a water butt at its corner.
+- **lowsong_light_lit** (Day 77): the same, lit — gold horn round a fire in the cradle, the door open.
 - **lowsong_cairn**: a chest-high cairn of flat skerry stones with a pale stone on top — the old brothers'
   markers on the wading way from the landing to the rock (each one stands where the shallows will bear you).
   Day 76: a skirt of black-green wrack round the foot where the tide lips it, salt crusted in the joints.
@@ -50,8 +51,11 @@ def _diamond(name: str, size: tuple, loc: tuple, material) -> bpy.types.Object:
     return obj
 
 
-def build_lowsong_light() -> None:
-    """Lowsong's light (~3.2 m across, 6.4 m to the finial) and the bothy behind it (~3 × 2 m, 2 m high)."""
+def build_lowsong_light(lit: bool = False) -> None:
+    """Lowsong's light (~3.2 m across, 6.4 m to the finial) and the bothy behind it (~3 × 2 m, 2 m high).
+
+    `lit` (Day 77, `lowsong_light_lit`, after Lowsong's burning): the horn glows gold round a fire in the
+    cradle, the door stands open on the dark of the stair. The hook by the door stays empty either way."""
     bd.reset()
     rng = random.Random(750)
     STONE = (mat("slate", -0.42), mat("slate", -0.52), mat("slate", -0.3))
@@ -76,16 +80,29 @@ def build_lowsong_light() -> None:
     for k in range(6):
         a = k / 6 * math.tau
         beam("Post", (math.cos(a) * 0.82, math.sin(a) * 0.82, 4.16), (math.cos(a) * 0.82, math.sin(a) * 0.82, 5.2), 0.07, IRON)
-    cyl("Horn", 0.8, 0.8, 0.95, 6, (0, 0, 4.18), mat("silverfog", -0.4))
+    cyl("Horn", 0.8, 0.8, 0.95, 6, (0, 0, 4.18), bd.horn("kindle", 0.3, glow=0.35) if lit else mat("silverfog", -0.4))
     cyl("Cradle", 0.3, 0.4, 0.28, 6, (0, 0, 4.16), IRON)
+    if lit:
+        # The fire in the cradle, seen through the horn.
+        cyl("Coals", 0.26, 0.2, 0.1, 7, (0, 0, 4.42), mat("ember", 0.0, emissive=True))  # one glowing material with the tongues (≤ 16 meshes)
+        for k in range(5):
+            a = k / 5 * math.tau + 0.4
+            r = 0.1 + 0.04 * (k % 2)
+            h = 0.32 + 0.08 * ((k * 3) % 5) / 4
+            tongue = cyl("Tongue", 0.09, 0.0, h, 4, (math.cos(a) * r, math.sin(a) * r, 4.5), mat("ember", 0.0, emissive=True), a)
+            tongue.rotation_euler = (math.sin(a) * 0.22, -math.cos(a) * 0.22, 0)
+        cyl("Heart", 0.08, 0.0, 0.5, 5, (0, 0, 4.5), mat("kindle", 0.0, emissive=True))
     cyl("Cap", 1.15, 0.12, 0.95, 6, (0, 0, 5.15), mat("slate", -0.6))
     rod("Finial", (0, 0, 6.05), (0, 0, 6.35), 0.035, IRON)
     _diamond("Ember", (0.18, 0.05, 0.18), (0, 0, 6.33), mat("ember", -0.45))
     # The door, low (a Keeper stoops), and the ember over it.
     box("DoorFrame", (0.9, 0.12, 1.75), (0, -1.36, 0.6), STONE[2])
-    box("Door", (0.68, 0.1, 1.55), (0, -1.4, 0.6), WOOD)
-    for z in (0.95, 1.7):
-        beam("Band", (-0.33, -1.46, z), (0.33, -1.46, z), 0.045, IRON)
+    if lit:
+        box("Doorway", (0.68, 0.06, 1.55), (0, -1.4, 0.6), mat("ink", -0.6))  # open on the dark of the stair
+    else:
+        box("Door", (0.68, 0.1, 1.55), (0, -1.4, 0.6), WOOD)
+        for z in (0.95, 1.7):
+            beam("Band", (-0.33, -1.46, z), (0.33, -1.46, z), 0.045, IRON)
     _diamond("Sigil", (0.2, 0.05, 0.2), (0, -1.37, 2.55), mat("ember", -0.4))
     box("Step", (1.1, 0.5, 0.2), (0, -1.75, 0.0), STONE[1])
     # The lamp hook, empty: an iron bracket out of the wall by the door, a crook at its end.
@@ -108,7 +125,7 @@ def build_lowsong_light() -> None:
     cyl("Butt", 0.3, 0.27, 0.7, 8, (1.75, 3.0, 0.0), WOOD)
     for z in (0.15, 0.55):
         cyl("Hoop", 0.31, 0.31, 0.05, 8, (1.75, 3.0, z), IRON)
-    bd.export("lowsong_light")
+    bd.export("lowsong_light_lit" if lit else "lowsong_light")
 
 
 def build_lowsong_cairn() -> None:
@@ -182,6 +199,7 @@ def build_lowsong_stack() -> None:
 
 BUILDERS = {
     "lowsong_light": build_lowsong_light,
+    "lowsong_light_lit": lambda: build_lowsong_light(lit=True),
     "lowsong_cairn": build_lowsong_cairn,
     "lowsong_stack": build_lowsong_stack,
 }

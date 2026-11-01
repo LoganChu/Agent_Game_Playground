@@ -1968,13 +1968,16 @@ def build_hild_scraping() -> None:
     _hild(scraping=True)
 
 
-def build_iver() -> None:
+def build_iver(lamp: bool = True) -> None:
     """Brother Iver Lusk (Day 75), the Keeper of Lowsong: seventies, thirty-one winters alone on the rock. Thin
     and long, stooped at the neck; the hood down off thin white hair grown long to the collar; a short white
     beard gone yellow at the mouth. His grey robe is salt-stiff, and from the knee down it has gone the silver
     of the Hushed (the fog's been at it while he sat out listening). A sealskin cape over the shoulders. His
     own small Keeper's lamp held out low in his right hand, lit — the only light he's kept. His head is turned
-    and tilted, an ear to the water: he is listening even while he talks."""
+    and tilted, an ear to the water: he is listening even while he talks.
+
+    `lamp=False` (Day 77, `iver_nolamp`): after his lamp fed Lowsong's light. Both hands empty at his sides,
+    and his head straight: there's nothing in the water for him to listen to any more."""
     reset_scene()
     b = Body(build=0.86)
     robe, hem = material("bone", -0.42), material("silverfog", 0.05)
@@ -1990,12 +1993,21 @@ def build_iver() -> None:
     h.append(block((0.3, 0.1, 0.22), (0, 0.13, b.head - 0.17), white))                           # down to the collar
     h.append(ball(0.12, (0, -0.13, b.head - 0.17), material("bone", -0.12), scale=(1.1, 0.7, 0.9)))  # yellowed beard
     t.append(ball(0.3, (0, 0.12, b.shoulder + 0.02), robe, scale=(1.05, 0.75, 0.45)))           # the hood, down
-    _held_lantern(b, "R")
-    b.arm_rest["ArmR"] = (math.radians(-14), 0, math.radians(-6))
-    b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(6))
     b.torso_rest = (math.radians(7), 0, 0)
-    b.head_rest = (math.radians(4), math.radians(14), math.radians(22))  # an ear to the water
-    assemble(b, "iver", scale=0.99)
+    if lamp:
+        _held_lantern(b, "R")
+        b.arm_rest["ArmR"] = (math.radians(-14), 0, math.radians(-6))
+        b.arm_rest["ArmL"] = (math.radians(-4), 0, math.radians(6))
+        b.head_rest = (math.radians(4), math.radians(14), math.radians(22))  # an ear to the water
+    else:
+        b.arm_rest["ArmR"] = (math.radians(-3), 0, math.radians(-5))
+        b.arm_rest["ArmL"] = (math.radians(-3), 0, math.radians(5))
+        b.head_rest = (math.radians(2), 0, 0)  # nothing to listen for
+    assemble(b, "iver" if lamp else "iver_nolamp", scale=0.99)
+
+
+def build_iver_nolamp() -> None:
+    build_iver(lamp=False)
 
 
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
@@ -2007,7 +2019,7 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
             build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother,
-            build_keeper_pim, build_hild, build_hild_scraping, build_iver]
+            build_keeper_pim, build_hild, build_hild_scraping, build_iver, build_iver_nolamp]
 
 if __name__ == "__main__":
     import sys
