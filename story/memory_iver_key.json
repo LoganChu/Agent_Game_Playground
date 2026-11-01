@@ -1,0 +1,27 @@
+{
+  "id": "memory_iver_key",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You hold the silvered key close. It hums with a whole other place, and the edges of it come:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Steps going up between candles. A door in a long wall that sticks at the bottom, and a shoulder that knows where to push. Evening office through the wall, the chapter at it in the next room."
+      },
+      {
+        "say": "narrator",
+        "text": "A woman's tidy hand moving down a page, and your own voice saying that's not where a comma goes, and her not looking up, and nearly smiling."
+      },
+      {
+        "say": "narrator",
+        "text": "It isn't yours to keep for long. The key is cold in your hand again."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "quest:a_light_for_lowsong=done",
+        "goto": "lit"
+      },
+      {
         "say": "narrator",
         "text": "Lowsong's light is cold: dull horn, a black cradle, salt run down the stone in pale streaks from the gallery. Against its back a turf-roofed bothy, a water butt at the corner. The iron hook by the door is empty."
       },
@@ -14,7 +18,255 @@
       {
         "say": "narrator",
         "text": "It wants a memory, like all of them. Out here the fog gives none up: it only sings.",
-        "if": "quest:a_light_for_lowsong=active"
+        "if": "stage:a_light_for_lowsong=the_singing"
+      },
+      {
+        "if": "quest:a_light_for_lowsong=active",
+        "goto": "cradle"
+      },
+      {
+        "end": true
+      }
+    ],
+    "cradle": [
+      {
+        "say": "narrator",
+        "text": "The door isn't locked. Nobody locks a door out here. You go in and up the stair inside the wall, short and steep, a Keeper's stair, and come out under the cap: dull horn all round with the fog pressed grey against it, and an iron cradle with old ash in it, gone damp."
+      },
+      {
+        "say": "narrator",
+        "text": "You lift the ember. The cradle leans to it, the way the others did. Empty. Waiting."
+      },
+      {
+        "say": "narrator",
+        "text": "Iver's lamp hangs from your hand, silver and cold. Under the singing outside you think you can hear what's in it.",
+        "if": "item:iver_lamp"
+      },
+      {
+        "say": "narrator",
+        "text": "Iver's key is cold in your fist on its loop of cord.",
+        "if": "item:iver_key"
+      },
+      {
+        "say": "narrator",
+        "text": "You have nothing to set in it. Out here the fog gives nothing up. Whatever burns here will have to come from someone.",
+        "if": [
+          "!item:iver_lamp",
+          "!item:iver_key"
+        ]
+      },
+      {
+        "goto": "waiting"
+      }
+    ],
+    "waiting": [
+      {
+        "say": "narrator",
+        "text": "The cradle waits. Whatever you set in it, Lowsong's Keeper will never remember again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Set Iver's Lamp in the cradle.",
+            "if": "item:iver_lamp",
+            "goto": "weigh_lamp"
+          },
+          {
+            "text": "Set Iver's Cell Key in the cradle.",
+            "if": "item:iver_key",
+            "goto": "weigh_key"
+          },
+          {
+            "text": "Set the Stair-Taper in the cradle.",
+            "if": "item:stair_taper",
+            "goto": "taper"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "taper": [
+      {
+        "say": "narrator",
+        "text": "You hold the Stair-Taper out over the cradle."
+      },
+      {
+        "say": "narrator",
+        "text": "The cradle doesn't lean to it. It leans to the ember, the way it has all along, and past the taper as if there were nothing in your hand at all."
+      },
+      {
+        "say": "narrator",
+        "text": "And the ember closes round the candle-end, warm, the way a hand closes on something it won't let go of. Not here. Not yet."
+      },
+      {
+        "say": "narrator",
+        "text": "Out in the singing, nearer than the rest, one voice has stopped.",
+        "if": "flag:lowsong_keeper_saw_taper"
+      },
+      {
+        "goto": "waiting"
+      }
+    ],
+    "weigh_lamp": [
+      {
+        "say": "narrator",
+        "text": "The lamp is three months of nights on the rock. An arm aching with holding it out. The singing all round, and one voice nearer than the rest, tired, nearly getting a word out, and a man leaning toward her with everything he has."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and Iver Lusk will never have heard her. The Low Water will be wind in the skerries to him. He'll go home to Kindleby and keep candles and argue about commas, and sleep."
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody else has listened to her that long. Nobody else might again."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Iver's listening.",
+            "take_item": "iver_lamp",
+            "set": {
+              "lowsong_beacon_burned": "lamp"
+            },
+            "goto": "burn_lamp"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "weigh_key": [
+      {
+        "say": "narrator",
+        "text": "The key is thirty-one midsummers. Steps going up between candles, a door that sticks at the bottom, evening office through a wall. A tidy hand moving down a page. A place that wrote him with the drowned, and was sorry."
+      },
+      {
+        "say": "narrator",
+        "text": "Burn it, and Iver Lusk will never have had anywhere but this rock. He'll keep the light till he's in the water himself, and listen, and be glad of it. Nobody on Kindleby will lose a thing by it. He just won't ever come home."
+      },
+      {
+        "choice": [
+          {
+            "text": "Burn Iver's Kindleby.",
+            "take_item": "iver_key",
+            "set": {
+              "lowsong_beacon_burned": "key"
+            },
+            "goto": "burn_key"
+          },
+          {
+            "text": "No. Not this.",
+            "goto": "waiting"
+          }
+        ]
+      }
+    ],
+    "burn_lamp": [
+      {
+        "say": "narrator",
+        "text": "You set the lamp in the cradle. For a moment the lantern room is full of the singing, close as breath, and one voice in it so near that you turn your head. A word, nearly."
+      },
+      {
+        "say": "narrator",
+        "text": "Then the horn takes the flame."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "burn_key": [
+      {
+        "say": "narrator",
+        "text": "You set the key in the cradle by its cord. For a moment there are candles all round you, steps going up, a door that sticks, somebody laughing at a comma in the next room."
+      },
+      {
+        "say": "narrator",
+        "text": "Then the horn takes the flame."
+      },
+      {
+        "goto": "kindle"
+      }
+    ],
+    "kindle": [
+      {
+        "say": "narrator",
+        "text": "Lowsong's light catches. Gold comes out through the dull horn, and the fog over the Low Water goes gold for a cable all round, every skerry and every cairn standing up out of it.",
+        "sound": "kindle",
+        "music": "music_lighting"
+      },
+      {
+        "say": "narrator",
+        "text": "The singing doesn't stop. It goes further off, out past the skerries, the way voices in the next room go quiet when somebody shuts the door."
+      },
+      {
+        "quest_complete": "a_light_for_lowsong"
+      },
+      {
+        "say": "narrator",
+        "text": "Below on the rock Iver is standing with his hand held out low, holding nothing. He looks at the hand. Then he turns his back on the water and goes carefully down the cairns toward the landing, where Hild is.",
+        "if": "flag:lowsong_beacon_burned=lamp"
+      },
+      {
+        "say": "narrator",
+        "text": "Below on the rock Iver hasn't moved. He holds his little lamp out over the water with his head on one side, and after a while he nods, as if somebody a long way off has said a thing he agrees with.",
+        "if": "flag:lowsong_beacon_burned=key"
+      },
+      {
+        "goto": "pin",
+        "note": "Day 77: the ember gives back the second own Remnant as the sixth light catches."
+      }
+    ],
+    "pin": [
+      {
+        "say": "narrator",
+        "text": "Smoke comes down the short stair from the cradle, more of it than a fire that size should make, and finds your hand where the ember is. It's warm, and then it isn't only the ember's warmth."
+      },
+      {
+        "say": "narrator",
+        "text": "When it clears there's something in your fingers: a pin of yellowed bone, a finger long, worn smooth along one side by cloth."
+      },
+      {
+        "say": "narrator",
+        "text": "It hums. Wind coming down a stair off a lantern room, pushing your hood back off your face. A hand from a turn above pulling it forward and pinning it under your chin. \"Nobody's to see your face on this stair tonight.\" Somebody counting the landings out loud. You, counting."
+      },
+      {
+        "say": "narrator",
+        "text": "Then it's a bone pin in a smoky doorway, and the ember lies quiet in your palm, the way a hand does when it has put something down.",
+        "give_item": "hood_pin",
+        "set": {
+          "lowsong_hood_pin": true
+        },
+        "quest_stage": [
+          "what_the_ember_keeps",
+          "the_hood_pin"
+        ]
+      },
+      {
+        "end": true
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "Lowsong's light burns gold behind its dull horn, its door standing open on the stair. The fog keeps back off the rock now, and the singing stays out past the skerries."
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a voice so near you nearly hear the word. Then it's only fire.",
+        "if": "flag:lowsong_beacon_burned=lamp"
+      },
+      {
+        "say": "narrator",
+        "text": "In the flame, for a heartbeat, a door in a long wall that sticks at the bottom. Then it's only fire.",
+        "if": "flag:lowsong_beacon_burned=key"
+      },
+      {
+        "end": true
       }
     ]
   }

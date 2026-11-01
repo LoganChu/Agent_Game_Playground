@@ -697,6 +697,30 @@
         "the_low_water": "lowsong"
       },
       "shot": "--camera=24,5.5,11:-12,1,-2"
+    },
+    {
+      "id": "lowsong_lit",
+      "act": "Act II — The Drift",
+      "title": "A light for Lowsong",
+      "inherits": "lowsong",
+      "region": "lowsong",
+      "spawn": "from_skiff",
+      "description": "Brother Iver put his Kindleby down into his cell key with the ember beside him, and it fed Lowsong's light: he keeps the rock now, listening, and doesn't know there was anywhere else. The singing went off past the skerries, and the ember gave back a second memory of the east stair: a novice's bone hood-pin.",
+      "flags": {
+        "lowsong_met_keeper": true,
+        "lowsong_iver_gave": "key",
+        "lowsong_beacon_burned": "key",
+        "lowsong_hood_pin": true
+      },
+      "quests": {
+        "the_low_water": "done",
+        "a_light_for_lowsong": "done",
+        "what_the_ember_keeps": "the_hood_pin"
+      },
+      "items": {
+        "hood_pin": 1
+      },
+      "shot": "--camera=4,4.5,6:-16,2.5,-3"
     }
   ]
 }

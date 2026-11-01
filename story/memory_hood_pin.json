@@ -1,0 +1,35 @@
+{
+  "id": "memory_hood_pin",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You close your hand round the pin. It hums the way a Remnant hums, and what it hums is yours.",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "The east stair, turning always to the left. Wind coming down it off the lantern room, cold, smelling of oil and something hotter, pushing your hood back off your face."
+      },
+      {
+        "say": "narrator",
+        "text": "A hand comes down from a turn above and pulls the hood forward, and pins it under your chin. \"Keep it up. Nobody's to see your face on this stair tonight.\""
+      },
+      {
+        "say": "narrator",
+        "text": "You're counting the landings out loud. The hand rests on your hood a moment. \"Hush.\" You go on counting under your breath."
+      },
+      {
+        "say": "narrator",
+        "text": "You hold on past where it let go of you. The stair goes on turning. Whoever the hand is, you never look up."
+      },
+      {
+        "say": "narrator",
+        "text": "Then it's a bone pin in your palm again, worn smooth on one side."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

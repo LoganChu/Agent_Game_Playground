@@ -829,6 +829,42 @@
       "description": "Brother Iver saw the Stair-Taper (Day 75): a stair-taper, burned past the third notch — and the nearest voice in the Choir went quiet while it was out. (Mystery #2/#4 foreshadow; future.)",
       "default": false,
       "future": true
+    },
+    "lowsong_iver_gave": {
+      "description": "What Brother Iver put down into a Remnant for Lowsong's light, with the ember beside him (Day 77, A Light for Lowsong): '' (nothing, or it was given back), 'lamp' (Iver's Lamp: his three months' listening and the nearest voice in the Choir) or 'key' (Iver's Cell Key: Kindleby, the chapter, the way home). The fog on the Low Water leaves nothing lying, so Lowsong's Remnant is made on purpose.",
+      "default": "",
+      "values": [
+        "",
+        "lamp",
+        "key"
+      ]
+    },
+    "lowsong_beacon_burned": {
+      "description": "What fed Lowsong's light (Lowsong's burning, Day 77): '' (not lit), 'lamp' (Iver's Lamp: he never heard a voice in the singing — it's wind in the skerries to him — and he rows home to Kindleby with Hild) or 'key' (Iver's Cell Key: he doesn't know there was anywhere else, and keeps the light, and listens, and is glad of it). The Choir goes further off once the light is lit either way.",
+      "default": "",
+      "values": [
+        "",
+        "lamp",
+        "key"
+      ]
+    },
+    "lowsong_iver_home": {
+      "description": "Brother Iver rowed home to Kindleby with Hild and the Wakebearer after his lamp fed Lowsong's light (Day 77). He keeps candles by the chapter-house now; the Provost struck him out of the Long Book's drowned.",
+      "default": false
+    },
+    "lowsong_hood_pin": {
+      "description": "The ember gave something back as Lowsong's light caught (Day 77): the Hood-Pin, the Wakebearer's second own Remnant (item kind 'own') — a novice's bone hood-pin, and the east stair again: the wind off the lantern room, a hand pinning the hood forward ('Nobody's to see your face on this stair tonight'), and the landings being counted aloud until the hand says hush.",
+      "default": false,
+      "future": true
+    },
+    "lowsong_keeper_saw_pin": {
+      "description": "Brother Iver saw the Hood-Pin (Day 77): a novice's pin, given out at the foot of the stair with the tapers. If he still listens (lowsong_beacon_burned=key) the nearest voice stops again while it's out; if not, he thinks something stopped, and decides it's the wind. (Mystery #2/#4; future.)",
+      "default": false,
+      "future": true
+    },
+    "kindleby_provost_heard_iver": {
+      "description": "The Provost heard what became of Brother Iver after Lowsong's light was lit (Day 77): home (she struck him out of the Long Book's drowned, her first line ever struck) or staying on the rock not knowing Kindleby (she writes him in again, under the light).",
+      "default": false
     }
   }
 }

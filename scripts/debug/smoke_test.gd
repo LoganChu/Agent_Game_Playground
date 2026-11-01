@@ -343,9 +343,23 @@ func _row_to_lowsong(main: Node, ui: DialogueUI) -> bool:
 	_check(world.get_flag("lowsong_landed") == true and world.quest_stage("the_low_water") == "lowsong", "the rowing out played")
 	_check(_npc("iver") != null and _npc("iver").find_child("CharacterRig", true, false) != null, "Brother Iver shows his rigged model")
 	_npc("iver").interact()
-	_finish_dialogue(ui, "iver (first meeting)")
+	_leave_dialogue(ui, "iver (first meeting)")
 	_check(world.quest_state("the_low_water") == WorldState.QUEST_DONE and world.quest_stage("a_light_for_lowsong") == "the_singing",
 			"the Keeper met: The Low Water done, A Light for Lowsong begun")
+	# Day 77: Iver makes his cell key a Remnant with the ember beside him, and it feeds Lowsong's light.
+	_npc("iver").interact()
+	_check(_choose(ui, "Then it'll have to be something of yours."), "asked Iver for something of his")
+	_check(_choose(ui, "Give me the key."), "asked for the key")
+	_leave_dialogue(ui, "iver (the key)")
+	_check(world.item_count("iver_key") == 1, "Iver's Cell Key in hand")
+	_object("lowsong_door").interact()
+	_check(_choose(ui, "Set Iver's Cell Key in the cradle."), "the key set in the cradle")
+	_check(_choose(ui, "Burn Iver's Kindleby."), "Lowsong's burning")
+	_finish_dialogue(ui, "lowsong light (the burning)")
+	await get_tree().process_frame
+	_check(world.quest_state("a_light_for_lowsong") == WorldState.QUEST_DONE and world.item_count("hood_pin") == 1,
+			"Lowsong lit; the ember gave back the Hood-Pin")
+	_check(_npc("iver") != null, "Iver keeps the rock")
 	_npc("hild").interact()
 	_check(_choose(ui, "Take me back to Kindleby."), "Hild rows back")
 	_finish_dialogue(ui, "hild (rowing back)")

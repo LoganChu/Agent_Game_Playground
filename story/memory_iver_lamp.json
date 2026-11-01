@@ -1,0 +1,27 @@
+{
+  "id": "memory_iver_lamp",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You hold the silvered lamp close. It hums with three months of somebody else's nights, and the edges of them come:",
+        "sound": "remnant_hum"
+      },
+      {
+        "say": "narrator",
+        "text": "Cold on the rock. The lamp out low over the water, the arm aching with it. The singing all round, a great many voices, and one of them nearer than the rest."
+      },
+      {
+        "say": "narrator",
+        "text": "She's tired. She's been at it so long. She nearly has it. You lean toward her with somebody else's whole body."
+      },
+      {
+        "say": "narrator",
+        "text": "It isn't yours to listen to for long. The lamp is cold in your hand again."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

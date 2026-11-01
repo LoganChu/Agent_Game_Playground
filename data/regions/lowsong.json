@@ -5,7 +5,13 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.055,
-    "color": "#B4BAC0"
+    "color": "#B4BAC0",
+    "overrides": [
+      {
+        "if": "!flag:lowsong_beacon_burned=",
+        "density": 0.032
+      }
+    ]
   },
   "light": {
     "note": "Fog lit from nowhere: no shadows to speak of, the water and the skerries the same grey, the Keeper's lamp the only warm thing.",
@@ -17,12 +23,29 @@
     "ambient_energy": 0.4,
     "sky_top": "slate",
     "sky_horizon": "#B4BAC0",
-    "shadow": 0.3
+    "shadow": 0.3,
+    "overrides": [
+      {
+        "if": "!flag:lowsong_beacon_burned=",
+        "sun_color": "#D9CDB4",
+        "sun_energy": 0.6,
+        "ambient_energy": 0.46,
+        "sky_horizon": "#C2C0B8",
+        "shadow": 0.45
+      }
+    ]
   },
   "ambience": [
     {
       "sound": "choir_near",
-      "volume": 0.9
+      "volume": 0.9,
+      "if": "flag:lowsong_beacon_burned="
+    },
+    {
+      "sound": "choir_near",
+      "volume": 0.35,
+      "if": "!flag:lowsong_beacon_burned=",
+      "note": "Lit: the Choir gone further off, out past the skerries, like a crowd in the next room when a door is shut."
     },
     {
       "sound": "surf_far",
@@ -31,6 +54,11 @@
     {
       "sound": "wind_low",
       "volume": 0.4
+    },
+    {
+      "sound": "embers",
+      "volume": 0.2,
+      "if": "!flag:lowsong_beacon_burned="
     }
   ],
   "footsteps": "shingle",
@@ -52,7 +80,21 @@
       "strength": 0.45,
       "falloff": 3.0,
       "height": 2.6,
-      "note": "The Low Water's fog, over everything: you hear the Choir in it."
+      "note": "The Low Water's fog, over everything: you hear the Choir in it.",
+      "if": "flag:lowsong_beacon_burned="
+    },
+    {
+      "rect": [
+        -28,
+        -20,
+        28,
+        20
+      ],
+      "strength": 0.25,
+      "falloff": 3.0,
+      "height": 2.6,
+      "note": "Lit (Day 77): the fog leaned back off the rock and the wading way, thin over all of it.",
+      "if": "!flag:lowsong_beacon_burned="
     },
     {
       "ellipse": [
@@ -273,7 +315,71 @@
           -2.5
         ]
       ],
-      "note": "Lowsong's light (Day 75), cold since the Snuffing: a squat round tower of dark sea-worn stone on the rock's knoll, its door to the east and the landing, the Keeper's bothy against its back. An empty iron hook by the door for the Keeper's own small lamp, which he carries. Day 76: a thin thread of peat smoke from the bothy's stub chimney — he keeps a fire in, low."
+      "note": "Lowsong's light (Day 75), cold since the Snuffing: a squat round tower of dark sea-worn stone on the rock's knoll, its door to the east and the landing, the Keeper's bothy against its back. An empty iron hook by the door for the Keeper's own small lamp, which he carries. Day 76: a thin thread of peat smoke from the bothy's stub chimney — he keeps a fire in, low.",
+      "if": "!quest:a_light_for_lowsong=done"
+    },
+    {
+      "model": "res://assets/models/dressing/lowsong_light_lit.glb",
+      "position": [
+        -16.5,
+        0,
+        -3.2
+      ],
+      "rotation_y": 90,
+      "collider": [
+        3.2,
+        6.4,
+        3.2
+      ],
+      "colliders": [
+        {
+          "size": [
+            1.9,
+            2.2,
+            3.1
+          ],
+          "offset": [
+            0,
+            0,
+            -2.05
+          ]
+        }
+      ],
+      "smoke": [
+        [
+          1.0,
+          2.7,
+          -2.5
+        ]
+      ],
+      "note": "Lowsong's light lit (Day 77): gold through the horn round a fire in the cradle, the door open on the stair.",
+      "if": "quest:a_light_for_lowsong=done",
+      "halo": [
+        0,
+        4.65,
+        0
+      ],
+      "halo_size": 5.0,
+      "halo_bloom": 0.3,
+      "light": {
+        "color": "kindle",
+        "energy": 1.8,
+        "range": 13.0,
+        "offset": [
+          0,
+          4.65,
+          0
+        ]
+      },
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          4.4,
+          0
+        ],
+        "range": 18
+      }
     },
     {
       "model": "res://assets/models/dressing/kindleby_skiff.glb",
@@ -699,7 +805,53 @@
         -1.9
       ],
       "rotation_y": 100,
-      "note": "Brother Iver Lusk on the rock below his light's door, his lamp held out low, his head turned to the water."
+      "note": "Brother Iver Lusk on the rock below his light's door, his lamp held out low, his head turned to the water.",
+      "if": [
+        "flag:lowsong_beacon_burned=",
+        "!flag:lowsong_iver_gave=lamp"
+      ]
+    },
+    {
+      "npc": "iver",
+      "model": "res://assets/models/characters/iver_nolamp.glb",
+      "position": [
+        -13.0,
+        0,
+        -1.9
+      ],
+      "rotation_y": 100,
+      "if": [
+        "flag:lowsong_beacon_burned=",
+        "flag:lowsong_iver_gave=lamp"
+      ],
+      "note": "Iver has made his lamp a Remnant and you carry it (Day 77): his hands empty on the rock."
+    },
+    {
+      "npc": "iver",
+      "position": [
+        -13.0,
+        0,
+        -1.9
+      ],
+      "rotation_y": 100,
+      "if": "flag:lowsong_beacon_burned=key",
+      "note": "Key burned (Day 77): Iver stays, his lamp still held out low, listening; he's forgotten there was anywhere else."
+    },
+    {
+      "npc": "iver",
+      "model": "res://assets/models/characters/iver_nolamp.glb",
+      "position": [
+        17.2,
+        0,
+        4.9
+      ],
+      "rotation_y": 250,
+      "if": [
+        "flag:lowsong_beacon_burned=lamp",
+        "flag:lowsong_out",
+        "!flag:lowsong_iver_home"
+      ],
+      "note": "Lamp burned (Day 77): Iver waits on the landing by Hild and the skiff, both hands empty, to be rowed home."
     },
     {
       "npc": "hild",

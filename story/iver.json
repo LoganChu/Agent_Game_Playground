@@ -3,12 +3,35 @@
   "knots": {
     "start": [
       {
+        "if": "flag:lowsong_iver_home",
+        "goto": "home"
+      },
+      {
+        "if": "flag:lowsong_beacon_burned=lamp",
+        "goto": "after_lamp"
+      },
+      {
+        "if": "flag:lowsong_beacon_burned=key",
+        "goto": "after_key"
+      },
+      {
         "if": "!flag:lowsong_met_keeper",
         "goto": "first"
       },
       {
         "say": "iver",
-        "text": "Still here. Still listening. Don't mind me."
+        "text": "Still here. Still listening. Don't mind me.",
+        "if": "flag:lowsong_iver_gave="
+      },
+      {
+        "say": "iver",
+        "text": "Still here. My hand keeps going out for the bail. Don't mind it.",
+        "if": "flag:lowsong_iver_gave=lamp"
+      },
+      {
+        "say": "iver",
+        "text": "Still here. I keep putting my hand to my neck for the cord. Don't mind me.",
+        "if": "flag:lowsong_iver_gave=key"
       },
       {
         "goto": "hub"
@@ -59,6 +82,14 @@
             "goto": "light"
           },
           {
+            "text": "Then it'll have to be something of yours.",
+            "if": [
+              "quest:a_light_for_lowsong=active",
+              "flag:lowsong_iver_gave="
+            ],
+            "goto": "ask"
+          },
+          {
             "text": "The chapter sat while Kindleby was lit. I held the ring for them.",
             "if": "flag:kindleby_ring_held",
             "goto": "ring"
@@ -78,6 +109,24 @@
               "lowsong_keeper_saw_taper": true
             },
             "goto": "taper"
+          },
+          {
+            "text": "Here. Take your lamp back. I'll not burn that.",
+            "if": "item:iver_lamp",
+            "take_item": "iver_lamp",
+            "set": {
+              "lowsong_iver_gave": ""
+            },
+            "goto": "back_lamp"
+          },
+          {
+            "text": "Here. Take your key back. I'll not burn that.",
+            "if": "item:iver_key",
+            "take_item": "iver_key",
+            "set": {
+              "lowsong_iver_gave": ""
+            },
+            "goto": "back_key"
           },
           {
             "text": "Goodbye.",
@@ -198,6 +247,292 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "ask": [
+      {
+        "say": "narrator",
+        "text": "He's quiet a while. The singing goes on round the rock."
+      },
+      {
+        "say": "iver",
+        "text": "Something of mine. ...Yes. I'd got that far myself, most nights, and then she'd start up again and I'd lose it."
+      },
+      {
+        "say": "iver",
+        "text": "There's a thing the old ones told us in the novitiate that we weren't ever to try. That a Keeper with a true light beside him can put a memory down into a thing he's holding, and the fog will go hard round it. A Remnant, made on purpose."
+      },
+      {
+        "say": "iver",
+        "text": "We weren't to, because a Remnant made is a Remnant burned, sooner or later, and what a Keeper carries is the chapter's to weigh. Well. The chapter's written me with the drowned. And you've a true light by you."
+      },
+      {
+        "say": "iver",
+        "text": "I've two things worth the burning. I'll tell you them, and you'll choose. I'd only choose wrong."
+      },
+      {
+        "say": "iver",
+        "text": "This lamp. Three months sitting out with it, and her in the singing, near enough to touch some nights. Burn that and I'll not remember I ever heard her. It'll be wind in the skerries to me. And I'd go home, I think. There'd be nothing to keep me out here."
+      },
+      {
+        "say": "iver",
+        "text": "Or the key to my cell on Kindleby. Thirty-one years I've carried it for one week in the summer. The steps, evening office through the wall, Agathe's tidy hand, the commas. Burn that and I'll not know there was anywhere else. I'd keep the light out here till I'm in the water myself, and listen, and be glad of it."
+      },
+      {
+        "goto": "ask_choice"
+      }
+    ],
+    "ask_choice": [
+      {
+        "choice": [
+          {
+            "text": "Give me the lamp.",
+            "goto": "ask_lamp"
+          },
+          {
+            "text": "Give me the key.",
+            "goto": "ask_key"
+          },
+          {
+            "text": "Neither. Not yet.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "ask_lamp": [
+      {
+        "say": "narrator",
+        "text": "His hand closes on the lamp's bail. For a moment you think he'll turn back to the water and not answer."
+      },
+      {
+        "say": "iver",
+        "text": "She nearly had a word out last night. Nearly. One more night, and I'd have—"
+      },
+      {
+        "choice": [
+          {
+            "text": "She's been at it longer than you have. You said yourself she's tired.",
+            "goto": "lamp_made"
+          },
+          {
+            "text": "Then the key.",
+            "goto": "ask_key"
+          },
+          {
+            "text": "Keep it. I'll think.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "lamp_made": [
+      {
+        "say": "iver",
+        "text": "...I did say that."
+      },
+      {
+        "say": "narrator",
+        "text": "He holds the lamp out low over the water, the way he has every night for three months, and you lift the ember beside it. The singing comes up round the rock, louder, and one voice in it nearer than the rest."
+      },
+      {
+        "say": "narrator",
+        "text": "He listens a long while. Then he shuts his eyes and opens his hand, and the lamp doesn't fall. It hangs in the fog, and the fog goes hard round it, and when you take it out of the air it's cold and silver all over, the wick gone white."
+      },
+      {
+        "say": "iver",
+        "text": "Go on up. It's still mine till it burns: I can feel it in there, like a coat on a peg. ...Don't tell me what she sounded like after. I'll not know what you mean.",
+        "give_item": "iver_lamp",
+        "set": {
+          "lowsong_iver_gave": "lamp"
+        },
+        "quest_stage": [
+          "a_light_for_lowsong",
+          "put_down"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "ask_key": [
+      {
+        "say": "narrator",
+        "text": "He has it out of his robe before you've finished: an iron key on a loop of cord, worn bright where a thumb goes."
+      },
+      {
+        "say": "iver",
+        "text": "Easier than you'd think. They've written me with the drowned. A drowned man doesn't want a key."
+      },
+      {
+        "say": "narrator",
+        "text": "You lift the ember. He holds the key out over the water by its cord and looks at it, not at the water, for the first time since you came. Kindleby comes up in it: steps between candles, a door that sticks, a woman's voice reading out a comma. The fog goes hard round it, and the key is cold and silver when he puts it in your hand."
+      },
+      {
+        "say": "iver",
+        "text": "Go on up. It's still mine till it burns: I can feel it in there, like a coat on a peg.",
+        "give_item": "iver_key",
+        "set": {
+          "lowsong_iver_gave": "key"
+        },
+        "quest_stage": [
+          "a_light_for_lowsong",
+          "put_down"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "back_lamp": [
+      {
+        "say": "narrator",
+        "text": "He takes the lamp by its bail. It warms in his hand, and the wick takes again, small, and his head turns back to the water before he's said a word."
+      },
+      {
+        "say": "iver",
+        "text": "...There she is. Thank you. I'll not pretend I'm not glad."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "back_key": [
+      {
+        "say": "narrator",
+        "text": "He hangs the cord back round his neck and tucks the key in under the robe, where the warm comes back into it."
+      },
+      {
+        "say": "iver",
+        "text": "Steps. A door that sticks. ...Yes, there it all is. Thank you."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "after_lamp": [
+      {
+        "say": "narrator",
+        "text": "He's down on the landing by the skiff with both hands empty, and he keeps looking at them."
+      },
+      {
+        "say": "iver",
+        "text": "I'm told I kept a lamp. Hild says I sat out on the rock with it every night, all night. I can't think what for. There's nothing out there but the wind in the skerries."
+      },
+      {
+        "say": "iver",
+        "text": "Is that it, the singing they talk about? ...No. That's wind. I've lived with it thirty-one years. I'd know."
+      },
+      {
+        "say": "iver",
+        "text": "I'm going home. I'll want to argue a comma with somebody before I'm much older."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "after_key": [
+      {
+        "say": "narrator",
+        "text": "He holds his little lamp out low over the water with his head turned to it. Above him the light burns gold. He doesn't look up at it."
+      },
+      {
+        "say": "iver",
+        "text": "Hush a moment. ...There. She's nearer since the light caught. Some nights now I think she'll get it out."
+      },
+      {
+        "say": "iver",
+        "text": "Kindleby? I don't know it. Is it far? ...No matter. Somebody lit her, and I'll keep her now. It's what I'm for."
+      },
+      {
+        "say": "iver",
+        "text": "Mind how you go on the cairns. The old brothers put them where the bottom will bear you."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "after_hub": [
+      {
+        "choice": [
+          {
+            "text": "This came out of the light's smoke, into my hand.",
+            "if": [
+              "item:hood_pin",
+              "!flag:lowsong_keeper_saw_pin"
+            ],
+            "set": {
+              "lowsong_keeper_saw_pin": true
+            },
+            "goto": "pin"
+          },
+          {
+            "text": "Who is she, the one you listen for?",
+            "if": "flag:lowsong_beacon_burned=key",
+            "goto": "who"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "who": [
+      {
+        "say": "iver",
+        "text": "I don't know. I've never known. I'll know her when she says it."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "pin": [
+      {
+        "say": "narrator",
+        "text": "He takes it between finger and thumb and holds it up to the light."
+      },
+      {
+        "say": "iver",
+        "text": "A novice's hood-pin. Bone. They gave them out at the foot of the stair with the tapers, so the wind off the lantern room wouldn't have your hood back and your face for anybody to see."
+      },
+      {
+        "say": "iver",
+        "text": "...She's stopped again. She stops when you take out the things that are yours. I don't know why. I'd like to.",
+        "if": "flag:lowsong_beacon_burned=key"
+      },
+      {
+        "say": "iver",
+        "text": "...Odd. I thought something stopped, just then. No. It's the wind.",
+        "if": "flag:lowsong_beacon_burned=lamp"
+      },
+      {
+        "say": "narrator",
+        "text": "He gives it back to you carefully, the way you'd hand somebody a thing they'd dropped."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "home": [
+      {
+        "say": "narrator",
+        "text": "Brother Iver stands by the chapter-house steps with his hands empty, looking at the candles along the wall as if he'd never noticed them before."
+      },
+      {
+        "say": "iver",
+        "text": "Agathe's struck me out of the Book. A neat line, one stroke. She did it with me stood there watching, and she wouldn't look at me while she did it."
+      },
+      {
+        "say": "iver",
+        "text": "They tell me I sat out on Lowsong three months listening for something. I've asked what. Nobody knows. Hild won't say."
+      },
+      {
+        "say": "iver",
+        "text": "It's a strange thing, to be glad of a hole and not know the shape of it. Go on. The candles want me, and so does a comma on the fourth page."
+      },
+      {
+        "goto": "after_hub"
       }
     ]
   }

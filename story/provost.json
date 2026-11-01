@@ -203,6 +203,28 @@
             "goto": "weighed"
           },
           {
+            "text": "Brother Iver's home.",
+            "if": [
+              "flag:lowsong_iver_home",
+              "!flag:kindleby_provost_heard_iver"
+            ],
+            "set": {
+              "kindleby_provost_heard_iver": true
+            },
+            "goto": "iver_home"
+          },
+          {
+            "text": "Brother Iver's alive. He's keeping Lowsong's light, and he's staying.",
+            "if": [
+              "flag:lowsong_beacon_burned=key",
+              "!flag:kindleby_provost_heard_iver"
+            ],
+            "set": {
+              "kindleby_provost_heard_iver": true
+            },
+            "goto": "iver_stays"
+          },
+          {
             "text": "Goodbye.",
             "end": true
           }
@@ -749,6 +771,48 @@
           "the_low_water",
           "row_out"
         ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "iver_home": [
+      {
+        "say": "provost",
+        "text": "I know. He came up the steps behind Hild and asked me where his cell was. Thirty-one years, and he asked me."
+      },
+      {
+        "say": "provost",
+        "text": "I've struck him out of the Long Book. It's the first line I've ever struck. I did it with him stood there, and I'd do it again."
+      },
+      {
+        "say": "provost",
+        "text": "He doesn't know what he sat out there listening for. Hild won't say, and I've not asked her. Whatever the Low Water burned, it was his to give. I'll not weigh it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "iver_stays": [
+      {
+        "say": "narrator",
+        "text": "She stands very still."
+      },
+      {
+        "say": "provost",
+        "text": "Alive. ...And he'll not come in? Not even at midsummer, for the oil?"
+      },
+      {
+        "say": "narrator",
+        "text": "You tell her what burned. She listens to all of it, and when you've done she nods once, the way she'd take a report."
+      },
+      {
+        "say": "provost",
+        "text": "Then he doesn't know us. Well. He'll not come in to argue the commas, and I'll not have to lose."
+      },
+      {
+        "say": "provost",
+        "text": "I'll write him in again, under the light, where the living go. He'll not know. I will."
       },
       {
         "goto": "hub"

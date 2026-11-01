@@ -1096,6 +1096,21 @@
       "note": "At the foot of the chapter-house steps, hands folded, as if she has stood there since the bell."
     },
     {
+      "npc": "iver",
+      "model": "res://assets/models/characters/iver_nolamp.glb",
+      "position": [
+        2.4,
+        0,
+        -5.6
+      ],
+      "rotation_y": 30,
+      "if": [
+        "flag:lowsong_iver_home",
+        "flag:lowsong_beacon_burned=lamp"
+      ],
+      "note": "Brother Iver home from Lowsong (Day 77, the lamp burned): by the chapter-house steps near the Provost, hands empty, looking at the candles as if he's never noticed them."
+    },
+    {
       "npc": "hild",
       "position": [
         -2.3,

@@ -25,6 +25,17 @@
     ],
     "back": [
       {
+        "say": "narrator",
+        "text": "Iver gets in after you without being asked and sits in the stern with his hands in his lap. He doesn't look back at the light once.",
+        "if": [
+          "flag:lowsong_beacon_burned=lamp",
+          "!flag:lowsong_iver_home"
+        ],
+        "set": {
+          "lowsong_iver_home": true
+        }
+      },
+      {
         "say": "hild",
         "text": "Good. In you get. Eyes on the ember, ears to yourself.",
         "sound": "oars",
