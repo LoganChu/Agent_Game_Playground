@@ -82,7 +82,7 @@ func test_every_lighting_has_its_music() -> void:
 				if step is Dictionary and str((step as Dictionary).get("sound", "")) == "kindle":
 					assert_eq(str(step.get("music", "")), "music_lighting", "%s: the cue comes with the beacon catching" % id)
 					lit += 1
-	assert_eq(lit, 5, "five lightings")
+	assert_eq(lit, 6, "six lightings (Lowsong: Day 77)")
 	var state := fresh_state(db)
 	var heard: Array[String] = []
 	var runner := DialogueRunner.new(db, state)
