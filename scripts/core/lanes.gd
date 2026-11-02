@@ -63,6 +63,30 @@ static func known_landmarks(db: ContentDatabase, state: WorldState) -> Array[Dic
 	return out
 
 
+## Whether a landmark shows lit on the chart (its `lit` condition holds): the Low Water once Lowsong burns.
+static func landmark_lit(mark: Dictionary, state: WorldState) -> bool:
+	return mark.has("lit") and Conditions.evaluate(mark["lit"], state)
+
+
+## A landmark's lane, if the chart shows one now (Day 79: Oda's "lane in" from Kindleby to Cindermoor):
+## {"from": port id, "name": ..., "known": condition}, else {}. Drawn, never sailed from the chart.
+static func landmark_lane(mark: Dictionary, state: WorldState) -> Dictionary:
+	var lane: Variant = mark.get("lane")
+	if lane is Dictionary and Conditions.evaluate((lane as Dictionary).get("known"), state):
+		return lane
+	return {}
+
+
+## The known landmarks whose lane runs from `port_id` (the lane map tells of it there).
+static func landmark_lanes_from(db: ContentDatabase, state: WorldState, port_id: String) -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for mark in known_landmarks(db, state):
+		var lane := landmark_lane(mark, state)
+		if not lane.is_empty() and str(lane.get("from", "")) == port_id:
+			out.append(mark)
+	return out
+
+
 ## Lanes whose both ends the player knows (drawn on the map, open or not).
 static func known_lanes(db: ContentDatabase, state: WorldState) -> Array[Dictionary]:
 	var out: Array[Dictionary] = []

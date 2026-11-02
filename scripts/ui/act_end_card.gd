@@ -2,7 +2,8 @@ class_name ActEndCard
 extends CanvasLayer
 ## Full-screen end-of-act card: title, the player's choices as recap lines, a coda, and a
 ## "Keep exploring" button, or "Return to title" (asks for a second press: unsaved progress
-## is lost). Fades in over the world; modal (locks input) while open.
+## is lost). Fades in over the world; modal (locks input) while open. A recap taller than about half
+## the screen (Act II's) scrolls: mouse wheel, or up/down on keys and pad.
 
 signal closed
 ## "Return to title" was confirmed; main resets the world and shows the title screen.
@@ -15,6 +16,7 @@ var _root: Control
 var _title: Label
 var _subtitle: Label
 var _recap: RichTextLabel
+var _recap_scroll: ScrollContainer
 var _coda: Label
 var _button: Button
 var _title_button: Button
@@ -47,6 +49,8 @@ func show_act(act: Dictionary, recap: PackedStringArray) -> void:
 	_title_button.text = TITLE_TEXT
 	_root.modulate.a = 0.0
 	_root.show()
+	_recap_scroll.scroll_vertical = 0
+	_fit_recap.call_deferred()
 	create_tween().tween_property(_root, "modulate:a", 1.0, 1.5)
 	_button.call_deferred("grab_focus")
 
@@ -66,6 +70,31 @@ func return_to_title() -> void:
 		return
 	close()
 	title_requested.emit()
+
+
+## Whether the recap is taller than its box (and scrolls).
+func recap_scrolls() -> bool:
+	return _recap.get_content_height() > _recap_scroll.custom_minimum_size.y + 1.0
+
+
+## The recap box: as tall as the lines, up to a bit over half the screen.
+func _fit_recap() -> void:
+	var screen := _root.get_viewport_rect().size.y if _root.is_inside_tree() else 720.0
+	var limit := maxf(160.0, screen * 0.55)
+	_recap_scroll.custom_minimum_size.y = minf(float(_recap.get_content_height()), limit)
+
+
+func _input(event: InputEvent) -> void:
+	if not is_open() or not recap_scrolls():
+		return
+	var step := 0
+	if event.is_action_pressed("ui_down", true):
+		step = 1
+	elif event.is_action_pressed("ui_up", true):
+		step = -1
+	if step != 0:
+		get_viewport().set_input_as_handled()
+		_recap_scroll.scroll_vertical += step * 40
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -102,7 +131,11 @@ func _build() -> void:
 	_recap = RichTextLabel.new()
 	_recap.fit_content = true
 	_recap.bbcode_enabled = false
-	box.add_child(_recap)
+	_recap.custom_minimum_size.x = 760
+	_recap_scroll = ScrollContainer.new()
+	_recap_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_recap_scroll.add_child(_recap)
+	box.add_child(_recap_scroll)
 	_coda = Label.new()
 	_coda.theme_type_variation = UiTheme.HINT
 	_coda.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

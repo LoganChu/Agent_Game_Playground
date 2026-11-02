@@ -171,6 +171,19 @@ func _validate_lanes() -> void:
 		_ref_condition(mw, (mark as Dictionary).get("known"))
 		if str((mark as Dictionary).get("look", "spire")) not in Lanes.LANDMARK_LOOKS:
 			_err(mw, "look must be one of %s" % [Lanes.LANDMARK_LOOKS])
+		_ref_condition(mw, (mark as Dictionary).get("lit"))
+		var links: Variant = (mark as Dictionary).get("links", [])
+		if not links is Array or not (links as Array).all(func(l: Variant) -> bool: return ports.has(str(l))):
+			_err(mw, "'links' must list ports")
+		var mark_lane: Variant = (mark as Dictionary).get("lane")
+		if mark_lane != null:
+			if not mark_lane is Dictionary:
+				_err(mw, "'lane' must be an object")
+			else:
+				_require_fields(mw + " lane", mark_lane, ["from", "name"])
+				if not ports.has(str((mark_lane as Dictionary).get("from", ""))):
+					_err(mw, "lane 'from' must be a port")
+				_ref_condition(mw + " lane", (mark_lane as Dictionary).get("known"))
 	for lane_v: Variant in db.lanes.get("lanes", []):
 		if not lane_v is Dictionary:
 			_err(where, "lanes must be objects")

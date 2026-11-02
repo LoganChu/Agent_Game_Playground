@@ -207,6 +207,9 @@ func _focus_port(id: String) -> void:
 			line += " By way of %s. %s" % [", ".join(via), press]
 	else:
 		line += " " + str(voyage.get("reason", ""))
+	for mark in Lanes.landmark_lanes_from(db, state, id):
+		var lane_name := str(Lanes.landmark_lane(mark, state).get("name", ""))
+		line += " %s runs from here to %s: ask Oda." % [lane_name.left(1).to_upper() + lane_name.substr(1), mark.get("name", "")]
 	_info.text = line
 
 
@@ -240,11 +243,32 @@ func _draw_chart() -> void:
 		else:
 			_chart.draw_dashed_line(a, b, ember if on_route else Color(kindle, 0.6), 3.0, 12.0)
 	for mark in Lanes.known_landmarks(db, state):
+		# A landmark's lane (the lane in to Cindermoor): dashed ember from its port, never sailed from the chart.
+		var mark_lane := Lanes.landmark_lane(mark, state)
+		if not mark_lane.is_empty():
+			var from := _point(Lanes.port(db, str(mark_lane.get("from", ""))).get("map"))
+			var to := _point(mark.get("map"))
+			var trimmed := to + (from - to).normalized() * ISLAND_RADIUS * 1.9
+			var on_lane := _focused == str(mark_lane.get("from", ""))
+			_chart.draw_dashed_line(from, trimmed, ember if on_lane else Color(ember, 0.7), 3.0, 6.0)
+	for mark in Lanes.known_landmarks(db, state):
 		var c := _point(mark.get("map"))
 		var below := ISLAND_RADIUS * 1.8
 		if str(mark.get("look", "spire")) == "water":
 			# Water nobody sails: a patch of fog and a few skerries in it, no lane drawn in.
 			below = _draw_fog_water(c, Color(fog, 1.0), Color(ink, 1.0).lerp(fog, 0.25))
+			if Lanes.landmark_lit(mark, state):
+				# Lowsong's light: a gold point on the biggest skerry, with a little glow on the fog.
+				var rock := c + Vector2(-0.2, -0.3) * ISLAND_RADIUS * 1.6
+				# Its `links` close the ring: faint dotted gold to the known ports either side (Hild's water, not a lane).
+				for link: Variant in mark.get("links", []):
+					if Lanes.port_known(db, state, str(link)):
+						var port_at := _point(Lanes.port(db, str(link)).get("map"))
+						var start := rock + (port_at - rock).normalized() * ISLAND_RADIUS * 0.9
+						var stop := port_at + (rock - port_at).normalized() * ISLAND_RADIUS * 1.2
+						_chart.draw_dashed_line(start, stop, Color(kindle, 0.35), 1.5, 3.0)
+				_chart.draw_circle(rock, ISLAND_RADIUS * 1.1, Color(kindle, 0.14))
+				_chart.draw_circle(rock + Vector2(0, -2), 3.5, kindle)
 		else:
 			_draw_island(c, ISLAND_RADIUS * 1.8, Color(ink, 1.0).lerp(fog, 0.15), false)
 			# The dark Spire: a cold spike on the isle.
