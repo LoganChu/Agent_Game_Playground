@@ -2,6 +2,51 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-02 21:00 UTC — Day 80: what's still owed — polish pass eleven
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to
+  `origin/main` (Day 79's `4456bed`). Baseline: 561 tests + smoke + launch green. No Blender work.
+- **Polish/debt (due by Day 81; last Day 73):** ROADMAP *Next up* #1.
+  - **What's still owed, on the card.** Every quest now names its act (`"act": "act1"|"act2"`, an `act_ends` id;
+    the validator demands one unless the quest is `future` — *What the Ember Keeps* runs across acts). An act may carry an
+    `unfinished` template, and its end card closes on a line naming that act's quests still in progress, oldest first:
+    Act II's "Still undone on the islands, with a night before the ebb: The Walk Back, The Gannet's Crew."; Act I's "Left
+    undone on Saltmarrow for now: Lost Things. The ferry comes back this way." No line when nothing's owed.
+    (`ActRecap.card_lines` / `unfinished_titles`; `main.gd` uses them for both card paths.)
+  - **"· more below ·"** under a recap that scrolls, while its end is out of view (alpha only, so the card doesn't jump
+    when it goes). Checked on the real Act II card in the screenshot.
+  - **A checkpoint bug the new line found:** the `kindleby` scenario inherited *The Bend in the Road* at `her_hearth`
+    with `thornwold_bend` = `walked` — every Kindleby and Lowsong checkpoint (and their screenshots since Day 62) had
+    Wenna still holding her light. It now sets `road` and closes the quest; a test pins `the_lane_in` as owing nobody.
+  - **Stale roadmap note:** *The Far Shore* never sticks at `the_boat` — Wenna's `wait` knot closes it like `up` does
+    (now pinned by a test). *The East Stair* / *The Skiff North* left open are what the new card line is for.
+  - **Lowsong follow-ups:** props take `smoke_scale` (0.25..2, validated; smaller, fewer puffs that swell less) — the
+    bothy's peat smoke is 0.4, a thread; the landing's driftwood log is three-quarter size and up the west shore ahead
+    of the player (behind them it filled the frame; my first move put it in the water — the ASCII terrain map caught it).
+- **Tests:** `test_owed_a_word.gd` (7: every quest has an act; unfinished titles by act and start order; the card's
+  extra line only when owed, and each act names its own; the lane-in checkpoint owes nobody; the Far Shore closes
+  either way; the validator on acts and the template; the cue hidden for short recaps) and two in
+  `test_lowsong_dressed.gd` (the thread; the validator on `smoke_scale`). The smoke walk checks the Act II card names
+  exactly what's still owed. 570 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-11-02-pm-act-two-card-more-below.png`, `…-pm-lowsong-landing.png`.
+
+**Decisions**
+- **Name what's owed after the choice, not before it.** Day 79 kept Oda from reading out a checklist; the card is the
+  honest place — and "Keep exploring" still lets the player go and do it before Act III's crossing exists.
+- **No "left behind" quest state yet.** Nothing strands the player until Act III's crossing is written; when it is,
+  that session should decide whether Act II quests freeze (a journal section) or stay finishable once the Spire's lit.
+- **Act tags on quests, not regions:** *A Boat for Aldous* is set on Saltmarrow but is Act II's errand.
+
+**Problems / notes**
+- NPC nameplates (Label3D) show faintly through the act card's shade (Brother Tobin's, on Kindleby). Logged for
+  polish twelve, with a scenario lint so a checkpoint can't leave a choice half made again.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **Act III opens (content, do it Day 81)**: plan Act III in LORE first, then the crossing in
+   on the morning ebb. Fetch and reset `main` before trusting it.
+
 ## 2026-11-02 09:00 UTC — Day 79: the lights between — Act II ends (content)
 
 **Did**

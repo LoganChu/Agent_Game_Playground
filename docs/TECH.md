@@ -290,7 +290,8 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
 - `"smoke": [[x, y, z], ...]` (model props) — smoke vents in model space (before `scale`):
   each gets a `CPUParticles3D` column of low-poly puffs that swell, drift downwind and fade
   (`PropSmoke`; preprocessed so it is already standing at load; CPU particles so the
-  Compatibility renderer shows it). Vents: `bunkhouse` (1.3, 3.95, -0.6), `tally_house`
+  Compatibility renderer shows it). Optional `"smoke_scale"` (Day 80, 0.25..2, default 1): smaller,
+  fewer puffs that swell less — Lowsong's bothy uses 0.4 for a thread of peat smoke. Vents: `bunkhouse` (1.3, 3.95, -0.6), `tally_house`
   (-0.8, 3.25, -0.5), `charcoal_clamp` crown at y 0.95, radius 0.65 (four vents at
   0.4 + k·90° from +X, Godot z = -Blender y). `test_thornwold_kit.gd` checks vents sit on
   their model. Keep it to a few vents per region (12–16 particles each).
@@ -362,6 +363,12 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   `lane_in_go` knot), with a recap line per burning and per who-went-where. The recap sits in a `ScrollContainer`
   sized to the lines up to 55 % of the screen; when longer it scrolls (wheel, or up/down on keys and pad —
   `ActEndCard._input`, since focus stays on the buttons).
+  While lines are hidden below, a faint "· more below ·" cue sits under the box (alpha only, so the card doesn't
+  jump). **Day 80:** every quest names its act (`"act": "act1"|"act2"`, an `act_ends` id — validated; quests that
+  run across acts, like *What the Ember Keeps*, are `future` and carry none), and an act may have an
+  **`unfinished`** template (`"…: %s."`, exactly one `%s`): the card's last line names that act's quests still in
+  progress (`ActRecap.card_lines` / `unfinished_titles`, oldest first) — Oda's "anybody left you owe a word?" made
+  concrete after the choice, never a checklist before it.
 
 ### The lanes (Day 17)
 The *Slow Mercy* is the only way between islands for now. `lanes_ferry_at` ('' → still at

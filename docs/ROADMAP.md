@@ -619,14 +619,15 @@ each .glb < 5 MB.
       (`cindermoor_passage`, `future`) and the **`act2` end card** recaps every burning and who went where (Dunstan told
       as "the big man" after the gull burn). The card's recap scrolls when long. Checkpoint `the_lane_in`; the smoke walk
       ends Act II. `test_act_two_end.gd` (10).
+- [x] [P] **Polish/debt pass eleven** (Day 80): every quest names its act (validated; `future` quests run across acts) and an
+      act's end card closes on what's still owed (`unfinished`: "Still undone on the islands, with a night before the
+      ebb: …"); a "· more below ·" cue under a long recap; the Kindleby checkpoints no longer inherit *The Bend in the Road*
+      undecided (found by the new line); *The Far Shore*'s `the_boat` note was stale (telling Wenna to wait closes it);
+      `smoke_scale` on props — Lowsong's bothy a thread; the landing's driftwood log off the camera line.
+      `test_owed_a_word.gd` (7) + two in `test_lowsong_dressed.gd`; the smoke walk checks the card names what's owed.
 
 ### Next up
-1. [P] **Polish/debt pass eleven** (due by ~Day 81 — last Day 73; do it Day 80): candidates — the Act II card read on a
-   real screen (13-15 lines; is the scroll obvious enough? a fade at the bottom edge?); Act II quests left open: *The Far
-   Shore* stays at `the_boat` when Wenna is told to wait and the skiff never goes north (mark the stage honestly or close it
-   when Oda says "Now you can"); *The East Stair* if Aldous is never asked; the Lowsong follow-ups below (bothy smoke
-   scale, the long driftwood log); the Compatibility-renderer paint contrast items; anything slow in the test run.
-2. [C] **Act III opens — the crossing in** (content, ~Day 81-83): the Slow Mercy down the lane in on the morning ebb
+1. [C] **Act III opens — the crossing in** (content, due ~Day 81-83; do it Day 81): the Slow Mercy down the lane in on the morning ebb
    (`cindermoor_passage`); what Cindermoor looks like from the water; who is on the Mercy's deck (Pell? Iver if home? a
    Keeper sent by the Provost?); the first landing. Plan Act III in LORE first (as Day 69 planned Act II's close) — the
    mysteries' payoffs must stay paced over months. Before it, the Act II follow-ups worth a line or two:
@@ -636,16 +637,16 @@ each .glb < 5 MB.
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
    colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Low Water from Saltmarrow's side (Aldous, Mara —
    the Gull looks south over it); (Lowsong lit from Kindleby's quay: Oda at the rail, Day 79).
-3. [P] **Color grading pass on a Vulkan machine** — also check the ember's pool of clear in the fog (Day 78: subtle in
+2. [P] **Color grading pass on a Vulkan machine** — also check the ember's pool of clear in the fog (Day 78: subtle in
    Compatibility; the warm rim `ember_rim` barely shows), the Low Water chart mark and the conversation framing
    on a real screen — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); (the ember light
    pushing fog back round the player: Day 78 — follow-up: let it ease the environment fog's thickening too if it reads
    weakly in Forward+); paths that fade in thick fog
@@ -653,7 +654,7 @@ each .glb < 5 MB.
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. (The first turn-back flag and Aldous's remark: Day 78 — others could notice it too:
    Bram, Hesper on the fen.)
-6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (title theme and lighting cue landed Day 74: an owner listen; a quiet motif for Act ends and the ferry
    crossings; a sparse in-world piece per island later — or real recordings); oars as the skiff comes in (with the
@@ -661,13 +662,17 @@ each .glb < 5 MB.
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-7. [A] **Dressing follow-ups** (next art-led session due ~Day 80-81; last Day 76): Kindleby — the Quiet House's step
+6. [A] **Dressing follow-ups** (next art-led session due ~Day 80-81; last Day 76): Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
    walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); (the oars: Day 76); (Hild scraping the
    skiff: Day 71; her scrape sound: Day 74); the skiff's tar reads pale in the Compatibility renderer.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
+7. [P] **Polish twelve candidates** (due by ~Day 88): world nameplates (NPC Label3D) show faintly through the act end
+   card's shade — hide them under modals; a scenario lint (a checkpoint that leaves a quest mid-choice while a later
+   checkpoint inherits it — the Bend in the Road slipped through for 17 days); the Compatibility-renderer paint contrast
+   items; test run time (117 s; the validator tests re-validate all content ~20 times).
 8. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
    (Hesk, Aldous on the bench); a framed shot for two-NPC scenes (Hild and the Provost) — today it frames whoever was
    talked to; in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
@@ -768,15 +773,15 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 79 (Act II's end, the lights between); next content due by ~Day 81-83 (Act III opens).
-- Last polish/debt session: Day 73 (polish ten); next due by ~Day 81 — do it Day 80.
+- Last polish/debt session: Day 80 (polish eleven: what's still owed on the act cards, the more-below cue, the Bend
+  checkpoint fix, Lowsong's smoke thread and log); next due by ~Day 88.
 - Last systems session: Day 78 (the ember holds the fog back); next due by ~Day 82-84 (day/night — the Quiet House's
   step candle, lit windows, Hob's schedule — or gamepad rebinding).
 - Last art session: Day 76 (Lowsong dressed). Next art-led session due ~Day 80-81:
   Wrackholm/Kindleby follow-ups (the quay bell's rope, the empty bracket, the Teeth's broken water) or Saltmarrow's.
-- Lowsong (Day 76) follow-ups: the bothy smoke is PropSmoke's standard column — puffier than a "thread" of peat smoke
-  (a per-prop `smoke_scale`/amount would thin it); the `halo` on a held lantern is faint within ~2.5 m by design, so
+- Lowsong (Day 76) follow-ups: (the bothy smoke thinned with `smoke_scale` 0.4: Day 80); the `halo` on a held lantern is faint within ~2.5 m by design, so
   Iver's lamp only reads from the middle distance; the stacks' feet float a little where the seabed is deep (hidden by
-  the water's depth tint); the long driftwood log on the landing fills the frame from the low camera.
+  the water's depth tint); (the long driftwood log moved and shrunk: Day 80).
 - The Northing (Day 53) follow-ups: the cairn's stones are lumps, not coursed slabs (fine at play distance); the ink
   scorch paint round its foot is angular; there are no step models at the head of the Keepers' steps (the waymark and the
   inspectable stand for them); (the flanks' drop: Day 54); Ottie's seated home sits on the cold
