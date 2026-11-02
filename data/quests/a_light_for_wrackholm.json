@@ -1,6 +1,7 @@
 {
   "id": "a_light_for_wrackholm",
   "title": "A Light for Wrackholm",
+  "act": "act2",
   "region": "wrackholm",
   "giver": "wenna",
   "description": "Wrackholm's beacon, the Wrack Light, has been dark since the Snuffing, and nobody on the island has answered a horn since.",

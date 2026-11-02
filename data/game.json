@@ -71,7 +71,8 @@
           "text": "Oda Farrow has seen the Keeper's sleeve-ember in your hand."
         }
       ],
-      "coda": "The Slow Mercy sails for Thornwold on the evening tide. Every choice you made here will cross with you."
+      "coda": "The Slow Mercy sails for Thornwold on the evening tide. Every choice you made here will cross with you.",
+      "unfinished": "Left undone on Saltmarrow for now: %s. The ferry comes back this way."
     },
     {
       "id": "act2",
@@ -205,7 +206,8 @@
           "text": "The ember has given back something of yours: a novice's stair-taper, notched for the east stair."
         }
       ],
-      "coda": "The Slow Mercy goes in to Cindermoor on the morning ebb, down a lane no Tidewright has ever sailed. Act III — The Spire — is still being written; every light you lit will be burning behind you."
+      "coda": "The Slow Mercy goes in to Cindermoor on the morning ebb, down a lane no Tidewright has ever sailed. Act III — The Spire — is still being written; every light you lit will be burning behind you.",
+      "unfinished": "Still undone on the islands, with a night before the ebb: %s."
     }
   ]
 }

@@ -1,6 +1,7 @@
 {
   "id": "lost_things",
   "title": "Lost Things",
+  "act": "act1",
   "region": "shingle_point",
   "giver": "pell",
   "description": "Pell says the fog left something that hums near the rocks at the north end of Shingle Point.",

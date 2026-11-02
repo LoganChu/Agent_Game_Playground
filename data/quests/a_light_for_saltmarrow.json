@@ -1,6 +1,7 @@
 {
   "id": "a_light_for_saltmarrow",
   "title": "A Light for Saltmarrow",
+  "act": "act1",
   "region": "saltmarrow",
   "giver": "mara",
   "description": "The Gull's Beacon on the headland has been dark since the Snuffing. Mara thinks the Keeper hiding in the village knows how to relight it.",

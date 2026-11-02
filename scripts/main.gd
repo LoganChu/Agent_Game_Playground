@@ -131,7 +131,7 @@ func _ready() -> void:
 		elif arg.begins_with("--act-end="):
 			for act in ActRecap.acts(Content.db):
 				if str(act["id"]) == arg.get_slice("=", 1):
-					act_end_card.show_act.call_deferred(act, ActRecap.lines(act, GameState.world))
+					act_end_card.show_act.call_deferred(act, ActRecap.card_lines(Content.db, act, GameState.world))
 
 
 ## Whether a launch with these user args opens on the title screen: yes for a plain launch
@@ -346,7 +346,7 @@ func _check_act_end() -> void:
 		var id := str(act["id"])
 		if now.has(id) and not _acts_reached.has(id):
 			# Deferred: the closing dialogue unlocks input on a deferred call of its own.
-			act_end_card.show_act.call_deferred(act, ActRecap.lines(act, GameState.world))
+			act_end_card.show_act.call_deferred(act, ActRecap.card_lines(Content.db, act, GameState.world))
 			break
 	_acts_reached = now
 

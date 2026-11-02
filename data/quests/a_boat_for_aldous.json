@@ -1,6 +1,7 @@
 {
   "id": "a_boat_for_aldous",
   "title": "A Boat for Aldous",
+  "act": "act2",
   "region": "saltmarrow",
   "giver": "provost",
   "description": "Provost Agathe Lorn holds to the order's word: the Firstflame failed. But if Aldous Wren saw something, he can come to Kindleby and say it to the chapter, and she would send a boat for him.",

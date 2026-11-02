@@ -1,6 +1,7 @@
 {
   "id": "the_far_shore",
   "title": "The Far Shore",
+  "act": "act2",
   "region": "thornwold_far_shore",
   "giver": "wenna_coll",
   "description": "Three of the four colliers who went north along the old Keepers' road went down the Keepers' steps from the Northing to the far shore, to wait for the Spire's boat. The Spire is dark.",

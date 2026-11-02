@@ -1,6 +1,7 @@
 {
   "id": "the_skiff_north",
   "title": "The Skiff North",
+  "act": "act2",
   "region": "thornwold_far_shore",
   "giver": "provost",
   "description": "While Kindleby's chapter sat, two sisters ran the chapter's skiff down the shingle and rowed north into the fog with oil, meal and a lantern, for the colliers you said were waiting on the Northing's boat-stage. The Provost sent it to bring back whoever wants bringing.",

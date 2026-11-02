@@ -115,6 +115,8 @@ func _validate_game() -> void:
 				_err(where, "act_ends recap lines need 'text'")
 				continue
 			_ref_condition(where, (line as Dictionary).get("if"))
+		if a.has("unfinished") and str(a["unfinished"]).count("%s") != 1:
+			_err(where, "act_ends '%s' unfinished needs exactly one %%s (the quest titles)" % a.get("id", ""))
 
 
 ## Every knot of the lanes dialogue the lane map can jump to.
@@ -653,6 +655,23 @@ func _validate_quest(id: String, quest: Dictionary) -> void:
 		_err(where, "giver npc '%s' does not exist" % quest["giver"])
 	if quest.has("region") and not db.regions.has(str(quest["region"])):
 		_err(where, "region '%s' does not exist" % quest["region"])
+	# Which act a quest belongs to (Day 80): the act's end card names it if still in progress.
+	# Quests that run across acts (`future`, the Wakebearer's own past) carry none.
+	if quest.has("act"):
+		if not _act_ids().has(str(quest["act"])):
+			_err(where, "act '%s' is not an act_ends id in game.json" % quest["act"])
+	elif not quest.get("future", false):
+		_err(where, "needs an 'act' (an act_ends id), or 'future' if it runs across acts")
+
+
+func _act_ids() -> Dictionary:
+	var out: Dictionary = {}
+	var acts: Variant = db.game.get("act_ends", [])
+	if acts is Array:
+		for act: Variant in acts:
+			if act is Dictionary:
+				out[str((act as Dictionary).get("id", ""))] = true
+	return out
 
 
 func _validate_region(id: String, region: Dictionary) -> void:

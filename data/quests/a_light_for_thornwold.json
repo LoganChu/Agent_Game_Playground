@@ -1,6 +1,7 @@
 {
   "id": "a_light_for_thornwold",
   "title": "A Light for Thornwold",
+  "act": "act2",
   "region": "thornwold_landing",
   "giver": "bram",
   "description": "Thornwold's beacon has been dark since the Snuffing, and while it is, no lane runs on from it. The cart road from the landing used to run straight up to it.",

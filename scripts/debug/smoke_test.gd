@@ -285,6 +285,11 @@ func _end_act_two(main: Node, ui: DialogueUI) -> void:
 	_check(world.get_flag("cindermoor_passage") == true, "the morning ebb")
 	_check(act_two_recap.contains("Lowsong's light burns on Iver Lusk's Kindleby") and act_two_recap.contains("The Vigil Light burns"),
 			"the Act II card recaps the burnings: " + act_two_recap.left(200))
+	var owed := ActRecap.unfinished_titles(Content.db, world, "act2")
+	_check(owed.is_empty() != act_two_recap.contains("Still undone on the islands"),
+			"the card names what's still owed (%s)" % ", ".join(owed))
+	for title in owed:
+		_check(act_two_recap.contains(title), "the card names " + title)
 	print("Smoke: Act II ends on the lane in")
 
 

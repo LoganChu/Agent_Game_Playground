@@ -1,6 +1,7 @@
 {
   "id": "a_lantern_for_the_stair",
   "title": "A Lantern for the Stair",
+  "act": "act2",
   "region": "thornwold_ridge",
   "giver": "lamp",
   "description": "The Keepers' stair up the woods' north bank stands in the Greying. The waymark at its foot has a collier's cap on its hook where a lantern should be.",

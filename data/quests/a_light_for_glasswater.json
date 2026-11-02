@@ -1,6 +1,7 @@
 {
   "id": "a_light_for_glasswater",
   "title": "A Light for Glasswater",
+  "act": "act2",
   "region": "glasswater_fen",
   "giver": "corran",
   "description": "Glasswater Fen's beacon, the Heron Light, has been dark since the Snuffing. While it is, no lane runs on from the fen.",
