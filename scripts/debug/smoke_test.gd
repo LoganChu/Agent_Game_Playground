@@ -253,12 +253,39 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 		return
 	if not await _row_to_lowsong(main, ui):
 		return
+	await _end_act_two(main, ui)
 	_npc("oda").interact()
 	_check(_sail(ui, "saltmarrow"), "...and the long way home, four lanes in one")
 	_finish_dialogue(ui, "oda (the long passage home)")
 	if not await _arrived(main, ui, "saltmarrow", "the long passage home"):
 		return
 	_sailings.append("saltmarrow -> wrackholm -> kindleby -> saltmarrow")
+
+
+## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
+## Wakebearer in, "not yet" keeps the act open, and "take me in" ends it with the act2 card.
+func _end_act_two(main: Node, ui: DialogueUI) -> void:
+	var world := GameState.world
+	_npc("oda").interact()
+	_check(_choose(ui, "Take me in to Cindermoor."), "Oda counted the lights between and offers the lane in")
+	_check(world.get_flag("kindleby_oda_lane_in") == true, "the lane in is on the chart")
+	_check(_choose(ui, "Not yet. There's somebody I've to see first."), "not yet")
+	_finish_dialogue(ui, "oda (not yet)")
+	await get_tree().process_frame
+	_check(world.get_flag("cindermoor_passage") == false and not (main.get("act_end_card") as ActEndCard).is_open(), "Act II still open")
+	_npc("oda").interact()
+	_check(_choose(ui, "Take me in to Cindermoor."), "asked again")
+	_check(_choose(ui, "Nobody I can't owe it to from there. Take me in."), "take me in")
+	_finish_dialogue(ui, "oda (the morning ebb)")
+	var act_one_recap := _act_end_recap  # Act I's close is checked from it later in the walk
+	_act_end_recap = ""
+	await _close_act_end_card(main)
+	var act_two_recap := _act_end_recap
+	_act_end_recap = act_one_recap
+	_check(world.get_flag("cindermoor_passage") == true, "the morning ebb")
+	_check(act_two_recap.contains("Lowsong's light burns on Iver Lusk's Kindleby") and act_two_recap.contains("The Vigil Light burns"),
+			"the Act II card recaps the burnings: " + act_two_recap.left(200))
+	print("Smoke: Act II ends on the lane in")
 
 
 ## Day 62: with the Wrack lit, Oda tells of the Taper and sails it south-about to Kindleby: the arrival,
