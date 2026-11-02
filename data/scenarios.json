@@ -585,11 +585,13 @@
       "spawn": "from_ferry",
       "description": "After the Wrack was lit, Oda told of the lane on: south-about down the Taper to Kindleby, the Keepers' mother-house. The quay bell answered before she blew; the island is ringed with candles and the fog stands a cable's width off. Brother Tobin at the bell; Provost Agathe Lorn at the chapter-house, who will ask the Wakebearer to bow to the rite.",
       "flags": {
+        "thornwold_bend": "road",
         "wrackholm_oda_lane_asked": true,
         "lanes_ferry_at": "kindleby",
         "kindleby_landed": true
       },
       "quests": {
+        "the_bend_in_the_road": "done",
         "a_light_for_kindleby": "the_candles"
       },
       "shot": "--camera=-6,5.5,12:5,1.2,-5"
