@@ -25,6 +25,14 @@ held back the **Greying**, a silver sea-fog that makes things *forgotten*.
   **the Hollow Choir** ("it's the drowned, or the Hushed gone out over the water, or the wind in the skerries. I've heard
   it. It's not the wind." — Oda). Oda smudges it onto her chart as fog with rocks in it — a mark, not a port — and won't
   sail it; the Slow Mercy draws too much for that water anyway. It was Keepers' water: they rowed out to their own light.
+- *Canon (Day 79, Act II's end):* with Lowsong lit the ring has **no gap**: six lights round Cindermoor — the Gull, the
+  Ridge Light, the Heron, the Wrack, Kindleby's tallow Vigil Light and Lowsong — which Oda's grandmother called **"the
+  lights between"** ("Nobody lands on Cindermoor while the lights between are dark. She never said what happens when they're
+  lit, because in her day they always were"). Oda inks **the lane in**: one line from **Kindleby's quay** straight to
+  Cindermoor, the way **the Keepers' boats came out the week of the Snuffing** ("Where boats come out, there's water to go
+  in by"). It has **never been a Tidewright lane** ("Tidewrights don't go to the Spire. The Spire comes to us, or it
+  did"). Once in, there is **no lane off that water till the Spire's lit**, or till Oda finds one. She takes the Wakebearer
+  in **on the morning ebb** (`cindermoor_passage`) — Act II ends there; the crossing in opens Act III.
 - With every lane on the way already sailed, Oda will run several in one passage, putting in at each
   light "only long enough to take on water". A new lane is always sailed from its near end.
 
@@ -1290,6 +1298,16 @@ its light is **the Vigil Light**.
     landings under their breath — "I heard them counting."** "Don't light it. A taper's for the stair. You'll know which
     stair." *(Mystery #2 hook. Do not explain.)*
 
+- **The lights between (Day 79, `kindleby_oda_lane_in`, `cindermoor_passage`).** Back from Lowsong, the Wakebearer finds
+  Oda at the rail with her glass on the gold point to the south (if Iver rowed home, "Lorn's been at him in front of
+  everybody. I'll not ask"; if he keeps the rock, "You don't get a light that steady by leaving it"). She counts six on her
+  fingers, spreads the chart on the deckhouse roof and inks the lane in (see *The chart*). Asked to take them in, she
+  weighs the Wakebearer one last time: **"Keepers pay twice ... I'd say this is the other one"** if she saw the
+  sleeve-ember, else **"Whatever you are, you've paid it six times over"**; the colliers on the stage are owed their word
+  ("Now you can"). "Is there anybody left you owe a word?" — *not yet* leaves Act II open; *take me in* sets the morning
+  ebb. The chart is folded along the new line and kept next to her scale. **The `act2` end card** recaps every burning and
+  who went where.
+
 ### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
 
 ## Main story arc (outline)
@@ -1317,7 +1335,7 @@ the content lands.
    Kindleby's door for the chapter (`kindleby_ring_held`), that Aldous wrote to the Provost (`kindleby_provost_read_letter`),
    or that the Wakebearer carries a novice's taper (`kindleby_provost_saw_taper`) — and what the chapter would make of each.
 4. **The sixth light**, and the second own Remnant (written Day 77: Iver's lamp or his cell key; the Hood-Pin).
-5. **Act II's end:** every light on the ring lit — "the lights between" — and the lane in to Cindermoor shows on Oda's chart.
+5. **Act II's end** *(written Day 79: the lights between, the lane in, the `act2` card — see The chart and Kindleby)*: every light on the ring lit — "the lights between" — and the lane in to Cindermoor shows on Oda's chart.
    The `act2` end card (recap of every burning and who went where) and its coda; Act III — The Spire — begins on the
    crossing in.
 

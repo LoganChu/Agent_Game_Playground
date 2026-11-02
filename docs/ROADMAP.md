@@ -611,26 +611,41 @@ each .glb < 5 MB.
       The first turn-back is remembered (`greying_turned_back`, new flag key `set_by_code`); Aldous tells of the ring and
       Isolde's ember walking her out. `test_ember_pool.gd` (9); the smoke walk checks both.
 
+- [x] [C] **Act II's end — the lights between** (Day 79): back from Lowsong, Oda has seen the sixth light from the rail;
+      she counts six ("the lights between") and inks **the lane in**, Kindleby to Cindermoor, on her chart
+      (`kindleby_oda_lane_in`; a landmark `lane`, drawn not sailed; the lit Low Water gets a gold point and dotted `links`
+      closing the ring). "Take me in to Cindermoor." — she weighs it (the sleeve-ember: "this is the other one"; the
+      colliers on the stage) and asks who's owed a word; *not yet* keeps Act II open, *take me in* sets the morning ebb
+      (`cindermoor_passage`, `future`) and the **`act2` end card** recaps every burning and who went where (Dunstan told
+      as "the big man" after the gull burn). The card's recap scrolls when long. Checkpoint `the_lane_in`; the smoke walk
+      ends Act II. `test_act_two_end.gd` (10).
+
 ### Next up
-1. [C] **Act II's end** (content due ~Day 79-80; polish/debt pass due by ~Day 81, last Day 73): every light on the ring lit — "the lights between" — and the lane in to
-   Cindermoor shows on Oda's chart; the `act2` end card (every burning, who went where: Pell, Dunstan, the colliers, Iver)
-   and its coda; Act III begins on the crossing in. Check every Act II quest can be closed or is honestly `future`.
-   Small follow-ups still open: Aldous and the Hood-Pin (the hand on the stair; "tonight"); the Provost or Tobin seeing the
+1. [P] **Polish/debt pass eleven** (due by ~Day 81 — last Day 73; do it Day 80): candidates — the Act II card read on a
+   real screen (13-15 lines; is the scroll obvious enough? a fade at the bottom edge?); Act II quests left open: *The Far
+   Shore* stays at `the_boat` when Wenna is told to wait and the skiff never goes north (mark the stage honestly or close it
+   when Oda says "Now you can"); *The East Stair* if Aldous is never asked; the Lowsong follow-ups below (bothy smoke
+   scale, the long driftwood log); the Compatibility-renderer paint contrast items; anything slow in the test run.
+2. [C] **Act III opens — the crossing in** (content, ~Day 81-83): the Slow Mercy down the lane in on the morning ebb
+   (`cindermoor_passage`); what Cindermoor looks like from the water; who is on the Mercy's deck (Pell? Iver if home? a
+   Keeper sent by the Provost?); the first landing. Plan Act III in LORE first (as Day 69 planned Act II's close) — the
+   mysteries' payoffs must stay paced over months. Before it, the Act II follow-ups worth a line or two:
+   Aldous and the Hood-Pin (the hand on the stair; "tonight"); the Provost or Tobin seeing the
    Hood-Pin; Iver home on Kindleby meeting Tobin/the colliers; the `stayed`
    ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
    colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Low Water from Saltmarrow's side (Aldous, Mara —
-   the Gull looks south over it); Lowsong lit from Kindleby's quay (a gold point to the south).
-2. [P] **Color grading pass on a Vulkan machine** — also check the ember's pool of clear in the fog (Day 78: subtle in
+   the Gull looks south over it); (Lowsong lit from Kindleby's quay: Oda at the rail, Day 79).
+3. [P] **Color grading pass on a Vulkan machine** — also check the ember's pool of clear in the fog (Day 78: subtle in
    Compatibility; the warm rim `ember_rim` barely shows), the Low Water chart mark and the conversation framing
    on a real screen — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-3. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-4. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); (the ember light
    pushing fog back round the player: Day 78 — follow-up: let it ease the environment fog's thickening too if it reads
    weakly in Forward+); paths that fade in thick fog
@@ -638,7 +653,7 @@ each .glb < 5 MB.
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. (The first turn-back flag and Aldous's remark: Day 78 — others could notice it too:
    Bram, Hesper on the fen.)
-5. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (title theme and lighting cue landed Day 74: an owner listen; a quiet motif for Act ends and the ferry
    crossings; a sparse in-world piece per island later — or real recordings); oars as the skiff comes in (with the
@@ -646,14 +661,14 @@ each .glb < 5 MB.
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-6. [A] **Dressing follow-ups** (next art-led session due ~Day 80-81; last Day 76): Kindleby — the Quiet House's step
+7. [A] **Dressing follow-ups** (next art-led session due ~Day 80-81; last Day 76): Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
    walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); (the oars: Day 76); (Hild scraping the
    skiff: Day 71; her scrape sound: Day 74); the skiff's tar reads pale in the Compatibility renderer.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-7. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
+8. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
    (Hesk, Aldous on the bench); a framed shot for two-NPC scenes (Hild and the Provost) — today it frames whoever was
    talked to; in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
 
@@ -680,9 +695,9 @@ each .glb < 5 MB.
 - [x] [C] **The ring's last gap, begun** (Day 72): Oda tells of the Low Water once Kindleby is lit and marks it on the chart
   (a `water` landmark — not a port); Sister Hild will row there once the skiff is scraped (*The Low Water*, `future`); Hild
   met on the shingle if the skiff never went north; she talks about the scraping. Next: the rowing out and Lowsong.
-- [C] **Lowsong** (the Low Water's light, the sixth of the ring). Begun Day 75 (the Provost's yes, the rowing out, the cairns,
-  the cold light, Brother Iver Lusk and the Choir close; *A Light for Lowsong* to `the_singing`). Next: what it burns, the
-  sixth light, the second own Remnant, Iver's choice.
+- [x] [C] **Lowsong** (the Low Water's light, the sixth of the ring). Begun Day 75 (the Provost's yes, the rowing out, the cairns,
+  the cold light, Brother Iver Lusk and the Choir close); Day 77 lit (Iver's lamp or key; the Hood-Pin).
+- [x] [C] **Act II's end** (Day 79): the lights between, the lane in to Cindermoor, the `act2` end card.
 - [S] Day/night cycle & tides; NPC schedules. (Day 42: Wrackholm's tide is a story flag, `wrackholm_tide`, waited
   down at the spit; a real tide system should drive it and keep '' / `low` as its values.)
 - [S] Player memory Remnants (the player's own past resurfacing — mystery #2 foreshadowing).
@@ -752,8 +767,8 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 77 (*A Light for Lowsong*); next content due by ~Day 79-80 (Act II's end).
-- Last polish/debt session: Day 73 (polish ten); next due by ~Day 81.
+- Last content session: Day 79 (Act II's end, the lights between); next content due by ~Day 81-83 (Act III opens).
+- Last polish/debt session: Day 73 (polish ten); next due by ~Day 81 — do it Day 80.
 - Last systems session: Day 78 (the ember holds the fog back); next due by ~Day 82-84 (day/night — the Quiet House's
   step candle, lit windows, Hob's schedule — or gamepad rebinding).
 - Last art session: Day 76 (Lowsong dressed). Next art-led session due ~Day 80-81:

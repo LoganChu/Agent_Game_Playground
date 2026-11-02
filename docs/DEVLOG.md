@@ -2,6 +2,65 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-02 09:00 UTC — Day 79: the lights between — Act II ends (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; `main` = `origin/main`
+  (Day 78's `18978af`). No Blender work this session (all dialogue, data, chart and UI).
+- **Content (due ~Day 79-80):** ROADMAP *Next up* #1 — **Act II's end**, Act II's close step 5.
+  - **Oda at the rail:** the first time the Wakebearer talks to her after Lowsong burns, she has her glass on the gold
+    point south of the candles (Iver home: "Lorn's been at him in front of everybody. I'll not ask"; Iver keeping the
+    rock: "You don't get a light that steady by leaving it"), counts six on her fingers — **"the lights between"**, her
+    grandmother's word — and inks **the lane in** from Kindleby's quay straight to Cindermoor, the way the Keepers' boats
+    came out the week of the Snuffing (`kindleby_oda_lane_in`). Never a Tidewright lane. Her Kindleby greeting counts six
+    now (it said "Five lights" forever before).
+  - **"Take me in to Cindermoor."** She weighs the Wakebearer once more — "Keepers pay twice … I'd say this is the other
+    one" if she saw the sleeve-ember, else "Whatever you are, you've paid it six times over"; the colliers still waiting
+    on the stage are owed their word ("Now you can") — then: no lane off that water till the Spire's lit, "Is there
+    anybody left you owe a word?" *Not yet* keeps Act II open; *take me in* sets the morning ebb (`cindermoor_passage`,
+    `future`) and the **`act2` end card** shows: a line per burning (each island once, whatever burned), the Lamp's name,
+    the colliers (up / waiting / on Kindleby's wall), Dunstan (named, or "the big man from the rowboat" after the gull
+    burn), the rite, Iver, Pell, and the two own Remnants ("Someone was counting the landings on the east stair. It was
+    you."). Coda: the Slow Mercy goes in on the morning ebb; Act III is being written.
+  - **The chart:** landmarks can now carry a **`lane`** (from a port, drawn dashed ember, never sailed from the chart —
+    focusing Kindleby says "The lane in runs from here to Cindermoor: ask Oda.") and a **`lit`** condition with **`links`**
+    (the lit Low Water gets a gold point on its biggest skerry and faint dotted gold to Kindleby and the Gull: the ring
+    closed). Validator checks all three.
+  - **The end card scrolls:** Act II's recap runs 13-15 lines, so the recap sits in a ScrollContainer sized to its lines
+    up to 55 % of the screen; wheel or up/down (keys and pad) scroll it. Act I's card is unchanged in look; its coda no
+    longer says Act II is being written.
+  - Checkpoint **`the_lane_in`**; LORE canon (*The chart*: the lights between and the lane in; *Kindleby*: the scene),
+    Act II's close step 5 marked written.
+- **Tests:** `test_act_two_end.gd` (10: Oda counts once and inks the lane; Iver home seen from the rail; nothing before the
+  sixth light; not-yet vs. take-me-in and the act reached; the sleeve-ember and colliers' lines incl. the skiff case;
+  every burning value gives its island exactly one recap line; Dunstan told by what the Wakebearer remembers; the chart's
+  lane, lit landmark and Kindleby's info line; the validator on landmark lanes; the recap's scroll box). The smoke walk now
+  ends Act II after rowing back from Lowsong (not yet, then take me in, card recap checked). 561 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-11-02-am-the-lane-in.png` (the chart from Kindleby) and
+`2026-11-02-am-act-two-card.png` (the card, scrolling); `docs/checkpoints/the_lane_in.png`.
+
+**Decisions**
+- **Act II ends on Oda's yes, not on landing** — mirroring Act I (passage taken → card; the crossing opens the next act).
+  Cindermoor has no region yet, and the crossing in deserves a session of its own with Act III planned first.
+- **The lane in runs from Kindleby**, the Keepers' island: the boats that came out of the Spire came that way, and it keeps
+  Act III's start in one place. It's a landmark lane (drawn, never sailed from the chart) rather than a port, so nothing
+  can sail to a region that doesn't exist; Act III can promote Cindermoor to a port.
+- **"Not yet" is offered and honoured** — the card is a big moment and the player may have errands (the follow-ups list is
+  long); Oda tells them there's no coming back off that water, without a quest-by-quest checklist.
+- **The recap names Dunstan only if the Wakebearer can remember him** (the Act I burn rule), and the far-shore colliers'
+  "waiting" line is suppressed once the skiff took them to Kindleby.
+
+**Problems / notes**
+- The `--talk=oda` screenshot timed out in the sandbox (the walk + 420 settle frames); used the chart and card instead.
+- Unit tests can't lay out a RichTextLabel off-tree, so whether a long recap actually scrolls is checked by eye in the
+  `--act-end=act2` screenshot (it does).
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **polish/debt pass eleven (due by Day 81; do it Day 80)**: the Act II card on a real screen,
+   Act II quests left honestly open or closed (*The Far Shore*'s `the_boat` when nobody came), the Lowsong art follow-ups.
+   Then #2 — Act III opens (plan it in LORE first). Fetch and reset `main` before trusting it.
+
 ## 2026-11-01 21:00 UTC — Day 78: the ember holds the fog back (systems)
 
 **Did**

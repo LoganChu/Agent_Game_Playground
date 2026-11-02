@@ -358,7 +358,10 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   a snapshot taken on every region load, so loading a save never shows a card), `main.gd`
   shows `ActEndCard` with every recap line whose `if` holds. Act I ends on
   `flag:saltmarrow_ferry_passage`. The card is modal; "Keep exploring" (or Esc) closes it and
-  play continues — the save carries on into Act II.
+  play continues — the save carries on into Act II. Act II ends on `flag:cindermoor_passage` (Day 79; Oda's
+  `lane_in_go` knot), with a recap line per burning and per who-went-where. The recap sits in a `ScrollContainer`
+  sized to the lines up to 55 % of the screen; when longer it scrolls (wheel, or up/down on keys and pad —
+  `ActEndCard._input`, since focus stays on the buttons).
 
 ### The lanes (Day 17)
 The *Slow Mercy* is the only way between islands for now. `lanes_ferry_at` ('' → still at
@@ -467,7 +470,11 @@ Oda's lane home to Saltmarrow, Aldous asked for Wynn's sake, and the Wrens' braz
 and `known` conditions, `region`, `map` [x, y] in 0..1 from the top-left, `passage` knot), `landmarks`
 (drawn only, never sailed to: `name`, `text`, `map`, optional `known` condition and `look` — `"spire"` for Cindermoor,
 dark, or `"water"` for water Oda won't sail, a patch of fog with skerries in it: the Low Water, Day 72; `Lanes.known_landmarks`;
-the validator checks `known` and `look`), `lanes` (`between` two ports, `name`, `open` / `sailed` conditions,
+the validator checks `known` and `look`; Day 79: optional `lit` condition — a water landmark gets a gold point on its
+biggest skerry, and faint dotted `links` to the listed ports close the ring; optional `lane` {`from` port, `name`,
+`known`} — the lane in from Kindleby to Cindermoor, drawn dashed ember from the port, never sailed from the chart (Oda's
+dialogue sails it); `Lanes.landmark_lit/landmark_lane/landmark_lanes_from`, and focusing that port says "… runs from here
+to Cindermoor: ask Oda"; the validator checks `lit`, `links` are ports, `lane.from` is a port and `lane.known`), `lanes` (`between` two ports, `name`, `open` / `sailed` conditions,
 optional `closed_text`, `knots` {destination port → knot}), `dialogue` (the ferry's: `oda`) and `home`
 (the port `''` means). `Lanes` (scripts/core/lanes.gd) is the logic: `current_port`, `known_ports`,
 `known_lanes`, `route` (BFS over open lanes) and **`voyage(db, state, to)`** → `{ok, knot, route}` or
