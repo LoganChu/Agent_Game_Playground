@@ -315,6 +315,7 @@
           -2.5
         ]
       ],
+      "smoke_scale": 0.4,
       "note": "Lowsong's light (Day 75), cold since the Snuffing: a squat round tower of dark sea-worn stone on the rock's knoll, its door to the east and the landing, the Keeper's bothy against its back. An empty iron hook by the door for the Keeper's own small lamp, which he carries. Day 76: a thin thread of peat smoke from the bothy's stub chimney — he keeps a fire in, low.",
       "if": "!quest:a_light_for_lowsong=done"
     },
@@ -352,6 +353,7 @@
           -2.5
         ]
       ],
+      "smoke_scale": 0.4,
       "note": "Lowsong's light lit (Day 77): gold through the horn round a fire in the cradle, the door open on the stair.",
       "if": "quest:a_light_for_lowsong=done",
       "halo": [
@@ -703,11 +705,13 @@
     {
       "model": "res://assets/models/dressing/driftwood_log.glb",
       "position": [
-        16.6,
+        15.0,
         0,
-        5.4
+        4.1
       ],
-      "rotation_y": 20
+      "rotation_y": 75,
+      "scale": 0.75,
+      "note": "Day 80: smaller, and up the landing's west shore ahead of the player (behind them it filled the frame from the low camera)."
     },
     {
       "model": "res://assets/models/dressing/lowsong_stack.glb",
