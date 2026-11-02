@@ -3,6 +3,13 @@
   "knots": {
     "start": [
       {
+        "if": [
+          "!flag:lowsong_beacon_burned=",
+          "!flag:kindleby_oda_lane_in"
+        ],
+        "goto": "lights_between"
+      },
+      {
         "if": "flag:lanes_ferry_at=kindleby",
         "goto": "kindleby"
       },
@@ -1672,7 +1679,23 @@
       {
         "say": "oda",
         "text": "Five lights. Every one of them yours, whoever did the choosing.",
-        "if": "!flag:kindleby_beacon_burned="
+        "if": [
+          "!flag:kindleby_beacon_burned=",
+          "flag:lowsong_beacon_burned="
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "Six lights, and a line on my chart I never thought I'd ink. Every one of them yours.",
+        "if": [
+          "!flag:lowsong_beacon_burned=",
+          "!flag:cindermoor_passage"
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "Morning ebb. I've not changed my mind, if that's what you're asking. I've just not slept.",
+        "if": "flag:cindermoor_passage"
       },
       {
         "choice": [
@@ -1732,6 +1755,14 @@
             "text": "Where does the ring go from here?",
             "if": "!flag:kindleby_beacon_burned=",
             "goto": "kindleby_low_water"
+          },
+          {
+            "text": "Take me in to Cindermoor.",
+            "if": [
+              "flag:kindleby_oda_lane_in",
+              "!flag:cindermoor_passage"
+            ],
+            "goto": "lane_in"
           },
           {
             "text": "Where can you take me?",
@@ -1873,6 +1904,137 @@
       },
       {
         "goto": "kindleby"
+      }
+    ],
+    "lights_between": [
+      {
+        "say": "narrator",
+        "text": "Oda is at the rail with her glass to her eye, looking south past the candles. She doesn't put it down when you come aboard."
+      },
+      {
+        "say": "oda",
+        "text": "There's a light on the Low Water. Gold. It came up off the end of the candles while you were out there, small as a pin, and it hasn't gone out."
+      },
+      {
+        "say": "oda",
+        "text": "And there's a Keeper on the chapter-house steps who wasn't on them yesterday, and Lorn's been at him in front of everybody. I'll not ask.",
+        "if": "flag:lowsong_iver_home"
+      },
+      {
+        "say": "oda",
+        "text": "Somebody's keeping it, too. You don't get a light that steady by leaving it.",
+        "if": "flag:lowsong_beacon_burned=key"
+      },
+      {
+        "say": "narrator",
+        "text": "She lowers the glass and counts on her fingers, the way she counted fares on the Gull's dock."
+      },
+      {
+        "say": "oda",
+        "text": "The Gull. The Ridge Light. The Heron. The Wrack. Their tallow up on the crown. And that. Six."
+      },
+      {
+        "say": "narrator",
+        "text": "She takes the chart out of her coat and spreads it on the deckhouse roof, a fist on each corner. The lights go round Cindermoor in a ring, and for the first time there's no gap in it."
+      },
+      {
+        "say": "oda",
+        "text": "The lights between. That was my grandmother's word for them. Nobody lands on Cindermoor while the lights between are dark. She never said what happens when they're lit, because in her day they always were."
+      },
+      {
+        "say": "narrator",
+        "text": "Oda wets her thumb on the ink-stick and draws one line, from Kindleby's quay straight into the black in the middle of the chart.",
+        "set": {
+          "kindleby_oda_lane_in": true
+        }
+      },
+      {
+        "say": "oda",
+        "text": "The lane in. The Keepers' boats came out along it the week of the Snuffing; I lay off the Taper and watched them go by. Where boats come out, there's water to go in by."
+      },
+      {
+        "say": "oda",
+        "text": "It's never been a Tidewright lane. Tidewrights don't go to the Spire. The Spire comes to us, or it did."
+      },
+      {
+        "say": "oda",
+        "text": "Say the word and I'll take you in. Not on the next tide because you're in a hurry. When you've said what you've got to say to whoever you're leaving behind."
+      },
+      {
+        "goto": "start"
+      }
+    ],
+    "lane_in": [
+      {
+        "say": "oda",
+        "text": "Cindermoor."
+      },
+      {
+        "say": "narrator",
+        "text": "She says it like the name of a rock she has spent her whole life steering round."
+      },
+      {
+        "say": "oda",
+        "text": "Keepers pay twice on my deck: once for the crossing and once for the Spire. You've paid me crossings since the Gull. I'd say this is the other one.",
+        "if": "flag:saltmarrow_oda_saw_sleeve_ember"
+      },
+      {
+        "say": "oda",
+        "text": "I weighed you once, on the Gull's dock. I'll not weigh you again. Whatever you are, you've paid it six times over.",
+        "if": "!flag:saltmarrow_oda_saw_sleeve_ember"
+      },
+      {
+        "say": "oda",
+        "text": "You told the colliers on the Northing's stage you'd tell the Spire they're waiting. Well. Now you can.",
+        "if": [
+          "flag:thornwold_far_shore=waiting",
+          "flag:thornwold_skiff="
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "Once we're in that water, I'll not be putting back out for anything you forgot. There's no lane off it till the Spire's lit, or till I find one. So. Is there anybody left you owe a word?"
+      },
+      {
+        "choice": [
+          {
+            "text": "Nobody I can't owe it to from there. Take me in.",
+            "goto": "lane_in_go"
+          },
+          {
+            "text": "Not yet. There's somebody I've to see first.",
+            "goto": "lane_in_wait"
+          }
+        ]
+      }
+    ],
+    "lane_in_wait": [
+      {
+        "say": "oda",
+        "text": "Then go and see them. The Mercy's not going anywhere without you. That's rather the point."
+      },
+      {
+        "end": true
+      }
+    ],
+    "lane_in_go": [
+      {
+        "say": "narrator",
+        "text": "Oda folds the chart along the new line and puts it back inside her coat, next to the scale."
+      },
+      {
+        "say": "oda",
+        "text": "The morning ebb, then. Get some sleep. I'll not."
+      },
+      {
+        "say": "narrator",
+        "text": "Up on the crown the Vigil Light burns, and away on the Low Water a small gold point answers it, and the candles go round Kindleby the way they have for nine hundred years. In the middle of the ring, where the chart has always been black, there's nothing to see at all.",
+        "set": {
+          "cindermoor_passage": true
+        }
+      },
+      {
+        "end": true
       }
     ]
   }

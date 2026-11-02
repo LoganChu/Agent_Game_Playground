@@ -71,7 +71,141 @@
           "text": "Oda Farrow has seen the Keeper's sleeve-ember in your hand."
         }
       ],
-      "coda": "The Slow Mercy sails for Thornwold on the evening tide. Act II — The Drift — is still being written; every choice you made here will cross with you."
+      "coda": "The Slow Mercy sails for Thornwold on the evening tide. Every choice you made here will cross with you."
+    },
+    {
+      "id": "act2",
+      "when": "flag:cindermoor_passage",
+      "title": "Act II — The Drift",
+      "subtitle": "Six lights burn round a dark Spire.",
+      "recap": [
+        {
+          "if": "flag:thornwold_beacon_burned=boots",
+          "text": "The Ridge Light burns on Hob Marl's waiting. He doesn't watch the road for the four any more, and the cold hut is nobody's."
+        },
+        {
+          "if": "flag:thornwold_beacon_burned=salt_row",
+          "text": "The Ridge Light burns on the salt row. Thornwold's camp will never know who brings its charcoal."
+        },
+        {
+          "if": "flag:thornwold_lamp_name=told",
+          "text": "You gave the Lamp its name back: Wynn Sallow."
+        },
+        {
+          "if": "flag:thornwold_lamp_name=left",
+          "text": "The Lamp left its name paid in the Book, and stayed the Lamp."
+        },
+        {
+          "if": "flag:thornwold_far_shore=up",
+          "text": "The colliers came up off the far shore with the Lamp's coal for their hearths."
+        },
+        {
+          "if": [
+            "flag:thornwold_far_shore=waiting",
+            "flag:thornwold_skiff="
+          ],
+          "text": "The colliers wait on the Northing's boat-stage for the Spire's boat. You promised to tell the Spire."
+        },
+        {
+          "if": "flag:thornwold_skiff=kindleby",
+          "text": "The colliers got into Kindleby's skiff, and keep candles on the Keepers' wall now. Ottie looks north from the quay."
+        },
+        {
+          "if": "flag:fen_beacon_burned=name",
+          "text": "The Heron Light burns on Hesper Vail's name. She meets the boats without it."
+        },
+        {
+          "if": "flag:fen_beacon_burned=channels",
+          "text": "The Heron Light burns on Corran's knot-cord. Nobody living knows the fen's deep channels."
+        },
+        {
+          "if": [
+            "flag:fen_dunstan_walk=home",
+            "!flag:saltmarrow_beacon_burned=gull"
+          ],
+          "text": "Dunstan Tollen walked back for his name and rowed home to his stool by Mara's door."
+        },
+        {
+          "if": [
+            "flag:fen_dunstan_walk=home",
+            "flag:saltmarrow_beacon_burned=gull"
+          ],
+          "text": "The big man from the rowboat rowed home to Saltmarrow and says he's Mara's brother. She doesn't know him. The second cup is his."
+        },
+        {
+          "if": [
+            "flag:fen_dunstan_walk=stayed",
+            "!flag:saltmarrow_beacon_burned=gull"
+          ],
+          "text": "Dunstan Tollen walked back for his name, and stayed on the fen to turn the long walk's boards for whoever comes next."
+        },
+        {
+          "if": [
+            "flag:fen_dunstan_walk=stayed",
+            "flag:saltmarrow_beacon_burned=gull"
+          ],
+          "text": "The big man from the rowboat walked back for his name, and stayed on the fen to turn the long walk's boards."
+        },
+        {
+          "if": "flag:wrackholm_beacon_burned=answer",
+          "text": "The Wrack Light burns on Wenna Garrow's answer. Nobody on Wrackholm remembers she ever answered a horn."
+        },
+        {
+          "if": "flag:wrackholm_beacon_burned=board",
+          "text": "The Wrack Light burns on the Gannet's crew board. Her crew are unnamed again on Wrackholm, for good."
+        },
+        {
+          "if": "flag:wrackholm_beacon_burned=white",
+          "text": "The Wrack Light burns on Hale's white-lead pot. Nobody left on Wrackholm has walked the Teeth behind a lampwarden."
+        },
+        {
+          "if": "flag:kindleby_rite=bowed",
+          "text": "You bowed to the Keepers' rite and carried the chapter's choice up the stair."
+        },
+        {
+          "if": "flag:kindleby_rite=refused",
+          "text": "You told the Provost no, and chose for Kindleby yourself."
+        },
+        {
+          "if": "flag:kindleby_beacon_burned=boats",
+          "text": "The Vigil Light burns on the Boats' Lantern. Nobody on Kindleby remembers how they came over from the Spire."
+        },
+        {
+          "if": "flag:kindleby_beacon_burned=pan",
+          "text": "The Vigil Light burns on Tobin Ashe's coal-pan. He was never called up to the Spire, and will never think to go."
+        },
+        {
+          "if": "flag:lowsong_beacon_burned=lamp",
+          "text": "Lowsong's light burns on Iver Lusk's listening. He never heard a voice in the singing, and keeps candles on Kindleby now."
+        },
+        {
+          "if": "flag:lowsong_beacon_burned=key",
+          "text": "Lowsong's light burns on Iver Lusk's Kindleby. He keeps the rock and listens, and doesn't know there was anywhere else."
+        },
+        {
+          "if": "flag:thornwold_pell_landed",
+          "text": "Pell sorts Bram's nails at Thornwold's lumber camp."
+        },
+        {
+          "if": "flag:saltmarrow_pell_float",
+          "text": "Pell's lost-things crate has a glass float on top: something lost, something good."
+        },
+        {
+          "if": [
+            "flag:kindleby_stair_taper",
+            "flag:lowsong_hood_pin"
+          ],
+          "text": "The ember has given back two things of yours: a novice's stair-taper and a bone hood-pin. Someone was counting the landings on the east stair. It was you."
+        },
+        {
+          "if": [
+            "flag:kindleby_stair_taper",
+            "!flag:lowsong_hood_pin"
+          ],
+          "text": "The ember has given back something of yours: a novice's stair-taper, notched for the east stair."
+        }
+      ],
+      "coda": "The Slow Mercy goes in to Cindermoor on the morning ebb, down a lane no Tidewright has ever sailed. Act III — The Spire — is still being written; every light you lit will be burning behind you."
     }
   ]
 }

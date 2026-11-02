@@ -721,6 +721,20 @@
         "hood_pin": 1
       },
       "shot": "--camera=4,4.5,6:-16,2.5,-3"
+    },
+    {
+      "id": "the_lane_in",
+      "act": "Act II — The Drift",
+      "title": "The lights between",
+      "inherits": "lowsong_lit",
+      "region": "kindleby",
+      "spawn": "from_skiff",
+      "description": "Hild rowed the Wakebearer back from Lowsong's lit rock. From the Slow Mercy's rail Oda counted six lights, the lights between, and inked one line on her chart: the lane in, from Kindleby's quay to Cindermoor. Ask her to take you in, and Act II ends.",
+      "flags": {
+        "lowsong_out": false,
+        "kindleby_oda_lane_in": true
+      },
+      "shot": "--camera=-6,5.5,12:5,1.2,-5"
     }
   ]
 }

@@ -874,6 +874,15 @@
     "saltmarrow_aldous_heard_turned_back": {
       "description": "Player told Aldous the fog turned them back; he told of the ember's ring of clear and Isolde's ember walking her out (Day 78).",
       "default": false
+    },
+    "kindleby_oda_lane_in": {
+      "description": "Oda saw Lowsong's light from the Slow Mercy's rail and counted six lights, 'the lights between' (Day 79, Act II's end): she inked the lane in on her chart, from Kindleby's quay to Cindermoor, the way the Keepers' boats came out the week of the Snuffing. Never a Tidewright lane. The chart shows it from then on; Oda will take the Wakebearer in when asked.",
+      "default": false
+    },
+    "cindermoor_passage": {
+      "description": "Oda agreed to take the Wakebearer in to Cindermoor on the morning ebb, down the lane in from Kindleby (Day 79): Act II ends here (the act2 end card). The crossing in itself opens Act III, The Spire.",
+      "default": false,
+      "future": true
     }
   }
 }
