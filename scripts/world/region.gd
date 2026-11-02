@@ -318,7 +318,7 @@ func _build_prop(prop: Dictionary) -> Node3D:
 			if prop.has("light"):
 				node.add_child(build_light(prop["light"]))
 			if prop.get("smoke") is Array:
-				node.add_child(PropSmoke.build(prop["smoke"]))
+				node.add_child(PropSmoke.build(prop["smoke"], float(prop.get("smoke_scale", 1.0))))
 			if prop.get("halo") is Array:
 				node.add_child(LanternHalo.build(JsonUtil.to_vector3(prop["halo"]), float(prop.get("halo_size", LanternHalo.SIZE)),
 					float(prop.get("halo_strength", LanternHalo.STRENGTH)), float(prop.get("halo_bloom", 0.0))))

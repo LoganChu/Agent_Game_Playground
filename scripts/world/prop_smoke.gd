@@ -5,20 +5,26 @@ extends RefCounted
 ## prop's `scale`); each gets a slow column of low-poly puffs that swell, lean downwind and
 ## fade. Particles are CPU-side so the Compatibility renderer shows them too, and they are
 ## preprocessed so the column is already standing when the region loads.
+##
+## `smoke_scale` (Day 80, default 1): a hut's low peat fire is a thread, a clamp is a column. The
+## scale shrinks the puffs and how far they swell, and thins the count, so 0.4 reads as a wisp.
 
 const AMOUNT := 16
 const LIFETIME := 6.0
 ## World-space drift of the puffs (a light breeze off the sea, rising).
 const DRIFT := Vector3(0.12, 0.1, 0.05)
+const MIN_SCALE := 0.25
+const MAX_SCALE := 2.0
 
 
 ## One CPUParticles3D per vent, as children of a "Smoke" node to add under the prop's model.
-static func build(vents: Array) -> Node3D:
+static func build(vents: Array, smoke_scale: float = 1.0) -> Node3D:
+	var k := clampf(smoke_scale, MIN_SCALE, MAX_SCALE)
 	var root := Node3D.new()
 	root.name = "Smoke"
 	var mesh := SphereMesh.new()
-	mesh.radius = 0.22
-	mesh.height = 0.36
+	mesh.radius = 0.22 * k
+	mesh.height = 0.36 * k
 	mesh.radial_segments = 6
 	mesh.rings = 3
 	var material := StandardMaterial3D.new()
@@ -30,7 +36,7 @@ static func build(vents: Array) -> Node3D:
 	var scale_curve := Curve.new()
 	scale_curve.max_value = 3.0
 	scale_curve.add_point(Vector2(0.0, 0.4))
-	scale_curve.add_point(Vector2(1.0, 2.6))
+	scale_curve.add_point(Vector2(1.0, lerpf(1.0, 2.6, minf(k, 1.0))))
 	var ramp := Gradient.new()
 	var tint := PropFactory.color("silverfog").lerp(PropFactory.color("bone"), 0.4)
 	ramp.set_color(0, Color(tint.darkened(0.2), 0.0))
@@ -41,14 +47,14 @@ static func build(vents: Array) -> Node3D:
 		particles.name = "Vent%d" % i
 		particles.position = JsonUtil.to_vector3(vents[i])
 		particles.mesh = mesh
-		particles.amount = AMOUNT
+		particles.amount = amount_for(k)
 		particles.lifetime = LIFETIME
 		particles.preprocess = LIFETIME
 		particles.randomness = 0.5
 		particles.local_coords = false
 		particles.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		particles.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
-		particles.emission_sphere_radius = 0.06
+		particles.emission_sphere_radius = 0.06 * k
 		particles.direction = Vector3.UP
 		particles.spread = 12.0
 		particles.gravity = DRIFT
@@ -60,3 +66,8 @@ static func build(vents: Array) -> Node3D:
 		particles.color_ramp = ramp
 		root.add_child(particles)
 	return root
+
+
+## Puffs per vent for a smoke scale: fewer for a thread, never so few that it flickers out.
+static func amount_for(smoke_scale: float) -> int:
+	return maxi(6, roundi(AMOUNT * clampf(smoke_scale, MIN_SCALE, MAX_SCALE)))

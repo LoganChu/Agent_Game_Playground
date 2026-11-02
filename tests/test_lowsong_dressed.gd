@@ -179,3 +179,30 @@ func _rms(samples: PackedFloat32Array, at: float, span: float) -> float:
 	for i in range(start, mini(start + count, samples.size())):
 		sum += samples[i] * samples[i]
 	return sqrt(sum / maxf(1.0, float(count)))
+
+
+## Day 80 (polish eleven): the bothy's smoke is a thread, not a clamp's column — `smoke_scale` thins it, lit or cold.
+func test_the_bothy_smoke_is_a_thread() -> void:
+	for model: String in ["lowsong_light", "lowsong_light_lit"]:
+		var prop: Dictionary = _props(model)[0]
+		assert_true(float(prop.get("smoke_scale", 1.0)) <= 0.5, "%s: a thin thread" % model)
+	var full := PropSmoke.build([[0, 0, 0]])
+	var thread := PropSmoke.build([[0, 0, 0]], 0.4)
+	var full_vent: CPUParticles3D = full.get_child(0)
+	var thread_vent: CPUParticles3D = thread.get_child(0)
+	assert_eq(full_vent.amount, PropSmoke.AMOUNT, "the default column is unchanged")
+	assert_true(thread_vent.amount < full_vent.amount and thread_vent.amount >= 6, "fewer puffs, never a flicker")
+	assert_true((thread_vent.mesh as SphereMesh).radius < (full_vent.mesh as SphereMesh).radius * 0.5, "smaller puffs")
+	assert_true(thread_vent.scale_amount_curve.sample(1.0) < full_vent.scale_amount_curve.sample(1.0), "they swell less")
+	full.free()
+	thread.free()
+
+
+func test_the_validator_checks_smoke_scale() -> void:
+	var db := load_content()
+	var lit: Dictionary = (db.get_region("lowsong")["props"] as Array).filter(
+			func(p: Dictionary) -> bool: return str(p.get("model", "")).ends_with("lowsong_light.glb"))[0]
+	lit["smoke_scale"] = 5
+	var report := ContentValidator.new(db)
+	report.validate()
+	assert_true(report.errors.any(func(e: String) -> bool: return e.contains("'smoke_scale' must be a number")), "too thick")

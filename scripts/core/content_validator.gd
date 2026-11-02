@@ -358,7 +358,8 @@ func _check_prop_over_water(where: String, prop: Dictionary, model: String) -> v
 		_err(where, "prop 'over_water' needs a 'model'")
 
 
-## `smoke` (model props only): vents [[x, y, z], ...] in model space that smoke rises from.
+## `smoke` (model props only): vents [[x, y, z], ...] in model space that smoke rises from;
+## optional `smoke_scale` (Day 80) thins or thickens the column.
 func _check_prop_smoke(where: String, prop: Dictionary, model: String) -> void:
 	if not prop.has("smoke"):
 		return
@@ -370,6 +371,10 @@ func _check_prop_smoke(where: String, prop: Dictionary, model: String) -> void:
 	for vent: Variant in prop["smoke"]:
 		if not _is_vector(vent):
 			_err(where, "prop smoke vent must be [x, y, z]")
+	if prop.has("smoke_scale"):
+		var s: Variant = prop["smoke_scale"]
+		if not (s is float or s is int) or float(s) < PropSmoke.MIN_SCALE or float(s) > PropSmoke.MAX_SCALE:
+			_err(where, "prop 'smoke_scale' must be a number %.2f..%.1f" % [PropSmoke.MIN_SCALE, PropSmoke.MAX_SCALE])
 
 
 ## An NPC's (or placement's) `halo`: {"part": one of the rig parts, optional `size` > 0 and
