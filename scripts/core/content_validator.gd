@@ -791,6 +791,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 			_err(where, "exit spawn '%s' not in region '%s'" % [exit.get("spawn", "default"), to])
 	_check_prop_variants(where, region)
 	_validate_events(where, region)
+	_validate_cressets(where, region)
 	_validate_greying(where, region)
 	if region.has("ground"):
 		_validate_ground(where, region)
@@ -961,7 +962,7 @@ func _validate_greying(where: String, region: Dictionary) -> void:
 			_err(where, "greying entries must be objects")
 			continue
 		for key: String in (area as Dictionary):
-			if key not in ["rect", "ellipse", "strength", "falloff", "height", "if", "clear", "note"]:
+			if key not in ["rect", "ellipse", "strength", "falloff", "height", "if", "clear", "forgets", "cresset", "note"]:
 				_err(where, "greying area has unknown key '%s'" % key)
 		var shapes := 0
 		for shape_key: String in ["rect", "ellipse"]:
@@ -979,6 +980,10 @@ func _validate_greying(where: String, region: Dictionary) -> void:
 					_err(where, "greying %s must be a number in [%s, %s]" % num)
 		if area.has("clear") and not area["clear"] is bool:
 			_err(where, "greying clear must be true or false")
+		if area.has("forgets") and not area["forgets"] is bool:
+			_err(where, "greying forgets must be true or false")
+		elif area.get("forgets", false) and area.get("clear", false):
+			_err(where, "a greying area can't both forget and be clear")
 		_ref_condition(where, area.get("if"))
 	_greying_ok = errors.size() == errors_before
 	if not _greying_ok:
@@ -998,7 +1003,17 @@ func _validate_greying_budget(where: String, region: Dictionary, field: TerrainF
 	var areas := Greying.worst_case_areas(region)
 	if areas.is_empty() or not _greying_ok:
 		return
-	var cost := Greying.ember_cost_map(field, reachable, areas)
+	# Where the road forgets, nothing is walked without its cressets: _validate_forgetting checks the
+	# budget with the lights the way up needs instead.
+	if Greying.has_forgetting(areas):
+		return
+	_check_budget(where, field, reachable, areas, spots)
+
+
+## Errors for each of `spots` (label, position, reach) costing more than Greying.MAX_ONE_WAY_EMBER to
+## reach over `cells` under `areas`.
+func _check_budget(where: String, field: TerrainField, cells: Dictionary, areas: Array[Dictionary], spots: Array) -> void:
+	var cost := Greying.ember_cost_map(field, cells, areas)
 	for spot: Array in spots:
 		var pos := JsonUtil.to_vector3(spot[1])
 		var radius := float(spot[2])
@@ -1015,6 +1030,122 @@ func _validate_greying_budget(where: String, region: Dictionary, field: TerrainF
 					best = minf(best, float(cost[n]))
 		if best != INF and best > Greying.MAX_ONE_WAY_EMBER:
 			_err(where, "%s at %s costs %.2f ember to reach through the Greying (max %.2f)" % [spot[0], pos, best, Greying.MAX_ONE_WAY_EMBER])
+
+
+## Waymark cressets (Day 82, `Cressets`): well-formed entries, unique ids, a declared flag that the
+## lighting dialogue sets, and pools of rect/ellipse shapes.
+func _validate_cressets(where: String, region: Dictionary) -> void:
+	if not region.has("cressets"):
+		return
+	if not region["cressets"] is Array:
+		_err(where, "cressets must be a list")
+		return
+	var ids: Dictionary = {}
+	for entry: Variant in region["cressets"]:
+		if not entry is Dictionary:
+			_err(where, "cressets entries must be objects")
+			continue
+		var c: Dictionary = entry
+		var cid := str(c.get("id", ""))
+		var at := "%s cresset '%s'" % [where, cid]
+		for key: String in c:
+			if key not in Cressets.KEYS:
+				_err(at, "unknown key '%s'" % key)
+		if cid.is_empty() or ids.has(cid):
+			_err(at, "needs a unique 'id'")
+		ids[cid] = true
+		if not _is_vector(c.get("position")):
+			_err(at, "position must be [x, y, z]")
+		var flag := str(c.get("flag", ""))
+		if not db.flags.has(flag):
+			_err(at, "flag '%s' is not declared in data/flags.json" % flag)
+			continue
+		_ref_condition(at, c.get("if"))
+		var pools: Variant = c.get("pool", [])
+		if not pools is Array or (pools as Array).is_empty():
+			_err(at, "pool must be a non-empty list of rect/ellipse areas (what the lit fire holds open)")
+		if c.has("road"):
+			var road: Variant = c["road"]
+			var ok := road is Array and (road as Array).size() >= 2
+			if ok:
+				for point: Variant in road:
+					ok = ok and point is Array and (point as Array).size() >= 2
+			if not ok:
+				_err(at, "road must be a path of at least two [x, z, 0] points")
+		var dialogue_id := str(c.get("dialogue", ""))
+		_ref_dialogue(at, dialogue_id)
+		if db.dialogues.has(dialogue_id) and not _sets_flag(db.get_dialogue(dialogue_id), flag):
+			_err(at, "dialogue '%s' never sets %s (lighting it must)" % [dialogue_id, flag])
+
+
+## True if some step anywhere under `node` sets flag `id` to true.
+func _sets_flag(node: Variant, id: String) -> bool:
+	if node is Dictionary:
+		var set_block: Variant = (node as Dictionary).get("set")
+		if set_block is Dictionary and (set_block as Dictionary).get(id) == true:
+			return true
+		for value: Variant in (node as Dictionary).values():
+			if _sets_flag(value, id):
+				return true
+	elif node is Array:
+		for value: Variant in node:
+			if _sets_flag(value, id):
+				return true
+	return false
+
+
+## The road that forgets (Day 82): where fog `forgets`, the player can only walk where the way is
+## remembered (forgetting under Greying.FORGET_DEPTH). Each cresset must be reachable with only the
+## cressets before it lit (so they can be lit in order), and everything else with every light lit.
+func _validate_forgetting(where: String, region: Dictionary, field: TerrainField, reachable: Dictionary, spots: Array) -> void:
+	if not _greying_ok or not Greying.has_forgetting(region.get("greying", [])):
+		return
+	var spawn: Vector3 = JsonUtil.to_vector3(region.get("spawn_points", {}).get("default", [0, 0, 0]))
+	var base := Greying.worst_case_areas(region)
+	var lit: Array[Dictionary] = []
+	for c: Dictionary in Cressets.of(region):
+		var cid := str(c.get("id", ""))
+		var pos := JsonUtil.to_vector3(c.get("position"))
+		var areas: Array[Dictionary] = base + lit
+		var remembered := _remembered_cells(field, reachable, areas, spawn)
+		if not field.near_reachable(remembered, pos.x, pos.z, 2.0):
+			_err(where, "cresset '%s' at %s can't be reached with only the cressets before it lit (the road forgets)" % [cid, pos])
+		else:
+			_check_budget(where, field, remembered, areas, [["cresset '%s'" % cid, c.get("position"), 2.0]])
+		lit.append_array(Cressets.pools_of(region, cid))
+	var all := Greying.all_areas(region)
+	var best := _remembered_cells(field, reachable, all, spawn)
+	var walkable: Array = []
+	for spot: Array in spots:
+		var pos := JsonUtil.to_vector3(spot[1])
+		if not field.near_reachable(reachable, pos.x, pos.z, float(spot[2])):
+			continue  # reported by _validate_ground
+		if field.near_reachable(best, pos.x, pos.z, float(spot[2])):
+			walkable.append(spot)
+		else:
+			_err(where, "%s at %s lies where the road forgets, even with every light lit" % [spot[0], pos])
+	_check_budget(where, field, best, all, walkable)
+
+
+## Reachable cells (flood fill from `spawn` over `reachable`) where the way is remembered under `areas`.
+func _remembered_cells(field: TerrainField, reachable: Dictionary, areas: Array, spawn: Vector3) -> Dictionary:
+	var ok := func(c: Vector2i) -> bool:
+		var centre := field.vertex_xz(c.x, c.y) + Vector2(field.cell, field.cell) * 0.5
+		return reachable.has(c) and Greying.forgetting_at(areas, centre) < Greying.FORGET_DEPTH
+	var seen: Dictionary = {}
+	var start := field.cell_of(spawn.x, spawn.z)
+	if not ok.call(start):
+		return seen
+	var queue: Array[Vector2i] = [start]
+	seen[start] = true
+	while not queue.is_empty():
+		var c: Vector2i = queue.pop_back()
+		for step: Vector2i in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			var n := c + step
+			if not seen.has(n) and ok.call(n):
+				seen[n] = true
+				queue.append(n)
+	return seen
 
 
 ## Sculpted ground: well-formed features, and every spawn/NPC/pickup/object/exit stands on
@@ -1085,6 +1216,7 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 		elif not field.near_reachable(reachable, pos.x, pos.z, float(spot[2])):
 			_err(where, "%s at %s can't be reached on foot from the default spawn" % [spot[0], pos])
 	_validate_greying_budget(where, region, field, reachable, spots)
+	_validate_forgetting(where, region, field, reachable, spots)
 	_check_npcs_dry(where, region, field)
 	if not piers_ok:
 		return

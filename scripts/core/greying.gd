@@ -35,6 +35,11 @@ const EMBER_POOL_RADIUS_SPENT := 1.1
 const EMBER_POOL_PUSH := 0.85
 ## Inner fraction of the radius held at full push.
 const EMBER_POOL_CORE := 0.35
+## The road that forgets (Day 82): an area with `"forgets": true` is fog the ground itself can't be
+## found in — past this much of it (after any lit cresset's pool thins it) the Wakebearer loses the
+## way, and after FORGET_SECONDS there is turned back to where they last could see it.
+const FORGET_DEPTH := 0.5
+const FORGET_SECONDS := 1.6
 
 
 ## The region's areas whose `if` holds under `state`.
@@ -102,6 +107,29 @@ static func clearing_at(areas: Array, p: Vector2) -> float:
 		if is_clear(area):
 			light = maxf(light, area_depth(area, p))
 	return light
+
+
+## True for fog that makes the ground forget where it goes (see FORGET_DEPTH).
+static func forgets(area: Dictionary) -> bool:
+	var value: Variant = area.get("forgets", false)
+	return value is bool and value and not is_clear(area)
+
+
+## How lost the way is at `p` (x/z) over `areas`: the deepest forgetting area, thinned by the clear
+## areas (a lit cresset's pool remembers the road). 0 where nothing forgets.
+static func forgetting_at(areas: Array, p: Vector2) -> float:
+	var depth := 0.0
+	for area: Dictionary in areas:
+		if forgets(area):
+			depth = maxf(depth, area_depth(area, p))
+	if depth <= 0.0:
+		return 0.0
+	return depth * (1.0 - clearing_at(areas, p))
+
+
+## True if any of `areas` forgets.
+static func has_forgetting(areas: Array) -> bool:
+	return areas.any(func(a: Variant) -> bool: return a is Dictionary and forgets(a))
 
 
 ## The clear areas among `areas`.

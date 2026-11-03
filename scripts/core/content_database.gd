@@ -29,6 +29,9 @@ func load_all(data_root: String = "res://data", story_root: String = "res://stor
 	errors.clear()
 	for kind in KINDS:
 		_load_kind(kind, data_root.path_join(kind))
+	# Waymark cressets become ordinary props/objects/fog/paint (Day 82; see Cressets).
+	for region: Dictionary in regions.values():
+		Cressets.expand(region)
 	_load_flags(data_root.path_join("flags.json"))
 	var game_data: Variant = JsonUtil.load_file(data_root.path_join("game.json"), errors)
 	if game_data is Dictionary:

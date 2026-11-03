@@ -179,6 +179,12 @@ func greying_depth(x: float, z: float) -> float:
 	return lerpf(Greying.depth_at(_greying_from, Vector2(x, z)), depth, _greying_blend)
 
 
+## How lost the road is at x/z (Greying.forgetting_at over the active areas; the walker turns
+## the player back past Greying.FORGET_DEPTH). Not eased: a cresset's pool holds the road at once.
+func forgetting(x: float, z: float) -> float:
+	return Greying.forgetting_at(greying_areas, Vector2(x, z))
+
+
 ## Starts the ember drain easing from the depths of `from_areas` to the current areas'
 ## (a second change mid-fade eases on from `from_areas`, the areas just replaced).
 func _ease_greying_depth(from_areas: Array[Dictionary], animate: bool) -> void:

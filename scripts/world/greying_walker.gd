@@ -7,8 +7,12 @@ extends Node
 
 signal ember_changed(ember: float, depth: float)
 signal turned_back
+signal road_forgot
 
 const TURN_BACK_TEXT := "You forget why you came."
+## The road that forgets (Day 82): lost past a lit cresset's pool, the Wakebearer is brought back
+## to where they could last see the way.
+const FORGET_TEXT := "The road forgets where it goes. You find it again where the light was."
 const FADE_SECONDS := 0.9
 ## Saved world flag: the Greying has turned the Wakebearer back at least once (NPCs remark on it).
 const TURNED_BACK_FLAG := "greying_turned_back"
@@ -22,6 +26,12 @@ var region: Region
 var hud: Hud
 
 var _last_clear := Vector3.INF
+## Last ground stood on where the way could still be seen (forgetting under half FORGET_DEPTH).
+var _last_remembered := Vector3.INF
+## Seconds spent lost on a forgetting road (eases back off when the way is found again).
+var forget_time := 0.0
+## How lost the way is under the player on the last physics frame (Greying.forgetting_at).
+var forgetting := 0.0
 var _pool_time := 0.0
 
 
@@ -34,6 +44,8 @@ func _ready() -> void:
 func enter_region(p_region: Region) -> void:
 	region = p_region
 	_last_clear = Vector3.INF
+	_last_remembered = Vector3.INF
+	forget_time = 0.0
 
 
 func _physics_process(delta: float) -> void:
@@ -45,6 +57,17 @@ func _physics_process(delta: float) -> void:
 		meter.step(delta, depth)
 	if depth < Greying.CLEAR_DEPTH and player.is_on_floor():
 		_last_clear = p
+	forgetting = region.forgetting(p.x, p.z)
+	if forgetting < Greying.FORGET_DEPTH * 0.5 and player.is_on_floor():
+		_last_remembered = p
+	if not GameState.input_locked:
+		if forgetting >= Greying.FORGET_DEPTH:
+			forget_time += delta
+		else:
+			forget_time = maxf(0.0, forget_time - delta * 2.0)
+		if forget_time >= Greying.FORGET_SECONDS:
+			_lose_the_road()
+			return
 	player.set_ember(meter.ember)
 	_open_pool(p, delta)
 	ember_changed.emit(meter.ember, depth)
@@ -68,23 +91,43 @@ func turn_back_point() -> Vector3:
 	return _last_clear if _last_clear.is_finite() else region.spawn_position("default")
 
 
+## Where the player is brought back to when the road forgets: the last ground where the way could
+## be seen, else the last clear ground.
+func remembered_point() -> Vector3:
+	return _last_remembered if _last_remembered.is_finite() else turn_back_point()
+
+
 func _turn_back() -> void:
 	if turning_back:
 		return
+	await _bring_back(turn_back_point(), TURN_BACK_TEXT, true)
+	turned_back.emit()
+
+
+func _lose_the_road() -> void:
+	if turning_back:
+		return
+	await _bring_back(remembered_point(), FORGET_TEXT, false)
+	road_forgot.emit()
+
+
+## Fades out, puts the player at `target`, and fades back in with `text`. The ember out (`refill`)
+## also refills it and remembers the first turn-back; losing the road leaves the ember as it was.
+func _bring_back(target: Vector3, text: String, refill: bool) -> void:
 	turning_back = true
 	GameState.input_locked = true
-	var target := turn_back_point()
 	if hud:
 		await hud.fade_screen(1.0, FADE_SECONDS)
 	player.place_at(target)
-	GameState.world.set_flag(TURNED_BACK_FLAG, true)
-	meter.refill()
-	depth = 0.0
+	forget_time = 0.0
+	if refill:
+		GameState.world.set_flag(TURNED_BACK_FLAG, true)
+		meter.refill()
+		depth = 0.0
 	player.set_ember(meter.ember)
 	ember_changed.emit(meter.ember, depth)
-	GameState.toast.emit(TURN_BACK_TEXT)
+	GameState.toast.emit(text)
 	if hud:
 		await hud.fade_screen(0.0, FADE_SECONDS)
 	GameState.input_locked = false
 	turning_back = false
-	turned_back.emit()
