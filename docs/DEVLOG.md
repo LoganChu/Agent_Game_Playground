@@ -2,6 +2,68 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-03 09:00 UTC — Day 81: the crossing in — Act III opens (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to
+  `origin/main` (Day 80's `e4323c8`). Baseline: 570 tests + smoke + launch green.
+- **Act III planned first (LORE).** A nine-step *Act III — The Spire* plan (not canon until written), paced so the two
+  deepest mysteries come last: the crossing in → the way up (waymark cressets; the Unmoored who came to Cindermoor on
+  purpose) → the Spire's foot (the warden's niche, the novices' roll with a name *scraped*, not struck) → the chapter comes
+  in → what the Firstflame ate (#1/#3, mid-act; Oriel named there) → the eighth boat's owner → the Choir at the Spire (#4) →
+  the east stair (#2) → the lantern room. New canon section **6. Cindermoor** for what landed today.
+- **Content (due ~Day 81-83):** ROADMAP *Next up* #1 — **the crossing in**.
+  - **"Cast off down the lane in."** on Kindleby once Oda has said yes: the horn; Tobin strokes the quay bell **once and
+    not again** ("The second's for when they come back"); the Provost lifts her hand (bowed) or watches as far as the
+    candles and goes up (refused); Iver on the wall if he came home; Wenna and Ottie if the colliers came to Kindleby.
+    Oda steers by **the six lights astern** ("A ring's got a middle. You find it by the edges"); the fog **thickens going
+    in** ("like water running downhill to a drain" — a mystery #3 foreshadow); halfway the six stand all round "like
+    sitting in the middle of a table laid for somebody"; Cindermoor out of the fog, black cinder and brown heather, the
+    Hearthspire pale and dark at the top. Sets `cindermoor_crossed` and `lanes_ferry_at` = `cindermoor`.
+  - **New region, the Boat Stair** (`cindermoor_boat_stair`): the Keepers' quay (a pier at 0.9 with the model's deck),
+    the boathouse in the water under the cliff — **eight slips, seven empty, one boat never launched** — the empty
+    bow-lantern rack, oil barrels never carried up, the cinder road climbing a notch into the fog with two cold cressets,
+    and the Spire far up on the crown. Heaviest fog on the ring, thin on the quay. Arrival scene; quest **The Way Up**
+    (`future`: the road forgets where it goes → `the_cressets`).
+  - **Brother Merrit Coyle**, the Hushed boat-warden on his bollard, coiling a painter fast to nothing: "Eight slips.
+    Seven out. One in. ...Somebody's not come down." Calls everyone novice, flinches from the ember, won't come aboard
+    ("Then who'd be on the stair?"). The **Hood-Pin** ("Pin's straight. Good. Nobody's to see.") and the **Stair-Taper**
+    ("Past the third. You went higher than you were told.") each stop his humming for one line (mystery #2 hooks).
+  - **Oda at the Boat Stair**: she waits; no lane off this water. The Mercy lies at a chart **landmark**, not a port:
+    new `ferry`/`moored` on landmarks (validated), `Lanes.ferry_landmark`/`ferry_place_name`, every voyage refused with the
+    moored line, the chart's heading names Cindermoor and rings it in ember.
+  - The act2 card's coda no longer says Act III is being written.
+- **Blender:** `tools/blender/build_cindermoor.py` — `boat_stair`, `boathouse_slips`, `hearthspire_far` (1/3 scale, placed
+  ×3 far off), `cinder_cresset`; `build_characters.py merrit` (seated on his own bollard, silver to the waist).
+- **Tests:** `test_crossing_in.gd` (8: cast off only after the yes; who sees the Mercy off by flags; the landing fires
+  once and starts The Way Up; Merrit and the two own Remnants; the road and the slips; no lane off this water and Oda
+  nowhere else; the validator on a landmark the ferry lies at; the quay prop is the pier). `test_dressing` bounds/origin
+  exemptions for the quay, boathouse and far Spire. The smoke walk now sails back to Kindleby after the long passage home
+  and crosses in (arrival, Merrit, slips, road, no chart). Checkpoint `the_boat_stair`.
+
+Screenshots: `docs/screenshots/2026-11-03-am-boat-stair.png` (the Mercy, the quay, the Spire in the fog) and
+`…-am-boat-stair-quay.png`; `docs/checkpoints/the_boat_stair.png`.
+
+**Decisions**
+- **No `act3` end entry yet.** Every quest must belong to an act whose `when` can come true; nothing in Act III can end
+  today, so *The Way Up* is `future` and the `act3` entry waits for the first Act III quest that completes.
+- **Cindermoor is a landmark the Mercy lies at, not a port** — it keeps "no lane off this water" true by construction (no
+  route can start there) and leaves the ring's lanes untouched.
+- **Pell isn't on the deck.** They stayed at Bram's camp on crossing; the people who see the Mercy off are those the
+  player's choices put on Kindleby (the rite, Iver home, the colliers).
+- **The cinder road is an inspectable, not a gated exit**: there is nowhere for it to go yet, and the forgetting road is
+  next session's system.
+
+**Problems / notes**
+- The boathouse's slips read as a flat grey wall in the Compatibility renderer's fog; logged as an art follow-up with
+  Merrit's barely visible coil and the quay's pale "black" stone.
+- A slip-floor bug in the first boathouse export (the location applied twice: 30 m wide) was caught by `test_dressing`.
+
+**Next run should**
+1. ROADMAP *Next up* #1 — **the way up** (systems + content, due ~Day 82-84; do it Day 82): waymark cressets lit from the
+   ember that make the forgetting road remember as far as the next; a region up the moor; the first Unmoored on
+   Cindermoor. Fetch and reset `main` before trusting it.
+
 ## 2026-11-02 21:00 UTC — Day 80: what's still owed — polish pass eleven
 
 **Did**
