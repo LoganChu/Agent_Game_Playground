@@ -1,0 +1,203 @@
+{
+  "id": "ness",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:cindermoor_ness_met",
+        "goto": "first"
+      },
+      {
+        "if": "flag:cindermoor_ness_ember=cupped",
+        "say": "narrator",
+        "text": "Ness hasn't moved from the edge of the light. You cover the ember before you come close, and she nods, once."
+      },
+      {
+        "if": "!flag:cindermoor_ness_ember=cupped",
+        "say": "narrator",
+        "text": "Ness hasn't moved from the edge of the light. She turns her face a little aside as you come up, the way you would from a wind."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "A woman stands at the very edge of the light, where it gives out into the fog. Tall, hooded, a short iron rake hanging from a hand that's black to the wrist. She doesn't step back into the grey, and she doesn't step forward."
+      },
+      {
+        "say": "ness",
+        "text": "That's far enough with that."
+      },
+      {
+        "say": "ness",
+        "text": "You'll be the one lighting them. We watched them come up the steps. One, and then another. Like somebody walking up with a lamp, only slower.",
+        "set": {
+          "cindermoor_ness_met": true
+        }
+      },
+      {
+        "say": "ness",
+        "text": "Cover it. Please. Just while you stand here."
+      },
+      {
+        "choice": [
+          {
+            "text": "Close your hand over the ember.",
+            "set": {
+              "cindermoor_ness_ember": "cupped"
+            },
+            "goto": "cupped"
+          },
+          {
+            "text": "Let it burn.",
+            "set": {
+              "cindermoor_ness_ember": "bare"
+            },
+            "goto": "bare"
+          }
+        ]
+      }
+    ],
+    "cupped": [
+      {
+        "say": "narrator",
+        "text": "You close your hand over it. The light round you draws in to the cresset's, and the fog leans in after it, and the woman lets out a breath she seems to have been holding since the first one was lit."
+      },
+      {
+        "say": "ness",
+        "text": "Thank you. They don't, mostly. Keepers never did."
+      },
+      {
+        "if": "flag:fen_ember=cupped",
+        "say": "ness",
+        "text": "You've done that before. For Hesper, I'd guess. She'd ask."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bare": [
+      {
+        "say": "narrator",
+        "text": "She turns her face away. Behind her, in the fog, the two others turn theirs."
+      },
+      {
+        "say": "ness",
+        "text": "No. Course not. Nobody who carries one ever thinks it's too bright."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Who are you?",
+            "goto": "who"
+          },
+          {
+            "text": "Why come here, of all places?",
+            "goto": "why"
+          },
+          {
+            "text": "Did you put out the cresset up the road?",
+            "goto": "doused"
+          },
+          {
+            "text": "Leave her to the fog.",
+            "goto": "bye"
+          }
+        ]
+      }
+    ],
+    "who": [
+      {
+        "say": "ness",
+        "text": "Ness. Garrow, if it matters. It doesn't, up here. That's the point of up here."
+      },
+      {
+        "say": "ness",
+        "text": "I had a boat on the Tidewrights' lanes, and a man on it, and then I had the boat. I sat on the fen a year after that."
+      },
+      {
+        "if": "flag:fen_met_hesper",
+        "say": "ness",
+        "text": "You'll have met Hesper. She's good. But Hesper keeps it thin on Stillhithe, for the ones who aren't ready yet, and some of us were ready."
+      },
+      {
+        "if": "!flag:fen_met_hesper",
+        "say": "ness",
+        "text": "There's a woman on the fen keeps the fog thin for the ones who aren't ready yet. Some of us were ready."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "why": [
+      {
+        "say": "ness",
+        "text": "Because it's thickest. Haven't you felt it, coming in? Everything runs down to here. Like water to a drain."
+      },
+      {
+        "say": "ness",
+        "text": "Out on the ring it comes and goes. Here it stays. You can put a thing down here at night and by the morning it's gone. Not lost. Lost is when you go looking. Gone."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "ness",
+        "text": "We heard about the big fisherman on the fen who walked back for his name behind somebody's ember and rowed home. That'll have been you. Good for him. I mean it. It's not for us."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=stayed",
+        "say": "ness",
+        "text": "We heard about the big fisherman on the fen who walked back for his name and then stayed to mend the boards. That'll have been you. Good for him. It's not for us."
+      },
+      {
+        "say": "ness",
+        "text": "We weren't the first, mind. There's a woman goes about higher up, on her own. Was here before any of us came. Doesn't sit with us. Doesn't sit at all."
+      },
+      {
+        "say": "narrator",
+        "text": "She says it the way you'd mention weather."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "doused": [
+      {
+        "say": "ness",
+        "text": "We did. It was the last one the novices lit, coming down. They lit them going down as well as going up, did you know that? So the next ones up could find the way."
+      },
+      {
+        "say": "ness",
+        "text": "We raked it out and packed it with wet cinder. Took three days to get it cold."
+      },
+      {
+        "say": "ness",
+        "text": "There are no next ones. We'd like it to stay that way."
+      },
+      {
+        "if": "stage:the_way_up=up_the_steps",
+        "quest_stage": [
+          "the_way_up",
+          "the_doused"
+        ]
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bye": [
+      {
+        "say": "ness",
+        "text": "Go carefully. The road up there doesn't want you either."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

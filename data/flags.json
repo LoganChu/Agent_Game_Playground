@@ -928,6 +928,52 @@
     "cindermoor_road_tried": {
       "description": "The Wakebearer followed the cinder road into the fog and found it had forgotten where it goes (The Way Up → the_cressets).",
       "default": false
+    },
+    "cindermoor_cresset_stair_1": {
+      "description": "The first waymark cresset at the turn of the cinder road above the Boat Stair, lit from the ember (Day 82): the road remembers as far as the second, up the notch.",
+      "default": false
+    },
+    "cindermoor_cresset_stair_2": {
+      "description": "The second cresset, at the top of the notch where the road forgot, lit (Day 82): the road remembers over the lip onto the long steps (the exit opens).",
+      "default": false
+    },
+    "cindermoor_cresset_steps_1": {
+      "description": "Long steps cresset 1 lit from the ember (Day 82), at the lip: the first leg west along the lowest step and up the first turn.",
+      "default": false
+    },
+    "cindermoor_cresset_steps_2": {
+      "description": "Long steps cresset 2 lit from the ember (Day 82), at the first turn: the second leg east and up.",
+      "default": false
+    },
+    "cindermoor_cresset_steps_3": {
+      "description": "Long steps cresset 3 lit from the ember (Day 82), at the second turn: the third leg west and up.",
+      "default": false
+    },
+    "cindermoor_cresset_steps_4": {
+      "description": "Long steps cresset 4 lit from the ember (Day 82), at the third turn, on the shoulder: the last leg east as far as the Unmoored sitting at its edge.",
+      "default": false
+    },
+    "cindermoor_steps_reached": {
+      "description": "Came up over the lip of the notch onto Cindermoor's long steps (Day 82; the arrival scene).",
+      "default": false
+    },
+    "cindermoor_ness_met": {
+      "description": "Met Ness Garrow, one of the Unmoored who came to Cindermoor on purpose because the fog is thickest there, at the edge of the fourth cresset's light (Day 82).",
+      "default": false
+    },
+    "cindermoor_ness_ember": {
+      "description": "What the Wakebearer did when Ness asked them to cover the ember at the edge of the light (Day 82): 'cupped' (closed their hand over it) or 'bare' (let it burn). The Unmoored on the long steps turn from a bare ember.",
+      "default": "",
+      "values": [
+        "",
+        "bare",
+        "cupped"
+      ]
+    },
+    "cindermoor_doused_seen": {
+      "description": "Looked at the cresset past the Unmoored on the long steps: put out on purpose, raked and packed with wet cinder (Day 82). The way on up waits on it.",
+      "default": false,
+      "future": true
     }
   }
 }

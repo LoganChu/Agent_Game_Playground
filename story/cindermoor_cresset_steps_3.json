@@ -1,0 +1,21 @@
+{
+  "id": "cindermoor_cresset_steps_3",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Three turns. You find you've been counting them under your breath, the way you'd count the landings on a stair, and you stop."
+      },
+      {
+        "say": "narrator",
+        "text": "The fire catches. West along the third step the road comes back, and up the last turn to the shoulder under the crown.",
+        "set": {
+          "cindermoor_cresset_steps_3": true
+        }
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

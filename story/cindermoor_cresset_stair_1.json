@@ -1,0 +1,30 @@
+{
+  "id": "cindermoor_cresset_stair_1",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You hold the ember to the basket. The coals in it have been cold since the Snuffing, and they catch as if they'd only been waiting to be asked: red through the gaps, then a tongue of flame, then the iron ticking as it warms."
+      },
+      {
+        "say": "narrator",
+        "text": "Your hand knew where to hold it: low, under the basket's lip, where the draught comes in off the sea. You don't remember learning that."
+      },
+      {
+        "say": "narrator",
+        "text": "Up the notch the fog draws back off the road, as far as the next cresset and no further. The kerbstones run up between the heather, black and plain, going somewhere. The road remembers.",
+        "set": {
+          "cindermoor_cresset_stair_1": true
+        }
+      },
+      {
+        "if": "flag:lanes_ferry_at=cindermoor",
+        "say": "narrator",
+        "text": "Down on the quay, somebody on the Mercy's deck has stopped to look up at it."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

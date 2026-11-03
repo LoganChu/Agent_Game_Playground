@@ -1,0 +1,29 @@
+{
+  "id": "cindermoor_steps_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You come up over the lip of the notch, and Cindermoor goes on up in front of you in long steps — long shelves of black cinder and brown heather, one above another, each a man's height over the last — into a fog so thick it's like walking into the side of a hill."
+      },
+      {
+        "say": "narrator",
+        "text": "The road runs off west along the lowest step and stops a few yards on, the way it did below. A cold cresset stands at the lip beside you, and somewhere above, at the turns, there'll be others."
+      },
+      {
+        "say": "narrator",
+        "text": "And above everything, far up and nearer than it was, the Hearthspire: pale, slender, dark at the top. From here you can see that the dark isn't the fog. It's the lantern room. Nothing in it."
+      },
+      {
+        "if": "stage:the_way_up=the_cressets",
+        "quest_stage": [
+          "the_way_up",
+          "up_the_steps"
+        ]
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

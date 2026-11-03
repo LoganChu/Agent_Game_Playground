@@ -1,0 +1,25 @@
+{
+  "id": "cindermoor_cresset_stair_2",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The second takes as quickly as the first. The ember barely has to touch it."
+      },
+      {
+        "say": "narrator",
+        "text": "Above it the road goes up over the lip of the notch and out of sight. You can see where it goes now, and the fog lies thin at the top in the wind off the moor, and below you the first cresset burns at the turn with the quay and the Mercy small beyond it.",
+        "set": {
+          "cindermoor_cresset_stair_2": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "Two lights, one above the other. That's what they were for: so that whoever came down could see the way, and whoever went up could see they'd come the right way."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

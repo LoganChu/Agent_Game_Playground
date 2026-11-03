@@ -1,0 +1,17 @@
+{
+  "id": "cindermoor_cresset_steps_1",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The coals catch. West along the lowest step the road comes back to itself, black grit between the kerbs, as far as the turn — and up the turn, the next cresset, cold, waiting.",
+        "set": {
+          "cindermoor_cresset_steps_1": true
+        }
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

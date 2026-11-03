@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:cindermoor_cresset_stair_1",
+        "goto": "remembered"
+      },
+      {
         "say": "narrator",
         "text": "The cinder road goes up from the quay in a long zig-zag, black grit packed hard between kerbstones, a cold iron cresset at the turn. You follow it as far as the fog."
       },
@@ -25,7 +29,7 @@
       },
       {
         "say": "narrator",
-        "text": "You come back down to the turn, where the cold cresset stands on its cairn of cinder, and look at it a while. Somebody lit these once, up the moor, one after another."
+        "text": "You come back down to the turn, where the cold cresset stands on its cairn of cinder, and look at it a while. Somebody lit these once, up the moor, one after another. The ember stirs in your hand, as if it had an opinion."
       },
       {
         "quest_stage": [
@@ -33,6 +37,20 @@
           "the_cressets"
         ],
         "if": "stage:the_way_up=the_road"
+      },
+      {
+        "end": true
+      }
+    ],
+    "remembered": [
+      {
+        "say": "narrator",
+        "text": "The cresset at the turn burns. Up the notch the road is a road again as far as its light goes, kerb by kerb, and where the light gives out it forgets."
+      },
+      {
+        "if": "!flag:cindermoor_cresset_stair_2",
+        "say": "narrator",
+        "text": "At the edge of it the second cresset stands cold."
       },
       {
         "end": true

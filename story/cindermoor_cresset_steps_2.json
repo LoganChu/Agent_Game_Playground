@@ -1,0 +1,21 @@
+{
+  "id": "cindermoor_cresset_steps_2",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The ember touches the basket and the fire stands up in it."
+      },
+      {
+        "say": "narrator",
+        "text": "East along the second step the road remembers as far as the next turn. Below you the two cressets of the Boat Stair and the one at the lip stand one above another down the dark moor, small and steady, the way the six lights stood round the Mercy on the water.",
+        "set": {
+          "cindermoor_cresset_steps_2": true
+        }
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

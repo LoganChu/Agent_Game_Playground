@@ -1,0 +1,41 @@
+{
+  "id": "cindermoor_doused",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The next cresset up the road stands just past the Unmoored, out in the fog. Somebody has put it out on purpose: the coals raked out onto the cairn and trodden into the cinder, the basket packed to the rim with wet black grit, and a flat stone set on top like a lid on a pot."
+      },
+      {
+        "if": "flag:cindermoor_ness_met",
+        "say": "narrator",
+        "text": "Three days to get it cold, Ness said."
+      },
+      {
+        "say": "narrator",
+        "text": "Past it the road goes on up towards the crown, and forgets."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember stirs in your hand at the sight of it. Behind you, in the fog, somebody stands up.",
+        "set": {
+          "cindermoor_doused_seen": true
+        }
+      },
+      {
+        "if": "stage:the_way_up=up_the_steps",
+        "quest_stage": [
+          "the_way_up",
+          "the_doused"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "You leave it, for now."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

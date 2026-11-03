@@ -756,6 +756,42 @@
         "the_way_up": "the_road"
       },
       "shot": "--camera=9,5.5,14:-4,1.5,0"
+    },
+    {
+      "id": "the_long_steps",
+      "act": "Act III — The Spire",
+      "title": "The Long Steps",
+      "inherits": "the_boat_stair",
+      "region": "cindermoor_long_steps",
+      "spawn": "from_stair",
+      "description": "The cinder road forgot where it went a few yards up from the quay. Two cressets lit from the ember made it remember up the notch and over the lip, and Cindermoor goes on up in long steps into the thickest fog on the ring, a cold cresset at every turn.",
+      "flags": {
+        "cindermoor_merrit_met": true,
+        "cindermoor_road_tried": true,
+        "cindermoor_cresset_stair_1": true,
+        "cindermoor_cresset_stair_2": true,
+        "cindermoor_steps_reached": true
+      },
+      "quests": {
+        "the_way_up": "up_the_steps"
+      },
+      "shot": "--camera=16,7,20:-2,2,4"
+    },
+    {
+      "id": "the_unmoored",
+      "act": "Act III — The Spire",
+      "title": "The Unmoored on the Shoulder",
+      "inherits": "the_long_steps",
+      "region": "cindermoor_long_steps",
+      "spawn": "from_stair",
+      "description": "Four cressets up the long steps, lit one by one; the last one's light runs along the shoulder under the crown and stops short at the Unmoored, who came to Cindermoor on purpose because the fog is thickest here. The next cresset up the road has been put out on purpose.",
+      "flags": {
+        "cindermoor_cresset_steps_1": true,
+        "cindermoor_cresset_steps_2": true,
+        "cindermoor_cresset_steps_3": true,
+        "cindermoor_cresset_steps_4": true
+      },
+      "shot": "--at=2,-29.5,-90 --settle=90"
     }
   ]
 }

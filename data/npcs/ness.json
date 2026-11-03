@@ -1,0 +1,14 @@
+{
+  "id": "ness",
+  "name": "Ness Garrow",
+  "faction": "unmoored",
+  "color": "silverfog",
+  "dialogue": "ness",
+  "model": "res://assets/models/characters/ness.glb",
+  "idle": "still",
+  "bio": "One of the Unmoored on Cindermoor's long steps, who came to the island on purpose because the fog is thickest there (fifties): a heather-brown cloak gone grey to the knee, hands black with wet cinder, a cinder-rake. She and hers put out the cressets on the road above them, and sit just past where a lit one's light reaches.",
+  "voice": {
+    "sound": "voice_hollow",
+    "pitch": 1.1
+  }
+}

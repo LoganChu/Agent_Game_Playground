@@ -1,0 +1,21 @@
+{
+  "id": "cindermoor_cresset_steps_4",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The last cresset on the shoulder takes, and its light runs east along the road — and stops short, as if it had come up against something that wouldn't let it by.",
+        "set": {
+          "cindermoor_cresset_steps_4": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "There are people at the end of it. Standing and sitting in the fog just past where the light gives out, the way people stand at the edge of a fire they don't mean to come in to."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

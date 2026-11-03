@@ -79,15 +79,40 @@
     },
     {
       "ellipse": [
-        11.6,
-        -8.0,
-        3.6,
-        6.0
+        11.4,
+        -6.5,
+        3.2,
+        3.5
       ],
       "strength": 0.55,
-      "falloff": 2.5,
+      "falloff": 1.5,
       "clear": true,
       "note": "Thinner up the foot of the cinder road as far as the cold cresset at the edge; past that the road forgets where it goes."
+    },
+    {
+      "rect": [
+        6,
+        -26,
+        18,
+        -10.5
+      ],
+      "strength": 0.9,
+      "falloff": 2.0,
+      "height": 3.2,
+      "forgets": true,
+      "note": "Up the notch the road forgets where it goes: without a lit cresset the way can't be found, and the Wakebearer comes back down to the turn."
+    },
+    {
+      "ellipse": [
+        12.2,
+        -17.0,
+        2.2,
+        1.5
+      ],
+      "strength": 1.0,
+      "falloff": 1.0,
+      "clear": true,
+      "note": "The lip of the notch, kept thin by the wind off the moor: from below you can see where the road goes over, and not how to get there."
     }
   ],
   "spawn_points": {
@@ -100,6 +125,11 @@
       1.0,
       0.9,
       6.4
+    ],
+    "from_steps": [
+      12.2,
+      0,
+      -16.0
     ]
   },
   "ground": {
@@ -193,6 +223,11 @@
             12.2,
             -13.0,
             3.6
+          ],
+          [
+            12.2,
+            -17.6,
+            5.2
           ]
         ],
         "width": 3.4,
@@ -205,12 +240,12 @@
           8,
           -26,
           16.5,
-          -14
+          -18.5
         ],
         "height": 6.5,
         "falloff": 0.6,
         "ragged": 0.3,
-        "note": "where the road goes on into the fog: a step too high"
+        "note": "the lip of the notch: the long steps go on above it (the exit)"
       }
     ],
     "piers": [
@@ -257,13 +292,13 @@
           ],
           [
             12.2,
-            -13.5,
+            -11.0,
             0
           ]
         ],
         "width": 1.6,
         "color": "#262322",
-        "note": "the cinder road, packed black grit"
+        "note": "the cinder road, packed black grit (as far as the fog: the cressets paint it on up)"
       },
       {
         "rect": [
@@ -345,36 +380,6 @@
         ]
       },
       "note": "The Slow Mercy lying off the quay's seaward end. Masthead lantern lit. No lane off this water till the Spire's lit."
-    },
-    {
-      "model": "res://assets/models/dressing/cinder_cresset.glb",
-      "position": [
-        10.2,
-        0,
-        -5.6
-      ],
-      "rotation_y": 20,
-      "collider": [
-        1.0,
-        2.4,
-        1.0
-      ],
-      "note": "The first waymark of the way up: a cold cresset at the road's turn (Act III step 2 lights them)."
-    },
-    {
-      "model": "res://assets/models/dressing/cinder_cresset.glb",
-      "position": [
-        13.6,
-        0,
-        -12.6
-      ],
-      "rotation_y": -30,
-      "collider": [
-        1.0,
-        2.4,
-        1.0
-      ],
-      "note": "The second, at the edge of the fog where the road forgets."
     },
     {
       "model": "res://assets/models/dressing/hearthspire_far.glb",
@@ -545,9 +550,9 @@
       "prompt": "Follow the cinder road",
       "dialogue": "cindermoor_road",
       "position": [
-        12.2,
+        11.8,
         0,
-        -12.0
+        -8.4
       ],
       "reach": 2.4,
       "glint": [
@@ -557,7 +562,20 @@
       ]
     }
   ],
-  "exits": [],
+  "exits": [
+    {
+      "to": "cindermoor_long_steps",
+      "spawn": "from_stair",
+      "position": [
+        12.2,
+        0,
+        -16.8
+      ],
+      "requires": "flag:cindermoor_cresset_stair_2",
+      "locked_text": "The road forgets where it goes.",
+      "note": "Over the lip of the notch onto the long steps, once the second cresset remembers the way."
+    }
+  ],
   "events": [
     {
       "id": "cindermoor_arrival",
@@ -570,6 +588,81 @@
       },
       "dialogue": "cindermoor_arrival",
       "note": "The first landing at the Boat Stair (Act III opens)."
+    }
+  ],
+  "cressets": [
+    {
+      "id": "stair_1",
+      "flag": "cindermoor_cresset_stair_1",
+      "position": [
+        10.2,
+        0,
+        -5.6
+      ],
+      "rotation_y": 20,
+      "dialogue": "cindermoor_cresset_stair_1",
+      "if": "flag:cindermoor_road_tried",
+      "pool": [
+        {
+          "ellipse": [
+            12.8,
+            -9.6,
+            2.8,
+            3.6
+          ],
+          "strength": 1.0,
+          "falloff": 1.2
+        }
+      ],
+      "note": "At the road's turn. Lit only once the road has been tried (the road dialogue ends here, looking at it).",
+      "road": [
+        [
+          12.2,
+          -11.0,
+          0
+        ],
+        [
+          12.2,
+          -14.0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "stair_2",
+      "flag": "cindermoor_cresset_stair_2",
+      "position": [
+        13.6,
+        0,
+        -12.6
+      ],
+      "rotation_y": -30,
+      "dialogue": "cindermoor_cresset_stair_2",
+      "pool": [
+        {
+          "ellipse": [
+            12.3,
+            -15.4,
+            2.8,
+            3.0
+          ],
+          "strength": 1.0,
+          "falloff": 2.0
+        }
+      ],
+      "note": "At the top of the notch, where the road forgot: lit, it remembers over the lip onto the long steps.",
+      "road": [
+        [
+          12.2,
+          -14.0,
+          0
+        ],
+        [
+          12.2,
+          -17.6,
+          0
+        ]
+      ]
     }
   ]
 }
