@@ -1308,7 +1308,42 @@ its light is **the Vigil Light**.
   ebb. The chart is folded along the new line and kept next to her scale. **The `act2` end card** recaps every burning and
   who went where.
 
-### Later: Cindermoor & the Hearthspire (Beta/Early Access finale)
+### 6. Cindermoor (Act III — begun Day 81)
+The central isle, dark in the middle of the chart since the Snuffing. Nobody but Keepers has landed on it in living memory.
+- **The crossing in (Day 81, `cindermoor_crossed`).** The Slow Mercy goes down the lane in on the morning ebb from Kindleby's
+  quay. Tobin strokes the quay bell **once, and then not again** — the Keepers' stroke for a boat going out to the Spire
+  ("You only ever hear the one. The second's for when they come back"). The Provost is on the quay steps: if the
+  Wakebearer bowed to the rite she lifts her hand; if not, she watches the Mercy as far as the candles and goes up.
+  There is no light ahead to steer by, so **Oda steers by the six astern**, keeping the Vigil Light dead aft and Lowsong's
+  gold point and the Wrack Light at the same distance either quarter ("A ring's got a middle. You find it by the edges").
+  The fog grows **thicker going in, not thinner** — "like water running downhill to a drain" (Oda; mystery #3
+  foreshadow — do not explain). Halfway, the six lights stand all round the Mercy at once, small and far, "like sitting
+  in the middle of a table laid for somebody". Cindermoor comes up out of the fog all at once: a high bare island of
+  **black cinder and brown heather** going up in long steps to a crown, and on the crown **the Hearthspire** — tall,
+  slender, pale stone, the only pale thing on the island, **dark at the top**. The crew go quiet. Oda: "Thirty-eight years
+  I've steered round that. It's smaller than I thought. Or I'm bigger."
+- **The Boat Stair** (the first landing): the Keepers' quay under Cindermoor's east cliff, where the lane in comes ashore —
+  a quay of black dressed stone, a flight of steps up from the water, iron rings, and an iron **bow-lantern rack** with
+  every hook empty. Cut into the cliff beside it, the **boathouse**: **eight slips, seven empty** (their rollers still
+  greased; the boats that came out the week of the Snuffing), and **in the eighth a boat still on its rollers, oars
+  shipped, never launched** — "Somebody didn't come down" (open hook: whose boat, and who stayed. Do not explain). From
+  the quay **the cinder road** zig-zags up the moor into the fog, and a few yards in **stops being a road**: it forgets
+  where it goes (the Greying's oldest rule, the Act III way up — gated until written). The fog stands thick all round the
+  stair and thin on the quay itself; it is **heavier on Cindermoor than anywhere on the ring**.
+- **The Mercy lies at the Boat Stair** (`lanes_ferry_at` = `cindermoor`): there is no lane off that water till the Spire's
+  lit, so Oda doesn't sail and the chart has nothing to offer from here ("I'll be here. Don't make me come looking for
+  you: I'd only forget what for").
+- **Brother Merrit Coyle**, the Spire's **boat-warden** (sixties): he launched the boats the night of the Snuffing and did
+  not get into one. **Hushed** — silver from the hem to the waist — he sits on the bollard at the head of the stair coiling
+  a boat's painter that is fast to nothing, and hums (the Quiet House's tune, near enough, "not quite the same"). He
+  remembers boats, not people: **"Eight slips. Seven out. One in. That's not right. Somebody's not come down."** He calls
+  everyone **"novice"** (Oda too: "He called me novice. Nobody's called me that"), flinches from the ember ("Put it down,
+  novice, it's too much. It's all of them at once"), and is not to be helped off the quay. With the Wakebearer's own
+  Remnants out he stops humming for one line and goes back to it:
+  - the **Hood-Pin**: "Pin's straight. Good. Nobody's to see." (`cindermoor_merrit_saw_pin`)
+  - the **Stair-Taper**: he counts the notches with his thumb — "Past the third. You went higher than you were told."
+    (`cindermoor_merrit_saw_taper`) *(Mystery #2. Do not explain.)*
+
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1339,6 +1374,31 @@ the content lands.
    The `act2` end card (recap of every burning and who went where) and its coda; Act III — The Spire — begins on the
    crossing in.
 
+### Act III — The Spire (plan, Day 81 — not canon until written)
+The order Act III's sessions should take, paced over months: one big reveal per few sessions, the two deepest mysteries
+(#2, #4) last. Working names; LORE records them as canon only when the content lands.
+1. **The crossing in** (Day 81, written: the lane in, the Boat Stair, Merrit, the eighth slip — see *Cindermoor*).
+2. **The way up.** The cinder road forgets where it goes. The way up the moor is found by light, not by sight: the
+   novices' **waymark cressets** up the switchbacks (cold since the Snuffing) can be lit from the ember — each lit one
+   remembers the road as far as the next (Greying v2: paths that fade). The moor's first people: **Unmoored** who came to
+   Cindermoor *on purpose* because the fog is thickest here — they want it to stay (the faction's sharpest edge). Pays off
+   the Unmoored thread from the fen; Hesper/Dunstan can be named by them.
+3. **The Spire's foot.** The warden's niche at the foot of the east stair (Aldous's knife, his tapers on the shelf) and
+   **the novices' roll** (Day 47 hook): seven names, one scraped out — *not* struck through (the Long Book's rule broken,
+   which a Keeper would notice). Whose boat is in the eighth slip gets its first clue here.
+4. **The chapter comes in.** The Provost brings a boat of Keepers down the lane in to "do it properly" — the rite for the
+   Hearthspire, the chapter choosing. If the colliers or Iver came to Kindleby, who comes with her changes. The Keepers'
+   courtship turns into a claim on the Wakebearer (and on the own Remnants: "they'd want to weigh it").
+5. **What the Firstflame ate** *(mystery #1 and #3 payoff, mid-Act III)*: the Keepers' oldest book in the Spire's
+   lower rooms — the Hushed of nine hundred years fed to the flame; the Quiet House's purpose; the fog as what was burned
+   coming home. The High Keeper's reasons. (Oriel Sayre named here, not before.)
+6. **The eighth boat's owner** — Oriel did not leave: she walked out on the moor and **chose to forget** what she did,
+   among the Unmoored (plan, secret; the eighth slip's payoff).
+7. **The Choir at the Spire** *(mystery #4)*: the nearest voice, heard again on the stair; Isolde Vane's name, late.
+8. **The east stair** *(mystery #2)*: the Stair-Taper lit for the stair it was cut for; counting the landings; the
+   Hood-Pin's "tonight"; the Wakebearer's own Remnants and whether the Hearthspire asks for them. Last before the end.
+9. **The lantern room** — the final choice: what the Lanternreach should remember, or whether it should forget.
+
 ## Long-term mysteries (payoff over months)
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
@@ -1365,3 +1425,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - 3 months ago: **The Snuffing.**
 - 2 weeks ago: Dunstan Tollen walks into the fog from Saltmarrow.
 - Day 0: the player wakes on Shingle Point.
+- The morning after the sixth light: the Slow Mercy goes down the lane in to Cindermoor's Boat Stair.
