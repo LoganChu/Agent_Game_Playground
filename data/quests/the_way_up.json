@@ -1,0 +1,18 @@
+{
+  "id": "the_way_up",
+  "title": "The Way Up",
+  "future": true,
+  "giver": "merrit",
+  "region": "cindermoor_boat_stair",
+  "description": "Cindermoor at last. The Hearthspire stands dark on the crown of the moor, and nobody came down to meet the Mercy but a Hushed boat-warden who counts the slips.",
+  "stages": [
+    {
+      "id": "the_road",
+      "text": "The Slow Mercy lies at the Boat Stair, the Keepers' quay under Cindermoor's east cliff, and there's no lane off this water till the Spire's lit. The cinder road goes up from the quay into the fog. Find the way up the moor."
+    },
+    {
+      "id": "the_cressets",
+      "text": "A few yards into the fog the cinder road stops being a road: it has forgotten where it goes, and the ember holds the ground round you but not the way. There are cold iron cressets up the moor, the old waymarks. Somebody lit them once, one after another."
+    }
+  ]
+}

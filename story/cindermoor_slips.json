@@ -1,0 +1,30 @@
+{
+  "id": "cindermoor_slips",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The boathouse is cut into the foot of the cliff: a long low front of black stone, eight arched slips open to the water, a number chiselled over each. Seven of them are empty. Their rollers are still greased; the rails run down into the sea, and the weed has only just begun on them."
+      },
+      {
+        "say": "narrator",
+        "text": "In the eighth slip a Keepers' boat sits on her rollers, tarred dark below a pale strake, with her oars shipped along the thwarts and her painter coiled on the bow. Ready. She has never been in the water."
+      },
+      {
+        "say": "narrator",
+        "text": "Whoever she was kept for didn't come down to her.",
+        "set": {
+          "cindermoor_saw_slips": true
+        }
+      },
+      {
+        "if": "quest:the_way_up=active",
+        "say": "narrator",
+        "text": "Up there, somewhere. Up the stair, Merrit says."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

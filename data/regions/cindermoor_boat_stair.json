@@ -1,0 +1,575 @@
+{
+  "id": "cindermoor_boat_stair",
+  "name": "Cindermoor — the Boat Stair",
+  "description": "The Keepers' landing under Cindermoor's east cliff, where the lane in comes ashore: a quay of black dressed stone with a flight of steps into the water, an empty bow-lantern rack, the boathouse's eight slips cut into the cliff (seven empty), and the cinder road going up the moor into the thickest fog on the ring. The Hearthspire stands dark on the crown.",
+  "water_level": -0.25,
+  "fog": {
+    "density": 0.026,
+    "color": "#9DA2A6"
+  },
+  "light": {
+    "note": "Morning under the fog, colourless: the cinder and the stone near black, the fog the only pale thing but the Spire; the warm things are the ember and the Mercy's masthead lantern.",
+    "sun_color": "#BFC3C6",
+    "sun_energy": 0.42,
+    "sun_pitch": -24,
+    "sun_yaw": 60,
+    "ambient_color": "#A3A7AA",
+    "ambient_energy": 0.36,
+    "sky_top": "slate",
+    "sky_horizon": "#A7ABAE",
+    "shadow": 0.35
+  },
+  "ambience": [
+    {
+      "sound": "surf_far",
+      "volume": 0.45
+    },
+    {
+      "sound": "harbor_lap",
+      "volume": 0.5
+    },
+    {
+      "sound": "wind_low",
+      "volume": 0.5
+    }
+  ],
+  "footsteps": "stone",
+  "water": {
+    "swell": 0.3,
+    "wash": 0.45,
+    "foam": 0.8,
+    "note": "Slack, heavy water under the cliff: the fog lies on it."
+  },
+  "greying": [
+    {
+      "rect": [
+        -30,
+        -26,
+        30,
+        24
+      ],
+      "strength": 0.9,
+      "falloff": 3.0,
+      "height": 3.2,
+      "note": "Cindermoor's fog, the heaviest on the ring: thicker in than out, 'like water running downhill to a drain'."
+    },
+    {
+      "ellipse": [
+        1.0,
+        3.5,
+        13.0,
+        6.5
+      ],
+      "strength": 0.8,
+      "falloff": 4.0,
+      "clear": true,
+      "note": "Thin over the quay and the strand under the cliff, where the Mercy lies."
+    },
+    {
+      "ellipse": [
+        1.5,
+        7.0,
+        4.5,
+        3.0
+      ],
+      "strength": 1.0,
+      "falloff": 2.0,
+      "clear": true,
+      "note": "Clear round the quay's end and the Mercy's plank: her masthead lantern and the ember between them."
+    },
+    {
+      "ellipse": [
+        11.6,
+        -8.0,
+        3.6,
+        6.0
+      ],
+      "strength": 0.55,
+      "falloff": 2.5,
+      "clear": true,
+      "note": "Thinner up the foot of the cinder road as far as the cold cresset at the edge; past that the road forgets where it goes."
+    }
+  ],
+  "spawn_points": {
+    "default": [
+      1.0,
+      0.9,
+      6.4
+    ],
+    "from_ferry": [
+      1.0,
+      0.9,
+      6.4
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -30,
+      -26,
+      30,
+      24
+    ],
+    "cell": 1.0,
+    "base": -1.8,
+    "seed": 81,
+    "roughness": 0.05,
+    "ragged": 0.8,
+    "ragged_scale": 3.0,
+    "note": "The Boat Stair: a strand of cinder under the east cliff (north), the quay pier out into the water (south), the boathouse in the water west of it under the cliff, and the cinder road climbing a notch in the cliff north-east.",
+    "land": [
+      {
+        "rect": [
+          -4,
+          -8,
+          20,
+          3.5
+        ],
+        "height": 0.9,
+        "falloff": 1.2,
+        "ragged": 0.3,
+        "note": "the strand under the cliff"
+      },
+      {
+        "rect": [
+          -30,
+          -26,
+          -4,
+          -1.5
+        ],
+        "height": 6.5,
+        "falloff": 0.6,
+        "ragged": 0.4,
+        "note": "the cliff behind the boathouse"
+      },
+      {
+        "rect": [
+          -4,
+          -26,
+          9,
+          -8
+        ],
+        "height": 6.5,
+        "falloff": 0.6,
+        "ragged": 0.4,
+        "note": "the cliff, west of the road's notch"
+      },
+      {
+        "rect": [
+          15.5,
+          -26,
+          30,
+          -8
+        ],
+        "height": 6.5,
+        "falloff": 0.6,
+        "ragged": 0.4,
+        "note": "the cliff, east of the notch"
+      },
+      {
+        "rect": [
+          20,
+          -8,
+          30,
+          24
+        ],
+        "height": 5.5,
+        "falloff": 2.5,
+        "ragged": 0.8,
+        "note": "the headland east of the strand"
+      },
+      {
+        "path": [
+          [
+            11.0,
+            -6.0,
+            0.9
+          ],
+          [
+            12.2,
+            -9.5,
+            2.4
+          ],
+          [
+            12.2,
+            -13.0,
+            3.6
+          ]
+        ],
+        "width": 3.4,
+        "falloff": 1.2,
+        "ragged": 0.2,
+        "note": "the cinder road up the notch"
+      },
+      {
+        "rect": [
+          8,
+          -26,
+          16.5,
+          -14
+        ],
+        "height": 6.5,
+        "falloff": 0.6,
+        "ragged": 0.3,
+        "note": "where the road goes on into the fog: a step too high"
+      }
+    ],
+    "piers": [
+      {
+        "rect": [
+          -3,
+          4,
+          3,
+          8
+        ],
+        "deck": 0.9,
+        "note": "The quay (boat_stair prop at 0,0,6)."
+      }
+    ],
+    "colors": {
+      "ground": "#3B3836",
+      "shore": "#4D4945",
+      "shore_height": 0.3,
+      "seabed": "#252A2C",
+      "cliff": "#2F2D2C"
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            3.0,
+            3.0,
+            0
+          ],
+          [
+            9.0,
+            -2.5,
+            0
+          ],
+          [
+            11.0,
+            -6.0,
+            0
+          ],
+          [
+            12.2,
+            -9.5,
+            0
+          ],
+          [
+            12.2,
+            -13.5,
+            0
+          ]
+        ],
+        "width": 1.6,
+        "color": "#262322",
+        "note": "the cinder road, packed black grit"
+      },
+      {
+        "rect": [
+          14,
+          -7,
+          19,
+          0
+        ],
+        "color": "#4E4038",
+        "note": "brown heather at the cliff foot"
+      },
+      {
+        "rect": [
+          -3.5,
+          -7,
+          3,
+          -2
+        ],
+        "color": "#4A3E37",
+        "note": "heather"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/boat_stair.glb",
+      "position": [
+        0,
+        0,
+        6
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "note": "The Keepers' quay (deck at 0.9 = the pier): steps down the seaward face, iron rings, bollards on the kerb, the bow-lantern rack at the landward end with eight empty hooks."
+    },
+    {
+      "model": "res://assets/models/dressing/boathouse_slips.glb",
+      "position": [
+        -13.0,
+        0,
+        2.2
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "collider": [
+        16.6,
+        4.0,
+        6.2
+      ],
+      "note": "The boathouse cut into the cliff: eight slips, seven empty; in the eighth (east end) a Keepers' boat on her rollers, never launched."
+    },
+    {
+      "model": "res://assets/models/dressing/ferry.glb",
+      "position": [
+        6.0,
+        -0.25,
+        9.6
+      ],
+      "rotation_y": 90,
+      "snap": false,
+      "if": "flag:lanes_ferry_at=cindermoor",
+      "light": {
+        "color": "moss",
+        "energy": 1.2,
+        "range": 8.0,
+        "offset": [
+          0,
+          7.6,
+          -1.2
+        ]
+      },
+      "float": {
+        "bob": 0.05,
+        "roll": 1.5,
+        "period": 5.0,
+        "foam": [
+          1.55,
+          4.4
+        ]
+      },
+      "note": "The Slow Mercy lying off the quay's seaward end. Masthead lantern lit. No lane off this water till the Spire's lit."
+    },
+    {
+      "model": "res://assets/models/dressing/cinder_cresset.glb",
+      "position": [
+        10.2,
+        0,
+        -5.6
+      ],
+      "rotation_y": 20,
+      "collider": [
+        1.0,
+        2.4,
+        1.0
+      ],
+      "note": "The first waymark of the way up: a cold cresset at the road's turn (Act III step 2 lights them)."
+    },
+    {
+      "model": "res://assets/models/dressing/cinder_cresset.glb",
+      "position": [
+        13.6,
+        0,
+        -12.6
+      ],
+      "rotation_y": -30,
+      "collider": [
+        1.0,
+        2.4,
+        1.0
+      ],
+      "note": "The second, at the edge of the fog where the road forgets."
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far.glb",
+      "position": [
+        2.0,
+        16.0,
+        -70.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 3.0,
+      "note": "The Hearthspire, dark, on the crown of the moor far above the Boat Stair (1/3-scale model, scaled; the fog does the rest)."
+    },
+    {
+      "model": "res://assets/models/dressing/rowboat_upturned.glb",
+      "position": [
+        15.5,
+        0,
+        1.0
+      ],
+      "rotation_y": -20,
+      "collider": [
+        1.4,
+        0.8,
+        3.0
+      ],
+      "note": "A Keepers' tender turned up on the strand."
+    },
+    {
+      "model": "res://assets/models/dressing/barrels.glb",
+      "position": [
+        4.4,
+        0,
+        1.4
+      ],
+      "rotation_y": 30,
+      "collider": [
+        1.4,
+        1.0,
+        1.4
+      ],
+      "note": "Oil barrels for the Spire, never carried up."
+    },
+    {
+      "model": "res://assets/models/dressing/crate.glb",
+      "position": [
+        5.6,
+        0,
+        0.6
+      ],
+      "rotation_y": -12,
+      "collider": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    },
+    {
+      "model": "res://assets/models/rock_cluster.glb",
+      "position": [
+        18.5,
+        0,
+        3.6
+      ],
+      "rotation_y": 40,
+      "collider": [
+        2.0,
+        1.2,
+        2.0
+      ]
+    },
+    {
+      "model": "res://assets/models/rock_cluster.glb",
+      "position": [
+        -2.6,
+        0,
+        -4.8
+      ],
+      "rotation_y": -70,
+      "collider": [
+        2.0,
+        1.2,
+        2.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        16.2,
+        0,
+        -3.4
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        0.5,
+        0,
+        -4.0
+      ],
+      "rotation_y": 50
+    },
+    {
+      "model": "res://assets/models/dressing/tussock.glb",
+      "position": [
+        7.5,
+        0,
+        -5.0
+      ],
+      "rotation_y": 0
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "merrit",
+      "position": [
+        -1.0,
+        0,
+        7.2
+      ],
+      "rotation_y": 40,
+      "note": "On his bollard at the head of the steps, facing out over the water, the painter running off over the edge."
+    },
+    {
+      "npc": "oda",
+      "position": [
+        2.4,
+        0,
+        7.4
+      ],
+      "rotation_y": -90,
+      "if": "flag:lanes_ferry_at=cindermoor",
+      "note": "On the quay by the Mercy's plank."
+    }
+  ],
+  "objects": [
+    {
+      "id": "cindermoor_slips",
+      "prompt": "Look at the boathouse",
+      "dialogue": "cindermoor_slips",
+      "position": [
+        -4.0,
+        0,
+        2.6
+      ],
+      "reach": 2.4,
+      "glint": [
+        0,
+        1.4,
+        0
+      ]
+    },
+    {
+      "id": "cindermoor_rack",
+      "prompt": "Look at the lantern rack",
+      "dialogue": "cindermoor_rack",
+      "position": [
+        0.0,
+        0,
+        4.6
+      ],
+      "reach": 2.0,
+      "glint": false
+    },
+    {
+      "id": "cindermoor_road",
+      "prompt": "Follow the cinder road",
+      "dialogue": "cindermoor_road",
+      "position": [
+        12.2,
+        0,
+        -12.0
+      ],
+      "reach": 2.4,
+      "glint": [
+        0,
+        1.2,
+        0
+      ]
+    }
+  ],
+  "exits": [],
+  "events": [
+    {
+      "id": "cindermoor_arrival",
+      "if": [
+        "flag:lanes_ferry_at=cindermoor",
+        "!flag:cindermoor_landed"
+      ],
+      "set": {
+        "cindermoor_landed": true
+      },
+      "dialogue": "cindermoor_arrival",
+      "note": "The first landing at the Boat Stair (Act III opens)."
+    }
+  ]
+}

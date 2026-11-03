@@ -1,0 +1,208 @@
+{
+  "id": "merrit",
+  "knots": {
+    "start": [
+      {
+        "if": "!flag:cindermoor_merrit_met",
+        "goto": "first"
+      },
+      {
+        "say": "narrator",
+        "text": "Brother Merrit coils the painter, and uncoils it, and coils it again. The humming stops when you come close, and waits."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "The man on the bollard looks up. A heavy face, grey stubble, eyes that land on you and don't quite stay. His hands keep on with the rope."
+      },
+      {
+        "say": "merrit",
+        "text": "You're late, novice. They've all gone down. Boats are out."
+      },
+      {
+        "say": "merrit",
+        "text": "Eight slips. Seven out. One in."
+      },
+      {
+        "say": "narrator",
+        "text": "He frowns at the boathouse along the cliff, as if it had said something rude."
+      },
+      {
+        "say": "merrit",
+        "text": "That's not right. Somebody's not come down."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember stirs in your hand, and he flinches from it the way you'd flinch from a door opened onto a gale.",
+        "set": {
+          "cindermoor_merrit_met": true
+        }
+      },
+      {
+        "say": "merrit",
+        "text": "Put it down, novice. It's too much. It's all of them at once."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Who are you?",
+            "goto": "who"
+          },
+          {
+            "text": "Who didn't come down?",
+            "goto": "who_stayed"
+          },
+          {
+            "text": "Come aboard the Mercy. You can't sit here.",
+            "if": "!flag:cindermoor_merrit_asked_aboard",
+            "set": {
+              "cindermoor_merrit_asked_aboard": true
+            },
+            "goto": "aboard"
+          },
+          {
+            "text": "Show him the Hood-Pin.",
+            "if": [
+              "item:hood_pin",
+              "!flag:cindermoor_merrit_saw_pin"
+            ],
+            "set": {
+              "cindermoor_merrit_saw_pin": true
+            },
+            "goto": "pin"
+          },
+          {
+            "text": "Show him the Stair-Taper.",
+            "if": [
+              "item:stair_taper",
+              "!flag:cindermoor_merrit_saw_taper"
+            ],
+            "set": {
+              "cindermoor_merrit_saw_taper": true
+            },
+            "goto": "taper"
+          },
+          {
+            "text": "Leave him to his rope.",
+            "goto": "bye"
+          }
+        ]
+      }
+    ],
+    "who": [
+      {
+        "say": "merrit",
+        "text": "Boat-warden. Merrit. Coyle. Merrit Coyle, boat-warden, the Boat Stair. Greased the rollers every new moon. Thirty, thirty...  a lot of new moons."
+      },
+      {
+        "say": "merrit",
+        "text": "I put them in the water. Every one. Held the bow while they got in, and shoved, and they went. That's the job. You hold the bow and you shove."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks down at the rope in his hands, and the end of it trailing off into the water."
+      },
+      {
+        "say": "merrit",
+        "text": "...You don't get in. Somebody has to be on the stair when they come back."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "who_stayed": [
+      {
+        "say": "merrit",
+        "text": "Don't know. Don't know. I'd know a boat. I don't keep faces, novice, faces aren't the job."
+      },
+      {
+        "say": "merrit",
+        "text": "Seven out. That's right. That's all of them that came down. The eighth's on her rollers, greased, oars in, and nobody came down for her."
+      },
+      {
+        "say": "narrator",
+        "text": "He starts to hum again, and stops himself, as if he'd been caught at it."
+      },
+      {
+        "say": "merrit",
+        "text": "Somebody's still up the stair."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "aboard": [
+      {
+        "say": "merrit",
+        "text": "Aboard? No. No, no. Then who'd be on the stair?"
+      },
+      {
+        "say": "narrator",
+        "text": "He takes a tighter grip on the rope, as if you might take it off him, and the humming starts again, low and a little fast."
+      },
+      {
+        "say": "oda",
+        "text": "Leave him, Wakebearer. I'll put a cup of something hot by him of an evening. That's all he'll take, and it's more than I'd want, sat where he is."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "pin": [
+      {
+        "say": "narrator",
+        "text": "You hold out the Hood-Pin, the bone gone yellow. The humming stops."
+      },
+      {
+        "say": "merrit",
+        "text": "Pin's straight. Good. Nobody's to see."
+      },
+      {
+        "say": "narrator",
+        "text": "Then he's humming again, and coiling, and he doesn't look at it or at you. It's as if the words came up out of him by themselves and went back down."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "taper": [
+      {
+        "say": "narrator",
+        "text": "You hold out the Stair-Taper. The humming stops. He takes the stub between finger and thumb without asking, the way a man picks up his own tools, and runs his thumbnail down the notches."
+      },
+      {
+        "say": "merrit",
+        "text": "One. Two. Three. ...Past the third."
+      },
+      {
+        "say": "merrit",
+        "text": "You went higher than you were told."
+      },
+      {
+        "say": "narrator",
+        "text": "He gives it back, and picks up the rope, and hums. Whatever he knew, it has gone back down where it came from."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bye": [
+      {
+        "say": "merrit",
+        "text": "Mind the steps. Weed on the fourth."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

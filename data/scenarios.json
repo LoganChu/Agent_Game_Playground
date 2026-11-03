@@ -737,6 +737,25 @@
         "kindleby_oda_lane_in": true
       },
       "shot": "--camera=-6,5.5,12:5,1.2,-5"
+    },
+    {
+      "id": "the_boat_stair",
+      "act": "Act III — The Spire",
+      "title": "The Boat Stair",
+      "inherits": "the_lane_in",
+      "region": "cindermoor_boat_stair",
+      "spawn": "from_ferry",
+      "description": "Oda took the Wakebearer in on the morning ebb, down the lane in, steering by the six lights astern. Cindermoor came up out of the fog: black cinder, brown heather, and the Hearthspire dark on the crown. At the Boat Stair a Hushed boat-warden counts the slips: seven out, one in.",
+      "flags": {
+        "cindermoor_passage": true,
+        "cindermoor_crossed": true,
+        "lanes_ferry_at": "cindermoor",
+        "cindermoor_landed": true
+      },
+      "quests": {
+        "the_way_up": "the_road"
+      },
+      "shot": "--camera=9,5.5,14:-4,1.5,0"
     }
   ]
 }

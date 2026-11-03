@@ -1,0 +1,31 @@
+{
+  "id": "cindermoor_arrival",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Oda brings the Mercy in under the cliff to a quay of black dressed stone, where a flight of steps goes down into the water and iron rings are let into the face. Nobody takes her lines. A deckhand jumps for it and makes them fast himself, and stands there afterwards holding the rope as if he'd expected someone to thank him."
+      },
+      {
+        "say": "narrator",
+        "text": "Fog all round: thin on the quay, thick everywhere past it, thicker than you've seen it anywhere on the ring. It stands at the foot of the cliff like water held back by a wall that isn't there."
+      },
+      {
+        "say": "oda",
+        "text": "This is where they came from. The boats. Straight down this water, past my bow, the week it went dark."
+      },
+      {
+        "say": "narrator",
+        "text": "Someone is sitting on an iron bollard at the head of the steps, in a Keeper's robe gone silver from the hem to the waist, coiling a rope in his lap. The other end of the rope runs off over the edge of the quay and down into the water, and isn't tied to anything. He's humming."
+      },
+      {
+        "say": "oda",
+        "text": "...And not all of them came."
+      },
+      {
+        "quest_start": "the_way_up",
+        "end": true
+      }
+    ]
+  }
+}

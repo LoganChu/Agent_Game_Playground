@@ -1,0 +1,42 @@
+{
+  "id": "cindermoor_road",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The cinder road goes up from the quay in a long zig-zag, black grit packed hard between kerbstones, a cold iron cresset at the turn. You follow it as far as the fog."
+      },
+      {
+        "say": "narrator",
+        "text": "A few yards in, it stops being a road. The kerbstones are still there, you think, if you look down; the grit is still under your boots. But it doesn't go anywhere. Every way you turn is the same grey, sloping up, and the road has forgotten which way it was going."
+      },
+      {
+        "if": "!flag:cindermoor_road_tried",
+        "say": "narrator",
+        "text": "The ember pushes the fog back off your boots, a boat's length, no more. It holds the ground. It doesn't remember the road.",
+        "set": {
+          "cindermoor_road_tried": true
+        }
+      },
+      {
+        "if": "flag:cindermoor_road_tried",
+        "say": "narrator",
+        "text": "The same grey. The same slope. The road has forgotten where it goes, and you can't remember it for it."
+      },
+      {
+        "say": "narrator",
+        "text": "You come back down to the turn, where the cold cresset stands on its cairn of cinder, and look at it a while. Somebody lit these once, up the moor, one after another."
+      },
+      {
+        "quest_stage": [
+          "the_way_up",
+          "the_cressets"
+        ],
+        "if": "stage:the_way_up=the_road"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

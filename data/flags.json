@@ -159,10 +159,11 @@
       "default": false
     },
     "lanes_ferry_at": {
-      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing), 'saltmarrow' (back at the Saltmarrow dock) 'fen' (at Glasswater Fen's staithe, Day 29) 'wrackholm' (at Wrackholm's jetty, Day 40) or 'kindleby' (at Kindleby's quay, Day 62). Oda and the ferry prop are placed by it; the player travels with her.",
+      "description": "Where the Slow Mercy lies after the crossing: '' (not sailed yet: at the Saltmarrow dock once arrived), 'thornwold' (moored at Thornwold landing), 'saltmarrow' (back at the Saltmarrow dock) 'fen' (at Glasswater Fen's staithe, Day 29) 'wrackholm' (at Wrackholm's jetty, Day 40) 'kindleby' (at Kindleby's quay, Day 62) or 'cindermoor' (at Cindermoor's Boat Stair, down the lane in, Day 81: no lane off that water till the Spire's lit). Oda and the ferry prop are placed by it; the player travels with her.",
       "default": "",
       "values": [
         "",
+        "cindermoor",
         "fen",
         "kindleby",
         "saltmarrow",
@@ -883,6 +884,50 @@
       "description": "Oda agreed to take the Wakebearer in to Cindermoor on the morning ebb, down the lane in from Kindleby (Day 79): Act II ends here (the act2 end card). The crossing in itself opens Act III, The Spire.",
       "default": false,
       "future": true
+    },
+    "cindermoor_crossed": {
+      "description": "The Slow Mercy went down the lane in from Kindleby on the morning ebb (Day 81, Act III opens): Tobin's one stroke on the quay bell, Oda steering by the six lights astern, Cindermoor out of the fog. Sets lanes_ferry_at to 'cindermoor'.",
+      "default": false
+    },
+    "cindermoor_landed": {
+      "description": "The first landing at Cindermoor's Boat Stair has played (the arrival scene: the quay, the fog, Merrit on the bollard; starts The Way Up).",
+      "default": false
+    },
+    "cindermoor_oda_waiting": {
+      "description": "Oda has told the Wakebearer she'll wait at the Boat Stair (no lane off that water till the Spire's lit).",
+      "default": false
+    },
+    "cindermoor_merrit_met": {
+      "description": "The Wakebearer has spoken with Brother Merrit Coyle, the Hushed boat-warden on the Boat Stair: 'Eight slips. Seven out. One in.'",
+      "default": false
+    },
+    "cindermoor_merrit_asked_aboard": {
+      "description": "The Wakebearer asked Merrit to come aboard the Mercy; he won't leave the stair ('Then who'd be on the stair?'). Oda puts a cup by him of an evening.",
+      "default": false
+    },
+    "cindermoor_merrit_saw_pin": {
+      "description": "Merrit saw the Hood-Pin and stopped humming for one line: 'Pin's straight. Good. Nobody's to see.' (Mystery #2 foreshadow.)",
+      "default": false
+    },
+    "cindermoor_merrit_saw_taper": {
+      "description": "Merrit counted the Stair-Taper's notches: 'Past the third. You went higher than you were told.' (Mystery #2 foreshadow.)",
+      "default": false
+    },
+    "cindermoor_saw_slips": {
+      "description": "The Wakebearer looked at the boathouse on the Boat Stair: eight slips, seven empty, and in the eighth a Keepers' boat never launched. Whose it was is Act III's.",
+      "default": false
+    },
+    "cindermoor_oda_on_merrit": {
+      "description": "Oda on Merrit calling her novice, and on leaving him be.",
+      "default": false
+    },
+    "cindermoor_oda_on_slips": {
+      "description": "Oda on the eighth slip: she counted seven boats past the Taper and never thought to count what didn't come.",
+      "default": false
+    },
+    "cindermoor_road_tried": {
+      "description": "The Wakebearer followed the cinder road into the fog and found it had forgotten where it goes (The Way Up → the_cressets).",
+      "default": false
     }
   }
 }

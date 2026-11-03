@@ -1,5 +1,5 @@
 {
-  "note": "The Tidewright lanes the Slow Mercy sails (the lane map, Day 59). A port's id is its value of lanes_ferry_at ('' counts as saltmarrow, where the ferry first lies). `map` is a point on the chart, 0..1 from the top-left. A lane's `knots` name the knot of `dialogue` that sails it towards each end; a longer voyage over lanes already sailed plays the destination port's `passage` knot. `chart` is when the journal's Lanes tab shows the chart (after the first crossing). A landmark may carry `lit` (drawn with a light; once lit, faint `links` to ports close the ring on the chart) and a `lane` from a port, drawn but never sailed from the chart (the lane in to Cindermoor, Day 79). See docs/TECH.md \"Lanes\".",
+  "note": "The Tidewright lanes the Slow Mercy sails (the lane map, Day 59). A port's id is its value of lanes_ferry_at ('' counts as saltmarrow, where the ferry first lies). `map` is a point on the chart, 0..1 from the top-left. A lane's `knots` name the knot of `dialogue` that sails it towards each end; a longer voyage over lanes already sailed plays the destination port's `passage` knot. `chart` is when the journal's Lanes tab shows the chart (after the first crossing). A landmark may carry `lit` (drawn with a light; once lit, faint `links` to ports close the ring on the chart) and a `lane` from a port, drawn but never sailed from the chart (the lane in to Cindermoor, Day 79), and `ferry` (the lanes_ferry_at value while the Mercy lies there; `moored` says why she sails nowhere from it, Day 81). See docs/TECH.md \"Lanes\".",
   "dialogue": "oda",
   "home": "saltmarrow",
   "chart": "quest:across_the_grey=done",
@@ -59,7 +59,9 @@
       "text": "The Hearthspire, dark. Nobody lands on Cindermoor while the lights between are dark.",
       "look": "spire",
       "map": [0.56, 0.56],
-      "lane": {"from": "kindleby", "name": "the lane in", "known": "flag:kindleby_oda_lane_in"}
+      "lane": {"from": "kindleby", "name": "the lane in", "known": "flag:kindleby_oda_lane_in"},
+      "ferry": "cindermoor",
+      "moored": "The Slow Mercy lies at the Boat Stair. There's no lane off this water till the Spire's lit."
     },
     {
       "name": "the Low Water",

@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:lanes_ferry_at=cindermoor",
+        "goto": "cindermoor"
+      },
+      {
         "if": [
           "!flag:lowsong_beacon_burned=",
           "!flag:kindleby_oda_lane_in"
@@ -1765,6 +1769,14 @@
             "goto": "lane_in"
           },
           {
+            "text": "Cast off down the lane in.",
+            "if": [
+              "flag:cindermoor_passage",
+              "!flag:cindermoor_crossed"
+            ],
+            "goto": "lane_in_sail"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true
           },
@@ -2035,6 +2047,180 @@
       },
       {
         "end": true
+      }
+    ],
+    "lane_in_sail": [
+      {
+        "say": "narrator",
+        "text": "The morning ebb. Kindleby's candles are still lit along the wall, pale in the grey, and somebody is changing them. Oda doesn't make a speech. She looks at the chart once, folds it, and gives the word.",
+        "sound": "horn_near"
+      },
+      {
+        "say": "narrator",
+        "text": "Up at the quay bell Tobin takes the rope in both hands and strokes it once. Then he holds the rope, and doesn't strike again.",
+        "sound": "quay_bell"
+      },
+      {
+        "say": "oda",
+        "text": "One stroke. That's the Keepers' bell for a boat going out to the Spire. You only ever hear the one. The second's for when they come back."
+      },
+      {
+        "if": "flag:kindleby_rite=bowed",
+        "say": "narrator",
+        "text": "The Provost stands on the quay steps in her red stole. As the Mercy comes off the stage she lifts her hand, and keeps it up."
+      },
+      {
+        "if": "flag:kindleby_rite=refused",
+        "say": "narrator",
+        "text": "The Provost stands on the quay steps in her red stole and watches the Mercy as far as the candles. Then she turns and goes up."
+      },
+      {
+        "if": "flag:lowsong_iver_home",
+        "say": "narrator",
+        "text": "Brother Iver is on the wall among the candles, a taper in his hand. He doesn't wave. He watches the water, the way he always has."
+      },
+      {
+        "if": "flag:thornwold_skiff=kindleby",
+        "say": "narrator",
+        "text": "On the west wall, between two of her forty, Wenna Coll lifts her rake at you. Ottie is beside her, looking north, and then, for once, east."
+      },
+      {
+        "say": "narrator",
+        "text": "Then the candles are behind you, and the fog closes, and there's nothing ahead to steer by. Oda steers by what's astern: the Vigil Light dead aft, and the Wrack Light and Lowsong's small gold point held at the same distance either side."
+      },
+      {
+        "say": "oda",
+        "text": "A ring's got a middle. You find it by the edges."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog thickens as you go. It ought to thin, going away from the islands and their people. It doesn't. It gets heavier, and slower, and the Mercy's wake lies on it like a crease in cloth."
+      },
+      {
+        "say": "oda",
+        "text": "Thicker in than out. Like water running downhill to a drain. ...I don't like that. I don't know why I don't like it."
+      },
+      {
+        "say": "narrator",
+        "text": "Halfway, you look back. All six of them are there at once, all round the Mercy, small and far: the Gull, the Ridge Light, the Heron, the Wrack, the Vigil Light, Lowsong. Like sitting in the middle of a table laid for somebody."
+      },
+      {
+        "say": "narrator",
+        "text": "The crew have gone quiet. Even the deckhand who sings at the ropes has stopped singing."
+      },
+      {
+        "say": "narrator",
+        "text": "And then Cindermoor comes up out of the fog all at once, the way an island does when you've been staring too hard: high and bare, black cinder and brown heather going up in long steps to a crown. On the crown, the Hearthspire. Tall, slender, pale stone, the only pale thing on the island. Dark at the top."
+      },
+      {
+        "say": "oda",
+        "text": "Thirty-eight years I've steered round that. It's smaller than I thought. Or I'm bigger."
+      },
+      {
+        "set": {
+          "cindermoor_crossed": true,
+          "lanes_ferry_at": "cindermoor"
+        }
+      },
+      {
+        "travel": [
+          "cindermoor_boat_stair",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "cindermoor": [
+      {
+        "say": "oda",
+        "text": "I'll be here. There's no lane off this water till the Spire's lit, and I'll not go looking for one with you up there.",
+        "if": "!flag:cindermoor_oda_waiting"
+      },
+      {
+        "say": "oda",
+        "text": "Don't make me come looking for you. I'd only forget what for.",
+        "if": "!flag:cindermoor_oda_waiting",
+        "set": {
+          "cindermoor_oda_waiting": true
+        }
+      },
+      {
+        "say": "oda",
+        "text": "Still here. The Mercy's been creaking all night like she's trying to get my attention.",
+        "if": "flag:cindermoor_oda_waiting"
+      },
+      {
+        "choice": [
+          {
+            "text": "The boat-warden called you novice.",
+            "if": [
+              "flag:cindermoor_merrit_met",
+              "!flag:cindermoor_oda_on_merrit"
+            ],
+            "set": {
+              "cindermoor_oda_on_merrit": true
+            },
+            "goto": "cindermoor_merrit"
+          },
+          {
+            "text": "The eighth slip has a boat in it.",
+            "if": [
+              "flag:cindermoor_saw_slips",
+              "!flag:cindermoor_oda_on_slips"
+            ],
+            "set": {
+              "cindermoor_oda_on_slips": true
+            },
+            "goto": "cindermoor_slips"
+          },
+          {
+            "text": "Take me back to Kindleby.",
+            "goto": "cindermoor_no_lane"
+          },
+          {
+            "text": "I'll be back.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "cindermoor_merrit": [
+      {
+        "say": "oda",
+        "text": "He did. Nobody's called me novice. Not even my mother, and she had cause."
+      },
+      {
+        "say": "oda",
+        "text": "Leave him be on that bollard. A man who stays where the boats went from is waiting for one to come back. You don't help a man off that."
+      },
+      {
+        "goto": "cindermoor"
+      }
+    ],
+    "cindermoor_slips": [
+      {
+        "say": "oda",
+        "text": "Eight slips and seven boats. I counted them past the Taper, the week it went dark. I never thought to count what didn't come."
+      },
+      {
+        "say": "oda",
+        "text": "Somebody stayed. Or somebody meant to go and didn't get as far as the water. Either way they're up there, and they've had three months of this fog."
+      },
+      {
+        "goto": "cindermoor"
+      }
+    ],
+    "cindermoor_no_lane": [
+      {
+        "say": "oda",
+        "text": "Off this water? There's no lane. I told you on Kindleby, and I'll tell you here, where you can see why."
+      },
+      {
+        "say": "narrator",
+        "text": "She nods out past the Mercy's stern. The fog stands there like a wall somebody has built while you weren't looking. You can't see the six lights at all."
+      },
+      {
+        "goto": "cindermoor"
       }
     ]
   }

@@ -1,0 +1,24 @@
+{
+  "id": "cindermoor_rack",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "An iron rack at the landward end of the quay: a rail on two posts, and eight hooks along it for boats' bow lanterns. Every hook is empty."
+      },
+      {
+        "if": "flag:kindleby_beacon_burned=pan",
+        "say": "narrator",
+        "text": "On Kindleby they'd have stood all down the quay that night, those lanterns, coming in out of the fog one after another. Anselm carried one of them out past the candles until it went cold."
+      },
+      {
+        "if": "flag:kindleby_beacon_burned=boats",
+        "say": "narrator",
+        "text": "Somewhere there's a night these lanterns went out over the water, one after another. Kindleby gave it to the Vigil Light. Nobody alive remembers where they went."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

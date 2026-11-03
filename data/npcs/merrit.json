@@ -1,0 +1,15 @@
+{
+  "id": "merrit",
+  "name": "Brother Merrit Coyle",
+  "faction": "keepers",
+  "color": "silverfog",
+  "dialogue": "merrit",
+  "model": "res://assets/models/characters/merrit.glb",
+  "idle": "breathe",
+  "faces_player": false,
+  "bio": "The Hearthspire's boat-warden at the Boat Stair on Cindermoor: sixties, Hushed, silver from the hem to the waist. He launched the Keepers' boats the night of the Snuffing and didn't get into one. Sits on the bollard at the head of the stair coiling a painter that's fast to nothing, humming; remembers boats, not people, and calls everyone novice.",
+  "voice": {
+    "sound": "voice_gruff",
+    "pitch": 0.8
+  }
+}
