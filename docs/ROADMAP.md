@@ -636,14 +636,23 @@ each .glb < 5 MB.
       Blender `build_cindermoor.py` (quay, boathouse, Spire, cresset) + Merrit. Checkpoint `the_boat_stair`; the smoke walk
       crosses in. `test_crossing_in.gd` (8).
 
+- [x] [S] **The way up — the road that forgets and the waymark cressets** (Day 82): Greying areas may `forget` (past a lit
+      pool the Wakebearer loses the way and is brought back to where they last saw it: `FORGET_DEPTH`/`FORGET_SECONDS`,
+      `road_forgot`); region **`cressets`** expand into cold/lit props, a "Light the cresset" object, clear pools and the
+      road's paint (`Cressets`); the validator's **chain check** (each cresset reachable with only the ones before it lit,
+      within the ember budget). Two cressets up the Boat Stair's notch, then **the Long Steps** (`cindermoor_long_steps`:
+      four terraces, three switchbacks, four cressets); **Ness Garrow** and the Unmoored at the edge of the last light
+      (cover the ember or not: `cindermoor_ness_ember`; "a woman goes about higher up"); the **doused cresset** past them
+      (*The Way Up* → `the_doused`, still `future`). Blender: lit/doused cressets, Ness. Checkpoints `the_long_steps`,
+      `the_unmoored`; the smoke walk climbs it. `test_the_way_up.gd` (7).
+
 ### Next up
-1. [S] **The way up — waymark cressets and the road that forgets** (systems + content, due ~Day 82-84; do it Day 82): Act III
-   step 2 (LORE plan). The cinder road up from the Boat Stair fades in the fog; cold iron cressets stand up the switchbacks
-   (`cinder_cresset` model exists, two placed). Lighting one from the ember makes the road remember as far as the next
-   (Greying v2's "paths that fade": a road `fade` keyed to lit cressets — paint/plank path visibility and the walkable
-   corridor). A new region up the moor (`cindermoor_moor`?) reached by an exit gated on the first cresset; the Unmoored who
-   came to Cindermoor on purpose (they want the fog to stay) — first meeting only. Also add the `act3` act_ends entry once
-   anything in Act III can end (today it can't: The Way Up is `future`).
+1. [C] **The doused cresset — the way on up** (content, due ~Day 83-85): the choice the Unmoored hand the Wakebearer —
+   relight the cresset they put out (over Ness's wish — what do they do to the lit ones behind? a consequence on the
+   way back down), or another way up they'd allow (the woman "higher up" must stay unnamed). Then the Spire's foot (LORE
+   Act III step 3: the warden's niche, the novices' roll with a name scraped). Add the `act3` act_ends entry once anything
+   in Act III completes. Small follow-ups: a HUD cue as the road starts to forget (today only the fade after 1.6 s); the
+   cressets' road paint zigzags on the 1 m grid; the Spire stand-in floats in the fog above the steps.
 2. [C] **Act II follow-ups** (fold a line or two into later sessions; Kindleby/the ring are behind the player now, so most
    need Act III to look back — letters, Oda's talk, or Keepers come down the lane in, LORE plan step 4):
    Aldous and the Hood-Pin (the hand on the stair; "tonight"); the Provost or Tobin seeing the
@@ -787,16 +796,16 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 81 (Act III opens: the crossing in, the Boat Stair); next content due by ~Day 85.
+- Last content session: Day 82 (the way up: the long steps, Ness; with the cressets system); next content due by ~Day 86.
 - Last polish/debt session: Day 80 (polish eleven: what's still owed on the act cards, the more-below cue, the Bend
   checkpoint fix, Lowsong's smoke thread and log); next due by ~Day 88.
-- Last systems session: Day 78 (the ember holds the fog back); next due by ~Day 82-84 (day/night — the Quiet House's
+- Last systems session: Day 82 (forgetting fog and waymark cressets); next due by ~Day 86-88 (day/night — the Quiet House's
   step candle, lit windows, Hob's schedule — or gamepad rebinding).
 - Cindermoor (Day 81) follow-ups: the boathouse's slips read as a flat grey wall in the fog (the interiors catch the fog
   colour — a dark inner face or a nearer camera); Merrit's coiled painter barely shows in his lap; the quay's black stone
   still reads mid-grey in the Compatibility renderer; the Hearthspire is a 1/3-scale stand-in and floats in the fog
   (a proper crown of moor under it once the way up is built).
-- Last art session: Day 81 (new kit: the Boat Stair, the Spire, Merrit) / Day 76 (Lowsong dressed). Next art-led session due ~Day 84-86:
+- Last art session: Day 82 (lit/doused cressets, Ness) / Day 81 (new kit: the Boat Stair, the Spire, Merrit) / Day 76 (Lowsong dressed). Next art-led session due ~Day 84-86:
   Wrackholm/Kindleby follow-ups (the quay bell's rope, the empty bracket, the Teeth's broken water) or Saltmarrow's.
 - Lowsong (Day 76) follow-ups: (the bothy smoke thinned with `smoke_scale` 0.4: Day 80); the `halo` on a held lantern is faint within ~2.5 m by design, so
   Iver's lamp only reads from the middle distance; the stacks' feet float a little where the seabed is deep (hidden by

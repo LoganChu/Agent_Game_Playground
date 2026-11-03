@@ -1345,6 +1345,40 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     (`cindermoor_merrit_saw_taper`) *(Mystery #2. Do not explain.)*
 
 
+- **The way up (Day 82, Act III step 2).** A few yards up from the quay the cinder road **forgets where it goes**: past
+  the fog's edge the ground is still underfoot but the way isn't, and whoever walks on finds themselves back where they
+  last could see it. The way up is found by light, not sight. The novices' **waymark cressets** — iron baskets on posts
+  set in cinder cairns, cold since the Snuffing — stand at every turn; the ember lights them as if they'd only been
+  waiting to be asked, and **each lit one makes the road remember as far as the next, and no further**. The
+  Wakebearer's hand knows where to hold the ember to a cresset (low, under the basket's lip, where the draught comes
+  in) and doesn't remember learning it *(mystery #2, do not explain)*. Two cressets go up the Boat Stair's notch; the
+  second shows the road over the lip.
+- **The long steps** (`cindermoor_long_steps`): above the notch Cindermoor goes up in long shelves of black cinder and
+  brown heather, each a man's height above the last, and the road zig-zags up them on three turns, a cresset at each.
+  From the lowest step the Hearthspire is nearer, and the dark at its top is plainly not the fog: **the lantern room,
+  with nothing in it**. Going up the Wakebearer finds they've been **counting the turns under their breath, the way
+  you'd count landings on a stair** *(mystery #2)*. The lit cressets below stand one above another down the moor like
+  the six lights round the Mercy on the water. The last cresset's light runs along **the shoulder under the crown**
+  and stops short at the Unmoored.
+- **The Unmoored on the shoulder** — people who came to Cindermoor **on purpose, because the fog is thickest there**:
+  "Everything runs down to here. Like water to a drain" (Ness; Oda's crossing line, from the other side — mystery #3,
+  do not explain). Out on the ring the fog comes and goes; here it stays — "You can put a thing down here at night and
+  by the morning it's gone. Not lost. Lost is when you go looking. Gone." They sit and stand **just past where the
+  cresset's light reaches**, in a shelter of carried-up things with no fire, and turn from a bare ember.
+  - **Ness Garrow** (fifties): tall, a heather-brown hooded cloak gone fog-grey to the knee, hands black to the wrist
+    with wet cinder, an iron cinder-rake. "I had a boat on the Tidewrights' lanes, and a man on it, and then I had the
+    boat." She sat a year on the fen; Hesper, she says, keeps the fog thin on Stillhithe "for the ones who aren't ready
+    yet. Some of us were ready." She asks the Wakebearer to **cover the ember** (`cindermoor_ness_ember`: cupped — "Thank
+    you. They don't, mostly. Keepers never did." / bare — "Nobody who carries one ever thinks it's too bright"). She has
+    heard of Dunstan's walk back (home or stayed): "Good for him. I mean it. It's not for us."
+  - **"We weren't the first."** A woman goes about higher up the moor on her own, there before any of the Unmoored came;
+    she doesn't sit with them, "doesn't sit at all" *(the eighth slip's payoff — Act III step 6. Never name her yet)*.
+  - **The doused cresset**: the next cresset up the road, past the Unmoored, **put out on purpose** — the coals raked
+    out and trodden into the cinder, the basket packed with wet cinder, a flat stone on top; three days to get it cold.
+    It was the last the novices lit coming down ("they lit them going down as well as going up … so the next ones up
+    could find the way"). "There are no next ones. We'd like it to stay that way." Past it the road goes on up to the
+    crown, and forgets. *(Open: the way on up — relighting it over the Unmoored's wish, or another way. Next step.)*
+
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
   Saltmarrow, relights the Gull's Beacon, and must choose which memory to burn (e.g. Mara's
@@ -1378,7 +1412,8 @@ the content lands.
 The order Act III's sessions should take, paced over months: one big reveal per few sessions, the two deepest mysteries
 (#2, #4) last. Working names; LORE records them as canon only when the content lands.
 1. **The crossing in** (Day 81, written: the lane in, the Boat Stair, Merrit, the eighth slip — see *Cindermoor*).
-2. **The way up.** The cinder road forgets where it goes. The way up the moor is found by light, not by sight: the
+2. **The way up** *(Day 82, written: the cressets, the long steps, Ness and the doused cresset — see *Cindermoor*; the
+   doused cresset's choice opens step 3)*. The cinder road forgets where it goes. The way up the moor is found by light, not by sight: the
    novices' **waymark cressets** up the switchbacks (cold since the Snuffing) can be lit from the ember — each lit one
    remembers the road as far as the next (Greying v2: paths that fade). The moor's first people: **Unmoored** who came to
    Cindermoor *on purpose* because the fog is thickest here — they want it to stay (the faction's sharpest edge). Pays off

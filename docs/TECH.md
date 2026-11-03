@@ -53,7 +53,7 @@ $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [id
 .tools/bin/blender-py tools/blender/build_old_road.py [northing_cairn cresset_coals cresset_lantern waymark_rake steps_foot boat_stage stage_lantern drift_fire drift_fire_out drift_shelter]  # the old Keepers' road north (Day 53) and the far shore below it (Day 55) (same kit dir)
 .tools/bin/blender-py tools/blender/build_bend.py [clamp_spent clamp_spent_open hut_lantern]  # Coll's Hearth (Day 57): Wenna's clamp burned through (Day 58: and raked open, sacks filled, front on +Z); a Keeper's lantern on a forked stake by a hut door (glass centre Godot [0, 1.28, 0.32] = its `halo`) (same kit dir)
 .tools/bin/blender-py tools/blender/build_kindleby.py [chapter_house candle_ledge vigil_bell quiet_house vigil_light vigil_light_lit kindleby_skiff kindleby_skiff_stage]  # Kindleby (Day 62): the Keepers' chapter-house, the candle wall (a 2.4 m ledge, candles emissive — no lights), the quay bell, the Quiet House (barred), the Vigil Light (Day 64: `vigil_light_lit` — horn glowing, a fire in the cradle, the door open; the pane centre is Godot y ≈ 5.1 = its `halo`/`light`; the finial's ember now sits on the finial; Day 63: the chapter-house's open bell-cote, door hood and step candles; `_diamond` turns a box 45° in place — the primitives bake their location, so `obj.rotation_euler` on a placed box swings it round the model origin) (same kit dir)
-.tools/bin/blender-py tools/blender/build_cindermoor.py [boat_stair boathouse_slips hearthspire_far cinder_cresset]  # Cindermoor's Boat Stair (Day 81): the Keepers' quay (6 × 4 m, deck at QUAY_TOP 0.9 = the region's pier; steps down the seaward face at the -X end; the bow-lantern rack, eight empty hooks, at the landward end), the boathouse (eight slips open to model +Z, ~16.6 × 6 m, the eighth's boat never launched), the Hearthspire dark at 1/3 scale (place with `scale` 3, `snap: false`, far up behind the cliff — the fog does the rest), a cold waymark cresset (Act III's way up). `build_characters.py merrit` (Day 81): the Hushed boat-warden seated on his own iron bollard (Stool part), silver to the waist, a painter coiled in his lap
+.tools/bin/blender-py tools/blender/build_cindermoor.py [boat_stair boathouse_slips hearthspire_far cinder_cresset cinder_cresset_lit cinder_cresset_doused]  # Cindermoor's Boat Stair (Day 81): the Keepers' quay (6 × 4 m, deck at QUAY_TOP 0.9 = the region's pier; steps down the seaward face at the -X end; the bow-lantern rack, eight empty hooks, at the landward end), the boathouse (eight slips open to model +Z, ~16.6 × 6 m, the eighth's boat never launched), the Hearthspire dark at 1/3 scale (place with `scale` 3, `snap: false`, far up behind the cliff — the fog does the rest), a cold waymark cresset (Act III's way up). Day 82: `cinder_cresset_lit` (coals, a gold heart, three flame tongues, all emissive; fire centre Godot [0, 2.25, 0] = `Cressets.FIRE`) and `cinder_cresset_doused` (packed with wet cinder, a stone lid, coals raked onto the cairn). `build_characters.py ness` (Day 82): Ness Garrow of the Unmoored, standing, hooded, black hands, a cinder-rake. `build_characters.py merrit` (Day 81): the Hushed boat-warden seated on his own iron bollard (Stool part), silver to the waist, a painter coiled in his lap
 .tools/bin/blender-py tools/blender/build_lowsong.py [lowsong_light lowsong_light_lit lowsong_cairn lowsong_stack]  # Lowsong (Day 75): the Low Water's cold light (round dark tower, door at model +Z, bothy behind at -Z: a second collider at offset [0, 0, -2.05]; an empty lamp hook at LAMP_HOOK for a later lit variant; Day 76: the bothy chimney's smoke vent at BOTHY_SMOKE, pinned by tests/test_lowsong_dressed.gd) and the old brothers' wading cairns (Day 76: weeded); Day 76: `lowsong_stack`, a ~5 m sea stack (stand its foot ~0.7 m under the water line, `snap: false`); Day 77: `lowsong_light_lit` (gold horn, a fire in the cradle, the door open; coals and tongues share one glowing material to stay ≤ 16 meshes) (same kit dir). `build_characters.py iver_nolamp` (Day 77): Iver with both hands empty and his head straight, used by placements' `model` once his lamp is a Remnant
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . res://scenes/debug/character_lineup.tscn \
     -- --screenshot=/abs/out.png [--closeup] [--mood=gulls_head] [--only=hob,lamp] [--pose=0.16] [--turn=60]  # art review: every character side by side (+ unplaced models); --pose freezes the idles at t s, --turn turns the models
@@ -597,6 +597,30 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
 - **Turned back (Day 78):** the first time the ember runs out, `GreyingWalker` sets the saved flag
   `greying_turned_back` (`TURNED_BACK_FLAG`). Flags a system sets carry **`"set_by_code": true`** in
   `data/flags.json`, which exempts them from the validator's "never set by any content" check.
+
+### The way up: forgetting fog and waymark cressets (Day 82)
+- **`"forgets": true`** on a Greying fog area (not a `clear` one): the road there forgets where it goes.
+  `Greying.forgetting_at(areas, p)` = deepest forgetting area × (1 − clearing), so a lit cresset's clear pool remembers
+  the way. `GreyingWalker` reads `Region.forgetting(x, z)` each physics frame (not eased): at ≥ `Greying.FORGET_DEPTH`
+  (0.5) `forget_time` runs (paused while input is locked, easing back ×2 when found again); at `FORGET_SECONDS` (1.6 s)
+  the screen fades and the player is put back at the last floor point where forgetting was under half the threshold
+  (`remembered_point`), toast `FORGET_TEXT`, signal `road_forgot`. The ember isn't refilled and `greying_turned_back`
+  isn't set (`_bring_back(target, text, refill)` is shared with the ember-out turn-back).
+- **Region `cressets`** (ordered — the order they must be lit in): `{id, flag, position, rotation_y, dialogue, if?, pool:
+  [rect/ellipse areas], road?: [[x, z, 0], …], note?}`. `ContentDatabase.load_all` runs `Cressets.expand` on every region,
+  turning each into ordinary content tagged `"cresset": id`: a cold prop (`cinder_cresset.glb`, `!flag`), a lit prop
+  (`cinder_cresset_lit.glb`, `flag`, halo + smoke + `fire` sound at `Cressets.FIRE`, no light), a "Light the cresset"
+  object (`cresset_<id>`, `!flag` AND the entry's `if`), the pool as `clear` areas with `if: flag`, and the `road` leg as
+  a conditional paint zone. Idempotent (tagged entries are replaced). The lighting dialogue must set `flag` true.
+- **Validator:** cresset keys/ids/flags/pools/road, the dialogue sets the flag; `forgets` is a bool and not on a clear
+  area. In a region with forgetting fog the worst-case ember budget is replaced by the **chain check**
+  (`_validate_forgetting`): each cresset must be reachable over "remembered" cells (forgetting < `FORGET_DEPTH`, flood
+  fill from the default spawn) with only the unconditional lights and the cressets **before it** lit — and within the
+  ember budget there — and every spawn/NPC/object/exit with every light lit. `tests/test_the_way_up.gd` also checks the
+  converse (no cresset reachable without the one before it).
+- Content: the Boat Stair's notch (`stair_1` gated on `cindermoor_road_tried`, `stair_2` opens the exit) and
+  `cindermoor_long_steps` (four cressets on three switchbacks between cliff-edged terraces 1.6 m apart). The doused
+  cresset past the Unmoored is a plain prop (`cinder_cresset_doused.glb`) until relighting it is written.
 
 ### Atmosphere & water (Day 12)
 `Atmosphere` (child of main) owns the `WorldEnvironment` and the sun. A region's mood =

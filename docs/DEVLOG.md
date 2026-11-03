@@ -2,6 +2,68 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-03 21:00 UTC — Day 82: the way up — the road that forgets, the cressets, the Unmoored (systems + content)
+
+**Did**
+- Tooling: Godot 4.7.2 first try; **the bpy pip install hung ~25 min with no bytes** (PyPI goes direct, not via the
+  proxy). Killed it, a retry with `--timeout 60` finished in a minute; `tools/setup.sh` now passes `--timeout 60` and
+  retries once. Detached HEAD again; reset `main` to `origin/main` (Day 81's `f6d5732`).
+- **Systems (ROADMAP *Next up* #1, Greying v2's "paths that fade"):**
+  - **Forgetting fog.** A Greying area may carry `"forgets": true`. `Greying.forgetting_at` = deepest forgetting area ×
+    (1 − clearing); past `FORGET_DEPTH` (0.5) for `FORGET_SECONDS` (1.6 s) `GreyingWalker` fades out and puts the
+    Wakebearer back where they last could see the way ("The road forgets where it goes. You find it again where the
+    light was."), without refilling the ember. Shares `_bring_back` with the ember-out turn-back.
+  - **Region `cressets`** (`scripts/core/cressets.gd`): an ordered list expanded at load into a cold and a lit prop, a
+    "Light the cresset" object, clear pools and the road's leg as conditional paint, all keyed on the cresset's flag.
+    Nothing else in the engine had to change.
+  - **Validator chain check:** where fog forgets, each cresset must be reachable (and within the ember budget) with
+    only the cressets before it lit, and every NPC/object/exit with every light lit. This replaces the worst-case budget
+    there, which can't hold on a road nobody can walk unlit. The test also checks the converse: no cresset is reachable
+    without the one before it. That check caught my first Boat Stair layout, where the first cresset's light reached
+    the lip on its own.
+- **Content:** the Boat Stair's notch now forgets above the turn. Once the road has been tried, the cresset at the
+  turn can be lit ("Your hand knew where to hold it … You don't remember learning that."). The second one opens the
+  lip. New region **the Long Steps** (`cindermoor_long_steps`): four cliff-edged terraces with three switchbacks and
+  four cressets. The road is painted back in leg by leg as they're lit. The Spire's dark top turns out to be an empty
+  lantern room, and on the third turn the Wakebearer catches themself counting under their breath (mystery #2).
+  **Ness Garrow**, one of the Unmoored, stands at the edge of the last cresset's light. She came here *on purpose*
+  ("Everything runs down to here. Like water to a drain"). She asks the Wakebearer to cover the ember
+  (`cindermoor_ness_ember`), and two figures in the fog turn from it if it stays bare. She has heard of Hesper and of
+  Dunstan, and says "a woman goes about higher up … doesn't sit at all" (the eighth slip, unnamed). Past her stands a
+  **doused cresset**, put out on purpose. *The Way Up* runs `the_cressets` → `up_the_steps` → `the_doused` and is
+  still `future`.
+- **Blender:** `cinder_cresset_lit` and `cinder_cresset_doused` (a shared `_cresset_frame`), plus the character
+  `ness`.
+- **Tests:** `test_the_way_up.gd` (7 tests: expansion and idempotence; the notch forgetting and remembering; the
+  strict chain in both regions; lighting order, arrival and quest stages; Ness both ways; the doused cresset; the
+  validator on bad cressets, swapped order, and Ness moved out of the light). The smoke walk lights all six cressets,
+  gets brought back once by the forgetting road, takes the exit, and meets Ness. Checkpoints `the_long_steps` and
+  `the_unmoored`. 585 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-11-03-pm-the-unmoored.png` (Ness at the light's edge, the doused cresset behind)
+and `…-pm-long-steps.png`; `docs/checkpoints/the_long_steps.png`, `the_unmoored.png`.
+
+**Decisions**
+- **The gate is the fog, not a condition.** Cresset objects are only gated by their own flag (and the first by the road
+  having been tried). The forgetting fog decides what can be reached, and the validator proves the order. The exit
+  over the lip still `requires` the second cresset as a safety net.
+- **The doused cresset is a plain prop today.** Relighting it is the next session's choice (over the Unmoored's wish,
+  or not). Declaring a flag no content sets would fail the orphan check, so it isn't a `cressets` entry yet.
+- No OmniLights on cressets: halo, smoke and the fire sound only (keeps the Day 12 light budget).
+
+**Problems / notes**
+- The first smoke run hung: `_check_ground` teleports into every region, and the long steps' arrival event was gated
+  only on its own flag, so its dialogue locked input for the rest of the walk. It's now gated on the second cresset as
+  well (the known-issues rule: gate events on how the player gets in). `_check_gates` skips Cindermoor's gates on its
+  "expect open" pass, because they open in Act III after that check.
+- The test suite takes ~141 s (117 s on Day 80). The validator is still the main cost, and polish twelve has a
+  profiling item for it.
+- Road paint zigzags on the 1 m grid; there's no HUD cue before the road forgets (just the fade).
+
+**Next run should**
+1. ROADMAP *Next up* #1: **the doused cresset and the way on up** (content). Relight it over Ness's wish, with a
+   consequence, or find another way, then the Spire's foot. Fetch and reset `main` before trusting it.
+
 ## 2026-11-03 09:00 UTC — Day 81: the crossing in — Act III opens (content)
 
 **Did**
