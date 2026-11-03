@@ -14,7 +14,8 @@ the lane in comes ashore, into the dressing kit:
   panes and a cold iron cap. Modelled ~1/3 scale (11 m) to stand on the terrain's distant crown, so the fog and the
   perspective sell the rest.
 - **cinder_cresset**: a cold iron cresset on a post at the foot of the cinder road (the first waymark of the way
-  up, Act III step 2), its basket full of dead black coals.
+  up, Act III step 2), its basket full of dead black coals; **cinder_cresset_lit** (Day 82) the same lit from the
+  ember, and **cinder_cresset_doused** one the Unmoored put out on purpose (packed with wet cinder, a stone on top).
 
 Run either way (re-runnable; overwrites the outputs):
     blender --background --python tools/blender/build_cindermoor.py
@@ -201,11 +202,8 @@ def build_hearthspire_far() -> None:
     bd.export("hearthspire_far")
 
 
-def build_cinder_cresset() -> None:
-    """A cold waymark cresset (~2.3 m): an iron basket of dead coals on a post set in a cairn of cinder."""
-    bd.reset()
-    rng = random.Random(812)
-    IRON = mat("ink", 0.1)
+def _cresset_frame(IRON) -> None:
+    """The cairn, post and iron basket every cresset shares (basket rim at z 2.35)."""
     for k in range(8):
         a = k / 8 * math.tau
         box("Cairn", (0.32, 0.26, 0.24), (math.cos(a) * 0.3, math.sin(a) * 0.3, 0), mat("ink", 0.2 + 0.06 * (k % 2)), a)
@@ -218,6 +216,13 @@ def build_cinder_cresset() -> None:
         for k in range(6):
             a0, a1 = k / 6 * math.tau, (k + 1) / 6 * math.tau
             rod("Hoop", (math.cos(a0) * r, math.sin(a0) * r, z), (math.cos(a1) * r, math.sin(a1) * r, z), 0.018, IRON, verts=4)
+
+
+def build_cinder_cresset() -> None:
+    """A cold waymark cresset (~2.3 m): an iron basket of dead coals on a post set in a cairn of cinder."""
+    bd.reset()
+    rng = random.Random(812)
+    _cresset_frame(mat("ink", 0.1))
     for k in range(7):
         a = rng.uniform(0, math.tau)
         r = rng.uniform(0.0, 0.16)
@@ -225,11 +230,54 @@ def build_cinder_cresset() -> None:
     bd.export("cinder_cresset")
 
 
+def build_cinder_cresset_lit() -> None:
+    """The same cresset lit from the ember (Day 82): the old coals caught red through the gaps, a gold heart, and
+    three short tongues of flame standing up out of the basket (all emissive — the region gives it a halo and
+    smoke, no light). Fire centre Godot [0, 2.25, 0] = Cressets.FIRE."""
+    bd.reset()
+    rng = random.Random(821)
+    _cresset_frame(mat("ink", 0.1))
+    for k in range(7):
+        a = rng.uniform(0, math.tau)
+        r = rng.uniform(0.0, 0.16)
+        box("Coal", (0.12, 0.1, 0.09), (math.cos(a) * r, math.sin(a) * r, 2.1 + rng.uniform(0, 0.1)), mat("ink", 0.04), a)
+    for k in range(6):
+        a = k / 6 * math.tau + 0.4
+        r = rng.uniform(0.05, 0.17)
+        box("Glow", (0.09, 0.08, 0.06), (math.cos(a) * r, math.sin(a) * r, 2.17), mat("coal", 0.1, emissive=True), a)
+    cyl("Heart", 0.13, 0.1, 0.08, 6, (0, 0, 2.18), mat("ember", 0.0, emissive=True))
+    flame = mat("kindle", 0.15, emissive=True)
+    for k, (h, r) in enumerate(((0.42, 0.09), (0.3, 0.07), (0.26, 0.06))):
+        a = k / 3 * math.tau + 0.9
+        off = 0.0 if k == 0 else 0.1
+        cyl("Flame", r, 0.0, h, 4, (math.cos(a) * off, math.sin(a) * off, 2.22), flame)
+    bd.export("cinder_cresset_lit")
+
+
+def build_cinder_cresset_doused() -> None:
+    """A cresset put out on purpose (Day 82, past the Unmoored on the moor): the coals raked out onto the cairn,
+    the basket packed with wet black cinder to the rim and a flat stone set on top, the basket knocked askew."""
+    bd.reset()
+    rng = random.Random(822)
+    IRON = mat("ink", 0.1)
+    _cresset_frame(IRON)
+    wet = mat("ink", -0.4)
+    cyl("Packed", 0.27, 0.29, 0.28, 7, (0, 0, 2.08), wet)
+    box("Lid", (0.36, 0.3, 0.07), (0.02, -0.01, 2.38), mat("slate", -0.5), 0.3)
+    for k in range(9):
+        a = rng.uniform(0, math.tau)
+        r = rng.uniform(0.45, 0.85)
+        box("Raked", (0.1, 0.09, 0.07), (math.cos(a) * r, math.sin(a) * r, 0.03), mat("slate", -0.65), a)
+    bd.export("cinder_cresset_doused")
+
+
 BUILDERS = {
     "boat_stair": build_boat_stair,
     "boathouse_slips": build_boathouse_slips,
     "hearthspire_far": build_hearthspire_far,
     "cinder_cresset": build_cinder_cresset,
+    "cinder_cresset_lit": build_cinder_cresset_lit,
+    "cinder_cresset_doused": build_cinder_cresset_doused,
 }
 
 if __name__ == "__main__":

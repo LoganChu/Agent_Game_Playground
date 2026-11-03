@@ -2057,7 +2057,48 @@ def build_merrit() -> None:
     assemble(b, "merrit")
 
 
-BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
+def build_ness() -> None:
+    """Ness Garrow (Day 82), one of the Unmoored on Cindermoor's long steps, who came to the island *on purpose*
+    because the fog is thickest there: fifties, tall and long-armed, a heather-brown hooded cloak gone fog-grey from
+    the hem to the knee, worn over a dark wool dress; hood up, a weathered face, iron-grey hair in a plait over the
+    left shoulder. Her hands are black to the wrist with wet cinder (she douses the cressets), and a short iron
+    cinder-rake hangs from her right hand, tines down. She stands square, head a little turned from the ember."""
+    reset_scene()
+    b = Body(build=0.96)
+    cloak = material("coal", -0.62)
+    dress = material("ink", 0.12)
+    skin = material("driftwood", 0.05)
+    base_body(b, skin, dress, material("ink", 0.05), dress, sleeves=cloak)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0.03, 0.1), (0, 0.03, b.waist + 0.14), 0.36, 0.28, cloak, verts=8))          # the cloak's fall
+    t.append(limb((0, 0.03, 0.06), (0, 0.03, 0.42), 0.37, 0.35, material("silverfog", -0.1), verts=8))  # fog-grey to the knee
+    t.append(ball(0.3, (0, 0.03, b.shoulder - 0.02), cloak, scale=(1.08, 0.88, 0.45)))           # over the shoulders
+    for x in (0.15, -0.15):  # the cloak's front edges, the dress between
+        t.append(block((0.07, 0.05, 0.7), (x, -0.25, b.shoulder - 0.4), cloak, rot=(0, 0, -0.05 if x > 0 else 0.05)))
+    h = b.parts["Head"]
+    h.append(ball(0.27, (0, 0.09, b.head + 0.05), cloak, scale=(1.02, 0.94, 1.06)))              # hood up
+    h.append(ring(0.24, b.head - 0.2, 0.1, cloak))
+    grey = material("silverfog", -0.3)
+    h.append(block((0.2, 0.05, 0.05), (0, -0.215, b.head + 0.14), grey))                          # hair under the hood
+    t.append(limb((0.12, -0.2, b.shoulder + 0.02), (0.15, -0.22, b.shoulder - 0.38), 0.045, 0.03, grey, verts=5))  # the plait
+    # Black hands (wet cinder) and the cinder-rake from the right hand, tines down by the right boot.
+    b.arm_rest["ArmL"] = (math.radians(-6), 0, math.radians(-6))
+    b.arm_rest["ArmR"] = (math.radians(-14), 0, math.radians(10))
+    for side in ("L", "R"):
+        b.parts["Arm" + side].append(ball(0.06, b.hand(side), material("ink", -0.2), segments=6, rings=4))
+    iron = material("ink", 0.15)
+    hand = b.hand("R")
+    foot = hand + Vector((-0.04, -0.12, -0.82))
+    b.parts["ArmR"].append(limb(hand + Vector((0, 0, 0.08)), foot, 0.016, 0.016, iron, verts=4))
+    for k in range(4):
+        x = -0.09 + k * 0.06
+        b.parts["ArmR"].append(limb(foot + Vector((x, 0, 0)), foot + Vector((x, -0.04, -0.09)), 0.012, 0.008, iron, verts=3))
+    b.parts["ArmR"].append(limb(foot + Vector((-0.1, 0, 0)), foot + Vector((0.1, 0, 0)), 0.014, 0.014, iron, verts=4))
+    b.head_rest = (math.radians(4), 0, math.radians(-16))  # turned a little from the ember
+    assemble(b, "ness")
+
+
+BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
             build_dunstan_seated_cord, build_dunstan_lantern, build_dunstan_home, build_dunstan_turning,
