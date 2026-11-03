@@ -1,0 +1,239 @@
+"""Builds the kit for Cindermoor's Boat Stair (Day 81), the Keepers' landing under the island's east cliff where
+the lane in comes ashore, into the dressing kit:
+
+- **boat_stair**: the quay — a block of black dressed stone (~6 × 4 m, deck top at z 0.9) with a flight of steps
+  down its seaward face (-Y) into the water, iron mooring rings on the face, a granite kerb, and at the landward
+  end the iron **bow-lantern rack**: a rail on two posts with eight hooks, every one empty (the boats took their
+  bow lanterns out with them the week of the Snuffing).
+- **boathouse_slips**: the boathouse cut into the cliff — a long low front of the same black stone with **eight
+  arched slips** opening to the water (-Y), a slate roof stepped into the cliff behind. Seven slips are empty, their
+  greased rollers running down to the water; **in the eighth (the +X end) a Keepers' boat still sits on its
+  rollers, oars shipped, never launched**.
+- **hearthspire_far**: the Hearthspire as seen from the Boat Stair, far up on the crown of the moor: a tall slender
+  tower of pale stone (the only pale thing on the island), banded, a gallery, and the lantern room **dark** — ink
+  panes and a cold iron cap. Modelled ~1/3 scale (11 m) to stand on the terrain's distant crown, so the fog and the
+  perspective sell the rest.
+- **cinder_cresset**: a cold iron cresset on a post at the foot of the cinder road (the first waymark of the way
+  up, Act III step 2), its basket full of dead black coals.
+
+Run either way (re-runnable; overwrites the outputs):
+    blender --background --python tools/blender/build_cindermoor.py
+    .tools/bin/blender-py tools/blender/build_cindermoor.py [boat_stair hearthspire_far]
+
+Same conventions as build_dressing/build_kindleby: origin at the base centre, flat-shaded, palette colours and
+tonal shades, Blender -Y = Godot +Z = the front, merged by material.
+"""
+import math
+import os
+import random
+import sys
+
+import bpy  # noqa: F401  (must be imported before mathutils when running as the bpy module)
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import build_dressing as bd  # noqa: E402  (materials, primitives, merge + export)
+
+mat, box, cyl, beam, rod = bd.mat, bd.box, bd.cyl, bd.beam, bd.rod
+
+# The quay's deck height (Godot y) — the region places the quay's walkable top here (tests pin it).
+QUAY_TOP = 0.9
+
+
+def _black_stone():
+    return (mat("ink", 0.1), mat("ink", 0.17), mat("slate", -0.62))
+
+
+def build_boat_stair() -> None:
+    """The Keepers' quay: 6 m along X, 4 m deep (Y), deck at QUAY_TOP; steps down the -Y face at the -X end."""
+    bd.reset()
+    rng = random.Random(810)
+    STONE = _black_stone()
+    KERB, IRON = mat("slate", -0.3), mat("ink", 0.05)
+    # The quay block in courses of dressed stone, a little battered toward the foot.
+    courses = 4
+    for k in range(courses):
+        z = -0.6 + k * (QUAY_TOP + 0.6) / courses
+        h = (QUAY_TOP + 0.6) / courses
+        inset = (courses - 1 - k) * -0.04
+        box("Course", (6.0 - inset * 2, 4.0 - inset * 2, h), (0, 0, z), STONE[k % 2])
+    box("Kerb", (6.1, 0.3, 0.12), (0, -1.95, QUAY_TOP - 0.04), KERB)
+    box("KerbSide", (0.3, 4.0, 0.12), (3.0, 0, QUAY_TOP - 0.04), KERB)
+    # Joints scored in the deck.
+    for k in range(5):
+        x = -2.4 + k * 1.2 + rng.uniform(-0.1, 0.1)
+        box("Joint", (0.04, 3.6, 0.02), (x, 0.1, QUAY_TOP - 0.01), STONE[2])
+    # The flight of steps down the seaward face at the -X end, into the water (sea at z ≈ -0.25).
+    for k in range(7):
+        z = QUAY_TOP - (k + 1) * 0.17
+        box("Step", (1.4, 0.32, 0.17), (-2.1, -2.16 - k * 0.3, z), STONE[(k + 1) % 2])
+        box("StepSide", (1.4, 0.32 * (k + 1), 0.17), (-2.1, -2.0 - k * 0.15, z - 0.17), STONE[2])
+    # Iron mooring rings on the face.
+    for x in (-0.4, 1.4):
+        rod("RingPin", (x, -2.0, 0.35), (x, -2.12, 0.35), 0.04, IRON)
+        for j in range(8):
+            a0, a1 = j / 8 * math.tau, (j + 1) / 8 * math.tau
+            rod("Ring", (x + math.cos(a0) * 0.14, -2.14, 0.2 + math.sin(a0) * 0.14),
+                (x + math.cos(a1) * 0.14, -2.14, 0.2 + math.sin(a1) * 0.14), 0.025, IRON, verts=4)
+    # Bollards along the kerb.
+    for x in (-0.6, 2.4):
+        cyl("Bollard", 0.16, 0.14, 0.42, 8, (x, -1.65, QUAY_TOP), IRON)
+        cyl("BollardCap", 0.2, 0.2, 0.07, 8, (x, -1.65, QUAY_TOP + 0.42), IRON)
+    # The bow-lantern rack at the landward end: two posts and a rail with eight empty hooks.
+    for x in (-2.0, 2.0):
+        rod("RackPost", (x, 1.5, QUAY_TOP), (x, 1.5, QUAY_TOP + 1.9), 0.06, IRON)
+    rod("RackRail", (-2.1, 1.5, QUAY_TOP + 1.8), (2.1, 1.5, QUAY_TOP + 1.8), 0.045, IRON)
+    for k in range(8):
+        x = -1.75 + k * 0.5
+        rod("Hook", (x, 1.5, QUAY_TOP + 1.8), (x, 1.5, QUAY_TOP + 1.55), 0.018, IRON, verts=4)
+        rod("HookTip", (x, 1.5, QUAY_TOP + 1.55), (x, 1.42, QUAY_TOP + 1.6), 0.016, IRON, verts=4)
+    # Salt and weed at the waterline.
+    for k in range(16):
+        x = -2.9 + k * 0.38
+        box("Wrack", (0.34, 0.05, rng.uniform(0.25, 0.45)), (x, -2.02, -0.45), mat("moss", -0.6 + 0.06 * (k % 3)))
+    bd.export("boat_stair")
+
+
+def _keeper_boat(x: float, y: float, z: float, pitch: float) -> None:
+    """A Keepers' boat (4.2 m) on its rollers, bow to the water (-Y), oars shipped along the thwarts; built at the
+    origin, then pitched down the slip and moved into place."""
+    from mathutils import Matrix
+    before = set(bpy.context.scene.objects)
+    stations = bd.hull_stations(4.2, 0.72, 0.62, 0.16)
+    tar, strake = mat("ink", 0.18), mat("bone", -0.35)
+    bd.hull("Hull", stations, 0.62, 0.16, tar)
+    bd.gunwale("Rail", stations, mat("driftwood", -0.45))
+    bd.gunwale("Strake", stations, strake, thick=0.05, drop=0.14)
+    oar = mat("driftwood", -0.2)
+    for side in (-0.28, 0.28):
+        rod("Oar", (side, -1.6, 0.05), (side * 0.9, 1.5, 0.1), 0.03, oar)
+    for yy in (-0.6, 0.5):
+        box("Thwart", (1.1, 0.2, 0.05), (0, yy, -0.08), mat("driftwood", -0.35))
+    place = Matrix.Translation((x, y, z)) @ Matrix.Rotation(pitch, 4, "X")
+    for obj in set(bpy.context.scene.objects) - before:
+        obj.matrix_world = place @ obj.matrix_world
+
+
+def build_boathouse_slips() -> None:
+    """The boathouse (~17 m along X, 6 m deep, 3.6 m to the ridge): eight arched slips open to the water (-Y), the
+    slip floors ramping down from z 0.9 at the back to z -0.4 at the mouth. The eighth (+X end) holds a boat."""
+    bd.reset()
+    rng = random.Random(811)
+    STONE = _black_stone()
+    SLATE, IRON = mat("slate", -0.35), mat("ink", 0.05)
+    n, bay, pier = 8, 2.0, 0.22
+    width = n * bay + pier
+    x0 = -width / 2
+    depth = 6.0
+    # Back wall (against the cliff) and end walls.
+    box("Back", (width, 0.5, 3.0), (0, depth / 2 - 0.25, -0.4), STONE[0])
+    for sx in (x0 + pier / 2, -x0 - pier / 2):
+        box("End", (pier + 0.1, depth, 3.0), (sx, 0, -0.4), STONE[1])
+    # Piers between the slips, each with a voussoir-ish lintel stack forming a pointed arch over the mouth.
+    for k in range(n + 1):
+        px = x0 + pier / 2 + k * bay
+        box("Pier", (pier, depth, 2.4), (px, 0, -0.4), STONE[k % 2])
+    for k in range(n):
+        cx = x0 + pier + bay * (k + 0.5) - pier / 2
+        for j in range(4):
+            a = j / 4 * (math.pi / 2)
+            w = (bay - pier) / 2 * (1 - math.cos(a)) + 0.12
+            z = 2.0 + math.sin(a) * 0.45
+            for sgn in (-1, 1):
+                box("Arch", (w, 0.45, 0.16), (cx + sgn * ((bay - pier) / 2 - w / 2), -depth / 2 + 0.22, z), STONE[2])
+        box("Keystone", (0.24, 0.5, 0.3), (cx, -depth / 2 + 0.22, 2.45), STONE[1])
+        # The slip floor: a ramp of stone and two greased rollers' worth of timber rails.
+        floor = bd.box("Slip", (bay - pier, depth, 0.2), (0, 0, 0), STONE[2])
+        floor.rotation_euler = (math.atan2(1.3, depth), 0, 0)
+        floor.location = (cx, 0, 0.25)
+        for rx in (-0.35, 0.35):
+            beam("Rail", (cx + rx, depth / 2 - 0.3, 0.92), (cx + rx, -depth / 2, -0.38), 0.08, mat("driftwood", -0.55), 0.1)
+        for j in range(5):
+            yy = depth / 2 - 0.8 - j * 1.15
+            zz = 0.92 - (depth / 2 - yy - 0.3) * 1.3 / depth + 0.06
+            rod("Roller", (cx - 0.55, yy, zz), (cx + 0.55, yy, zz), 0.07, mat("driftwood", -0.4 + 0.05 * (j % 2)))
+    # The front above the arches and the roof, stepped back into the cliff.
+    box("Front", (width, 0.5, 0.7), (0, -depth / 2 + 0.25, 2.55), STONE[0])
+    roof = mat("slate", -0.45)
+    for k, (y, z) in enumerate(((-depth / 2 + 0.4, 3.2), (-0.5, 3.45), (1.6, 3.7))):
+        box("Roof", (width + 0.4, 2.4, 0.18), (0, y + 1.0, z), roof if k % 2 == 0 else SLATE)
+    # Iron rings over each slip mouth, the painter hooks; numbers chiselled (pale marks) over the arches.
+    for k in range(n):
+        cx = x0 + pier + bay * (k + 0.5) - pier / 2
+        for m in range(k + 1):
+            box("Tally", (0.03, 0.02, 0.12), (cx - 0.06 * k / 2 + m * 0.06, -depth / 2 - 0.01, 2.75), mat("bone", -0.3))
+    # The eighth slip's boat, on its rollers, never launched.
+    cx8 = x0 + pier + bay * 7.5 - pier / 2
+    _keeper_boat(cx8, 0.2, 0.5, math.atan2(1.3, depth))
+    # Weed on the piers' feet.
+    for k in range(n + 1):
+        px = x0 + pier / 2 + k * bay
+        box("Wrack", (pier + 0.06, 0.06, rng.uniform(0.3, 0.5)), (px, -depth / 2 - 0.02, -0.45), mat("moss", -0.6))
+    bd.export("boathouse_slips")
+
+
+def build_hearthspire_far() -> None:
+    """The Hearthspire, dark (~11 m tall, ~1/3 scale for distance): pale banded stone, gallery, a dark lantern."""
+    bd.reset()
+    PALE, PALE2 = mat("bone", -0.12), mat("bone", -0.25)
+    DARK, IRON = mat("ink", 0.0), mat("ink", 0.12)
+    cyl("Foot", 1.7, 1.45, 1.2, 12, (0, 0, -0.4), PALE2)
+    cyl("Shaft", 1.25, 0.82, 7.4, 12, (0, 0, 0.8), PALE)
+    for k in range(5):
+        z = 1.6 + k * 1.35
+        r = 1.25 - (z - 0.8) / 7.4 * 0.43 + 0.03
+        cyl("Band", r, r - 0.01, 0.12, 12, (0, 0, z), PALE2)
+    # Slit windows up the east face (-Y), spiralling with the east stair.
+    for k in range(9):
+        z = 1.4 + k * 0.72
+        a = -math.pi / 2 + (k % 3 - 1) * 0.5
+        r = 1.25 - (z - 0.8) / 7.4 * 0.43 + 0.01
+        box("Slit", (0.1, 0.06, 0.32), (math.cos(a) * r, math.sin(a) * r, z), DARK, a + math.pi / 2)
+    cyl("Gallery", 1.25, 1.25, 0.2, 12, (0, 0, 8.2), PALE2)
+    for k in range(12):
+        a = k / 12 * math.tau
+        rod("Rail", (math.cos(a) * 1.18, math.sin(a) * 1.18, 8.4), (math.cos(a) * 1.18, math.sin(a) * 1.18, 8.75), 0.03, IRON)
+    cyl("Lantern", 0.78, 0.78, 1.5, 8, (0, 0, 8.4), DARK)
+    for k in range(8):
+        a = k / 8 * math.tau + math.pi / 8
+        rod("Mullion", (math.cos(a) * 0.8, math.sin(a) * 0.8, 8.4), (math.cos(a) * 0.8, math.sin(a) * 0.8, 9.9), 0.05, IRON)
+    cyl("Cap", 0.95, 0.1, 1.1, 8, (0, 0, 9.9), IRON)
+    rod("Finial", (0, 0, 10.9), (0, 0, 11.4), 0.05, IRON)
+    bd.export("hearthspire_far")
+
+
+def build_cinder_cresset() -> None:
+    """A cold waymark cresset (~2.3 m): an iron basket of dead coals on a post set in a cairn of cinder."""
+    bd.reset()
+    rng = random.Random(812)
+    IRON = mat("ink", 0.1)
+    for k in range(8):
+        a = k / 8 * math.tau
+        box("Cairn", (0.32, 0.26, 0.24), (math.cos(a) * 0.3, math.sin(a) * 0.3, 0), mat("ink", 0.2 + 0.06 * (k % 2)), a)
+    cyl("CairnTop", 0.3, 0.2, 0.3, 7, (0, 0, 0.2), mat("ink", 0.25))
+    rod("Post", (0, 0, 0.2), (0, 0, 2.0), 0.06, IRON)
+    for k in range(6):
+        a = k / 6 * math.tau
+        rod("Basket", (math.cos(a) * 0.12, math.sin(a) * 0.12, 1.95), (math.cos(a) * 0.3, math.sin(a) * 0.3, 2.35), 0.02, IRON, verts=4)
+    for z, r in ((2.0, 0.15), (2.33, 0.29)):
+        for k in range(6):
+            a0, a1 = k / 6 * math.tau, (k + 1) / 6 * math.tau
+            rod("Hoop", (math.cos(a0) * r, math.sin(a0) * r, z), (math.cos(a1) * r, math.sin(a1) * r, z), 0.018, IRON, verts=4)
+    for k in range(7):
+        a = rng.uniform(0, math.tau)
+        r = rng.uniform(0.0, 0.16)
+        box("Coal", (0.12, 0.1, 0.09), (math.cos(a) * r, math.sin(a) * r, 2.1 + rng.uniform(0, 0.1)), mat("slate", -0.65), a)
+    bd.export("cinder_cresset")
+
+
+BUILDERS = {
+    "boat_stair": build_boat_stair,
+    "boathouse_slips": build_boathouse_slips,
+    "hearthspire_far": build_hearthspire_far,
+    "cinder_cresset": build_cinder_cresset,
+}
+
+if __name__ == "__main__":
+    only = {a for a in sys.argv[1:] if not a.startswith("-")}
+    for key, build in BUILDERS.items():
+        if not only or key in only:
+            build()

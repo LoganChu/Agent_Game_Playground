@@ -2010,6 +2010,53 @@ def build_iver_nolamp() -> None:
     build_iver(lamp=False)
 
 
+def build_merrit() -> None:
+    """Brother Merrit Coyle (Day 81), the Spire's boat-warden at Cindermoor's Boat Stair: sixties, broad and gone
+    soft, Hushed. He launched the boats the night of the Snuffing and didn't get into one. Seated on the iron
+    bollard at the head of the stair (the Stool part), his grey robe gone the silver of the Hushed from the hem to
+    the waist; hood down off a cropped grey head, a heavy jaw, stubble. In his lap a coil of a boat's painter that
+    runs off over his knee to nothing; his hands on it. Head a little down and to one side, humming."""
+    reset_scene()
+    b = Body(seated=True, build=1.05)
+    robe, silver = material("bone", -0.4), material("silverfog", 0.08)
+    skin = material("driftwood", -0.02)
+    base_body(b, skin, silver, material("ink", 0.05), robe, sleeves=robe)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0.02, b.hip - 0.06), (0, 0.02, b.waist + 0.06), 0.33, 0.3, silver, verts=8))  # silvered to the waist
+    t.append(ring(0.3, b.waist + 0.06, 0.045, material("driftwood", -0.35)))                         # cord belt
+    t.append(block((0.075, 0.02, 0.075), (0, -0.26, b.shoulder - 0.18), material("ember", -0.3), rot=(0, math.radians(45), 0)))
+    for side, x in (("LegL", 0.13), ("LegR", -0.13)):                                                # robe skirts over the thighs
+        b.parts[side].append(block((0.22, 0.38, 0.05), (x, -0.17, b.hip + 0.07), silver))
+        b.parts[side].append(block((0.22, 0.05, 0.4), (x, -0.38, b.hip - 0.14), silver))
+    t.append(ball(0.31, (0, 0.12, b.shoulder + 0.02), robe, scale=(1.05, 0.75, 0.45)))              # the hood, down
+    h = b.parts["Head"]
+    grey = material("silverfog", -0.25)
+    h.append(ball(b.head_r * 1.02, (0, 0.05, b.head + 0.05), grey, scale=(1.02, 1.0, 0.6)))         # cropped grey head
+    h.append(ball(0.15, (0, -0.1, b.head - 0.14), material("silverfog", -0.12), scale=(1.15, 0.8, 0.85)))  # heavy jaw, stubble
+    # The painter: a coil in the lap and a tail off over the right knee to the ground, fast to nothing.
+    rope = material("driftwood", -0.15)
+    lap = Vector((0, -0.3, b.hip + 0.17))
+    for k in range(9):
+        a0, a1 = k / 9 * math.tau, (k + 1) / 9 * math.tau
+        r = 0.12
+        p0 = lap + Vector((math.cos(a0) * r, math.sin(a0) * r * 0.7, 0.0))
+        p1 = lap + Vector((math.cos(a1) * r, math.sin(a1) * r * 0.7, 0.0))
+        t.append(limb(p0, p1, 0.026, 0.026, rope, verts=5))
+        t.append(limb(p0 + Vector((0, 0, 0.04)), p1 + Vector((0, 0, 0.04)), 0.024, 0.024, rope, verts=5))
+    knee = Vector((-0.2, -0.42, b.hip + 0.06))
+    t.append(limb(lap + Vector((-0.12, 0, 0.02)), knee, 0.024, 0.024, rope, verts=5))
+    t.append(limb(knee, Vector((-0.28, -0.62, 0.03)), 0.024, 0.022, rope, verts=5))
+    b.arm_rest["ArmL"] = (math.radians(-48), 0, math.radians(-14))  # hands on the coil
+    b.arm_rest["ArmR"] = (math.radians(-48), 0, math.radians(14))
+    b.head_rest = (math.radians(14), math.radians(-8), math.radians(-10))
+    # The bollard: a squat iron post with a cap, its top at the seat.
+    top = b.hip - 0.04
+    iron = material("ink", 0.12)
+    b.parts["Stool"].append(limb((0, 0.02, 0), (0, 0.02, top - 0.06), 0.2, 0.17, iron, verts=8))
+    b.parts["Stool"].append(limb((0, 0.02, top - 0.06), (0, 0.02, top), 0.23, 0.23, iron, verts=8))
+    assemble(b, "merrit")
+
+
 BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
@@ -2019,7 +2066,7 @@ BUILDERS = [build_wakebearer, build_mara, build_pell, build_aldous, build_aldous
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
             build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother,
-            build_keeper_pim, build_hild, build_hild_scraping, build_iver, build_iver_nolamp]
+            build_keeper_pim, build_hild, build_hild_scraping, build_iver, build_iver_nolamp, build_merrit]
 
 if __name__ == "__main__":
     import sys
