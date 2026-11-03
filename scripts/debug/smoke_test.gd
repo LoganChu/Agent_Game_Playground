@@ -86,6 +86,7 @@ func _run() -> void:
 	await _check_act_one_close(main)
 	await _check_crossing(main)
 	await _cross_in(main, ui)
+	await _walk_the_way_up(main, ui)
 	_check(_walked.size() == Content.db.regions.size(), "the walk reached every region (%s)" % ", ".join(PackedStringArray(_walked.keys())))
 	await _check_journal(main.get("journal_ui"))
 	await _check_pause_menu(main)
@@ -303,6 +304,68 @@ func _cross_in(main: Node, ui: DialogueUI) -> void:
 	await get_tree().process_frame
 	_check(Lanes.ferry_place_name(Content.db, world) == "Cindermoor", "the Mercy lies at Cindermoor")
 	print("Smoke: Act III opens at the Boat Stair")
+
+
+## Day 82, the way up: the first cresset lit from the ember remembers the road up the notch; past its light the
+## road forgets and brings the Wakebearer back; the second opens the lip; four more up the long steps, Ness at the
+## edge of the last one's light, and the cresset past her put out on purpose.
+func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
+	var world := GameState.world
+	var player: Player = get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
+	var walker: GreyingWalker = main.get("greying")
+	var stair: Region = main.get("region")
+	_check(stair.forgetting(13.6, -12.6) >= Greying.FORGET_DEPTH, "the second cresset lies where the road forgets")
+	_check(_object("cresset_stair_1") != null, "the first cresset can be lit once the road's been tried")
+	_object("cresset_stair_1").interact()
+	_finish_dialogue(ui, "cresset_stair_1")
+	await get_tree().process_frame
+	_check(world.get_flag("cindermoor_cresset_stair_1") == true and _shown_model(stair, "cinder_cresset_lit.glb") == 1, "the first cresset burns")
+	_check(_object("cresset_stair_1") == null and stair.forgetting(13.6, -12.6) < Greying.FORGET_DEPTH, "and the second can be reached")
+	# Past the light the road forgets: the Wakebearer is brought back to where the way could be seen.
+	var lit := Vector3(12.6, stair.ground_y(12.6, -10.6) + 0.2, -10.6)
+	player.place_at(lit)
+	for i in 10:
+		await get_tree().physics_frame
+	_check(walker.forgetting < Greying.FORGET_DEPTH * 0.5, "the road remembered in the cresset's light (%.2f)" % walker.forgetting)
+	player.place_at(Vector3(12.3, stair.ground_y(12.3, -14.8) + 0.2, -14.8))
+	var guard := 0
+	while not walker.turning_back and guard < 200:
+		guard += 1
+		await get_tree().physics_frame
+	_check(walker.turning_back, "the road forgets past the light (forgetting %.2f)" % walker.forgetting)
+	if walker.turning_back:
+		await walker.road_forgot
+	for i in 3:
+		await get_tree().physics_frame
+	var back := player.global_position
+	_check(Vector2(back.x, back.z).distance_to(Vector2(lit.x, lit.z)) < 1.5 and not GameState.input_locked, "brought back to the light (%s)" % back)
+	_object("cresset_stair_2").interact()
+	_finish_dialogue(ui, "cresset_stair_2")
+	await get_tree().process_frame
+	if not await _take_exit(main, ui, "cindermoor_long_steps", "over the lip onto the long steps"):
+		return
+	_check(world.quest_stage("the_way_up") == "up_the_steps", "The Way Up: up the steps")
+	var steps: Region = main.get("region")
+	_check(_npc("ness") != null and _npc("ness").find_child("CharacterRig", true, false) != null, "Ness at the top of the steps")
+	for k in range(1, 5):
+		var id := "cresset_steps_%d" % k
+		_check(_object(id) != null, "cresset %d to light" % k)
+		if _object(id) == null:
+			return
+		_object(id).interact()
+		_finish_dialogue(ui, id)
+		await get_tree().process_frame
+	_check(_shown_model(steps, "cinder_cresset_lit.glb") == 4 and _shown_model(steps, "cinder_cresset.glb") == 0, "four cressets burn up the long steps")
+	var at: Vector3 = _npc("ness").global_position
+	_check(steps.forgetting(at.x, at.z) < Greying.FORGET_DEPTH, "Ness stands where the light still holds the road")
+	_npc("ness").interact()
+	_check(_choose(ui, "Close your hand over the ember."), "Ness asks for the ember covered")
+	_check(_choose(ui, "Did you put out the cresset up the road?"), "asked about the doused cresset")
+	_finish_dialogue(ui, "ness")
+	_object("steps_doused").interact()
+	_finish_dialogue(ui, "steps_doused")
+	_check(world.quest_stage("the_way_up") == "the_doused" and world.get_flag("cindermoor_ness_ember") == "cupped", "the way on up waits on the doused cresset")
+	print("Smoke: the way up — six cressets lit, Ness met")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
@@ -1072,6 +1135,9 @@ func _check_gates(main: Node, expect_open: bool) -> void:
 	for region_id: String in Content.db.regions:
 		for exit_data: Dictionary in Content.db.get_region(region_id).get("exits", []):
 			if not exit_data.has("requires"):
+				continue
+			# Cindermoor's gates open in Act III, after this check (_walk_the_way_up takes them itself).
+			if expect_open and region_id.begins_with("cindermoor_"):
 				continue
 			GameState.travel(region_id)
 			for i in 3:
