@@ -81,11 +81,12 @@ func _run() -> void:
 						queue.append(next)
 	await _sail_the_fen_lane(main, ui)
 	await _carry_the_name_home(main, ui)
-	_check(_walked.size() == Content.db.regions.size(), "the walk reached every region (%s)" % ", ".join(PackedStringArray(_walked.keys())))
 	await _check_gates(main, true)
 	await _check_beacon_lit(main)
 	await _check_act_one_close(main)
 	await _check_crossing(main)
+	await _cross_in(main, ui)
+	_check(_walked.size() == Content.db.regions.size(), "the walk reached every region (%s)" % ", ".join(PackedStringArray(_walked.keys())))
 	await _check_journal(main.get("journal_ui"))
 	await _check_pause_menu(main)
 	await _check_settings(main)
@@ -260,6 +261,48 @@ func _carry_the_name_home(main: Node, ui: DialogueUI) -> void:
 	if not await _arrived(main, ui, "saltmarrow", "the long passage home"):
 		return
 	_sailings.append("saltmarrow -> wrackholm -> kindleby -> saltmarrow")
+
+
+## Day 81, Act III opens: from Saltmarrow (where the long passage home left the Mercy) Oda runs the lanes back to
+## Kindleby, casts off down the lane in, and the Mercy lies at Cindermoor's Boat Stair: the landing scene, Merrit
+## on his bollard, the eighth slip, the road that forgets, and a chart with nothing to sail from it.
+func _cross_in(main: Node, ui: DialogueUI) -> void:
+	var world := GameState.world
+	GameState.travel("saltmarrow")
+	if not await _arrived(main, ui, "saltmarrow", "back on the Saltmarrow dock for the lane in"):
+		return
+	_npc("oda").interact()
+	_check(_sail(ui, "kindleby"), "the long passage back to Kindleby")
+	_finish_dialogue(ui, "oda (back to Kindleby)")
+	if not await _arrived(main, ui, "kindleby", "at Kindleby for the morning ebb"):
+		return
+	_npc("oda").interact()
+	_check(_choose(ui, "Cast off down the lane in."), "Oda casts off down the lane in")
+	_finish_dialogue(ui, "oda (the lane in)")
+	if not await _arrived(main, ui, "cindermoor_boat_stair", "the crossing in"):
+		return
+	_sailings.append("kindleby -> cindermoor_boat_stair")
+	_check(world.get_flag("cindermoor_landed") == true and world.quest_stage("the_way_up") == "the_road", "landed: The Way Up begun")
+	var stair: Region = main.get("region")
+	_check(_shown_model(stair, "ferry.glb") == 1, "the Mercy lies at the Boat Stair")
+	var scenes: Array = stair.find_children("*", "Node3D", true, false).map(func(n: Node) -> String: return n.scene_file_path.get_file())
+	for model: String in ["boat_stair.glb", "boathouse_slips.glb", "hearthspire_far.glb", "merrit.glb"]:
+		_check(scenes.has(model), "the Boat Stair shows " + model)
+	_check(_npc("merrit") != null and _npc("merrit").find_child("CharacterRig", true, false) != null, "Merrit on his bollard")
+	_npc("merrit").interact()
+	_check(_choose(ui, "Who didn't come down?"), "Merrit asked who stayed")
+	_finish_dialogue(ui, "merrit")
+	for id: String in ["cindermoor_slips", "cindermoor_road"]:
+		_check(_object(id) != null, "object " + id)
+		_object(id).interact()
+		_finish_dialogue(ui, id)
+	_check(world.quest_stage("the_way_up") == "the_cressets", "the road forgot where it goes")
+	_npc("oda").interact()
+	_check(not _choose(ui, "Where can you take me?"), "no lane off this water")
+	_finish_dialogue(ui, "oda (at the Boat Stair)")
+	await get_tree().process_frame
+	_check(Lanes.ferry_place_name(Content.db, world) == "Cindermoor", "the Mercy lies at Cindermoor")
+	print("Smoke: Act III opens at the Boat Stair")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
