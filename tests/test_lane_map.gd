@@ -173,7 +173,7 @@ func test_the_validator_checks_the_lanes() -> void:
 	assert_empty(v.errors, "the real lanes are clean")
 	(db.lanes["lanes"][1]["knots"] as Dictionary)["fen"] = "back"
 	db.lanes["ports"][0]["map"] = [1.4, 0.2]
-	db.lanes["ports"].append({"id": "cindermoor", "name": "Cindermoor", "light": "the Hearthspire", "region": "nowhere", "passage": "nope", "map": [0.5, 0.5]})
+	db.lanes["ports"].append({"id": "spire_rock", "name": "Spire Rock", "light": "the Hearthspire", "region": "nowhere", "passage": "nope", "map": [0.5, 0.5]})
 	v = ContentValidator.new(db)
 	v._validate_lanes()
 	var report := "\n".join(v.errors)

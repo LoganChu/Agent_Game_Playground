@@ -177,6 +177,14 @@ func _validate_lanes() -> void:
 		var links: Variant = (mark as Dictionary).get("links", [])
 		if not links is Array or not (links as Array).all(func(l: Variant) -> bool: return ports.has(str(l))):
 			_err(mw, "'links' must list ports")
+		if (mark as Dictionary).has("ferry"):
+			# Day 81: the Mercy can lie at a landmark (lanes_ferry_at = its `ferry`); `moored` says why she sails nowhere.
+			var at := str((mark as Dictionary)["ferry"])
+			var declared: Array = (db.flags.get(Lanes.FLAG, {}) as Dictionary).get("values", [])
+			if ports.has(at) or not declared.has(at):
+				_err(mw, "'ferry' must be a declared lanes_ferry_at value that isn't a port")
+			if not (mark as Dictionary).has("moored"):
+				_err(mw, "a landmark the ferry lies at needs 'moored' (why she sails nowhere from it)")
 		var mark_lane: Variant = (mark as Dictionary).get("lane")
 		if mark_lane != null:
 			if not mark_lane is Dictionary:

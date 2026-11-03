@@ -74,7 +74,7 @@ func open() -> void:
 	var db := Content.db
 	var state := GameState.world
 	var here := Lanes.current_port(db, state)
-	_heading.text = "The Lanes — the Slow Mercy lies at %s" % Lanes.port(db, here).get("name", "")
+	_heading.text = "The Lanes — the Slow Mercy lies at %s" % Lanes.ferry_place_name(db, state)
 	for id in Lanes.known_ports(db, state):
 		var button := Button.new()
 		button.flat = true
@@ -190,6 +190,11 @@ func _focus_port(id: String) -> void:
 		return
 	var db := Content.db
 	var state := GameState.world
+	var moored := Lanes.ferry_landmark(db, state)
+	if not moored.is_empty() and id == str(moored.get("ferry", "")):
+		# The Mercy lies at a landmark (the Boat Stair): say so; nothing sails from it.
+		_info.text = "%s — %s %s" % [moored.get("name", ""), moored.get("text", ""), moored.get("moored", "")]
+		return
 	var entry := Lanes.port(db, id)
 	var lit := "lit" if Lanes.port_lit(db, state, id) else "dark"
 	var line := "%s — %s, %s." % [entry.get("name", id), entry.get("light", ""), lit]
@@ -271,6 +276,8 @@ func _draw_chart() -> void:
 				_chart.draw_circle(rock + Vector2(0, -2), 3.5, kindle)
 		else:
 			_draw_island(c, ISLAND_RADIUS * 1.8, Color(ink, 1.0).lerp(fog, 0.15), false)
+			if str(mark.get("ferry", "")) == str(state.get_flag(Lanes.FLAG, "")) and mark.has("ferry"):
+				_chart.draw_arc(c, ISLAND_RADIUS * 1.8 + 7.0, 0.0, TAU, 40, ember, 2.5, true)  # the Mercy lies here
 			# The dark Spire: a cold spike on the isle.
 			_chart.draw_colored_polygon(PackedVector2Array([c + Vector2(-5, 6), c + Vector2(5, 6), c + Vector2(0, -26)]), Color(fog, 0.45))
 		var font := get_theme_default_font()

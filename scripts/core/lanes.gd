@@ -22,6 +22,26 @@ static func current_port(db: ContentDatabase, state: WorldState) -> String:
 	return at if not at.is_empty() else str(db.lanes.get("home", ""))
 
 
+## The landmark the ferry lies at, if any (Day 81: the Boat Stair on Cindermoor, `"ferry": "cindermoor"`), else {}.
+## A landmark is no port: nothing sails from it, and its `moored` text says why.
+static func ferry_landmark(db: ContentDatabase, state: WorldState) -> Dictionary:
+	var at := str(state.get_flag(FLAG, ""))
+	if at.is_empty():
+		return {}
+	for mark: Dictionary in db.lanes.get("landmarks", []):
+		if str(mark.get("ferry", "")) == at:
+			return mark
+	return {}
+
+
+## Where the ferry lies, by name: a port's, or a landmark's when she lies at one.
+static func ferry_place_name(db: ContentDatabase, state: WorldState) -> String:
+	var mark := ferry_landmark(db, state)
+	if not mark.is_empty():
+		return str(mark.get("name", ""))
+	return str(port(db, current_port(db, state)).get("name", ""))
+
+
 ## Whether the player has seen Oda's chart (the journal's Lanes tab shows it from then on).
 static func chart_known(db: ContentDatabase, state: WorldState) -> bool:
 	return db.lanes.has("chart") and Conditions.evaluate(db.lanes["chart"], state)
@@ -147,6 +167,9 @@ static func route(db: ContentDatabase, state: WorldState, from: String, to: Stri
 ## {"ok": false, "reason": <a line for the map>}.
 static func voyage(db: ContentDatabase, state: WorldState, to: String) -> Dictionary:
 	var from := current_port(db, state)
+	var moored := ferry_landmark(db, state)
+	if not moored.is_empty():
+		return {"ok": false, "reason": str(moored.get("moored", "The Slow Mercy sails nowhere from here."))}
 	if not port_known(db, state, to):
 		return {"ok": false, "reason": "Oda knows no lane there."}
 	if to == from:
