@@ -64,7 +64,10 @@ install_blender() {
 		fi
 		log "Installing bpy==$BPY_VERSION into $venv (~400 MB)"
 		"$py" -m venv "$venv"
-		"$venv/bin/pip" install -q "bpy==$BPY_VERSION" || {
+		# --timeout: a stalled connection (Day 82: pip hung 25 min with no bytes) fails and retries
+		# instead of hanging the session.
+		"$venv/bin/pip" install -q --timeout 60 "bpy==$BPY_VERSION" \
+			|| "$venv/bin/pip" install -q --timeout 60 "bpy==$BPY_VERSION" || {
 			log "bpy install failed; Blender unavailable — asset scripts will be skipped"
 			return 0
 		}
