@@ -31,6 +31,19 @@ var _sounds_used: Dictionary = {}
 ## False while the region being validated has a malformed Greying area (its geometric
 ## checks are skipped then, the malformed area is reported instead).
 var _greying_ok := true
+## The flags' defaults and value lists for _joint_witness, built once per validate().
+var _witness_defaults: Dictionary = {}
+var _witness_values: Dictionary = {}
+var _witness_ready := false
+
+## Day 84: the ground's geometric checks (reachability, the Greying budget, the road that forgets,
+## dry feet, piers) cost ~1.3 s of a ~1.5 s validate and depend on nothing but the region's own
+## data, so their findings are remembered by a hash of it, across validators. The validator tests
+## edit one region and validate everything again; only the edited region is walked again.
+## [errors, warnings] by hash([where, _greying_ok, region]).
+static var _ground_memo: Dictionary = {}
+## Validators that walked the ground (memo misses) since the process started (for tests).
+static var ground_walks := 0
 
 
 func _init(p_db: ContentDatabase) -> void:
@@ -41,6 +54,7 @@ func _init(p_db: ContentDatabase) -> void:
 func validate() -> bool:
 	errors = db.errors.duplicate()
 	warnings.clear()
+	_witness_ready = false
 	_validate_game()
 	_validate_flags()
 	_validate_audio()
@@ -1187,6 +1201,21 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 		var colors: Dictionary = ground.get("colors", {})
 		if colors.has(color_key) and not _valid_color(str(colors[color_key])):
 			_err(where, "ground.colors.%s is not a palette color" % color_key)
+	var key := hash([where, _greying_ok, region])
+	if _ground_memo.has(key):
+		var found: Array = _ground_memo[key]
+		errors.append_array(found[0])
+		warnings.append_array(found[1])
+		return
+	var errors_before := errors.size()
+	var warnings_before := warnings.size()
+	_walk_ground(where, region, ground)
+	ground_walks += 1
+	_ground_memo[key] = [errors.slice(errors_before), warnings.slice(warnings_before)]
+
+
+## The geometric half of _validate_ground (memoized there): reads only the region's data.
+func _walk_ground(where: String, region: Dictionary, ground: Dictionary) -> void:
 	var piers_ok := _validate_piers(where, ground, float(region.get("water_level", -INF)))
 	var field := TerrainField.from_data(ground, float(region.get("water_level", -INF)))
 	var spawn: Vector3 = JsonUtil.to_vector3(region.get("spawn_points", {}).get("default", [0, 0, 0]))
@@ -1556,13 +1585,15 @@ func _check_prop_variants(where: String, region: Dictionary) -> void:
 
 ## Conditions.joint_witness over this content's flags (their defaults and value lists).
 func _joint_witness(conditions: Array) -> Dictionary:
-	var defaults: Dictionary = {}
-	var values: Dictionary = {}
-	for flag_id: String in db.flags:
-		defaults[flag_id] = db.flag_default(flag_id)
-		if not db.flag_values(flag_id).is_empty():
-			values[flag_id] = db.flag_values(flag_id)
-	return Conditions.joint_witness(conditions, defaults, values)
+	if not _witness_ready:
+		_witness_defaults = {}
+		_witness_values = {}
+		for flag_id: String in db.flags:
+			_witness_defaults[flag_id] = db.flag_default(flag_id)
+			if not db.flag_values(flag_id).is_empty():
+				_witness_values[flag_id] = db.flag_values(flag_id)
+		_witness_ready = true
+	return Conditions.joint_witness(conditions, _witness_defaults, _witness_values)
 
 
 func _flag_exempt(id: String) -> bool:
