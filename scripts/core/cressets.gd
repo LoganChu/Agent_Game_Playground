@@ -6,7 +6,9 @@ extends RefCounted
 ##   {"id": "moor_1", "flag": "cindermoor_cresset_moor_1", "position": [x, y, z], "rotation_y": deg,
 ##    "dialogue": "<story id: lighting it; must set `flag` true>", "if": condition (when it may be lit),
 ##    "pool": [shape, ...] (clear areas the lit fire holds open: rect/ellipse, strength, falloff),
-##    "road": [[x, z, 0], ...] (optional: the leg of road painted back in when lit)}
+##    "road": [[x, z, 0], ...] (optional: the leg of road painted back in when lit),
+##    "cold_model": "res://…glb" (optional: the unlit look, e.g. the doused cresset, Day 83),
+##    "prompt": "…" (optional: the object's prompt instead of PROMPT)}
 ## `ContentDatabase` expands each entry at load into ordinary region content — a cold prop and a lit
 ## prop, a "Light the cresset" object, `clear` Greying areas and a conditional road paint, all keyed
 ## on `flag` — so the region builder, fog, conditions and validator need nothing new. The raw list
@@ -21,7 +23,7 @@ const FIRE := [0.0, 2.25, 0.0]
 const PROMPT := "Light the cresset"
 const ROAD_COLOR := "#262322"
 const ROAD_WIDTH := 1.6
-const KEYS: Array[String] = ["id", "flag", "position", "rotation_y", "dialogue", "if", "pool", "road", "note"]
+const KEYS: Array[String] = ["id", "flag", "position", "rotation_y", "dialogue", "if", "pool", "road", "cold_model", "prompt", "note"]
 
 
 ## Expands a region's `cressets` into props/objects/greying/paint in place. Idempotent: entries it
@@ -44,7 +46,7 @@ static func expand(region: Dictionary) -> void:
 		var pos: Variant = c.get("position", [0, 0, 0])
 		var rot := float(c.get("rotation_y", 0.0))
 		(region["props"] as Array).append({
-			"model": MODEL_COLD, "position": pos, "rotation_y": rot,
+			"model": str(c.get("cold_model", MODEL_COLD)), "position": pos, "rotation_y": rot,
 			"collider": COLLIDER, "if": unlit, "cresset": id, "note": "Cresset '%s', cold." % id})
 		(region["props"] as Array).append({
 			"model": MODEL_LIT, "position": pos, "rotation_y": rot, "collider": COLLIDER, "if": lit,
@@ -56,7 +58,7 @@ static func expand(region: Dictionary) -> void:
 		if c.get("if") != null:
 			when = [unlit] + (c["if"] as Array if c["if"] is Array else [c["if"]])
 		(region["objects"] as Array).append({
-			"id": "cresset_" + id, "prompt": PROMPT, "dialogue": str(c.get("dialogue", "")),
+			"id": "cresset_" + id, "prompt": str(c.get("prompt", PROMPT)), "dialogue": str(c.get("dialogue", "")),
 			"position": pos, "reach": 2.0, "glint": [0, 2.4, 0], "if": when, "cresset": id})
 		for shape: Variant in c.get("pool", []):
 			if not shape is Dictionary:
