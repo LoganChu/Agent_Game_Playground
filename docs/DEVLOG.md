@@ -2,6 +2,55 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-04 21:00 UTC — Day 84: polish pass twelve (polish)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to
+  `origin/main` (Day 83's `bea2758`). Baseline: 593 tests + smoke + launch green, suite 130 s.
+- **Polish pass twelve** (ROADMAP *Next up* #1; four content sessions in a row before it):
+  - **Nameplates under modals.** Every NPC's floating name now hides while anything holds input (the dialogue, the
+    menus, the act card), not just the speaker's own. Brother Tobin's showed through the act card's shade.
+  - **A warning before the road forgets.** Until now the only sign was the fade after 1.6 s lost. The HUD now shows a
+    fog veil and "Which way was it?" (`Hud.set_lost`, `GreyingWalker.lost_cue`). A faint hint appears as the way grows
+    unsure, rising to full as the time runs out. It is hidden under modals and cleared after the bring-back and on
+    region entry. The smoke walk checks it shows before the road forgets and is gone after.
+  - **The cresset road no longer saws.** The long legs up the long steps had slight slants (z −1.2 → −1.4 over
+    15 m), which cross the 1 m triangle rows one at a time. They now run at a constant integer z, and the turns stay
+    real diagonals. A test holds the rule.
+  - **The far Spire stand-in no longer floats.** It was at (−6, 10, −100), with its foot hanging over the fog sea. It
+    is now on the road's line beyond the crown exit, at (22, 0, −95), with its foot sunk below the top terrace's edge,
+    so it rises out of the fog over where the road goes.
+  - **Test time halved and more.** The validator's ground walk (reachability, Greying budget, forgetting chain, dry
+    feet, piers) was ~1.3 s of each ~1.5 s validate, and the suite validates all content a few dozen times. It reads
+    only the region's own data, so its findings are now memoized by a hash of the region. The reference/usage checks
+    still run every time, and an edited region is walked again. `_joint_witness` builds its flag tables once per
+    validate. The suite went from **~130 s to ~55 s**.
+- **Tests:** `test_polish_twelve.gd` (6): nameplates under a modal; the cue's curve; the HUD veil/line; the memo (no
+  re-walk, one re-walk for an edited region, remembered findings still reported); the road on the grid; the Spire on the
+  crown road. 599 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-11-04-pm-road-on-the-grid.png` (the lit road up the switchbacks, straight now) and
+`…-pm-far-spire.png` (the Spire rising out of the fog past the crown exit).
+
+**Decisions**
+- **The memo is keyed on the region's data, not on file timestamps.** Tests mutate regions in memory, so only a content
+  hash is safe. The rule for later is recorded in TECH: a geometric check that reads anything outside the region
+  must go before the memo or join its key.
+- **The cue is a veil and a line, not a sound.** The audio cue (muffle and heartbeat) already belongs to the ember.
+  A second sound for the road would compete with it. The road can get its own sound in the audio follow-ups.
+- **Not done this pass:** the scenario lint (it needs a clearer definition; carried to pass thirteen) and the
+  Compatibility-renderer paint contrast. That one can't be judged from sandbox screenshots, so it was folded into the
+  owner's Vulkan colour pass.
+
+**Problems / notes**
+- `screenshot.gd`'s `--at` doesn't take effect when a `--scenario` spawn applies, so there's no screenshot of the lost
+  cue. Logged for pass thirteen.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **the chapter comes in** (content, Day 85). The Provost's boat of Keepers down the lane in; the
+   scraped roll; the doused cresset relit by the Keepers if the Wakebearer was led. Fetch and reset `main` before
+   trusting it.
+
 ## 2026-11-04 09:00 UTC — Day 83: the doused cresset and the Spire's foot (content)
 
 **Did**

@@ -630,6 +630,13 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
 - **The crown** (`cindermoor_spire_foot`) has no Greying areas: the fog "stops" there (only the environment fog). The
   `spire_foot` model is placed `rotation_y` 90 so its front (the door, model +Z) faces east up the road; the round foot
   is two crossed box colliders (10 × 7 and 7 × 10) plus the niche booth (`colliders` offset `[2.35, 0, 4.9]`).
+- **Day 84:** the HUD warns before the road forgets: `GreyingWalker.lost_cue(forgetting, forget_time)` → `Hud.set_lost`
+  (a `silverfog` veil up to `LOST_VEIL_ALPHA` 0.3 and "Which way was it?" under the centre). A faint hint up to
+  `LOST_HINT` (0.3) as forgetting rises from half `FORGET_DEPTH` to `FORGET_DEPTH`, then rising with `forget_time` to 1 at
+  `FORGET_SECONDS`; hidden under a modal, cleared on region entry and after the bring-back. **Road legs:** a long leg
+  (≥ 6 m) runs along a grid axis or at a real diagonal (slant ≥ 0.5) — a shallow slant crosses the 1 m triangle rows one
+  at a time and saws (`test_polish_twelve.gd` checks the long steps). Keep long legs on an integer z/x so the 1.6 m
+  road covers exactly two triangle rows.
 
 ### Atmosphere & water (Day 12)
 `Atmosphere` (child of main) owns the `WorldEnvironment` and the sun. A region's mood =
@@ -1093,6 +1100,11 @@ writes each as a .wav (never commit them).
 WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
 
 ## Testing
+- `tests/test_polish_twelve.gd` — (Day 84) every nameplate hides while a modal holds input (the act card's shade);
+  the lost cue's curve and the HUD veil/line; the validator's ground memo (no re-walk when unchanged, one re-walk for
+  an edited region, remembered findings still reported); the long steps' road legs on the grid; the far Spire on the
+  crown road's line with its foot below the top terrace. The smoke walk checks the cue shows before the road forgets
+  and is gone after.
 - `tests/test_polish_ten.gd` — (Day 73) the close-camera body fade (`body_opacity` between the hide and fade
   distances; every model mesh fades, hidden at 0, out of the alpha pass at 1; the ember light untouched); conversation
   framing (`dialogue_yaw` sides and the ±PI seam; easing in, the pivot slide, the shorter arm, the player's own yaw
@@ -1242,6 +1254,13 @@ WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and a
 - `tests/run_tests.gd` prints each test's time and the slowest eight (Day 31). Keep the suite well
   inside `run_checks.sh`'s 300 s per step: a validator pass over every region runs once per validator
   test (~20 of them), so a slow per-region check multiplies. Day 31: 26 s.
+  **Day 84:** the ground's geometric checks (`ContentValidator._walk_ground`: reachability, the Greying budget, the
+  forgetting chain, dry feet, piers — ~1.3 s of a ~1.5 s validate) read only the region's own data, so their findings
+  are memoized in a static `_ground_memo` keyed by `hash([where, _greying_ok, region])`; the reference/usage checks
+  always run. A validator test that edits one region re-walks only that region (`ContentValidator.ground_walks` counts
+  misses). A geometric check that ever reads anything outside the region (another region, a model file's contents, a
+  static setting) must go before the memo in `_validate_ground`, or join the key. `_joint_witness`'s flag tables are
+  built once per `validate()`. Suite: ~130 s → ~55 s.
 - `tests/test_wrackholm.gd` — Day 40: the east lane (asked + done here; the full sailing honouring what was carried to
   Dunstan; back to the fen only; later sailings short), Oda and the ferry in exactly one region on every lane, the
   layout (reachable, the yard's thin fog, Wenna by the horn and the door, the Wrack Light out of reach in the Teeth's fog,
