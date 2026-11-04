@@ -382,7 +382,8 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 		return
 	var foot: Region = main.get("region")
 	_check(world.quest_state("the_way_up") == "done" and world.get_flag("cindermoor_crown_reached") == true, "The Way Up done at the Spire's foot")
-	_check(_shown_model(foot, "spire_foot.glb") == 1, "the Hearthspire's foot")
+	var foot_scenes: Array = foot.find_children("*", "Node3D", true, false).map(func(n: Node) -> String: return n.scene_file_path.get_file())
+	_check(foot_scenes.has("spire_foot.glb") and _shown_model(foot, "cinder_cresset_lit.glb") == 1, "the Hearthspire's foot, the relit cresset's glow below the brow")
 	_object("foot_niche").interact()
 	_check(_choose(ui, "Read the roll."), "the novices' roll")
 	_finish_dialogue(ui, "foot_niche")
