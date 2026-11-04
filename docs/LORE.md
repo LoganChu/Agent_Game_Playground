@@ -1377,7 +1377,44 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     out and trodden into the cinder, the basket packed with wet cinder, a flat stone on top; three days to get it cold.
     It was the last the novices lit coming down ("they lit them going down as well as going up … so the next ones up
     could find the way"). "There are no next ones. We'd like it to stay that way." Past it the road goes on up to the
-    crown, and forgets. *(Open: the way on up — relighting it over the Unmoored's wish, or another way. Next step.)*
+    crown, and forgets. *(Day 83: see below.)*
+- **The way on up (Day 83, `cindermoor_way_on`).** Two ways past the doused cresset, both kept:
+  - **Relit** (`relit`, `cindermoor_cresset_steps_5`): the Wakebearer lifts the stone and digs out the wet cinder by
+    hand, and the old coals take "as if the cresset had only been waiting for somebody to stop telling it no". Ness says
+    "Don't." (and, if the ember was covered for her, "You covered it for me. I thought that meant something.") The
+    road remembers up to the crown, and **the Unmoored get up and go off east along the shoulder into the fog, taking
+    nothing**; Ness's rake is left leaning on the shelter. "There'll be next ones now. You've seen to that." Seven
+    cressets now burn up the moor (two on the notch, five on the steps).
+  - **Led** (`led`): Ness walks the Wakebearer up **in the dark, by her rake** — a tick on the road's edge-stones, a
+    step, a tick — on condition the ember stays covered (asked bare, she asks again first) and that nothing is lit coming
+    down. The Wakebearer counts the ticks and **knows the next number before they reach it**, "the way you know the next
+    stair in your own house in the dark" *(mystery #2)*; "You're counting. Stop that. That's how you get back to
+    things." She stops where the fog thins: **"This is as far as I come. Higher up's hers, and she doesn't like to be
+    followed."** She'll take them up again. The doused cresset stays doused (relighting it afterwards is still possible,
+    and she'd know whose fire it was).
+  - **Merrit**, back at the Boat Stair after a relighting, isn't coiling: "Seven. Seven up the moor. Seven out. Seven
+    lit. Somebody's coming down, then." (`cindermoor_merrit_seven_lit`) — he hums nearer the tune after.
+- **The crown and the Spire's foot** (`cindermoor_spire_foot`, Day 83, Act III step 3). **The fog stops** at the crown:
+  it stands all round like a wall, as high as can be seen, and inside it the air is only grey — "the middle of a drain
+  is dry" *(mystery #3, do not explain)*. The Hearthspire stands up out of the middle, pale stone going straight up out
+  of sight. *The Way Up* is done here.
+  - **The east stair door**, on the Spire's east face up two worn steps: grey oak, three iron bands, **open a hand's
+    width**, a wind of cold ash and candle-ends coming down through the gap and not stopping. The Wakebearer stops on the
+    threshold counting — "One." — and **can't think what comes after one**. Not yet. *(The east stair is Act III step 8.)*
+  - **The warden's niche** beside it: a stone booth built out from the wall, so the door-warden could see every face go
+    up and every face come down. A seat worn hollow (thirty-one years of Aldous), a shelf with **a bundle of uncut tapers
+    and Aldous's knife** (blade whetted thin as a leaf); the Stair-Taper's notches fit that knife.
+  - **The novices' roll** on its peg: every novice who came up the east stair, a winter to a line, the oldest copied. The
+    last midwinter: **Ama Rusk, Tobin Petch, Kit Petch, Joss Merrow, Edda Pike, Fennick** — and a seventh place
+    **scraped down to the skin with a blade**. Keepers **strike a name through** (one line, so it can still be read: "the
+    Long Book doesn't forget, it only finishes"); **nobody scrapes one** — scraping is wanting it never to have been. The
+    Wakebearer knows the rule "the way you know your own hand" *(mystery #2)*. The ember doesn't answer the scraped place:
+    the first thing on Cindermoor that hasn't. (*The Seventh Name*, `future`.)
+  - **The back of the roll**: the boat-warden's list for the night of the Snuffing (Merrit's hand) — seven boats and their
+    crews, all ticked launched — and **"Eighth — kept back. Her word."** Whose word isn't written *(the eighth slip's
+    first clue; never name her or Oriel yet)*.
+  - **A path worn round the Spire's foot** in the cinder, one pair of feet, round and round — the woman "higher up" who
+    doesn't sit *(Act III step 6; never named yet)*.
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1413,12 +1450,13 @@ The order Act III's sessions should take, paced over months: one big reveal per 
 (#2, #4) last. Working names; LORE records them as canon only when the content lands.
 1. **The crossing in** (Day 81, written: the lane in, the Boat Stair, Merrit, the eighth slip — see *Cindermoor*).
 2. **The way up** *(Day 82, written: the cressets, the long steps, Ness and the doused cresset — see *Cindermoor*; the
-   doused cresset's choice opens step 3)*. The cinder road forgets where it goes. The way up the moor is found by light, not by sight: the
+   doused cresset's choice opens step 3; Day 83: relit or led, both canon)*. The cinder road forgets where it goes. The way up the moor is found by light, not by sight: the
    novices' **waymark cressets** up the switchbacks (cold since the Snuffing) can be lit from the ember — each lit one
    remembers the road as far as the next (Greying v2: paths that fade). The moor's first people: **Unmoored** who came to
    Cindermoor *on purpose* because the fog is thickest here — they want it to stay (the faction's sharpest edge). Pays off
    the Unmoored thread from the fen; Hesper/Dunstan can be named by them.
-3. **The Spire's foot.** The warden's niche at the foot of the east stair (Aldous's knife, his tapers on the shelf) and
+3. **The Spire's foot.** *(Day 83, written: the crown, the door, the niche, the roll scraped, "Eighth — kept back. Her
+   word." — see *Cindermoor*.)* The warden's niche at the foot of the east stair (Aldous's knife, his tapers on the shelf) and
    **the novices' roll** (Day 47 hook): seven names, one scraped out — *not* struck through (the Long Book's rule broken,
    which a Keeper would notice). Whose boat is in the eighth slip gets its first clue here.
 4. **The chapter comes in.** The Provost brings a boat of Keepers down the lane in to "do it properly" — the rite for the

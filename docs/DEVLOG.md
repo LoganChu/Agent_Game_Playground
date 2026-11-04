@@ -2,6 +2,69 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-04 09:00 UTC — Day 83: the doused cresset and the Spire's foot (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to
+  `origin/main` (Day 82's `a757bdb`).
+- **Content (ROADMAP *Next up* #1, LORE Act III steps 2-3):**
+  - **The way on up, two ways, both canon** (`cindermoor_way_on`):
+    - **Relit.** Once the doused cresset has been looked at, it can be dug out: the stone lifted, the wet cinder dug out
+      by hand. Ness says "Don't." If the ember was covered for her she adds "You covered it for me. I thought that meant
+      something." The coals take "as if the cresset had only been waiting for somebody to stop telling it no", the road
+      remembers up to the crown, and **the Unmoored get up and go off along the shoulder into the fog**. Ness's rake is
+      left leaning on the shelter. Back at the Boat Stair, **Merrit counts seven**: "Seven out. Seven lit. Somebody's
+      coming down, then."
+    - **Led.** Ness walks the Wakebearer up in the dark by her rake, as long as the ember stays covered. If it was bare,
+      she asks again first. The Wakebearer counts the ticks and knows the next number before they reach it (mystery
+      #2): "You're counting. Stop that." Her last line: "Higher up's hers." She'll take them up again. Relighting
+      afterwards is still possible, and the scene notes she'd know whose fire it was.
+  - **New region, the Spire's Foot** (`cindermoor_spire_foot`). At the crown **the fog stops**, standing all round like
+    a wall ("the middle of a drain is dry"), and *The Way Up* is done. **The east stair door** stands ajar on the dark;
+    the Wakebearer stops on the threshold counting "One." and can't think what comes after one. **The warden's niche**
+    holds Aldous's seat, his uncut tapers and his knife (the Stair-Taper's notches fit it). **The novices' roll** lists
+    Ama Rusk, Tobin and Kit Petch, Joss Merrow, Edda Pike and Fennick, and **a seventh name scraped off, not struck
+    through**. Keepers strike names through; nobody scrapes one. The ember doesn't answer the scraped place. This starts
+    *The Seventh Name* (`future`). On the back of the roll is Merrit's boat list: seven boats launched, then "Eighth —
+    kept back. Her word." There is also a path worn round the Spire's foot by one pair of feet, and a view back down the
+    moor (seven lights in a line, or "how many steps").
+- **Systems (small):** cressets take `cold_model` and `prompt`. The doused cresset is now cresset `steps_5`, so the
+  chain check covers it and the doused prop has gone.
+- **Blender:** `build_cindermoor.py spire_foot`: the Hearthspire's foot at full scale, with the door, the niche booth,
+  the shelf of tapers, the knife and the roll.
+- **Tests:** `test_the_spire_foot.gd` (8 tests): dug out only once seen; relit, with Ness's lines by ember and the
+  Unmoored gone; led, both ember ways, again, and relit after; the crown arrival either way, once; the niche and roll
+  (no secret names); the door and the ring; Merrit's seven, once and only after relighting; the region, the spawn's
+  clear pocket and `cold_model` validation. `test_the_way_up` now expects five cressets and a per-cresset prompt and
+  model. The smoke walk relights the cresset, goes up to the crown, reads the roll and tries the door. Checkpoint
+  `the_spire_foot`. 593 tests + smoke + launch pass.
+
+Screenshots: `docs/screenshots/2026-11-04-am-spire-foot.png` (the door and the niche) and `…-am-doused-relit.png` (the
+relit cresset by the empty shelter); `docs/checkpoints/the_spire_foot.png`.
+
+**Decisions**
+- **No `act3` entry yet, again.** I tried adding one, but its `when` needs a flag, and the validator rejects a flag
+  that no content sets (even when marked `future`). *The Way Up* now completes but stays `future` until the lantern
+  room exists. Logged in the roadmap.
+- **Both ways up are kept, and neither is "right".** Relighting gives the light but drives the Unmoored off. Being led
+  keeps their dark but leaves the Wakebearer counting. The chapter's arrival (next content) should respond to whichever
+  happened.
+- **The crown has no Greying areas.** The fog stopping there is the point (mystery #3 foreshadowing), and it keeps the
+  validator simple.
+- The way down from the crown always comes out at the light's edge (`from_crown`). That spot needs a small
+  unconditional clear ellipse, because spawns must be clear in the worst case.
+
+**Problems / notes**
+- The first full check failed on my own smoke check: `_shown_model` only counts conditional props, and the Spire's foot
+  isn't conditional. It is fixed and the gate is green.
+- The test suite now takes ~146 s.
+- The east stair door looks shut rather than ajar from most angles, and the worn ring path barely shows in the
+  Compatibility renderer. Both are logged under dressing.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish pass twelve** (do it Day 84; four content sessions in a row). Then #2, **the chapter
+   comes in**. Fetch and reset `main` before trusting it.
+
 ## 2026-11-03 21:00 UTC — Day 82: the way up — the road that forgets, the cressets, the Unmoored (systems + content)
 
 **Did**
