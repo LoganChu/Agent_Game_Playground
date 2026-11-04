@@ -329,14 +329,18 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(walker.forgetting < Greying.FORGET_DEPTH * 0.5, "the road remembered in the cresset's light (%.2f)" % walker.forgetting)
 	player.place_at(Vector3(12.3, stair.ground_y(12.3, -14.8) + 0.2, -14.8))
 	var guard := 0
+	var cue := 0.0  # Day 84: the HUD warns as the way goes, before the fade
 	while not walker.turning_back and guard < 200:
 		guard += 1
 		await get_tree().physics_frame
+		cue = maxf(cue, (main.get("hud") as Hud).lost_shown())
 	_check(walker.turning_back, "the road forgets past the light (forgetting %.2f)" % walker.forgetting)
+	_check(cue > GreyingWalker.LOST_HINT, "the HUD warned the road was going (%.2f)" % cue)
 	if walker.turning_back:
 		await walker.road_forgot
 	for i in 3:
 		await get_tree().physics_frame
+	_check((main.get("hud") as Hud).lost_shown() == 0.0, "the warning gone once the way is found")
 	var back := player.global_position
 	_check(Vector2(back.x, back.z).distance_to(Vector2(lit.x, lit.z)) < 1.5 and not GameState.input_locked, "brought back to the light (%s)" % back)
 	_object("cresset_stair_2").interact()

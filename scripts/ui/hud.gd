@@ -17,6 +17,9 @@ var _meter_bar: ProgressBar
 var _wash: ColorRect
 var _fade: ColorRect
 var _keys: Label
+## The road starting to forget (Day 84): a fog veil and a line, before the fade turns them back.
+var _lost_veil: ColorRect
+var _lost_line: Label
 ## What the interaction prompt is showing (re-labelled when the interact key is rebound).
 var _focus: Interactable = null
 ## Starts "long idle" so the meter doesn't flash up on load.
@@ -56,6 +59,25 @@ func set_ember(ember: float, depth: float) -> void:
 	_meter.modulate.a = move_toward(_meter.modulate.a, want, get_physics_process_delta_time() * 3.0)
 	_meter.visible = _meter.modulate.a > 0.0
 	_wash.color.a = WASH_ALPHA * (1.0 - ember) * (1.0 if depth >= Greying.CLEAR_DEPTH else ember)
+
+
+## Strongest fog veil while the road forgets, just before the fade takes over.
+const LOST_VEIL_ALPHA := 0.3
+const LOST_TEXT := "Which way was it?"
+
+
+## Shows how near the road is to forgetting (0 sure of the way … 1 about to be turned back;
+## GreyingWalker.lost_cue): a fog veil thickening over the screen and a line under the centre.
+func set_lost(amount: float) -> void:
+	amount = clampf(amount, 0.0, 1.0)
+	_lost_veil.color.a = LOST_VEIL_ALPHA * amount
+	_lost_line.modulate.a = clampf(amount * 1.6, 0.0, 1.0)
+	_lost_line.visible = amount > 0.0
+
+
+## How strong the road-forgetting cue is (0 when hidden).
+func lost_shown() -> float:
+	return _lost_veil.color.a / LOST_VEIL_ALPHA
 
 
 ## The key hint hides while a modal (dialogue, journal, menu, act card) holds input — the
@@ -153,6 +175,22 @@ func _build() -> void:
 	_toasts.offset_top = 20
 	_toasts.grow_horizontal = Control.GROW_DIRECTION_BEGIN
 	root.add_child(_toasts)
+	_lost_veil = ColorRect.new()
+	_lost_veil.name = "LostVeil"
+	_lost_veil.color = Color(fog, 0.0)
+	_lost_veil.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_lost_veil.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(_lost_veil)
+	_lost_line = _make_label(UiTheme.HUD_TITLE)
+	_lost_line.name = "LostLine"
+	_lost_line.text = LOST_TEXT
+	_lost_line.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_lost_line.offset_top = 60
+	_lost_line.offset_bottom = 120
+	_lost_line.offset_left = -400
+	_lost_line.offset_right = 400
+	_lost_line.visible = false
+	root.add_child(_lost_line)
 	# Last, so the turn-back fade covers everything.
 	_fade = ColorRect.new()
 	_fade.name = "GreyingFade"
