@@ -366,6 +366,31 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_finish_dialogue(ui, "steps_doused")
 	_check(world.quest_stage("the_way_up") == "the_doused" and world.get_flag("cindermoor_ness_ember") == "cupped", "the way on up waits on the doused cresset")
 	print("Smoke: the way up — six cressets lit, Ness met")
+	# Day 83: dig the doused cresset out over the Unmoored's wish; they go, and the road remembers up to the crown.
+	_check(_object("cresset_steps_5") != null and _object("steps_doused") == null, "the doused cresset can be dug out")
+	if _object("cresset_steps_5") == null:
+		return
+	_object("cresset_steps_5").interact()
+	_check(_choose(ui, "Lift the stone and dig it out."), "dug out and relit")
+	_finish_dialogue(ui, "cresset_steps_5")
+	for i in 2:
+		await get_tree().process_frame
+	_check(world.get_flag("cindermoor_way_on") == "relit" and _shown_model(steps, "cinder_cresset_lit.glb") == 5, "five cressets burn up the long steps")
+	_check(_npc("ness") == null and _shown_model(steps, "unmoored_shawl.glb") == 0, "the Unmoored have gone into the fog")
+	_check(_object("steps_unmoored_gone") != null, "where they stood")
+	if not await _take_exit(main, ui, "cindermoor_spire_foot", "up the road to the crown"):
+		return
+	var foot: Region = main.get("region")
+	_check(world.quest_state("the_way_up") == "done" and world.get_flag("cindermoor_crown_reached") == true, "The Way Up done at the Spire's foot")
+	_check(_shown_model(foot, "spire_foot.glb") == 1, "the Hearthspire's foot")
+	_object("foot_niche").interact()
+	_check(_choose(ui, "Read the roll."), "the novices' roll")
+	_finish_dialogue(ui, "foot_niche")
+	_check(world.quest_stage("the_seventh_name") == "scraped", "the seventh name scraped out")
+	_object("foot_door").interact()
+	_finish_dialogue(ui, "foot_door")
+	_check(world.get_flag("cindermoor_stair_door_tried") == true, "the east stair door, not yet")
+	print("Smoke: the Spire's foot — the doused cresset relit, the roll read")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
