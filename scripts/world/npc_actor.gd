@@ -94,6 +94,11 @@ static func turn_step(current: float, target: float, delta: float) -> float:
 	return lerp_angle(current, target, 1.0 - exp(-TURN_SPEED * delta))
 
 
+## True while the floating name is on screen (for tests).
+func is_nameplate_shown() -> bool:
+	return _label != null and _label.visible
+
+
 ## The body's current yaw relative to the placed facing (for tests).
 func body_yaw() -> float:
 	return _body.rotation.y if _body else 0.0
@@ -107,8 +112,10 @@ func _process(delta: float) -> void:
 	if _rig:
 		_rig.resting = _talking
 	# The dialogue box names the speaker; their floating name would only sit over the framing.
+	# Every other nameplate hides too while a modal holds input (dialogue, menus, the act
+	# card): they showed through the card's shade.
 	if _label:
-		_label.visible = not _talking
+		_label.visible = not _talking and not GameState.input_locked
 	if _body == null:
 		return
 	var target := _face_yaw if _talking else 0.0
