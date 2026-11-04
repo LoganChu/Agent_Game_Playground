@@ -271,7 +271,80 @@ def build_cinder_cresset_doused() -> None:
     bd.export("cinder_cresset_doused")
 
 
+def build_spire_foot() -> None:
+    """The Hearthspire's foot at full scale (Day 83, the crown of Cindermoor): the plinth, the battered foot and the
+    first ~14 m of the shaft going up into the fog (the rest is fog). On the front (-Y, Godot +Z) **the east stair
+    door**, ajar a hand's width on the dark, two worn steps up to it; to its right (+X) **the warden's niche**, a
+    little stone booth built out from the wall: a seat, a shelf with a bundle of uncut tapers and the knife that cut
+    them, and the novices' roll on its peg. Origin at the plinth's centre on the ground."""
+    bd.reset()
+    rng = random.Random(830)
+    PALE, PALE2, PALE3 = mat("bone", -0.12), mat("bone", -0.25), mat("bone", -0.38)
+    DARK, IRON = mat("ink", -0.2), mat("ink", 0.12)
+    WOOD, VELLUM = mat("driftwood", -0.55), mat("bone", -0.05)
+    cyl("Plinth", 5.6, 5.45, 0.55, 16, (0, 0, -0.25), PALE3)
+    cyl("Foot", 5.1, 4.6, 3.6, 16, (0, 0, 0.3), PALE2)
+    cyl("FootBand", 4.75, 4.6, 0.25, 16, (0, 0, 3.9), PALE3)
+    cyl("Shaft", 3.75, 3.35, 13.0, 16, (0, 0, 4.15), PALE)
+    for k in range(3):
+        z = 7.0 + k * 3.6
+        r = 3.75 - (z - 4.15) / 13.0 * 0.4 + 0.06
+        cyl("Band", r, r - 0.01, 0.22, 16, (0, 0, z), PALE2)
+    # Slit windows up the east face, spiralling with the stair inside.
+    for k in range(6):
+        z = 5.0 + k * 1.9
+        a = -math.pi / 2 + (k % 3 - 1) * 0.45
+        r = 3.75 - (z - 4.15) / 13.0 * 0.4 + 0.02
+        box("Slit", (0.24, 0.16, 0.8), (math.cos(a) * r, math.sin(a) * r, z), DARK, a + math.pi / 2)
+    # Weathered blocks scattered on the foot's face so it reads as dressed stone.
+    for k in range(22):
+        a = rng.uniform(0, math.tau)
+        z = rng.uniform(0.5, 3.4)
+        r = 5.1 - (z - 0.3) / 3.6 * 0.5
+        if abs(math.sin(a) + 1) < 0.08 and abs(math.cos(a)) < 0.5:
+            continue  # keep the door clear
+        box("Block", (0.9, 0.08, 0.38), (math.cos(a) * r, math.sin(a) * r, z), PALE3, a + math.pi / 2)
+    # The east stair door (front, -Y): a deep dark opening in a frame of jambs and a lintel, two steps up.
+    door_y = -4.98
+    box("DoorDark", (1.2, 0.6, 2.4), (0, door_y + 0.2, 0.3), DARK)
+    for x in (-0.75, 0.75):
+        box("Jamb", (0.3, 0.45, 2.5), (x, door_y - 0.05, 0.3), PALE3)
+    box("Lintel", (1.9, 0.5, 0.42), (0, door_y - 0.06, 2.8), PALE3)
+    box("Keystone", (0.42, 0.56, 0.5), (0, door_y - 0.09, 2.95), PALE2)
+    box("Step", (1.8, 0.5, 0.17), (0, door_y - 0.5, 0.0), PALE3)
+    box("Step", (1.6, 0.42, 0.17), (0, door_y - 0.12, 0.17), PALE2)
+    # The door itself, iron-banded, swung in on its -X hinge, ajar on the dark.
+    box("Door", (1.12, 0.1, 2.36), (-0.02, door_y + 0.12, 0.34), WOOD)
+    for z in (0.75, 1.55, 2.3):
+        box("DoorBand", (1.14, 0.12, 0.08), (-0.02, door_y + 0.1, z), IRON)
+    box("DoorGap", (0.12, 0.3, 2.3), (0.5, door_y + 0.02, 0.34), DARK)
+    rod("Ring", (0.32, door_y - 0.02, 1.25), (0.32, door_y - 0.12, 1.25), 0.05, IRON)
+    # The warden's niche: a booth of the same stone built out from the wall to the door's right (+X).
+    nx, back_y, front_y = 2.35, -4.42, -5.45
+    depth = back_y - front_y
+    mid_y = (back_y + front_y) / 2
+    for x in (nx - 0.8, nx + 0.8):
+        box("NicheWall", (0.22, depth, 2.3), (x, mid_y, 0.3), PALE2)
+    box("NicheRoof", (1.9, depth + 0.2, 0.22), (nx, mid_y - 0.05, 2.6), PALE3)
+    box("NicheBack", (1.4, 0.12, 2.3), (nx, back_y + 0.02, 0.3), mat("bone", -0.55))
+    box("NicheFloor", (1.4, depth, 0.06), (nx, mid_y, 0.3), PALE3)
+    box("Seat", (1.2, 0.42, 0.45), (nx, back_y - 0.26, 0.36), PALE2)
+    box("Shelf", (1.3, 0.3, 0.06), (nx, back_y - 0.2, 1.45), WOOD)
+    # A bundle of uncut tapers, and the knife that cut them, on the shelf.
+    for k in range(7):
+        rod("Taper", (nx - 0.48 + k * 0.035, back_y - 0.13 - (k % 2) * 0.04, 1.53),
+            (nx - 0.02 + k * 0.035, back_y - 0.13 - (k % 2) * 0.04, 1.53), 0.016, VELLUM, verts=4)
+    box("Blade", (0.2, 0.03, 0.01), (nx + 0.12, back_y - 0.26, 1.51), mat("silverfog", -0.2), 0.25)
+    box("Haft", (0.12, 0.035, 0.03), (nx + 0.27, back_y - 0.22, 1.51), WOOD, 0.25)
+    # The novices' roll, rolled on its peg on the niche's back wall, its foot hanging open.
+    rod("Peg", (nx + 0.4, back_y, 1.95), (nx + 0.4, back_y - 0.16, 1.95), 0.02, WOOD)
+    rod("Roll", (nx + 0.22, back_y - 0.1, 1.97), (nx + 0.58, back_y - 0.1, 1.97), 0.05, VELLUM, verts=6)
+    box("RollFoot", (0.34, 0.01, 0.42), (nx + 0.4, back_y - 0.14, 1.53), VELLUM)
+    bd.export("spire_foot")
+
+
 BUILDERS = {
+    "spire_foot": build_spire_foot,
     "boat_stair": build_boat_stair,
     "boathouse_slips": build_boathouse_slips,
     "hearthspire_far": build_hearthspire_far,
