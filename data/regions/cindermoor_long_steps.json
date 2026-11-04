@@ -1,7 +1,7 @@
 {
   "id": "cindermoor_long_steps",
   "name": "Cindermoor — the Long Steps",
-  "description": "Above the Boat Stair's notch Cindermoor goes up in long steps of black cinder and brown heather towards the crown, and the cinder road zig-zags up them into the heaviest fog on the ring, a cold waymark cresset at every turn. The road has forgotten where it goes; each cresset lit from the ember makes it remember as far as the next. At the top of the steps the Unmoored sit in the fog.",
+  "description": "Above the Boat Stair's notch Cindermoor goes up in long steps of black cinder and brown heather towards the crown, and the cinder road zig-zags up them into the heaviest fog on the ring, a cold waymark cresset at every turn. The road has forgotten where it goes; each cresset lit from the ember makes it remember as far as the next. At the top of the steps the Unmoored sit in the fog. Past the doused cresset the road goes on up to the crown.",
   "fog": {
     "density": 0.03,
     "color": "#989DA1"
@@ -54,6 +54,18 @@
       "falloff": 2.0,
       "clear": true,
       "note": "The lip of the notch: the Boat Stair's two cressets glow up over it from below, and the wind off the sea keeps it thin."
+    },
+    {
+      "ellipse": [
+        10.0,
+        -28.4,
+        1.8,
+        1.6
+      ],
+      "strength": 1.0,
+      "falloff": 1.2,
+      "clear": true,
+      "note": "Where the Unmoored stand at the light's edge, the way back down from the crown comes out (the from_crown spawn): a breath of clear, so the road never forgets under someone just arrived."
     }
   ],
   "spawn_points": {
@@ -66,6 +78,11 @@
       16.0,
       0,
       15.4
+    ],
+    "from_crown": [
+      10.0,
+      0,
+      -28.4
     ]
   },
   "ground": {
@@ -484,6 +501,70 @@
         ]
       ],
       "note": "The third turn, on the shoulder: its light reaches east as far as the Unmoored, and stops."
+    },
+    {
+      "id": "steps_5",
+      "flag": "cindermoor_cresset_steps_5",
+      "position": [
+        15.6,
+        0,
+        -31.2
+      ],
+      "rotation_y": 25,
+      "cold_model": "res://assets/models/dressing/cinder_cresset_doused.glb",
+      "prompt": "Dig out the doused cresset",
+      "if": "flag:cindermoor_doused_seen",
+      "dialogue": "cindermoor_cresset_steps_5",
+      "pool": [
+        {
+          "ellipse": [
+            15.0,
+            -31.0,
+            3.2,
+            2.6
+          ],
+          "strength": 1.0,
+          "falloff": 2.0
+        },
+        {
+          "ellipse": [
+            19.0,
+            -37.6,
+            2.6,
+            5.6
+          ],
+          "strength": 1.0,
+          "falloff": 2.5
+        }
+      ],
+      "road": [
+        [
+          11.0,
+          -30.0,
+          0
+        ],
+        [
+          15.0,
+          -30.0,
+          0
+        ],
+        [
+          18.4,
+          -32.6,
+          0
+        ],
+        [
+          19.2,
+          -37.0,
+          0
+        ],
+        [
+          19.0,
+          -42.4,
+          0
+        ]
+      ],
+      "note": "The one the Unmoored put out, the last the novices lit coming down: relit over their wish, it remembers the road north up to the crown."
     }
   ],
   "props": [
@@ -693,7 +774,8 @@
         1.6,
         0.7
       ],
-      "note": "One of the Unmoored, standing in the fog just past the light, looking up the road, not at it."
+      "note": "One of the Unmoored, standing in the fog just past the light, looking up the road, not at it. Gone along the shoulder into the fog once the doused cresset is relit.",
+      "if": "!flag:cindermoor_cresset_steps_5"
     },
     {
       "model": "res://assets/models/characters/unmoored_coat.glb",
@@ -712,22 +794,8 @@
         1.2,
         0.7
       ],
-      "note": "Another, sat on his basket at the shelter's mouth with his back to the light."
-    },
-    {
-      "model": "res://assets/models/dressing/cinder_cresset_doused.glb",
-      "position": [
-        15.6,
-        0,
-        -31.2
-      ],
-      "rotation_y": 25,
-      "collider": [
-        1.0,
-        2.4,
-        1.0
-      ],
-      "note": "The cresset past the Unmoored: put out on purpose, its coals raked out onto the cairn, the basket packed with wet cinder and a stone on top. The way on up (Act III step 3) waits on it."
+      "note": "Another, sat on his basket at the shelter's mouth with his back to the light. Gone along the shoulder into the fog once the doused cresset is relit.",
+      "if": "!flag:cindermoor_cresset_steps_5"
     }
   ],
   "npcs": [
@@ -739,7 +807,8 @@
         -29.2
       ],
       "rotation_y": -95,
-      "note": "At the very edge of the fourth cresset's light, her back to the doused one, facing whoever comes up the road."
+      "note": "At the very edge of the fourth cresset's light, her back to the doused one, facing whoever comes up the road. Gone with the others once the doused cresset is relit.",
+      "if": "!flag:cindermoor_cresset_steps_5"
     }
   ],
   "objects": [
@@ -757,7 +826,27 @@
         0,
         2.3,
         0
-      ]
+      ],
+      "if": "!flag:cindermoor_doused_seen",
+      "note": "The first look; after it the cresset entry 'steps_5' offers digging it out (and Ness another way)."
+    },
+    {
+      "id": "steps_unmoored_gone",
+      "prompt": "Look where the Unmoored stood",
+      "dialogue": "cindermoor_unmoored_gone",
+      "position": [
+        12.0,
+        0,
+        -30.6
+      ],
+      "reach": 2.2,
+      "glint": [
+        0,
+        0.5,
+        0
+      ],
+      "if": "flag:cindermoor_cresset_steps_5",
+      "note": "Where Ness stood at the light's edge, after the relighting: the rake left leaning on the shelter."
     }
   ],
   "exits": [
@@ -771,6 +860,19 @@
       ],
       "prompt": "Go back down the notch to the Boat Stair",
       "note": "Down over the lip, the Boat Stair's cressets below."
+    },
+    {
+      "to": "cindermoor_spire_foot",
+      "spawn": "from_steps",
+      "position": [
+        19.0,
+        0,
+        -41.6
+      ],
+      "prompt": "Go on up the road to the crown",
+      "requires": "flag:cindermoor_cresset_steps_5",
+      "locked_text": "Past the doused cresset the road forgets where it goes.",
+      "note": "Up the last of the road to the Hearthspire's foot, once the doused cresset is relit (or Ness leads the way: her dialogue travels)."
     }
   ],
   "events": [

@@ -7,6 +7,11 @@
         "goto": "first"
       },
       {
+        "if": "flag:cindermoor_way_on=led",
+        "say": "narrator",
+        "text": "Ness is back at the edge of the light, her rake across her knees, as if she'd never walked anywhere."
+      },
+      {
         "if": "flag:cindermoor_ness_ember=cupped",
         "say": "narrator",
         "text": "Ness hasn't moved from the edge of the light. You cover the ember before you come close, and she nods, once."
@@ -106,6 +111,19 @@
             "goto": "doused"
           },
           {
+            "text": "Is there another way up? One you'd allow?",
+            "if": [
+              "flag:cindermoor_doused_seen",
+              "!flag:cindermoor_way_on"
+            ],
+            "goto": "another"
+          },
+          {
+            "text": "Take me up again, the way you go.",
+            "if": "flag:cindermoor_way_on=led",
+            "goto": "again"
+          },
+          {
             "text": "Leave her to the fog.",
             "goto": "bye"
           }
@@ -196,6 +214,128 @@
         "text": "Go carefully. The road up there doesn't want you either."
       },
       {
+        "end": true
+      }
+    ],
+    "another": [
+      {
+        "say": "ness",
+        "text": "There's a way. There's always a way, for the ones who don't need to see it."
+      },
+      {
+        "if": "!flag:cindermoor_ness_ember=cupped",
+        "goto": "not_bare"
+      },
+      {
+        "goto": "offer"
+      }
+    ],
+    "not_bare": [
+      {
+        "say": "ness",
+        "text": "Not with that in your hand, though. Not burning like that. Cover it, and I'll think about it."
+      },
+      {
+        "choice": [
+          {
+            "text": "Close your hand over the ember.",
+            "set": {
+              "cindermoor_ness_ember": "cupped"
+            },
+            "goto": "cupped_late"
+          },
+          {
+            "text": "No.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "cupped_late": [
+      {
+        "say": "narrator",
+        "text": "You close your hand over it. She watches the light draw in, and the fog lean in after it, and nods as if you'd paid something."
+      },
+      {
+        "goto": "offer"
+      }
+    ],
+    "offer": [
+      {
+        "say": "ness",
+        "text": "We go up it in the dark. Keep that shut in your hand, and walk where I walk, and don't look for the road. It isn't there. My rake is."
+      },
+      {
+        "say": "ness",
+        "text": "And when you come down, you come down the same way. You don't light anything going down."
+      },
+      {
+        "choice": [
+          {
+            "text": "Show me.",
+            "goto": "led"
+          },
+          {
+            "text": "Not yet.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "led": [
+      {
+        "say": "narrator",
+        "text": "She goes out of the light without looking back, and you follow her with your hand shut on the ember, and the fog closes over the both of you like water."
+      },
+      {
+        "say": "narrator",
+        "text": "You can't see her. You can hear the rake: a tick on the stones at the road's edge, then a step, then a tick. She doesn't hurry. Nobody up here hurries.",
+        "set": {
+          "cindermoor_way_on": "led"
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "After a while you find you've been counting the ticks under your breath. Forty. Forty-one. And then you know the next number before you come to it, the way you know the next stair in your own house in the dark."
+      },
+      {
+        "say": "ness",
+        "text": "You're counting. Stop that. That's how you get back to things."
+      },
+      {
+        "say": "narrator",
+        "text": "The rake stops. The fog thins. There's pale stone in front of you, going up."
+      },
+      {
+        "say": "ness",
+        "text": "This is as far as I come. Higher up's hers, and she doesn't like to be followed. Neither do I."
+      },
+      {
+        "say": "narrator",
+        "text": "When you turn round she's gone, and the only way back down is the one you counted."
+      },
+      {
+        "travel": [
+          "cindermoor_spire_foot",
+          "from_ness"
+        ],
+        "end": true
+      }
+    ],
+    "again": [
+      {
+        "say": "ness",
+        "text": "Again? Keep it shut, then. And stop counting."
+      },
+      {
+        "say": "narrator",
+        "text": "The rake ticks on the stones, and you follow it up into the fog, and you count anyway."
+      },
+      {
+        "travel": [
+          "cindermoor_spire_foot",
+          "from_ness"
+        ],
         "end": true
       }
     ]

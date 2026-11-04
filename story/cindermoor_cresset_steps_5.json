@@ -1,0 +1,101 @@
+{
+  "id": "cindermoor_cresset_steps_5",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The doused cresset. The stone sits square on the packed basket, and the cinder under it is still wet to the touch: three days' work, and three months of fog on top."
+      },
+      {
+        "if": "flag:cindermoor_way_on=led",
+        "say": "narrator",
+        "text": "Ness walked you past this in the dark, with your hand shut on the ember. She'd know whose fire it was."
+      },
+      {
+        "if": [
+          "flag:cindermoor_ness_met",
+          "!flag:cindermoor_way_on=led"
+        ],
+        "say": "narrator",
+        "text": "Ness hasn't followed you over. She doesn't need to. She can see what you're about from the edge of the light."
+      },
+      {
+        "choice": [
+          {
+            "text": "Lift the stone and dig it out.",
+            "goto": "dig"
+          },
+          {
+            "text": "Leave it as they left it.",
+            "goto": "leave"
+          }
+        ]
+      }
+    ],
+    "dig": [
+      {
+        "say": "narrator",
+        "text": "You lift the stone off and set it down on the cairn. The wet cinder comes out in black handfuls, cold enough to make your hands ache, and under it the old coals, trodden hard."
+      },
+      {
+        "if": "flag:cindermoor_ness_met",
+        "say": "ness",
+        "text": "Don't."
+      },
+      {
+        "if": [
+          "flag:cindermoor_ness_met",
+          "flag:cindermoor_ness_ember=cupped"
+        ],
+        "say": "ness",
+        "text": "You covered it for me. I thought that meant something."
+      },
+      {
+        "say": "narrator",
+        "text": "You hold the ember in low, under the basket's lip, where the draught comes in. The wet hisses. Then it doesn't, and the coals take, red through the gaps and then gold, as if the cresset had only been waiting for somebody to stop telling it no.",
+        "set": {
+          "cindermoor_cresset_steps_5": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "Its light runs north up the road, and the road remembers itself all the way to the crown.",
+        "set": {
+          "cindermoor_way_on": "relit"
+        }
+      },
+      {
+        "if": "flag:cindermoor_ness_met",
+        "say": "narrator",
+        "text": "Behind you the Unmoored get up. Nobody says anything. They take nothing from the shelter: they go off east along the shoulder, out of the light, one after another, and the fog closes behind them."
+      },
+      {
+        "if": "flag:cindermoor_ness_met",
+        "say": "ness",
+        "text": "There'll be next ones now. You've seen to that."
+      },
+      {
+        "if": "!flag:cindermoor_ness_met",
+        "say": "narrator",
+        "text": "Behind you, in the fog, people get up and go off along the shoulder. You never see their faces."
+      },
+      {
+        "end": true
+      }
+    ],
+    "leave": [
+      {
+        "say": "narrator",
+        "text": "You leave the stone where they set it."
+      },
+      {
+        "if": "!flag:cindermoor_way_on",
+        "say": "narrator",
+        "text": "If there's another way up, the people who put it out will know it."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

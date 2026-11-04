@@ -1,0 +1,13 @@
+{
+  "id": "the_seventh_name",
+  "title": "The Seventh Name",
+  "future": true,
+  "region": "cindermoor_spire_foot",
+  "description": "The novices' roll hangs in the warden's niche at the foot of the east stair, as Aldous said it would. Seven names for the last midwinter, and the seventh scraped out.",
+  "stages": [
+    {
+      "id": "scraped",
+      "text": "Six names for the last midwinter in Aldous's hand on the novices' roll, and a seventh scraped off the vellum with a blade. The Keepers strike a name through. Nobody scrapes one. Somebody wanted it gone, not crossed out."
+    }
+  ]
+}

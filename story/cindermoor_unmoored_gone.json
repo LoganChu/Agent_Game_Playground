@@ -1,0 +1,24 @@
+{
+  "id": "cindermoor_unmoored_gone",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Where Ness stood at the edge of the light there's nobody. Her cinder-rake leans on the shelter, the handle worn pale where her hands went. They've left everything they carried up."
+      },
+      {
+        "if": "flag:cindermoor_ness_met",
+        "say": "narrator",
+        "text": "Lost is when you go looking, she said. Gone."
+      },
+      {
+        "if": "flag:cindermoor_cresset_steps_5",
+        "say": "narrator",
+        "text": "The cresset you lit burns on past the shelter, up the road. Nobody turns their face from it now."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

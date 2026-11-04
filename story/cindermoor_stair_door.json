@@ -1,0 +1,42 @@
+{
+  "id": "cindermoor_stair_door",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The east stair door. Oak gone grey, three iron bands, and open a hand's width, as if whoever went through last was in too much of a hurry to pull it to. Or meant to come straight back."
+      },
+      {
+        "say": "narrator",
+        "text": "Wind comes down through the gap, out of the dark inside. It smells of cold ash and candle-ends, and it doesn't stop.",
+        "set": {
+          "cindermoor_stair_door_tried": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "You put your hand on the door to push it wider, and find you've stopped on the threshold, counting under your breath."
+      },
+      {
+        "say": "narrator",
+        "text": "One."
+      },
+      {
+        "say": "narrator",
+        "text": "And you can't think what comes after one. You know it. You've known it all your life. It won't come."
+      },
+      {
+        "if": "item:stair_taper",
+        "say": "narrator",
+        "text": "The taper in your satchel is cold against your side. A taper's for the stair, Aldous said. You'll know which stair."
+      },
+      {
+        "say": "narrator",
+        "text": "You take your hand off the door. Not yet. Your feet seem very sure about it."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

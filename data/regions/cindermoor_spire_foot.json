@@ -1,0 +1,495 @@
+{
+  "id": "cindermoor_spire_foot",
+  "name": "Cindermoor — the Spire's Foot",
+  "description": "The crown of Cindermoor, where the cinder road ends at the Hearthspire's foot. The fog stands round the crown like a wall and leaves the Spire clear, pale stone going straight up into the grey. On its east face the east stair door stands ajar on the dark, and beside it the door-warden's niche: Aldous's seat, his tapers, his knife, and the novices' roll.",
+  "fog": {
+    "density": 0.034,
+    "color": "#A4A8AB"
+  },
+  "light": {
+    "note": "The eye of it: the fog all round, thinner over the crown itself, and the Spire the palest thing on the island. Nothing warm but the ember (and, if it was relit, the cresset glow coming up the road behind).",
+    "sun_color": "#C3C6C8",
+    "sun_energy": 0.4,
+    "sun_pitch": -38,
+    "sun_yaw": 30,
+    "ambient_color": "#A6AAAD",
+    "ambient_energy": 0.36,
+    "sky_top": "slate",
+    "sky_horizon": "#ABAFB2",
+    "shadow": 0.32
+  },
+  "ambience": [
+    {
+      "sound": "wind_low",
+      "volume": 0.8
+    }
+  ],
+  "footsteps": "shingle",
+  "spawn_points": {
+    "default": [
+      12.0,
+      0,
+      10.6
+    ],
+    "from_steps": [
+      12.0,
+      0,
+      10.6
+    ],
+    "from_ness": [
+      10.6,
+      0,
+      7.8
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -22,
+      -26,
+      24,
+      18
+    ],
+    "cell": 1.0,
+    "base": -3.0,
+    "seed": 83,
+    "roughness": 0.05,
+    "ragged": 0.5,
+    "ragged_scale": 3.5,
+    "note": "The crown: a low dome of cinder with the Spire on it, the road coming up its south-east shoulder.",
+    "land": [
+      {
+        "rect": [
+          -17,
+          -21,
+          19,
+          14
+        ],
+        "height": 1.0,
+        "falloff": 0.8,
+        "ragged": 0.5,
+        "note": "the crown"
+      },
+      {
+        "path": [
+          [
+            13.5,
+            16.0,
+            0.9
+          ],
+          [
+            12.0,
+            10.0,
+            1.0
+          ]
+        ],
+        "width": 3.4,
+        "falloff": 0.8,
+        "note": "the road's last yards over the brow"
+      }
+    ],
+    "colors": {
+      "ground": "#4A3F38",
+      "shore": "#4A3F38",
+      "seabed": "#2B2826",
+      "cliff": "#2F2D2C",
+      "shore_height": 0.0
+    },
+    "paint": [
+      {
+        "path": [
+          [
+            13.5,
+            15.2,
+            0
+          ],
+          [
+            11.6,
+            9.0,
+            0
+          ],
+          [
+            8.4,
+            1.0,
+            0
+          ],
+          [
+            6.6,
+            -4.0,
+            0
+          ],
+          [
+            5.8,
+            -6.0,
+            0
+          ]
+        ],
+        "width": 1.6,
+        "color": "#262322",
+        "note": "the cinder road's last leg, up to the east stair door (it remembers on its own up here)"
+      },
+      {
+        "path": [
+          [
+            7.4,
+            -6.0,
+            0
+          ],
+          [
+            6.84,
+            -3.17,
+            0
+          ],
+          [
+            5.23,
+            -0.77,
+            0
+          ],
+          [
+            2.83,
+            0.84,
+            0
+          ],
+          [
+            0.0,
+            1.4,
+            0
+          ],
+          [
+            -2.83,
+            0.84,
+            0
+          ],
+          [
+            -5.23,
+            -0.77,
+            0
+          ],
+          [
+            -6.84,
+            -3.17,
+            0
+          ],
+          [
+            -7.4,
+            -6.0,
+            0
+          ],
+          [
+            -6.84,
+            -8.83,
+            0
+          ],
+          [
+            -5.23,
+            -11.23,
+            0
+          ],
+          [
+            -2.83,
+            -12.84,
+            0
+          ],
+          [
+            -0.0,
+            -13.4,
+            0
+          ],
+          [
+            2.83,
+            -12.84,
+            0
+          ],
+          [
+            5.23,
+            -11.23,
+            0
+          ],
+          [
+            6.84,
+            -8.83,
+            0
+          ],
+          [
+            7.4,
+            -6.0,
+            0
+          ]
+        ],
+        "width": 0.9,
+        "color": "#5A4E45",
+        "note": "a path worn round the Spire's foot in the cinder, by one pair of feet, round and round"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/spire_foot.glb",
+      "position": [
+        0,
+        0,
+        -6.0
+      ],
+      "rotation_y": 90,
+      "collider": [
+        10.0,
+        14.0,
+        7.0
+      ],
+      "colliders": [
+        {
+          "size": [
+            7.0,
+            14.0,
+            10.0
+          ]
+        },
+        {
+          "size": [
+            1.9,
+            2.4,
+            1.1
+          ],
+          "offset": [
+            2.35,
+            0,
+            4.9
+          ]
+        }
+      ],
+      "note": "The Hearthspire's foot at full scale, the east stair door facing east (+X) up the road, the warden's niche built out beside it to the north."
+    },
+    {
+      "model": "res://assets/models/dressing/cinder_cresset_lit.glb",
+      "position": [
+        14.6,
+        0,
+        13.6
+      ],
+      "rotation_y": 10,
+      "collider": [
+        1.0,
+        2.4,
+        1.0
+      ],
+      "if": "flag:cindermoor_cresset_steps_5",
+      "halo": [
+        0,
+        2.25,
+        0
+      ],
+      "halo_size": 3.2,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.35,
+      "smoke": [
+        [
+          0,
+          2.25,
+          0
+        ]
+      ],
+      "smoke_scale": 0.45,
+      "sound": {
+        "id": "fire",
+        "offset": [
+          0,
+          2.25,
+          0
+        ],
+        "volume": 0.45
+      },
+      "note": "Where the road comes over the brow: the glow of the relit cresset below stands for the seven going down the moor."
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        -12.0,
+        0,
+        6.0
+      ],
+      "rotation_y": 20,
+      "collider": [
+        2.0,
+        1.4,
+        2.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop.glb",
+      "position": [
+        -13.0,
+        0,
+        -16.0
+      ],
+      "rotation_y": -30,
+      "collider": [
+        2.4,
+        3.0,
+        2.4
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/ridge_outcrop_low.glb",
+      "position": [
+        14.0,
+        0,
+        -15.0
+      ],
+      "rotation_y": 60,
+      "collider": [
+        2.0,
+        1.4,
+        2.0
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        -6.0,
+        0,
+        9.0
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/heather_silver.glb",
+      "position": [
+        9.0,
+        0,
+        -14.0
+      ],
+      "rotation_y": 50
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        -10.0,
+        0,
+        -4.0
+      ],
+      "rotation_y": 10
+    },
+    {
+      "model": "res://assets/models/dressing/greyed_brush.glb",
+      "position": [
+        4.0,
+        0,
+        8.0
+      ],
+      "rotation_y": 80
+    },
+    {
+      "model": "res://assets/models/dressing/tussock.glb",
+      "position": [
+        16.0,
+        0,
+        4.0
+      ],
+      "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/tussock.glb",
+      "position": [
+        -4.0,
+        0,
+        -17.0
+      ],
+      "rotation_y": 0
+    }
+  ],
+  "objects": [
+    {
+      "id": "foot_door",
+      "prompt": "Go to the east stair door",
+      "dialogue": "cindermoor_stair_door",
+      "position": [
+        6.2,
+        0,
+        -5.6
+      ],
+      "reach": 1.8,
+      "glint": [
+        -0.6,
+        1.4,
+        0
+      ],
+      "note": "Ajar on the dark (the east stair: Act III step 8)."
+    },
+    {
+      "id": "foot_niche",
+      "prompt": "Look into the warden's niche",
+      "dialogue": "cindermoor_niche",
+      "position": [
+        6.2,
+        0,
+        -8.4
+      ],
+      "reach": 1.8,
+      "glint": [
+        -0.8,
+        1.6,
+        0
+      ],
+      "note": "Aldous's niche: the seat, the tapers and knife, the novices' roll."
+    },
+    {
+      "id": "foot_ring",
+      "prompt": "Look at the path in the cinder",
+      "dialogue": "cindermoor_ring",
+      "position": [
+        -1.6,
+        0,
+        1.2
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        0.3,
+        0
+      ],
+      "note": "The path worn round the Spire (the woman higher up, never named yet)."
+    },
+    {
+      "id": "foot_view",
+      "prompt": "Look back down the moor",
+      "dialogue": "cindermoor_crown_view",
+      "position": [
+        11.0,
+        0,
+        12.6
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        1.0,
+        0
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "to": "cindermoor_long_steps",
+      "spawn": "from_crown",
+      "position": [
+        13.4,
+        0,
+        15.0
+      ],
+      "prompt": "Go back down the road to the long steps",
+      "note": "Down the last of the road to the shoulder (where Ness stood, either way)."
+    }
+  ],
+  "events": [
+    {
+      "id": "cindermoor_crown_arrival",
+      "if": [
+        "flag:cindermoor_way_on",
+        "!flag:cindermoor_crown_reached"
+      ],
+      "set": {
+        "cindermoor_crown_reached": true
+      },
+      "dialogue": "cindermoor_crown_arrival",
+      "note": "The first time up on the crown, by either way (gated on how the player gets in: cindermoor_way_on)."
+    }
+  ]
+}

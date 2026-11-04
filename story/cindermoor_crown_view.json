@@ -1,0 +1,24 @@
+{
+  "id": "cindermoor_crown_view",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:cindermoor_way_on=relit",
+        "say": "narrator",
+        "text": "From the brow you can see back down the road, where the fog lets you. The cressets stand one above another down the moor, the one you dug out nearest, gold, and the rest going down small to the notch. Seven lights in a line, like somebody coming up a stair with a lamp."
+      },
+      {
+        "if": "!flag:cindermoor_way_on=relit",
+        "say": "narrator",
+        "text": "Below the brow there's nothing to see but the fog. You came up through it in the dark behind a rake, and you couldn't tell anybody where the road goes. But you could tell them how many steps."
+      },
+      {
+        "say": "narrator",
+        "text": "Somewhere down there, past the cliffs, the Mercy lies at the Boat Stair with her lantern lit, and Merrit sits counting slips."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

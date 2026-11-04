@@ -791,8 +791,7 @@
     },
     "kindleby_provost_saw_taper": {
       "description": "The Provost of Kindleby saw the Stair-Taper (Day 69): a novice's light for the east stair; she'd not remember a novice — they all had the same face under the hood. 'Keep it out of the chapter's sight. They'd want to weigh it.' For the Keepers' arc: a Keeper who has seen the Wakebearer carry a novice's taper.",
-      "default": false,
-      "future": true
+      "default": false
     },
     "kindleby_tobin_saw_taper": {
       "description": "Brother Tobin saw the Stair-Taper (Day 69): he knows it from the letter in his coal-pan — unless the pan fed the Vigil Light (kindleby_beacon_burned=pan), when he feels he ought to know it and doesn't.",
@@ -972,8 +971,51 @@
     },
     "cindermoor_doused_seen": {
       "description": "Looked at the cresset past the Unmoored on the long steps: put out on purpose, raked and packed with wet cinder (Day 82). The way on up waits on it.",
+      "default": false
+    },
+    "cindermoor_cresset_steps_5": {
+      "description": "The doused cresset past the Unmoored on the long steps dug out and relit from the ember over Ness's wish (Day 83): the road remembers up to the crown, and the Unmoored get up and go off along the shoulder into the fog. Seven cressets burn up the moor.",
+      "default": false
+    },
+    "cindermoor_way_on": {
+      "description": "How the Wakebearer first went on up past the doused cresset to the crown (Day 83): 'relit' (dug it out and lit it, over the Unmoored's wish) or 'led' (Ness walked them up in the dark by the rake, the ember covered). Relighting it after being led sets 'relit'.",
+      "default": "",
+      "values": [
+        "",
+        "relit",
+        "led"
+      ]
+    },
+    "cindermoor_crown_reached": {
+      "description": "Came up onto Cindermoor's crown, to the Hearthspire's foot (Day 83; the arrival scene, The Way Up done).",
+      "default": false
+    },
+    "cindermoor_niche_seen": {
+      "description": "Looked into the warden's niche beside the east stair door at the Spire's foot (Day 83): Aldous's seat, his tapers and his knife on the shelf.",
+      "default": false
+    },
+    "cindermoor_roll_read": {
+      "description": "Read the novices' roll in the warden's niche (Day 83): seven names for the last midwinter in the door-warden's hand, and the seventh scraped out with a blade, not struck through. Starts The Seventh Name.",
+      "default": false
+    },
+    "cindermoor_roll_boats": {
+      "description": "Turned the novices' roll over in the warden's niche (Day 83): the boat-warden's list for the night of the Snuffing on the back, seven boats and their crews, and the eighth 'kept back. Her word.' The eighth slip's first clue.",
       "default": false,
       "future": true
+    },
+    "cindermoor_stair_door_tried": {
+      "description": "Tried the east stair door at the Spire's foot (Day 83): ajar on the dark, the wind coming down; the Wakebearer stops on the threshold counting and can't think what comes after one. The east stair waits (Act III step 8).",
+      "default": false,
+      "future": true
+    },
+    "cindermoor_ring_seen": {
+      "description": "Noticed the path worn round the Hearthspire's foot in the cinder (Day 83): one person's, walked round and round, the woman 'higher up' who doesn't sit (never named yet).",
+      "default": false,
+      "future": true
+    },
+    "cindermoor_merrit_seven_lit": {
+      "description": "Back at the Boat Stair after relighting the doused cresset, Merrit counted seven lights up the moor (Day 83): 'Seven out. Seven lit. Somebody's coming down, then.'",
+      "default": false
     }
   }
 }

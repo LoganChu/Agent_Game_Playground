@@ -1,0 +1,172 @@
+{
+  "id": "cindermoor_niche",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:cindermoor_niche_seen",
+        "goto": "again"
+      },
+      {
+        "say": "narrator",
+        "text": "The warden's niche. Three walls of the Spire's own pale stone and a roof slab, built out beside the door so whoever sat in it could see every face that went up the stair, and every face that came down."
+      },
+      {
+        "say": "narrator",
+        "text": "A stone seat, worn hollow in the middle. Thirty-one years of one man sitting.",
+        "set": {
+          "cindermoor_niche_seen": true
+        }
+      },
+      {
+        "if": "flag:kindleby_provost_saw_taper",
+        "say": "narrator",
+        "text": "A shelf. On it a bundle of tapers, uncut, tied with a thread, and a small knife with a black haft and a blade worn thin as a leaf from being whetted. Aldous's knife. The one thing he did sober, all his life, the Provost said."
+      },
+      {
+        "if": "!flag:kindleby_provost_saw_taper",
+        "say": "narrator",
+        "text": "A shelf. On it a bundle of tapers, uncut, tied with a thread, and a small knife with a black haft and a blade worn thin as a leaf from being whetted."
+      },
+      {
+        "if": "item:stair_taper",
+        "say": "narrator",
+        "text": "You take the Stair-Taper out of your satchel and lay it by the bundle. Same wax. Same hand. The notches are cut with that knife: you could set the blade in any one of them and it would fit."
+      },
+      {
+        "say": "narrator",
+        "text": "And on a peg on the back wall, rolled, its foot hanging open: a long strip of vellum, ruled, written close in a brown ink gone grey. The novices' roll."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "again": [
+      {
+        "say": "narrator",
+        "text": "Aldous's seat, his tapers, his knife. The roll on its peg."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Read the roll.",
+            "goto": "roll"
+          },
+          {
+            "text": "Turn the roll over.",
+            "if": "flag:cindermoor_roll_read",
+            "goto": "boats"
+          },
+          {
+            "text": "Sit in the warden's seat.",
+            "goto": "sit"
+          },
+          {
+            "text": "Leave the niche as it is.",
+            "goto": "bye"
+          }
+        ]
+      }
+    ],
+    "roll": [
+      {
+        "say": "narrator",
+        "text": "Names, in one hand, a winter to a line. Every novice who came up the east stair, and the day they came, going back further than the vellum's been in the niche: the oldest are copied, the ink fresher than the names."
+      },
+      {
+        "say": "narrator",
+        "text": "The last line is the last midwinter. You read it with your finger, the way you'd read in the dark."
+      },
+      {
+        "say": "narrator",
+        "text": "Ama Rusk. Tobin Petch. Kit Petch. Joss Merrow. Edda Pike. Fennick."
+      },
+      {
+        "if": "flag:saltmarrow_aldous_novice",
+        "say": "narrator",
+        "text": "Six. Aldous named six, on Saltmarrow."
+      },
+      {
+        "say": "narrator",
+        "text": "And after Fennick, a seventh place on the line, and nothing in it. Not a blank: the vellum there is thinner than the rest, roughed and pale, where somebody took a blade to it and scraped the name off down to the skin.",
+        "set": {
+          "cindermoor_roll_read": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "The Keepers strike a name through. You know that the way you know your own hand: a single line, so the name can still be read, because the Long Book doesn't forget, it only finishes. Nobody scrapes one. Scraping isn't finishing. Scraping is wanting it never to have been."
+      },
+      {
+        "say": "narrator",
+        "text": "You put your thumb on the scraped place. The ember doesn't knock. Nothing comes. It's the first time anything on this island hasn't answered you."
+      },
+      {
+        "if": "quest:the_seventh_name=inactive",
+        "quest_start": "the_seventh_name"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "boats": [
+      {
+        "say": "narrator",
+        "text": "On the back of the roll, in a different hand, squarer, pressed hard: a list headed with the night of the Snuffing. Not novices. Boats."
+      },
+      {
+        "say": "narrator",
+        "text": "Seven boats, and who went in each, brothers and sisters and novices, a line apiece. Some of the names you know from the front. Every boat ticked: launched."
+      },
+      {
+        "if": "flag:cindermoor_merrit_met",
+        "say": "narrator",
+        "text": "The boat-warden's list. Merrit's hand, before his hands only knew how to coil.",
+        "set": {
+          "cindermoor_roll_boats": true
+        }
+      },
+      {
+        "if": "!flag:cindermoor_merrit_met",
+        "say": "narrator",
+        "text": "A boat-warden's list.",
+        "set": {
+          "cindermoor_roll_boats": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "And an eighth line, with no crew written on it at all. Only: Eighth — kept back. Her word."
+      },
+      {
+        "say": "narrator",
+        "text": "Whose word, it doesn't say. Up here it didn't need to."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "sit": [
+      {
+        "say": "narrator",
+        "text": "You sit in the warden's seat. It fits you badly: it was worn to somebody broader. From here you can see the door, and the gap in it, and the dark."
+      },
+      {
+        "say": "narrator",
+        "text": "He'd have seen every face go by. All but one."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bye": [
+      {
+        "end": true
+      }
+    ]
+  }
+}

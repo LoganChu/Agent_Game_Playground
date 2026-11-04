@@ -1,0 +1,30 @@
+{
+  "id": "cindermoor_ring",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A path in the cinder, a little paler than the rest, a foot wide, going round the Spire's foot at the same distance all the way, and back to where it started."
+      },
+      {
+        "say": "narrator",
+        "text": "One pair of feet made it, walking round and round. Not lately and not long ago: the cinder doesn't keep a day.",
+        "set": {
+          "cindermoor_ring_seen": true
+        }
+      },
+      {
+        "if": "flag:cindermoor_ness_met",
+        "say": "narrator",
+        "text": "A woman goes about higher up, Ness said. Doesn't sit at all."
+      },
+      {
+        "say": "narrator",
+        "text": "You don't walk on it. It isn't yours."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "cindermoor_crown_arrival",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:cindermoor_way_on=relit",
+        "say": "narrator",
+        "text": "The last of the road comes over the brow of the moor, and the fog stops."
+      },
+      {
+        "if": "flag:cindermoor_way_on=led",
+        "say": "narrator",
+        "text": "The fog thins in front of you all at once, like a door opening in a wall."
+      },
+      {
+        "say": "narrator",
+        "text": "Not lifts: stops. It stands all round the crown like a wall, as high as you can see, and inside it the air is only grey, and the Hearthspire stands up out of the middle of it."
+      },
+      {
+        "say": "narrator",
+        "text": "Pale stone, going straight up. You can't see the top from here. You put your head back and the shaft goes on into the grey and doesn't end."
+      },
+      {
+        "if": "flag:cindermoor_ness_met",
+        "say": "narrator",
+        "text": "All of it running down to here, Ness said. Like water to a drain. And the middle of a drain is dry."
+      },
+      {
+        "say": "narrator",
+        "text": "On its east face, at the top of two worn steps, a door stands open a hand's width on the dark. Beside it, a little stone booth built out from the wall, with a seat in it."
+      },
+      {
+        "quest_stage": [
+          "the_way_up",
+          "the_crown"
+        ]
+      },
+      {
+        "quest_complete": "the_way_up"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}
