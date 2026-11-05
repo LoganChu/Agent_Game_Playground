@@ -4,7 +4,17 @@
   "description": "The crown of Cindermoor, where the cinder road ends at the Hearthspire's foot. The fog stands round the crown like a wall and leaves the Spire clear, pale stone going straight up into the grey. On its east face the east stair door stands ajar on the dark, and beside it the door-warden's niche: Aldous's seat, his tapers, his knife, and the novices' roll.",
   "fog": {
     "density": 0.034,
-    "color": "#A4A8AB"
+    "color": "#A4A8AB",
+    "overrides": [
+      {
+        "if": "flag:cindermoor_chapter_sat",
+        "color": "#737987"
+      },
+      {
+        "if": "flag:cindermoor_chapter_up",
+        "color": "#90939A"
+      }
+    ]
   },
   "light": {
     "note": "The eye of it: the fog all round, thinner over the crown itself, and the Spire the palest thing on the island. Nothing warm but the ember (and, if it was relit, the cresset glow coming up the road behind).",
@@ -16,7 +26,33 @@
     "ambient_energy": 0.36,
     "sky_top": "slate",
     "sky_horizon": "#ABAFB2",
-    "shadow": 0.32
+    "shadow": 0.32,
+    "overrides": [
+      {
+        "if": "flag:cindermoor_chapter_sat",
+        "sun_color": "#7E889B",
+        "sun_energy": 0.2,
+        "sun_pitch": -14,
+        "sun_yaw": -110,
+        "ambient_color": "#6F7787",
+        "ambient_energy": 0.27,
+        "sky_top": "abyss",
+        "sky_horizon": "#737B89",
+        "shadow": 0.22
+      },
+      {
+        "if": "flag:cindermoor_chapter_up",
+        "sun_color": "#B4A598",
+        "sun_energy": 0.32,
+        "sun_pitch": -10,
+        "sun_yaw": -100,
+        "ambient_color": "#8D919A",
+        "ambient_energy": 0.31,
+        "sky_top": "slate",
+        "sky_horizon": "#9B9AA0",
+        "shadow": 0.28
+      }
+    ]
   },
   "ambience": [
     {
@@ -256,7 +292,45 @@
           ]
         }
       ],
-      "note": "The Hearthspire's foot at full scale, the east stair door facing east (+X) up the road, the warden's niche built out beside it to the north."
+      "note": "The Hearthspire's foot at full scale, the east stair door facing east (+X) up the road, the warden's niche built out beside it to the north.",
+      "if": "!flag:cindermoor_chapter_sat"
+    },
+    {
+      "model": "res://assets/models/dressing/spire_foot_open.glb",
+      "position": [
+        0,
+        0,
+        -6.0
+      ],
+      "rotation_y": 90,
+      "collider": [
+        10.0,
+        14.0,
+        7.0
+      ],
+      "colliders": [
+        {
+          "size": [
+            7.0,
+            14.0,
+            10.0
+          ]
+        },
+        {
+          "size": [
+            1.9,
+            2.4,
+            1.1
+          ],
+          "offset": [
+            2.35,
+            0,
+            4.9
+          ]
+        }
+      ],
+      "note": "Day 86: the same, after the sitting: the warden's seat lifted on its pin and leant on the niche wall, the dark of the stair down to the lower rooms under it.",
+      "if": "flag:cindermoor_chapter_sat"
     },
     {
       "model": "res://assets/models/dressing/cinder_cresset_lit.glb",
@@ -394,6 +468,27 @@
         -17.0
       ],
       "rotation_y": 0
+    },
+    {
+      "model": "res://assets/models/dressing/chapter_ring.glb",
+      "position": [
+        9.4,
+        0,
+        -8.6
+      ],
+      "rotation_y": -90,
+      "if": "flag:cindermoor_chapter_up",
+      "light": {
+        "color": "kindle",
+        "energy": 0.9,
+        "range": 6.0,
+        "offset": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "note": "Day 86: the chapter's ring of candles in the cinder before the niche, its opening toward the niche, the Long Book open on an oilcloth inside it."
     }
   ],
   "objects": [
@@ -490,6 +585,81 @@
       },
       "dialogue": "cindermoor_crown_arrival",
       "note": "The first time up on the crown, by either way (gated on how the player gets in: cindermoor_way_on)."
+    },
+    {
+      "id": "cindermoor_sitting",
+      "if": [
+        "flag:cindermoor_chapter_up",
+        "!flag:cindermoor_chapter_sat"
+      ],
+      "set": {
+        "cindermoor_chapter_sat": true
+      },
+      "dialogue": "cindermoor_sitting",
+      "note": "Day 86: up on the crown after the chapter went up: the sitting, the Long Book with no line for the Spire, the stair under the warden's seat (Act III step 4's close)."
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "provost",
+      "position": [
+        10.6,
+        0,
+        -8.6
+      ],
+      "rotation_y": -90,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up"
+      ],
+      "note": "Day 86: in the ring of candles, facing the niche."
+    },
+    {
+      "npc": "hild",
+      "position": [
+        9.6,
+        0,
+        -6.9
+      ],
+      "rotation_y": -137,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up"
+      ],
+      "note": "At the ring's north edge by the Long Book."
+    },
+    {
+      "npc": "iver",
+      "model": "res://assets/models/characters/iver_nolamp.glb",
+      "position": [
+        9.6,
+        0,
+        -10.3
+      ],
+      "rotation_y": -43,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:lowsong_iver_home",
+        "flag:lowsong_beacon_burned=lamp"
+      ],
+      "note": "At the ring's south edge, head on one side."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        12.4,
+        0,
+        -10.6
+      ],
+      "rotation_y": -57,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "Outside the ring on her candle box, the way she sat on the quay."
     }
   ]
 }

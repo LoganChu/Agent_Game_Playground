@@ -1,0 +1,296 @@
+{
+  "id": "cindermoor_sitting",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You come up over the brow into the dusk, and the chapter is waiting for you at the Spire's foot."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna Coll has stood her candles in the cinder in a ring before the warden's niche, and lit them one from another, and sat down outside it on her box. There's no wind on the crown. The flames stand straight up.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Something to set them in, see. I said there'd want to be.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody has stood a ring of candle-ends in the cinder before the warden's niche and lit them. There's no wind on the crown. The flames stand straight up.",
+        "if": [
+          "!flag:thornwold_skiff=kindleby"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody has stood a ring of candle-ends in the cinder before the warden's niche and lit them. There's no wind on the crown. The flames stand straight up.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The chapter sits the way a chapter does, which up here means standing: there's nothing on the crown but cinder, and the Provost won't have anybody sit in it. Hild kneels to spread the oilcloth, and opens the Long Book on it, a doorstep of a book, and stands up again."
+      },
+      {
+        "if": "flag:cindermoor_provost_heard_roll",
+        "goto": "roll"
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost looks once at the niche as she takes her place, at the roll on its peg, and doesn't go in."
+      },
+      {
+        "goto": "open"
+      }
+    ],
+    "roll": [
+      {
+        "say": "narrator",
+        "text": "Before anybody speaks, the Provost goes into the niche. She takes the roll down off its peg and reads it to the foot, the way you read a letter twice. She puts her thumb on the scraped place and holds it there.",
+        "quest_stage": [
+          "the_seventh_name",
+          "she_read_it"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Then she rolls it, and hangs it back on its peg, and comes back to the ring, and says nothing aloud at all. Hild looks at her, and then doesn't."
+      },
+      {
+        "goto": "open"
+      }
+    ],
+    "open": [
+      {
+        "say": "provost",
+        "text": "The chapter sits for the Hearthspire. We weigh what can be given. We choose. And what we choose is carried up the stair."
+      },
+      {
+        "say": "provost",
+        "text": "By the hand that said it would hear us.",
+        "if": "flag:cindermoor_chapter_claim=heard"
+      },
+      {
+        "say": "provost",
+        "text": "By a hand that says it won't be held. That's written down. We sit anyway.",
+        "if": "flag:cindermoor_chapter_claim=refused"
+      },
+      {
+        "say": "provost",
+        "text": "Sister. Find me what the Spire burned, the last time it was fed. Read me the line, and we'll know the weight of it."
+      },
+      {
+        "if": [
+          "flag:lowsong_iver_home",
+          "flag:lowsong_beacon_burned=lamp"
+        ],
+        "goto": "iver_reads"
+      },
+      {
+        "goto": "hild_reads"
+      }
+    ],
+    "iver_reads": [
+      {
+        "say": "narrator",
+        "text": "Hild turns the pages. Iver leans over her shoulder, and after a while he takes the book off her altogether and turns them faster, the way a man reads who's argued about every comma in it."
+      },
+      {
+        "say": "iver",
+        "text": "Gull's Beacon. The Ridge. The Heron, Wrackholm, Kindleby, Lowsong. Every island, every year it was fed, back to the Kindling. A line each: who sat, and what burned."
+      },
+      {
+        "say": "iver",
+        "text": "There isn't one for the Spire."
+      },
+      {
+        "say": "provost",
+        "text": "There's always a line."
+      },
+      {
+        "say": "iver",
+        "text": "Not for the Spire. Nine hundred years, Lorn. Not once."
+      },
+      {
+        "goto": "quiet"
+      }
+    ],
+    "hild_reads": [
+      {
+        "say": "narrator",
+        "text": "Hild turns the pages a long time, her black finger going down each one, her lips moving."
+      },
+      {
+        "say": "hild",
+        "text": "Islands. All islands. Every one, every year it was fed, back to the Kindling: who sat, and what burned."
+      },
+      {
+        "say": "hild",
+        "text": "There's no Spire in it, Provost. Not a line."
+      },
+      {
+        "say": "provost",
+        "text": "There's always a line."
+      },
+      {
+        "say": "hild",
+        "text": "Not for the Spire."
+      },
+      {
+        "goto": "quiet"
+      }
+    ],
+    "quiet": [
+      {
+        "say": "narrator",
+        "text": "Nobody says anything for a while. The candles burn straight up. Out past them the path in the cinder goes on round the Spire's foot into the grey."
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody is walking it. Just inside the wall of the fog, going round: a long hooded shape, not hurrying, grey to the shoulders. She doesn't look at the candles. She doesn't look at anything."
+      },
+      {
+        "say": "narrator",
+        "text": "One pair of feet. Round and round.",
+        "if": "flag:cindermoor_ring_seen"
+      },
+      {
+        "say": "narrator",
+        "text": "By the time you've turned your head she's gone round the Spire's curve, and the path is empty. Nobody in the ring saw her. You're the only one facing out."
+      },
+      {
+        "say": "provost",
+        "text": "Nine hundred years the chapter sat for every island on the ring, and wrote down what it burned. And not once did anybody ask what the Spire burned."
+      },
+      {
+        "say": "provost",
+        "text": "I never asked."
+      },
+      {
+        "say": "provost",
+        "text": "I held two things of yours on the quay and called them a candle-end and a bit of bone. I don't know what they weigh against a line that isn't there.",
+        "if": "flag:cindermoor_chapter_weigh=shown"
+      },
+      {
+        "say": "provost",
+        "text": "You wouldn't let me hold what's yours. I begin to think that was well done.",
+        "if": "flag:cindermoor_chapter_weigh=kept"
+      },
+      {
+        "choice": [
+          {
+            "text": "Weigh the ember, then. It's all I came with.",
+            "set": {
+              "cindermoor_sitting_spoke": "offered"
+            },
+            "goto": "offered"
+          },
+          {
+            "text": "The Spire must have kept its own book.",
+            "set": {
+              "cindermoor_sitting_spoke": "asked"
+            },
+            "goto": "asked"
+          },
+          {
+            "text": "Say nothing. You're the hand.",
+            "set": {
+              "cindermoor_sitting_spoke": "silent"
+            },
+            "goto": "silent"
+          }
+        ]
+      }
+    ],
+    "offered": [
+      {
+        "say": "provost",
+        "text": "No. Not till we know what it's fed on. I'll not weigh a thing against nothing."
+      },
+      {
+        "say": "hild",
+        "text": "Aldous used to say he sat on the oldest thing in the order. We all thought it was the drink talking."
+      },
+      {
+        "goto": "seat"
+      }
+    ],
+    "asked": [
+      {
+        "say": "provost",
+        "text": "...It did. It must have. Aldous used to say he sat on the oldest thing in the order, and we thought it was the drink talking."
+      },
+      {
+        "goto": "seat"
+      }
+    ],
+    "silent": [
+      {
+        "say": "narrator",
+        "text": "You say nothing. The hand doesn't speak at a sitting."
+      },
+      {
+        "say": "provost",
+        "text": "Thank you."
+      },
+      {
+        "say": "narrator",
+        "text": "She means it, and it surprises her."
+      },
+      {
+        "say": "hild",
+        "text": "Aldous used to say he sat on the oldest thing in the order. We all thought it was the drink talking."
+      },
+      {
+        "goto": "seat"
+      }
+    ],
+    "seat": [
+      {
+        "say": "narrator",
+        "text": "Hild goes into the niche and puts both hands under the front of the warden's seat, the stone worn hollow by thirty-one years of one man, and lifts. It comes up on a pin at the back, like the lid of a box, and she leans it on the wall."
+      },
+      {
+        "say": "narrator",
+        "text": "Under it, steps go down into the Spire's own rock, narrow, turning out of sight. The air that comes up is cold and dry and smells of nothing. Not ash. Not candle-ends. The first air on Cindermoor that doesn't smell of fire."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember shows you twelve steps before the turn. You've counted them before you know you're counting."
+      },
+      {
+        "say": "hild",
+        "text": "Thirty-one years he sat on it."
+      },
+      {
+        "say": "provost",
+        "text": "The chapter will read before it chooses. Not tonight. The candles want trimming, and nobody reads the oldest book in the order by a light they've let gutter."
+      },
+      {
+        "say": "provost",
+        "text": "Tomorrow, Wakebearer. Nobody goes down before.",
+        "quest_stage": [
+          "the_chapter",
+          "the_lower_rooms"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Night comes down on the crown. The candles burn in their ring, and up the moor behind you the seven cressets burn one above another, and above it all the Spire goes up dark into the dark."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

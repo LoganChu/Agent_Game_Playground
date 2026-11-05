@@ -1111,6 +1111,10 @@
     ],
     "cindermoor": [
       {
+        "if": "flag:cindermoor_chapter_up",
+        "goto": "cindermoor_foot"
+      },
+      {
         "say": "narrator",
         "text": "Wenna Coll sits by the oil barrels with her box on her knees: candles, packed in straw, forty of them."
       },
@@ -1121,6 +1125,23 @@
       {
         "say": "wenna_coll",
         "text": "The Provost asked would I come. First time in my life anybody's asked me would I. Usually it's will you."
+      },
+      {
+        "end": true
+      }
+    ],
+    "cindermoor_foot": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll sits on her candle box outside the ring, trimming a wick with her thumbnail."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Two hundred steps up in the dark, they told me. Nobody said there were steps down and all."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "I kept fourteen back. Forty's a lot of candles for one ring. Not so many for a stair."
       },
       {
         "end": true

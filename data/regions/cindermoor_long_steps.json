@@ -4,7 +4,17 @@
   "description": "Above the Boat Stair's notch Cindermoor goes up in long steps of black cinder and brown heather towards the crown, and the cinder road zig-zags up them into the heaviest fog on the ring, a cold waymark cresset at every turn. The road has forgotten where it goes; each cresset lit from the ember makes it remember as far as the next. At the top of the steps the Unmoored sit in the fog. Past the doused cresset the road goes on up to the crown.",
   "fog": {
     "density": 0.03,
-    "color": "#989DA1"
+    "color": "#989DA1",
+    "overrides": [
+      {
+        "if": "flag:cindermoor_chapter_sat",
+        "color": "#6B717D"
+      },
+      {
+        "if": "flag:cindermoor_chapter_up",
+        "color": "#898C94"
+      }
+    ]
   },
   "light": {
     "note": "The moor under the fog: no colour but the heather's brown going grey, the road black, and the lit cressets the only warm things going up into it.",
@@ -16,7 +26,33 @@
     "ambient_energy": 0.34,
     "sky_top": "slate",
     "sky_horizon": "#A2A6A9",
-    "shadow": 0.3
+    "shadow": 0.3,
+    "overrides": [
+      {
+        "if": "flag:cindermoor_chapter_sat",
+        "sun_color": "#7E889B",
+        "sun_energy": 0.2,
+        "sun_pitch": -14,
+        "sun_yaw": -110,
+        "ambient_color": "#6F7787",
+        "ambient_energy": 0.27,
+        "sky_top": "abyss",
+        "sky_horizon": "#737B89",
+        "shadow": 0.22
+      },
+      {
+        "if": "flag:cindermoor_chapter_up",
+        "sun_color": "#B4A598",
+        "sun_energy": 0.32,
+        "sun_pitch": -10,
+        "sun_yaw": -100,
+        "ambient_color": "#8D919A",
+        "ambient_energy": 0.31,
+        "sky_top": "slate",
+        "sky_horizon": "#9B9AA0",
+        "shadow": 0.28
+      }
+    ]
   },
   "ambience": [
     {

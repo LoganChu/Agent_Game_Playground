@@ -824,6 +824,10 @@
     ],
     "stair": [
       {
+        "if": "flag:cindermoor_chapter_up",
+        "goto": "foot"
+      },
+      {
         "if": "flag:cindermoor_chapter_claim=",
         "goto": "claim"
       },
@@ -945,6 +949,14 @@
               "cindermoor_chapter_road": true
             },
             "goto": "road"
+          },
+          {
+            "text": "When does the chapter go up?",
+            "if": [
+              "flag:cindermoor_chapter_road",
+              "!flag:cindermoor_chapter_up"
+            ],
+            "goto": "when"
           },
           {
             "text": "Leave her to the quay.",
@@ -1231,6 +1243,83 @@
       {
         "say": "provost",
         "text": "We'll go up when I say. Not before. The chapter's tired, and it's a long way to carry a Long Book."
+      },
+      {
+        "end": true
+      }
+    ],
+    "when": [
+      {
+        "say": "provost",
+        "text": "At dusk. The Long Book was always read by candle, and I'll not have it read any other way its first night at the Spire."
+      },
+      {
+        "say": "provost",
+        "text": "And not without you. A sitting with no hand to carry what it chooses is only a meeting.",
+        "if": "flag:cindermoor_chapter_claim=heard"
+      },
+      {
+        "say": "provost",
+        "text": "And not without you, whatever you said. The chapter will want to see the hand it's writing down.",
+        "if": "flag:cindermoor_chapter_claim=refused"
+      },
+      {
+        "say": "narrator",
+        "text": "It takes them the rest of the day to make ready. Hild wraps the Long Book in its oilcloth and ties it on her back like a creel. By the time they go, the grey over the Boat Stair has gone the colour of a bruise, and the seven cressets stand up the moor one above another, the only warm things on Cindermoor."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna Coll goes after the Keepers with her box of candles on her hip.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Iver goes last of the Keepers, stopping every few steps on the road with his head on one side.",
+        "if": [
+          "flag:lowsong_iver_home",
+          "flag:lowsong_beacon_burned=lamp"
+        ]
+      },
+      {
+        "say": "merrit",
+        "text": "Gone up. All of them. Up's all right, novice. It's the coming down I count."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost goes up first, behind the cressets, and doesn't look back at the boat. They'll be at the Spire's foot before you.",
+        "set": {
+          "cindermoor_chapter_up": true
+        },
+        "quest_stage": [
+          "the_chapter",
+          "the_sitting"
+        ]
+      },
+      {
+        "end": true
+      }
+    ],
+    "foot": [
+      {
+        "say": "narrator",
+        "text": "The Provost stands in the ring of candles with her hands folded, facing the niche: the lifted seat, and the dark under it."
+      },
+      {
+        "say": "provost",
+        "text": "Tomorrow. The candles first, and then the oldest book in the order. I've waited nine hundred years without knowing I was waiting. I can wait a night."
+      },
+      {
+        "say": "provost",
+        "text": "What you told me on the quay, about the roll. I've seen it now.",
+        "if": "flag:cindermoor_provost_heard_roll"
+      },
+      {
+        "say": "narrator",
+        "text": "That's all she says about it.",
+        "if": "flag:cindermoor_provost_heard_roll"
       },
       {
         "end": true

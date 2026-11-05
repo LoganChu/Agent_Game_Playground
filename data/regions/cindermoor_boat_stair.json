@@ -5,7 +5,17 @@
   "water_level": -0.25,
   "fog": {
     "density": 0.026,
-    "color": "#9DA2A6"
+    "color": "#9DA2A6",
+    "overrides": [
+      {
+        "if": "flag:cindermoor_chapter_sat",
+        "color": "#6E7480"
+      },
+      {
+        "if": "flag:cindermoor_chapter_up",
+        "color": "#8C8F97"
+      }
+    ]
   },
   "light": {
     "note": "Morning under the fog, colourless: the cinder and the stone near black, the fog the only pale thing but the Spire; the warm things are the ember and the Mercy's masthead lantern.",
@@ -17,7 +27,33 @@
     "ambient_energy": 0.36,
     "sky_top": "slate",
     "sky_horizon": "#A7ABAE",
-    "shadow": 0.35
+    "shadow": 0.35,
+    "overrides": [
+      {
+        "if": "flag:cindermoor_chapter_sat",
+        "sun_color": "#7E889B",
+        "sun_energy": 0.2,
+        "sun_pitch": -14,
+        "sun_yaw": -110,
+        "ambient_color": "#6F7787",
+        "ambient_energy": 0.27,
+        "sky_top": "abyss",
+        "sky_horizon": "#737B89",
+        "shadow": 0.22
+      },
+      {
+        "if": "flag:cindermoor_chapter_up",
+        "sun_color": "#B4A598",
+        "sun_energy": 0.32,
+        "sun_pitch": -10,
+        "sun_yaw": -100,
+        "ambient_color": "#8D919A",
+        "ambient_energy": 0.31,
+        "sky_top": "slate",
+        "sky_horizon": "#9B9AA0",
+        "shadow": 0.28
+      }
+    ]
   },
   "ambience": [
     {
@@ -544,7 +580,10 @@
         5.0
       ],
       "rotation_y": 150,
-      "if": "flag:cindermoor_chapter_came",
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "!flag:cindermoor_chapter_up"
+      ],
       "note": "The chapter came in (Day 85): at the head of the Boat Stair, hands folded, the road up behind whoever comes to her."
     },
     {
@@ -555,7 +594,10 @@
         7.4
       ],
       "rotation_y": 200,
-      "if": "flag:cindermoor_chapter_came",
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "!flag:cindermoor_chapter_up"
+      ],
       "note": "On the kerb by the chapter's boat, at the head of the steps."
     },
     {
@@ -570,7 +612,8 @@
       "if": [
         "flag:cindermoor_chapter_came",
         "flag:lowsong_iver_home",
-        "flag:lowsong_beacon_burned=lamp"
+        "flag:lowsong_beacon_burned=lamp",
+        "!flag:cindermoor_chapter_up"
       ],
       "note": "At the quay's landward edge, listening for something that isn't there."
     },
@@ -585,7 +628,8 @@
       "if": [
         "flag:cindermoor_chapter_came",
         "flag:thornwold_skiff=kindleby",
-        "!flag:thornwold_far_shore=up"
+        "!flag:thornwold_far_shore=up",
+        "!flag:cindermoor_chapter_up"
       ],
       "note": "By the oil barrels with her box of forty candles."
     }

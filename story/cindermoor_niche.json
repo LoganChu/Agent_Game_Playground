@@ -43,7 +43,13 @@
     "again": [
       {
         "say": "narrator",
-        "text": "Aldous's seat, his tapers, his knife. The roll on its peg."
+        "text": "Aldous's seat, his tapers, his knife. The roll on its peg.",
+        "if": "!flag:cindermoor_chapter_sat"
+      },
+      {
+        "say": "narrator",
+        "text": "Aldous's seat stands up on its pin against the wall, and the dark is under it. His tapers, his knife. The roll on its peg.",
+        "if": "flag:cindermoor_chapter_sat"
       },
       {
         "goto": "hub"
@@ -63,7 +69,13 @@
           },
           {
             "text": "Sit in the warden's seat.",
-            "goto": "sit"
+            "goto": "sit",
+            "if": "!flag:cindermoor_chapter_sat"
+          },
+          {
+            "text": "Look down the stair under the seat.",
+            "if": "flag:cindermoor_chapter_sat",
+            "goto": "under"
           },
           {
             "text": "Leave the niche as it is.",
@@ -166,6 +178,19 @@
     "bye": [
       {
         "end": true
+      }
+    ],
+    "under": [
+      {
+        "say": "narrator",
+        "text": "Twelve steps, and the turn. Cold, dry air coming up, and no smell of fire in it at all."
+      },
+      {
+        "say": "narrator",
+        "text": "You've one foot on the first step before you remember the Provost: tomorrow, and nobody before. You take it back. It's harder than it should be."
+      },
+      {
+        "goto": "hub"
       }
     ]
   }

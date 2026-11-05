@@ -832,6 +832,29 @@
         "the_seventh_name": "scraped"
       },
       "shot": "--camera=-9,3.2,15.5:-1.5,1.2,6"
+    },
+    {
+      "id": "the_sitting",
+      "act": "Act III — The Spire",
+      "title": "The Chapter Sits",
+      "inherits": "the_chapter",
+      "region": "cindermoor_spire_foot",
+      "spawn": "from_steps",
+      "description": "The Provost said when, and the chapter went up the lit road at dusk to sit at the Spire's foot in a ring of candles. The Long Book has every island's burning for nine hundred years and not one line for the Spire; under Aldous's seat in the niche a stair goes down to the lower rooms. Tomorrow, the Provost says. Nobody goes down before.",
+      "flags": {
+        "cindermoor_chapter_claim": "heard",
+        "cindermoor_chapter_weigh": "shown",
+        "cindermoor_provost_heard_roll": true,
+        "cindermoor_chapter_road": true,
+        "cindermoor_chapter_up": true,
+        "cindermoor_chapter_sat": true,
+        "cindermoor_sitting_spoke": "asked"
+      },
+      "quests": {
+        "the_chapter": "the_lower_rooms",
+        "the_seventh_name": "she_read_it"
+      },
+      "shot": "--camera=15,2.6,-3:6.5,1.1,-8.6"
     }
   ]
 }

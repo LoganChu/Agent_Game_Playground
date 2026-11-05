@@ -254,6 +254,11 @@
         "text": "Seven out. One back. One in."
       },
       {
+        "say": "merrit",
+        "text": "One in. Nobody in her. They've all gone up.",
+        "if": "flag:cindermoor_chapter_up"
+      },
+      {
         "say": "narrator",
         "text": "He frowns up the stair, at the road, at the fog."
       },

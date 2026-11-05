@@ -1056,6 +1056,25 @@
     "cindermoor_asked_spare": {
       "description": "The Wakebearer asked the Provost to leave the doused cresset out for the Unmoored (Day 85): 'A Keeper doesn't leave a light out because somebody in the dark asked her to.' She relit it anyway, and wrote down that they asked.",
       "default": false
+    },
+    "cindermoor_chapter_up": {
+      "description": "The Provost said when (Day 86): at dusk, once the claim was laid and the road asked after, the chapter went up the lit road from the Boat Stair to sit at the Spire's foot (the chapter's NPCs move from the quay to the crown; Cindermoor's light goes to dusk). The Chapter → the_sitting.",
+      "default": false
+    },
+    "cindermoor_chapter_sat": {
+      "description": "The chapter sat at the Spire's foot (Day 86, region event on reaching the crown after cindermoor_chapter_up): the Long Book has every island's burning for nine hundred years and not one line for what the Hearthspire burned; Hild lifts the warden's seat in the niche and a stair goes down into the Spire's lower rooms, where the Spire kept its own book. The chapter will read before it chooses — tomorrow. Night on Cindermoor. The Chapter → the_lower_rooms.",
+      "default": false
+    },
+    "cindermoor_sitting_spoke": {
+      "description": "What the Wakebearer said at the chapter's sitting (Day 86) when the Long Book was found to have no line for the Spire: '' (not yet), 'offered' (weigh the ember, then: 'Not till we know what it's fed on'), 'asked' (the Spire kept its own book: the Provost remembers Aldous saying he sat on the oldest thing in the order) or 'silent' (the hand doesn't speak at a sitting: 'Thank you.'). For the lower rooms and the lantern room.",
+      "default": "",
+      "values": [
+        "",
+        "offered",
+        "asked",
+        "silent"
+      ],
+      "future": true
     }
   }
 }

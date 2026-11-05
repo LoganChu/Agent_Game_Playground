@@ -448,6 +448,10 @@
     ],
     "cindermoor": [
       {
+        "if": "flag:cindermoor_chapter_up",
+        "goto": "cindermoor_foot"
+      },
+      {
         "say": "narrator",
         "text": "Sister Hild sits on the quay's kerb by the chapter's boat with her forearms on her knees."
       },
@@ -469,6 +473,23 @@
         "say": "hild",
         "text": "You told her no. People don't, much. She'll write it down, and be glad of it somewhere she doesn't look.",
         "if": "flag:cindermoor_chapter_weigh=kept"
+      },
+      {
+        "end": true
+      }
+    ],
+    "cindermoor_foot": [
+      {
+        "say": "narrator",
+        "text": "Hild stands at the edge of the candles with her hands still black from the cinder, looking at the lifted seat."
+      },
+      {
+        "say": "hild",
+        "text": "Thirty-one years. I'd have had that up the first winter, just to see. That's why they never made me door-warden."
+      },
+      {
+        "say": "hild",
+        "text": "There's no smell of fire coming up out of it. Did you notice? Everything on this island smells of fire but that."
       },
       {
         "end": true

@@ -544,6 +544,10 @@
     ],
     "cindermoor": [
       {
+        "if": "flag:cindermoor_chapter_up",
+        "goto": "cindermoor_foot"
+      },
+      {
         "say": "narrator",
         "text": "Brother Iver stands at the quay's edge with his head on one side."
       },
@@ -554,6 +558,23 @@
       {
         "say": "iver",
         "text": "On the rock I had a voice to listen for. It went into the light, you know where. Here there's nothing to listen for, and I can't stop."
+      },
+      {
+        "end": true
+      }
+    ],
+    "cindermoor_foot": [
+      {
+        "say": "narrator",
+        "text": "Iver stands at the ring's edge with his head on one side, turned toward the niche."
+      },
+      {
+        "say": "iver",
+        "text": "Thirty-one midsummers I rowed in to argue the commas in that book. I never once noticed a whole line not there. You don't, do you. You read what's written."
+      },
+      {
+        "say": "iver",
+        "text": "There's something to listen for down there. I'd not swear what."
       },
       {
         "end": true
