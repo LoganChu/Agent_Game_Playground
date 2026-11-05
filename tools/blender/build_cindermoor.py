@@ -343,6 +343,55 @@ def build_spire_foot() -> None:
     bd.export("spire_foot")
 
 
+def build_chapter_boat() -> None:
+    """The chapter's boat at the Boat Stair (Day 85): one of the seven Spire boats that went out the night of the
+    Snuffing, the same lines as the eighth slip's but longer (5.4 m) and four-oared, come back down the lane in from
+    Kindleby under oars. Afloat: model z 0 = the waterline (place `snap: false` at the water level). Tarred dark under
+    a pale strake, a bone gunwale, four oars tossed up and laid in along the thwarts, the lug mast unstepped along the
+    thwarts with its sail furled round it, and the bow lantern lit on its crook (an ordinary flame: emissive only, no
+    light). Bow = -Y (Godot +Z): the region swings it alongside the quay's seaward face. Lantern glass centre ~
+    Godot [0, 0.82, 2.5] — the placement's `halo`."""
+    bd.reset()
+    length, half_beam, depth, sheer = 5.4, 0.86, 0.74, 0.4
+    st = bd.hull_stations(length, half_beam, depth, sheer)
+    tar, strake, rail = mat("ink", 0.14), mat("bone", -0.3), mat("bone", -0.12)
+    bd.hull("Hull", st, depth, sheer, tar)
+    bd.gunwale("Gunwale", st, rail, thick=0.07)
+    bd.gunwale("Strake", st, strake, thick=0.05, drop=0.14)
+    wood = mat("driftwood", -0.32)
+    for y in (-1.3, -0.4, 0.5, 1.4):
+        box("Thwart", (half_beam * 1.8, 0.22, 0.05), (0, y, sheer - 0.14), wood)
+    box("Floorboards", (0.7, 3.8, 0.03), (0, 0.1, -0.12), mat("driftwood", -0.2))
+    # Four oars laid in along the thwarts, blades aft, looms over the bow thwart.
+    for x in (-0.42, -0.2, 0.2, 0.42):
+        rod("Oar", (x, -1.9, sheer - 0.06), (x, 1.5, sheer - 0.04), 0.026, rail)
+        beam("OarBlade", (x, 1.5, sheer - 0.04), (x, 2.0, sheer - 0.03), 0.02, rail, width=0.13)
+    # The lug mast unstepped, lying down the middle with its sail furled round it.
+    rod("Mast", (0.0, -2.0, sheer + 0.06), (0.0, 1.9, sheer + 0.04), 0.045, mat("driftwood", -0.4), verts=6)
+    rod("Furl", (0.0, -2.2, sheer + 0.1), (0.0, 0.4, sheer + 0.1), 0.11, mat("bone", -0.42), verts=7, r_end=0.08)
+    # A box at the stern sheets (the chapter's candles and the Long Book in oilcloth) and a pair of lanterns on it.
+    box("Chest", (0.62, 0.44, 0.34), (0, 1.95, 0.02), mat("driftwood", -0.5))
+    box("Oilcloth", (0.42, 0.32, 0.1), (0, 1.95, 0.24), mat("moss", -0.55))
+    # The stem-post, its crook and the lit bow lantern.
+    bow_y, bow_z = st[0][0] + 0.08, st[0][2]
+    post = mat("driftwood", -0.35)
+    rod("StemPost", (0, bow_y, bow_z - 0.25), (0, bow_y, bow_z + 0.42), 0.05, post, verts=5)
+    iron = mat("ink", 0.2)
+    hy, hz = bow_y + 0.22, bow_z + 0.46
+    beam("Crook", (0, bow_y, bow_z + 0.42), (0, hy, hz), 0.024, iron)
+    gz = hz - 0.18
+    rod("Bail", (0, hy, hz), (0, hy, gz + 0.1), 0.008, iron, verts=3)
+    box("LanternPanes", (0.13, 0.13, 0.17), (0, hy, gz - 0.08), mat("kindle", 0.05, emissive=True))
+    cyl("LanternFoot", 0.1, 0.1, 0.03, 4, (0, hy, gz - 0.11), iron, rot_z=math.radians(45))
+    cyl("LanternCap", 0.1, 0.02, 0.06, 4, (0, hy, gz + 0.08), iron, rot_z=math.radians(45))
+    # The painter from the stem eye, slack, over the side toward the quay (+X) and down into the water.
+    rope = mat("driftwood", 0.05)
+    eye = (0.0, bow_y + 0.02, bow_z + 0.05)
+    for p0, p1 in (((eye), (0.5, bow_y + 0.3, bow_z + 0.02)), ((0.5, bow_y + 0.3, bow_z + 0.02), (1.1, bow_y + 0.6, -0.1))):
+        rod("Painter", p0, p1, 0.016, rope, verts=4)
+    bd.export("chapter_boat")
+
+
 BUILDERS = {
     "spire_foot": build_spire_foot,
     "boat_stair": build_boat_stair,
@@ -351,6 +400,7 @@ BUILDERS = {
     "cinder_cresset": build_cinder_cresset,
     "cinder_cresset_lit": build_cinder_cresset_lit,
     "cinder_cresset_doused": build_cinder_cresset_doused,
+    "chapter_boat": build_chapter_boat,
 }
 
 if __name__ == "__main__":
