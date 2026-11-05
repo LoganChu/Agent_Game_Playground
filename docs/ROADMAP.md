@@ -659,16 +659,29 @@ each .glb < 5 MB.
       fade); the long steps' cresset road legs straightened onto the grid (no sawtooth); the far Spire stand-in moved onto
       the crown road's line, its foot sunk into the fog; the validator memoizes each region's ground walk and builds its
       flag tables once — the suite went from ~130 s to ~55 s. `test_polish_twelve.gd` (6); the smoke walk checks the cue.
+- [x] [C] **The chapter comes in** (Day 85, LORE Act III step 4): back down off the moor once the crown's been reached,
+      **the first of the seven Spire boats** comes in to the Boat Stair under oars (Blender `chapter_boat`); Merrit gets
+      off his bollard and holds the bow ("I scarfed that stem"). Aboard: the Provost, Hild, Iver if he rowed home, Wenna
+      with forty candles if the colliers went to Kindleby; Kindleby's burning changes whose boat they think she is; Tobin
+      rang the second stroke anyway. New quest *The Chapter* (`future`). The Provost's **claim** ("The hand. Not the
+      choosing": `cindermoor_chapter_claim`), **the weighing** of the Stair-Taper and the Hood-Pin (`cindermoor_chapter_weigh`),
+      **the scraped roll** told to a Keeper (*The Seventh Name* → `a_keeper_knows`), and **the road**: if Ness led the
+      Wakebearer up, Hild relights the doused cresset whatever's asked (`cindermoor_keepers_relit`, `cindermoor_asked_spare`)
+      and the Unmoored go, Ness with her rake. Crew lines for Hild/Iver/Wenna; Merrit after. Checkpoint `the_chapter`; the
+      smoke walk comes back down and talks to her. `test_the_chapter.gd` (9).
 
 ### Next up
-1. [C] **The chapter comes in** (content, due ~Day 85-87; do it Day 85; LORE Act III step 4): the Provost brings a boat of Keepers
-   down the lane in to "do it properly". Who comes with her depends on the colliers/Iver on Kindleby. Merrit's "Somebody's
-   coming down" (after a relighting) can turn out to be them coming *up*. The Keepers see the scraped roll (a Keeper
-   would notice: scraping breaks the Long Book's rule) and ask to weigh the own Remnants. If the Wakebearer was led
-   up, the Keepers relight the doused cresset themselves (a consequence for Ness). Add the `act3` act_ends entry when its
-   `when` flag can be set by content (the validator forbids declared-but-unset flags, so not before the lantern room;
-   *The Way Up* completes but stays `future` until then).
-2. [C] **Act II follow-ups** (fold a line or two into later sessions; Kindleby/the ring are behind the player now, so most
+1. [C] **The chapter sits at the Spire's foot** (content, due ~Day 86-88; LORE Act III step 4's close, leading into
+   step 5): the Provost says when, and the chapter goes up the lit road to the crown (the chapter's NPCs move from the
+   Boat Stair to the Spire's foot — placements by a new flag). They sit by the niche; the Provost reads the roll for herself
+   (`cindermoor_provost_heard_roll` or not) and says nothing aloud; what they weigh for the Hearthspire (the Long Book?
+   the own Remnants — `cindermoor_chapter_weigh`; the Wakebearer — `cindermoor_chapter_claim`) and the first opening of
+   the Spire's lower rooms toward **what the Firstflame ate** (step 5: the oldest book). Ness/the woman "higher up" might
+   be glimpsed on the ring path. Add the `act3` act_ends entry only when its `when` flag can be set.
+2. [S] **The days pass on Cindermoor?** (systems, small): the chapter's "when I say" wants some sense of time. Consider a
+   light day/night (the light moods have overrides) or a "rest by the Mercy" that moves the story's clock. Decide before
+   the sitting needs it.
+3. [C] **Act II follow-ups** (fold a line or two into later sessions; Kindleby/the ring are behind the player now, so most
    need Act III to look back — letters, Oda's talk, or Keepers come down the lane in, LORE plan step 4):
    Aldous and the Hood-Pin (the hand on the stair; "tonight"); the Provost or Tobin seeing the
    Hood-Pin; Iver home on Kindleby meeting Tobin/the colliers; the `stayed`
@@ -676,17 +689,17 @@ each .glb < 5 MB.
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
    colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Low Water from Saltmarrow's side (Aldous, Mara —
    the Gull looks south over it). Pell isn't on the Mercy in Act III (they stayed at Bram's camp if they crossed).
-3. [P] **Color grading pass on a Vulkan machine** — also the Compatibility-renderer paint contrast items (Day 84 left
+4. [P] **Color grading pass on a Vulkan machine** — also the Compatibility-renderer paint contrast items (Day 84 left
    them: they need a real screen to judge); also check the ember's pool of clear in the fog (Day 78: subtle in
    Compatibility; the warm rim `ember_rim` barely shows), the Low Water chart mark and the conversation framing
    on a real screen — sandbox screenshots (Compatibility
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-4. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
+5. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
    rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
    `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
-5. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
+6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); (the ember light
    pushing fog back round the player: Day 78 — follow-up: let it ease the environment fog's thickening too if it reads
    weakly in Forward+); paths that fade in thick fog
@@ -694,7 +707,7 @@ each .glb < 5 MB.
    drifting in a pocket; (the audio cue — muffle + heartbeat — landed Day 46); colourblind-safe meter check
    with the accessibility item. (The first turn-back flag and Aldous's remark: Day 78 — others could notice it too:
    Bram, Hesper on the fen.)
-6. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
+7. [S] **Audio follow-ups** (v1 landed Day 46): **a listening pass by the owner** (levels, the gulls' and
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (title theme and lighting cue landed Day 74: an owner listen; a quiet motif for Act ends and the ferry
    crossings; a sparse in-world piece per island later — or real recordings); oars as the skiff comes in (with the
@@ -702,18 +715,18 @@ each .glb < 5 MB.
    the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
-7. [A] **Dressing follow-ups** (next art-led session due ~Day 84-86; last Day 81 new kit / Day 76 dressing): Cindermoor — the east stair door reads shut, not ajar; the worn ring round the Spire barely shows (Day 83). Kindleby — the Quiet House's step
+8. [A] **Dressing follow-ups** (next art-led session due ~Day 84-86; last Day 81 new kit / Day 76 dressing): Cindermoor — the east stair door reads shut, not ajar; the worn ring round the Spire barely shows (Day 83). Kindleby — the Quiet House's step
    candle at night once day/night exists, the chapter-house's interior wall, someone at the quay bell's rope when Tobin
    walks off; Wrackholm's empty bracket; the Teeth's broken water; (Pell's gull: Day 67); (the oars: Day 76); (Hild scraping the
    skiff: Day 71; her scrape sound: Day 74); the skiff's tar reads pale in the Compatibility renderer.
    Saltmarrow: paint contrast in the Compatibility renderer (walkway
    vs. slate); a lit-window variant for nights once day/night exists; (the brazier's ash raked after a `full` confession: Day 47); the mended lofts could get someone at work on
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
-8. [P] **Polish/debt pass thirteen** (due by ~Day 92): a scenario lint (a checkpoint leaving a quest mid-choice that a
+9. [P] **Polish/debt pass thirteen** (due by ~Day 92): a scenario lint (a checkpoint leaving a quest mid-choice that a
    later checkpoint inherits — carried from pass twelve); `screenshot.gd`'s `--at` is ignored when a `--scenario`
    spawn applies (found Day 84 trying to shoot the lost cue); other regions' paint paths with long shallow slants
    (the cresset rule from Day 84 could become a validator warning for every `path` paint).
-9. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
+10. [S] Interaction polish follow-ups (framing and the body fade landed Day 73): frame seated/low NPCs a touch lower
    (Hesk, Aldous on the bench); a framed shot for two-NPC scenes (Hild and the Provost) — today it frames whoever was
    talked to; in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
 

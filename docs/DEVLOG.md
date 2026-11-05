@@ -2,6 +2,56 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-05 09:00 UTC — Day 85: the chapter comes in (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; reset `main` to
+  `origin/main` (Day 84's `e19e30b`). Baseline: 599 tests + smoke + launch green.
+- **Content (ROADMAP *Next up* #1, LORE Act III step 4), quest *The Chapter* (`future`):**
+  - **The first boat back.** Coming back down to the Boat Stair once the crown has been reached, the Wakebearer hears
+    four oars, and the first of the seven Spire boats comes in out of the fog under an ordinary bow lantern. **Merrit
+    gets off his bollard** for the first time and goes into the water to take her by the stem ("I scarfed that stem").
+    Aboard are the Provost, Sister Hild at the steering oar, **Iver** if he rowed home and **Wenna Coll** with forty
+    candles if the colliers went to Kindleby. Kindleby's burning changes the story of the boat: with the night of the
+    boats burned, nobody could say whose she was; with the pan burned, Anselm rowed her over. Tobin rang the second
+    stroke anyway. Merrit's "Somebody's coming down, then" is paid: somebody came *in*.
+  - **The claim**: the chapter will sit at the Spire's foot and choose, and the Wakebearer carries the choice — "The
+    hand. Not the choosing." (`cindermoor_chapter_claim` heard/refused).
+  - **The weighing**: she holds the Stair-Taper and the Hood-Pin ("a candle-end and a bit of bone"; "They hum, don't
+    they. To you.") and gives them back — "Weighing isn't taking. Not yet." Or the Wakebearer keeps them: "Then it'll
+    weigh you instead." (`cindermoor_chapter_weigh`).
+  - **The scraped roll told to a Keeper** (*The Seventh Name* → `a_keeper_knows`): a Keeper's hand won't scrape a name;
+    the door-warden kept the roll; she doesn't say who else could. "I'll want to see it."
+  - **The road**: relit by the Wakebearer, she thanks them ("You may not like what comes up it"). If Ness led them up,
+    Merrit counts six. Whatever is asked ("A Keeper doesn't leave a light out because somebody in the dark asked her
+    to"), **Hild relights the doused cresset** in ten minutes, and the Unmoored go, Ness with her rake this time. At the
+    shelter the stone is set down "the way a Keeper sets a thing down". This is the consequence for Ness the roadmap asked for.
+  - Lines for Hild (the lane in "pulls with you" — mystery #3), Iver and Wenna on the quay; Merrit after ("Still
+    somebody up the stair, novice").
+- **Blender:** `build_cindermoor.py chapter_boat`: a 5.4 m four-oared Spire boat, afloat, mast unstepped, lit bow lantern.
+- **Tests:** `test_the_chapter.gd` (9). The smoke walk comes back down from the crown and talks to the Provost.
+  Checkpoint `the_chapter`. 608 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-05-am-the-chapter.png` (the chapter's boat at the quay steps, the Keepers on the
+quay, the Mercy beyond; also `docs/checkpoints/the_chapter.png`).
+
+**Problems / notes**
+- The first gate failed on three things of mine: a `var stair` already declared in the smoke function, the floating boat
+  under its origin in `test_dressing`, and `test_hild_scraping` pinning Hild's skiff condition exactly. All three are fixed. The
+  validator's exclusivity proof caught Hild's far-shore placement, which I had missed when moving the travellers.
+- The quay is crowded now (Merrit, Oda, the Provost, Hild, maybe Iver and Wenna), and the nameplates overlap from the
+  sea. That's fine for one scene. When the chapter goes up, the quay empties again.
+
+**Decisions**
+- **The Keepers relight it inside the Provost's scene**, not as a later event on the long steps: the NPCs stay on the
+  quay, Hild goes up and comes back within the scene, and every consequence follows from `cindermoor_cresset_steps_5`.
+  Asking her to spare it changes nothing, only what is written. That is the Keepers' sharpest edge so far.
+- **The scraped roll points, but names nobody.** "She doesn't say who else could have." The High Keeper/Oriel waits for step 5.
+- **No `act3` card yet** (still no flag for its `when`). *The Chapter* is `future`, without an act.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **the chapter sits at the Spire's foot** (content). Fetch and reset `main` before trusting it.
+
 ## 2026-11-04 21:00 UTC — Day 84: polish pass twelve (polish)
 
 **Did**

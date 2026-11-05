@@ -1416,6 +1416,43 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   - **A path worn round the Spire's foot** in the cinder, one pair of feet, round and round — the woman "higher up" who
     doesn't sit *(Act III step 6; never named yet)*.
 
+- **The chapter comes in (Day 85, Act III step 4, quest *The Chapter*, `cindermoor_chapter_came`).** Back down off the
+  moor once the crown has been reached, the Wakebearer hears oars: four, pulled short. Out of the fog comes **the first
+  of the seven Spire boats** that went out the night of the Snuffing, the same lines as the boat in the eighth slip,
+  longer and four-oared, an ordinary flame in her bow lantern. (After Merrit's seven: "Somebody's coming down" — nobody
+  has come down; somebody has come *in*.) **Merrit gets off his bollard** for the first time and goes down the steps into
+  the water to take her by the stem: "First out. ... I know her by the stem. I scarfed that stem." / "You hold the bow,
+  and they get out." Aboard: **the Provost** (hem dark to the knee), **Sister Hild** at the steering oar, **Brother
+  Iver** if he rowed home from Lowsong (hands empty, listening for what isn't there) and **Wenna Coll** with a box of
+  forty candles if the colliers went to keep candles on Kindleby. "Brother Merrit." / "Novice." — she doesn't correct
+  him. If Kindleby's night of the boats burned, nobody on Kindleby could say whose boat she was ("We've always had her,
+  I'd have said"); if the pan burned, **Brother Anselm** rowed her over and wouldn't come back in her. **Tobin rang the
+  second stroke** as they put out ("I told him to ring it anyway"). Oda: "Keepers. Rowing. Down a lane they never once
+  let a Tidewright sail." The Provost: **"We've come to do it properly."**
+  - **The claim** (`cindermoor_chapter_claim`: `heard` / `refused`): what of the chapter she could put in a boat will go
+    up to the Spire's foot and sit, weigh what the Hearthspire can be given, and choose; the Wakebearer carries its
+    choice up the stair — **"The hand. Not the choosing."** Refused: "the chapter will sit anyway, and write down that you
+    wouldn't listen. We write everything down." They go up the road "when I say" (the sitting is still to write).
+  - **The weighing** (`cindermoor_chapter_weigh`: `shown` / `kept`): "That's all weighing is, to begin with. You hold a
+    thing, and you ask what an island could spare." Held, the Stair-Taper and the Hood-Pin are **"a candle-end and a bit
+    of bone"** to her ("...They hum, don't they. To you."); the ember stirs while she has them; she gives them back —
+    "Weighing isn't taking. Not yet." Kept: "Then it'll weigh you instead. It comes to the same thing." *(Mystery #1/#2;
+    payoff at the sitting and the east stair.)*
+  - **The scraped roll told to a Keeper** (`cindermoor_provost_heard_roll`, *The Seventh Name* → `a_keeper_knows`): "Nobody
+    scrapes a name ... A Keeper's hand won't do the other thing. I've seen novices weep, trying to scrape a blot." Only
+    Keepers go up to the crown; the door-warden kept the roll, and Aldous by the end couldn't hold a pen straight. **She
+    doesn't say who else could have** *(never name Oriel or the High Keeper here)*. "I'll want to see it."
+  - **The road** (`cindermoor_chapter_road`): relit by the Wakebearer — "Seven lit, he says ... You may not like what comes
+    up it." **Led** — Merrit counts six; the Wakebearer may ask her to leave the doused one out (`cindermoor_asked_spare`:
+    **"A Keeper doesn't leave a light out because somebody in the dark asked her to. That's all we are. The ones who
+    don't."**). Either way **Hild goes up with the bow lantern on a boat-hook and relights it** (`cindermoor_keepers_relit`):
+    "Three days' work, that. I had it out in ten minutes." The Unmoored go off along the shoulder into the fog, **Ness
+    with her rake this time**; at the shelter the stone is set down square on the cairn "the way a Keeper sets a thing
+    down", a taper-end in the coals. Hild: "She didn't look angry. She looked like somebody'd woken her."
+  - Hild on the lane in: "I never rowed water that wanted me before. You pull, and it pulls with you" *(mystery #3)*. Iver:
+    "Here there's nothing to listen for, and I can't stop." Wenna: "First time in my life anybody's asked me would I."
+    Merrit after: "First out. First back. ... Seven out. One back. One in. ...Still somebody up the stair, novice."
+
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
   Saltmarrow, relights the Gull's Beacon, and must choose which memory to burn (e.g. Mara's
@@ -1459,7 +1496,7 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    word." — see *Cindermoor*.)* The warden's niche at the foot of the east stair (Aldous's knife, his tapers on the shelf) and
    **the novices' roll** (Day 47 hook): seven names, one scraped out — *not* struck through (the Long Book's rule broken,
    which a Keeper would notice). Whose boat is in the eighth slip gets its first clue here.
-4. **The chapter comes in.** The Provost brings a boat of Keepers down the lane in to "do it properly" — the rite for the
+4. **The chapter comes in.** *(Day 85, written: the first boat back, the claim, the weighing, the roll told, the Keepers relight the doused cresset — see *Cindermoor*; the chapter's sitting at the Spire's foot is still to write.)* The Provost brings a boat of Keepers down the lane in to "do it properly" — the rite for the
    Hearthspire, the chapter choosing. If the colliers or Iver came to Kindleby, who comes with her changes. The Keepers'
    courtship turns into a claim on the Wakebearer (and on the own Remnants: "they'd want to weigh it").
 5. **What the Firstflame ate** *(mystery #1 and #3 payoff, mid-Act III)*: the Keepers' oldest book in the Spire's
@@ -1499,3 +1536,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - 2 weeks ago: Dunstan Tollen walks into the fog from Saltmarrow.
 - Day 0: the player wakes on Shingle Point.
 - The morning after the sixth light: the Slow Mercy goes down the lane in to Cindermoor's Boat Stair.
+- Soon after (Day 85): the chapter's boat comes in to the Boat Stair, two days down the lane in under oars from Kindleby.
