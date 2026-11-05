@@ -669,18 +669,30 @@ each .glb < 5 MB.
       Wakebearer up, Hild relights the doused cresset whatever's asked (`cindermoor_keepers_relit`, `cindermoor_asked_spare`)
       and the Unmoored go, Ness with her rake. Crew lines for Hild/Iver/Wenna; Merrit after. Checkpoint `the_chapter`; the
       smoke walk comes back down and talks to her. `test_the_chapter.gd` (9).
+- [x] [C] **The chapter sits at the Spire's foot** (Day 86, Act III step 4's close): once the road's asked after, the
+      Provost says when — **dusk** (`cindermoor_chapter_up`; *The Chapter* → `the_sitting`); the chapter's NPCs leave the
+      quay for a ring of candles before the niche (Blender `chapter_ring`); Merrit stays ("It's the coming down I count").
+      On the crown **the sitting** plays (`cindermoor_chapter_sat`): the roll read for herself and nothing said (*The
+      Seventh Name* → `she_read_it`), **the Long Book has no line for the Spire** in nine hundred years ("I never asked"),
+      the hooded woman on the ring path seen by the Wakebearer alone, what the hand says (`cindermoor_sitting_spoke`), and
+      Hild lifts the warden's seat on **the stair down to the lower rooms** (Blender `spire_foot_open`; *The Chapter* →
+      `the_lower_rooms`; "Tomorrow. Nobody goes down before."). Cindermoor's first story-clock: dusk, then night (light
+      and fog overrides). Checkpoint `the_sitting`; the smoke walk goes up and sits. `test_the_sitting.gd` (9).
 
 ### Next up
-1. [C] **The chapter sits at the Spire's foot** (content, due ~Day 86-88; LORE Act III step 4's close, leading into
-   step 5): the Provost says when, and the chapter goes up the lit road to the crown (the chapter's NPCs move from the
-   Boat Stair to the Spire's foot — placements by a new flag). They sit by the niche; the Provost reads the roll for herself
-   (`cindermoor_provost_heard_roll` or not) and says nothing aloud; what they weigh for the Hearthspire (the Long Book?
-   the own Remnants — `cindermoor_chapter_weigh`; the Wakebearer — `cindermoor_chapter_claim`) and the first opening of
-   the Spire's lower rooms toward **what the Firstflame ate** (step 5: the oldest book). Ness/the woman "higher up" might
-   be glimpsed on the ring path. Add the `act3` act_ends entry only when its `when` flag can be set.
-2. [S] **The days pass on Cindermoor?** (systems, small): the chapter's "when I say" wants some sense of time. Consider a
-   light day/night (the light moods have overrides) or a "rest by the Mercy" that moves the story's clock. Decide before
-   the sitting needs it.
+1. [C] **What the Firstflame ate — the lower rooms** (content, due ~Day 87-89; LORE Act III step 5, mystery #1/#3
+   payoff, mid-Act III): **morning first** — a rest in the chapter's candle ring (or by the niche) moves the clock
+   (`cindermoor_morning`, a light/fog override ahead of the night one; Day 86 left Cindermoor at night). Then the stair under
+   the warden's seat goes down (a new region, `cindermoor_lower_rooms`: dry, cold, no smell of fire; twelve steps and a
+   turn) to **the Spire's own book**, the oldest: the Hushed of nine hundred years fed to the Firstflame, the Quiet House's
+   purpose, the fog as what was burned coming home. **Oriel Sayre is named here, not before**; the High Keeper's reasons.
+   How the chapter takes it (the Provost's "I never asked"; Iver's commas; Hild). Who goes down: the chapter, with Wenna's
+   fourteen candles kept back. `cindermoor_sitting_spoke` should colour the first lines (offered/asked/silent). Plan the
+   `act3` act_ends `when` flag before the act's end, not now.
+2. [S] **The days pass on Cindermoor** — *decided Day 86:* Cindermoor's clock is a **story clock**, not a free-running
+   day/night: flags move it, and each Cindermoor region carries light and fog overrides for it (`cindermoor_chapter_sat` →
+   night, `cindermoor_chapter_up` → dusk; first match wins, so later times go first in the list). Follow-up with the lower
+   rooms: the morning flag and a rest prompt; consider a shared "Cindermoor clock" helper if a fourth time of day comes.
 3. [C] **Act II follow-ups** (fold a line or two into later sessions; Kindleby/the ring are behind the player now, so most
    need Act III to look back — letters, Oda's talk, or Keepers come down the lane in, LORE plan step 4):
    Aldous and the Hood-Pin (the hand on the stair; "tonight"); the Provost or Tobin seeing the
@@ -825,7 +837,9 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 82 (the way up: the long steps, Ness; with the cressets system); next content due by ~Day 86.
+- Last content session: Day 86 (the chapter sits; the stair to the lower rooms). Last polish: Day 84 (pass twelve); next due ~Day 88-90.
+- Three Garrows (Wenna the Wrackholm lane-warden, Sister Hild, Ness of the Unmoored), probably by accident: decide whether
+  Garrow is just a common Tidewright name, or a thread (Hild relit the cresset Ness kept doused).
 - Last polish/debt session: Day 80 (polish eleven: what's still owed on the act cards, the more-below cue, the Bend
   checkpoint fix, Lowsong's smoke thread and log); next due by ~Day 88.
 - Last systems session: Day 82 (forgetting fog and waymark cressets); next due by ~Day 86-88 (day/night — the Quiet House's

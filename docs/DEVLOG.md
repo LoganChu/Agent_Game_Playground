@@ -2,6 +2,61 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-05 21:00 UTC — Day 86: the chapter sits (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; `origin/main` had been
+  force-updated to Day 85's `0d540c2`, and I reset `main` to it. Baseline green.
+- **Content (ROADMAP *Next up* #1, LORE Act III step 4's close), *The Chapter* → `the_sitting` → `the_lower_rooms`:**
+  - **When.** Once the claim is laid and the road asked after, the Provost can be asked when: **at dusk** ("The Long Book
+    was always read by candle"), and not without the hand. Claim refused: "The chapter will want to see the hand it's
+    writing down." Hild carries the Long Book up on her back, Wenna goes with her candles, and Iver goes last, stopping to
+    listen. Merrit stays on his bollard: "Up's all right, novice. It's the coming down I count." / "One in. Nobody in her."
+    The chapter's NPCs leave the quay for the crown (`cindermoor_chapter_up`).
+  - **The sitting** (a crown arrival event, `cindermoor_chapter_sat`): a ring of candles before the niche (Wenna's, if she
+    came). On the crown a chapter "sits" standing, because there's only cinder. If she was told of the roll, the Provost reads it for herself,
+    holds her thumb on the scraped place and **says nothing aloud** (*The Seventh Name* → `she_read_it`). Then the reading:
+    **the Long Book has every island's burning back to the Kindling and not one line for what the Spire burned** (Iver
+    reads it if he came, Hild if not). "There's always a line." / "Not for the Spire." The Provost: "I never asked." (Kindleby's
+    line, paid.) A hooded woman walks the ring path inside the fog wall, seen only by the Wakebearer (never named).
+    The hand speaks (`cindermoor_sitting_spoke`: offered / asked / silent). **Hild lifts the warden's seat**: a stair
+    down into the rock, air that doesn't smell of fire, twelve steps the Wakebearer has counted before knowing it.
+    "Tomorrow. Nobody goes down before."
+  - Afterwards: the niche's "Look down the stair under the seat" (you take your foot back off the first step), and lines
+    for the Provost ("I can wait a night"; "I've seen it now"), Hild, Iver ("You read what's written") and Wenna ("I kept
+    fourteen back").
+  - **Cindermoor's clock moves for the first time:** dusk once the chapter goes up, night once it has sat (light and fog
+    overrides on all three Cindermoor regions).
+- **Blender:** `build_cindermoor.py spire_foot_open` (the seat lifted, the stairwell dark) and `chapter_ring`
+  (26 candles and the Long Book on an oilcloth).
+- **Tests:** `test_the_sitting.gd` (9). The smoke walk asks when, climbs at dusk, sits, and looks down the stair. Checkpoint
+  `the_sitting`. 617 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-05-pm-the-sitting.png` (night on the crown, the Provost and Hild in the candle ring
+before the niche, the Long Book open between them; also `docs/checkpoints/the_sitting.png`).
+
+**Decisions**
+- **ROADMAP #2 (days on Cindermoor) decided: a story clock, not a day/night cycle.** Flags move the time, and overrides
+  paint it. That is enough for "when I say" and "tomorrow" without a clock that could strand a scene at the wrong hour.
+  The rule is recorded in TECH.
+- **The chapter stands.** None of the four has a seated model except Wenna. Rather than build three seated variants, the
+  text makes standing canon ("there's nothing on the crown but cinder").
+- **The sitting doesn't choose.** It finds the hole in the record and adjourns to read the Spire's own book. Step 5 (what the
+  Firstflame ate; Oriel named) is the next session's, and the choice stays with the lantern room.
+- **Arrival event, not a talk-to.** The sitting fires on reaching the crown after `chapter_up`, so it can't be walked
+  past. `chapter_sat` is set as it fires.
+
+**Problems / notes**
+- The validator's exclusivity proof needed `cindermoor_chapter_came` on the crown placements too (Kindleby's placements
+  key on it). `test_dressing` matched `spire_foot.glb` by exact name and now matches by prefix.
+- Noticed: three Garrows (Wenna the Wrackholm lane-warden, Sister Hild, Ness of the Unmoored). It was probably accidental,
+  but it fits if Garrow is a common Tidewright/Wrackholm name. It is logged in ROADMAP as a possible thread. Don't make
+  them kin without deciding it.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **the lower rooms** (morning first, then the Spire's own book; Oriel named). Fetch and reset `main`
+   before trusting it. A polish pass is due by ~Day 88-90 (last was Day 84).
+
 ## 2026-11-05 09:00 UTC — Day 85: the chapter comes in (content)
 
 **Did**

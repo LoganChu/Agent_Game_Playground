@@ -1452,6 +1452,33 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   - Hild on the lane in: "I never rowed water that wanted me before. You pull, and it pulls with you" *(mystery #3)*. Iver:
     "Here there's nothing to listen for, and I can't stop." Wenna: "First time in my life anybody's asked me would I."
     Merrit after: "First out. First back. ... Seven out. One back. One in. ...Still somebody up the stair, novice."
+- **The chapter sits (Day 86, Act III step 4's close, `cindermoor_chapter_up` → `cindermoor_chapter_sat`).** Once the claim
+  is laid and the road asked after, the Provost says when: **at dusk** — "The Long Book was always read by candle" — and not
+  without the hand ("A sitting with no hand to carry what it chooses is only a meeting"). Hild carries **the Long Book** up
+  the moor on her back in oilcloth; Wenna Coll goes after the Keepers with her candles; Iver last, stopping to listen.
+  Merrit stays on his bollard: "Gone up. All of them. Up's all right, novice. It's the coming down I count." / "One in.
+  Nobody in her." The grey goes the colour of a bruise; **dusk, then night, on Cindermoor** (the first time the island's
+  clock moves).
+  - **The ring of candles** before the warden's niche (Wenna's forty, if she came: "Something to set them in, see"). On the
+    crown a chapter sits standing: "there's nothing on the crown but cinder, and the Provost won't have anybody sit in it."
+  - **The roll read for herself** (if she was told of it; *The Seventh Name* → `she_read_it`): she reads it to the foot, holds
+    her thumb on the scraped place, hangs it back, and **says nothing aloud at all**. Afterwards only: "I've seen it now."
+  - **No line for the Spire.** The Long Book holds **every island's burning, every year it was fed, back to the Kindling: who
+    sat, and what burned** — and **not one line for what the Hearthspire burned**, in nine hundred years (Iver reads it, if
+    he came, "the way a man reads who's argued about every comma in it"; else Hild). "There's always a line." / "Not for the
+    Spire." The Provost: "...not once did anybody ask what the Spire burned. **I never asked.**" (Kindleby's "I never asked
+    them", paid.) *(Mystery #1: the Hearthspire fed on what the order never wrote down. Do not explain before step 5.)*
+  - **The woman on the ring path**: while they sit, somebody walks the worn path round the Spire's foot just inside the fog
+    wall — a long hooded shape, grey to the shoulders, not looking at the candles. Only the Wakebearer, facing out, sees her.
+    *(The eighth slip's owner — step 6. Never named; not Ness.)*
+  - **What the hand says** (`cindermoor_sitting_spoke`): weigh the ember ("Not till we know what it's fed on"), the Spire must
+    have kept its own book, or nothing ("Thank you" — she means it, and it surprises her).
+  - **The stair under the seat.** Aldous used to say **he sat on the oldest thing in the order** ("we thought it was the drink
+    talking"). Hild lifts the warden's seat: it comes up on a pin like a lid, and under it **steps go down into the Spire's
+    own rock to the lower rooms**, where the Spire kept its own book. The air that comes up is cold and dry and **smells of
+    nothing — the first air on Cindermoor that doesn't smell of fire**. The ember shows twelve steps before the turn; the
+    Wakebearer has counted them before they know they're counting *(mystery #2)*. "The chapter will read before it chooses.
+    Not tonight... **Tomorrow. Nobody goes down before.**" Wenna kept fourteen candles back, for a stair.
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1496,7 +1523,7 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    word." — see *Cindermoor*.)* The warden's niche at the foot of the east stair (Aldous's knife, his tapers on the shelf) and
    **the novices' roll** (Day 47 hook): seven names, one scraped out — *not* struck through (the Long Book's rule broken,
    which a Keeper would notice). Whose boat is in the eighth slip gets its first clue here.
-4. **The chapter comes in.** *(Day 85, written: the first boat back, the claim, the weighing, the roll told, the Keepers relight the doused cresset — see *Cindermoor*; the chapter's sitting at the Spire's foot is still to write.)* The Provost brings a boat of Keepers down the lane in to "do it properly" — the rite for the
+4. **The chapter comes in.** *(Day 85, written: the first boat back, the claim, the weighing, the roll told, the Keepers relight the doused cresset; Day 86: the sitting — no line for the Spire, the stair under the warden's seat — see *Cindermoor*.)* The Provost brings a boat of Keepers down the lane in to "do it properly" — the rite for the
    Hearthspire, the chapter choosing. If the colliers or Iver came to Kindleby, who comes with her changes. The Keepers'
    courtship turns into a claim on the Wakebearer (and on the own Remnants: "they'd want to weigh it").
 5. **What the Firstflame ate** *(mystery #1 and #3 payoff, mid-Act III)*: the Keepers' oldest book in the Spire's
@@ -1537,3 +1564,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - Day 0: the player wakes on Shingle Point.
 - The morning after the sixth light: the Slow Mercy goes down the lane in to Cindermoor's Boat Stair.
 - Soon after (Day 85): the chapter's boat comes in to the Boat Stair, two days down the lane in under oars from Kindleby.
+- That dusk (Day 86): the chapter goes up and sits at the Spire's foot; the stair to the lower rooms is found. "Tomorrow."
