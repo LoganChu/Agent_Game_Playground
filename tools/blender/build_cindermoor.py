@@ -271,12 +271,14 @@ def build_cinder_cresset_doused() -> None:
     bd.export("cinder_cresset_doused")
 
 
-def build_spire_foot() -> None:
+def build_spire_foot(seat_open: bool = False) -> None:
     """The Hearthspire's foot at full scale (Day 83, the crown of Cindermoor): the plinth, the battered foot and the
     first ~14 m of the shaft going up into the fog (the rest is fog). On the front (-Y, Godot +Z) **the east stair
     door**, ajar a hand's width on the dark, two worn steps up to it; to its right (+X) **the warden's niche**, a
     little stone booth built out from the wall: a seat, a shelf with a bundle of uncut tapers and the knife that cut
-    them, and the novices' roll on its peg. Origin at the plinth's centre on the ground."""
+    them, and the novices' roll on its peg. Origin at the plinth's centre on the ground. `seat_open` (Day 86,
+    `spire_foot_open`): the warden's seat lifted on its pin like a lid and leant back on the niche wall, and under it
+    the dark of the stair down to the lower rooms."""
     bd.reset()
     rng = random.Random(830)
     PALE, PALE2, PALE3 = mat("bone", -0.12), mat("bone", -0.25), mat("bone", -0.38)
@@ -328,7 +330,20 @@ def build_spire_foot() -> None:
     box("NicheRoof", (1.9, depth + 0.2, 0.22), (nx, mid_y - 0.05, 2.6), PALE3)
     box("NicheBack", (1.4, 0.12, 2.3), (nx, back_y + 0.02, 0.3), mat("bone", -0.55))
     box("NicheFloor", (1.4, depth, 0.06), (nx, mid_y, 0.3), PALE3)
-    box("Seat", (1.2, 0.42, 0.45), (nx, back_y - 0.26, 0.36), PALE2)
+    if not seat_open:
+        box("Seat", (1.2, 0.42, 0.45), (nx, back_y - 0.26, 0.36), PALE2)
+    else:
+        # The seat's a hollow box with a lid: the lid stands up against the back wall, the well under it is dark,
+        # and the first step shows pale a hand below the rim.
+        sy = back_y - 0.26
+        for x in (nx - 0.56, nx + 0.56):
+            box("SeatSide", (0.08, 0.42, 0.37), (x, sy, 0.36), PALE2)
+        for y in (sy - 0.17, sy + 0.17):
+            box("SeatSide", (1.2, 0.08, 0.37), (nx, y, 0.36), PALE2)
+        box("Well", (1.04, 0.26, 0.04), (nx, sy, 0.62), DARK)
+        box("FirstStep", (0.5, 0.12, 0.03), (nx - 0.22, sy - 0.06, 0.66), PALE3)
+        lid = box("SeatLid", (1.2, 0.08, 0.42), (nx, back_y - 0.06, 0.73), PALE2)
+        lid.rotation_euler[0] = math.radians(-8)
     box("Shelf", (1.3, 0.3, 0.06), (nx, back_y - 0.2, 1.45), WOOD)
     # A bundle of uncut tapers, and the knife that cut them, on the shelf.
     for k in range(7):
@@ -340,7 +355,35 @@ def build_spire_foot() -> None:
     rod("Peg", (nx + 0.4, back_y, 1.95), (nx + 0.4, back_y - 0.16, 1.95), 0.02, WOOD)
     rod("Roll", (nx + 0.22, back_y - 0.1, 1.97), (nx + 0.58, back_y - 0.1, 1.97), 0.05, VELLUM, verts=6)
     box("RollFoot", (0.34, 0.01, 0.42), (nx + 0.4, back_y - 0.14, 1.53), VELLUM)
-    bd.export("spire_foot")
+    bd.export("spire_foot_open" if seat_open else "spire_foot")
+
+
+def build_spire_foot_open() -> None:
+    build_spire_foot(seat_open=True)
+
+
+def build_chapter_ring() -> None:
+    """The chapter sitting at the Spire's foot (Day 86): a ring of candles stood in the cinder (r ~2.3 m, an opening
+    at model -Y toward the niche) and, inside it, an oilcloth spread on the ground with the Long Book open on it — a
+    doorstep of a book, its pages fanned. Flames emissive only (the region gives it a small warm light). Origin at
+    the ring's centre on the ground."""
+    bd.reset()
+    rng = random.Random(860)
+    wax, wick = mat("bone", -0.08), mat("kindle", 0.15, emissive=True)
+    for k in range(26):
+        a = -math.pi / 2 + 0.55 + k / 25 * (math.tau - 1.1)
+        r = 2.3 + rng.uniform(-0.08, 0.08)
+        h = rng.uniform(0.12, 0.3)
+        x, y = math.cos(a) * r, math.sin(a) * r
+        cyl("Candle", 0.035, 0.032, h, 5, (x, y, -0.04), wax)
+        cyl("Flame", 0.026, 0.0, 0.09, 4, (x, y, h - 0.04), wick)
+    box("Oilcloth", (1.3, 0.9, 0.02), (0.0, 0.4, 0.0), mat("moss", -0.55), 0.1)
+    cover = mat("driftwood", -0.6)
+    for side in (-1, 1):
+        box("BookCover", (0.36, 0.5, 0.05), (side * 0.19, 0.4, 0.02), cover, 0.1)
+        box("BookLeaves", (0.33, 0.46, 0.09), (side * 0.18, 0.4, 0.07), mat("bone", -0.18), 0.1)
+    box("Spine", (0.06, 0.5, 0.1), (0.0, 0.4, 0.0), cover, 0.1)
+    bd.export("chapter_ring")
 
 
 def build_chapter_boat() -> None:
@@ -394,6 +437,8 @@ def build_chapter_boat() -> None:
 
 BUILDERS = {
     "spire_foot": build_spire_foot,
+    "spire_foot_open": build_spire_foot_open,
+    "chapter_ring": build_chapter_ring,
     "boat_stair": build_boat_stair,
     "boathouse_slips": build_boathouse_slips,
     "hearthspire_far": build_hearthspire_far,
