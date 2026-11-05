@@ -133,7 +133,8 @@ func test_hild_at_the_skiff() -> void:
 	assert_false(skiff.is_empty(), "the skiff back on the shingle")
 	if skiff.is_empty():
 		return
-	assert_eq(skiff["if"], placed["if"], "she's there exactly when the skiff is")
+	# ...until the chapter takes her down the lane in to Cindermoor (Day 85).
+	assert_eq((skiff["if"] as Array) + ["!flag:cindermoor_chapter_came"], placed["if"], "she's there exactly when the skiff is")
 	var edge := _xform(skiff).affine_inverse() * (_xform(placed) * EDGE)
 	var hull := _points(KIT + "kindleby_skiff.glb")
 	var gap := _nearest(hull, edge)

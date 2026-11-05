@@ -396,6 +396,28 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_finish_dialogue(ui, "foot_door")
 	_check(world.get_flag("cindermoor_stair_door_tried") == true, "the east stair door, not yet")
 	print("Smoke: the Spire's foot — the doused cresset relit, the roll read")
+	# Day 85: back down the moor, the chapter's boat comes in to the Boat Stair; the Provost lays the claim, holds
+	# what is the Wakebearer's own, and hears of the scraped roll.
+	if not await _take_exit(main, ui, "cindermoor_long_steps", "back down to the long steps"):
+		return
+	if not await _take_exit(main, ui, "cindermoor_boat_stair", "down the notch to the Boat Stair"):
+		return
+	var quay: Region = main.get("region")
+	_check(world.get_flag("cindermoor_chapter_came") == true and world.quest_stage("the_chapter") == "come_in", "the chapter's boat came in")
+	_check(_shown_model(quay, "chapter_boat.glb") == 1 and _npc("provost") != null and _npc("hild") != null, "the boat alongside, the Provost and Hild on the quay")
+	if _npc("provost") == null:
+		return
+	_npc("provost").interact()
+	_check(_choose(ui, "The chapter can sit. I'll hear what it says."), "the chapter's claim")
+	_check(_choose(ui, "Let her hold the Stair-Taper and the Hood-Pin."), "she asks to weigh what is yours")
+	_check(_choose(ui, "Put the Stair-Taper and the Hood-Pin in her hands."), "weighed")
+	_check(_choose(ui, "Tell her about the novices' roll."), "told of the roll")
+	_check(_choose(ui, "Scraped. Down to the skin, with a blade."), "scraped")
+	_check(_choose(ui, "Who kept the roll?"), "who kept it")
+	_check(_choose(ui, "Leave her to the quay."), "left her to the quay")
+	_finish_dialogue(ui, "provost (the chapter)")
+	_check(world.quest_stage("the_seventh_name") == "a_keeper_knows" and world.get_flag("cindermoor_chapter_weigh") == "shown", "a Keeper knows of the scraped name")
+	print("Smoke: the chapter comes in — the claim, the weighing, the roll")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
