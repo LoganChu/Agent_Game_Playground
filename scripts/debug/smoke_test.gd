@@ -418,6 +418,28 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_finish_dialogue(ui, "provost (the chapter)")
 	_check(world.quest_stage("the_seventh_name") == "a_keeper_knows" and world.get_flag("cindermoor_chapter_weigh") == "shown", "a Keeper knows of the scraped name")
 	print("Smoke: the chapter comes in — the claim, the weighing, the roll")
+	# Day 86: the road asked after, the Provost says when; the chapter goes up at dusk and sits at the Spire's foot.
+	_npc("provost").interact()
+	_check(_choose(ui, "The road up forgets where it goes. You'll want the cressets."), "the road asked after")
+	_check(_choose(ui, "When does the chapter go up?"), "asked when")
+	_finish_dialogue(ui, "provost (when)")
+	for i in 2:
+		await get_tree().process_frame
+	_check(world.get_flag("cindermoor_chapter_up") == true and _npc("provost") == null and _npc("hild") == null and _npc("merrit") != null,
+			"the chapter has gone up; Merrit stays on his bollard")
+	if not await _take_exit(main, ui, "cindermoor_long_steps", "up the notch at dusk"):
+		return
+	if not await _take_exit(main, ui, "cindermoor_spire_foot", "up the road to the chapter"):
+		return
+	foot = main.get("region")
+	_check(world.get_flag("cindermoor_chapter_sat") == true and world.quest_stage("the_chapter") == "the_lower_rooms", "the chapter sat")
+	_check(world.quest_stage("the_seventh_name") == "she_read_it", "the Provost read the roll for herself")
+	_check(_npc("provost") != null and _shown_model(foot, "chapter_ring.glb") == 1 and _shown_model(foot, "spire_foot_open.glb") == 1
+			and _shown_model(foot, "spire_foot.glb") == 0, "the chapter in its ring, the warden's seat lifted")
+	_object("foot_niche").interact()
+	_check(_choose(ui, "Look down the stair under the seat."), "the stair under the seat")
+	_finish_dialogue(ui, "foot_niche (the stair)")
+	print("Smoke: the chapter sits — no line for the Spire, the stair under the seat")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
