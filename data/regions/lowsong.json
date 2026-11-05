@@ -812,7 +812,8 @@
       "note": "Brother Iver Lusk on the rock below his light's door, his lamp held out low, his head turned to the water.",
       "if": [
         "flag:lowsong_beacon_burned=",
-        "!flag:lowsong_iver_gave=lamp"
+        "!flag:lowsong_iver_gave=lamp",
+        "!flag:cindermoor_chapter_came"
       ]
     },
     {
@@ -826,7 +827,8 @@
       "rotation_y": 100,
       "if": [
         "flag:lowsong_beacon_burned=",
-        "flag:lowsong_iver_gave=lamp"
+        "flag:lowsong_iver_gave=lamp",
+        "!flag:cindermoor_chapter_came"
       ],
       "note": "Iver has made his lamp a Remnant and you carry it (Day 77): his hands empty on the rock."
     },
@@ -838,7 +840,10 @@
         -1.9
       ],
       "rotation_y": 100,
-      "if": "flag:lowsong_beacon_burned=key",
+      "if": [
+        "flag:lowsong_beacon_burned=key",
+        "!flag:cindermoor_chapter_came"
+      ],
       "note": "Key burned (Day 77): Iver stays, his lamp still held out low, listening; he's forgotten there was anywhere else."
     },
     {
@@ -853,7 +858,8 @@
       "if": [
         "flag:lowsong_beacon_burned=lamp",
         "flag:lowsong_out",
-        "!flag:lowsong_iver_home"
+        "!flag:lowsong_iver_home",
+        "!flag:cindermoor_chapter_came"
       ],
       "note": "Lamp burned (Day 77): Iver waits on the landing by Hild and the skiff, both hands empty, to be rowed home."
     },
@@ -865,7 +871,10 @@
         4.4
       ],
       "rotation_y": 280,
-      "if": "flag:lowsong_out",
+      "if": [
+        "flag:lowsong_out",
+        "!flag:cindermoor_chapter_came"
+      ],
       "note": "Sister Hild on the landing by the drawn-up skiff, an oar stood beside her, looking out where the singing is."
     }
   ],

@@ -813,6 +813,25 @@
         "the_way_up": "done"
       },
       "shot": "--camera=17,3,-1:3,4.5,-7"
+    },
+    {
+      "id": "the_chapter",
+      "act": "Act III — The Spire",
+      "title": "The Chapter Comes In",
+      "inherits": "the_spire_foot",
+      "region": "cindermoor_boat_stair",
+      "spawn": "default",
+      "description": "Back down off the moor from the Hearthspire's foot, the roll read: the first of the seven Spire boats has come in to the Boat Stair under oars, with the Provost of Kindleby and what of the chapter she could put in a boat, to do it properly. Merrit held the bow.",
+      "flags": {
+        "cindermoor_niche_seen": true,
+        "cindermoor_roll_read": true,
+        "cindermoor_chapter_came": true
+      },
+      "quests": {
+        "the_chapter": "come_in",
+        "the_seventh_name": "scraped"
+      },
+      "shot": "--camera=-9,3.2,15.5:-1.5,1.2,6"
     }
   ]
 }

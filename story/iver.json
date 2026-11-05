@@ -3,6 +3,13 @@
   "knots": {
     "start": [
       {
+        "if": [
+          "flag:cindermoor_chapter_came",
+          "flag:lowsong_iver_home"
+        ],
+        "goto": "cindermoor"
+      },
+      {
         "if": "flag:lowsong_iver_home",
         "goto": "home"
       },
@@ -533,6 +540,23 @@
       },
       {
         "goto": "after_hub"
+      }
+    ],
+    "cindermoor": [
+      {
+        "say": "narrator",
+        "text": "Brother Iver stands at the quay's edge with his head on one side."
+      },
+      {
+        "say": "iver",
+        "text": "I asked to come. Lorn said I'd be used to the dark. I think she meant she couldn't leave me on the candles: I kept stopping in the middle of a turn to listen."
+      },
+      {
+        "say": "iver",
+        "text": "On the rock I had a voice to listen for. It went into the light, you know where. Here there's nothing to listen for, and I can't stop."
+      },
+      {
+        "end": true
       }
     ]
   }

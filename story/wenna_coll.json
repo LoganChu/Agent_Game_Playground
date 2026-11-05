@@ -3,6 +3,13 @@
   "knots": {
     "start": [
       {
+        "if": [
+          "flag:cindermoor_chapter_came",
+          "flag:thornwold_skiff=kindleby"
+        ],
+        "goto": "cindermoor"
+      },
+      {
         "if": "flag:thornwold_skiff=kindleby",
         "goto": "kindleby"
       },
@@ -1100,6 +1107,23 @@
       },
       {
         "goto": "kindleby_hub"
+      }
+    ],
+    "cindermoor": [
+      {
+        "say": "narrator",
+        "text": "Wenna Coll sits by the oil barrels with her box on her knees: candles, packed in straw, forty of them."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Somebody on Kindleby said there's a stair up that thing two hundred steps in the dark. I said that's a long way to carry a light with nothing to set it in."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "The Provost asked would I come. First time in my life anybody's asked me would I. Usually it's will you."
+      },
+      {
+        "end": true
       }
     ]
   }

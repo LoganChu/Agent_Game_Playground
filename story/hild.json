@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:cindermoor_chapter_came",
+        "goto": "cindermoor"
+      },
+      {
         "if": "flag:lowsong_out",
         "goto": "lowsong"
       },
@@ -440,6 +444,34 @@
           "kindleby",
           "from_skiff"
         ]
+      }
+    ],
+    "cindermoor": [
+      {
+        "say": "narrator",
+        "text": "Sister Hild sits on the quay's kerb by the chapter's boat with her forearms on her knees."
+      },
+      {
+        "say": "hild",
+        "text": "Two days down the lane in under oars, and the fog thicker every stroke. Twelve years I've rowed the wet. I never rowed water that wanted me before. You pull, and it pulls with you."
+      },
+      {
+        "say": "hild",
+        "text": "That woman on the moor. I keep thinking of her face. She didn't look angry. She looked like somebody'd woken her.",
+        "if": "flag:cindermoor_keepers_relit"
+      },
+      {
+        "say": "hild",
+        "text": "She held your bits a long while. Longer than she holds most things.",
+        "if": "flag:cindermoor_chapter_weigh=shown"
+      },
+      {
+        "say": "hild",
+        "text": "You told her no. People don't, much. She'll write it down, and be glad of it somewhere she doesn't look.",
+        "if": "flag:cindermoor_chapter_weigh=kept"
+      },
+      {
+        "end": true
       }
     ]
   }

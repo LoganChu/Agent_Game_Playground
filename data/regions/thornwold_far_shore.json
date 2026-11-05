@@ -599,7 +599,8 @@
       "rotation_y": 180,
       "if": [
         "!flag:thornwold_far_shore=up",
-        "!flag:thornwold_skiff=kindleby"
+        "!flag:thornwold_skiff=kindleby",
+        "!flag:cindermoor_chapter_came"
       ],
       "note": "At the end of the boat-stage on a folded sack, looking out to sea for a boat."
     },
@@ -696,7 +697,8 @@
       "if": [
         "flag:thornwold_skiff_landed",
         "flag:thornwold_skiff=",
-        "!flag:lowsong_out"
+        "!flag:lowsong_out",
+        "!flag:cindermoor_chapter_came"
       ],
       "note": "Sister Hild Garrow, on the stage's kerb by the skiff, waiting on Wenna's word."
     }

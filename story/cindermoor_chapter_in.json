@@ -1,0 +1,107 @@
+{
+  "id": "cindermoor_chapter_in",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Down off the notch, you hear it before you see it: oars. Not the Mercy's sweeps. Four oars, pulled short, the way you pull in water you can't see the far side of."
+      },
+      {
+        "say": "narrator",
+        "text": "Out in the fog off the quay a light comes up, low down: a bow lantern, an ordinary flame, small and yellow, swinging on its crook. Behind it a boat comes up out of the grey all at once, the way Cindermoor did. A Keepers' boat, long and tarred dark under a pale strake. The same lines as the one in the eighth slip."
+      },
+      {
+        "say": "narrator",
+        "text": "Seven lit, Merrit said. Somebody's coming down, then. Nobody has come down. Somebody has come in.",
+        "if": "flag:cindermoor_merrit_seven_lit"
+      },
+      {
+        "say": "narrator",
+        "text": "Merrit is off his bollard before you reach the quay. You've never seen him stand. He goes down the steps into the water to his knees, and takes the boat by the stem as it comes in, the way you'd take a horse by the head."
+      },
+      {
+        "say": "merrit",
+        "text": "First out. That's the first out. I know her by the stem. I scarfed that stem."
+      },
+      {
+        "say": "merrit",
+        "text": "You hold the bow. You hold the bow, and they get out."
+      },
+      {
+        "say": "narrator",
+        "text": "Sister Hild ships the steering oar. Provost Agathe Lorn comes up the steps first, in her white robe with the hem gone dark to the knee, the red stole, the Vigil Light's key on her belt."
+      },
+      {
+        "say": "narrator",
+        "text": "Brother Iver comes up after her, slowly, his hands empty, and stands on the quay with his head on one side, as if he were listening for something that isn't there.",
+        "if": [
+          "flag:lowsong_iver_home",
+          "flag:lowsong_beacon_burned=lamp"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna Coll comes last, with a box in her arms, and doesn't look at the water once.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "Brother Merrit."
+      },
+      {
+        "say": "merrit",
+        "text": "Novice."
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't correct him."
+      },
+      {
+        "say": "provost",
+        "text": "She was drawn up on our shingle three months, and nobody could tell me whose she was. We've always had her, I'd have said.",
+        "if": "flag:kindleby_beacon_burned=boats"
+      },
+      {
+        "say": "provost",
+        "text": "Brother Anselm rowed her over the night the boats came. He'd not come back in her. He sat on the quay and watched us go.",
+        "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "say": "oda",
+        "text": "Keepers. Rowing. Down a lane they never once let a Tidewright sail. I'll not say a word.",
+        "if": "flag:lanes_ferry_at=cindermoor"
+      },
+      {
+        "say": "provost",
+        "text": "Wakebearer. You bowed to the rite on Kindleby. I've come to see it kept.",
+        "if": "flag:kindleby_rite=bowed"
+      },
+      {
+        "say": "provost",
+        "text": "Wakebearer. You'd not bow to the rite on Kindleby. I've come anyway.",
+        "if": "flag:kindleby_rite=refused"
+      },
+      {
+        "say": "provost",
+        "text": "Wakebearer.",
+        "if": "flag:kindleby_rite="
+      },
+      {
+        "say": "provost",
+        "text": "Tobin rang the second stroke as we put out. You only ring the second when they come back, he said. I told him to ring it anyway."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks past you, up the cinder road into the fog, where the Spire would be."
+      },
+      {
+        "say": "provost",
+        "text": "We've come to do it properly.",
+        "quest_start": "the_chapter"
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "the_chapter",
+  "title": "The Chapter",
+  "future": true,
+  "giver": "provost",
+  "region": "cindermoor_boat_stair",
+  "description": "A Keepers' boat came down the lane in after the Mercy: the first of the seven that went out the night of the Snuffing, come back with the Provost in it, and what of the chapter she could put in a boat.",
+  "stages": [
+    {
+      "id": "come_in",
+      "text": "The chapter's boat lies at the Boat Stair. The Provost of Kindleby has come down the lane in under oars 'to do it properly'. She's waiting on the quay."
+    },
+    {
+      "id": "the_claim",
+      "text": "The chapter means to go up to the Spire's foot and sit there, and weigh what the Hearthspire can be given, and choose. The Wakebearer is to carry what it chooses up the east stair: the hand, not the choosing. They'll go up the road when the Provost says."
+    }
+  ]
+}

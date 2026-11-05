@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:cindermoor_chapter_came",
+        "goto": "stair"
+      },
+      {
         "if": "!flag:kindleby_met_provost",
         "goto": "first"
       },
@@ -816,6 +820,420 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "stair": [
+      {
+        "if": "flag:cindermoor_chapter_claim=",
+        "goto": "claim"
+      },
+      {
+        "say": "provost",
+        "text": "Wakebearer."
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "claim": [
+      {
+        "say": "narrator",
+        "text": "The Provost stands at the head of the Boat Stair with her hands folded, the way she stood at the foot of the chapter-house steps, as if she's stood there since the boat came in."
+      },
+      {
+        "say": "provost",
+        "text": "For nine hundred years a Keeper chose what a beacon burned. Six times now you've chosen alone, at the top of a stair, and six times the islands let you, because there was nobody else to."
+      },
+      {
+        "say": "provost",
+        "text": "There's a chapter now. Not the whole of it: what I could put in a boat. It will go up to the Spire's foot and sit, and weigh what the Hearthspire can be given, and choose."
+      },
+      {
+        "say": "provost",
+        "text": "And you'll carry what it chooses up the stair. That's what you are to us, Wakebearer. The hand. Not the choosing."
+      },
+      {
+        "say": "provost",
+        "text": "You refused me once. I'm not asking this time.",
+        "if": "flag:kindleby_rite=refused"
+      },
+      {
+        "say": "provost",
+        "text": "You held Kindleby's door for an hour so the chapter could sit. Hold this one.",
+        "if": "flag:kindleby_ring_held"
+      },
+      {
+        "choice": [
+          {
+            "text": "The chapter can sit. I'll hear what it says.",
+            "set": {
+              "cindermoor_chapter_claim": "heard"
+            },
+            "quest_stage": [
+              "the_chapter",
+              "the_claim"
+            ],
+            "goto": "claim_heard"
+          },
+          {
+            "text": "I've chosen six times. I'll choose the seventh.",
+            "set": {
+              "cindermoor_chapter_claim": "refused"
+            },
+            "quest_stage": [
+              "the_chapter",
+              "the_claim"
+            ],
+            "goto": "claim_refused"
+          }
+        ]
+      }
+    ],
+    "claim_heard": [
+      {
+        "say": "provost",
+        "text": "That's all I ask. Today."
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "claim_refused": [
+      {
+        "say": "provost",
+        "text": "Then the chapter will sit anyway, and write down that you wouldn't listen. We write everything down."
+      },
+      {
+        "say": "narrator",
+        "text": "She says it without heat, the way you'd say the tide will turn."
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "stair_hub": [
+      {
+        "choice": [
+          {
+            "text": "Why come now? You said nobody goes out in the wet.",
+            "goto": "why"
+          },
+          {
+            "text": "Let her hold the Stair-Taper and the Hood-Pin.",
+            "if": [
+              "item:stair_taper",
+              "item:hood_pin",
+              "flag:cindermoor_chapter_weigh="
+            ],
+            "goto": "weigh"
+          },
+          {
+            "text": "Tell her about the novices' roll.",
+            "if": [
+              "flag:cindermoor_roll_read",
+              "!flag:cindermoor_provost_heard_roll"
+            ],
+            "set": {
+              "cindermoor_provost_heard_roll": true
+            },
+            "goto": "roll"
+          },
+          {
+            "text": "The road up forgets where it goes. You'll want the cressets.",
+            "if": "!flag:cindermoor_chapter_road",
+            "set": {
+              "cindermoor_chapter_road": true
+            },
+            "goto": "road"
+          },
+          {
+            "text": "Leave her to the quay.",
+            "goto": "stair_bye"
+          }
+        ]
+      }
+    ],
+    "why": [
+      {
+        "say": "provost",
+        "text": "Because the Mercy went down the lane in, and Tobin's bell rang the once, and I found I couldn't stand on the quay steps and wait for the second."
+      },
+      {
+        "say": "provost",
+        "text": "And because six lights stand round this island now, and there was nobody at the middle but you. That was never how it was done."
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "weigh": [
+      {
+        "say": "provost",
+        "text": "I told you once to keep the taper out of the chapter's sight. Well. The chapter's come to it.",
+        "if": "flag:kindleby_provost_saw_taper"
+      },
+      {
+        "say": "provost",
+        "text": "Let me hold them. That's all weighing is, to begin with. You hold a thing in your hands, and you ask what an island could spare."
+      },
+      {
+        "choice": [
+          {
+            "text": "Put the Stair-Taper and the Hood-Pin in her hands.",
+            "set": {
+              "cindermoor_chapter_weigh": "shown"
+            },
+            "goto": "weigh_shown"
+          },
+          {
+            "text": "No. They're mine.",
+            "set": {
+              "cindermoor_chapter_weigh": "kept"
+            },
+            "goto": "weigh_kept"
+          }
+        ]
+      }
+    ],
+    "weigh_shown": [
+      {
+        "say": "narrator",
+        "text": "She holds the taper in one palm and the pin in the other, and her hands go still, the way hands go still on a bird."
+      },
+      {
+        "say": "provost",
+        "text": "Cold. A candle-end and a bit of bone. That's all they are, to me."
+      },
+      {
+        "say": "provost",
+        "text": "...They hum, don't they. To you."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember stirs in your hand while she has them, and settles when she gives them back. She doesn't hurry."
+      },
+      {
+        "say": "provost",
+        "text": "The chapter will sit on them at the Spire's foot. Weighing isn't taking."
+      },
+      {
+        "say": "provost",
+        "text": "Not yet."
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "weigh_kept": [
+      {
+        "say": "provost",
+        "text": "Everything on the islands is somebody's, Wakebearer. That never once stopped the chapter."
+      },
+      {
+        "say": "provost",
+        "text": "Then it'll weigh you instead. It comes to the same thing, in the end."
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "roll": [
+      {
+        "say": "provost",
+        "text": "Aldous's roll. He kept it on a peg by his seat, and he'd let you read it if you brought him something for the cold."
+      },
+      {
+        "say": "narrator",
+        "text": "You tell her: six names for the last midwinter in Aldous's hand, and a seventh place."
+      },
+      {
+        "say": "provost",
+        "text": "Struck through."
+      },
+      {
+        "choice": [
+          {
+            "text": "Scraped. Down to the skin, with a blade.",
+            "goto": "roll_scraped"
+          }
+        ]
+      }
+    ],
+    "roll_scraped": [
+      {
+        "say": "narrator",
+        "text": "She's quiet long enough that Merrit starts humming again behind you."
+      },
+      {
+        "say": "provost",
+        "text": "Nobody scrapes a name. It's the first thing a novice is taught, before the candles: the Long Book doesn't forget, it only finishes. You strike it through, once, so anybody can see it was once wrong."
+      },
+      {
+        "say": "provost",
+        "text": "A Keeper's hand won't do the other thing. I've seen novices weep, trying to scrape a blot."
+      },
+      {
+        "choice": [
+          {
+            "text": "Then it wasn't a Keeper.",
+            "goto": "roll_not_keeper"
+          },
+          {
+            "text": "Who kept the roll?",
+            "goto": "roll_who"
+          }
+        ]
+      }
+    ],
+    "roll_not_keeper": [
+      {
+        "say": "provost",
+        "text": "Nobody but Keepers goes up to the crown. Nobody but Keepers could reach the peg."
+      },
+      {
+        "goto": "roll_see"
+      }
+    ],
+    "roll_who": [
+      {
+        "say": "provost",
+        "text": "The door-warden. Aldous. And by the end he couldn't hold a pen straight, let alone a blade to vellum."
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't say who else could have. She looks up the road, and doesn't say it."
+      },
+      {
+        "goto": "roll_see"
+      }
+    ],
+    "roll_see": [
+      {
+        "say": "provost",
+        "text": "I'll want to see it. When the chapter goes up.",
+        "quest_stage": [
+          "the_seventh_name",
+          "a_keeper_knows"
+        ]
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "road": [
+      {
+        "say": "provost",
+        "text": "Hild says the road stops being a road a few yards up. Merrit says there are cressets."
+      },
+      {
+        "if": "flag:cindermoor_cresset_steps_5",
+        "goto": "road_lit"
+      },
+      {
+        "goto": "road_doused"
+      }
+    ],
+    "road_lit": [
+      {
+        "say": "merrit",
+        "text": "Seven."
+      },
+      {
+        "say": "provost",
+        "text": "Seven lit, he says. He's told us three times since we tied up. You've lit the road for us, then."
+      },
+      {
+        "say": "provost",
+        "text": "Thank you. I mean it. You may not like what comes up it."
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "road_doused": [
+      {
+        "say": "merrit",
+        "text": "Six. Six up the moor."
+      },
+      {
+        "say": "provost",
+        "text": "Six, he says. And the road goes on past them."
+      },
+      {
+        "choice": [
+          {
+            "text": "One was put out on purpose. The Unmoored sit under it. Leave it out.",
+            "set": {
+              "cindermoor_asked_spare": true
+            },
+            "goto": "spare"
+          },
+          {
+            "text": "Say nothing.",
+            "goto": "relight"
+          }
+        ]
+      }
+    ],
+    "spare": [
+      {
+        "say": "provost",
+        "text": "Put out."
+      },
+      {
+        "say": "provost",
+        "text": "...A Keeper doesn't leave a light out because somebody in the dark asked her to, Wakebearer. That's all we are. The ones who don't."
+      },
+      {
+        "goto": "relight"
+      }
+    ],
+    "relight": [
+      {
+        "say": "narrator",
+        "text": "Hild takes the bow lantern off its crook and goes up the cinder road with it on a boat-hook. From the quay you watch the cressets you lit stand one above another up the moor in the fog, small and steady, and after a long while, above the last of them, another comes up.",
+        "set": {
+          "cindermoor_cresset_steps_5": true,
+          "cindermoor_keepers_relit": true
+        }
+      },
+      {
+        "say": "merrit",
+        "text": "Seven. Seven up the moor. Seven lit."
+      },
+      {
+        "say": "narrator",
+        "text": "Hild comes back down an hour later with her hands black to the wrist."
+      },
+      {
+        "say": "hild",
+        "text": "Somebody'd packed that one with wet cinder and put a stone on it. Three days' work, that. I had it out in ten minutes."
+      },
+      {
+        "say": "hild",
+        "text": "There was a woman just past the light with a rake. She never said a word. When it caught she went off along the shoulder into the fog, and the rest of them after her."
+      },
+      {
+        "say": "narrator",
+        "text": "Ness. She walked you up in the dark so it could stay out. It wasn't your fire. You don't think that will matter to her.",
+        "if": "flag:cindermoor_ness_met"
+      },
+      {
+        "say": "provost",
+        "text": "You asked. I heard you. It's written down.",
+        "if": "flag:cindermoor_asked_spare"
+      },
+      {
+        "goto": "stair_hub"
+      }
+    ],
+    "stair_bye": [
+      {
+        "say": "provost",
+        "text": "We'll go up when I say. Not before. The chapter's tired, and it's a long way to carry a Long Book."
+      },
+      {
+        "end": true
       }
     ]
   }

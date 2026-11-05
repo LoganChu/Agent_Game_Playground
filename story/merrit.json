@@ -7,9 +7,14 @@
         "goto": "first"
       },
       {
+        "if": "flag:cindermoor_chapter_came",
+        "goto": "chapter"
+      },
+      {
         "if": [
           "flag:cindermoor_cresset_steps_5",
-          "!flag:cindermoor_merrit_seven_lit"
+          "!flag:cindermoor_merrit_seven_lit",
+          "!flag:cindermoor_chapter_came"
         ],
         "goto": "seven"
       },
@@ -230,6 +235,31 @@
       {
         "say": "narrator",
         "text": "He starts coiling again, faster, and the humming comes back, nearer the tune than it was."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "chapter": [
+      {
+        "say": "narrator",
+        "text": "Merrit is back on his bollard with the painter in his lap. He isn't coiling it. He keeps looking at the boat alongside, the way you'd look at somebody asleep."
+      },
+      {
+        "say": "merrit",
+        "text": "First out. First back. That's right. That's how it should go."
+      },
+      {
+        "say": "merrit",
+        "text": "Seven out. One back. One in."
+      },
+      {
+        "say": "narrator",
+        "text": "He frowns up the stair, at the road, at the fog."
+      },
+      {
+        "say": "merrit",
+        "text": "...Still somebody up the stair, novice."
       },
       {
         "goto": "hub"

@@ -974,7 +974,7 @@
       "default": false
     },
     "cindermoor_cresset_steps_5": {
-      "description": "The doused cresset past the Unmoored on the long steps dug out and relit from the ember over Ness's wish (Day 83): the road remembers up to the crown, and the Unmoored get up and go off along the shoulder into the fog. Seven cressets burn up the moor.",
+      "description": "The doused cresset past the Unmoored on the long steps relit (Day 83: dug out from the ember by the Wakebearer over Ness's wish; Day 85: or by Sister Hild for the chapter, cindermoor_keepers_relit): the road remembers up to the crown, and the Unmoored go off along the shoulder into the fog.",
       "default": false
     },
     "cindermoor_way_on": {
@@ -1015,6 +1015,46 @@
     },
     "cindermoor_merrit_seven_lit": {
       "description": "Back at the Boat Stair after relighting the doused cresset, Merrit counted seven lights up the moor (Day 83): 'Seven out. Seven lit. Somebody's coming down, then.'",
+      "default": false
+    },
+    "cindermoor_chapter_came": {
+      "description": "The chapter's boat came in to the Boat Stair (Day 85, Act III step 4): back down off the moor once the crown was reached, the Wakebearer finds the first of the seven Spire boats coming in under oars from Kindleby with the Provost, Sister Hild at the steering oar, Brother Iver if he rowed home, and Wenna Coll with a box of candles if the colliers went to keep candles on Kindleby. Merrit holds the bow. Starts The Chapter.",
+      "default": false
+    },
+    "cindermoor_chapter_claim": {
+      "description": "What the Wakebearer said when the Provost laid the chapter's claim on them at the Boat Stair (Day 85): the chapter will go up to the Spire's foot and sit, and choose what the Hearthspire is given, and the Wakebearer carries its choice up the east stair — 'the hand, not the choosing'. '' (not yet told), 'heard' (the chapter can sit; I'll hear what it says) or 'refused' (I've chosen six times; I'll choose the seventh). For the chapter's sitting and the lantern room.",
+      "default": "",
+      "values": [
+        "",
+        "heard",
+        "refused"
+      ],
+      "future": true
+    },
+    "cindermoor_chapter_weigh": {
+      "description": "Whether the Wakebearer let the Provost hold the Stair-Taper and the Hood-Pin at the Boat Stair to weigh them (Day 85): '' (not asked), 'shown' (she held them — cold, a candle-end and a bit of bone, to her — and gave them back: 'Weighing isn't taking. Not yet.') or 'kept' (no: 'Then it'll weigh you instead'). For the chapter's sitting and the east stair (mystery #1/#2).",
+      "default": "",
+      "values": [
+        "",
+        "shown",
+        "kept"
+      ],
+      "future": true
+    },
+    "cindermoor_provost_heard_roll": {
+      "description": "The Wakebearer told the Provost of the novices' roll at the Boat Stair (Day 85): a seventh name scraped, not struck through. A Keeper's hand won't scrape a name; the door-warden kept the roll; 'I'll want to see it.' (The Seventh Name → a_keeper_knows.)",
+      "default": false
+    },
+    "cindermoor_chapter_road": {
+      "description": "The Provost asked about the road up at the Boat Stair (Day 85): seven lit by the Wakebearer already, or — if Ness led them up in the dark — Hild goes up with the bow lantern and relights the doused cresset (cindermoor_keepers_relit).",
+      "default": false
+    },
+    "cindermoor_keepers_relit": {
+      "description": "The Keepers relit the doused cresset (Day 85): the Wakebearer was led up in the dark by Ness and left it doused, and the chapter came in; Hild dug it out in ten minutes with the bow lantern. The Unmoored went off along the shoulder into the fog, Ness with her rake this time. Sets cindermoor_cresset_steps_5 too.",
+      "default": false
+    },
+    "cindermoor_asked_spare": {
+      "description": "The Wakebearer asked the Provost to leave the doused cresset out for the Unmoored (Day 85): 'A Keeper doesn't leave a light out because somebody in the dark asked her to.' She relit it anyway, and wrote down that they asked.",
       "default": false
     }
   }

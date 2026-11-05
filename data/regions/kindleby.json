@@ -1093,7 +1093,10 @@
         -6.3
       ],
       "rotation_y": 0,
-      "note": "At the foot of the chapter-house steps, hands folded, as if she has stood there since the bell."
+      "note": "At the foot of the chapter-house steps, hands folded, as if she has stood there since the bell.",
+      "if": [
+        "!flag:cindermoor_chapter_came"
+      ]
     },
     {
       "npc": "iver",
@@ -1106,7 +1109,8 @@
       "rotation_y": 30,
       "if": [
         "flag:lowsong_iver_home",
-        "flag:lowsong_beacon_burned=lamp"
+        "flag:lowsong_beacon_burned=lamp",
+        "!flag:cindermoor_chapter_came"
       ],
       "note": "Brother Iver home from Lowsong (Day 77, the lamp burned): by the chapter-house steps near the Provost, hands empty, looking at the candles as if he's never noticed them."
     },
@@ -1121,7 +1125,8 @@
       "if": [
         "flag:kindleby_skiff_north",
         "flag:thornwold_skiff=home|kindleby|empty",
-        "!flag:lowsong_out"
+        "!flag:lowsong_out",
+        "!flag:cindermoor_chapter_came"
       ],
       "note": "Sister Hild on the shingle at the chapter's skiff, back from the Northing's stage, stooped at its bow with a scraper taking the weed off its strakes (Day 67: moved up out of the wet; Day 71: at work).",
       "model": "res://assets/models/characters/hild_scraping.glb",
@@ -1139,7 +1144,8 @@
         "!flag:kindleby_skiff_north",
         "!flag:kindleby_beacon_burned=",
         "!flag:thornwold_skiff_landed",
-        "!flag:lowsong_out"
+        "!flag:lowsong_out",
+        "!flag:cindermoor_chapter_came"
       ],
       "note": "Sister Hild at the chapter's skiff when it never went north (Day 72): once the Vigil Light is lit she is out on the shingle scraping it anyway, stooped at its bow where she works when it's back from the Northing.",
       "model": "res://assets/models/characters/hild_scraping.glb",
@@ -1155,7 +1161,8 @@
       "rotation_y": -36,
       "if": [
         "flag:thornwold_skiff=kindleby",
-        "!flag:thornwold_far_shore=up"
+        "!flag:thornwold_far_shore=up",
+        "!flag:cindermoor_chapter_came"
       ],
       "note": "On the west wall with a taper, keeping forty candles (The Skiff North, kindleby)."
     },
