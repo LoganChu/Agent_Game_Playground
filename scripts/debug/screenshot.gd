@@ -57,7 +57,9 @@ func _place_player(spec: String) -> void:
 		return
 	player.place_at(Vector3(n[0], region.ground_y(n[0], n[1]) + 0.2, n[1]))
 	if n.size() > 2:
-		(player.get("_camera_yaw") as Node3D).rotation_degrees.y = n[2]
+		# The camera looks along yaw; the Wakebearer faces the same way (not back at the lens).
+		var yaw := deg_to_rad(n[2])
+		player.face_towards(Vector3(-sin(yaw), 0.0, -cos(yaw)))
 
 
 static func _vec(csv: String) -> Vector3:

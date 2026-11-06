@@ -38,6 +38,16 @@
       0.6
     ]
   },
+  "spawn_facing": {
+    "default": [
+      -1.5,
+      0.8
+    ],
+    "from_stair": [
+      -1.5,
+      0.8
+    ]
+  },
   "ground": {
     "bounds": [
       -13,
@@ -416,9 +426,9 @@
     {
       "npc": "hild",
       "position": [
-        -2.7,
+        -2.6,
         0,
-        3.7
+        1.7
       ],
       "rotation_y": 150,
       "if": [

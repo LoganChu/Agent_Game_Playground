@@ -136,6 +136,22 @@ func place_at(pos: Vector3) -> void:
 	velocity = Vector3.ZERO
 
 
+## Turns the Wakebearer to face along `direction` (horizontal) with the camera behind them
+## (a region's `spawn_facing`).
+func face_towards(direction: Vector3) -> void:
+	var to := Vector3(direction.x, 0.0, direction.z)
+	if to.length() < 0.01:
+		return
+	_visual.rotation.y = atan2(to.x, to.z)
+	_camera_yaw.rotation.y = atan2(-to.x, -to.z)
+	_camera_pitch.rotation.y = 0.0
+
+
+## The way the Wakebearer's body faces (for tests).
+func heading() -> float:
+	return _visual.rotation.y
+
+
 ## Dims the ember-hand light as the Greying drains the ember (1 = full).
 func set_ember(value: float) -> void:
 	_ember = clampf(value, 0.0, 1.0)

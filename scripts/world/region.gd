@@ -264,6 +264,18 @@ func spawn_position(spawn: String) -> Vector3:
 	return place(spawns.get(spawn, spawns.get("default", [0, 1, 0])))
 
 
+## The point (x, z) a spawn faces, from region `spawn_facing` (Day 88), or null to keep the
+## Wakebearer's heading. Interiors and stair feet use it so arriving looks into the room.
+func spawn_facing(spawn: String) -> Variant:
+	var facing: Dictionary = data.get("spawn_facing", {})
+	var spawns: Dictionary = data.get("spawn_points", {})
+	var key := spawn if spawns.has(spawn) else "default"
+	if not facing.has(key):
+		return null
+	var at: Array = facing[key]
+	return Vector3(float(at[0]), 0.0, float(at[1]))
+
+
 ## Height the player stands at over x/z — the ground or a pier deck (0 for a legacy slab
 ## region).
 func ground_y(x: float, z: float) -> float:

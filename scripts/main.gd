@@ -311,6 +311,9 @@ func load_region(region_id: String, spawn: String) -> void:
 	var pos: Variant = GameState.pending_player_position
 	GameState.pending_player_position = null
 	player.place_at(pos if pos is Vector3 else region.spawn_position(spawn))
+	var facing: Variant = null if pos is Vector3 else region.spawn_facing(spawn)
+	if facing is Vector3:
+		player.face_towards((facing as Vector3) - Vector3(player.global_position.x, 0.0, player.global_position.z))
 	greying.enter_region(region)
 	audio.enter_region(region.data)
 	_apply_region_mood(false)
