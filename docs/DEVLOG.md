@@ -2,6 +2,64 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-06 09:00 UTC — Day 87: what the Firstflame ate (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; `origin/main` had been
+  force-updated to Day 86's `a35d531`, and I reset `main` to it.
+- **Content (ROADMAP *Next up* #1, LORE Act III step 5; mysteries #1 and #3 paid):**
+  - **The night.** After the sitting, a new object on the crown, "Lie down by the candles till morning"
+    (`cindermoor_night`). Wenna relights the guttering candles but leaves her fourteen alone. The Provost stands all night facing the
+    stair. Footsteps go round the ring path and never come into the light. The Wakebearer wakes counting and stops at
+    twelve. **Morning** (`cindermoor_morning`) is the story clock's first rest, and all three Cindermoor regions get a
+    morning override ahead of the night one.
+  - **The lower rooms**, a new region (`cindermoor_lower_rooms`) and the game's first interior. At morning the chapter
+    moves below and the niche offers "Go down the stair." (a dialogue `travel`). The room has the flame's root (six pale
+    pillars, a grate over a well, the shaft going up), the Hushed's benches worn hollow, the Spire's own book chained to
+    its lectern, and fourteen candles on a ledge.
+  - **The Spire's own book** (arrival event, `cindermoor_spire_book_read`; *The Chapter* → `the_spire_book`). It records
+    nine hundred midwinters of the Hushed, each "Given to the flame ... And what was in them", every one "brought up from
+    Kindleby". The Quiet House kept them till they were "ready", meaning full. Its oldest page says "The Hushed are not
+    emptied. They are filled ... If the flame is not fed, all it was given comes home." **Oriel Sayre is named** on the last page:
+    "It is starved, and I am starving it", "Nobody chose that I should" (the Provost's own words on Kindleby), and "One
+    coal kept back ... in hands that asked to carry it" (a mystery #2 hook, not explained). The Provost knows the hand:
+    "It didn't fail." She sits down on the floor. "We chose for them. And then we chose them." Iver points out that not
+    a comma moved. Wenna says it's how charcoal is made. Hild carried them down the quay steps. What the hand said at
+    the sitting colours the first lines.
+  - **Who writes the Spire's line** into the Long Book (`cindermoor_spire_line`): the Provost ("I never asked" under it),
+    the Wakebearer (whose hand makes a Keeper's letters without knowing it would), or nobody ("That's never been done
+    either"). The scene closes on "The High Keeper had a boat of her own at the Spire. It was always the eighth." (plus
+    "Her word." if the back of the roll was read). After-lines for the four, the lectern, the benches and the shaft.
+- **Blender:** `build_cindermoor.py lower_stair spire_book hushed_bench flame_root taper_row lower_vault`.
+- **Tests:** `test_the_lower_rooms.gd` (8). The smoke walk sleeps, goes down, reads and comes back up. Checkpoint
+  `the_lower_rooms`. 625 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-06-am-the-lower-rooms.png` (the Provost and Hild at the lectern, the flame's root, the
+candles on the ledge; also `docs/checkpoints/the_lower_rooms.png`).
+
+**Decisions**
+- **Interior recipe** (in TECH, *An interior*): the walls are terrain banks and the roof is a prop with only `colliders`
+  overhead. The camera arm masks WORLD, so it stays under the roof and the sky never shows. My first shot without a roof
+  showed cloud bands over the room.
+- **The way down is a dialogue `travel`, not an exit.** Exits can't take an `if`, and a lantern-post exit by the niche
+  before the seat was lifted would have given the stair away.
+- **Mysteries #1 and #3 are paid in full here.** The others hold. Oriel is named and her reasons are given, but not that she's alive
+  (step 6), nothing of Isolde (#4), and the Wakebearer only through hooks (#2: "hands that asked to carry it", the Keeper's
+  letters).
+- **The chapter stays below.** Their placements read `morning`, and the next flag (step 6) should bring them back up.
+
+**Problems / notes**
+- The validator's exclusivity proof caught the lower-room placements overlapping the quay's (`chapter_up` false +
+  `morning` true), so the placements now carry `chapter_up` too.
+- The first test run failed on my own assumption: "Her word." only plays if the roll's back was read.
+- My baseline gate run overlapped my first flags edit and failed on a warning I'd caused. Nothing was wrong on `main`.
+- The room is dark in the Compatibility renderer. It reads as intended, but it should be checked on Vulkan. Every spawn faces -Z, so
+  arriving shows the north wall first (logged for polish).
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish/debt pass thirteen**. It's due: three content sessions since Day 84. Fetch and reset
+   `main` before trusting it. Then #2, the eighth boat's owner (Act III step 6).
+
 ## 2026-11-05 21:00 UTC — Day 86: the chapter sits (content)
 
 **Did**

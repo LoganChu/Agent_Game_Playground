@@ -1479,6 +1479,48 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     nothing — the first air on Cindermoor that doesn't smell of fire**. The ember shows twelve steps before the turn; the
     Wakebearer has counted them before they know they're counting *(mystery #2)*. "The chapter will read before it chooses.
     Not tonight... **Tomorrow. Nobody goes down before.**" Wenna kept fourteen candles back, for a stair.
+- **The lower rooms (Day 87, Act III step 5 — mysteries #1 and #3 paid; `cindermoor_morning` → `cindermoor_spire_book_read`).**
+  The night by the candles: the Wakebearer lies down in the cinder outside the ring; Wenna relights the guttering candles
+  till only her fourteen are left, and doesn't touch those; **the Provost stands all night** facing the dark under the
+  seat; footsteps go round the ring path and never come into the light; the Wakebearer wakes counting and stops at
+  twelve. **Morning on Cindermoor** — the first. "Down's easy, Provost. It's the coming up Merrit counts."
+  - **Twelve steps and a turn** under the warden's seat: rooms cut in the Spire's own rock, dry, cold, swept, no smell of
+    fire. **The flame's root**: six pillars of the pale stone round a kerb, a cold iron grate over a well, the Spire's shaft
+    going straight up. **Stone benches** along the walls, each worn hollow, a grey blanket folded at the head of each "the
+    way the Quiet House folds them". On a stone lectern facing the well, chained to it, **the Spire's own book** — older
+    and bigger than the Long Book, never carried anywhere. Lit by Wenna's fourteen candles, or Aldous's uncut tapers cut
+    with his knife.
+  - **What it says.** A midwinter to a line, nine hundred midwinters back to the Kindling: a name, the island, *Hushed*, and
+    always **"Given to the flame ... And what was in them."** Never *burned* (Iver: "not a comma moved ... You keep a thing
+    that still the way you'd keep a lie"). The first line: **"At the Kindling. Given to the flame: Maud, of the Heron.
+    Hushed. And what was in her."** Every one **"brought up from Kindleby"** — **the Quiet House's purpose: to keep the
+    Hushed till they were "ready" — full.** The Spire's boat came down at midwinter for the ready ones; Hild carried them
+    down the quay steps to her "like you'd carry somebody asleep"; "We said they went up to be made quiet. We said it like
+    a kindness."
+  - **The oldest page** (inside the front board): "**The Hushed are not emptied. They are filled.** What the islands burn in
+    their beacons goes out into the grey, and the grey comes in at the Hushed, and they carry it. Give the flame what they
+    carry, and the grey is thinner by so much, and the islands are clear." / "**If the flame is not fed, all it was given
+    comes home.**" *(Mystery #3, now canon: the Greying is nine hundred years of what was burned coming home.)*
+  - **The last page — the High Keeper, named: Oriel Sayre.** Last midwinter: three names for the giving, and nothing given.
+    Under them, fast: "I have read this book to its first page. We have not kept the Lanternreach. We have kept it from
+    remembering, and fed it its own memory, and called the ash clear. **The flame does not fail. It is starved, and I am
+    starving it.** Let it come home, all of it. Let them remember what was taken out of them, and who took it. I will not
+    choose for them again. **Nobody chose that I should.**" (the Provost's own Kindleby words) / "**One coal kept back. It
+    goes down the stair tonight, in hands that asked to carry it.**" *(mystery #2 hook: the Hood-Pin's "tonight"; never
+    explain before step 8)*. Signed in full, "the way you'd sign a thing you meant somebody to find". The Provost knows
+    the hand — forty years of Oriel's midsummer letters, "never once about this". **"It didn't fail."**
+  - **How the chapter takes it.** **The Provost sits down on the floor** (she wouldn't let anybody sit in the cinder):
+    "Nine hundred years we chose, so that others needn't ... **We chose for them. And then we chose them.**" Iver:
+    "Starved. She wrote starved, Lorn. Not snuffed." Wenna: charcoal — "You burn the wood so slow it can't catch ...
+    That's what you did with them." Afterwards Hild: **three still in the Quiet House** that were ready last midwinter and
+    nobody came for ("They were humming"). Iver: the singing on the rock was "what we gave, coming home".
+  - **The Spire's line** (`cindermoor_spire_line`): written by **the Provost** in her own hand — "The Hearthspire. Every
+    midwinter since the Kindling: the Hushed, and what was in them. Chosen by the chapter." and under it, where nothing is
+    ever written, "I never asked." ("Now it can't be scraped."); or **by the Wakebearer**, whose hand makes a Keeper's
+    letters "upright, every one finished, and you didn't know it would" *(mystery #2)* while Hild watches the pen; or
+    **left open** — "That's never been done either."
+  - **"The High Keeper had a boat of her own at the Spire. It was always the eighth."** ("Kept back, the roll says. Her
+    word.") *(Step 6's thread. Never say she's alive or on the moor yet.)* The chapter stays below with the book.
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1526,7 +1568,8 @@ The order Act III's sessions should take, paced over months: one big reveal per 
 4. **The chapter comes in.** *(Day 85, written: the first boat back, the claim, the weighing, the roll told, the Keepers relight the doused cresset; Day 86: the sitting — no line for the Spire, the stair under the warden's seat — see *Cindermoor*.)* The Provost brings a boat of Keepers down the lane in to "do it properly" — the rite for the
    Hearthspire, the chapter choosing. If the colliers or Iver came to Kindleby, who comes with her changes. The Keepers'
    courtship turns into a claim on the Wakebearer (and on the own Remnants: "they'd want to weigh it").
-5. **What the Firstflame ate** *(mystery #1 and #3 payoff, mid-Act III)*: the Keepers' oldest book in the Spire's
+5. **What the Firstflame ate** *(Day 87, written: the night, morning, the lower rooms, the Spire's own book, Oriel named —
+   see *Cindermoor*)* *(mystery #1 and #3 payoff, mid-Act III)*: the Keepers' oldest book in the Spire's
    lower rooms — the Hushed of nine hundred years fed to the flame; the Quiet House's purpose; the fog as what was burned
    coming home. The High Keeper's reasons. (Oriel Sayre named here, not before.)
 6. **The eighth boat's owner** — Oriel did not leave: she walked out on the moor and **chose to forget** what she did,
@@ -1540,12 +1583,14 @@ The order Act III's sessions should take, paced over months: one big reveal per 
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
    Keepers quietly feeding it the memories of the Hushed. Oriel could not continue it.
+   *(Revealed in play Day 87, the lower rooms: the Spire's own book and Oriel's last page. Still secret: that she is
+   alive on the moor among the Unmoored, step 6.)*
 2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche. Day 64 hook: a face up Kindleby's steps the Wakebearer almost knows, in the Boats' Lantern as it burns. Day 69 hook: the Stair-Taper, a novice's light for the east stair, given back by the ember as the fifth light catches; Aldous heard the light going down the stair counting landings. Day 77 hook: the Hood-Pin — the Wakebearer was the one counting, and someone a turn above hid their face on the stair "tonight".)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —
    everything the Firstflame burned for 900 years, drifting home. The Hushed are overwhelmed by
-   other people's memories, not emptied.
+   other people's memories, not emptied. *(Revealed in play Day 87: the Spire's book's oldest page.)*
 4. **What happened to Isolde Vane?** *[SECRET]* She was the first to discover the truth and was
    "burned" by the Keepers; the Hollow Choir sings her memory.
 5. **Where did Dunstan Tollen go?** He is alive in the fog, among the Unmoored, and chose to go. *(Found Day 37 at the end of
@@ -1565,3 +1610,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - The morning after the sixth light: the Slow Mercy goes down the lane in to Cindermoor's Boat Stair.
 - Soon after (Day 85): the chapter's boat comes in to the Boat Stair, two days down the lane in under oars from Kindleby.
 - That dusk (Day 86): the chapter goes up and sits at the Spire's foot; the stair to the lower rooms is found. "Tomorrow."
+- The next morning (Day 87): the chapter goes down to the lower rooms and reads the Spire's own book.
