@@ -192,6 +192,7 @@ Every record lives in its own file whose name equals its `id`.
   "ambience": [{"sound": "surf", "volume": 0.8, "if": condition}],  // looping layers — see "Audio"
   "footsteps": "shingle", "footsteps_raised": "stone",  // surfaces (audio.json); raised = decks etc. (default boards)
   "spawn_points": {"default": [x,y,z], ...},    // "default" required
+  "spawn_facing": {"from_stair": [x, z]},       // optional (Day 88): the point a spawn looks toward on arrival
   "ground": {...},                              // sculpted terrain — see "Ground" below
   "terrain": [{"size": [w,h,d], "position": [x,top_y,z], "color": "moss", "rotation_y": 0}],  // legacy slabs (absolute y)
   "props":   [{"model": "res://assets/models/x.glb", "collider": [w,h,d],   // or
@@ -540,6 +541,12 @@ Entry points: `--scenario=<id>` (main.gd), `GameState.start_scenario(id)`, the p
 **Chapter select (dev)** page (only when `OS.is_debug_build()`), and `tools/checkpoints.sh`
 (gallery: `docs/CHECKPOINTS.md`). Validated with the content (`ContentValidator` → `Scenarios.validate`:
 known region/spawn, earlier `inherits`, declared flags, real quest stages/items/pickups).
+**Scenario lint (Day 88, `Scenarios.half_made`):** (1) *a choice half made*: any dialogue step or option that
+sets flags (to non-default values) **and** moves a quest on is one choice; a resolved checkpoint holding all of those
+flag values while that quest is started but short of the stage (or not done) is an error. (2) *Carried across an act*:
+a checkpoint whose `inherits` is in another `act` must restate, in its own `quests`, every quest it carries open (or
+close it). Leaving a quest open across an act is then a written decision. `the_boat_stair` restates *What the Ember
+Keeps* this way.
 **Rule:** every content session adds a checkpoint for what it built (with a `shot` that frames
 it) and re-runs `tools/checkpoints.sh` for the new ids. Checkpoints are hand-written state,
 not recordings of play: `test_scenarios.gd` checks the late ones still lead on (Oda casts off
@@ -668,7 +675,11 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
 - **The way in is a dialogue `travel`**, not an exit: exits are always present and can't take an `if`, and the stair only
   exists once the seat is lifted, so the niche's "Go down the stair." (`if: flag:cindermoor_morning`) travels to
   `from_stair`. The way back up is an ordinary exit to the crown's `from_lower` spawn.
-- **Known:** every spawn faces -Z (`player.gd`), so the room opens on the north wall; a per-spawn yaw is a polish item.
+- **Face the room (Day 88):** region `spawn_facing` maps a spawn to an `[x, z]` point. On arrival by that spawn
+  (`main.gd` `load_region`, not when a save restores an exact position) `Player.face_towards` turns the body toward it
+  and sets the camera yaw behind. Spawns without one keep the Wakebearer's heading. A spawn without an entry falls back
+  to `default`'s. Validated: a known spawn, `[x, z]`, and not the spawn's own spot. Use it for every stair foot,
+  doorway and interior arrival. The lower rooms face the flame's root, and the crown's `from_lower` faces out to the ring.
 - The chapter's placements below carry `cindermoor_chapter_up` as well as `cindermoor_morning`: the validator's
   exclusivity proof needs the flag the quay placements negate (it found `chapter_up` false + `morning` true otherwise).
 - **The story clock (Day 86) gets its first rest:** the crown's `foot_rest` object (`if` sat and not morning) plays
@@ -726,6 +737,8 @@ characters.
   "colors": {"ground": "moss", "shore": "driftwood", "shore_height": 0.35,
              "seabed": "slate", "cliff": "slate", "cliff_slope": 0.9},
   "paint": [{"rect"|"ellipse"|"path": ..., "width": 2, "color": "driftwood", "if"?: cond}],  // first wins
+  // Day 88: a path leg ≥ 10 m that drifts off an axis (slant 0.001..0.1) warns: its edge shows a lone step on the
+  // 1 m grid (ContentValidator.sawing_legs; cresset `road`s too). Run straight legs at a constant x or z.
   "piers": [{"rect": [x0,z0,x1,z1], "deck": 0.275}],  // walkable decks over water (absolute y)
   "note": "free text"
 }

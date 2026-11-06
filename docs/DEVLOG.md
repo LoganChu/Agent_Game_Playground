@@ -2,6 +2,49 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-06 21:00 UTC — Day 88: polish pass thirteen (polish)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; `origin/main` had been
+  force-updated to Day 87's `1e10f66`, and I reset `main` to it. Baseline: 625 tests + smoke + launch green.
+- **Polish pass thirteen** (ROADMAP *Next up* #1; Days 85-87 were content):
+  - **A spawn can face somewhere.** New region key `spawn_facing` (`{spawn: [x, z]}`). On arrival by that spawn,
+    `Player.face_towards` turns the Wakebearer toward the point and sets the camera behind them. The lower rooms now open
+    on the flame's root, the lectern and the chapter, not the north wall. Coming back up, the crown's `from_lower` looks
+    out at the candle ring. The validator checks for a known spawn, `[x, z]`, and a point that isn't the spawn's own spot.
+  - **`--at` with `--scenario`.** It did land: the carried note was wrong about the cause. The real fault was that its yaw
+    turned only the camera, so the Wakebearer's face filled the shot. It now uses `face_towards` too.
+  - **Scenario lint** (`Scenarios.half_made`, run by the validator). Rule 1, a choice half made: if a dialogue step or option sets
+    flags and moves a quest on, a checkpoint holding all those flags must have that quest moved on too. Rule 2, carried
+    across an act: a checkpoint that opens a new act must restate every quest it carries open. Rule 1 alone wouldn't have
+    caught Day 80's bend (`walked` + `her_hearth` is a consistent pair, only the wrong moment), which is why rule 2 exists.
+    Current content passes rule 1. Rule 2 asked `the_boat_stair` to restate *What the Ember Keeps* (open on purpose), and it does now, with a note.
+  - **Paths that drift off an axis warn** (`ContentValidator.sawing_legs`, on paint paths and cresset roads). It covers a leg of
+    at least 10 m with a slant of 0.001-0.1, the Day 84 failure. One hit: the woods' old cart road ran 0 → 0.5 m over 30 m, and
+    it's straight now.
+  - **Hild steps out from behind the Provost** at the lectern (−2.7, 3.7 → −2.6, 1.7, the near side of the lectern). From
+    the stair foot the four of them (Provost, lectern, Hild, the root) now read separately.
+- **Tests:** `test_polish_thirteen.gd` (8). Checkpoint `the_lower_rooms` re-shot. 633 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-06-pm-lower-rooms-arrival.png` (arriving in the lower rooms, facing the room).
+
+**Decisions**
+- **Facing is a point, not a yaw.** `[x, z]` is easier to write from a map and to validate, and it doesn't depend on the
+  camera's sign conventions. It is a separate key so `spawn_points` stays plain `[x, y, z]` for the dozen readers of it.
+- **A restored save keeps its own position and doesn't turn.** Only spawn arrivals face.
+- **The paint warning is narrow on purpose.** The first version (any leg ≥ 6 m, slant < 0.5) warned 28 times, almost
+  all on wandering woodland tracks, where a step every few metres reads as ragged ground. Only a near-axis drift on a
+  long leg shows the lone step.
+- **Not done:** the framed two-NPC shot. It is a camera feature, and moving Hild fixes the case that prompted it. The lower
+  rooms' darkness stays with the owner's Vulkan pass.
+
+**Problems / notes**
+- I again started editing while the baseline gate ran. This time it passed, but next run should wait for it.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **the eighth boat's owner** (content, LORE Act III step 6). Fetch and reset `main` before
+   trusting it. Bring the chapter back up from the lower rooms with the next flag. Use `spawn_facing` on any new arrival.
+
 ## 2026-11-06 09:00 UTC — Day 87: what the Firstflame ate (content)
 
 **Did**
