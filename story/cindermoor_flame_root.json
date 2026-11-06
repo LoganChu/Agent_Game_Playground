@@ -1,0 +1,15 @@
+{
+  "id": "cindermoor_flame_root",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Spire comes down to the rock here: six pale pillars round a kerb, a cold grate over a well. You look up through the grate's bars and the shaft goes up and up, past the end of the candlelight, all the way to where the flame was."
+      },
+      {
+        "say": "narrator",
+        "text": "No smell of fire. Not even here. Whatever was given, the flame took it so clean there was nothing left to smell."
+      }
+    ]
+  }
+}

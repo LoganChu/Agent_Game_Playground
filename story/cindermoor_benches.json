@@ -1,0 +1,20 @@
+{
+  "id": "cindermoor_benches",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A stone bench, worn hollow down the middle by nine hundred years of somebody lying on it. The blanket at its head is folded the way the Quiet House folds them: in three, and the edge turned under."
+      },
+      {
+        "say": "narrator",
+        "text": "You put your hand in the hollow. It's cold. Of course it is. Whoever lay here last lay here last midwinter, and was ready, and was given."
+      },
+      {
+        "say": "narrator",
+        "text": "And then, three months ago, nobody came down for the next three. They stayed in the Quiet House, full, humming.",
+        "if": "flag:cindermoor_spire_book_read"
+      }
+    ]
+  }
+}

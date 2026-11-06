@@ -855,6 +855,25 @@
         "the_seventh_name": "she_read_it"
       },
       "shot": "--camera=15,2.6,-3:6.5,1.1,-8.6"
+    },
+    {
+      "id": "the_lower_rooms",
+      "act": "Act III — The Spire",
+      "title": "The Spire's Own Book",
+      "inherits": "the_sitting",
+      "region": "cindermoor_lower_rooms",
+      "spawn": "from_stair",
+      "description": "Morning after the sitting: the chapter went down twelve steps and a turn under the warden's seat to the Spire's lower rooms and read its own book: nine hundred midwinters of the Hushed, given to the flame with all that was in them. The last page is the High Keeper's, Oriel Sayre's: the flame was starved on purpose. The Provost wrote the Spire's line into the Long Book.",
+      "flags": {
+        "cindermoor_morning": true,
+        "cindermoor_spire_book_read": true,
+        "cindermoor_spire_line": "provost",
+        "cindermoor_roll_boats": true
+      },
+      "quests": {
+        "the_chapter": "the_spire_book"
+      },
+      "shot": "--camera=6.0,3.0,1.5:-2.0,1.0,0.5"
     }
   ]
 }

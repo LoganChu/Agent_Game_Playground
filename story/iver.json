@@ -565,6 +565,10 @@
     ],
     "cindermoor_foot": [
       {
+        "if": "flag:cindermoor_morning",
+        "goto": "lower"
+      },
+      {
         "say": "narrator",
         "text": "Iver stands at the ring's edge with his head on one side, turned toward the niche."
       },
@@ -575,6 +579,19 @@
       {
         "say": "iver",
         "text": "There's something to listen for down there. I'd not swear what."
+      },
+      {
+        "end": true
+      }
+    ],
+    "lower": [
+      {
+        "say": "narrator",
+        "text": "Iver stands behind the lectern with his head on one side, the way he stood on the quay."
+      },
+      {
+        "say": "iver",
+        "text": "The singing on the rock. I told you it was wind in the skerries. Thirty-one years I told myself so. It's what we gave, isn't it, coming home. I never once thought it might be coming back."
       },
       {
         "end": true

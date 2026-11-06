@@ -1304,6 +1304,10 @@
     ],
     "foot": [
       {
+        "if": "flag:cindermoor_morning",
+        "goto": "lower"
+      },
+      {
         "say": "narrator",
         "text": "The Provost stands in the ring of candles with her hands folded, facing the niche: the lifted seat, and the dark under it."
       },
@@ -1320,6 +1324,38 @@
         "say": "narrator",
         "text": "That's all she says about it.",
         "if": "flag:cindermoor_provost_heard_roll"
+      },
+      {
+        "end": true
+      }
+    ],
+    "lower": [
+      {
+        "say": "narrator",
+        "text": "The Provost sits on the floor of the lower rooms with her back to the lectern's foot and the Spire's book over her head, reading the Long Book in her lap by candlelight. She doesn't get up."
+      },
+      {
+        "say": "provost",
+        "text": "Oriel wrote to me every midsummer for forty years. About the oil. About novices, and who'd make a door-warden. Never once about this. She sat on it as long as Aldous sat on the seat."
+      },
+      {
+        "say": "provost",
+        "text": "It's written now. In my hand. I'd sooner it were anybody's.",
+        "if": "flag:cindermoor_spire_line=provost"
+      },
+      {
+        "say": "provost",
+        "text": "You wrote it like one of us. I watched you. You didn't have to think about the letters.",
+        "if": "flag:cindermoor_spire_line=hand"
+      },
+      {
+        "say": "provost",
+        "text": "Open. I keep looking at the place. Nine hundred years and that's the only page in the Long Book anybody's ever left open.",
+        "if": "flag:cindermoor_spire_line=open"
+      },
+      {
+        "say": "provost",
+        "text": "The chapter will sit again before it chooses. Not tonight either. I want to know what we'd be choosing with."
       },
       {
         "end": true

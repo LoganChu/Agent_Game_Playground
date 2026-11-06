@@ -8,6 +8,10 @@
     "color": "#9DA2A6",
     "overrides": [
       {
+        "if": "flag:cindermoor_morning",
+        "color": "#9DA2A6"
+      },
+      {
         "if": "flag:cindermoor_chapter_sat",
         "color": "#6E7480"
       },
@@ -29,6 +33,18 @@
     "sky_horizon": "#A7ABAE",
     "shadow": 0.35,
     "overrides": [
+      {
+        "if": "flag:cindermoor_morning",
+        "sun_color": "#C9C3B6",
+        "sun_energy": 0.36,
+        "sun_pitch": -16,
+        "sun_yaw": 95,
+        "ambient_color": "#A9ABAE",
+        "ambient_energy": 0.34,
+        "sky_top": "slate",
+        "sky_horizon": "#B4B2AE",
+        "shadow": 0.3
+      },
       {
         "if": "flag:cindermoor_chapter_sat",
         "sun_color": "#7E889B",

@@ -1,0 +1,61 @@
+{
+  "id": "cindermoor_night",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You lie down in the cinder outside the ring, the way the colliers lie down by a clamp, with your back to the Spire and the ember in your lap."
+      },
+      {
+        "say": "narrator",
+        "text": "The candles burn down one by one. Wenna gets up in the night and lights the guttering ones from the others, until there's nothing in her box but the fourteen she kept back, and she doesn't touch those.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The candles burn down one by one, and nobody lights them again.",
+        "if": [
+          "!flag:thornwold_skiff=kindleby"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The candles burn down one by one, and nobody lights them again.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost doesn't lie down at all. Every time you open your eyes she's standing where she stood, with her back to the niche and her face to the dark under the seat, as if somebody might come up it."
+      },
+      {
+        "say": "narrator",
+        "text": "Some time in the night there are footsteps on the ring path round the Spire's foot. Round, and round. They never come into the candlelight, and in the morning there's nobody there."
+      },
+      {
+        "say": "narrator",
+        "text": "Once you wake, and you're counting, and you don't know what. You stop at twelve."
+      },
+      {
+        "say": "narrator",
+        "text": "And then the grey goes pale over the crown, and paler, and it's morning on Cindermoor: the first you've been up here for.",
+        "set": {
+          "cindermoor_morning": true
+        }
+      },
+      {
+        "say": "provost",
+        "text": "Morning. Sister, the book. We'll go down."
+      },
+      {
+        "say": "hild",
+        "text": "Down's easy, Provost. It's the coming up Merrit counts."
+      }
+    ]
+  }
+}

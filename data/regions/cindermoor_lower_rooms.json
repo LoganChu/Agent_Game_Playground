@@ -1,0 +1,467 @@
+{
+  "id": "cindermoor_lower_rooms",
+  "name": "Cindermoor — the Lower Rooms",
+  "description": "Twelve steps and a turn under the warden's seat: rooms cut in the Spire's own rock, dry and cold, the first air on Cindermoor that doesn't smell of fire. The shaft comes down to a well in a ring of pillars; stone benches along the walls, worn hollow; and on a lectern facing the well, chained to it, the Spire's own book.",
+  "fog": {
+    "density": 0.05,
+    "color": "#141419",
+    "note": "No Greying under the rock: this is only the dark, closing the walls off past the candlelight."
+  },
+  "light": {
+    "note": "Underground: no sun to speak of, a cold dim ambient; the fourteen candles on the ledge and the ember are the light.",
+    "sun_color": "#6A6F7A",
+    "sun_energy": 0.06,
+    "sun_pitch": -70,
+    "sun_yaw": 20,
+    "ambient_color": "#545866",
+    "ambient_energy": 0.3,
+    "sky_top": "ink",
+    "sky_horizon": "#16161D",
+    "shadow": 0.2
+  },
+  "ambience": [
+    {
+      "sound": "fen_still",
+      "volume": 0.35
+    }
+  ],
+  "footsteps": "stone",
+  "spawn_points": {
+    "default": [
+      4.4,
+      0,
+      0.6
+    ],
+    "from_stair": [
+      4.4,
+      0,
+      0.6
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -13,
+      -10,
+      13,
+      10
+    ],
+    "cell": 0.5,
+    "base": 0.0,
+    "seed": 87,
+    "roughness": 0.02,
+    "ragged": 0.15,
+    "ragged_scale": 2.0,
+    "note": "A room cut in the rock: a level floor (14 × 10 m) between sheer walls 5 m high; the stair comes down the east wall. No water: shore and seabed are the floor colour.",
+    "land": [
+      {
+        "rect": [
+          -13,
+          -10,
+          -7.6,
+          10
+        ],
+        "height": 5.0,
+        "falloff": 0.6,
+        "note": "west wall"
+      },
+      {
+        "rect": [
+          7.6,
+          -10,
+          13,
+          10
+        ],
+        "height": 5.0,
+        "falloff": 0.6,
+        "note": "east wall (the stair comes down it)"
+      },
+      {
+        "rect": [
+          -13,
+          -10,
+          13,
+          -5.8
+        ],
+        "height": 5.0,
+        "falloff": 0.6,
+        "note": "north wall"
+      },
+      {
+        "rect": [
+          -13,
+          5.8,
+          13,
+          10
+        ],
+        "height": 5.0,
+        "falloff": 0.6,
+        "note": "south wall"
+      }
+    ],
+    "colors": {
+      "ground": "#5B5650",
+      "shore": "#5B5650",
+      "seabed": "#5B5650",
+      "cliff": "#3E3B39"
+    },
+    "paint": [
+      {
+        "ellipse": [
+          -1.5,
+          -1.0,
+          2.6,
+          2.6
+        ],
+        "color": "#6E6862",
+        "note": "the floor worn pale round the flame's root"
+      },
+      {
+        "path": [
+          [
+            5.6,
+            0,
+            -3.5
+          ],
+          [
+            2.0,
+            0,
+            -2.4
+          ],
+          [
+            -1.5,
+            0,
+            1.8
+          ]
+        ],
+        "width": 1.2,
+        "color": "#67615B",
+        "note": "worn from the stair foot to the lectern"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/lower_vault.glb",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "colliders": [
+        {
+          "size": [
+            26.0,
+            0.6,
+            20.0
+          ],
+          "offset": [
+            0,
+            4.6,
+            0
+          ]
+        }
+      ],
+      "shadow": false,
+      "note": "The rock overhead (underside at 4.9 m, its collider from 4.6): keeps the sky out and the camera arm under it."
+    },
+    {
+      "model": "res://assets/models/dressing/lower_stair.glb",
+      "position": [
+        7.0,
+        0,
+        -3.5
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.6,
+        3.4,
+        2.3
+      ],
+      "note": "The last of the twelve steps coming down the east wall out of the dark; the stair foot faces west into the room."
+    },
+    {
+      "model": "res://assets/models/dressing/flame_root.glb",
+      "position": [
+        -1.5,
+        0,
+        -1.0
+      ],
+      "rotation_y": 0,
+      "collider": [
+        3.6,
+        5.0,
+        3.6
+      ],
+      "note": "The Spire comes down to the rock: six pillars round a kerb and a cold grate over a well."
+    },
+    {
+      "model": "res://assets/models/dressing/spire_book.glb",
+      "position": [
+        -1.5,
+        0,
+        2.4
+      ],
+      "rotation_y": 0,
+      "collider": [
+        0.9,
+        1.3,
+        0.7
+      ],
+      "note": "The Spire's own book on its lectern, the reader's side to the south (+Z), facing the well."
+    },
+    {
+      "model": "res://assets/models/dressing/hushed_bench.glb",
+      "position": [
+        -6.0,
+        0,
+        -4.7
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.0,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/hushed_bench.glb",
+      "position": [
+        -3.4,
+        0,
+        -4.7
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.0,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/hushed_bench.glb",
+      "position": [
+        0.6,
+        0,
+        -4.7
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.0,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/hushed_bench.glb",
+      "position": [
+        3.2,
+        0,
+        -4.7
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.0,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/hushed_bench.glb",
+      "position": [
+        -6.6,
+        0,
+        -0.6
+      ],
+      "rotation_y": 90,
+      "collider": [
+        2.0,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/hushed_bench.glb",
+      "position": [
+        -6.6,
+        0,
+        2.6
+      ],
+      "rotation_y": 90,
+      "collider": [
+        2.0,
+        0.45,
+        0.7
+      ]
+    },
+    {
+      "model": "res://assets/models/dressing/taper_row.glb",
+      "position": [
+        2.6,
+        0,
+        5.1
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.8,
+        0.9,
+        0.36
+      ],
+      "light": {
+        "color": "kindle",
+        "energy": 1.1,
+        "range": 9.0,
+        "offset": [
+          0,
+          1.2,
+          -0.4
+        ]
+      },
+      "note": "Fourteen candles on a ledge in the rock: Wenna's, or Aldous's tapers cut with his knife."
+    }
+  ],
+  "objects": [
+    {
+      "id": "lower_book",
+      "prompt": "Read the Spire's book",
+      "dialogue": "cindermoor_lectern",
+      "position": [
+        -1.5,
+        0,
+        3.3
+      ],
+      "reach": 1.6,
+      "glint": [
+        0,
+        1.4,
+        -0.9
+      ]
+    },
+    {
+      "id": "lower_benches",
+      "prompt": "Look at the stone benches",
+      "dialogue": "cindermoor_benches",
+      "position": [
+        -3.4,
+        0,
+        -3.8
+      ],
+      "reach": 1.8,
+      "glint": [
+        0,
+        0.6,
+        -0.9
+      ]
+    },
+    {
+      "id": "lower_root",
+      "prompt": "Look up the shaft",
+      "dialogue": "cindermoor_flame_root",
+      "position": [
+        1.0,
+        0,
+        -0.4
+      ],
+      "reach": 1.8,
+      "glint": [
+        -1.2,
+        1.0,
+        0
+      ]
+    }
+  ],
+  "exits": [
+    {
+      "to": "cindermoor_spire_foot",
+      "spawn": "from_lower",
+      "position": [
+        5.0,
+        0,
+        -3.5
+      ],
+      "prompt": "Go back up the stair to the Spire's foot"
+    }
+  ],
+  "events": [
+    {
+      "id": "cindermoor_spire_book",
+      "if": [
+        "flag:cindermoor_morning",
+        "!flag:cindermoor_spire_book_read"
+      ],
+      "set": {
+        "cindermoor_spire_book_read": true
+      },
+      "dialogue": "cindermoor_spire_book",
+      "note": "Day 87 (Act III step 5): the first time down, in the morning after the sitting: the Spire's own book read, Oriel Sayre named."
+    }
+  ],
+  "npcs": [
+    {
+      "npc": "provost",
+      "position": [
+        -0.5,
+        0,
+        3.6
+      ],
+      "rotation_y": -150,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning"
+      ],
+      "note": "At the lectern's corner, the book open."
+    },
+    {
+      "npc": "hild",
+      "position": [
+        -2.7,
+        0,
+        3.7
+      ],
+      "rotation_y": 150,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning"
+      ],
+      "note": "On the lectern's other side, the Long Book under her arm."
+    },
+    {
+      "npc": "iver",
+      "model": "res://assets/models/characters/iver_nolamp.glb",
+      "position": [
+        -1.6,
+        0,
+        4.5
+      ],
+      "rotation_y": 180,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:lowsong_iver_home",
+        "flag:lowsong_beacon_burned=lamp"
+      ],
+      "note": "Behind them, reading over both."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        1.6,
+        0,
+        4.2
+      ],
+      "rotation_y": -120,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "By her candles on the ledge."
+    }
+  ]
+}

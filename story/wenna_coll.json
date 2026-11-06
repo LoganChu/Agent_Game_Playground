@@ -1132,6 +1132,10 @@
     ],
     "cindermoor_foot": [
       {
+        "if": "flag:cindermoor_morning",
+        "goto": "lower"
+      },
+      {
         "say": "narrator",
         "text": "Wenna Coll sits on her candle box outside the ring, trimming a wick with her thumbnail."
       },
@@ -1142,6 +1146,23 @@
       {
         "say": "wenna_coll",
         "text": "I kept fourteen back. Forty's a lot of candles for one ring. Not so many for a stair."
+      },
+      {
+        "end": true
+      }
+    ],
+    "lower": [
+      {
+        "say": "narrator",
+        "text": "Wenna sits by her candles on the ledge with the empty box on her knees."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Fourteen. I counted them out on the quay for a stair, and here's what they're lighting. I'd not have brought them if I'd known."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "No. I would. Somebody has to see what's written. That's what a light's for, my lot always said, even the little ones."
       },
       {
         "end": true

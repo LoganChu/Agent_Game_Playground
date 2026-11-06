@@ -1,0 +1,48 @@
+{
+  "id": "cindermoor_lectern",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Spire's own book, open at the last written page, chained to its lectern."
+      },
+      {
+        "say": "narrator",
+        "text": "Three names for the giving, and nothing given. The fast hand under them. Oriel Sayre.",
+        "if": "flag:cindermoor_spire_book_read"
+      },
+      {
+        "choice": [
+          {
+            "text": "Read the first page again.",
+            "goto": "first"
+          },
+          {
+            "text": "Read the last line again.",
+            "goto": "last"
+          },
+          {
+            "text": "Leave it open.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "'The Hushed are not emptied. They are filled.' The oldest hand. Whoever wrote it wrote it carefully, like a rule; like something they'd thought about a long time and decided was all right."
+      }
+    ],
+    "last": [
+      {
+        "say": "narrator",
+        "text": "'One coal kept back. It goes down the stair tonight, in hands that asked to carry it.'"
+      },
+      {
+        "say": "narrator",
+        "text": "The ember sits in your hand and doesn't knock. Somewhere above you, a turn up the east stair, somebody hid their face."
+      }
+    ]
+  }
+}

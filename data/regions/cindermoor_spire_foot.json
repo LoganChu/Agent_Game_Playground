@@ -7,6 +7,10 @@
     "color": "#A4A8AB",
     "overrides": [
       {
+        "if": "flag:cindermoor_morning",
+        "color": "#A4A8AB"
+      },
+      {
         "if": "flag:cindermoor_chapter_sat",
         "color": "#737987"
       },
@@ -28,6 +32,18 @@
     "sky_horizon": "#ABAFB2",
     "shadow": 0.32,
     "overrides": [
+      {
+        "if": "flag:cindermoor_morning",
+        "sun_color": "#C9C3B6",
+        "sun_energy": 0.36,
+        "sun_pitch": -16,
+        "sun_yaw": 95,
+        "ambient_color": "#A9ABAE",
+        "ambient_energy": 0.34,
+        "sky_top": "slate",
+        "sky_horizon": "#B4B2AE",
+        "shadow": 0.3
+      },
       {
         "if": "flag:cindermoor_chapter_sat",
         "sun_color": "#7E889B",
@@ -76,6 +92,11 @@
       10.6,
       0,
       7.8
+    ],
+    "from_lower": [
+      6.6,
+      0,
+      -10.4
     ]
   },
   "ground": {
@@ -558,6 +579,27 @@
         1.0,
         0
       ]
+    },
+    {
+      "id": "foot_rest",
+      "prompt": "Lie down by the candles till morning",
+      "dialogue": "cindermoor_night",
+      "position": [
+        11.2,
+        0,
+        -12.0
+      ],
+      "reach": 2.0,
+      "glint": [
+        0,
+        0.4,
+        0
+      ],
+      "if": [
+        "flag:cindermoor_chapter_sat",
+        "!flag:cindermoor_morning"
+      ],
+      "note": "Day 87: the night after the sitting (the story clock's rest prompt): morning, and the chapter goes down."
     }
   ],
   "exits": [
@@ -610,7 +652,8 @@
       "rotation_y": -90,
       "if": [
         "flag:cindermoor_chapter_came",
-        "flag:cindermoor_chapter_up"
+        "flag:cindermoor_chapter_up",
+        "!flag:cindermoor_morning"
       ],
       "note": "Day 86: in the ring of candles, facing the niche."
     },
@@ -624,7 +667,8 @@
       "rotation_y": -137,
       "if": [
         "flag:cindermoor_chapter_came",
-        "flag:cindermoor_chapter_up"
+        "flag:cindermoor_chapter_up",
+        "!flag:cindermoor_morning"
       ],
       "note": "At the ring's north edge by the Long Book."
     },
@@ -641,7 +685,8 @@
         "flag:cindermoor_chapter_came",
         "flag:cindermoor_chapter_up",
         "flag:lowsong_iver_home",
-        "flag:lowsong_beacon_burned=lamp"
+        "flag:lowsong_beacon_burned=lamp",
+        "!flag:cindermoor_morning"
       ],
       "note": "At the ring's south edge, head on one side."
     },
@@ -657,7 +702,8 @@
         "flag:cindermoor_chapter_came",
         "flag:cindermoor_chapter_up",
         "flag:thornwold_skiff=kindleby",
-        "!flag:thornwold_far_shore=up"
+        "!flag:thornwold_far_shore=up",
+        "!flag:cindermoor_morning"
       ],
       "note": "Outside the ring on her candle box, the way she sat on the quay."
     }

@@ -1073,6 +1073,24 @@
         "offered",
         "asked",
         "silent"
+      ]
+    },
+    "cindermoor_morning": {
+      "description": "The night after the sitting passed (Day 87): the Wakebearer lay down by the chapter's candles at the Spire's foot till morning (the foot_rest object). Morning on Cindermoor (light and fog overrides ahead of the night ones); the chapter goes down the stair under the warden's seat to the lower rooms (its NPCs leave the crown).",
+      "default": false
+    },
+    "cindermoor_spire_book_read": {
+      "description": "The chapter read the Spire's own book in the lower rooms (Day 87, Act III step 5, region event): nine hundred midwinters of the Hushed 'given' to the flame 'and what was in them'; the Hushed are filled, not emptied, with what the islands burned; if the flame is not fed, all it was given comes home (the Greying). The last page is the High Keeper's, Oriel Sayre, named: 'It is starved, and I am starving it.' The Chapter → the_spire_book.",
+      "default": false
+    },
+    "cindermoor_spire_line": {
+      "description": "Who wrote the Spire's line into the Long Book in the lower rooms (Day 87): '' (not yet), 'provost' (the Provost, in her own hand, and under it 'I never asked'), 'hand' (the Wakebearer, whose hand makes a Keeper's letters without knowing it would — mystery #2) or 'open' (nobody: the Spire's line left unwritten, which has never been done either). For the lantern room.",
+      "default": "",
+      "values": [
+        "",
+        "provost",
+        "hand",
+        "open"
       ],
       "future": true
     }

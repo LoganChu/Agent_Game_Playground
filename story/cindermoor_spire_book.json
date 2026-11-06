@@ -1,0 +1,351 @@
+{
+  "id": "cindermoor_spire_book",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Twelve steps, and the turn, and the stair lets you out into a room cut in the rock under the Spire. Dry. Cold. The ember's light goes out across a floor swept clean and doesn't find any dust."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna comes down behind you with her box, and stands her fourteen candles along a ledge in the rock, and lights them one from another.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Said I'd keep some back for a stair.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost brought Aldous's bundle of tapers down from the shelf in the niche. Hild cuts them with his knife and stands them along a ledge in the rock, and lights them from your ember, one by one.",
+        "if": [
+          "!flag:thornwold_skiff=kindleby"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost brought Aldous's bundle of tapers down from the shelf in the niche. Hild cuts them with his knife and stands them along a ledge in the rock, and lights them from your ember, one by one.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "In the middle of the room the Spire comes down to the rock: six pillars of the pale stone in a ring round a kerb, a cold iron grate over a well, and the shaft going straight up out of the light."
+      },
+      {
+        "say": "narrator",
+        "text": "Along the walls, stone benches, long enough to lie on, every one worn hollow down the middle. A grey blanket folded at the head of each."
+      },
+      {
+        "say": "narrator",
+        "text": "And on a lectern of the same stone, facing the well, chained to it: a book. Older than the Long Book, and bigger, and nobody's carried it anywhere."
+      },
+      {
+        "say": "provost",
+        "text": "You'd have given it the ember, up there. Read this first. Then offer it, if you still want to.",
+        "if": "flag:cindermoor_sitting_spoke=offered"
+      },
+      {
+        "say": "provost",
+        "text": "You said it would have kept its own book. Here it is. Aldous sat on the lid of it thirty-one years and thought he was drunk.",
+        "if": "flag:cindermoor_sitting_spoke=asked"
+      },
+      {
+        "say": "provost",
+        "text": "You said nothing up there, and I thanked you for it. Down here you may say what you like. I think I'll want you to.",
+        "if": "flag:cindermoor_sitting_spoke=silent"
+      },
+      {
+        "say": "provost",
+        "text": "Well. We came down to read.",
+        "if": "flag:cindermoor_sitting_spoke="
+      },
+      {
+        "goto": "first_page"
+      }
+    ],
+    "first_page": [
+      {
+        "say": "narrator",
+        "text": "She opens it at the front. The first leaves are so old the ink has gone into them like a stain. She reads the first line aloud, and then again, to herself."
+      },
+      {
+        "say": "provost",
+        "text": "'At the Kindling. Given to the flame: Maud, of the Heron. Hushed. And what was in her.'"
+      },
+      {
+        "say": "provost",
+        "text": "...Given."
+      },
+      {
+        "say": "narrator",
+        "text": "Every page is the same. A midwinter to a line, nine hundred midwinters: a name, the island they were found on, and Hushed. And after every name the same four words. And what was in them."
+      },
+      {
+        "if": [
+          "flag:lowsong_iver_home",
+          "flag:lowsong_beacon_burned=lamp"
+        ],
+        "goto": "iver_reads"
+      },
+      {
+        "goto": "hild_reads"
+      }
+    ],
+    "iver_reads": [
+      {
+        "say": "narrator",
+        "text": "Iver takes the book's edge between finger and thumb and turns the leaves faster than she can, the way he turned the Long Book's."
+      },
+      {
+        "say": "iver",
+        "text": "Given. Not burned. Nine hundred years, Lorn, and not once did they write burned. And not a comma moved. Not one. I've argued with you forty summers over the Long Book's commas, and the Spire never moved one."
+      },
+      {
+        "say": "iver",
+        "text": "You keep a thing that still the way you'd keep a lie."
+      },
+      {
+        "goto": "quiet_house"
+      }
+    ],
+    "hild_reads": [
+      {
+        "say": "narrator",
+        "text": "Hild reads over the Provost's shoulder, slowly, her black finger on the vellum a line behind the Provost's."
+      },
+      {
+        "goto": "quiet_house"
+      }
+    ],
+    "quiet_house": [
+      {
+        "say": "hild",
+        "text": "'Brought up from Kindleby.' That's the Quiet House. Every one, back as far as it goes. Brought up from the Quiet House."
+      },
+      {
+        "say": "hild",
+        "text": "I know these names, Provost. The last ones. Midwinter the Spire boat came down for the ones that were ready, and I carried them down the quay steps to her. We said they went up to be made quiet. We said it like a kindness."
+      },
+      {
+        "say": "provost",
+        "text": "Ready. We used to say they were ready. Full, it means. That's what the Quiet House was for. To keep them till they were full."
+      },
+      {
+        "say": "narrator",
+        "text": "Inside the front board, in the oldest hand of all, there's a page that isn't a list. The Provost reads it out, and her voice goes on reading after you'd have stopped."
+      },
+      {
+        "say": "provost",
+        "text": "'The Hushed are not emptied. They are filled. What the islands burn in their beacons goes out into the grey, and the grey comes in at the Hushed, and they carry it. Give the flame what they carry, and the grey is thinner by so much, and the islands are clear.'"
+      },
+      {
+        "say": "provost",
+        "text": "'If the flame is not fed, all it was given comes home.'"
+      },
+      {
+        "say": "narrator",
+        "text": "Home. The fog on Gull's Head, and the fen, and the cinder road that forgets where it goes: nine hundred years of what was burned, coming home. The Quiet House humming at night, like a lot of people trying to remember the same song."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember is warm in your hand. It always is. You think about what it's fed on, and it doesn't knock, and you're glad of that.",
+        "if": "flag:cindermoor_sitting_spoke=offered"
+      },
+      {
+        "goto": "last_page"
+      }
+    ],
+    "last_page": [
+      {
+        "say": "narrator",
+        "text": "The Provost turns to the last written page. Last midwinter: three names for the giving, from the Quiet House, in a fine upright hand. And then nothing given."
+      },
+      {
+        "say": "narrator",
+        "text": "Under them, in the same hand, but fast, the letters leaning the way a hand leans that's being made to hurry:"
+      },
+      {
+        "say": "provost",
+        "text": "'I have read this book to its first page. We have not kept the Lanternreach. We have kept it from remembering, and fed it its own memory, and called the ash clear. The flame does not fail. It is starved, and I am starving it.'"
+      },
+      {
+        "say": "provost",
+        "text": "'Let it come home, all of it. Let them remember what was taken out of them, and who took it. I will not choose for them again. Nobody chose that I should.'"
+      },
+      {
+        "say": "provost",
+        "text": "'One coal kept back. It goes down the stair tonight, in hands that asked to carry it.'"
+      },
+      {
+        "say": "narrator",
+        "text": "The ember doesn't knock. You hold it very still anyway."
+      },
+      {
+        "say": "narrator",
+        "text": "And under that, a name. Not a Keeper's mark: a name written out whole, the way you'd sign a thing you meant somebody to find."
+      },
+      {
+        "say": "provost",
+        "text": "Oriel Sayre. High Keeper."
+      },
+      {
+        "say": "provost",
+        "text": "I know the hand. I've had letters in it forty years. The High Keeper was at the flame when it failed, and has not been seen since. That's what I said. I said it to every one that came over in the boats, and took them in, and never asked them a thing."
+      },
+      {
+        "say": "provost",
+        "text": "It didn't fail."
+      },
+      {
+        "goto": "taken"
+      }
+    ],
+    "taken": [
+      {
+        "say": "narrator",
+        "text": "The Provost sits down. On the floor of the lower rooms, in the dust that isn't there, the way she wouldn't let anybody sit in the cinder on the crown."
+      },
+      {
+        "say": "iver",
+        "text": "Starved. She wrote starved, Lorn. Not snuffed.",
+        "if": [
+          "flag:lowsong_iver_home",
+          "flag:lowsong_beacon_burned=lamp"
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "We make charcoal, my lot. You burn the wood so slow it can't catch, and what's left burns hot and clean, and there's no smoke to it.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "That's what you did with them.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "hild",
+        "text": "I carried them down the steps. I carried them like you'd carry somebody asleep."
+      },
+      {
+        "say": "provost",
+        "text": "Nine hundred years we chose, so that others needn't. That's what I told you a Keeper was, on Kindleby. ...We chose for them. And then we chose them."
+      },
+      {
+        "say": "provost",
+        "text": "There's always a line. There'll want to be one for the Spire, now. Sister, the Long Book."
+      },
+      {
+        "say": "narrator",
+        "text": "Hild kneels and opens the Long Book on the floor beside her, at the last page, and holds out the pen."
+      },
+      {
+        "choice": [
+          {
+            "text": "Write it in, Provost. In your own hand.",
+            "goto": "line_provost",
+            "set": {
+              "cindermoor_spire_line": "provost"
+            }
+          },
+          {
+            "text": "Give me the pen. I'll write it.",
+            "goto": "line_hand",
+            "set": {
+              "cindermoor_spire_line": "hand"
+            }
+          },
+          {
+            "text": "Leave it unwritten. Not yet.",
+            "goto": "line_open",
+            "set": {
+              "cindermoor_spire_line": "open"
+            }
+          }
+        ]
+      }
+    ],
+    "line_provost": [
+      {
+        "say": "narrator",
+        "text": "She takes the pen, and writes it the way the Long Book's written, a line, plain: The Hearthspire. Every midwinter since the Kindling: the Hushed, and what was in them. Chosen by the chapter."
+      },
+      {
+        "say": "narrator",
+        "text": "And under it, smaller, where nothing has ever been written under a line: I never asked."
+      },
+      {
+        "say": "provost",
+        "text": "There. Now it can't be scraped."
+      },
+      {
+        "goto": "eighth"
+      }
+    ],
+    "line_hand": [
+      {
+        "say": "provost",
+        "text": "The hand. Yes. That's what we brought you for, isn't it."
+      },
+      {
+        "say": "narrator",
+        "text": "You write it: The Hearthspire. Every midwinter since the Kindling: the Hushed, and what was in them. Your hand makes the letters the way the Keepers make them, upright, every one finished, and you didn't know it would."
+      },
+      {
+        "say": "narrator",
+        "text": "Hild watches the pen, and not the words."
+      },
+      {
+        "goto": "eighth"
+      }
+    ],
+    "line_open": [
+      {
+        "say": "provost",
+        "text": "Then it stays open. ...That's never been done either."
+      },
+      {
+        "say": "narrator",
+        "text": "Hild shuts the Long Book on the empty place, and the pen with it, and doesn't say anything."
+      },
+      {
+        "goto": "eighth"
+      }
+    ],
+    "eighth": [
+      {
+        "say": "provost",
+        "text": "The High Keeper had a boat of her own at the Spire. It was always the eighth.",
+        "quest_stage": [
+          "the_chapter",
+          "the_spire_book"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "Kept back, the roll says. Her word.",
+        "if": "flag:cindermoor_roll_boats"
+      },
+      {
+        "say": "provost",
+        "text": "Go up, if you want the air. The chapter will stay with the book a while. We've a lot of lines to read we never read."
+      }
+    ]
+  }
+}

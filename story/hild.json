@@ -480,6 +480,10 @@
     ],
     "cindermoor_foot": [
       {
+        "if": "flag:cindermoor_morning",
+        "goto": "lower"
+      },
+      {
         "say": "narrator",
         "text": "Hild stands at the edge of the candles with her hands still black from the cinder, looking at the lifted seat."
       },
@@ -490,6 +494,23 @@
       {
         "say": "hild",
         "text": "There's no smell of fire coming up out of it. Did you notice? Everything on this island smells of fire but that."
+      },
+      {
+        "end": true
+      }
+    ],
+    "lower": [
+      {
+        "say": "narrator",
+        "text": "Hild stands by the stone benches with the Long Book under her arm, not looking at them."
+      },
+      {
+        "say": "hild",
+        "text": "Three. Three still in the Quiet House that were ready, last midwinter, and nobody came for them. I fed them their dinner the night we sailed. They were humming."
+      },
+      {
+        "say": "hild",
+        "text": "I thought I was carrying them somewhere better. You carry a thing down the steps that careful, you think you know what it's for."
       },
       {
         "end": true

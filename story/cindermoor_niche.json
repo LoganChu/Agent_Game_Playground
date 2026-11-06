@@ -74,8 +74,16 @@
           },
           {
             "text": "Look down the stair under the seat.",
-            "if": "flag:cindermoor_chapter_sat",
+            "if": [
+              "flag:cindermoor_chapter_sat",
+              "!flag:cindermoor_morning"
+            ],
             "goto": "under"
+          },
+          {
+            "text": "Go down the stair.",
+            "if": "flag:cindermoor_morning",
+            "goto": "down"
           },
           {
             "text": "Leave the niche as it is.",
@@ -191,6 +199,26 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "down": [
+      {
+        "say": "narrator",
+        "if": "!flag:cindermoor_spire_book_read",
+        "text": "Hild goes first with a taper lit from your ember, and the Provost after her, a hand on the wall. You count without meaning to."
+      },
+      {
+        "say": "narrator",
+        "if": "flag:cindermoor_spire_book_read",
+        "text": "Down under the seat again. You count without meaning to."
+      },
+      {
+        "say": "narrator",
+        "text": "Twelve steps, and the turn.",
+        "travel": [
+          "cindermoor_lower_rooms",
+          "from_stair"
+        ]
       }
     ]
   }
