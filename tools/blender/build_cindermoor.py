@@ -435,6 +435,116 @@ def build_chapter_boat() -> None:
     bd.export("chapter_boat")
 
 
+def build_lower_stair() -> None:
+    """The foot of the stair under the warden's seat (Day 87, the lower rooms): the last steps of the twelve coming
+    down out of the dark through a cut in the rock wall, rising toward model +X (the wall) and turning out of sight;
+    rough-cut cheeks each side, a lintel, and the dark of the stair beyond. Place it with its back (+X) against the
+    room's east wall; the bottom step's front edge is at model x -1.6. Origin at the bottom step's foot centre-line."""
+    bd.reset()
+    STONE = (mat("bone", -0.5), mat("bone", -0.6), mat("slate", -0.55))
+    DARK = mat("ink", -0.4)
+    for k in range(7):
+        z = k * 0.2
+        front = -1.6 + k * 0.32
+        box("Step", (1.9 - front, 1.3, 0.2), ((front + 1.9) / 2, 0, z), STONE[k % 2])
+    for side in (-1, 1):
+        box("Cheek", (3.6, 0.5, 3.4), (0.2, side * 0.9, 0), STONE[(side + 1) // 2])
+        box("CheekCap", (3.7, 0.6, 0.2), (0.2, side * 0.9, 3.4), STONE[2])
+    box("Lintel", (0.5, 2.3, 0.5), (-1.4, 0, 2.9), STONE[1])
+    box("Dark", (0.1, 1.3, 2.0), (1.9, 0, 1.3), DARK)
+    box("DarkTop", (3.2, 1.3, 0.1), (0.3, 0, 3.3), DARK)
+    bd.export("lower_stair")
+
+
+def build_spire_book() -> None:
+    """The Spire's own book (Day 87): a lectern cut from one block of the pale stone, the book on it bigger than the
+    Long Book and older — boards of black wood, leaves gone the colour of bone, open about two-thirds through (the
+    last written page), an iron chain from the spine to a ring in the lectern's foot. Front (reader's side) = model -Y.
+    ~1.3 m to the book. Origin at the lectern's foot."""
+    bd.reset()
+    PALE, PALE2 = mat("bone", -0.3), mat("bone", -0.45)
+    box("LecternFoot", (0.9, 0.7, 0.18), (0, 0, 0), PALE2)
+    box("LecternStem", (0.5, 0.42, 1.0), (0, 0, 0.18), PALE)
+    box("LecternHead", (0.95, 0.7, 0.14), (0, 0.04, 1.14), PALE2)
+    box("LecternLip", (0.95, 0.06, 0.08), (0, -0.33, 1.2), PALE2)
+    cover = mat("ink", 0.12)
+    for side in (-1, 1):
+        box("BookBoard", (0.42, 0.6, 0.04), (side * 0.22, 0.02, 1.28), cover)
+        thick = 0.11 if side < 0 else 0.06
+        box("BookLeaves", (0.39, 0.56, thick), (side * 0.21, 0.02, 1.32), mat("bone", -0.2 if side < 0 else -0.1))
+    box("Spine", (0.07, 0.6, 0.1), (0, 0.02, 1.26), cover)
+    iron = mat("ink", 0.2)
+    pts = [(0.0, 0.32, 1.27), (0.12, 0.38, 0.9), (0.18, 0.4, 0.5), (0.2, 0.37, 0.14)]
+    for a, b in zip(pts, pts[1:]):
+        rod("Chain", a, b, 0.015, iron, verts=4)
+    bd.export("spire_book")
+
+
+def build_hushed_bench() -> None:
+    """A stone bench cut in the lower rooms (Day 87): long enough to lie on (2.0 × 0.7 m, 0.45 m high), worn
+    hollow along its top by nine hundred years of somebody lying there, a grey blanket folded at its head. Where the
+    Hushed waited for midwinter. Long axis model X. Origin at the base centre."""
+    bd.reset()
+    STONE, STONE2 = mat("bone", -0.48), mat("bone", -0.58)
+    box("Bench", (2.0, 0.7, 0.36), (0, 0, 0), STONE)
+    box("Lip", (2.0, 0.12, 0.09), (0, -0.29, 0.36), STONE2)
+    box("Lip", (2.0, 0.12, 0.09), (0, 0.29, 0.36), STONE2)
+    box("Head", (0.14, 0.7, 0.12), (-0.93, 0, 0.36), STONE2)
+    box("Blanket", (0.36, 0.5, 0.1), (-0.72, 0, 0.36), mat("silverfog", -0.45))
+    bd.export("hushed_bench")
+
+
+def build_flame_root() -> None:
+    """The flame's root (Day 87): the round of pale stone in the middle of the lower rooms where the Hearthspire's
+    shaft comes down to the rock — a kerb r 1.3 m round a dark well, a cold iron grate over it, and the shaft's
+    stone going straight up out of sight. What the flame was given was brought here. Origin at the kerb's centre."""
+    bd.reset()
+    PALE, PALE2, DARK, IRON = mat("bone", -0.35), mat("bone", -0.5), mat("ink", -0.4), mat("ink", 0.15)
+    cyl("Kerb", 1.3, 1.25, 0.4, 14, (0, 0, 0), PALE2)
+    cyl("Well", 1.0, 1.0, 0.02, 14, (0, 0, 0.39), DARK)
+    for k in range(5):
+        y = -0.8 + k * 0.4
+        box("Grate", (2.0 - abs(y) * 0.9, 0.05, 0.04), (0, y, 0.4), IRON)
+    for k in range(5):
+        x = -0.8 + k * 0.4
+        box("Grate", (0.05, 2.0 - abs(x) * 0.9, 0.04), (x, 0, 0.42), IRON)
+    for k in range(6):
+        a = k / 6 * math.tau
+        box("Pillar", (0.3, 0.3, 4.6), (math.cos(a) * 1.55, math.sin(a) * 1.55, 0.0), PALE, a)
+    cyl("Shaft", 1.75, 1.75, 0.5, 14, (0, 0, 4.6), PALE2)
+    bd.export("flame_root")
+
+
+def build_taper_row() -> None:
+    """A row of fourteen candles stood along a rock ledge (Day 87, the lower rooms): lit, the flames emissive (the
+    region gives the row one small warm light). 2.6 m long along model X, the ledge 0.9 m high. Origin at the
+    ledge's foot."""
+    bd.reset()
+    rng = random.Random(870)
+    box("Ledge", (2.8, 0.36, 0.9), (0, 0, 0), mat("bone", -0.55))
+    wax, wick = mat("bone", -0.08), mat("kindle", 0.15, emissive=True)
+    for k in range(14):
+        x = -1.3 + k * 0.2 + rng.uniform(-0.03, 0.03)
+        h = rng.uniform(0.1, 0.24)
+        cyl("Candle", 0.03, 0.028, h, 5, (x, rng.uniform(-0.06, 0.06), 0.9), wax)
+        cyl("Flame", 0.022, 0.0, 0.08, 4, (x, 0, 0.9 + h), wick)
+    bd.export("taper_row")
+
+
+def build_lower_vault() -> None:
+    """The lower rooms' roof (Day 87): the rock overhead, a slab 26 × 20 m whose underside is at z 4.9, with three
+    rough ribs of the pale stone across it east-west and a ring of the pale stone where the Spire's shaft goes up
+    through it (over the flame's root, at model (-1.5, 1.0): Godot (-1.5, -1.0)). Origin on the floor at the room's
+    centre; placed at the region's origin so the ribs line up with the walls."""
+    bd.reset()
+    ROCK, RIB, RING = mat("ink", 0.12), mat("bone", -0.62), mat("bone", -0.5)
+    box("Roof", (26.0, 20.0, 0.5), (0, 0, 4.9), ROCK)
+    for y in (-3.6, 0.0, 3.6):
+        box("Rib", (16.0, 0.5, 0.35), (0, y, 4.56), RIB)
+    cyl("ShaftRing", 2.0, 2.0, 0.3, 14, (-1.5, 1.0, 4.62), RING)
+    bd.export("lower_vault")
+
+
 BUILDERS = {
     "spire_foot": build_spire_foot,
     "spire_foot_open": build_spire_foot_open,
@@ -446,6 +556,12 @@ BUILDERS = {
     "cinder_cresset_lit": build_cinder_cresset_lit,
     "cinder_cresset_doused": build_cinder_cresset_doused,
     "chapter_boat": build_chapter_boat,
+    "lower_stair": build_lower_stair,
+    "spire_book": build_spire_book,
+    "hushed_bench": build_hushed_bench,
+    "flame_root": build_flame_root,
+    "taper_row": build_taper_row,
+    "lower_vault": build_lower_vault,
 }
 
 if __name__ == "__main__":
