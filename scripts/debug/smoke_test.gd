@@ -440,6 +440,26 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(_choose(ui, "Look down the stair under the seat."), "the stair under the seat")
 	_finish_dialogue(ui, "foot_niche (the stair)")
 	print("Smoke: the chapter sits — no line for the Spire, the stair under the seat")
+	# Day 87: the night passes by the candles; in the morning the chapter goes down to the Spire's own book.
+	_object("foot_rest").interact()
+	_finish_dialogue(ui, "foot_rest (the night)")
+	for i in 2:
+		await get_tree().process_frame
+	_check(world.get_flag("cindermoor_morning") == true and _npc("provost") == null and _object("foot_rest") == null,
+			"morning on the crown; the chapter has gone down")
+	_object("foot_niche").interact()
+	_check(_choose(ui, "Go down the stair."), "down the stair under the seat")
+	_finish_dialogue(ui, "foot_niche (down)")
+	if not await _arrived(main, ui, "cindermoor_lower_rooms", "twelve steps and the turn"):
+		return
+	_check(world.get_flag("cindermoor_spire_book_read") == true and world.quest_stage("the_chapter") == "the_spire_book"
+			and str(world.get_flag("cindermoor_spire_line")) == "provost", "the Spire's own book read, Oriel named, the line written")
+	_check(_npc("provost") != null and _npc("hild") != null, "the chapter stays below with the book")
+	_object("lower_book").interact()
+	_finish_dialogue(ui, "lower_book")
+	if not await _take_exit(main, ui, "cindermoor_spire_foot", "back up the stair"):
+		return
+	print("Smoke: the lower rooms — the Spire's own book, Oriel Sayre named")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
