@@ -73,6 +73,8 @@ func validate() -> bool:
 	_check_placements_exclusive()
 	for message in Scenarios.validate(db, Scenarios.all()):
 		_err("data/scenarios.json", message)
+	for message in Scenarios.half_made(db, Scenarios.all()):
+		_err("data/scenarios.json", message)
 	return errors.is_empty()
 
 
@@ -87,6 +89,28 @@ func report() -> String:
 
 func _err(where: String, msg: String) -> void:
 	errors.append("%s: %s" % [where, msg])
+
+
+## Day 88: the long legs of a painted path that are *nearly* straight along an axis — a drift
+## of a few tenths over a long leg crosses one or two of the ground's 1 m triangle rows and the
+## paint's edge shows a lone step (Day 84's cresset road: z −1.2 → −1.4 over 15 m). A wandering
+## track (slant ≥ SAW_SLANT) steps often enough to read as ragged, so only near-axis drift warns.
+const SAW_LEG := 10.0
+const SAW_SLANT := 0.1
+
+
+static func sawing_legs(points: Array) -> Array[String]:
+	var out: Array[String] = []
+	for i in range(1, points.size()):
+		var a := Vector2(float(points[i - 1][0]), float(points[i - 1][1]))
+		var b := Vector2(float(points[i][0]), float(points[i][1]))
+		if a.distance_to(b) < SAW_LEG:
+			continue
+		var d := (b - a).abs()
+		var slant := minf(d.x, d.y) / maxf(d.x, d.y)
+		if slant >= 0.001 and slant < SAW_SLANT:
+			out.append("%s → %s (%.0f m, slant %.2f)" % [a, b, a.distance_to(b), slant])
+	return out
 
 
 func _warn(where: String, msg: String) -> void:
@@ -701,12 +725,32 @@ func _act_ids() -> Dictionary:
 	return out
 
 
+## `spawn_facing` (Day 88): {spawn: [x, z]}, a named spawn and a point away from it.
+func _validate_spawn_facing(where: String, region: Dictionary) -> void:
+	var facing: Variant = region.get("spawn_facing", {})
+	if not facing is Dictionary:
+		_err(where, "spawn_facing must be an object of spawn: [x, z]")
+		return
+	var spawns: Dictionary = region.get("spawn_points", {}) if region.get("spawn_points", {}) is Dictionary else {}
+	for spawn: String in facing:
+		var at: Variant = facing[spawn]
+		if not spawns.has(spawn):
+			_err(where, "spawn_facing names unknown spawn '%s'" % spawn)
+		elif not at is Array or (at as Array).size() != 2:
+			_err(where, "spawn_facing '%s' must be [x, z]" % spawn)
+		else:
+			var from := JsonUtil.to_vector3(spawns[spawn])
+			if Vector2(float(at[0]) - from.x, float(at[1]) - from.z).length() < 0.5:
+				_err(where, "spawn_facing '%s' points at the spawn itself" % spawn)
+
+
 func _validate_region(id: String, region: Dictionary) -> void:
 	var where := "region " + id
 	_require_fields(where, region, ["name", "description"])
 	var spawns: Variant = region.get("spawn_points", {})
 	if not spawns is Dictionary or not (spawns as Dictionary).has("default"):
 		_err(where, "spawn_points must contain 'default'")
+	_validate_spawn_facing(where, region)
 	_validate_region_audio(where, region)
 	for placement: Dictionary in region.get("npcs", []):
 		var npc_id := str(placement.get("npc", ""))
@@ -1086,6 +1130,9 @@ func _validate_cressets(where: String, region: Dictionary) -> void:
 					ok = ok and point is Array and (point as Array).size() >= 2
 			if not ok:
 				_err(at, "road must be a path of at least two [x, z, 0] points")
+			else:
+				for leg in sawing_legs(road):
+					_warn(at, "road leg %s saws on the 1 m grid (run it along an axis or a real diagonal)" % leg)
 		var dialogue_id := str(c.get("dialogue", ""))
 		_ref_dialogue(at, dialogue_id)
 		if db.dialogues.has(dialogue_id) and not _sets_flag(db.get_dialogue(dialogue_id), flag):
@@ -1189,6 +1236,9 @@ func _validate_ground(where: String, region: Dictionary) -> void:
 							ok = ok and point is Array and (point as Array).size() >= 2
 					if not ok:
 						_err(where, "ground.%s has a malformed '%s'" % [key, shape_key])
+					elif shape_key == "path" and key == "paint":
+						for leg in sawing_legs(arr):
+							_warn(where, "ground.paint path leg %s saws on the 1 m grid (run it along an axis or a real diagonal)" % leg)
 			if shape_keys != 1:
 				_err(where, "ground.%s entries need exactly one of rect/ellipse/path" % key)
 			if key == "paint" and not _valid_color(str(feature.get("color", ""))):

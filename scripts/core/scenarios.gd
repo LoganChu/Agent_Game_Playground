@@ -132,3 +132,80 @@ static func validate(db: ContentDatabase, list: Array[Dictionary]) -> Array[Stri
 			if not pickups.has(str(pickup_id)):
 				errors.append("%s: unknown pickup '%s'" % [where, pickup_id])
 	return errors
+
+
+## Day 88 lint: a checkpoint that has made a choice but left its quest behind. A dialogue step
+## or option that sets flags *and* moves a quest on (`quest_stage`/`quest_complete`) is one
+## choice; a resolved checkpoint holding every one of those flag values (none of them the
+## flag's default) while that quest is started but short of the stage (or not done) has the
+## choice half made — Day 80's `kindleby`, with the bend `walked` and Wenna still at her hearth.
+static func half_made(db: ContentDatabase, list: Array[Dictionary]) -> Array[String]:
+	var bundles: Array[Dictionary] = []
+	for dialogue_id: String in db.dialogues:
+		var knots: Dictionary = db.get_dialogue(dialogue_id).get("knots", {})
+		for knot: String in knots:
+			for step: Variant in knots[knot]:
+				if not step is Dictionary:
+					continue
+				_collect_bundle(db, dialogue_id, step, bundles)
+				for option: Variant in (step as Dictionary).get("choice", []):
+					if option is Dictionary:
+						_collect_bundle(db, dialogue_id, option, bundles)
+	var errors: Array[String] = []
+	for scenario in list:
+		var resolved := resolve(str(scenario.get("id", "")), list)
+		var flags: Dictionary = resolved.get("flags", {})
+		var quests: Dictionary = resolved.get("quests", {})
+		for bundle in bundles:
+			var quest_id := str(bundle["quest"])
+			if not quests.has(quest_id) or str(quests[quest_id]) == "done":
+				continue
+			var made := true
+			for flag_id: String in bundle["set"]:
+				if not flags.has(flag_id) or str(flags[flag_id]) != str(bundle["set"][flag_id]):
+					made = false
+					break
+			if not made:
+				continue
+			var stage_ids: Array = db.get_quest(quest_id).get("stages", []).map(func(s: Dictionary) -> String: return str(s["id"]))
+			var at := stage_ids.find(str(quests[quest_id]))
+			var to := str(bundle["stage"])
+			if to == "done" or stage_ids.find(to) > at:
+				errors.append("scenario '%s': %s's choice %s is made but quest '%s' is still at '%s' (it moves to '%s')"
+						% [scenario["id"], bundle["dialogue"], JSON.stringify(bundle["set"]), quest_id, quests[quest_id], to])
+	errors.append_array(_unrestated_across_acts(list))
+	return errors
+
+
+## A checkpoint that crosses into a new act (its `inherits` is in another act) must restate,
+## in its own `quests`, every quest it carries over still open — so leaving one open across an
+## act is a decision written down, not something inherited unnoticed (Day 80's bend).
+static func _unrestated_across_acts(list: Array[Dictionary]) -> Array[String]:
+	var errors: Array[String] = []
+	for scenario in list:
+		if not scenario.has("inherits"):
+			continue
+		var parent := find(str(scenario["inherits"]), list)
+		if parent.is_empty() or str(parent.get("act", "")) == str(scenario.get("act", "")):
+			continue
+		var own: Dictionary = scenario.get("quests", {})
+		var carried: Dictionary = resolve(str(parent["id"]), list).get("quests", {})
+		for quest_id: String in carried:
+			if str(carried[quest_id]) != "done" and not own.has(quest_id):
+				errors.append("scenario '%s' opens %s but carries quest '%s' open at '%s' from %s without restating it"
+						% [scenario["id"], scenario.get("act", ""), quest_id, carried[quest_id], parent["id"]])
+	return errors
+
+
+static func _collect_bundle(db: ContentDatabase, dialogue_id: String, node: Dictionary, out: Array[Dictionary]) -> void:
+	var set_flags: Dictionary = {}
+	for flag_id: String in node.get("set", {}):
+		var value: Variant = node["set"][flag_id]
+		if str(value) != str(db.flag_default(flag_id)):
+			set_flags[flag_id] = value
+	if set_flags.is_empty():
+		return
+	if node.has("quest_complete"):
+		out.append({"dialogue": dialogue_id, "set": set_flags, "quest": str(node["quest_complete"]), "stage": "done"})
+	if node.get("quest_stage") is Array and (node["quest_stage"] as Array).size() == 2:
+		out.append({"dialogue": dialogue_id, "set": set_flags, "quest": str(node["quest_stage"][0]), "stage": str(node["quest_stage"][1])})
