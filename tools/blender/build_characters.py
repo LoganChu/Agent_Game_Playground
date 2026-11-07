@@ -2098,6 +2098,60 @@ def build_ness() -> None:
     assemble(b, "ness")
 
 
+def build_oriel() -> None:
+    _oriel(seated=False)
+
+
+def build_oriel_seated() -> None:
+    _oriel(seated=True)
+
+
+def _oriel(seated: bool) -> None:
+    """The woman on the ring path (Day 89): the High Keeper, Oriel Sayre, who walked out on the moor and put down what
+    she'd done. Sixties, tall and spare, a little stooped from walking; a High Keeper's long robe that was white once,
+    gone fog-grey all the way up to the shoulders (only the yoke and the hood still pale); no stole (put down), and a
+    darker square on the breast where the ember was stitched and has been picked out. Hood up and deep, a long pale
+    face, white hair escaping at the temple. Hands bare and empty, held a little in front as if they'd been carrying
+    something. `oriel_seated`: sat down on one of the road's edge-stones (Stool), hands open on her knees, head up."""
+    reset_scene()
+    b = Body(seated=seated, build=0.9)
+    pale = material("bone", -0.1)
+    grey = material("silverfog", -0.34)
+    skin = material("driftwood", 0.14)
+    base_body(b, skin, grey, material("ink", 0.05), grey, sleeves=grey)
+    t = b.parts["Torso"]
+    if seated:
+        t.append(limb((0, 0.02, b.hip - 0.06), (0, 0.02, b.waist + 0.08), 0.31, 0.27, grey, verts=8))
+        for side, x in (("LegL", 0.13), ("LegR", -0.13)):
+            b.parts[side].append(block((0.22, 0.38, 0.05), (x, -0.17, b.hip + 0.07), grey))
+            b.parts[side].append(block((0.22, 0.05, 0.42), (x, -0.39, b.hip - 0.17), grey))
+    else:
+        t.append(limb((0, 0.02, 0.04), (0, 0.02, b.waist + 0.1), 0.33, 0.25, grey, verts=8))     # the robe to the ground
+        t.append(limb((0, 0.02, 0.04), (0, 0.02, 0.1), 0.34, 0.34, material("silverfog", -0.46), verts=8))  # hem, darkest
+    t.append(ring(0.26, b.waist + 0.04, 0.04, material("silverfog", -0.55)))                      # a plain cord
+    t.append(ball(0.27, (0, 0.03, b.shoulder - 0.01), pale, scale=(1.06, 0.86, 0.42)))           # the yoke, still pale
+    t.append(block((0.085, 0.02, 0.085), (0, -0.245, b.shoulder - 0.19), material("silverfog", -0.55),
+                   rot=(0, math.radians(45), 0)))                                                 # where the ember was
+    h = b.parts["Head"]
+    h.append(ball(0.28, (0, 0.1, b.head + 0.04), pale, scale=(1.0, 0.98, 1.12)))                  # hood up, deep
+    h.append(ring(0.25, b.head - 0.21, 0.1, pale))
+    h.append(block((0.05, 0.05, 0.12), (0.13, -0.2, b.head + 0.06), material("bone", 0.12)))      # white hair at the temple
+    h.append(block((0.08, 0.02, 0.012), (0, -b.head_r * 0.93, b.head - 0.1), material("ink", 0.2)))  # a thin mouth
+    if seated:
+        b.arm_rest["ArmL"] = (math.radians(-46), 0, math.radians(-12))   # hands open on the knees
+        b.arm_rest["ArmR"] = (math.radians(-46), 0, math.radians(12))
+        b.head_rest = (math.radians(-6), 0, 0)                            # head up, looking at the door
+        stone = material("ink", 0.16)
+        top = b.hip - 0.04
+        b.parts["Stool"].append(block((0.5, 0.42, top), (0, 0.02, top / 2), stone, rot=(0, 0, math.radians(4))))
+    else:
+        b.arm_rest["ArmL"] = (math.radians(-22), 0, math.radians(-14))   # empty hands, a little in front
+        b.arm_rest["ArmR"] = (math.radians(-22), 0, math.radians(14))
+        b.head_rest = (math.radians(8), 0, 0)
+        b.torso_rest = (math.radians(5), 0, 0)                            # a walker's stoop
+    assemble(b, "oriel_seated" if seated else "oriel", scale=1.05)
+
+
 BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
@@ -2107,7 +2161,7 @@ BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, 
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
             build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother,
-            build_keeper_pim, build_hild, build_hild_scraping, build_iver, build_iver_nolamp, build_merrit]
+            build_keeper_pim, build_hild, build_hild_scraping, build_iver, build_iver_nolamp, build_merrit, build_oriel, build_oriel_seated]
 
 if __name__ == "__main__":
     import sys
