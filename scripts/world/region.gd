@@ -235,6 +235,8 @@ func _build(kind: String, entry: Dictionary) -> Node3D:
 			actor.setup(npc_id, placed_npc_data(Content.db.get_npc(npc_id), entry))
 			actor.position = place(entry.get("position"))
 			actor.rotation_degrees.y = float(entry.get("rotation_y", 0.0))
+			if entry.get("circuit") is Dictionary:
+				actor.walk_circuit(entry["circuit"], ground_y)
 			return actor
 		"pickup":
 			var pickup := Pickup.new()

@@ -10,9 +10,14 @@ extends Interactable
 ## An NPC carrying a lit lantern can say `"halo": {"part": "ArmR"}` (optional `size`,
 ## `strength`): a LanternHalo hangs on that part's glowing surface and moves with the arm, so
 ## the lantern reads through the fog (Brother Iver's lamp on Lowsong).
+## A placement's `circuit` (Day 89: `{"center": [x, z], "radius": r, "speed": m/s, "clockwise"?: bool}`) walks
+## the NPC round and round a circle on the ground from where it was placed (the woman on Cindermoor's ring path);
+## it stops while talking, while a modal holds input, and while the Wakebearer stands in its way.
 
 ## How quickly the NPC turns towards the player and back (1/s, exponential ease).
 const TURN_SPEED := 6.0
+## A walking NPC holds while the Wakebearer is this close (m), so it never walks into them.
+const CIRCUIT_HOLD := 1.6
 
 var npc_id := ""
 var npc_data: Dictionary = {}
@@ -30,6 +35,10 @@ var _work_player: AudioStreamPlayer3D
 var _work_id := ""
 ## Work strokes heard so far (tests).
 var work_sounds_played := 0
+## The placement's circuit (empty = stands where placed), its angle round the centre, and the region's ground height.
+var _circuit: Dictionary = {}
+var _circuit_angle := 0.0
+var _ground := Callable()
 
 
 func setup(id: String, data: Dictionary) -> void:
@@ -104,7 +113,74 @@ func body_yaw() -> float:
 	return _body.rotation.y if _body else 0.0
 
 
+## Sets the NPC walking round `circuit` (a validated placement `circuit`), from its current position, at the
+## heights `ground` (x, z) -> y gives. Call once it has been positioned.
+func walk_circuit(circuit: Dictionary, ground: Callable) -> void:
+	_circuit = circuit
+	_ground = ground
+	var c := circuit_centre()
+	_circuit_angle = atan2(position.z - c.y, position.x - c.x)
+	_place_on_circuit()
+
+
+## True if this NPC walks a circuit.
+func walks_circuit() -> bool:
+	return not _circuit.is_empty()
+
+
+## The circuit's centre (x, z).
+func circuit_centre() -> Vector2:
+	var at: Array = _circuit.get("center", [0, 0])
+	return Vector2(float(at[0]), float(at[1]))
+
+
+## Whether the walker should hold this frame: talking, a modal up, or the Wakebearer within CIRCUIT_HOLD.
+func circuit_holds() -> bool:
+	if _talking or GameState.input_locked:
+		return true
+	var player := get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP) as Node3D if is_inside_tree() else null
+	if player == null:
+		return false
+	var d := player.global_position - global_position
+	return Vector2(d.x, d.z).length() < CIRCUIT_HOLD
+
+
+## One step along the circuit of `delta` seconds (unless holding); returns the distance walked.
+func step_circuit(delta: float) -> float:
+	if _circuit.is_empty():
+		return 0.0
+	var speed := float(_circuit.get("speed", 0.7))
+	if circuit_holds():
+		speed = 0.0
+	if speed > 0.0:
+		var turn := circuit_turn()
+		_circuit_angle = wrapf(_circuit_angle + turn * speed * delta / float(_circuit["radius"]), -PI, PI)
+		_place_on_circuit()
+	if _rig:
+		_rig.move_speed = speed
+	return speed * delta
+
+
+## +1 when the walk goes clockwise seen from above with north (-Z) up the map (the angle from +X toward +Z grows),
+## -1 for anticlockwise (the default).
+func circuit_turn() -> float:
+	return 1.0 if bool(_circuit.get("clockwise", false)) else -1.0
+
+
+func _place_on_circuit() -> void:
+	var c := circuit_centre()
+	var r := float(_circuit["radius"])
+	var x := c.x + r * cos(_circuit_angle)
+	var z := c.y + r * sin(_circuit_angle)
+	position = Vector3(x, float(_ground.call(x, z)) if _ground.is_valid() else position.y, z)
+	# Face along the way round: the tangent, turned for a clockwise walker.
+	var turn := circuit_turn()
+	var ahead := Vector2(-sin(_circuit_angle), cos(_circuit_angle)) * turn
+	rotation.y = atan2(ahead.x, ahead.y)
+
+
 func _process(delta: float) -> void:
+	step_circuit(delta)
 	# The dialogue opens (and locks input) in the same frame as interact(); once it has
 	# closed again, turn back to the placed facing.
 	if _talking and not GameState.input_locked:

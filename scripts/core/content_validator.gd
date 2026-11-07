@@ -761,6 +761,7 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		if placement.has("idle") and str(placement["idle"]) not in CharacterRig.STYLES:
 			_err(where, "npc '%s' placement idle must be one of %s" % [npc_id, CharacterRig.STYLES])
 		_check_npc_halo("%s npc '%s'" % [where, npc_id], placement)
+		_check_npc_circuit("%s npc '%s'" % [where, npc_id], placement)
 		if not db.npcs.has(npc_id):
 			_err(where, "places unknown npc '%s'" % npc_id)
 		else:
@@ -1297,6 +1298,7 @@ func _walk_ground(where: String, region: Dictionary, ground: Dictionary) -> void
 	_validate_greying_budget(where, region, field, reachable, spots)
 	_validate_forgetting(where, region, field, reachable, spots)
 	_check_npcs_dry(where, region, field)
+	_check_circuits_walkable(where, region, field, reachable)
 	if not piers_ok:
 		return
 	for pier: Dictionary in ground.get("piers", []):
@@ -1304,6 +1306,57 @@ func _walk_ground(where: String, region: Dictionary, ground: Dictionary) -> void
 		var mid := Vector2((float(r[0]) + float(r[2])) * 0.5, (float(r[1]) + float(r[3])) * 0.5)
 		if not field.near_reachable(reachable, mid.x, mid.y, 0.1):
 			_err(where, "pier %s can't be walked onto from the default spawn (does it touch land?)" % [r])
+
+
+## A placement's `circuit` (Day 89, NpcActor.walk_circuit): `center` [x, z], `radius` 1..30 m, `speed` 0.2..2 m/s,
+## optional `clockwise` bool, and the placement's own position on the circle (within 0.25 m) so the walk starts there.
+func _check_npc_circuit(where: String, placement: Dictionary) -> void:
+	if not placement.has("circuit"):
+		return
+	var circuit: Variant = placement["circuit"]
+	if not circuit is Dictionary:
+		_err(where, "placement 'circuit' must be an object")
+		return
+	for key: String in circuit:
+		if key not in ["center", "radius", "speed", "clockwise", "note"]:
+			_err(where, "circuit has unknown key '%s'" % key)
+	var c: Variant = circuit.get("center")
+	if not (c is Array and (c as Array).size() == 2 and (c as Array).all(func(v: Variant) -> bool: return v is float or v is int)):
+		_err(where, "circuit 'center' must be [x, z]")
+		return
+	var radius: Variant = circuit.get("radius")
+	if not (radius is float or radius is int) or float(radius) < 1.0 or float(radius) > 30.0:
+		_err(where, "circuit 'radius' must be a number 1..30")
+		return
+	var speed: Variant = circuit.get("speed", 0.7)
+	if not (speed is float or speed is int) or float(speed) < 0.2 or float(speed) > 2.0:
+		_err(where, "circuit 'speed' must be a number 0.2..2 (m/s)")
+	if circuit.has("clockwise") and not circuit["clockwise"] is bool:
+		_err(where, "circuit 'clockwise' must be true or false")
+	var pos := JsonUtil.to_vector3(placement.get("position"))
+	var off := Vector2(pos.x, pos.z).distance_to(Vector2(float(c[0]), float(c[1]))) - float(radius)
+	if absf(off) > 0.25:
+		_err(where, "placement position is %.2f m off its circuit (put it on the circle)" % off)
+
+
+## Every point of a walking NPC's circuit is ground the Wakebearer could reach (so the walker never wades into a
+## bank or off the edge), sampled every half metre.
+func _check_circuits_walkable(where: String, region: Dictionary, field: TerrainField, reachable: Dictionary) -> void:
+	for placement: Dictionary in region.get("npcs", []):
+		var circuit: Variant = placement.get("circuit")
+		if not circuit is Dictionary or not circuit.get("center") is Array or (circuit["center"] as Array).size() != 2 \
+				or not (circuit.get("radius") is float or circuit.get("radius") is int) or float(circuit["radius"]) < 1.0:
+			continue
+		var c: Array = circuit["center"]
+		var r := float(circuit["radius"])
+		var steps := maxi(12, ceili(TAU * r / 0.5))
+		for i in steps:
+			var a := TAU * i / steps
+			var x := float(c[0]) + r * cos(a)
+			var z := float(c[1]) + r * sin(a)
+			if not field.contains(x, z) or not field.near_reachable(reachable, x, z, 0.5):
+				_err(where, "npc '%s' circuit leaves walkable ground near (%.1f, %.1f)" % [placement.get("npc", ""), x, z])
+				break
 
 
 ## NPCs stand on dry ground or a deck (Day 68: Hild stood 0.8 m under Kindleby's sea for a
