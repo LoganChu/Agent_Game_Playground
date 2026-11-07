@@ -349,6 +349,11 @@
         "text": "I'm not walking round any more. I don't need to. I know why I'd go in, now. And I won't. That's somebody else's stair."
       },
       {
+        "say": "oriel",
+        "text": "She's been singing since I sat down. I think she always was. I walked too loud to hear her.",
+        "if": "flag:cindermoor_choir_heard"
+      },
+      {
         "end": true
       }
     ],
@@ -362,6 +367,11 @@
         "text": "Not yet. You said you'd go up first."
       },
       {
+        "say": "oriel",
+        "text": "Somebody's singing on that stair. I walk past it. I think I always walked past it.",
+        "if": "flag:cindermoor_choir_heard"
+      },
+      {
         "end": true
       }
     ],
@@ -373,6 +383,11 @@
       {
         "say": "oriel",
         "text": "You're in the way again. I don't mind."
+      },
+      {
+        "say": "oriel",
+        "text": "Somebody's singing on that stair. I walk past it. I think I always walked past it.",
+        "if": "flag:cindermoor_choir_heard"
       },
       {
         "end": true

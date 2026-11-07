@@ -74,6 +74,19 @@
     {
       "sound": "wind_low",
       "volume": 0.8
+    },
+    {
+      "sound": "choir_near",
+      "volume": 0.3,
+      "if": [
+        "flag:cindermoor_choir_heard",
+        "!flag:cindermoor_choir_answered=named"
+      ]
+    },
+    {
+      "sound": "choir_near",
+      "volume": 0.16,
+      "if": "flag:cindermoor_choir_answered=named"
     }
   ],
   "footsteps": "shingle",
@@ -740,9 +753,28 @@
         "flag:cindermoor_chapter_came",
         "flag:cindermoor_chapter_up",
         "flag:cindermoor_morning",
-        "flag:cindermoor_eighth_sought"
+        "flag:cindermoor_eighth_sought",
+        "!flag:cindermoor_choir_down"
       ],
       "note": "Day 89: on the niche's outer step, watching the path, her back to it when the Wakebearer goes to her."
+    },
+    {
+      "npc": "provost",
+      "position": [
+        10.8,
+        0,
+        -8.6
+      ],
+      "rotation_y": -90,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_choir_down",
+        "!flag:cindermoor_choir_answered="
+      ],
+      "note": "Day 90: back up from the line with the Long Book, once Isolde's been answered at the door; the same step."
     },
     {
       "npc": "hild",

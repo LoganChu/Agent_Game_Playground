@@ -1459,6 +1459,20 @@
     ],
     "eighth": [
       {
+        "if": [
+          "flag:cindermoor_choir_heard",
+          "!flag:cindermoor_choir_down"
+        ],
+        "goto": "choir"
+      },
+      {
+        "if": [
+          "flag:cindermoor_choir_down",
+          "flag:cindermoor_choir_answered="
+        ],
+        "goto": "choir_wait"
+      },
+      {
         "say": "narrator",
         "text": "The Provost stands on the niche step, watching the path the way you'd watch a door.",
         "if": "flag:cindermoor_eighth_told="
@@ -1502,7 +1516,107 @@
         "if": "flag:cindermoor_eighth_told=kept"
       },
       {
+        "say": "provost",
+        "text": "Isolde Vane. I said her name to novices for forty years and never once thought she'd had a face.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "provost",
+        "text": "I heard her say yes. I'll hear that a long while.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "provost",
+        "text": "Two lines struck in my life, and both of them this year. I used to think striking a line was the worst thing a Keeper could do.",
+        "if": [
+          "flag:cindermoor_choir_answered=written",
+          "flag:lowsong_beacon_burned=lamp"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "The first line I ever struck. I used to think striking a line was the worst thing a Keeper could do.",
+        "if": [
+          "flag:cindermoor_choir_answered=written",
+          "!flag:lowsong_beacon_burned=lamp"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "She's still singing. I keep listening for whether she gets further. I think that's what you meant me to do.",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
         "end": true
+      }
+    ],
+    "choir": [
+      {
+        "say": "narrator",
+        "text": "The Provost is on the niche step with her head turned to the door, not the path."
+      },
+      {
+        "say": "provost",
+        "text": "You've been listening at that door. So have I. Since Oriel sat down I can hear it from here.",
+        "if": "flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "provost",
+        "text": "You've been listening at that door. So have I. Every time she's round the far side, I can hear it from here.",
+        "if": "!flag:cindermoor_eighth_told=told"
+      },
+      {
+        "choice": [
+          {
+            "text": "One of them got two words out. \"Not Hushed.\"",
+            "goto": "not_hushed"
+          },
+          {
+            "text": "It's nothing. The wind.",
+            "goto": "choir_wind"
+          }
+        ]
+      }
+    ],
+    "choir_wind": [
+      {
+        "say": "provost",
+        "text": "Iver said that for thirty-one years. I'd rather you didn't start."
+      }
+    ],
+    "not_hushed": [
+      {
+        "say": "provost",
+        "text": "Not Hushed."
+      },
+      {
+        "say": "narrator",
+        "text": "She stands very still, the way she stood at the lectern."
+      },
+      {
+        "say": "provost",
+        "text": "Every line in that book says Hushed. Nine hundred midwinters. We read the first page, and the last, and we sat down on the floor. Nobody reads the middle of a book like that. You'd have to want to."
+      },
+      {
+        "say": "provost",
+        "text": "Come down with me. Bring your light.",
+        "set": {
+          "cindermoor_choir_down": true
+        },
+        "quest_stage": [
+          "the_nearest_voice",
+          "the_line"
+        ],
+        "travel": [
+          "cindermoor_lower_rooms",
+          "from_stair"
+        ]
+      }
+    ],
+    "choir_wait": [
+      {
+        "say": "provost",
+        "text": "The door, Wakebearer. She's waiting, and she's waited long enough."
       }
     ]
   }

@@ -3,6 +3,27 @@
   "knots": {
     "start": [
       {
+        "if": "!flag:cindermoor_choir_answered=",
+        "goto": "after"
+      },
+      {
+        "if": "flag:cindermoor_choir_line_read",
+        "goto": "answer"
+      },
+      {
+        "if": "flag:cindermoor_choir_heard",
+        "goto": "again"
+      },
+      {
+        "if": "!flag:cindermoor_eighth_told=",
+        "goto": "choir"
+      },
+      {
+        "goto": "shut"
+      }
+    ],
+    "shut": [
+      {
         "say": "narrator",
         "text": "The east stair door. Oak gone grey, three iron bands, and open a hand's width, as if whoever went through last was in too much of a hurry to pull it to. Or meant to come straight back."
       },
@@ -36,6 +57,267 @@
       },
       {
         "end": true
+      }
+    ],
+    "choir": [
+      {
+        "say": "narrator",
+        "text": "The east stair door, open its hand's width on the dark. Wind comes down through the gap, cold ash and candle-ends, the same as ever."
+      },
+      {
+        "say": "narrator",
+        "text": "With Oriel sat still on her stone there's nothing on the crown to hear but the wind. And under the wind, coming down the stair, something else.",
+        "if": "flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "narrator",
+        "text": "Her feet go by behind you on the path and on round, and while she's the far side of the Spire there's nothing on the crown to hear but the wind. And under the wind, coming down the stair, something else.",
+        "if": "!flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "narrator",
+        "text": "Singing. Not a tune: a great many voices, a long way up, all at the one thing and none of them getting to the end of it. The Quiet House at night. The Low Water, the night Hild rowed you out to the rock.",
+        "sound": "choir_far"
+      },
+      {
+        "say": "narrator",
+        "text": "One voice is nearer than the rest. A woman's, a turn or two above the door, tired, as if she's been at it longer than any of them."
+      },
+      {
+        "say": "narrator",
+        "text": "Iver said that, on his rock. One nearer than the rest. Some nights she nearly gets a word out.",
+        "if": "flag:lowsong_beacon_burned=key"
+      },
+      {
+        "say": "narrator",
+        "text": "Somebody told you about her once, on a rock in the Low Water. He doesn't know he did.",
+        "if": "flag:lowsong_beacon_burned=lamp"
+      },
+      {
+        "choice": [
+          {
+            "text": "Take out the Stair-Taper.",
+            "if": "item:stair_taper",
+            "goto": "own"
+          },
+          {
+            "text": "Take out the hood-pin.",
+            "if": "item:hood_pin",
+            "goto": "own"
+          },
+          {
+            "text": "Listen.",
+            "goto": "listen"
+          }
+        ]
+      }
+    ],
+    "own": [
+      {
+        "say": "narrator",
+        "text": "You take it out and hold it in the gap, in the wind off the stair."
+      },
+      {
+        "say": "narrator",
+        "text": "The nearest voice stops. Not trailing off: stopped, the way somebody stops when a door opens on them. The rest go on without her."
+      },
+      {
+        "say": "narrator",
+        "text": "For a long moment she doesn't start again. It is very like being looked at, from a turn above."
+      },
+      {
+        "say": "narrator",
+        "text": "You put it away. After a while, from the beginning, she starts again."
+      },
+      {
+        "goto": "listen"
+      }
+    ],
+    "listen": [
+      {
+        "say": "narrator",
+        "text": "You stand with your hand on the cold oak and listen. She comes round to the place where she always stops, and this time she doesn't stop."
+      },
+      {
+        "say": "narrator",
+        "text": "Two words, clear, down the dark, in a voice that's used to being listened to:",
+        "set": {
+          "cindermoor_choir_heard": true
+        },
+        "quest_start": "the_nearest_voice"
+      },
+      {
+        "say": "narrator",
+        "text": "'Not Hushed.'",
+        "sound": "choir_far"
+      },
+      {
+        "say": "narrator",
+        "text": "Then the singing closes over her again, and she's back at the beginning."
+      },
+      {
+        "say": "narrator",
+        "text": "You find you've stopped on the threshold, counting under your breath. One. And nothing after one. Not yet."
+      },
+      {
+        "say": "iver",
+        "text": "There's a woman singing on that stair. I've never heard her in my life.",
+        "if": [
+          "flag:lowsong_iver_home",
+          "flag:lowsong_beacon_burned=lamp"
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "...I know when she'll breathe. How would I know that?",
+        "if": [
+          "flag:lowsong_iver_home",
+          "flag:lowsong_beacon_burned=lamp"
+        ]
+      }
+    ],
+    "again": [
+      {
+        "say": "narrator",
+        "text": "The door, its hand's width open on the dark. She's still singing, a turn or two up, and getting to the place where she stops."
+      },
+      {
+        "say": "narrator",
+        "text": "'Not Hushed.' She doesn't get it out again. Once in three hundred years might be all she has."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost is on the niche step, with her head turned to the door."
+      }
+    ],
+    "answer": [
+      {
+        "say": "narrator",
+        "text": "The door, its hand's width open on the dark. She's singing, a turn or two up, and getting to the place where she stops."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost comes up out of the dark under the warden's seat with the Long Book open along her arm and the pen in her other hand, and stands beside you. She doesn't say anything. She's waiting for you."
+      },
+      {
+        "choice": [
+          {
+            "text": "Say her name up the stair. \"Isolde Vane.\"",
+            "goto": "named",
+            "set": {
+              "cindermoor_choir_answered": "named"
+            }
+          },
+          {
+            "text": "Write her in the Long Book, Provost. Not with the Hushed. As she was.",
+            "goto": "written",
+            "set": {
+              "cindermoor_choir_answered": "written"
+            }
+          },
+          {
+            "text": "Let her sing. She's nearly got it out herself.",
+            "goto": "left",
+            "set": {
+              "cindermoor_choir_answered": "left"
+            }
+          }
+        ]
+      }
+    ],
+    "named": [
+      {
+        "say": "narrator",
+        "text": "You say it into the gap, not loud. Isolde Vane."
+      },
+      {
+        "say": "narrator",
+        "text": "The nearest voice stops."
+      },
+      {
+        "say": "narrator",
+        "text": "Then, down the stair, one word, as if she's leaning over a rail a turn above you:"
+      },
+      {
+        "say": "narrator",
+        "text": "'Yes.'",
+        "sound": "choir_far"
+      },
+      {
+        "say": "narrator",
+        "text": "And she doesn't start again. The rest go on singing a long way up, a little thinner, with a gap in them the shape of one voice."
+      },
+      {
+        "say": "provost",
+        "text": "Three hundred years she wanted that. And we had it in a book."
+      },
+      {
+        "say": "provost",
+        "text": "I'd not have known you could say a thing like that to a stair. I'd have written it down.",
+        "quest_complete": "the_nearest_voice"
+      }
+    ],
+    "written": [
+      {
+        "say": "narrator",
+        "text": "She writes it standing, the book along her arm, the way the Long Book's written: a line, plain. Isolde Vane. Wakebearer. Not Hushed. Given to the flame awake, by the chapter's word, for asking."
+      },
+      {
+        "say": "narrator",
+        "text": "Then she finds the old line every novice learns, the ember that walked her home, and strikes it through. Once, straight, so you can still read it. Struck, not scraped."
+      },
+      {
+        "say": "provost",
+        "text": "There. Anybody who opens it will know what we said. And that we said it."
+      },
+      {
+        "say": "narrator",
+        "text": "Up the stair the nearest voice gets to the place where she stops, and stops, and goes back to the beginning. Written down isn't the same as told. But it can't be scraped.",
+        "quest_complete": "the_nearest_voice"
+      }
+    ],
+    "left": [
+      {
+        "say": "player",
+        "text": "She's been three hundred years at it. It's hers to get out."
+      },
+      {
+        "say": "provost",
+        "text": "...Yes. We took enough off her."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost shuts the Long Book on her finger, keeping the place. Up the stair the nearest voice comes round to where she stops, and stops, and starts again."
+      },
+      {
+        "say": "narrator",
+        "text": "A little further, this time? You can't tell. You'd like to think so.",
+        "quest_complete": "the_nearest_voice"
+      }
+    ],
+    "after": [
+      {
+        "say": "narrator",
+        "text": "The east stair door, open its hand's width on the dark."
+      },
+      {
+        "say": "narrator",
+        "text": "The singing comes down from a long way up, with a gap in it the shape of one voice.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "She's still at it, a turn or two up. In the Long Book she's written down as she was. She doesn't know.",
+        "if": "flag:cindermoor_choir_answered=written"
+      },
+      {
+        "say": "narrator",
+        "text": "She's still at it, a turn or two up. Nearer, you'd swear, than yesterday.",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "You find you've stopped on the threshold, counting. One. And nothing after one. Not yet."
       }
     ]
   }

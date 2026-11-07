@@ -1116,6 +1116,29 @@
         "kept"
       ],
       "future": true
+    },
+    "cindermoor_choir_heard": {
+      "description": "At the east stair door after the Wakebearer answered the woman on the ring path (Day 90, Act III step 7): singing comes down the stair (the Hollow Choir, at the Spire), and the nearest voice gets two words out: 'Not Hushed.' Starts The Nearest Voice; the Choir is heard on the crown from here on.",
+      "default": false
+    },
+    "cindermoor_choir_down": {
+      "description": "The Wakebearer told the Provost what the nearest voice said (Day 90): every line in the Spire's book says Hushed, so she takes them back down to the lower rooms to read the middle of it.",
+      "default": false
+    },
+    "cindermoor_choir_line_read": {
+      "description": "The lower rooms' arrival after cindermoor_choir_down (Day 90): the Provost reads the Spire's book through and finds the one line in nine hundred that says Not Hushed — a Wakebearer who came up the east stair asking, given to the flame awake, her name scraped off it and kept on the story: Isolde Vane.",
+      "default": false
+    },
+    "cindermoor_choir_answered": {
+      "description": "What the Wakebearer did at the east stair door with Isolde Vane's name (Day 90): '' (not yet), 'named' (said it up the stair: the nearest voice says 'Yes' and stops singing), 'written' (the Provost wrote her in the Long Book as she was, Not Hushed, and struck the old story through) or 'left' (let her sing: it's hers to get out). For the east stair and the lantern room.",
+      "default": "",
+      "values": [
+        "",
+        "named",
+        "written",
+        "left"
+      ],
+      "future": true
     }
   }
 }

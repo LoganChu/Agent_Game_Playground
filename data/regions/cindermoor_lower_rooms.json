@@ -405,6 +405,18 @@
       },
       "dialogue": "cindermoor_spire_book",
       "note": "Day 87 (Act III step 5): the first time down, in the morning after the sitting: the Spire's own book read, Oriel Sayre named."
+    },
+    {
+      "id": "cindermoor_isolde_line",
+      "if": [
+        "flag:cindermoor_choir_down",
+        "!flag:cindermoor_choir_line_read"
+      ],
+      "set": {
+        "cindermoor_choir_line_read": true
+      },
+      "dialogue": "cindermoor_isolde_line",
+      "note": "Day 90 (Act III step 7): back down with the Provost to read the middle of the Spire's book: the one line that says Not Hushed, and Isolde Vane's name kept on the story."
     }
   ],
   "npcs": [
@@ -476,6 +488,24 @@
         "!flag:cindermoor_eighth_sought"
       ],
       "note": "By her candles on the ledge."
+    },
+    {
+      "npc": "provost",
+      "position": [
+        -0.5,
+        0,
+        3.6
+      ],
+      "rotation_y": -150,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_choir_down",
+        "flag:cindermoor_choir_answered="
+      ],
+      "note": "Day 90: at the lectern's corner again, reading the middle of the book."
     }
   ]
 }

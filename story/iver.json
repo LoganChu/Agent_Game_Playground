@@ -617,6 +617,19 @@
         "if": "flag:cindermoor_eighth_told=told"
       },
       {
+        "say": "iver",
+        "text": "That woman on the stair. I keep waiting for her to breathe, and she does, just when I knew she would. Nobody will tell me how I know that.",
+        "if": [
+          "flag:cindermoor_choir_heard",
+          "!flag:cindermoor_choir_answered=named"
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "She stopped. I'd have sworn I'd never heard her, and I can hear exactly where she isn't.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
         "end": true
       }
     ]

@@ -1,0 +1,22 @@
+{
+  "id": "the_nearest_voice",
+  "title": "The Nearest Voice",
+  "future": true,
+  "giver": "provost",
+  "region": "cindermoor_spire_foot",
+  "description": "Singing comes down the east stair from a long way up: the Hollow Choir, at the Spire. One voice is nearer than the rest, a woman's, tired, and this time she got two words out.",
+  "stages": [
+    {
+      "id": "listen",
+      "text": "At the east stair door the nearest voice got two words out: 'Not Hushed.' Every line in the Spire's own book says Hushed. The Provost is on the niche step."
+    },
+    {
+      "id": "the_line",
+      "text": "The Provost has taken the Wakebearer back down to the lower rooms to read the middle of the Spire's book, where nobody reads."
+    },
+    {
+      "id": "the_name",
+      "text": "Three hundred midwinters back there's one line that says Not Hushed: a Wakebearer who came up the east stair asking what the flame was fed, given to it awake. Her name was scraped off the line and kept on the story every novice learns: Isolde Vane. She's still singing at the door."
+    }
+  ]
+}

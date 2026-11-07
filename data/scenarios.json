@@ -893,6 +893,27 @@
         "the_eighth_boat": "the_path"
       },
       "shot": "--camera=12.5,2.4,-1.0:2.0,1.2,-8.0"
+    },
+    {
+      "id": "the_nearest_voice",
+      "act": "Act III — The Spire",
+      "title": "The Nearest Voice",
+      "inherits": "the_eighth_boat",
+      "region": "cindermoor_spire_foot",
+      "spawn": "from_lower",
+      "description": "The Wakebearer told Oriel Sayre who she was, and she sat down. In the quiet, singing came down the east stair, and the nearest voice got two words out: 'Not Hushed.' Down in the lower rooms the Provost found the one line in the Spire's book that says so, and the name scraped off it and kept on the story: Isolde Vane, the last Wakebearer. She's still singing at the door.",
+      "flags": {
+        "cindermoor_eighth_met": true,
+        "cindermoor_eighth_told": "told",
+        "cindermoor_choir_heard": true,
+        "cindermoor_choir_down": true,
+        "cindermoor_choir_line_read": true
+      },
+      "quests": {
+        "the_eighth_boat": "done",
+        "the_nearest_voice": "the_name"
+      },
+      "shot": "--camera=13.2,2.6,-11.0:6.0,1.3,-4.6"
     }
   ]
 }

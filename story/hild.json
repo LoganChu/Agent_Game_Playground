@@ -536,6 +536,24 @@
         "if": "!flag:cindermoor_eighth_told="
       },
       {
+        "say": "hild",
+        "text": "There's singing coming down that stair. I've rowed under it on the Low Water. I never thought to hear it on dry ground.",
+        "if": [
+          "flag:cindermoor_choir_heard",
+          "!flag:cindermoor_choir_line_read"
+        ]
+      },
+      {
+        "say": "hild",
+        "text": "Isolde Vane. My mother sang that over the cradle: her ember walked her home, every time. I'll not sing it to anybody now.",
+        "if": "flag:cindermoor_choir_line_read"
+      },
+      {
+        "say": "hild",
+        "text": "She struck it straight, so you can read under. That's the rule. I never saw it kept so well.",
+        "if": "flag:cindermoor_choir_answered=written"
+      },
+      {
         "end": true
       }
     ]

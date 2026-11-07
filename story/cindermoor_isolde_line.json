@@ -1,0 +1,83 @@
+{
+  "id": "cindermoor_isolde_line",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The lower rooms are as the chapter left them: cold, swept, the book open on its lectern at the last written page."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost doesn't go to the front. She opens it in the middle and runs her finger down the lines a page at a time, her lips moving on the one word. Hushed. Hushed. Hushed."
+      },
+      {
+        "say": "narrator",
+        "text": "It's a long time. The Spire's book is thick, and she doesn't skip."
+      },
+      {
+        "say": "narrator",
+        "text": "Her finger stops about a third of the way back from the end. Three hundred midwinters back. That winter there are two lines."
+      },
+      {
+        "say": "provost",
+        "text": "'Given to the flame: Tamsin, of Wrackholm. Hushed. And what was in her.'"
+      },
+      {
+        "say": "provost",
+        "text": "And under it."
+      },
+      {
+        "say": "provost",
+        "text": "'She carried an ember out of the grey, and came up the east stair in the night, and asked what the flame was fed. And was told. And would not keep it, but would carry it down to the islands.'"
+      },
+      {
+        "say": "provost",
+        "text": "'Not Hushed. Given to the flame awake, by the chapter's word. And what was in her.'"
+      },
+      {
+        "say": "narrator",
+        "text": "There's no name at the head of the line. Every other line in the book starts with one. This one starts with a little scraped place in the vellum, the size of a name."
+      },
+      {
+        "say": "narrator",
+        "text": "Under it, in the same old hand, the way you'd write a thing you meant everybody to say:"
+      },
+      {
+        "say": "provost",
+        "text": "'Let it be written that Isolde Vane's ember walked her out of the grey every time, and that she was not seen after.'"
+      },
+      {
+        "say": "provost",
+        "text": "They scraped her name off what happened, and kept it on the story."
+      },
+      {
+        "say": "provost",
+        "text": "Every novice on Kindleby learns that line. I taught it. I taught it to Aldous, and he taught it on the stair to the little ones."
+      },
+      {
+        "say": "provost",
+        "text": "Isolde Vane. The last Wakebearer."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember sits in your hand and doesn't knock. It doesn't feel like anything at all. You notice that."
+      },
+      {
+        "say": "provost",
+        "text": "She came up the stair and asked. That's all she did. Nobody had done it before, so they wrote that nobody had."
+      },
+      {
+        "say": "provost",
+        "text": "Go up. She's at the door. I'll bring the Long Book.",
+        "quest_stage": [
+          "the_nearest_voice",
+          "the_name"
+        ],
+        "travel": [
+          "cindermoor_spire_foot",
+          "from_lower"
+        ]
+      }
+    ]
+  }
+}
