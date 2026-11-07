@@ -1522,6 +1522,44 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   - **"The High Keeper had a boat of her own at the Spire. It was always the eighth."** ("Kept back, the roll says. Her
     word.") *(Step 6's thread. Never say she's alive or on the moor yet.)* The chapter stays below with the book.
 
+- **The eighth boat's owner (Day 89, Act III step 6 — `cindermoor_eighth_sought` → `cindermoor_eighth_seen` →
+  `cindermoor_eighth_told`; quest *The Eighth Boat*).** In the lower rooms, after the Spire's line, the Provost: "Merrit's
+  never lost a boat in his life, and the eighth is still on its rollers. She didn't go down the quay steps ... Oriel never
+  could abide getting her feet wet." The Wakebearer saw her at the sitting (and said nothing: "You were right ... she'd
+  have gone into the fog like a hare"), or Ness said so ("She was always first up the stair and last down it"). The
+  chapter goes back up the twelve steps; the candle ring is gathered up (Wenna's stubs into her box, or Hild's sleeve).
+  - **By daylight** a tall woman walks the worn path round the Spire's foot, her robe **gone fog-grey all the way to the
+    shoulders** (the yoke and hood still white; a darker diamond where the ember was stitched has been **picked out**), at
+    a pace "you could set a glass by", and **never looks at the east stair door**. The Provost says "Oriel." She doesn't
+    turn. "Forty years, and she never once came to a fuss. **You go. You're the only one of us she's never seen.**"
+    *(Dramatic irony — mystery #2. Never confirm.)*
+  - **On the path** she stops for the Wakebearer "the way you'd stop for a cart". She looks *at* the ember, not away:
+    "Somebody asked to carry one of those, once. I can't think who. I put that down with the rest." *(mystery #2 hook
+    only.)* She came down out of the Spire with something heavy in her hands, set it down on the moor in the dark, and by
+    morning it was **gone** — she found that out before Ness did. She walks round because **"If I stop, I'll go in ...
+    my feet know the way up, and they want it."** "Round's a good shape. It doesn't go anywhere." Of the eighth boat:
+    "Then somebody meant to go down in it, and didn't. I hope it was a good reason. It's a long way to swim."
+  - **What the Wakebearer does with what the book says** (`cindermoor_eighth_told`):
+    - **Told** (`told`): her name, the deed, her own last page. "Sayre." — "like somebody trying a key in a door. It
+      turns." She takes it on their word: **"Then I meant it. I'd know my own reasons. Even without them."** She **sits
+      down** on an edge-stone by the path, facing the door (the first time anyone's seen her sit), and stops walking: "I
+      know why I'd go in, now. And I won't. That's somebody else's stair." The Provost comes onto the path: "Oriel." /
+      "Agathe. ...You'd be Agathe. I wrote to you." / "Every midsummer. Forty years." / "Was I kind, in them?" / **"You were
+      careful."** / "That's worse. I'm sorry." She remembers writing last midwinter's three names, not their faces. Her
+      name shows from here on.
+    - **Asked first** (`asked`): "Nobody's asked me anything in— I don't know how long. That's how long." / "Is it
+      heavy?" / "Yes." / **"Then not yet ... Go up that stair first, whoever you are. If there's anything at the top worth
+      coming back down for, come and ask me again. I'll want it then."** She walks on, slower past the door. The Provost:
+      "Nine hundred years, and that's the first time any of us has asked anybody anything in all this."
+    - **Let her walk** (`kept`): "Kind. Or careful. I can't tell those apart any more." The Provost: "You chose for her.
+      ...I'd have done the same. That's what frightens me about it."
+  - After: Hild never rowed the eighth ("Nobody rowed the High Keeper but the High Keeper") and will grease its rollers
+    "in case"; Iver hears her feet "like a clock somebody forgot to stop" (told: "She's quiet now ... Inside"); Wenna:
+    "She walks like a collier walks a clamp ... watching it don't catch"; Merrit (told): "Eighth. Her word. ...Found,
+    then. Not come down."; Ness: "I hope you asked her first." / "Nobody asks. That was well done." / "She was here first."
+  - *(Still secret: what the Wakebearer was to her — step 8. Isolde — step 7. Whether she climbs, or launches the eighth
+    boat, is open.)*
+
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
   Saltmarrow, relights the Gull's Beacon, and must choose which memory to burn (e.g. Mara's
@@ -1572,7 +1610,7 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    see *Cindermoor*)* *(mystery #1 and #3 payoff, mid-Act III)*: the Keepers' oldest book in the Spire's
    lower rooms — the Hushed of nine hundred years fed to the flame; the Quiet House's purpose; the fog as what was burned
    coming home. The High Keeper's reasons. (Oriel Sayre named here, not before.)
-6. **The eighth boat's owner** — Oriel did not leave: she walked out on the moor and **chose to forget** what she did,
+6. **The eighth boat's owner** *(Day 89, written: the ring path, told / asked / let walk — see *Cindermoor*)* — Oriel did not leave: she walked out on the moor and **chose to forget** what she did,
    among the Unmoored (plan, secret; the eighth slip's payoff).
 7. **The Choir at the Spire** *(mystery #4)*: the nearest voice, heard again on the stair; Isolde Vane's name, late.
 8. **The east stair** *(mystery #2)*: the Stair-Taper lit for the stair it was cut for; counting the landings; the
@@ -1583,8 +1621,8 @@ The order Act III's sessions should take, paced over months: one big reveal per 
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
    deliberately — because the Firstflame is fueled by *stolen* memories: nine centuries of the
    Keepers quietly feeding it the memories of the Hushed. Oriel could not continue it.
-   *(Revealed in play Day 87, the lower rooms: the Spire's own book and Oriel's last page. Still secret: that she is
-   alive on the moor among the Unmoored, step 6.)*
+   *(Revealed in play Day 87, the lower rooms: the Spire's own book and Oriel's last page. Day 89: found alive, walking
+   the ring path round the Spire's foot, having put down what she did on the moor.)*
 2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche. Day 64 hook: a face up Kindleby's steps the Wakebearer almost knows, in the Boats' Lantern as it burns. Day 69 hook: the Stair-Taper, a novice's light for the east stair, given back by the ember as the fifth light catches; Aldous heard the light going down the stair counting landings. Day 77 hook: the Hood-Pin — the Wakebearer was the one counting, and someone a turn above hid their face on the stair "tonight".)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
@@ -1611,3 +1649,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - Soon after (Day 85): the chapter's boat comes in to the Boat Stair, two days down the lane in under oars from Kindleby.
 - That dusk (Day 86): the chapter goes up and sits at the Spire's foot; the stair to the lower rooms is found. "Tomorrow."
 - The next morning (Day 87): the chapter goes down to the lower rooms and reads the Spire's own book.
+- The same morning (Day 89): the chapter comes back up; the woman on the ring path is the High Keeper, Oriel Sayre.

@@ -697,14 +697,26 @@ each .glb < 5 MB.
       (`Scenarios.half_made`: a choice made with its quest left behind; quests carried open into a new act must be
       restated — `the_boat_stair` restates *What the Ember Keeps*); paint/road legs that drift off an axis warn (the
       woods' cart road straightened); Hild steps out from behind the Provost at the lectern. `test_polish_thirteen.gd` (8).
+- [x] [C] **The eighth boat's owner** (Day 89, LORE Act III step 6): after the Spire's line, the Provost reckons the
+      High Keeper never left ("Merrit's never lost a boat"); the chapter comes back up to the crown with the Wakebearer
+      (`cindermoor_eighth_sought`, new quest *The Eighth Boat*, `future`; the candle ring gathered up). **The woman on the
+      ring path** walks the worn path round the Spire's foot by daylight (`cindermoor_eighth_seen`): the Provost says
+      "Oriel" and she doesn't turn. Talking to her, the Wakebearer **tells her** (her name, the deed, her own words: she
+      sits down, "Then I meant it."; the Provost comes to the path — "You were careful." / "That's worse."), **asks her
+      first** ("Then not yet ... come and ask me again" after the stair) or **lets her walk** ("Kind. Or careful.") —
+      `cindermoor_eighth_told` (`future`). Lines for the Provost, Hild, Iver, Wenna, Merrit, Ness, the ring path. New
+      system: **walking NPCs** (placement `circuit`: `NpcActor.walk_circuit`, holds for talk/modals/the Wakebearer in the
+      way; validated incl. walkable all the way round). Blender `oriel`, `oriel_seated`. Checkpoint `the_eighth_boat`; the
+      smoke walk goes up, watches her walk, tells her. `test_the_eighth_boat.gd` (10).
 
 ### Next up
-1. [C] **The eighth boat's owner** (LORE Act III step 6): Oriel did not leave — she walked out on the
-   moor and chose to forget, among the Unmoored. The thread is laid: the hooded woman on the ring path (Days 83/86, the
-   night's footsteps Day 87), "Eighth — kept back. Her word.", and now the Provost: "It was always the eighth." Who goes
-   looking (the Provost will want to; Ness knows the moor), what `cindermoor_spire_line` and `cindermoor_sitting_spoke`
-   change; the chapter is still below in the lower rooms (move them back up with the next flag). Do not name Isolde
-   (#4) or explain the Wakebearer (#2) yet.
+1. [C] **The Choir at the Spire** (LORE Act III step 7, mystery #4): the nearest voice, heard again on the stair; Isolde
+   Vane's name, late. Fold in 1b if it fits. The chapter is on the crown now (morning, `cindermoor_eighth_sought`). Keep #2 (who the Wakebearer is) for step 8. What `cindermoor_eighth_told` changes should
+   show here or at the east stair (asked: she wants asking again *after* the stair; told: she sits facing the door).
+1b. [C] **Small follow-ups for step 6** (fold into the next content session): Hild greasing the eighth's rollers at the
+   Boat Stair once she's said she would (a prop swap on the boathouse slip?); Oda hearing the High Keeper's alive (she
+   steered round the Spire 38 years); whether Oriel comes to the chapter's next sitting (the Provost said
+   it will sit again before it chooses).
 2. [S] **The days pass on Cindermoor** — *decided Day 86:* Cindermoor's clock is a **story clock**, not a free-running
    day/night: flags move it, and each Cindermoor region carries light and fog overrides for it (`cindermoor_chapter_sat` →
    night, `cindermoor_chapter_up` → dusk; first match wins, so later times go first in the list). Follow-up with the lower

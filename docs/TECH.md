@@ -201,7 +201,8 @@ Every record lives in its own file whose name equals its `id`.
                "snap": true,                            // false = absolute y (docks, stilts in water)
                "light": {"color": "kindle", "energy": 1.0, "range": 6, "offset": [x,y,z]}}],  // model props only
   "npcs":    [{"npc": id, "position": [...], "rotation_y": deg, "if": condition,
-               "wading": true}],   // wading (Day 68): the validator lets this NPC stand in the water; without
+               "wading": true,
+               "circuit": {"center": [x, z], "radius": r, "speed": 0.6, "clockwise": false}}],  // walks round (Day 89)   // wading (Day 68): the validator lets this NPC stand in the water; without
                                    // it the feet (ground or deck + position y) must be ≤ 0.1 m under water_level
   "pickups": [{"id": unique, "item": id, "position": [...], "count": 1, "if": condition,
                "set": {flag: value}, "quest_stage": [quest, stage]}],
@@ -685,6 +686,19 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
 - **The story clock (Day 86) gets its first rest:** the crown's `foot_rest` object (`if` sat and not morning) plays
   `cindermoor_night`, which sets `cindermoor_morning`; each Cindermoor region has a morning light/fog override **ahead
   of** the night one (first match wins).
+
+### Walking NPCs: the ring path (Day 89)
+A placement's **`circuit`** walks its NPC round a circle on the ground: `center` [x, z], `radius` (1..30 m), `speed`
+(0.2..2 m/s, default 0.7), `clockwise` (seen from above with north/-Z up; default false = anticlockwise). The placement's
+`position` must lie on the circle (within 0.25 m): the walk starts there. `Region._build` calls
+`NpcActor.walk_circuit(circuit, ground_y)`; each frame `step_circuit` moves the actor along the circle at the ground's
+height and turns it to face the way round, and drives the rig's `move_speed` (the walk swing). It **holds** (speed 0)
+while talking, while a modal holds input, and while the Wakebearer stands within `CIRCUIT_HOLD` (1.6 m) — so it never
+walks into them, and stepping onto the path stops it. The position isn't saved: a reload starts the walk again from the
+placement. Validated: keys and ranges, on-circle start, and every half metre of the circle on ground reachable from the
+default spawn (`_check_circuits_walkable`). Keep the circle clear of colliders and other placements yourself
+(`test_the_eighth_boat.gd` checks the ring path's). Used by the woman on Cindermoor's ring path (`oriel`, r 7.4 round the
+Spire, the painted worn path); once told she sits (a second, seated placement with no circuit).
 
 ### Atmosphere & water (Day 12)
 `Atmosphere` (child of main) owns the `WorldEnvironment` and the sun. A region's mood =

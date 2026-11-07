@@ -2,6 +2,57 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-07 09:00 UTC — Day 89: the eighth boat's owner (content + a walking-NPC system)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). Detached HEAD again; `origin/main` had been
+  force-updated to Day 88's `6afdab6`, and I reset `main` to it. Baseline (633 tests + smoke + launch) green, and this
+  time I waited for it before editing.
+- **Content (ROADMAP *Next up* #1, LORE Act III step 6), new quest *The Eighth Boat* (`future`):**
+  - **The Provost goes up to look.** In the lower rooms, after the Spire's line: the eighth boat never went down the quay
+    steps, so she's on the island. The Wakebearer saw her at the sitting, or Ness said so. The chapter comes back up
+    (`cindermoor_eighth_sought`). Their lower-room placements give way to new ones on the crown, and the candle ring is
+    gathered up.
+  - **The woman on the ring path** (new NPC `oriel`, "The woman on the ring path" until told). She walks the worn path
+    round the Spire's foot by daylight and never looks at the east stair door. The Provost says "Oriel" and she doesn't
+    turn: "You go. You're the only one of us she's never seen." (arrival event, `cindermoor_eighth_seen`).
+  - **On the path**, she stops for you "the way you'd stop for a cart". She looks at the ember: "Somebody asked to carry one of those,
+    once" (a #2 hook only). She walks round because "If I stop, I'll go in." **The choice** (`cindermoor_eighth_told`,
+    `future`): **tell her** (her name turns "like a key"; "Then I meant it"; she sits down facing the door; the Provost
+    comes to the path: "You were careful." / "That's worse."), **ask her first** ("Then not yet ... come and ask me
+    again" after the stair), or **let her walk** ("Kind. Or careful."). There are after-lines for the Provost, Hild, Iver, Wenna,
+    Merrit, Ness and the ring path object.
+- **System: walking NPCs.** A placement's `circuit` (`center`, `radius`, `speed`, `clockwise`) walks the NPC round a
+  circle at ground height, facing the way round, with the rig's walk swing. It holds while talking, while a modal is up,
+  or when the Wakebearer stands within 1.6 m. The validator checks the keys, that the start is on the circle, and that the
+  whole circle is reachable ground. Documented in TECH, *Walking NPCs*.
+- **Blender:** `build_characters.py oriel oriel_seated`. The robe is fog-grey to the shoulders, the hood and yoke are still white,
+  and the ember has been picked off. The seated one is on a cinder edge-stone.
+- **Tests:** `test_the_eighth_boat.gd` (10). The smoke walk asks the Provost, goes up, watches her walk, and tells her.
+  Checkpoint `the_eighth_boat`. 643 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-07-am-the-ring-path.png` (she comes round the south side of the Spire toward
+the door; the chapter by the niche; also `docs/checkpoints/the_eighth_boat.png`).
+
+**Decisions**
+- **She walks for real.** A standing NPC on a painted ring wouldn't say "doesn't sit at all", so the walker became
+  a small, general system rather than a one-off script. Holding when the Wakebearer is close makes "she stops for you" true in play.
+- **The choice is the act's question in small:** tell (choose for her), ask (let her choose), or keep (choose for
+  her by silence). "Asked" defers to after the east stair, which step 8/9 can pay. The Provost's reactions mirror her own
+  arc ("I never asked").
+- **Kept secret:** what the Wakebearer was to her (#2: only "somebody asked to carry one", and the Provost's "she's never
+  seen you"), Isolde (#4), and whether she climbs or launches the eighth.
+- The first draft walked her the wrong way and behind the Spire at checkpoint time. "Clockwise" now means as seen
+  from above with north (-Z) up, and she starts on the south side so the 60-frame checkpoint shot finds her.
+
+**Problems / notes**
+- The robe first read white in the Compatibility renderer. It's darkened to `silverfog` −0.34, but it needs a check on Vulkan with the rest.
+- A walker's position isn't saved; a reload starts her from the placement. That's harmless for a loop.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **the Choir at the Spire** (Act III step 7, mystery #4), with 1b's small step-6 follow-ups if they fit.
+   Fetch and reset `main` before trusting it. Content has run Days 85-87 and 89; polish pass fourteen is due by Day 93 at the latest.
+
 ## 2026-11-06 21:00 UTC — Day 88: polish pass thirteen (polish)
 
 **Did**
