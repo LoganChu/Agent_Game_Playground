@@ -1,0 +1,22 @@
+{
+  "id": "the_eighth_boat",
+  "title": "The Eighth Boat",
+  "future": true,
+  "giver": "provost",
+  "region": "cindermoor_spire_foot",
+  "description": "The High Keeper had a boat of her own at the Spire, and it was always the eighth. It's still on its rollers in the boathouse. Merrit has never lost a boat.",
+  "stages": [
+    {
+      "id": "go_up",
+      "text": "The Provost reckons Oriel Sayre never left Cindermoor: her boat never went down the quay steps, and somebody has worn a path round the Spire's foot, one pair of feet. The chapter has come back up from the lower rooms to the crown to look."
+    },
+    {
+      "id": "the_path",
+      "text": "A woman walks the path round the Spire's foot, hooded, her robe gone grey to the shoulders, and doesn't look at the east stair door. The Provost said her name and she didn't turn. She'd never come to a fuss, the Provost says; the Wakebearer should go to her alone."
+    },
+    {
+      "id": "found",
+      "text": "The woman on the ring path is the High Keeper, who walked out on the moor the night of the Snuffing and set down what she'd done where things set down are gone by morning. Whether she carries it again was the Wakebearer's to say."
+    }
+  ]
+}

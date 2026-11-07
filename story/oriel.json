@@ -1,0 +1,382 @@
+{
+  "id": "oriel",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:cindermoor_eighth_told=told",
+        "goto": "after_told"
+      },
+      {
+        "if": "flag:cindermoor_eighth_told=asked",
+        "goto": "after_asked"
+      },
+      {
+        "if": "flag:cindermoor_eighth_told=kept",
+        "goto": "after_kept"
+      },
+      {
+        "if": "!flag:cindermoor_eighth_met",
+        "goto": "first"
+      },
+      {
+        "say": "narrator",
+        "text": "She stops for you again, and waits for you to be out of her way."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "say": "narrator",
+        "text": "She stops when you step onto the path, the way you'd stop for a cart, and waits for you to be out of her way."
+      },
+      {
+        "say": "narrator",
+        "text": "Close to, she's older than the Provost, and taller. The grey on her robe isn't dirt: it's the fog's, gone into the weave the way it goes into the Unmoored's, all the way up to the shoulders. Only the yoke and the hood are still white. There's a darker diamond on her breast where something stitched has been picked out."
+      },
+      {
+        "say": "oriel",
+        "text": "You're in the way. I don't mind. Nobody's been in the way in a long time.",
+        "set": {
+          "cindermoor_eighth_met": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at the ember in your hand. Not away from it, the way the Unmoored do. At it, a long time."
+      },
+      {
+        "say": "oriel",
+        "text": "Somebody asked to carry one of those, once. I can't think who. I put that down with the rest."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "Who are you?",
+            "goto": "who"
+          },
+          {
+            "text": "Why do you walk round?",
+            "goto": "why"
+          },
+          {
+            "text": "There's a boat in the boathouse at the Boat Stair. In the eighth slip.",
+            "goto": "boat"
+          },
+          {
+            "text": "I know who you are.",
+            "if": "flag:cindermoor_spire_book_read",
+            "goto": "know"
+          },
+          {
+            "text": "Walk on. I'll get out of your way.",
+            "goto": "bye"
+          }
+        ]
+      }
+    ],
+    "who": [
+      {
+        "say": "oriel",
+        "text": "I walk round. Before that—"
+      },
+      {
+        "say": "narrator",
+        "text": "She stops, the way you stop at a stair that isn't there."
+      },
+      {
+        "say": "oriel",
+        "text": "I came down out of there with something in my hands. Heavy. I carried it out on the moor in the dark and set it down, and in the morning it was gone. Not lost. Ness says that, doesn't she? Gone. I found that out before Ness did."
+      },
+      {
+        "say": "oriel",
+        "text": "I don't miss it. You can't miss a thing you don't know the shape of. You only walk round."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "why": [
+      {
+        "say": "narrator",
+        "text": "She looks past you at the east stair door, open a hand's width on the dark."
+      },
+      {
+        "say": "oriel",
+        "text": "If I stop, I'll go in. I don't know why I'd go in. But my feet know the way up, and they want it, so I keep them busy."
+      },
+      {
+        "say": "oriel",
+        "text": "Round's a good shape. It doesn't go anywhere."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "boat": [
+      {
+        "say": "oriel",
+        "text": "Is there? Whose?"
+      },
+      {
+        "say": "player",
+        "text": "Kept back, the warden's list says. On somebody's word.",
+        "if": "flag:cindermoor_roll_boats"
+      },
+      {
+        "say": "oriel",
+        "text": "Then somebody meant to go down in it, and didn't. I hope they had a reason. I hope it was a good one. It's a long way to swim."
+      },
+      {
+        "say": "narrator",
+        "text": "Her hands open a little at her sides, and close again, as if they'd had oars in them."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "know": [
+      {
+        "say": "oriel",
+        "text": "Do you."
+      },
+      {
+        "say": "narrator",
+        "text": "It isn't a question. Down by the niche the chapter stands not watching, the way Keepers don't. The Provost has her back turned on purpose."
+      },
+      {
+        "say": "narrator",
+        "text": "You've read her last page in the Spire's own book. Starved, not snuffed. One coal kept back. Signed in full, the way you'd sign a thing you meant somebody to find."
+      },
+      {
+        "choice": [
+          {
+            "text": "Tell her: her name, and what she did, and why.",
+            "set": {
+              "cindermoor_eighth_told": "told"
+            },
+            "goto": "told"
+          },
+          {
+            "text": "Ask her first whether she wants it back.",
+            "set": {
+              "cindermoor_eighth_told": "asked"
+            },
+            "goto": "asked"
+          },
+          {
+            "text": "Say nothing. Step off the path and let her walk.",
+            "set": {
+              "cindermoor_eighth_told": "kept"
+            },
+            "goto": "kept"
+          },
+          {
+            "text": "Not now.",
+            "goto": "hub"
+          }
+        ]
+      }
+    ],
+    "told": [
+      {
+        "say": "player",
+        "text": "Your name is Oriel Sayre. You were the High Keeper. You put the Firstflame out."
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't move."
+      },
+      {
+        "say": "player",
+        "text": "There's a book under the Spire. Nine hundred midwinters of the Hushed, given to the flame with everything that was in them. You read it to the first page, and you starved the flame on purpose so it would all come home. You wrote it down and signed it."
+      },
+      {
+        "say": "oriel",
+        "text": "Sayre."
+      },
+      {
+        "say": "narrator",
+        "text": "She says it like somebody trying a key in a door. It turns."
+      },
+      {
+        "say": "oriel",
+        "text": "Did I mean it? What I wrote."
+      },
+      {
+        "say": "player",
+        "text": "You wrote: I will not choose for them again. Nobody chose that I should."
+      },
+      {
+        "say": "narrator",
+        "text": "For a long while she doesn't say anything. Then she sits down where she is, on one of the old edge-stones beside the path, the way your legs fold at the end of a long day's walking."
+      },
+      {
+        "say": "oriel",
+        "text": "Then I meant it. I'd know my own reasons. Even without them."
+      },
+      {
+        "say": "oriel",
+        "text": "It's heavy. I'd forgotten that as well. That'll be why I put it down."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost comes up the slope then. She doesn't hurry. She stands on the path, which nobody else has stood on."
+      },
+      {
+        "say": "provost",
+        "text": "Oriel."
+      },
+      {
+        "say": "oriel",
+        "text": "Agathe. ...You'd be Agathe. I wrote to you."
+      },
+      {
+        "say": "provost",
+        "text": "Every midsummer. Forty years."
+      },
+      {
+        "say": "oriel",
+        "text": "Was I kind, in them?"
+      },
+      {
+        "say": "provost",
+        "text": "You were careful."
+      },
+      {
+        "say": "oriel",
+        "text": "That's worse. I'm sorry.",
+        "quest_stage": [
+          "the_eighth_boat",
+          "found"
+        ],
+        "quest_complete": "the_eighth_boat"
+      },
+      {
+        "end": true
+      }
+    ],
+    "asked": [
+      {
+        "say": "player",
+        "text": "There's a book under the Spire with your name in it, and what you did, and why. Do you want it back?"
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at you as if you'd held something out to her and then stepped back, and left her to take it or not."
+      },
+      {
+        "say": "oriel",
+        "text": "Nobody's asked me anything in— I don't know how long. That's how long."
+      },
+      {
+        "say": "oriel",
+        "text": "Is it heavy?"
+      },
+      {
+        "say": "player",
+        "text": "Yes."
+      },
+      {
+        "say": "oriel",
+        "text": "Then not yet. Not while I'm walking. I'd drop it."
+      },
+      {
+        "say": "oriel",
+        "text": "Go up that stair first, whoever you are. If there's anything at the top worth coming back down for, come and ask me again. I'll want it then."
+      },
+      {
+        "say": "narrator",
+        "text": "She steps round you, carefully, and walks on. Going past the door she doesn't look at it, but her pace is a little slower there than it was.",
+        "quest_stage": [
+          "the_eighth_boat",
+          "found"
+        ],
+        "quest_complete": "the_eighth_boat"
+      },
+      {
+        "end": true
+      }
+    ],
+    "kept": [
+      {
+        "say": "narrator",
+        "text": "You step off the path."
+      },
+      {
+        "say": "oriel",
+        "text": "Kind. Or careful. I can't tell those apart any more. I think I used to be able to."
+      },
+      {
+        "say": "narrator",
+        "text": "She walks on round. Past the door, not looking.",
+        "quest_stage": [
+          "the_eighth_boat",
+          "found"
+        ],
+        "quest_complete": "the_eighth_boat"
+      },
+      {
+        "end": true
+      }
+    ],
+    "bye": [
+      {
+        "say": "oriel",
+        "text": "Thank you. Mind the door. It draws."
+      },
+      {
+        "end": true
+      }
+    ],
+    "after_told": [
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre sits on the edge-stone by the path with her hands open on her knees, facing the east stair door."
+      },
+      {
+        "say": "oriel",
+        "text": "Three names, last midwinter. I wrote them in for the giving, and gave nothing. I remember writing them now. I don't remember their faces. I hope that's the right way round."
+      },
+      {
+        "say": "oriel",
+        "text": "I'm not walking round any more. I don't need to. I know why I'd go in, now. And I won't. That's somebody else's stair."
+      },
+      {
+        "end": true
+      }
+    ],
+    "after_asked": [
+      {
+        "say": "narrator",
+        "text": "She stops for you, and waits for you to be out of her way."
+      },
+      {
+        "say": "oriel",
+        "text": "Not yet. You said you'd go up first."
+      },
+      {
+        "end": true
+      }
+    ],
+    "after_kept": [
+      {
+        "say": "narrator",
+        "text": "She stops for you, and waits for you to be out of her way."
+      },
+      {
+        "say": "oriel",
+        "text": "You're in the way again. I don't mind."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

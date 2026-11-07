@@ -1,0 +1,20 @@
+{
+  "id": "oriel",
+  "name": "Oriel Sayre",
+  "names": [
+    {
+      "if": "!flag:cindermoor_eighth_told=told",
+      "name": "The woman on the ring path"
+    }
+  ],
+  "faction": "keepers",
+  "color": "silverfog",
+  "dialogue": "oriel",
+  "model": "res://assets/models/characters/oriel.glb",
+  "idle": "still",
+  "bio": "The High Keeper of the Hearthspire, who starved the Firstflame on purpose and walked out on Cindermoor's moor the night of the Snuffing, and set down what she'd done where things set down are gone by morning. Sixties, tall, her robe gone fog-grey to the shoulders, the ember picked off her breast. She walks the path round the Spire's foot, round and round, and doesn't look at the east stair door.",
+  "voice": {
+    "sound": "voice_soft",
+    "pitch": 0.82
+  }
+}

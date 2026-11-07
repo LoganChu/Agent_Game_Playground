@@ -480,6 +480,10 @@
     ],
     "cindermoor_foot": [
       {
+        "if": "flag:cindermoor_eighth_sought",
+        "goto": "eighth"
+      },
+      {
         "if": "flag:cindermoor_morning",
         "goto": "lower"
       },
@@ -511,6 +515,25 @@
       {
         "say": "hild",
         "text": "I thought I was carrying them somewhere better. You carry a thing down the steps that careful, you think you know what it's for."
+      },
+      {
+        "end": true
+      }
+    ],
+    "eighth": [
+      {
+        "say": "narrator",
+        "text": "Hild stands back from the path with the Long Book on her back, counting under her breath as the woman goes past the door."
+      },
+      {
+        "say": "hild",
+        "text": "Her boat's the only one at the Spire I never rowed. Nobody rowed the High Keeper but the High Keeper.",
+        "if": "flag:cindermoor_eighth_told="
+      },
+      {
+        "say": "hild",
+        "text": "When we go down to the quay I'll grease the eighth's rollers. In case. Somebody'd want to.",
+        "if": "!flag:cindermoor_eighth_told="
       },
       {
         "end": true

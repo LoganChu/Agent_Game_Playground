@@ -22,6 +22,26 @@
         "text": "Ness hasn't moved from the edge of the light. She turns her face a little aside as you come up, the way you would from a wind."
       },
       {
+        "say": "ness",
+        "text": "You've been round the top. You'll have seen her.",
+        "if": "flag:cindermoor_eighth_seen"
+      },
+      {
+        "say": "ness",
+        "text": "You gave it her back? Well. She'll have to carry it now. I hope you asked her first.",
+        "if": "flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "ness",
+        "text": "You asked her. Nobody asks. That was well done.",
+        "if": "flag:cindermoor_eighth_told=asked"
+      },
+      {
+        "say": "ness",
+        "text": "Let her be. That's right. She was here first.",
+        "if": "flag:cindermoor_eighth_told=kept"
+      },
+      {
         "goto": "hub"
       }
     ],

@@ -1093,6 +1093,29 @@
         "open"
       ],
       "future": true
+    },
+    "cindermoor_eighth_sought": {
+      "description": "After the Spire's own book (Day 89): the Provost reckons the High Keeper never left the island (the eighth boat still on its rollers, one pair of feet round the Spire) and the chapter comes back up from the lower rooms to the crown with the Wakebearer to look. Moves the chapter's NPCs up; the woman walks the ring path.",
+      "default": false
+    },
+    "cindermoor_eighth_seen": {
+      "description": "The crown arrival after cindermoor_eighth_sought (Day 89): the woman on the ring path seen walking round the Spire's foot by daylight; the Provost says 'Oriel' and she doesn't turn.",
+      "default": false
+    },
+    "cindermoor_eighth_met": {
+      "description": "The Wakebearer stepped onto the ring path and the woman stopped for them (Day 89).",
+      "default": false
+    },
+    "cindermoor_eighth_told": {
+      "description": "What the Wakebearer did with what the Spire's book says about the woman on the ring path (Day 89): '' (not yet), 'told' (her name, Oriel Sayre, and what she did and why: she takes it on their word, sits down, and stops walking), 'asked' (whether she wants it back: 'Not yet' — ask again after the east stair) or 'kept' (said nothing and let her walk: 'Kind. Or careful.'). For the east stair and the lantern room.",
+      "default": "",
+      "values": [
+        "",
+        "told",
+        "asked",
+        "kept"
+      ],
+      "future": true
     }
   }
 }

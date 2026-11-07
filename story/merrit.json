@@ -264,6 +264,11 @@
       },
       {
         "say": "merrit",
+        "text": "Eighth. Her word. ...Found, then. Not come down.",
+        "if": "flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "merrit",
         "text": "...Still somebody up the stair, novice."
       },
       {

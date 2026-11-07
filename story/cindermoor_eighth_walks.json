@@ -1,0 +1,70 @@
+{
+  "id": "cindermoor_eighth_walks",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Up out of the dark under the seat, into the grey of the morning. The candle ring has burned down to stubs in the cinder, and Wenna goes round it picking them up and putting them in her box without being asked.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "!flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Up out of the dark under the seat, into the grey of the morning. The candle ring has burned down to stubs in the cinder, and Hild goes round it picking them up, one at a time, into her sleeve.",
+        "if": [
+          "!flag:thornwold_skiff=kindleby"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Up out of the dark under the seat, into the grey of the morning. The candle ring has burned down to stubs in the cinder, and Hild goes round it picking them up, one at a time, into her sleeve.",
+        "if": [
+          "flag:thornwold_skiff=kindleby",
+          "flag:thornwold_far_shore=up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "And on the path round the Spire's foot, somebody is walking."
+      },
+      {
+        "say": "narrator",
+        "text": "A tall woman in a long robe gone grey all the way up to the shoulders, the hood up and deep. She walks the way you'd walk a thing you'd walked ten thousand times: not slow, not quick, not looking down. She comes round past the east stair door and doesn't look at it, and goes on round, out of sight behind the Spire."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost has stopped on the niche step with one hand on the wall."
+      },
+      {
+        "say": "provost",
+        "text": "Oriel."
+      },
+      {
+        "say": "narrator",
+        "text": "Not loud. The woman doesn't turn. In a while she comes round again, past the door, not looking at it, and goes on."
+      },
+      {
+        "say": "hild",
+        "text": "That's twice round since we came up. Same pace both times. You could set a glass by her."
+      },
+      {
+        "say": "provost",
+        "text": "She won't come to me. Not with all of us stood here. Forty years, and she never once came to a fuss."
+      },
+      {
+        "say": "provost",
+        "text": "You go. You're the only one of us she's never seen.",
+        "quest_stage": [
+          "the_eighth_boat",
+          "the_path"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Something in you doesn't agree with that, and doesn't say why."
+      }
+    ]
+  }
+}

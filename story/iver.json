@@ -565,6 +565,10 @@
     ],
     "cindermoor_foot": [
       {
+        "if": "flag:cindermoor_eighth_sought",
+        "goto": "eighth"
+      },
+      {
         "if": "flag:cindermoor_morning",
         "goto": "lower"
       },
@@ -592,6 +596,25 @@
       {
         "say": "iver",
         "text": "The singing on the rock. I told you it was wind in the skerries. Thirty-one years I told myself so. It's what we gave, isn't it, coming home. I never once thought it might be coming back."
+      },
+      {
+        "end": true
+      }
+    ],
+    "eighth": [
+      {
+        "say": "narrator",
+        "text": "Iver stands with his head on one side, turned to the path."
+      },
+      {
+        "say": "iver",
+        "text": "Listen. Her feet on the cinder. The same every time round, like a clock somebody forgot to stop.",
+        "if": "!flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "iver",
+        "text": "She's quiet now. Not her feet. Inside. You can hear that, sometimes, when somebody stops arguing with a thing.",
+        "if": "flag:cindermoor_eighth_told=told"
       },
       {
         "end": true

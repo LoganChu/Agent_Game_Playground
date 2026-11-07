@@ -1132,6 +1132,10 @@
     ],
     "cindermoor_foot": [
       {
+        "if": "flag:cindermoor_eighth_sought",
+        "goto": "eighth"
+      },
+      {
         "if": "flag:cindermoor_morning",
         "goto": "lower"
       },
@@ -1163,6 +1167,25 @@
       {
         "say": "wenna_coll",
         "text": "No. I would. Somebody has to see what's written. That's what a light's for, my lot always said, even the little ones."
+      },
+      {
+        "end": true
+      }
+    ],
+    "eighth": [
+      {
+        "say": "narrator",
+        "text": "Wenna sits on her candle box with the burned-down stubs in her lap, watching the path."
+      },
+      {
+        "say": "wenna_coll",
+        "text": "She walks like a collier walks a clamp. Round and round, all night, watching it don't catch.",
+        "if": "!flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Sat down, then. You only sit down by a clamp when it's burned through, or when you've stopped caring if it catches.",
+        "if": "flag:cindermoor_eighth_told=told"
       },
       {
         "end": true

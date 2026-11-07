@@ -1304,6 +1304,10 @@
     ],
     "foot": [
       {
+        "if": "flag:cindermoor_eighth_sought",
+        "goto": "eighth"
+      },
+      {
         "if": "flag:cindermoor_morning",
         "goto": "lower"
       },
@@ -1356,6 +1360,146 @@
       {
         "say": "provost",
         "text": "The chapter will sit again before it chooses. Not tonight either. I want to know what we'd be choosing with."
+      },
+      {
+        "if": "!flag:cindermoor_eighth_sought",
+        "goto": "eighth_ask"
+      },
+      {
+        "end": true
+      }
+    ],
+    "eighth_ask": [
+      {
+        "say": "narrator",
+        "text": "She closes the Long Book on her finger."
+      },
+      {
+        "say": "provost",
+        "text": "And there's the eighth boat."
+      },
+      {
+        "say": "provost",
+        "text": "Merrit's never lost a boat in his life, and the eighth is still on its rollers. She didn't go down the quay steps. She's on this island, or she's in the sea, and Oriel never could abide getting her feet wet."
+      },
+      {
+        "say": "provost",
+        "text": "Somebody's worn a path round the Spire's foot, Hild says. One pair of feet.",
+        "if": "!flag:cindermoor_ring_seen"
+      },
+      {
+        "say": "provost",
+        "text": "You'll have seen the path round the Spire's foot. One pair of feet.",
+        "if": "flag:cindermoor_ring_seen"
+      },
+      {
+        "choice": [
+          {
+            "text": "I saw her. At the sitting, walking the path outside the candles.",
+            "goto": "eighth_saw"
+          },
+          {
+            "text": "Ness said a woman goes about up there on her own. Was there before any of the Unmoored.",
+            "if": "flag:cindermoor_ness_met",
+            "goto": "eighth_ness"
+          },
+          {
+            "text": "Not yet. Read your lines.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "eighth_saw": [
+      {
+        "say": "provost",
+        "text": "And said nothing."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at you a while."
+      },
+      {
+        "say": "provost",
+        "text": "...No. You were right. The chapter would have gone after her with candles, and she'd have gone into the fog like a hare."
+      },
+      {
+        "goto": "eighth_go"
+      }
+    ],
+    "eighth_ness": [
+      {
+        "say": "provost",
+        "text": "Before any of them. Yes. She would be. She was always first up the stair and last down it."
+      },
+      {
+        "goto": "eighth_go"
+      }
+    ],
+    "eighth_go": [
+      {
+        "say": "provost",
+        "text": "We'll go up. Quietly. Hild, the book."
+      },
+      {
+        "say": "narrator",
+        "text": "Hild shoulders the Long Book in its oilcloth. The chapter goes up the twelve steps behind you, nobody speaking.",
+        "set": {
+          "cindermoor_eighth_sought": true
+        },
+        "quest_start": "the_eighth_boat"
+      },
+      {
+        "travel": [
+          "cindermoor_spire_foot",
+          "from_lower"
+        ],
+        "end": true
+      }
+    ],
+    "eighth": [
+      {
+        "say": "narrator",
+        "text": "The Provost stands on the niche step, watching the path the way you'd watch a door.",
+        "if": "flag:cindermoor_eighth_told="
+      },
+      {
+        "say": "provost",
+        "text": "Go on. She'll stop for you. She'd stop for a cart.",
+        "if": "flag:cindermoor_eighth_told="
+      },
+      {
+        "say": "provost",
+        "text": "She's sitting down. Forty years of letters, and I never once saw her sit. Not at table. She ate standing at the window.",
+        "if": "flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "provost",
+        "text": "I wrote 'I never asked' under the Spire's line. She'll read it, one day. I'd like her to.",
+        "if": [
+          "flag:cindermoor_eighth_told=told",
+          "flag:cindermoor_spire_line=provost"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "You asked her. Nine hundred years, and that's the first time any of us has asked anybody anything in all this. I'd not have thought of it.",
+        "if": "flag:cindermoor_eighth_told=asked"
+      },
+      {
+        "say": "provost",
+        "text": "You chose for her.",
+        "if": "flag:cindermoor_eighth_told=kept"
+      },
+      {
+        "say": "narrator",
+        "text": "She watches the woman go round past the door.",
+        "if": "flag:cindermoor_eighth_told=kept"
+      },
+      {
+        "say": "provost",
+        "text": "I'd have done the same. That's what frightens me about it.",
+        "if": "flag:cindermoor_eighth_told=kept"
       },
       {
         "end": true

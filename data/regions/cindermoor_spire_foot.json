@@ -504,7 +504,10 @@
         -8.6
       ],
       "rotation_y": -90,
-      "if": "flag:cindermoor_chapter_up",
+      "if": [
+        "flag:cindermoor_chapter_up",
+        "!flag:cindermoor_eighth_sought"
+      ],
       "light": {
         "color": "kindle",
         "energy": 0.9,
@@ -515,7 +518,7 @@
           0
         ]
       },
-      "note": "Day 86: the chapter's ring of candles in the cinder before the niche, its opening toward the niche, the Long Book open on an oilcloth inside it."
+      "note": "Day 86: the chapter's ring of candles in the cinder before the niche, its opening toward the niche, the Long Book open on an oilcloth inside it. Day 89: gathered up when the chapter comes back up to look for the eighth boat's owner."
     }
   ],
   "objects": [
@@ -645,6 +648,18 @@
       },
       "dialogue": "cindermoor_sitting",
       "note": "Day 86: up on the crown after the chapter went up: the sitting, the Long Book with no line for the Spire, the stair under the warden's seat (Act III step 4's close)."
+    },
+    {
+      "id": "cindermoor_eighth_walks",
+      "if": [
+        "flag:cindermoor_eighth_sought",
+        "!flag:cindermoor_eighth_seen"
+      ],
+      "set": {
+        "cindermoor_eighth_seen": true
+      },
+      "dialogue": "cindermoor_eighth_walks",
+      "note": "Day 89 (Act III step 6): back up from the lower rooms with the chapter, the woman on the ring path seen walking by daylight."
     }
   ],
   "npcs": [
@@ -712,6 +727,113 @@
         "!flag:cindermoor_morning"
       ],
       "note": "Outside the ring on her candle box, the way she sat on the quay."
+    },
+    {
+      "npc": "provost",
+      "position": [
+        10.8,
+        0,
+        -8.6
+      ],
+      "rotation_y": -90,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought"
+      ],
+      "note": "Day 89: on the niche's outer step, watching the path, her back to it when the Wakebearer goes to her."
+    },
+    {
+      "npc": "hild",
+      "position": [
+        11.8,
+        0,
+        -5.6
+      ],
+      "rotation_y": -110,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought"
+      ],
+      "note": "Back from the path with the Long Book, counting the rounds."
+    },
+    {
+      "npc": "iver",
+      "model": "res://assets/models/characters/iver_nolamp.glb",
+      "position": [
+        11.4,
+        0,
+        -11.2
+      ],
+      "rotation_y": -60,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought",
+        "flag:lowsong_iver_home",
+        "flag:lowsong_beacon_burned=lamp"
+      ],
+      "note": "Head on one side, listening to her feet."
+    },
+    {
+      "npc": "wenna_coll",
+      "position": [
+        13.4,
+        0,
+        -8.8
+      ],
+      "rotation_y": -90,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought",
+        "flag:thornwold_skiff=kindleby",
+        "!flag:thornwold_far_shore=up"
+      ],
+      "note": "On her candle box with the stubs in her lap."
+    },
+    {
+      "npc": "oriel",
+      "position": [
+        -2.83,
+        0,
+        0.84
+      ],
+      "rotation_y": 0,
+      "circuit": {
+        "center": [
+          0,
+          -6.0
+        ],
+        "radius": 7.4,
+        "speed": 0.6
+      },
+      "if": [
+        "flag:cindermoor_eighth_sought",
+        "!flag:cindermoor_eighth_told=told"
+      ],
+      "note": "Day 89: the woman on the ring path, walking the worn path round the Spire's foot (paint path r 7.4) anticlockwise seen from above: starting on the south side, past the east stair door, and on round past the niche."
+    },
+    {
+      "npc": "oriel",
+      "model": "res://assets/models/characters/oriel_seated.glb",
+      "idle": "sit",
+      "position": [
+        9.2,
+        0,
+        -3.6
+      ],
+      "rotation_y": -115,
+      "if": [
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_eighth_told=told"
+      ],
+      "note": "Day 89: told, she sat down on an edge-stone beside the path, facing the east stair door."
     }
   ]
 }

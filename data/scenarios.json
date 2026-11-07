@@ -876,6 +876,23 @@
         "the_chapter": "the_spire_book"
       },
       "shot": "--camera=6.0,3.0,1.5:-2.0,1.0,0.5"
+    },
+    {
+      "id": "the_eighth_boat",
+      "act": "Act III — The Spire",
+      "title": "The Woman on the Ring Path",
+      "inherits": "the_lower_rooms",
+      "region": "cindermoor_spire_foot",
+      "spawn": "from_lower",
+      "description": "The Provost reckoned the High Keeper never left Cindermoor, and the chapter came back up from the lower rooms with the Wakebearer to look. A woman walks the worn path round the Spire's foot by daylight, her robe gone grey to the shoulders, and doesn't look at the east stair door. The Provost said 'Oriel', and she didn't turn.",
+      "flags": {
+        "cindermoor_eighth_sought": true,
+        "cindermoor_eighth_seen": true
+      },
+      "quests": {
+        "the_eighth_boat": "the_path"
+      },
+      "shot": "--camera=12.5,2.4,-1.0:2.0,1.2,-8.0"
     }
   ]
 }

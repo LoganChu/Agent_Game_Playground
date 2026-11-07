@@ -419,7 +419,8 @@
       "if": [
         "flag:cindermoor_chapter_came",
         "flag:cindermoor_chapter_up",
-        "flag:cindermoor_morning"
+        "flag:cindermoor_morning",
+        "!flag:cindermoor_eighth_sought"
       ],
       "note": "At the lectern's corner, the book open."
     },
@@ -434,7 +435,8 @@
       "if": [
         "flag:cindermoor_chapter_came",
         "flag:cindermoor_chapter_up",
-        "flag:cindermoor_morning"
+        "flag:cindermoor_morning",
+        "!flag:cindermoor_eighth_sought"
       ],
       "note": "On the lectern's other side, the Long Book under her arm."
     },
@@ -452,7 +454,8 @@
         "flag:cindermoor_chapter_up",
         "flag:cindermoor_morning",
         "flag:lowsong_iver_home",
-        "flag:lowsong_beacon_burned=lamp"
+        "flag:lowsong_beacon_burned=lamp",
+        "!flag:cindermoor_eighth_sought"
       ],
       "note": "Behind them, reading over both."
     },
@@ -469,7 +472,8 @@
         "flag:cindermoor_chapter_up",
         "flag:cindermoor_morning",
         "flag:thornwold_skiff=kindleby",
-        "!flag:thornwold_far_shore=up"
+        "!flag:thornwold_far_shore=up",
+        "!flag:cindermoor_eighth_sought"
       ],
       "note": "By her candles on the ledge."
     }

@@ -20,6 +20,19 @@
       },
       {
         "say": "narrator",
+        "text": "She's on it now, somewhere round the far side. You can hear her coming.",
+        "if": [
+          "flag:cindermoor_eighth_seen",
+          "!flag:cindermoor_eighth_told=told"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody's walking it now. She sits by it on an edge-stone, facing the door.",
+        "if": "flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "narrator",
         "text": "You don't walk on it. It isn't yours."
       },
       {
