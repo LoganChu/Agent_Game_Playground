@@ -457,9 +457,32 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(_npc("provost") != null and _npc("hild") != null, "the chapter stays below with the book")
 	_object("lower_book").interact()
 	_finish_dialogue(ui, "lower_book")
-	if not await _take_exit(main, ui, "cindermoor_spire_foot", "back up the stair"):
-		return
 	print("Smoke: the lower rooms — the Spire's own book, Oriel Sayre named")
+	# Day 89: the Provost goes up to look for the eighth boat's owner; she walks the ring path; the Wakebearer tells her.
+	_npc("provost").interact()
+	_check(_choose(ui, "I saw her. At the sitting, walking the path outside the candles."), "the eighth boat asked after")
+	_finish_dialogue(ui, "provost (the eighth boat)")
+	if not await _arrived(main, ui, "cindermoor_spire_foot", "back up with the chapter"):
+		return
+	_check(world.get_flag("cindermoor_eighth_seen") == true and world.quest_stage("the_eighth_boat") == "the_path", "she walks the ring path")
+	var oriel_walker := _npc("oriel")
+	_check(oriel_walker != null and oriel_walker.walks_circuit() and _npc("provost") != null, "the woman on the ring path walks; the chapter is up")
+	if oriel_walker == null:
+		return
+	var from := oriel_walker.position
+	for i in 30:
+		await get_tree().process_frame
+	_check(oriel_walker.position.distance_to(from) > 0.05, "she goes round (%s -> %s)" % [from, oriel_walker.position])
+	oriel_walker.interact()
+	_check(_choose(ui, "I know who you are."), "the Wakebearer knows her")
+	_check(_choose(ui, "Tell her: her name, and what she did, and why."), "told her")
+	_finish_dialogue(ui, "oriel (told)")
+	for i in 2:
+		await get_tree().process_frame
+	_check(world.get_flag("cindermoor_eighth_told") == "told" and world.quest_state("the_eighth_boat") == WorldState.QUEST_DONE,
+			"The Eighth Boat done")
+	_check(_npc("oriel") != null and not _npc("oriel").walks_circuit(), "she sits down by the path")
+	print("Smoke: the eighth boat — Oriel Sayre on the ring path, told")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
