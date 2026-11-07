@@ -205,5 +205,9 @@ func test_lowsong_lit_changes_the_rock() -> void:
 
 
 func test_never_a_name() -> void:
+	# Day 90: her name is said at last (Act III step 7) — but only on lines gated on having read it in the Spire's book.
 	for id: String in ["iver", "lowsong_light", "memory_hood_pin", "memory_iver_lamp", "hild", "provost"]:
-		assert_false(JSON.stringify(_content().dialogues[id]).contains("Isolde"), id)
+		for knot: String in _content().dialogues[id]["knots"]:
+			for step: Dictionary in _content().dialogues[id]["knots"][knot]:
+				if JSON.stringify(step).contains("Isolde"):
+					assert_true(JSON.stringify(step.get("if", "")).contains("cindermoor_choir_"), "%s/%s: %s" % [id, knot, step])

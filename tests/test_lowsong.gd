@@ -211,8 +211,12 @@ func test_rowing_back_and_out_again() -> void:
 
 func test_never_a_name_in_the_choir() -> void:
 	# Mystery #4: the Choir's nearest voice is a woman's, tired, nearly getting a word out — never her name yet.
+	# Day 90: her name is said at last (Act III step 7) — but only on lines gated on having read it in the Spire's book.
 	for id: String in ["iver", "lowsong_rowing_out", "lowsong_light", "lowsong_row_back", "hild", "provost"]:
-		assert_false(JSON.stringify(_content().dialogues[id]).contains("Isolde"), id)
+		for knot: String in _content().dialogues[id]["knots"]:
+			for step: Dictionary in _content().dialogues[id]["knots"][knot]:
+				if JSON.stringify(step).contains("Isolde"):
+					assert_true(JSON.stringify(step.get("if", "")).contains("cindermoor_choir_"), "%s/%s: %s" % [id, knot, step])
 
 
 func test_lowsong_assets() -> void:

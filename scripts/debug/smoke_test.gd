@@ -483,6 +483,29 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 			"The Eighth Boat done")
 	_check(_npc("oriel") != null and not _npc("oriel").walks_circuit(), "she sits down by the path")
 	print("Smoke: the eighth boat — Oriel Sayre on the ring path, told")
+	# Day 90: in the quiet, singing comes down the east stair; the Provost reads the middle of the Spire's book; the name.
+	_object("foot_door").interact()
+	_check(_choose(ui, "Listen."), "listening at the east stair door")
+	_finish_dialogue(ui, "the door (the Choir)")
+	_check(world.get_flag("cindermoor_choir_heard") == true and world.quest_stage("the_nearest_voice") == "listen", "'Not Hushed.'")
+	_npc("provost").interact()
+	_check(_choose(ui, "One of them got two words out. \"Not Hushed.\""), "the Provost told")
+	_finish_dialogue(ui, "provost (not Hushed)")
+	if not await _arrived(main, ui, "cindermoor_lower_rooms", "down to read the middle"):
+		return
+	_check(world.get_flag("cindermoor_choir_line_read") == true and world.quest_stage("the_nearest_voice") == "the_name",
+			"the one line that says Not Hushed")
+	if not await _arrived(main, ui, "cindermoor_spire_foot", "back up to the door"):
+		return
+	_object("foot_door").interact()
+	_check(_choose(ui, "Say her name up the stair. \"Isolde Vane.\""), "her name said up the stair")
+	_finish_dialogue(ui, "the door (named)")
+	for i in 2:
+		await get_tree().process_frame
+	_check(world.get_flag("cindermoor_choir_answered") == "named" and world.quest_state("the_nearest_voice") == WorldState.QUEST_DONE,
+			"The Nearest Voice done")
+	_check(_npc("provost") != null, "the Provost back up on the step")
+	print("Smoke: the nearest voice — Isolde Vane, named")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
