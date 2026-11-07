@@ -2,6 +2,54 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-07 21:00 UTC — Day 90: the Choir at the Spire (content)
+
+**Did**
+- Tooling: `tools/setup.sh` worked first try (Godot 4.7.2 + bpy 5.2.2). `main` was already at `origin/main` (Day 89's
+  `342f915`) this time. Baseline (643 tests + smoke + launch) was green before any edit.
+- **Content (ROADMAP *Next up* #1, LORE Act III step 7; mystery #4 paid). New quest *The Nearest Voice*:**
+  - **Singing on the stair.** Once Oriel's been answered (any `cindermoor_eighth_told`), the east stair door gets a new
+    branch. The crown is quiet enough now (told: she sits still; asked/kept: while she's round the far side) to hear the Hollow Choir
+    coming down the stair, with one voice nearer than the rest. The Stair-Taper or Hood-Pin, taken out, stops her (canon since Lowsong).
+    This time she gets two words out: **"Not Hushed."** (`cindermoor_choir_heard`). If Iver burned his lamp and came home, he
+    knows when she'll breathe and has never heard her in his life.
+  - **The middle of the book.** Told, the Provost reasons that every line says Hushed and nobody reads the middle of a book like that,
+    and takes the Wakebearer back down (`cindermoor_choir_down`, a `travel`). In the lower rooms (arrival event,
+    `cindermoor_choir_line_read`) she reads it through. Three hundred midwinters back there are two lines; the second says
+    a Wakebearer came up the east stair asking and was "Given to the flame awake". Its name is scraped off and kept on the story every
+    novice learns: "Let it be written that **Isolde Vane**'s ember walked her out of the grey every time."
+  - **The choice at the door** (`cindermoor_choir_answered`, `future`): **name her** up the stair ("Yes.", then she stops singing; the
+    rest go on with a gap), have the Provost **write her** in the Long Book as she was and strike the old story through, or
+    **let her sing** ("It's hers to get out."). There are after-lines for the Provost, Hild, Iver and Oriel. A faint `choir_near` ambience layer
+    stays on the crown after (fainter once she's named).
+- **Tests:** `test_the_nearest_voice.gd` (10). The smoke walk listens, goes down, comes up, and names her. The two Lowsong "never
+  her name" guards now allow "Isolde" only on steps gated on a `cindermoor_choir_*` condition. Checkpoint
+  `the_nearest_voice`. 653 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-07-pm-the-stair-door.png` (the east stair door and the niche from the north-east,
+Oriel seated facing the door, Hild, the Wakebearer; also `docs/checkpoints/the_nearest_voice.png`).
+
+**Decisions**
+- **The name comes late, and off the lie.** The true line has its name scraped (the Spire's habit, as on the novices'
+  roll), and the name survives only in the story the Keepers wanted told. So the player hears her as "the last
+  Wakebearer of the songs" a second before understanding what that means. That echo of the scraped roll is a #2 hint only.
+- **What the voice says is a clue, not a revelation.** "Not Hushed" sends the player and the Provost back into a room
+  they've already been to, and makes "nobody reads the middle" the point. No new region was needed.
+- **The Provost goes below and comes back up for the answer.** The validator rightly insists her placements are
+  exclusive. She stays at the lectern until the door is answered, and the answer narrates her "coming up out of the dark
+  under the warden's seat". That's honest, but she appears on the niche step the moment the choice is made, not with a
+  walk. It's noted for polish fourteen.
+- **Kept secret:** what the rest of the Choir is beyond her, and why the Wakebearer's things stop her (#2, step 8).
+  The ember "doesn't feel like anything at all" when her line is read. That's a deliberate silence for later.
+- No Blender work this session: everything needed (the door, the lower rooms, the Choir's sound) already existed.
+
+**Problems / notes**
+- The first checkpoint shot sat inside the seated Oriel. Reframed from the north-east.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish/debt pass fourteen** (due: content ran Days 85-87, 89-90). Then the east stair (1a).
+   Fetch and reset `main` before trusting it.
+
 ## 2026-11-07 09:00 UTC — Day 89: the eighth boat's owner (content + a walking-NPC system)
 
 **Did**

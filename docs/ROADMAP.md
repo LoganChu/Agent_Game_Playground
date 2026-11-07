@@ -708,11 +708,28 @@ each .glb < 5 MB.
       system: **walking NPCs** (placement `circuit`: `NpcActor.walk_circuit`, holds for talk/modals/the Wakebearer in the
       way; validated incl. walkable all the way round). Blender `oriel`, `oriel_seated`. Checkpoint `the_eighth_boat`; the
       smoke walk goes up, watches her walk, tells her. `test_the_eighth_boat.gd` (10).
+- [x] [C] **The Choir at the Spire** (Day 90, LORE Act III step 7, mystery #4 paid): once Oriel's been answered, singing
+      comes down the east stair (`cindermoor_choir_heard`, new quest *The Nearest Voice*); the Wakebearer's own Remnants stop
+      the nearest voice while they're out; she gets two words out: "Not Hushed." Told, the Provost takes the Wakebearer back
+      down to read the middle of the Spire's book (`cindermoor_choir_down`, a `travel`); the lower rooms' arrival
+      (`cindermoor_choir_line_read`) finds the one line that says Not Hushed, three hundred midwinters back, its name
+      scraped and kept on the story: **Isolde Vane**. At the door, `cindermoor_choir_answered` (`future`): **named** ("Yes."),
+      **written** (the Long Book; the old story struck) or **left** to sing. The Choir is a faint `choir_near` layer on the
+      crown after. Lines for the Provost, Hild, Iver, Oriel. Checkpoint `the_nearest_voice`; the smoke walk listens, goes
+      down, names her. `test_the_nearest_voice.gd` (10); the two Lowsong "never her name" guards now allow it only behind
+      `cindermoor_choir_*` conditions.
 
 ### Next up
-1. [C] **The Choir at the Spire** (LORE Act III step 7, mystery #4): the nearest voice, heard again on the stair; Isolde
-   Vane's name, late. Fold in 1b if it fits. The chapter is on the crown now (morning, `cindermoor_eighth_sought`). Keep #2 (who the Wakebearer is) for step 8. What `cindermoor_eighth_told` changes should
-   show here or at the east stair (asked: she wants asking again *after* the stair; told: she sits facing the door).
+1. [P] **Polish/debt pass fourteen** (due: content ran Days 85-87, 89 and 90; last polish Day 88). Candidates: a walker's
+   position saved (Oriel restarts from her placement on reload); NPCs that pop in mid-scene when a choice's `set` moves
+   their placement (the Provost at the east stair door on the Day 90 answer — a placement `appear` fade, or a
+   "moved by dialogue" deferral until the box closes); a shared "Cindermoor clock" helper (#2); the framed two-NPC shot
+   (#9); the robe/white read on Oriel (Vulkan, #4). Fetch and reset `main` before trusting it.
+1a. [C] **The east stair** (LORE Act III step 8, mystery #2), the content after that: the Stair-Taper lit for its stair; counting
+   the landings past "one"; the Hood-Pin's "tonight"; the Wakebearer's own Remnants. Pay what Day 89/90 left: `cindermoor_eighth_told`
+   (asked: she wants asking again after the stair), and `cindermoor_choir_answered` (named: a gap where she sang; written:
+   the Long Book carried up?; left: she's nearer on the stair, and might get the rest out there). Isolde was "asked
+   nothing"; the Wakebearer's own past is the next reveal: keep the ember's silence about her ("doesn't feel like anything").
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): Hild greasing the eighth's rollers at the
    Boat Stair once she's said she would (a prop swap on the boathouse slip?); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); whether Oriel comes to the chapter's next sitting (the Provost said
@@ -863,7 +880,7 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 87 (the lower rooms; the Spire's own book; Oriel named). Last polish: Day 84 (pass twelve); **pass thirteen next (Day 88)**.
+- Last content session: Day 90 (the Choir at the Spire; Isolde Vane). Last polish: Day 88 (pass thirteen); **pass fourteen next (Day 91)**.
 - Three Garrows (Wenna the Wrackholm lane-warden, Sister Hild, Ness of the Unmoored), probably by accident: decide whether
   Garrow is just a common Tidewright name, or a thread (Hild relit the cresset Ness kept doused).
 - Last polish/debt session: Day 80 (polish eleven: what's still owed on the act cards, the more-below cue, the Bend

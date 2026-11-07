@@ -91,7 +91,7 @@ burns. The last recorded Wakebearer was **Isolde Vane**, 300 years ago.
 | **The Keepers of the Spire** | Robed order that tended the Hearthspire. Now scattered, ashamed, secretive. | Relight the Hearthspire the "proper" way — by their rites. | Want to control the Wakebearer. |
 | **The Tidewrights** | Guild of ferrymen, net-makers and salvagers. Practical, clannish. | Keep the sea lanes and trade alive. | Transactional; respect deeds. |
 | **The Unmoored** | People who have *chosen* to walk into the fog to forget grief or guilt. | To be left alone; some want the fog to spread. | Wary; the player's ember hurts them. |
-| **The Hollow Choir** *(rumor)* | Said to be singers in the deep fog; heard close on the Low Water (Day 75): "a great many people, all trying to remember the one thing at once", one voice nearer than the rest; it goes quiet when the Wakebearer's own Remnants are out (Day 75/77), and further off once Lowsong is lit. | Unknown. | Unknown. |
+| **The Hollow Choir** *(rumor)* | Said to be singers in the deep fog; heard close on the Low Water (Day 75): "a great many people, all trying to remember the one thing at once", one voice nearer than the rest; it goes quiet when the Wakebearer's own Remnants are out (Day 75/77), and further off once Lowsong is lit. Day 90: heard down the Spire's east stair; the nearest voice is **Isolde Vane**, the last Wakebearer, given to the flame awake for asking. | Unknown (her: to be heard). | Unknown. |
 
 ## Starting regions
 ### 1. Saltmarrow (starting island — *Vertical Slice*)
@@ -1559,6 +1559,41 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     then. Not come down."; Ness: "I hope you asked her first." / "Nobody asks. That was well done." / "She was here first."
   - *(Still secret: what the Wakebearer was to her — step 8. Isolde — step 7. Whether she climbs, or launches the eighth
     boat, is open.)*
+- **The nearest voice (Day 90, Act III step 7 — mystery #4 paid; quest *The Nearest Voice*, `cindermoor_choir_heard` →
+  `cindermoor_choir_down` → `cindermoor_choir_line_read` → `cindermoor_choir_answered`).** Once the woman on the ring path
+  has been answered, the crown is quiet enough (told: she sits still; asked/kept: while she's the far side of the Spire)
+  to hear what comes down the east stair under the wind: **singing**, the Hollow Choir at the Spire, "a great many voices,
+  a long way up, all at the one thing". **One voice is nearer than the rest**, a woman's, a turn or two above the door,
+  tired. The Wakebearer's own Remnants (the Stair-Taper, the Hood-Pin) **stop her while they're out**, as on the Low Water:
+  "very like being looked at, from a turn above" *(mystery #2: do not explain)*. This time she gets two words out,
+  clear, "in a voice that's used to being listened to": **"Not Hushed."** Iver, if he burned his lamp and came home,
+  has never heard her in his life and knows when she'll breathe.
+  - **The middle of the book.** Every line in the Spire's book says *Hushed*. "We read the first page, and the last ... Nobody
+    reads the middle of a book like that. You'd have to want to." The Provost takes the Wakebearer back down and reads it
+    through. **Three hundred midwinters back, that winter has two lines**: a Hushed woman of Wrackholm, and under it:
+    *"She carried an ember out of the grey, and came up the east stair in the night, and asked what the flame was fed. And
+    was told. And would not keep it, but would carry it down to the islands. Not Hushed. Given to the flame awake, by the
+    chapter's word. And what was in her."* The line has **no name at its head, only a scraped place the size of one** (the
+    Spire's way, like the novices' roll). Under it, in the same old hand: *"Let it be written that Isolde Vane's ember walked
+    her out of the grey every time, and that she was not seen after."* **They scraped her name off what happened and kept it
+    on the story**, the line every novice on Kindleby learns (the Provost taught it to Aldous; Hild's mother sang it over
+    the cradle). **Isolde Vane, the last Wakebearer, was the first to find the truth, and was burned awake for asking.** The
+    ember "doesn't feel like anything at all".
+  - **At the door** (`cindermoor_choir_answered`), with the Provost up from below with the Long Book:
+    - **named**: the Wakebearer says "Isolde Vane" up the stair. The nearest voice stops, then one word, as if leaning
+      over a rail a turn above: **"Yes."** She doesn't sing again. The rest go on, thinner, "with a gap in them the shape of
+      one voice". The Provost: "Three hundred years she wanted that. And we had it in a book."
+    - **written**: the Provost writes her in the Long Book as she was ("Isolde Vane. Wakebearer. Not Hushed. Given to the
+      flame awake, by the chapter's word, for asking") and **strikes the old story through, straight, so it can still be
+      read**. It's the first line she has ever struck, or the second (after Iver's, if he burned his lamp). The voice sings on, not
+      knowing: "Written down isn't the same as told. But it can't be scraped."
+    - **left**: "It's hers to get out." / "...Yes. We took enough off her." She sings on, a little further each time,
+      perhaps.
+  - After: the Choir is heard faintly on the crown from now on (fainter once she's named). Oriel (told): "She's been
+    singing since I sat down. I think she always was. I walked too loud to hear her." (walking): "I walk past it. I think I
+    always walked past it." *(Oriel read the book to its first page; whether she knew the line is unsaid.)*
+  - *(Still secret: what the rest of the Choir is, beyond her (keep it "a great many people, all at the one thing"); the
+    Wakebearer, step 8.)*
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1612,7 +1647,7 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    coming home. The High Keeper's reasons. (Oriel Sayre named here, not before.)
 6. **The eighth boat's owner** *(Day 89, written: the ring path, told / asked / let walk — see *Cindermoor*)* — Oriel did not leave: she walked out on the moor and **chose to forget** what she did,
    among the Unmoored (plan, secret; the eighth slip's payoff).
-7. **The Choir at the Spire** *(mystery #4)*: the nearest voice, heard again on the stair; Isolde Vane's name, late.
+7. **The Choir at the Spire** *(Day 90, written: "Not Hushed", the middle of the book, named / written / left — see *Cindermoor*)* *(mystery #4)*: the nearest voice, heard again on the stair; Isolde Vane's name, late.
 8. **The east stair** *(mystery #2)*: the Stair-Taper lit for the stair it was cut for; counting the landings; the
    Hood-Pin's "tonight"; the Wakebearer's own Remnants and whether the Hearthspire asks for them. Last before the end.
 9. **The lantern room** — the final choice: what the Lanternreach should remember, or whether it should forget.
@@ -1631,6 +1666,9 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    other people's memories, not emptied. *(Revealed in play Day 87: the Spire's book's oldest page.)*
 4. **What happened to Isolde Vane?** *[SECRET]* She was the first to discover the truth and was
    "burned" by the Keepers; the Hollow Choir sings her memory.
+   *(Revealed in play Day 90: the nearest voice on the east stair says "Not Hushed", and the Spire's book has the one line
+   that says so, three hundred midwinters back, with her name scraped off it and kept on the story. Whether she is answered:
+   named, written, or left to sing.)*
 5. **Where did Dunstan Tollen go?** He is alive in the fog, among the Unmoored, and chose to go. *(Found Day 37 at the end of
    the long walk; what he put down stays unknown even to him. Day 51: he walks back for his name behind the Wakebearer's
    ember and goes home to Saltmarrow or stays to turn the long walk's boards — paid. What he put down is never told.)*
@@ -1650,3 +1688,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - That dusk (Day 86): the chapter goes up and sits at the Spire's foot; the stair to the lower rooms is found. "Tomorrow."
 - The next morning (Day 87): the chapter goes down to the lower rooms and reads the Spire's own book.
 - The same morning (Day 89): the chapter comes back up; the woman on the ring path is the High Keeper, Oriel Sayre.
+- The same day (Day 90): singing on the east stair; back down to the middle of the Spire's book; Isolde Vane's line.
