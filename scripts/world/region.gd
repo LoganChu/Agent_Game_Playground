@@ -9,6 +9,9 @@ extends Node3D
 const CAMERA_BLOCK_MIN_HEIGHT := 2.4
 ## Region data key per content kind.
 const KINDS := {"prop": "props", "npc": "npcs", "pickup": "pickups", "object": "objects"}
+## An NPC's placement swapping to one within this distance (m, on the ground plane) is a change of pose or
+## model in place, not a move: it isn't held for the end of a conversation.
+const SWAP_IN_PLACE := 1.0
 
 var region_id := ""
 var data: Dictionary = {}
@@ -32,6 +35,8 @@ var _greying_from: Array[Dictionary] = []
 var _greying_blend := 1.0
 ## The ember's pool last given to the fog: [center, radius, push] (see set_ember_pool).
 var _ember_pool: Array = [Vector3.ZERO, 0.0, 0.0]
+## NPCs whose coming, going or moving the last refresh held for the end of a conversation (tests).
+var held_npc_moves := 0
 
 
 func build(id: String) -> void:
@@ -68,15 +73,17 @@ func build(id: String) -> void:
 ## Adds/removes content whose `if` condition changed (and collected pickups). Safe to call
 ## any time (e.g. when a flag changes mid-visit); unconditional content is never touched.
 ## Greying areas that come or go fade over a few seconds when `animate`.
-func refresh_conditional(animate: bool = true) -> void:
+## With `hold_npc_moves` (a conversation is open, Day 91), an NPC who would come, go or move to another spot is
+## left as it is until the next refresh without it: nobody vanishes mid-sentence or pops up on a step while the
+## box is still talking about them walking there. A swap in place (the same NPC, another model or pose on
+## the same spot, e.g. Corran without his cord) still happens at once.
+func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> void:
 	var world := GameState.world
 	_refresh_greying(world, animate)
 	if field and _terrain and field.has_conditional_paint() and field.select_paint(world):
 		TerrainBuilder.recolor(_terrain, field)
-	# Removals first, so an NPC whose placement swaps (another model on the same spot, e.g.
-	# Corran without his cord) can hand its turn-to-the-player over to its replacement.
-	var builds: Array[Dictionary] = []
-	var left: Dictionary = {}  # npc id -> the actor just removed
+	# What changes: [entry, want] for every entry whose shown state should flip.
+	var changes: Array[Dictionary] = []
 	for entry: Dictionary in _conditional:
 		var entry_data: Dictionary = entry["data"]
 		var want := Conditions.evaluate(entry_data.get("if"), world)
@@ -85,14 +92,29 @@ func refresh_conditional(animate: bool = true) -> void:
 		var node: Node3D = entry["node"] if is_instance_valid(entry["node"]) else null
 		if node != null and node.is_queued_for_deletion():
 			node = null
-		if want and node == null:
-			builds.append(entry)
-		elif not want and node != null:
-			if node is NpcActor:
-				left[(node as NpcActor).npc_id] = node
-			node.queue_free()
-			node = null
 		entry["node"] = node
+		if want != (node != null):
+			changes.append({"entry": entry, "want": want})
+	held_npc_moves = 0
+	if hold_npc_moves:
+		var held := _held_npcs(changes)
+		held_npc_moves = held.size()
+		changes = changes.filter(func(c: Dictionary) -> bool:
+			return not (c["entry"]["kind"] == "npc" and held.has(str(c["entry"]["data"].get("npc", "")))))
+	# Removals first, so an NPC whose placement swaps (another model on the same spot, e.g.
+	# Corran without his cord) can hand its turn-to-the-player over to its replacement.
+	var builds: Array[Dictionary] = []
+	var left: Dictionary = {}  # npc id -> the actor just removed
+	for change: Dictionary in changes:
+		var entry: Dictionary = change["entry"]
+		if change["want"]:
+			builds.append(entry)
+			continue
+		var node: Node3D = entry["node"]
+		if node is NpcActor:
+			left[(node as NpcActor).npc_id] = node
+		node.queue_free()
+		entry["node"] = null
 	for entry: Dictionary in builds:
 		var node := _build(entry["kind"], entry["data"])
 		if node:
@@ -101,6 +123,31 @@ func refresh_conditional(animate: bool = true) -> void:
 				(node as NpcActor).take_over(before)
 			add_child(node)
 		entry["node"] = node
+
+
+## The NPCs among `changes` whose change isn't a swap in place: they'd appear, vanish or move (npc id -> true).
+## A swap in place is exactly one placement going and one coming for the NPC, within SWAP_IN_PLACE of each other.
+func _held_npcs(changes: Array[Dictionary]) -> Dictionary:
+	var going: Dictionary = {}  # npc id -> [positions]
+	var coming: Dictionary = {}
+	for change: Dictionary in changes:
+		var entry: Dictionary = change["entry"]
+		if entry["kind"] != "npc":
+			continue
+		var npc := str(entry["data"].get("npc", ""))
+		if change["want"]:
+			coming[npc] = coming.get(npc, []) + [place(entry["data"].get("position"))]
+		else:
+			going[npc] = going.get(npc, []) + [(entry["node"] as Node3D).position]
+	var held: Dictionary = {}
+	for npc: String in going.keys() + coming.keys():
+		var from: Array = going.get(npc, [])
+		var to: Array = coming.get(npc, [])
+		var in_place := from.size() == 1 and to.size() == 1 \
+			and Vector2(from[0].x - to[0].x, from[0].z - to[0].z).length() <= SWAP_IN_PLACE
+		if not in_place:
+			held[npc] = true
+	return held
 
 
 func _refresh_greying(world: WorldState, animate: bool) -> void:

@@ -67,6 +67,7 @@ func _ready() -> void:
 	pause_menu.title_requested.connect(return_to_title)
 	act_end_card.title_requested.connect(return_to_title)
 	dialogue_ui.closed.connect(_check_act_end)
+	dialogue_ui.closed.connect(_on_dialogue_closed)
 	dialogue_ui.line_shown.connect(audio.speak)
 	dialogue_ui.runner.effect_applied.connect(audio.on_dialogue_effect)
 	player = Player.new()
@@ -364,8 +365,15 @@ func _on_region_change_requested(region_id: String, spawn: String) -> void:
 func _on_world_changed() -> void:
 	if region == null:
 		return
-	region.refresh_conditional()
+	# An NPC who comes, goes or moves waits for the box to close (see Region.refresh_conditional).
+	region.refresh_conditional(true, dialogue_ui.is_open())
 	_apply_region_mood(true)
+
+
+## NPC moves held while the box was open happen now it has closed.
+func _on_dialogue_closed() -> void:
+	if region != null and not dialogue_ui.is_open():
+		region.refresh_conditional()
 
 
 func _apply_region_mood(animate: bool) -> void:
