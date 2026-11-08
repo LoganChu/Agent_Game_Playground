@@ -12,7 +12,8 @@ extends Interactable
 ## the lantern reads through the fog (Brother Iver's lamp on Lowsong).
 ## A placement's `circuit` (Day 89: `{"center": [x, z], "radius": r, "speed": m/s, "clockwise"?: bool}`) walks
 ## the NPC round and round a circle on the ground from where it was placed (the woman on Cindermoor's ring path);
-## it stops while talking, while a modal holds input, and while the Wakebearer stands in its way.
+## it stops while talking, while a modal holds input, and while the Wakebearer stands in its way. How far round it has
+## got is kept in the world state (`WorldState.walkers`, saved), so a reload or a return finds it there.
 
 ## How quickly the NPC turns towards the player and back (1/s, exponential ease).
 const TURN_SPEED := 6.0
@@ -120,6 +121,10 @@ func walk_circuit(circuit: Dictionary, ground: Callable) -> void:
 	_ground = ground
 	var c := circuit_centre()
 	_circuit_angle = atan2(position.z - c.y, position.x - c.x)
+	# Day 91: pick the walk up where it was (a reload, or coming back), if it's the same circle.
+	var seen: Variant = GameState.world.walker_angle(npc_id, circuit)
+	if seen != null:
+		_circuit_angle = float(seen)
 	_place_on_circuit()
 
 
@@ -156,6 +161,7 @@ func step_circuit(delta: float) -> float:
 		var turn := circuit_turn()
 		_circuit_angle = wrapf(_circuit_angle + turn * speed * delta / float(_circuit["radius"]), -PI, PI)
 		_place_on_circuit()
+		GameState.world.note_walker(npc_id, _circuit, _circuit_angle)
 	if _rig:
 		_rig.move_speed = speed
 	return speed * delta
