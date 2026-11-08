@@ -718,18 +718,21 @@ each .glb < 5 MB.
       crown after. Lines for the Provost, Hild, Iver, Oriel. Checkpoint `the_nearest_voice`; the smoke walk listens, goes
       down, names her. `test_the_nearest_voice.gd` (10); the two Lowsong "never her name" guards now allow it only behind
       `cindermoor_choir_*` conditions.
+- [x] [P] **Polish/debt pass fourteen** (Day 91): **a walker's place is kept** (`WorldState.walkers`, saved with the
+      world; `walk_circuit` picks the angle up on the same circle, so Oriel is where she was after a reload or a return);
+      **NPC moves wait for the box to close** (`Region.refresh_conditional(…, hold_npc_moves)` while a conversation is open,
+      flushed on `dialogue_ui.closed`; swaps in place within 1 m still happen at once) — the Provost no longer pops onto
+      the niche step mid-answer at the east stair door. `test_polish_fourteen.gd` (4).
 
 ### Next up
-1. [P] **Polish/debt pass fourteen** (due: content ran Days 85-87, 89 and 90; last polish Day 88). Candidates: a walker's
-   position saved (Oriel restarts from her placement on reload); NPCs that pop in mid-scene when a choice's `set` moves
-   their placement (the Provost at the east stair door on the Day 90 answer — a placement `appear` fade, or a
-   "moved by dialogue" deferral until the box closes); a shared "Cindermoor clock" helper (#2); the framed two-NPC shot
-   (#9); the robe/white read on Oriel (Vulkan, #4). Fetch and reset `main` before trusting it.
-1a. [C] **The east stair** (LORE Act III step 8, mystery #2), the content after that: the Stair-Taper lit for its stair; counting
+1. [C] **The east stair** (LORE Act III step 8, mystery #2). Fetch and reset `main` before trusting it: the Stair-Taper lit for its stair; counting
    the landings past "one"; the Hood-Pin's "tonight"; the Wakebearer's own Remnants. Pay what Day 89/90 left: `cindermoor_eighth_told`
    (asked: she wants asking again after the stair), and `cindermoor_choir_answered` (named: a gap where she sang; written:
    the Long Book carried up?; left: she's nearer on the stair, and might get the rest out there). Isolde was "asked
    nothing"; the Wakebearer's own past is the next reveal: keep the ember's silence about her ("doesn't feel like anything").
+1a. [P] **Polish fifteen candidates** (due by ~Day 96): a shared "Cindermoor clock" helper (#2); the framed two-NPC
+   shot (#9); the robe/white read on Oriel (Vulkan, #4); an NPC held for the box could walk/fade in rather than appear
+   when it closes (Day 91 holds the move; the arrival is still a cut).
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): Hild greasing the eighth's rollers at the
    Boat Stair once she's said she would (a prop swap on the boathouse slip?); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); whether Oriel comes to the chapter's next sitting (the Provost said

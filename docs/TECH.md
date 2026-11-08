@@ -216,6 +216,12 @@ Fog and conditional props, NPCs, pickups and objects (`if`) are re-evaluated **l
 whenever a flag or quest changes (`main.gd` → `Region.refresh_conditional()` +
 `RegionMood.fog()`; fog changes tween over 4 s). Exits are always present; their
 `requires` is checked on interaction.
+**NPC moves wait for the box (Day 91):** while a conversation is open, `main.gd` passes `hold_npc_moves`, and an NPC who
+would appear, vanish or move to another spot is left as it is (`Region.held_npc_moves` counts them); `dialogue_ui.closed`
+refreshes again and they come, go or move then. A swap **in place** (one placement going, one coming, within
+`Region.SWAP_IN_PLACE` = 1 m: another model or pose on the same spot, Corran without his cord) still happens at once.
+So a choice's `set` can move someone (the Provost up onto the niche step after the east stair door) without them
+popping up while the box is still narrating their walk.
 **Inland regions (Day 21, `thornwold_woods`):** no `water_level`; the walkable floor is the
 `base` height and steep `land` banks (rects along every edge, falloff ≲ 2 m) bound it, so the
 reachable area never touches `ground.bounds`. With no water the colour rules treat `base` as
@@ -695,7 +701,9 @@ A placement's **`circuit`** walks its NPC round a circle on the ground: `center`
 height and turns it to face the way round, and drives the rig's `move_speed` (the walk swing). It **holds** (speed 0)
 while talking, while a modal holds input, and while the Wakebearer stands within `CIRCUIT_HOLD` (1.6 m) — so it never
 walks into them, and stepping onto the path stops it. The position isn't saved: a reload starts the walk again from the
-placement. Validated: keys and ranges, on-circle start, and every half metre of the circle on ground reachable from the
+placement. *(Superseded Day 91:* how far round a walker has got is kept in `WorldState.walkers` — npc id → `{center,
+radius, angle}`, written each step, saved with the world — and `walk_circuit` picks the angle up again when the circle
+is the same, so a reload or a return finds her where she was.) Validated: keys and ranges, on-circle start, and every half metre of the circle on ground reachable from the
 default spawn (`_check_circuits_walkable`). Keep the circle clear of colliders and other placements yourself
 (`test_the_eighth_boat.gd` checks the ring path's). Used by the woman on Cindermoor's ring path (`oriel`, r 7.4 round the
 Spire, the painted worn path); once told she sits (a second, seated placement with no circuit).
@@ -1161,7 +1169,8 @@ writes each as a .wav (never commit them).
 
 ## Save format
 `user://saves/<slot>.json`: `{version, saved_at, region, spawn, player_position, world:
-WorldState.to_dict()}`. Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
+WorldState.to_dict()}` (the world: `flags`, `quests`, `inventory`, `collected`, and since Day 91 `walkers`; an older
+save without it simply starts walkers from their placements). Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
 
 ## Testing
 - `tests/test_polish_twelve.gd` — (Day 84) every nameplate hides while a modal holds input (the act card's shade);

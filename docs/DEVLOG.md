@@ -2,6 +2,45 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-08 09:00 UTC — Day 91: polish pass fourteen (polish)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 straight away; bpy 5.2.2 was still installing when the session's work
+  was done, and no Blender work was needed. Detached HEAD again, with `origin/main` = Day 90's `f1e1f2a`. Baseline
+  (653 tests + smoke + launch) was green before any edit.
+- **Polish pass fourteen** (ROADMAP *Next up* #1; content ran Days 85-87, 89-90):
+  - **A walker's place is kept.** The new `WorldState.walkers` records npc id → `{center, radius, angle}`. It is written
+    on every step of a walking NPC and saved with the world. `NpcActor.walk_circuit` picks the angle up again when the
+    circle is the same, so Oriel is where you left her after a reload, or after going down to the lower rooms and back.
+    A save without the key still loads (walkers start from their placement). A new game or a checkpoint forgets it.
+  - **NPC moves wait for the box to close.** While a conversation is open, `main.gd` calls
+    `Region.refresh_conditional(true, hold_npc_moves = true)`. An NPC who would appear, vanish or walk to another spot is left
+    as they are until `dialogue_ui.closed`, which refreshes again. A swap **in place** (one placement out, one in, within
+    1 m: Corran without his cord) still happens at once, so a model change mid-talk keeps working. This fixes the
+    Day 90 note: the Provost no longer appears on the niche step while the answer at the east stair door is still
+    narrating her coming up. It also stops a speaker whose placement moves from vanishing mid-sentence.
+- **Tests:** `test_polish_fourteen.gd` (4): the walkers' state (same circle only, through a JSON save, forgotten on a new game);
+  Oriel on the real Spire foot, walked on, saved, rebuilt, found where she was; the Provost held while the box is open and
+  shown on the step once it closes; an in-place swap applied at once while a move is held. 657 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-08-am-after-the-door.png` (the crown after Isolde is named: the Provost on the
+niche step, Hild, Oriel seated, the Wakebearer by the door).
+
+**Decisions**
+- **Hold, don't animate (yet).** Holding the move until the box closes fixes the wrong part, which was the timing. A walk-in or fade
+  for the held NPC would be nicer, and it's listed for polish fifteen. The arrival is still a cut, but it happens after the line that
+  explains it.
+- **The walker's angle lives in the world state, not on the actor.** That's the one place that's already saved and already
+  reset by new game and checkpoints. Keying it to the circle means a different circuit for the same NPC later won't inherit
+  a stale angle.
+- The Cindermoor clock helper, the framed two-NPC shot and the Oriel robe check were left for later. The first has no
+  fourth time of day to justify it yet. The other two need a real screen (Vulkan) to judge.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **the east stair** (Act III step 8, mystery #2), paying what Days 89/90 left
+   (`cindermoor_eighth_told=asked`, `cindermoor_choir_answered`). Fetch and reset `main` before trusting it. Polish fifteen
+   is due by ~Day 96.
+
 ## 2026-11-07 21:00 UTC — Day 90: the Choir at the Spire (content)
 
 **Did**
