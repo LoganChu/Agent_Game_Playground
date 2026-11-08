@@ -1,0 +1,206 @@
+{
+  "id": "cindermoor_stair_down",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You come down the last turn counting, and somebody at the foot of the stair is counting with you."
+      },
+      {
+        "say": "provost",
+        "text": "...Two. One."
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost, in the doorway, with the Long Book shut on her arm. She lets out a breath she's held for seven landings.",
+        "sound": "quay_bell"
+      },
+      {
+        "say": "provost",
+        "text": "Up and down. That's the second stroke. Tobin would want to know."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at you. Your hood's back; the wind on the stair saw to that. She looks a long time."
+      },
+      {
+        "say": "provost",
+        "text": "I'd not have known you. I'd not have known any of you. You all had the same face under the hood, and we made sure of it."
+      },
+      {
+        "choice": [
+          {
+            "text": "It was me. The coal kept back. I asked to carry it.",
+            "goto": "me"
+          },
+          {
+            "text": "Say nothing. Go to the niche.",
+            "goto": "quiet"
+          }
+        ]
+      }
+    ],
+    "me": [
+      {
+        "say": "player",
+        "text": "It was me. On the last landing, the night she put it out. I asked her for it, and she gave it me, and it ate everything on the way down but the counting."
+      },
+      {
+        "say": "provost",
+        "text": "'In hands that asked to carry it.' I read that line and took it for a figure of speech."
+      },
+      {
+        "say": "provost",
+        "text": "A novice. One of mine. I'd have taught you your letters, and I don't remember your face, and you don't remember mine."
+      },
+      {
+        "say": "player",
+        "text": "She scraped my name off the roll after. So nobody could write me in for the giving."
+      },
+      {
+        "say": "provost",
+        "text": "...We would have, too. Some winter. We'd have called it a kindness.",
+        "set": {
+          "cindermoor_provost_knows": true
+        }
+      },
+      {
+        "goto": "roll"
+      }
+    ],
+    "quiet": [
+      {
+        "say": "narrator",
+        "text": "You don't say anything. She doesn't ask. She goes with you to the niche, the way you'd walk with somebody who's come in from a long way."
+      },
+      {
+        "goto": "roll"
+      }
+    ],
+    "roll": [
+      {
+        "say": "narrator",
+        "text": "The novices' roll on its peg. The last midwinter: Ama Rusk, Tobin Petch, Kit Petch, Joss Merrow, Edda Pike, Fennick. And the seventh place, scraped to the skin."
+      },
+      {
+        "say": "narrator",
+        "text": "Your thumb fits it. It always would have."
+      },
+      {
+        "say": "provost",
+        "text": "There's a pen in the book.",
+        "if": "flag:cindermoor_provost_knows"
+      },
+      {
+        "say": "provost",
+        "text": "There's a pen in the book, if you want it. I don't know why I said that.",
+        "if": "!flag:cindermoor_provost_knows"
+      },
+      {
+        "choice": [
+          {
+            "text": "Write my name back in the seventh place.",
+            "goto": "written",
+            "set": {
+              "cindermoor_seventh_answered": "written"
+            }
+          },
+          {
+            "text": "Write it, and strike it through. The novice is finished.",
+            "goto": "struck",
+            "set": {
+              "cindermoor_seventh_answered": "struck"
+            }
+          },
+          {
+            "text": "Leave it scraped. She did it so nobody could write me down.",
+            "goto": "left",
+            "set": {
+              "cindermoor_seventh_answered": "left"
+            }
+          }
+        ]
+      }
+    ],
+    "written": [
+      {
+        "say": "narrator",
+        "text": "You write it on the roughed skin, small, to fit. The letters come upright, every one finished, a Keeper's hand. It's the first time you've seen your name since the stair, and it looks like somebody else's handwriting and it's yours."
+      },
+      {
+        "say": "provost",
+        "text": "Kindleby's seventh, last midwinter.",
+        "if": "flag:cindermoor_provost_knows"
+      },
+      {
+        "say": "narrator",
+        "text": "She reads it. She doesn't say it aloud, and you're grateful.",
+        "if": "flag:cindermoor_provost_knows"
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost reads it over your shoulder, and looks at you, and doesn't say it aloud.",
+        "if": "!flag:cindermoor_provost_knows"
+      },
+      {
+        "say": "provost",
+        "text": "It's on the roll. Anybody who reads it will know there were seven. That's all a roll is for."
+      },
+      {
+        "goto": "close"
+      }
+    ],
+    "struck": [
+      {
+        "say": "narrator",
+        "text": "You write it on the roughed skin, small, to fit, in upright letters you didn't know you had. Then you draw the pen through it once, straight, so it can still be read."
+      },
+      {
+        "say": "provost",
+        "text": "Struck, not scraped. The Long Book doesn't forget, it only finishes."
+      },
+      {
+        "say": "provost",
+        "text": "The novice is finished, then. Whatever came down the stair is something else. I've no word for it. I expect we'll need one."
+      },
+      {
+        "goto": "close"
+      }
+    ],
+    "left": [
+      {
+        "say": "narrator",
+        "text": "You take your thumb off the scraped place and leave it as it is: a little pale patch of nothing, after Fennick."
+      },
+      {
+        "say": "provost",
+        "text": "She was right to. We'd have written you in some winter, and called it a kindness."
+      },
+      {
+        "say": "provost",
+        "text": "Leave it. It's the only thing on that roll she wrote, and she wrote it with a knife."
+      },
+      {
+        "goto": "close"
+      }
+    ],
+    "close": [
+      {
+        "say": "narrator",
+        "text": "The ember is quiet in your hand. For the first time since you woke on the shingle, it doesn't feel like something you're carrying. It feels like your hand.",
+        "quest_complete": "the_last_landing"
+      },
+      {
+        "quest_start": "the_seventh_name",
+        "quest_stage": [
+          "the_seventh_name",
+          "yours"
+        ],
+        "quest_complete": "the_seventh_name"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

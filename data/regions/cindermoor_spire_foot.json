@@ -110,12 +110,21 @@
       6.6,
       0,
       -10.4
+    ],
+    "from_stair": [
+      7.6,
+      0,
+      -4.4
     ]
   },
   "spawn_facing": {
     "from_lower": [
       12.0,
       -8.6
+    ],
+    "from_stair": [
+      11.0,
+      -1.0
     ]
   },
   "ground": {
@@ -673,6 +682,18 @@
       },
       "dialogue": "cindermoor_eighth_walks",
       "note": "Day 89 (Act III step 6): back up from the lower rooms with the chapter, the woman on the ring path seen walking by daylight."
+    },
+    {
+      "id": "cindermoor_stair_down",
+      "if": [
+        "flag:cindermoor_stair_remembered",
+        "!flag:cindermoor_stair_down"
+      ],
+      "set": {
+        "cindermoor_stair_down": true
+      },
+      "dialogue": "cindermoor_stair_down",
+      "note": "Day 92: back down from the last landing: the Provost counts the hand down, sees the face; the novices' roll (cindermoor_seventh_answered)."
     }
   ],
   "npcs": [

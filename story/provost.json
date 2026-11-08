@@ -1547,6 +1547,31 @@
         "if": "flag:cindermoor_choir_answered=left"
       },
       {
+        "say": "provost",
+        "text": "I can still hear myself counting. Seven up and seven down. I didn't know I knew the stair had seven.",
+        "if": "flag:cindermoor_stair_down"
+      },
+      {
+        "say": "provost",
+        "text": "One of mine. I keep looking at your hands, as if I'd know them.",
+        "if": "flag:cindermoor_provost_knows"
+      },
+      {
+        "say": "provost",
+        "text": "It's on the roll now, in a hand I'd have passed. I read it every time I go by the niche.",
+        "if": "flag:cindermoor_seventh_answered=written"
+      },
+      {
+        "say": "provost",
+        "text": "Struck, and finished. I'll want a word for what you are now. The Long Book hasn't one.",
+        "if": "flag:cindermoor_seventh_answered=struck"
+      },
+      {
+        "say": "provost",
+        "text": "I don't look at the seventh place now. It's hers. And yours.",
+        "if": "flag:cindermoor_seventh_answered=left"
+      },
+      {
         "end": true
       }
     ],

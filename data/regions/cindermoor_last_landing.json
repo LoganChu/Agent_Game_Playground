@@ -1,0 +1,393 @@
+{
+  "id": "cindermoor_last_landing",
+  "name": "Cindermoor — the Last Landing",
+  "description": "Seven landings up the east stair, inside the Hearthspire's wall: a round of pale stone with the Spire's shaft going up through the middle behind an iron rail, a slit window on the whole Lanternreach, and the stair going on up into the singing, to the lantern room.",
+  "fog": {
+    "density": 0.04,
+    "color": "#1C1C22",
+    "note": "No Greying inside the Spire: only the dark past the ember and the slit."
+  },
+  "light": {
+    "note": "Inside the Spire's wall: a little grey daylight from the slit, colder than the lower rooms; the ember is the light.",
+    "sun_color": "#8A909C",
+    "sun_energy": 0.1,
+    "sun_pitch": -55,
+    "sun_yaw": 200,
+    "ambient_color": "#5E6270",
+    "ambient_energy": 0.34,
+    "sky_top": "ink",
+    "sky_horizon": "#1A1A22",
+    "shadow": 0.25
+  },
+  "ambience": [
+    {
+      "sound": "wind_low",
+      "volume": 0.45
+    },
+    {
+      "sound": "choir_near",
+      "volume": 0.55,
+      "if": "!flag:cindermoor_choir_answered=named"
+    },
+    {
+      "sound": "choir_near",
+      "volume": 0.4,
+      "if": "flag:cindermoor_choir_answered=named"
+    }
+  ],
+  "footsteps": "stone",
+  "spawn_points": {
+    "default": [
+      4.0,
+      0,
+      2.4
+    ],
+    "from_stair": [
+      4.0,
+      0,
+      2.4
+    ]
+  },
+  "spawn_facing": {
+    "default": [
+      -1.5,
+      -1.0
+    ],
+    "from_stair": [
+      -1.5,
+      -1.0
+    ]
+  },
+  "ground": {
+    "bounds": [
+      -13,
+      -10,
+      13,
+      10
+    ],
+    "cell": 0.5,
+    "base": 0.0,
+    "seed": 92,
+    "roughness": 0.02,
+    "ragged": 0.15,
+    "ragged_scale": 2.0,
+    "note": "The last landing, inside the Spire's wall under the lantern room: a level floor (14 × 10 m) between sheer walls 5 m high; the stair comes up the east wall and goes on up the west. No water: shore and seabed are the floor colour.",
+    "land": [
+      {
+        "rect": [
+          -13,
+          -10,
+          -7.6,
+          10
+        ],
+        "height": 5.0,
+        "falloff": 0.6,
+        "note": "west wall"
+      },
+      {
+        "rect": [
+          7.6,
+          -10,
+          13,
+          10
+        ],
+        "height": 5.0,
+        "falloff": 0.6,
+        "note": "east wall (the stair comes up it)"
+      },
+      {
+        "rect": [
+          -13,
+          -10,
+          13,
+          -5.8
+        ],
+        "height": 5.0,
+        "falloff": 0.6,
+        "note": "north wall"
+      },
+      {
+        "rect": [
+          -13,
+          5.8,
+          13,
+          10
+        ],
+        "height": 5.0,
+        "falloff": 0.6,
+        "note": "south wall"
+      }
+    ],
+    "colors": {
+      "ground": "#6A655E",
+      "shore": "#6A655E",
+      "seabed": "#6A655E",
+      "cliff": "#4A4642"
+    },
+    "paint": [
+      {
+        "ellipse": [
+          -1.5,
+          -1.0,
+          2.3,
+          2.3
+        ],
+        "color": "#77716A",
+        "note": "the floor worn pale round the shaft's parapet"
+      },
+      {
+        "path": [
+          [
+            5.4,
+            0,
+            3.0
+          ],
+          [
+            1.6,
+            0,
+            2.6
+          ],
+          [
+            -3.8,
+            0,
+            0.6
+          ],
+          [
+            -5.2,
+            0,
+            -3.5
+          ]
+        ],
+        "width": 1.1,
+        "color": "#736D66",
+        "note": "worn from the stairhead round the shaft (always to the left) to the stair going on up"
+      }
+    ]
+  },
+  "props": [
+    {
+      "model": "res://assets/models/dressing/lower_vault.glb",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "colliders": [
+        {
+          "size": [
+            26.0,
+            0.6,
+            20.0
+          ],
+          "offset": [
+            0,
+            4.6,
+            0
+          ]
+        }
+      ],
+      "shadow": false,
+      "note": "The stone overhead (underside at 4.9 m): its pale ring is where the shaft goes on up, over the parapet."
+    },
+    {
+      "model": "res://assets/models/dressing/landing_shaft.glb",
+      "position": [
+        -1.5,
+        0,
+        -1.0
+      ],
+      "rotation_y": 0,
+      "collider": [
+        3.2,
+        1.4,
+        3.2
+      ],
+      "note": "The Spire's shaft behind its parapet and rail (Day 92)."
+    },
+    {
+      "model": "res://assets/models/dressing/landing_stairhead.glb",
+      "position": [
+        7.0,
+        0,
+        3.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "colliders": [
+        {
+          "size": [
+            3.0,
+            3.2,
+            0.5
+          ],
+          "offset": [
+            0.3,
+            0,
+            -0.9
+          ]
+        },
+        {
+          "size": [
+            3.0,
+            3.2,
+            0.5
+          ],
+          "offset": [
+            0.3,
+            0,
+            0.9
+          ]
+        },
+        {
+          "size": [
+            1.8,
+            3.2,
+            1.3
+          ],
+          "offset": [
+            0.9,
+            0,
+            0
+          ]
+        }
+      ],
+      "note": "The stair coming up the east wall: the dark of the stairwell, the top steps' lips (the exit back down)."
+    },
+    {
+      "model": "res://assets/models/dressing/lower_stair.glb",
+      "position": [
+        -7.0,
+        0,
+        -3.5
+      ],
+      "rotation_y": 180,
+      "collider": [
+        2.6,
+        3.4,
+        2.3
+      ],
+      "note": "The stair going on up the west wall toward the lantern room (the lower rooms' stair foot, turned): shut to the hand till the chapter chooses (Act III step 9)."
+    },
+    {
+      "model": "res://assets/models/dressing/landing_window.glb",
+      "position": [
+        -3.0,
+        0,
+        5.2
+      ],
+      "rotation_y": 180,
+      "snap": false,
+      "collider": [
+        3.0,
+        3.4,
+        0.9
+      ],
+      "light": {
+        "color": "silverfog",
+        "energy": 0.5,
+        "range": 6.0,
+        "offset": [
+          0,
+          1.8,
+          -0.4
+        ]
+      },
+      "note": "The slit window in the south wall, on the whole Lanternreach."
+    },
+    {
+      "model": "res://assets/models/dressing/hushed_bench.glb",
+      "position": [
+        3.2,
+        0,
+        -4.7
+      ],
+      "rotation_y": 0,
+      "collider": [
+        2.0,
+        0.45,
+        0.7
+      ],
+      "note": "A stone bench against the north wall, where a High Keeper could sit between the shaft and the stair."
+    }
+  ],
+  "objects": [
+    {
+      "id": "landing_window",
+      "prompt": "Look out of the slit window",
+      "dialogue": "cindermoor_landing_window",
+      "position": [
+        -3.0,
+        0,
+        4.2
+      ],
+      "reach": 1.6,
+      "glint": [
+        0,
+        1.7,
+        0.9
+      ]
+    },
+    {
+      "id": "landing_shaft",
+      "prompt": "Lean on the rail",
+      "dialogue": "cindermoor_landing_shaft",
+      "position": [
+        0.6,
+        0,
+        0.2
+      ],
+      "reach": 1.6,
+      "glint": [
+        -1.2,
+        1.3,
+        -0.6
+      ]
+    },
+    {
+      "id": "landing_up",
+      "prompt": "Go on up the stair",
+      "dialogue": "cindermoor_landing_up",
+      "position": [
+        -5.0,
+        0,
+        -3.5
+      ],
+      "reach": 1.6,
+      "glint": [
+        -1.2,
+        1.6,
+        0
+      ],
+      "note": "To the lantern room: not yet (Act III step 9)."
+    }
+  ],
+  "exits": [
+    {
+      "to": "cindermoor_spire_foot",
+      "spawn": "from_stair",
+      "position": [
+        6.4,
+        0,
+        3.0
+      ],
+      "prompt": "Go back down the east stair"
+    }
+  ],
+  "events": [
+    {
+      "id": "cindermoor_last_landing",
+      "if": [
+        "flag:cindermoor_stair_climbed",
+        "!flag:cindermoor_stair_remembered"
+      ],
+      "dialogue": "cindermoor_landing_remember",
+      "note": "Day 92 (Act III step 8, mystery #2): the count finishes and the night of the Snuffing comes back.",
+      "set": {
+        "cindermoor_stair_remembered": true
+      }
+    }
+  ],
+  "npcs": []
+}

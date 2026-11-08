@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:cindermoor_stair_remembered",
+        "goto": "after_up"
+      },
+      {
         "if": "!flag:cindermoor_choir_answered=",
         "goto": "after"
       },
@@ -317,7 +321,204 @@
       },
       {
         "say": "narrator",
-        "text": "You find you've stopped on the threshold, counting. One. And nothing after one. Not yet."
+        "text": "You find you've stopped on the threshold, counting. One. And nothing after one."
+      },
+      {
+        "say": "narrator",
+        "text": "The taper in your satchel was cut for this stair, a notch to a landing. A taper's for the stair, Aldous said. You know which stair now.",
+        "if": "item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "The ember is warm in your hand. It's walked you up every stair on the ring. It could walk you up this one, in the dark.",
+        "if": "!item:stair_taper"
+      },
+      {
+        "choice": [
+          {
+            "text": "Light the Stair-Taper from the ember, and go up.",
+            "if": "item:stair_taper",
+            "goto": "climb"
+          },
+          {
+            "text": "Go up in the dark, counting.",
+            "if": "!item:stair_taper",
+            "goto": "climb"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "climb": [
+      {
+        "say": "narrator",
+        "text": "You take the Stair-Taper out and hold its wick to the ember, low, under your cupped hand, out of the wind. It catches the way the cressets caught: as if it had only been waiting to be asked.",
+        "if": "item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "You put your hand flat on the door and push. It goes, after three months, without a sound.",
+        "set": {
+          "cindermoor_stair_climbed": true
+        },
+        "quest_start": "the_last_landing"
+      },
+      {
+        "say": "provost",
+        "text": "The hand goes up. The chapter stays at the foot. That's how it was always done, and for once I can see why."
+      },
+      {
+        "say": "provost",
+        "text": "I'll count you. Keepers count the hand up and the hand down. Go on."
+      },
+      {
+        "say": "narrator",
+        "text": "The stair turns always to the left, inside the Spire's wall. Pale stone, worn into a dip in the middle of every step. The wind comes down past you, cold ash and candle-ends, and the taper leans from it and doesn't go out.",
+        "if": "item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "The stair turns always to the left, inside the Spire's wall. Pale stone, worn into a dip in the middle of every step. The wind comes down past you, cold ash and candle-ends. The ember shows you a step at a time and no more.",
+        "if": "!item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "A landing: a flat place, a slit of grey in the outer wall. Your thumb finds the first notch in the taper as the flame comes level with it.",
+        "if": "item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "A landing: a flat place, a slit of grey in the outer wall.",
+        "if": "!item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "One."
+      },
+      {
+        "say": "narrator",
+        "text": "And then, as easy as breathing out: two. It was only ever waiting for the stair."
+      },
+      {
+        "say": "narrator",
+        "text": "At the second turn the cold stands still in one place, about the size of somebody leaning on a rail. Nobody's singing in it. The rest of the singing goes on far above, round the gap.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "You say 'Isolde' going by, not loud. Nothing answers. It doesn't need to.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "At the second turn she's there: the nearest voice, close enough to touch, singing to the stair. As the taper comes round the turn she stops, the way she stops for your things, and you go by her in the quiet. Written down in the Long Book. She doesn't know.",
+        "if": "flag:cindermoor_choir_answered=written"
+      },
+      {
+        "say": "narrator",
+        "text": "At the second turn she's there, the nearest voice, close enough to touch. She comes round to the place where she stops, and doesn't stop.",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "'Not Hushed. Awake. I asked them.'",
+        "sound": "choir_far",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "And then, lower, the way you'd speak to somebody passing on a stair: 'Somebody went down this way not long ago. Counting. With a coal.'",
+        "set": {
+          "cindermoor_isolde_spoke": true
+        },
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't sing again while you're on the stair. You can feel her listening to you go up.",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "Three. The flame burns down past the third notch, and you know, the way you know your own hand, that novices go up to the third landing and no further. Past the third. You went higher than you were told.",
+        "if": "item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "Three. You know, the way you know your own hand, that novices go up to the third landing and no further. You went higher than you were told.",
+        "if": "!item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "Four. Five. Your feet know the dips in the steps before the light finds them. Six."
+      },
+      {
+        "say": "narrator",
+        "text": "Far below, so faint it could be the wind, the Provost's voice: 'Six.' She's been counting with you all the way.",
+        "if": "flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "narrator",
+        "text": "Far below, so faint it could be the wind, the Provost's voice: 'Six.' She's been counting with you all the way. And somewhere out on the crown, round and round, a woman's feet keeping time.",
+        "if": "!flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "narrator",
+        "text": "The singing is close above you now, a great many voices behind a door at the top of the stair. The stair turns once more.",
+        "sound": "choir_far",
+        "travel": [
+          "cindermoor_last_landing",
+          "from_stair"
+        ]
+      }
+    ],
+    "after_up": [
+      {
+        "say": "narrator",
+        "text": "The east stair door, pushed wide now, the way you left it. The wind still comes down, but it comes down past you, not at you."
+      },
+      {
+        "say": "narrator",
+        "text": "You stand on the threshold and count up it without meaning to, all the way to seven, and stop. It doesn't hurt to."
+      },
+      {
+        "choice": [
+          {
+            "text": "Go up to the last landing.",
+            "goto": "up_again"
+          },
+          {
+            "text": "Not now.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "up_again": [
+      {
+        "say": "narrator",
+        "text": "Seven landings, turning always to the left. You don't need a light for it. You never did."
+      },
+      {
+        "say": "narrator",
+        "text": "At the second turn the cold stands still, where somebody leans on a rail and doesn't sing.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "At the second turn she stops singing to let you by.",
+        "if": "!flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "Seven.",
+        "travel": [
+          "cindermoor_last_landing",
+          "from_stair"
+        ]
       }
     ]
   }

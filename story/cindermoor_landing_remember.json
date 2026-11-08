@@ -1,0 +1,107 @@
+{
+  "id": "cindermoor_landing_remember",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Seven. The last notch burns down between your fingers and the taper goes out, and you're standing on the last landing with the count finished.",
+        "if": "item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "Seven. The stair stops turning, and you're standing on the last landing with the count finished.",
+        "if": "!item:stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "A round room in the Spire's wall, the shaft going up through the middle of it behind an iron rail. A slit of grey in the outer wall. On the far side the stair goes on up, into the singing."
+      },
+      {
+        "say": "narrator",
+        "text": "The wind comes down it off the lantern room, cold, smelling of oil and something hotter. It pushes your hood back off your face."
+      },
+      {
+        "say": "narrator",
+        "text": "In your satchel the hood-pin is humming. You know where you're standing. You stood here with your hood pinned.",
+        "sound": "remnant_hum",
+        "if": "item:hood_pin"
+      },
+      {
+        "say": "narrator",
+        "text": "It doesn't come the way a Remnant comes, from somewhere else. It comes the way the next stair comes in your own house in the dark. You were already here."
+      },
+      {
+        "say": "narrator",
+        "text": "Midwinter. Three months back. You were a novice of Kindleby, the seventh on the roll that winter, and novices carry their tapers up to the third landing and no further. You went higher than you were told. You'd heard somebody go up alone in the night."
+      },
+      {
+        "say": "narrator",
+        "text": "She was here, on this landing: the High Keeper, with her back to the rail, and something in her two hands lighting her face from underneath. Not a candle. A coal off the Firstflame. Above her the lantern room had gone dark."
+      },
+      {
+        "say": "narrator",
+        "text": "'Go down,' she said. 'Go down and forget you saw me. That's an order, and it's a kindness, and you'll not get either from me again.'"
+      },
+      {
+        "say": "narrator",
+        "text": "You didn't go down. You asked what she'd done. And she told you, all of it: the book, the giving, the Hushed. Standing there with the coal, the way you'd tell somebody who was going to have to carry it."
+      },
+      {
+        "say": "narrator",
+        "text": "'One coal,' she said. 'Off this stair it dies in an hour. It eats what the flame ate. There's nothing on the islands I'd let anybody give it.'"
+      },
+      {
+        "say": "narrator",
+        "text": "And you said: give it to me. I'll carry it down. It can have mine."
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody had ever asked her for anything on that stair. You watched her not know what to do with it."
+      },
+      {
+        "say": "narrator",
+        "text": "'All of it,' she said. 'A landing at a time, and you'll not know you've given it. You'll get to the bottom with nothing left but the counting.' You said you could count."
+      },
+      {
+        "say": "narrator",
+        "text": "She put the coal in your hands. Then she pulled your hood forward and pinned it under your chin. 'Keep it up. Nobody's to see your face on this stair tonight.'"
+      },
+      {
+        "say": "narrator",
+        "text": "So the chapter would never know which of seven novices went down with the last of the Spire. So nobody would ever come for you."
+      },
+      {
+        "say": "narrator",
+        "text": "You counted out loud, going down. She said hush. You went on under your breath, a landing at a time, and the coal ate a landing at a time of you: a kitchen, a mother's hands, the roll, your own face. By the bottom there was only the counting, and the door, and the grey."
+      },
+      {
+        "say": "narrator",
+        "text": "And the ember walked you out of it. Every time."
+      },
+      {
+        "say": "narrator",
+        "text": "Your name comes back last, the way a word comes back that's been on your tongue all day. It's only a name. It's yours. There's nobody up here to say it to, so you don't.",
+        "quest_stage": [
+          "the_last_landing",
+          "remembered"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The ember in your hand is warm and quiet. It knows you. It always did. It's made of you."
+      },
+      {
+        "say": "narrator",
+        "text": "And the roll in the niche, scraped to the skin. You know that too, now, the way you know your own hand. She took a blade to your name after, not to be rid of you. So nobody could ever write you in for the giving."
+      },
+      {
+        "say": "narrator",
+        "text": "Above, behind the door at the top of the stair, the singing goes on: a great many voices, all at the one thing.",
+        "sound": "choir_far"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

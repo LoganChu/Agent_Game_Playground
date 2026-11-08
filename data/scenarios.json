@@ -914,6 +914,25 @@
         "the_nearest_voice": "the_name"
       },
       "shot": "--camera=13.2,2.6,-11.0:6.0,1.3,-4.6"
+    },
+    {
+      "id": "the_last_landing",
+      "act": "Act III — The Spire",
+      "title": "The Last Landing",
+      "inherits": "the_nearest_voice",
+      "region": "cindermoor_last_landing",
+      "spawn": "from_stair",
+      "description": "The Wakebearer said Isolde Vane's name up the east stair, and she said yes. Then they lit the Stair-Taper from the ember and went up, counting, seven landings to the last one under the lantern room, and the count finished, and the rest came back: the High Keeper with the last coal, a novice who asked to carry it, a hood pinned so nobody would see whose face went down the stair.",
+      "flags": {
+        "cindermoor_choir_answered": "named",
+        "cindermoor_stair_climbed": true,
+        "cindermoor_stair_remembered": true
+      },
+      "quests": {
+        "the_nearest_voice": "done",
+        "the_last_landing": "remembered"
+      },
+      "shot": "--camera=6.4,2.5,-1.6:-2.6,1.0,3.4"
     }
   ]
 }

@@ -506,6 +506,22 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 			"The Nearest Voice done")
 	_check(_npc("provost") != null, "the Provost back up on the step")
 	print("Smoke: the nearest voice — Isolde Vane, named")
+	# Day 92: the east stair — the taper lit, seven landings, the last landing remembered; down, and the roll.
+	_object("foot_door").interact()
+	_check(_choose(ui, "Light the Stair-Taper from the ember, and go up."), "the Stair-Taper lit for its stair")
+	_finish_dialogue(ui, "the door (the climb)")
+	if not await _arrived(main, ui, "cindermoor_last_landing", "seven landings up the east stair"):
+		return
+	_check(world.get_flag("cindermoor_stair_remembered") == true and world.quest_stage("the_last_landing") == "remembered",
+			"the last landing: the night of the Snuffing remembered")
+	_check(_object("landing_up") != null and _object("landing_window") != null, "the stair on up, and the slit window")
+	if not await _take_exit(main, ui, "cindermoor_spire_foot", "back down the east stair"):
+		return
+	_check(world.get_flag("cindermoor_stair_down") == true and world.get_flag("cindermoor_provost_knows") == true,
+			"counted down, and the Provost told")
+	_check(world.get_flag("cindermoor_seventh_answered") == "written" and world.quest_state("the_seventh_name") == WorldState.QUEST_DONE
+			and world.quest_state("the_last_landing") == WorldState.QUEST_DONE, "the seventh name written back on the roll")
+	print("Smoke: the east stair — the last landing, the seventh name written")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the

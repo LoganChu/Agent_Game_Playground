@@ -1,0 +1,37 @@
+{
+  "id": "cindermoor_landing_shaft",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Spire's shaft comes up through the middle of the landing inside a round of pale stone, an iron rail along its top. You lean on the rail."
+      },
+      {
+        "say": "narrator",
+        "text": "Down, it goes into the dark further than the ember can follow: past six landings and the twelve steps under the warden's seat, to a cold grate in the lower rooms, where the Hushed were brought."
+      },
+      {
+        "say": "narrator",
+        "text": "Up, it goes into the dark as well. The warmth that came up it for nine hundred years has left the stone smooth as a hand, and the stone is cold."
+      },
+      {
+        "say": "narrator",
+        "text": "The rail is worn bright in one place, at the height of a leaning elbow. You fit yours to it without trying.",
+        "if": "flag:cindermoor_stair_remembered"
+      },
+      {
+        "say": "narrator",
+        "text": "Somewhere below, at the second turn, the cold stands still where she used to lean.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "Somewhere below, at the second turn, she's listening. You're sure she is.",
+        "if": "flag:cindermoor_isolde_spoke"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

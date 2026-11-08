@@ -1139,6 +1139,39 @@
         "left"
       ],
       "future": true
+    },
+    "cindermoor_stair_climbed": {
+      "description": "The Wakebearer went up the east stair (Day 92, The Last Landing): the Stair-Taper lit from the ember for the stair it was cut for, the count going past one, the Provost counting the hand up from the foot. Seven landings to the last, under the lantern room.",
+      "default": false
+    },
+    "cindermoor_isolde_spoke": {
+      "description": "Going up the east stair past Isolde Vane when she'd been left to sing (cindermoor_choir_answered=left, Day 92): she got the rest out — 'Not Hushed. Awake. I asked them.' — and, to the Wakebearer going by, 'Somebody went down this way not long ago. Counting. With a coal.'",
+      "default": false
+    },
+    "cindermoor_stair_remembered": {
+      "description": "On the last landing (Day 92, mystery #2 paid): the count finished and the Wakebearer remembered — a Kindleby novice, the seventh on the roll, who went up past the third landing the night of the Snuffing, found the High Keeper with the last coal, asked to carry it, and fed it everything they were on the way down; Oriel pinned their hood and scraped their name. Their name came back (never said aloud or shown). The ember is made of them.",
+      "default": false,
+      "future": true
+    },
+    "cindermoor_stair_down": {
+      "description": "The Wakebearer came back down the east stair from the last landing (Day 92): the Provost counted the hand down at the door ('That's the second stroke') and saw their face with the hood back; then the novices' roll (cindermoor_seventh_answered).",
+      "default": false
+    },
+    "cindermoor_provost_knows": {
+      "description": "Coming down the east stair (Day 92) the Wakebearer told the Provost it was them: the coal kept back, 'in hands that asked to carry it' — a Kindleby novice, one of hers, whose face she doesn't remember. If unset she saw the face and wasn't told.",
+      "default": false,
+      "future": true
+    },
+    "cindermoor_seventh_answered": {
+      "description": "What the Wakebearer did with the seventh place on the novices' roll after the last landing (Day 92, The Seventh Name done): '' (not yet), 'written' (their own name written back in, upright Keeper's letters), 'struck' (written and struck through: the novice is finished) or 'left' (left scraped, as Oriel left it, so nobody could write them down for the giving). For the lantern room.",
+      "default": "",
+      "values": [
+        "",
+        "written",
+        "struck",
+        "left"
+      ],
+      "future": true
     }
   }
 }

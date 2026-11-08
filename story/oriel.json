@@ -354,6 +354,16 @@
         "if": "flag:cindermoor_choir_heard"
       },
       {
+        "say": "narrator",
+        "text": "You've been up the stair. She looks at your hood, pushed back, and then at the ember, and then away, out at the fog wall.",
+        "if": "flag:cindermoor_stair_down"
+      },
+      {
+        "say": "oriel",
+        "text": "Somebody came down that stair counting. I heard it from here. I used to know a sound like that.",
+        "if": "flag:cindermoor_stair_down"
+      },
+      {
         "end": true
       }
     ],
@@ -372,6 +382,16 @@
         "if": "flag:cindermoor_choir_heard"
       },
       {
+        "say": "narrator",
+        "text": "You've been up the stair. She looks at your hood, pushed back, and then at the ember, and then away, out at the fog wall.",
+        "if": "flag:cindermoor_stair_down"
+      },
+      {
+        "say": "oriel",
+        "text": "You came down. I heard you counting. ...I said I'd want it, then. I'm not sure I'm brave enough. Not today. Ask me again.",
+        "if": "flag:cindermoor_stair_down"
+      },
+      {
         "end": true
       }
     ],
@@ -388,6 +408,16 @@
         "say": "oriel",
         "text": "Somebody's singing on that stair. I walk past it. I think I always walked past it.",
         "if": "flag:cindermoor_choir_heard"
+      },
+      {
+        "say": "narrator",
+        "text": "You've been up the stair. She looks at your hood, pushed back, and then at the ember, and then away, out at the fog wall.",
+        "if": "flag:cindermoor_stair_down"
+      },
+      {
+        "say": "oriel",
+        "text": "Somebody came down that stair counting. I walked faster. I don't know why.",
+        "if": "flag:cindermoor_stair_down"
       },
       {
         "end": true

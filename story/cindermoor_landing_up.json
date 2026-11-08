@@ -1,0 +1,31 @@
+{
+  "id": "cindermoor_landing_up",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The stair goes on up from the landing's far side, turning left out of sight. At the top of the turn, a door: you can't see it, but you can feel the singing coming through it, the way you feel a cart go by through a floor."
+      },
+      {
+        "say": "narrator",
+        "text": "A great many voices, close now. All at the one thing, and none of them getting to the end of it.",
+        "sound": "choir_far"
+      },
+      {
+        "say": "narrator",
+        "text": "The ember leans to the stair. Not much. The way the beacon cradles leaned to it, every island, and past whatever you held out over them."
+      },
+      {
+        "say": "narrator",
+        "text": "The lantern room. The chapter hasn't chosen yet. The hand, the Provost said. Not the choosing."
+      },
+      {
+        "say": "narrator",
+        "text": "You find you've stepped back. Not yet. Your feet are very sure about it, and this time you know why."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

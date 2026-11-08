@@ -1,0 +1,17 @@
+{
+  "id": "the_last_landing",
+  "title": "The Last Landing",
+  "future": true,
+  "region": "cindermoor_spire_foot",
+  "description": "With Isolde Vane answered, the east stair door is only a door. The Stair-Taper was cut for this stair, a notch to every landing, and the count goes past one now.",
+  "stages": [
+    {
+      "id": "climb",
+      "text": "Up the east stair with the Stair-Taper lit from the ember, counting the landings, while the Provost counts the hand up from the foot."
+    },
+    {
+      "id": "remembered",
+      "text": "On the seventh landing, under the lantern room, the count finished and the rest came back: the High Keeper with the last coal, a novice who asked to carry it, a hood pinned so nobody would see whose face went down the stair. The ember is made of the Wakebearer. The Provost is still counting at the foot."
+    }
+  ]
+}

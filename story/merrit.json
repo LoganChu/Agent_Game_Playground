@@ -269,7 +269,18 @@
       },
       {
         "say": "merrit",
-        "text": "...Still somebody up the stair, novice."
+        "text": "...Still somebody up the stair, novice.",
+        "if": "!flag:cindermoor_stair_down"
+      },
+      {
+        "say": "merrit",
+        "text": "Somebody came down the stair. I heard the count go down past me in my head, plain as oars. Seven, six, five...",
+        "if": "flag:cindermoor_stair_down"
+      },
+      {
+        "say": "merrit",
+        "text": "That's right, novice. That's how it should go. Up, and then down.",
+        "if": "flag:cindermoor_stair_down"
       },
       {
         "goto": "hub"

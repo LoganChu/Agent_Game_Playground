@@ -1,0 +1,37 @@
+{
+  "id": "cindermoor_landing_window",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "A slit in the Spire's wall, a hand wide, with a deep sill worn smooth by elbows. Novices weren't meant to come up this far. Somebody always had."
+      },
+      {
+        "say": "narrator",
+        "text": "Out through it, far below, the fog lies over the whole of the Lanternreach like milk in a dish. And round the edge of the dish, small and far and all at once, the lights."
+      },
+      {
+        "say": "narrator",
+        "text": "The Gull, away in the south-west. The Ridge Light in the west. The Heron, north over the fen. The Wrack Light. Kindleby's tallow Vigil Light in the east. Lowsong's gold point, low in the south. Six, round the rim, like a table laid for somebody."
+      },
+      {
+        "say": "narrator",
+        "text": "Nearer, down the moor, the cressets you lit stand one above another in a line, all the way to the Boat Stair. The Mercy's riding light is a pin at the bottom of it.",
+        "if": "flag:cindermoor_cresset_steps_5"
+      },
+      {
+        "say": "narrator",
+        "text": "Nearer, down the moor, the Keepers' cressets stand one above another in a line, all the way to the Boat Stair. The Mercy's riding light is a pin at the bottom of it.",
+        "if": "!flag:cindermoor_cresset_steps_5"
+      },
+      {
+        "say": "narrator",
+        "text": "You've looked out of this slit before. You're sure of it. You can't think when, and then you can: every midwinter, the one night novices are let up the stair, while the others weren't looking.",
+        "if": "flag:cindermoor_stair_remembered"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

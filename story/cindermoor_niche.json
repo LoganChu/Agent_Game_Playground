@@ -115,15 +115,48 @@
         "text": "And after Fennick, a seventh place on the line, and nothing in it. Not a blank: the vellum there is thinner than the rest, roughed and pale, where somebody took a blade to it and scraped the name off down to the skin.",
         "set": {
           "cindermoor_roll_read": true
-        }
+        },
+        "if": [
+          "!flag:cindermoor_seventh_answered=written",
+          "!flag:cindermoor_seventh_answered=struck"
+        ]
       },
       {
         "say": "narrator",
-        "text": "The Keepers strike a name through. You know that the way you know your own hand: a single line, so the name can still be read, because the Long Book doesn't forget, it only finishes. Nobody scrapes one. Scraping isn't finishing. Scraping is wanting it never to have been."
+        "text": "The Keepers strike a name through. You know that the way you know your own hand: a single line, so the name can still be read, because the Long Book doesn't forget, it only finishes. Nobody scrapes one. Scraping isn't finishing. Scraping is wanting it never to have been.",
+        "if": [
+          "!flag:cindermoor_seventh_answered=written",
+          "!flag:cindermoor_seventh_answered=struck"
+        ]
       },
       {
         "say": "narrator",
-        "text": "You put your thumb on the scraped place. The ember doesn't knock. Nothing comes. It's the first time anything on this island hasn't answered you."
+        "text": "You put your thumb on the scraped place. The ember doesn't knock. Nothing comes. It's the first time anything on this island hasn't answered you.",
+        "if": [
+          "!flag:cindermoor_seventh_answered=written",
+          "!flag:cindermoor_seventh_answered=struck"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "And after Fennick, in the seventh place, on the roughed skin, your own name, small, to fit, in upright Keeper's letters. You wrote it. It still looks like somebody else's hand, and it's yours.",
+        "set": {
+          "cindermoor_roll_read": true
+        },
+        "if": "flag:cindermoor_seventh_answered=written"
+      },
+      {
+        "say": "narrator",
+        "text": "And after Fennick, in the seventh place, your own name, small, in upright letters, with one straight line through it. Struck, not scraped. Finished.",
+        "set": {
+          "cindermoor_roll_read": true
+        },
+        "if": "flag:cindermoor_seventh_answered=struck"
+      },
+      {
+        "say": "narrator",
+        "text": "You know whose it was, now. You left it as she left it.",
+        "if": "flag:cindermoor_seventh_answered=left"
       },
       {
         "if": "quest:the_seventh_name=inactive",
