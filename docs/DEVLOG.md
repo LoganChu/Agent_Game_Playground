@@ -2,6 +2,58 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-08 21:00 UTC — Day 92: the east stair (content, mystery #2)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and bpy 5.2.2. Detached HEAD again; `main` reset to `origin/main`
+  (Day 91's `ca82439`). Baseline (657 tests + smoke + launch) was green before any edit.
+- **Content (ROADMAP *Next up* #1, LORE Act III step 8; mystery #2 paid). New quest *The Last Landing*:**
+  - **The climb.** Once Isolde's been answered, the east stair door offers to go up. The Stair-Taper is lit from the ember
+    and the door goes wide without a sound. The Provost stays at the foot and counts the hand up. "One." Then, "as easy as
+    breathing out", two. Isolde is at the second turn, as she was answered: named, a still cold where nobody sings;
+    written, she stops for the taper and doesn't know; left, she gets the rest out ("Not Hushed. Awake. I asked them.")
+    and tells the Wakebearer someone went down this way "Counting. With a coal." Past the third notch (novices stop
+    at three) there are seven landings to the last.
+  - **The last landing** (new interior region `cindermoor_last_landing`) sits under the lantern room. The arrival gives
+    back the night of the Snuffing. The Wakebearer was Kindleby's seventh novice. They found Oriel there with the last
+    coal, asked to carry it, and fed it everything on the way down. Oriel pinned the hood and scraped the name. The name
+    comes back last and is **never shown**. The ember is made of them. The window shows all six lights. The shaft's
+    rail is worn bright at one elbow. The stair on up leads to the Choir's door: not yet (step 9).
+  - **Coming down** (an arrival event on the crown's new `from_stair` spawn): the Provost counts the hand down, "That's
+    the second stroke." She sees the face under the hood. The Wakebearer can tell her ("I read that line and took it for
+    a figure of speech") or not. Then the seventh place on the roll can be **written**, **struck** or **left** scraped
+    (`cindermoor_seventh_answered`). That closes *The Seventh Name*, open since Day 83. Merrit's "It's the coming down I
+    count" is paid. Oriel hears the count (asked: "Not today. Ask me again.").
+- **Blender:** `build_cindermoor.py landing_shaft landing_window landing_stairhead`. The stair up reuses `lower_stair`
+  turned round, and the roof reuses `lower_vault`.
+- **Tests:** `test_the_last_landing.gd` (10), plus the smoke walk climbs, remembers, comes down and writes the name.
+  Checkpoint `the_last_landing`. 667 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-08-pm-the-last-landing.png` (the Wakebearer at the stairhead, the shaft's parapet
+and rail, the slit window; also `docs/checkpoints/the_last_landing.png`).
+
+**Decisions**
+- **The name is never shown.** It comes back, the Wakebearer doesn't say it, and when it's written on the roll the
+  narration and the Provost read it without saying it aloud. The player's identity stays theirs. A test guards
+  "your name is" from creeping in.
+- **The reveal is remembered, not told.** No NPC explains the Wakebearer to them. The hood-pin's and the taper's
+  fragments (Days 69/77) complete themselves on the spot where they happened. Oriel herself still doesn't know. Telling
+  her is the next beat, and it gives `asked` its "ask me again".
+- **The taper is kept.** It burns down to its last notch, but the item stays. It's an own Remnant, and the lantern room
+  may still want it.
+- **One choice, at the roll.** The plan had "whether the Hearthspire asks for them". That belongs to the lantern room.
+  The stair's choice is what the seventh place should say, and it pays a quest open for nine sessions.
+- The landing's floor can't be cut, so the stairwell is a dark well-mouth laid on the floor (see TECH, *A second
+  interior*).
+
+**Problems / notes**
+- The landing is very dark in the Compatibility renderer, like the lower rooms. Added to polish fifteen to judge on Vulkan.
+- The first shot had the "go back down" prompt on screen at arrival. The spawn is now 2.4 m from the exit.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **what she was to you**, telling Oriel, and the step-6 follow-ups. Then the lantern room.
+   Polish fifteen is due by ~Day 96. Fetch and reset `main` before trusting it.
+
 ## 2026-11-08 09:00 UTC — Day 91: polish pass fourteen (polish)
 
 **Did**

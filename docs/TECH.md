@@ -693,6 +693,17 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
   `cindermoor_night`, which sets `cindermoor_morning`; each Cindermoor region has a morning light/fog override **ahead
   of** the night one (first match wins).
 
+### A second interior: the last landing (Day 92)
+`cindermoor_last_landing` (the top of the east stair) follows the lower rooms' pattern: the same ground walls and the
+same `lower_vault.glb` roof (its pale ring sits over the shaft at (-1.5, -1.0), so `landing_shaft` stands there). New
+kit in `build_cindermoor.py`: **`landing_shaft`** (parapet, rail, the shaft's ribs; `collider` 3.2 × 1.4 × 3.2),
+**`landing_window`** (a slit in a 3 m length of wall, room side = model front; turned 180° in the south wall; one faint
+`silverfog` light) and **`landing_stairhead`** (the floor can't be cut, so the stairwell is a dark well-mouth laid on the
+floor with darkening step lips; three `colliders`, the exit's lantern post stands in it). The stair *up* is
+`lower_stair.glb` turned 180°. The way in is the door's dialogue `travel` (`climb` / `up_again`), the way back an
+ordinary exit to the crown's new `from_stair` spawn, where an arrival event (`cindermoor_stair_down`) plays once.
+Keep spawns > 2.2 m from an exit (reach 1.8 + the capsule) so the "go back" prompt doesn't greet the arrival.
+
 ### Walking NPCs: the ring path (Day 89)
 A placement's **`circuit`** walks its NPC round a circle on the ground: `center` [x, z], `radius` (1..30 m), `speed`
 (0.2..2 m/s, default 0.7), `clockwise` (seen from above with north/-Z up; default false = anticlockwise). The placement's

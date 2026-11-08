@@ -724,19 +724,35 @@ each .glb < 5 MB.
       flushed on `dialogue_ui.closed`; swaps in place within 1 m still happen at once) — the Provost no longer pops onto
       the niche step mid-answer at the east stair door. `test_polish_fourteen.gd` (4).
 
+- [x] [C] **The east stair** (Day 92, LORE Act III step 8, mystery #2 paid): with Isolde answered the door offers the
+      climb; the **Stair-Taper lit from the ember** (`cindermoor_stair_climbed`, new quest *The Last Landing*, `future`),
+      the Provost counting the hand up, **seven landings** (one, then two "as easy as breathing out"; past the third notch);
+      Isolde at the second turn as answered (left: "Not Hushed. Awake. I asked them." + "Counting. With a coal.",
+      `cindermoor_isolde_spoke`). New interior region **`cindermoor_last_landing`**: the arrival (`cindermoor_stair_remembered`)
+      gives the night of the Snuffing back — the seventh novice who asked Oriel for the last coal and fed it themself, the
+      hood pinned, the name scraped; the name comes back and is never shown. The window (six lights), the shaft's rail, the
+      stair on up (not yet: step 9). Back down (`cindermoor_stair_down`, an arrival event on the crown's new `from_stair`
+      spawn): "That's the second stroke"; tell the Provost (`cindermoor_provost_knows`) or not; the roll's seventh place
+      **written / struck / left** (`cindermoor_seventh_answered`, *The Seventh Name* done — opened Day 83). Lines for the
+      Provost, Merrit, Oriel, the niche's roll. Blender `landing_shaft`, `landing_window`, `landing_stairhead`. Checkpoint
+      `the_last_landing`; the smoke walk climbs, remembers, comes down and writes the name. `test_the_last_landing.gd` (10).
+
 ### Next up
-1. [C] **The east stair** (LORE Act III step 8, mystery #2). Fetch and reset `main` before trusting it: the Stair-Taper lit for its stair; counting
-   the landings past "one"; the Hood-Pin's "tonight"; the Wakebearer's own Remnants. Pay what Day 89/90 left: `cindermoor_eighth_told`
-   (asked: she wants asking again after the stair), and `cindermoor_choir_answered` (named: a gap where she sang; written:
-   the Long Book carried up?; left: she's nearer on the stair, and might get the rest out there). Isolde was "asked
-   nothing"; the Wakebearer's own past is the next reveal: keep the ember's silence about her ("doesn't feel like anything").
-1a. [P] **Polish fifteen candidates** (due by ~Day 96): a shared "Cindermoor clock" helper (#2); the framed two-NPC
+1. [C] **What she was to you** (Act III step 8's close, before the lantern room): **tell Oriel** it was the Wakebearer she
+   gave the coal to on the last landing (she remembers "somebody asked to carry one of those, once"); pays
+   `cindermoor_eighth_told=asked` (she said "ask me again" twice now) and lets `told`/`kept` meet it too. The Provost's
+   `cindermoor_provost_knows`; whether Oriel goes up the stair with them, or launches the eighth boat (open). Also fold in
+   1b. Then **step 9, the lantern room** (the final choice; the Choir behind the door; whether the Hearthspire takes the
+   ember, which is the Wakebearer — `cindermoor_seventh_answered`, `cindermoor_choir_answered` and every burn should
+   colour it). Fetch and reset `main` before trusting it.
+1a. [P] **Polish fifteen candidates** (due by ~Day 96): the last landing reads very dark in Compatibility (judge on Vulkan;
+   the slit's `silverfog` light is faint); a shared "Cindermoor clock" helper (#2); the framed two-NPC
    shot (#9); the robe/white read on Oriel (Vulkan, #4); an NPC held for the box could walk/fade in rather than appear
    when it closes (Day 91 holds the move; the arrival is still a cut).
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): Hild greasing the eighth's rollers at the
    Boat Stair once she's said she would (a prop swap on the boathouse slip?); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); whether Oriel comes to the chapter's next sitting (the Provost said
-   it will sit again before it chooses).
+   it will sit again before it chooses); Hild, Iver, Wenna and Ness have no lines yet for the stair climbed (Day 92).
 2. [S] **The days pass on Cindermoor** — *decided Day 86:* Cindermoor's clock is a **story clock**, not a free-running
    day/night: flags move it, and each Cindermoor region carries light and fog overrides for it (`cindermoor_chapter_sat` →
    night, `cindermoor_chapter_up` → dusk; first match wins, so later times go first in the list). Follow-up with the lower

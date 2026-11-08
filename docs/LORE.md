@@ -1595,6 +1595,52 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   - *(Still secret: what the rest of the Choir is, beyond her (keep it "a great many people, all at the one thing"); the
     Wakebearer, step 8.)*
 
+- **The last landing (Day 92, Act III step 8 — mystery #2 paid; quest *The Last Landing*, `cindermoor_stair_climbed` →
+  `cindermoor_stair_remembered` → `cindermoor_stair_down` → `cindermoor_seventh_answered`).** With Isolde answered the
+  door is only a door. The Wakebearer lights **the Stair-Taper from the ember**, low under the cupped hand, and pushes the
+  door wide (it goes without a sound). The Provost stays at the foot — **"The hand goes up. The chapter stays at the foot"**
+  — and **counts the hand up**, as Keepers do. The stair turns always to the left inside the Spire's wall; **seven
+  landings** to the last, a notch to each on the taper. **"One." And then, as easy as breathing out: two.** At the second
+  turn, Isolde: **named** — the cold stands still where somebody leans on a rail and doesn't sing; **written** — she stops
+  for the taper, as for the Wakebearer's things, and doesn't know she's written; **left** — she gets the rest out: **"Not
+  Hushed. Awake. I asked them."**, and to the Wakebearer going by, "Somebody went down this way not long ago. Counting.
+  With a coal." (`cindermoor_isolde_spoke`). **Past the third notch: novices go to the third landing and no further.**
+  - **The last landing**, under the lantern room: a round of pale stone in the Spire's wall, the shaft up its middle behind
+    a parapet and an iron rail (worn bright at one elbow's height), a slit window on the whole Lanternreach (all six
+    lights round the rim at once, "like a table laid for somebody"; every midwinter novices sneaked a look), and the
+    stair going on up to a door with **the Choir behind it** ("a great many voices, close now"). The ember leans to that
+    stair as the beacon cradles leaned to it. **Not yet: the chapter hasn't chosen** (step 9).
+  - **What comes back** (the wind pushes the hood back; the hood-pin hums): midwinter three months back, **the Wakebearer
+    was a novice of Kindleby, the seventh on the roll**, and went higher than they were told because they'd heard
+    somebody go up alone. **Oriel** stood on this landing with her back to the rail and **the last coal of the Firstflame**
+    in her hands, the lantern room dark above. "Go down and forget you saw me. That's an order, and it's a kindness." They
+    asked what she'd done; she told them all of it, "the way you'd tell somebody who was going to have to carry it".
+    "**One coal. Off this stair it dies in an hour. It eats what the flame ate.** There's nothing on the islands I'd let
+    anybody give it." — **"Give it to me. I'll carry it down. It can have mine."** Nobody had ever asked her for anything
+    on that stair. "All of it. A landing at a time ... You'll get to the bottom with nothing left but the counting." / "I
+    can count." She **pinned the hood** ("Nobody's to see your face on this stair tonight") so the chapter would never know
+    which novice went down with the last of the Spire, and **after, scraped the name off the roll** so nobody could ever
+    write them in for the giving. Going down, the coal ate them a landing at a time ("a kitchen, a mother's hands, the
+    roll, your own face"); at the bottom only the counting, the door and the grey — **and the ember walked them out of it,
+    every time** (Isolde's story, true twice). **Their name comes back last. It is never said aloud or written on
+    screen** (canon rule: the Wakebearer's name stays the player's). **The ember is made of them.**
+  - **Coming down** (the crown's arrival): the Provost counting with them — "...Two. One." — **"That's the second
+    stroke."** With the hood back she looks a long time: "I'd not have known you. ... You all had the same face under the
+    hood, and we made sure of it." Told (`cindermoor_provost_knows`): "'In hands that asked to carry it.' I read that line
+    and took it for a figure of speech." / "A novice. One of mine." / "We would have, too. Some winter. We'd have called it
+    a kindness."
+  - **The seventh place** (`cindermoor_seventh_answered`, *The Seventh Name* done): **written** — their name, small, in
+    upright Keeper's letters ("Anybody who reads it will know there were seven"); **struck** — written and struck through,
+    "The novice is finished. Whatever came down the stair is something else. I've no word for it"; **left** — scraped, as
+    she left it: "It's the only thing on that roll she wrote, and she wrote it with a knife." After, the ember "doesn't feel
+    like something you're carrying. It feels like your hand."
+  - After: the Provost ("Seven up and seven down. I didn't know I knew the stair had seven"); Merrit — "Somebody came down
+    the stair ... That's right, novice. Up, and then down." (his "It's the coming down I count", paid); Oriel hears the
+    count from the path (told: "I used to know a sound like that"; asked: "I said I'd want it, then. I'm not sure I'm brave
+    enough. Not today. Ask me again."; kept: "I walked faster").
+  - *(Still secret / open: Oriel doesn't know the Wakebearer is the novice — telling her is the next beat; what the Choir
+    behind the lantern-room door is; whether the Hearthspire asks for the ember, which is the Wakebearer — step 9.)*
+
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
   Saltmarrow, relights the Gull's Beacon, and must choose which memory to burn (e.g. Mara's
@@ -1648,7 +1694,8 @@ The order Act III's sessions should take, paced over months: one big reveal per 
 6. **The eighth boat's owner** *(Day 89, written: the ring path, told / asked / let walk — see *Cindermoor*)* — Oriel did not leave: she walked out on the moor and **chose to forget** what she did,
    among the Unmoored (plan, secret; the eighth slip's payoff).
 7. **The Choir at the Spire** *(Day 90, written: "Not Hushed", the middle of the book, named / written / left — see *Cindermoor*)* *(mystery #4)*: the nearest voice, heard again on the stair; Isolde Vane's name, late.
-8. **The east stair** *(mystery #2)*: the Stair-Taper lit for the stair it was cut for; counting the landings; the
+8. **The east stair** *(Day 92, written: the taper lit, seven landings, the last landing, the coal asked for, the roll —
+   see *Cindermoor*)* *(mystery #2)*: the Stair-Taper lit for the stair it was cut for; counting the landings; the
    Hood-Pin's "tonight"; the Wakebearer's own Remnants and whether the Hearthspire asks for them. Last before the end.
 9. **The lantern room** — the final choice: what the Lanternreach should remember, or whether it should forget.
 
@@ -1661,6 +1708,8 @@ The order Act III's sessions should take, paced over months: one big reveal per 
 2. **Who is the player?** *(Day 43 hook: the last line in Wrackholm's lane-house Book. Day 45 hook: the novice on the east stair who told the Lamp to keep a coal back. Day 47 hook: the seventh novice with no face in Aldous's memory; the novices' roll in the warden's niche. Day 64 hook: a face up Kindleby's steps the Wakebearer almost knows, in the Boats' Lantern as it burns. Day 69 hook: the Stair-Taper, a novice's light for the east stair, given back by the ember as the fifth light catches; Aldous heard the light going down the stair counting landings. Day 77 hook: the Hood-Pin — the Wakebearer was the one counting, and someone a turn above hid their face on the stair "tonight".)* *[SECRET]* The player is not a stranger. They were a Keeper novice who
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
+   *(Revealed in play Day 92, the last landing: the seventh novice of Kindleby's last midwinter, who asked Oriel for the
+   last coal and fed it themself on the way down; Oriel pinned the hood and scraped the name. The name is never shown.)*
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —
    everything the Firstflame burned for 900 years, drifting home. The Hushed are overwhelmed by
    other people's memories, not emptied. *(Revealed in play Day 87: the Spire's book's oldest page.)*
@@ -1689,3 +1738,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - The next morning (Day 87): the chapter goes down to the lower rooms and reads the Spire's own book.
 - The same morning (Day 89): the chapter comes back up; the woman on the ring path is the High Keeper, Oriel Sayre.
 - The same day (Day 90): singing on the east stair; back down to the middle of the Spire's book; Isolde Vane's line.
+- The same day (Day 92): up the east stair, seven landings; the Wakebearer remembers the night of the Snuffing.
