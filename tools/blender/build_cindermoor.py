@@ -545,6 +545,72 @@ def build_lower_vault() -> None:
     bd.export("lower_vault")
 
 
+def build_landing_shaft() -> None:
+    """The Hearthspire's shaft where it passes the last landing (Day 92, the east stair): a parapet of the pale stone
+    r 1.5 m, 0.95 m high, round a dark well going down out of sight, an iron rail along its top (the rail Isolde leans
+    over, a turn above), and the shaft's own stone going on up through the roof. Where the flame's heat went up. Origin
+    at the parapet's centre on the floor; the region puts it under the vault's shaft ring."""
+    bd.reset()
+    PALE, PALE2, DARK, IRON = mat("bone", -0.35), mat("bone", -0.5), mat("ink", -0.4), mat("ink", 0.15)
+    cyl("Parapet", 1.5, 1.45, 0.95, 16, (0, 0, 0), PALE2)
+    cyl("Well", 1.2, 1.2, 0.03, 16, (0, 0, 0.94), DARK)
+    cyl("Lip", 1.55, 1.55, 0.1, 16, (0, 0, 0.92), PALE)
+    for k in range(8):
+        a = k / 8 * math.tau
+        rod("Stanchion", (math.cos(a) * 1.4, math.sin(a) * 1.4, 1.0), (math.cos(a) * 1.4, math.sin(a) * 1.4, 1.35),
+            0.025, IRON)
+    for k in range(16):
+        a0, a1 = k / 16 * math.tau, (k + 1) / 16 * math.tau
+        rod("Rail", (math.cos(a0) * 1.4, math.sin(a0) * 1.4, 1.35), (math.cos(a1) * 1.4, math.sin(a1) * 1.4, 1.35),
+            0.03, IRON)
+    # The shaft's stone, standing up out of the parapet's far half and on through the roof: three pale ribs.
+    for k in range(3):
+        a = math.pi * (0.25 + k * 0.25)
+        box("Rib", (0.35, 0.35, 3.9), (math.cos(a) * 1.6, math.sin(a) * 1.6, 0.95), PALE, a)
+    bd.export("landing_shaft")
+
+
+def build_landing_window() -> None:
+    """A slit window in the Spire's wall at the last landing (Day 92): a deep reveal in a 3 m length of wall
+    (0.9 m thick), the slit 0.22 m wide and 1.6 m high with a sill at 1.0 m, splayed inward; out through it the grey
+    is faintly pale (an emissive pane, the only daylight on the stair). The room side is the front (model -Y = Godot
+    +Z); the region turns it to face into the room from whichever wall it stands in. Origin at the wall's foot, at the
+    room-side face."""
+    bd.reset()
+    STONE, STONE2, SILL = mat("bone", -0.5), mat("bone", -0.6), mat("bone", -0.35)
+    GREY = mat("silverfog", 0.1, emissive=True)
+    for side in (-1, 1):
+        box("Wall", (1.2, 0.9, 3.4), (side * 0.9, 0.45, 0), STONE)
+        box("Splay", (0.3, 0.5, 1.7), (side * 0.38, 0.2, 1.0), STONE2, side * 0.35)
+    box("Under", (0.6, 0.9, 1.0), (0, 0.45, 0), STONE)
+    box("Sill", (0.8, 0.6, 0.08), (0, 0.2, 1.0), SILL)
+    box("Over", (0.6, 0.9, 0.8), (0, 0.45, 2.6), STONE)
+    box("Pane", (0.24, 0.04, 1.6), (0, 0.85, 1.0), GREY)
+    bd.export("landing_window")
+
+
+def build_landing_stairhead() -> None:
+    """The head of the east stair where it comes up into the last landing (Day 92): an opening in the wall 1.3 m wide
+    under a pale lintel, and inside it the dark of the stairwell with the lips of the top steps going down into it. Place
+    its back (+X) against the room's east wall; the top step's lip is at model x -1.2, level with the floor. Origin at
+    the opening's foot centre-line."""
+    bd.reset()
+    STONE = (mat("bone", -0.5), mat("bone", -0.6), mat("slate", -0.55))
+    DARK = mat("ink", -0.4)
+    # The floor can't be cut, so the stairwell is a dark well-mouth laid on it, with the lips of the top steps
+    # going down into it as pale strips that darken with depth.
+    box("Sill", (0.4, 1.3, 0.04), (-1.0, 0, 0), STONE[2])
+    box("Pit", (2.0, 1.3, 0.03), (0.2, 0, 0), DARK)
+    for k in range(4):
+        box("StepLip", (0.06, 1.3, 0.035), (-0.7 + k * 0.32, 0, 0), mat("bone", -0.55 - k * 0.1))
+    for side in (-1, 1):
+        box("Cheek", (3.0, 0.5, 3.2), (0.3, side * 0.9, 0), STONE[(side + 1) // 2])
+    box("Lintel", (0.5, 2.3, 0.5), (-1.0, 0, 2.5), STONE[1])
+    box("Back", (0.1, 1.3, 2.4), (1.75, 0, 0), DARK)
+    box("Roof", (2.8, 1.3, 0.1), (0.4, 0, 2.4), DARK)
+    bd.export("landing_stairhead")
+
+
 BUILDERS = {
     "spire_foot": build_spire_foot,
     "spire_foot_open": build_spire_foot_open,
@@ -562,6 +628,9 @@ BUILDERS = {
     "flame_root": build_flame_root,
     "taper_row": build_taper_row,
     "lower_vault": build_lower_vault,
+    "landing_shaft": build_landing_shaft,
+    "landing_window": build_landing_window,
+    "landing_stairhead": build_landing_stairhead,
 }
 
 if __name__ == "__main__":
