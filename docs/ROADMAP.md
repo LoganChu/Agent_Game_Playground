@@ -746,18 +746,20 @@ each .glb < 5 MB.
       **own** (stands at the foot a pace behind the Provost). She stops walking in all three; her ring-path name gives way
       to Oriel Sayre. Lines for the Provost, Hild (incl. the stair climbed), Merrit. Checkpoint `what_she_was`; the smoke
       walk tells her and asks her up. `test_what_she_was.gd` (8). No new art (reuses `oriel`/`oriel_seated`).
+- [x] [P] **Polish fifteen** (Day 94): Cindermoor's story clock in one place (`data/clocks.json`, `StoryClock`; regions'
+      overrides name a `time`; validated); NPCs who come or go mid-visit fade in/out (0.8 s); a second NPC who speaks
+      joins the conversation's shot (`Player.frame_also`, eased, backed off). `test_polish_fifteen.gd` (6).
 
 ### Next up
-1. [P] **Polish fifteen** (due by ~Day 96; take it next, content ran Days 92-93): see 1a.
-2. [C] **Step 9, the lantern room** (the final choice; the Choir behind the door; whether the Hearthspire takes the
+1. [C] **Step 9, the lantern room** (the final choice; the Choir behind the door; whether the Hearthspire takes the
    ember, which is the Wakebearer): `cindermoor_oriel_choice` (Oriel behind them in the room / on the water in the
    eighth / counting at the foot), `cindermoor_seventh_answered`, `cindermoor_choir_answered` and every burn should
    colour it. Probably two or three sessions: the room and the Choir first, the choice and the ending after. A new
    interior (reuse the last landing's approach) and the Act III end card. Fetch and reset `main` before trusting it.
-1a. [P] **Polish fifteen candidates** (due by ~Day 96): the last landing reads very dark in Compatibility (judge on Vulkan;
-   the slit's `silverfog` light is faint); a shared "Cindermoor clock" helper (#2); the framed two-NPC
-   shot (#9); the robe/white read on Oriel (Vulkan, #4); an NPC held for the box could walk/fade in rather than appear
-   when it closes (Day 91 holds the move; the arrival is still a cut).
+1a. [P] **Polish sixteen candidates** (due by ~Day 102; Day 94 was fifteen): the last landing reads very dark in
+   Compatibility (judge on Vulkan; the slit's `silverfog` light is faint); the robe/white read on Oriel (Vulkan, #4);
+   a placement-to-placement move could walk rather than crossfade (Day 94 fades); the two-speaker shot in tight spots
+   (the Mercy's deck, #9) and a third speaker; seated/low NPC framing (#9).
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
    down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); whether Oriel comes to the chapter's next sitting (the Provost said
@@ -766,7 +768,7 @@ each .glb < 5 MB.
 2. [S] **The days pass on Cindermoor** — *decided Day 86:* Cindermoor's clock is a **story clock**, not a free-running
    day/night: flags move it, and each Cindermoor region carries light and fog overrides for it (`cindermoor_chapter_sat` →
    night, `cindermoor_chapter_up` → dusk; first match wins, so later times go first in the list). Follow-up with the lower
-   rooms: the morning flag and a rest prompt; consider a shared "Cindermoor clock" helper if a fourth time of day comes.
+   rooms: the morning flag and a rest prompt; (the shared clock: Day 94, `data/clocks.json` / `StoryClock`).
 3. [C] **Act II follow-ups** (fold a line or two into later sessions; Kindleby/the ring are behind the player now, so most
    need Act III to look back — letters, Oda's talk, or Keepers come down the lane in, LORE plan step 4):
    Aldous and the Hood-Pin (the hand on the stair; "tonight"); the Provost or Tobin seeing the
@@ -811,8 +813,7 @@ each .glb < 5 MB.
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
 9. [S] Interaction polish follow-ups (framing and the body fade landed Day 73; spawn facing Day 88 — add
    `spawn_facing` to older stair/door arrivals as they're touched): frame seated/low NPCs a touch lower
-   (Hesk, Aldous on the bench); a framed shot for two-NPC scenes (Hild and the Provost) — today it frames whoever was
-   talked to; in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
+   (Hesk, Aldous on the bench); (the two-speaker shot: Day 94, `Player.frame_also`); in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
 
 ## Milestone 2 — Alpha (Act II begins)
 - [x] [C] **The crossing** — landed Day 17 (see Done).
@@ -909,7 +910,7 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 90 (the Choir at the Spire; Isolde Vane). Last polish: Day 88 (pass thirteen); **pass fourteen next (Day 91)**.
+- Last content session: Day 93 (what she was to you). Last polish: Day 94 (pass fifteen); **pass sixteen due by ~Day 102**.
 - Three Garrows (Wenna the Wrackholm lane-warden, Sister Hild, Ness of the Unmoored), probably by accident: decide whether
   Garrow is just a common Tidewright name, or a thread (Hild relit the cresset Ness kept doused).
 - Last polish/debt session: Day 80 (polish eleven: what's still owed on the act cards, the more-below cue, the Bend

@@ -2,6 +2,50 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-09 21:00 UTC — Day 94: polish pass fifteen (polish)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 (bpy 5.2.2 installing in the background; no Blender work needed).
+  Detached HEAD again; `main` reset to `origin/main` (Day 93's `780e652`). Baseline (675 tests + smoke + launch) was
+  green before any edit.
+- **Polish pass fifteen** (ROADMAP *Next up* #1; content ran Days 92-93):
+  - **The Cindermoor clock in one place** (candidate #2; the fourth time of day, morning, came on Day 87). The new
+    `data/clocks.json` holds the order once (morning, night, dusk, else `day`), and `StoryClock.now(clock, state)`
+    reads it. The three outdoor Cindermoor regions name `"clock": "cindermoor"`, and their fog and light overrides say
+    `"time": "night"` instead of repeating the flags in order. `RegionMood` resolves the clock once, so the order of
+    the overrides no longer matters. The looks are unchanged: the conversion was checked key by key, and the test pins
+    each time's light. The validator wants one of `if` or `time` per override, a real non-default time on the region's
+    clock, each time once, and well-formed clocks.
+  - **NPCs fade in and out mid-visit** (candidate: "an NPC held for the box could walk/fade in"). An animated refresh
+    fades an NPC who comes or goes over 0.8 s. A leaver drops out of the `npcs` group, interaction and collision at
+    once, then frees itself. Building a region, loading, and a swap in place still cut. So the Provost no longer pops
+    onto the niche step when the box closes.
+  - **Two speakers in one shot** (candidate #9). When another NPC in the region speaks during a framed conversation
+    (within 8 m), `Player.frame_also` brings them into the shot: it looks at the middle of both, with a smaller
+    side swing, and the arm backs off by their spread. The camera eases there, so it never cuts mid-conversation.
+    The debug `--talk=provost+hild` frames the second as if they'd spoken.
+- **Tests:** `test_polish_fifteen.gd` (6): the clock's order; every Cindermoor outside region on it; the crown's light at
+  each time, reversed overrides included; the validator's five new errors; the fade (swap in place untouched, halfway
+  in and out, freed, no fade unanimated); the two-speaker shot (no double-framing, nobody from across the region,
+  eased, backed off, both well inside the view, forgotten after). 681 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-09-pm-two-speakers.png` (`--scenario=what_she_was --talk=provost+hild`: the shot
+widened from the Provost to take in the second figure by the Spire).
+
+**Decisions**
+- **A clock is data, not a condition kind.** A `clock:` term in `Conditions` would have had to teach `joint_witness`
+  about clocks. Dialogue that cares about the time still reads the flags, which name story events anyway. The
+  clock only drives region looks, which is where the ordering went wrong-prone.
+- **Fade, not walk.** A real walk between placements needs paths; a fade reads as the fog taking or giving someone
+  back, which fits Cindermoor. A move between two spots crossfades.
+- **The second speaker joins; nobody leaves the shot.** Swinging back and forth between speakers would be busier than
+  holding a wider two-shot; the framed list clears when the box closes.
+- Left for the Vulkan pass (need a real screen): the last landing's darkness, Oriel's robe/white read.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **step 9, the lantern room** (content; the room and the Choir first). Fold in a step-6
+   follow-up or two (1b). Fetch and reset `main` before trusting it.
+
 ## 2026-11-09 09:00 UTC — Day 93: what she was to you (content)
 
 **Did**

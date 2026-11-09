@@ -181,6 +181,8 @@ Every record lives in its own file whose name equals its `id`.
 ```jsonc
 { "id", "name", "description",
   "water_level": -0.25,                         // optional water plane height
+  "clock": "cindermoor",                        // optional story clock (data/clocks.json, Day 94): overrides may
+                                                // then say "time": "night" instead of "if" — see "Cindermoor's story clock"
   "fog": {"density": 0.014, "color": "silverfog",
           "overrides": [{"if": condition, "density": 0.007, "color": "..."}]},  // first match wins
   "light": {"sun_color": "kindle", "sun_energy": 1.0, "sun_pitch": -42, "sun_yaw": -35,
@@ -216,12 +218,24 @@ Fog and conditional props, NPCs, pickups and objects (`if`) are re-evaluated **l
 whenever a flag or quest changes (`main.gd` → `Region.refresh_conditional()` +
 `RegionMood.fog()`; fog changes tween over 4 s). Exits are always present; their
 `requires` is checked on interaction.
+**Two speakers in one shot (Day 94):** when a line's speaker is another NPC in the region (the nearest actor with that
+id, within `Player.FRAME_JOIN_MAX` = 8 m of the Wakebearer) and the conversation is framed, `main._on_line_shown`
+calls `Player.frame_also(point)`. The shot then looks at the middle of everyone framed, swung `FRAME_GROUP_SIDE`
+(0.5 rad) off the line, with the arm `FRAME_GROUP_BACK` × their spread longer (≤ 2.2 m). The shown yaw, pivot and arm ease
+to the new target (`FRAME_RETARGET_SPEED`), so a second voice never cuts the camera. The framed list clears when the box
+closes. Debug: `--talk=provost+hild` frames the second as if they'd spoken.
+
 **NPC moves wait for the box (Day 91):** while a conversation is open, `main.gd` passes `hold_npc_moves`, and an NPC who
 would appear, vanish or move to another spot is left as it is (`Region.held_npc_moves` counts them); `dialogue_ui.closed`
 refreshes again and they come, go or move then. A swap **in place** (one placement going, one coming, within
 `Region.SWAP_IN_PLACE` = 1 m: another model or pose on the same spot, Corran without his cord) still happens at once.
 So a choice's `set` can move someone (the Provost up onto the niche step after the east stair door) without them
 popping up while the box is still narrating their walk.
+Since Day 94, a refresh that is animated (any mid-visit one; building a region or loading is not) **fades** an NPC who
+comes or goes instead of cutting: `NpcActor.fade_in()` starts the arrival at opacity 0, and `fade_out()` takes the leaver
+out of the `"npcs"` group, out of interaction and collision at once, then frees it after `NpcActor.FADE_SECONDS` (0.8 s).
+The fade sets `GeometryInstance3D.transparency` on the body's meshes and the label's alpha. A swap in place still cuts,
+so a model change mid-talk keeps working.
 **Inland regions (Day 21, `thornwold_woods`):** no `water_level`; the walkable floor is the
 `base` height and steep `land` banks (rects along every edge, falloff ≲ 2 m) bound it, so the
 reachable area never touches `ground.bounds`. With no water the colour rules treat `base` as
@@ -1401,7 +1415,11 @@ The fix is in the model: put the shadow-caster tight against what it shades.
 `#hex` (tonal mixes of palette colours, per GAME_DESIGN). The fen uses neutral whites (`#CBCCC9`) instead
 of `silverfog`, whose blue reads lavender over its water; `tests/test_fen_art.gd` keeps blue out of it.
 
-**Cindermoor's story clock (Day 86):** Cindermoor has no free-running day/night. Story flags move its clock, and each
-Cindermoor region carries `light.overrides` and `fog.overrides` for it, latest time first (first match wins):
-`cindermoor_chapter_sat` → night, `cindermoor_chapter_up` → dusk, else the base morning. A new time of day is a new flag
-plus an override at the head of all three regions' lists (`test_the_sitting.gd` checks they agree).
+**Cindermoor's story clock (Day 86; one place since Day 94):** Cindermoor has no free-running day/night. Story flags
+move its clock. The order lives once, in `data/clocks.json` (`StoryClock`): `cindermoor_morning` → morning,
+`cindermoor_chapter_sat` → night, `cindermoor_chapter_up` → dusk, else the default `day` (the region's base values).
+Latest time first; the first that holds is the time. A region names its clock (`"clock": "cindermoor"`) and gives its
+`fog`/`light` overrides a `"time"` instead of an `"if"`; `RegionMood` resolves the clock once, and the order of the
+overrides no longer matters. The validator wants exactly one of `if`/`time` per override, a known non-default time
+on the region's clock, each time once per block, and well-formed clocks. A new time of day is a new flag, a line in
+`clocks.json`, and an override per region (`test_polish_fifteen.gd`, `test_the_sitting.gd`).
