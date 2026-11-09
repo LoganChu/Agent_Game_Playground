@@ -38,6 +38,15 @@ const DIALOGUE_SIDE := 0.8
 const DIALOGUE_PIVOT_SHARE := 0.4
 const DIALOGUE_PIVOT_MAX := 1.2
 const DIALOGUE_EASE_SECONDS := 0.7
+## Day 94: a second NPC who speaks in the conversation (the Provost with Hild) joins the shot if they stand within
+## FRAME_JOIN_MAX of the Wakebearer. The camera looks at the middle of everyone framed, swung FRAME_GROUP_SIDE off
+## the line, and backs off by FRAME_GROUP_BACK of their spread (at most FRAME_GROUP_BACK_MAX); it eases there at
+## FRAME_RETARGET_SPEED (1/s) rather than cutting.
+const FRAME_JOIN_MAX := 8.0
+const FRAME_GROUP_SIDE := 0.5
+const FRAME_GROUP_BACK := 0.6
+const FRAME_GROUP_BACK_MAX := 2.2
+const FRAME_RETARGET_SPEED := 3.0
 
 var focus: Interactable = null
 
@@ -63,6 +72,12 @@ var _framing := 0.0
 var _framing_on := false
 var _frame_yaw := 0.0
 var _frame_pivot := Vector3.ZERO
+var _frame_distance := DIALOGUE_DISTANCE
+## Where everyone framed stands (world space), and the framing actually shown, easing to the targets above.
+var _framed: Array[Vector3] = []
+var _shown_yaw := 0.0
+var _shown_pivot := Vector3.ZERO
+var _shown_distance := DIALOGUE_DISTANCE
 ## The model's meshes and their current fade (1 = opaque), for the close-camera fade.
 var _body_meshes: Array[GeometryInstance3D] = []
 var _body_opacity := 1.0
@@ -193,15 +208,60 @@ func frame_towards(offset: Vector3) -> void:
 		return
 	_frame_yaw = dialogue_yaw(view_yaw(), to)
 	_frame_pivot = (to * DIALOGUE_PIVOT_SHARE).limit_length(DIALOGUE_PIVOT_MAX)
+	_frame_distance = DIALOGUE_DISTANCE
+	_framed = [_here() + to]
+	if _framing <= 0.0:
+		_shown_yaw = _frame_yaw
+		_shown_pivot = _frame_pivot
+		_shown_distance = _frame_distance
 	_framing_on = true
 
 
+## Brings someone else standing at `point` (world space) into the conversation's shot: a second speaker. Returns
+## whether the shot changed (not framing, already framed, or too far away: no).
+func frame_also(point: Vector3) -> bool:
+	if not _framing_on or _framed.is_empty():
+		return false
+	for framed: Vector3 in _framed:
+		if Vector2(framed.x - point.x, framed.z - point.z).length() < 0.5:
+			return false
+	var here := _here()
+	if Vector2(point.x - here.x, point.z - here.z).length() > FRAME_JOIN_MAX:
+		return false
+	_framed.append(point)
+	var centre := Vector3.ZERO
+	for framed: Vector3 in _framed:
+		centre += framed
+	centre /= _framed.size()
+	var spread := 0.0
+	for a: Vector3 in _framed:
+		for b: Vector3 in _framed:
+			spread = maxf(spread, Vector2(a.x - b.x, a.z - b.z).length())
+	var to := Vector3(centre.x - here.x, 0.0, centre.z - here.z)
+	if to.length() < 0.3:
+		to = Vector3(sin(_frame_yaw + PI), 0.0, cos(_frame_yaw + PI)) * 0.3
+	_frame_yaw = dialogue_yaw(_shown_yaw, to, FRAME_GROUP_SIDE)
+	_frame_pivot = (to * DIALOGUE_PIVOT_SHARE).limit_length(DIALOGUE_PIVOT_MAX)
+	_frame_distance = DIALOGUE_DISTANCE + minf(spread * FRAME_GROUP_BACK, FRAME_GROUP_BACK_MAX)
+	return true
+
+
+## Where the Wakebearer stands (world space; the local position outside the tree, for tests).
+func _here() -> Vector3:
+	return global_position if is_inside_tree() else position
+
+
+## How many people the conversation's shot frames (0 when not framing; tests).
+func framed_count() -> int:
+	return _framed.size() if _framing_on else 0
+
+
 ## The view yaw that frames someone `to` away (horizontal): looking along the line from the
-## Wakebearer to them, swung DIALOGUE_SIDE to whichever side is nearer the `current` yaw.
-static func dialogue_yaw(current: float, to: Vector3) -> float:
+## Wakebearer to them, swung `side` (DIALOGUE_SIDE) to whichever side is nearer the `current` yaw.
+static func dialogue_yaw(current: float, to: Vector3, side: float = DIALOGUE_SIDE) -> float:
 	var behind := atan2(-to.x, -to.z)
-	var left := wrapf(behind + DIALOGUE_SIDE, -PI, PI)
-	var right := wrapf(behind - DIALOGUE_SIDE, -PI, PI)
+	var left := wrapf(behind + side, -PI, PI)
+	var right := wrapf(behind - side, -PI, PI)
 	return left if absf(angle_difference(current, left)) <= absf(angle_difference(current, right)) else right
 
 
@@ -210,14 +270,20 @@ static func dialogue_yaw(current: float, to: Vector3) -> float:
 func _update_framing(delta: float) -> void:
 	if _framing_on and not GameState.input_locked and _framing > 0.0:
 		_framing_on = false
+		_framed.clear()
 	var target := 1.0 if _framing_on else 0.0
 	_framing = move_toward(_framing, target, delta / DIALOGUE_EASE_SECONDS)
+	# A second speaker joining moves the shot: ease there.
+	var k := 1.0 - exp(-FRAME_RETARGET_SPEED * delta)
+	_shown_yaw = lerp_angle(_shown_yaw, _frame_yaw, k)
+	_shown_pivot = _shown_pivot.lerp(_frame_pivot, k)
+	_shown_distance = lerpf(_shown_distance, _frame_distance, k)
 	var w := smoothstep(0.0, 1.0, _framing)
-	_camera_pitch.rotation.y = angle_difference(_camera_yaw.rotation.y, _frame_yaw) * w
+	_camera_pitch.rotation.y = angle_difference(_camera_yaw.rotation.y, _shown_yaw) * w
 	_camera_pitch.rotation.x = lerpf(_pitch, deg_to_rad(DIALOGUE_PITCH), w)
-	_camera_yaw.position = CAMERA_PIVOT + _frame_pivot * w
+	_camera_yaw.position = CAMERA_PIVOT + _shown_pivot * w
 	if _camera_arm:
-		_camera_arm.spring_length = lerpf(CAMERA_DISTANCE, DIALOGUE_DISTANCE, w)
+		_camera_arm.spring_length = lerpf(CAMERA_DISTANCE, _shown_distance, w)
 
 
 ## How far the camera currently sits behind the pivot (for tests).

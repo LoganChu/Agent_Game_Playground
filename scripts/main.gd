@@ -16,6 +16,7 @@ extends Node3D
 ##   --act-end=<id>        show that act's end card for the current state (debug/screenshots)
 ##   --pause-menu[=save|load|chapters|settings|controls]  open the pause menu (on that page) after loading (screenshots)
 ##   --talk=<npc_id>       walk up to that NPC and talk, as [E] would (conversation framing; screenshots)
+##   --talk=<a>+<b>        ...and frame <b> too, as when <b> speaks in the conversation (the two-NPC shot)
 ##   --scenario=<id>       start at a story checkpoint from data/scenarios.json (see README);
 ##                         --scenario=list prints them and quits
 
@@ -69,6 +70,7 @@ func _ready() -> void:
 	dialogue_ui.closed.connect(_check_act_end)
 	dialogue_ui.closed.connect(_on_dialogue_closed)
 	dialogue_ui.line_shown.connect(audio.speak)
+	dialogue_ui.line_shown.connect(_on_line_shown)
 	dialogue_ui.runner.effect_applied.connect(audio.on_dialogue_effect)
 	player = Player.new()
 	add_child(player)
@@ -229,7 +231,9 @@ func _open_journal(which: String) -> void:
 
 ## Debug: walks the Wakebearer up to an NPC (1.6 m off them, on the first side with ground at
 ## their level — in front first) and talks, as [E] would — the conversation framing included (Day 73).
-func _talk_to(npc_id: String) -> void:
+func _talk_to(npc_ids: String) -> void:
+	var npc_id := npc_ids.get_slice("+", 0)
+	var also := npc_ids.get_slice("+", 1) if npc_ids.contains("+") else ""
 	await _read_through_arrival()
 	var player := get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP) as Player
 	for node in get_tree().get_nodes_in_group("npcs"):
@@ -252,6 +256,8 @@ func _talk_to(npc_id: String) -> void:
 			for _i in 4:
 				await get_tree().physics_frame
 			player.talk_to(npc)
+			if not also.is_empty():
+				_on_line_shown(also, "")
 			return
 	push_warning("--talk: no NPC '%s' here with ground beside them" % npc_id)
 
@@ -368,6 +374,22 @@ func _on_world_changed() -> void:
 	# An NPC who comes, goes or moves waits for the box to close (see Region.refresh_conditional).
 	region.refresh_conditional(true, dialogue_ui.is_open())
 	_apply_region_mood(true)
+
+
+## A second NPC speaking in the conversation joins the camera's shot (Day 94: Hild and the Provost).
+func _on_line_shown(speaker: String, _text: String) -> void:
+	if player.framed_count() == 0:
+		return
+	var nearest: NpcActor = null
+	for node in get_tree().get_nodes_in_group("npcs"):
+		var actor := node as NpcActor
+		if actor.npc_id != speaker or actor.is_queued_for_deletion():
+			continue
+		if nearest == null or actor.global_position.distance_to(player.global_position) \
+				< nearest.global_position.distance_to(player.global_position):
+			nearest = actor
+	if nearest != null:
+		player.frame_also(nearest.global_position)
 
 
 ## NPC moves held while the box was open happen now it has closed.
