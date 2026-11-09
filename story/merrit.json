@@ -283,6 +283,16 @@
         "if": "flag:cindermoor_stair_down"
       },
       {
+        "say": "narrator",
+        "text": "He looks along the boathouse to the eighth slip, where somebody's sitting in the boat with the oars across her knees.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "merrit",
+        "text": "Eighth. Her word. ...Come down, then. Not gone out. Not yet. That's right. You don't go out till it's light.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
         "goto": "hub"
       }
     ]

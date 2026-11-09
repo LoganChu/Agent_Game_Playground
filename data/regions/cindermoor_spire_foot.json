@@ -809,7 +809,8 @@
         "flag:cindermoor_chapter_came",
         "flag:cindermoor_chapter_up",
         "flag:cindermoor_morning",
-        "flag:cindermoor_eighth_sought"
+        "flag:cindermoor_eighth_sought",
+        "!flag:cindermoor_oriel_choice=boat"
       ],
       "note": "Back from the path with the Long Book, counting the rounds."
     },
@@ -868,7 +869,8 @@
       },
       "if": [
         "flag:cindermoor_eighth_sought",
-        "!flag:cindermoor_eighth_told=told"
+        "!flag:cindermoor_eighth_told=told",
+        "flag:cindermoor_oriel_choice="
       ],
       "note": "Day 89: the woman on the ring path, walking the worn path round the Spire's foot (paint path r 7.4) anticlockwise seen from above: starting on the south side, past the east stair door, and on round past the niche."
     },
@@ -884,9 +886,38 @@
       "rotation_y": -115,
       "if": [
         "flag:cindermoor_eighth_sought",
-        "flag:cindermoor_eighth_told=told"
+        "flag:cindermoor_eighth_told=told",
+        "flag:cindermoor_oriel_choice="
       ],
       "note": "Day 89: told, she sat down on an edge-stone beside the path, facing the east stair door."
+    },
+    {
+      "npc": "oriel",
+      "position": [
+        7.0,
+        0,
+        -2.9
+      ],
+      "rotation_y": -160,
+      "if": [
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_oriel_choice=climb"
+      ],
+      "note": "Day 93: asked up, she waits by the east stair door with her hand not quite on the frame."
+    },
+    {
+      "npc": "oriel",
+      "position": [
+        11.6,
+        0,
+        -9.4
+      ],
+      "rotation_y": -90,
+      "if": [
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_oriel_choice=own"
+      ],
+      "note": "Day 93: not chosen for, she stands at the foot with the chapter, a pace behind the Provost, hands folded the same way."
     }
   ]
 }

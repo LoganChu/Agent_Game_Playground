@@ -448,6 +448,10 @@
     ],
     "cindermoor": [
       {
+        "if": "flag:cindermoor_oriel_choice=boat",
+        "goto": "rollers"
+      },
+      {
         "if": "flag:cindermoor_chapter_up",
         "goto": "cindermoor_foot"
       },
@@ -552,6 +556,46 @@
         "say": "hild",
         "text": "She struck it straight, so you can read under. That's the rule. I never saw it kept so well.",
         "if": "flag:cindermoor_choir_answered=written"
+      },
+      {
+        "say": "hild",
+        "text": "You came down with your hood back. Twelve years I've rowed Keepers in hoods, and never once looked under one. I'd like to have seen yours going up.",
+        "if": "flag:cindermoor_stair_down"
+      },
+      {
+        "say": "hild",
+        "text": "She's waiting at the door for you. The High Keeper, waiting on somebody. I'd not have believed it from anybody's mouth but my own eyes.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "hild",
+        "text": "She's stood herself behind the Provost like a novice at her first sitting. The Provost moved over. I've never seen her move over for anybody.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "end": true
+      }
+    ],
+    "rollers": [
+      {
+        "say": "narrator",
+        "text": "Hild kneels at the foot of the eighth slip with a tin of tallow, working it into the rollers with her thumb, one at a time, all the way down the rails to the weed."
+      },
+      {
+        "say": "hild",
+        "text": "I said I would. In case. Turns out there was a case."
+      },
+      {
+        "say": "hild",
+        "text": "She asked me how you get a boat down the rails. The High Keeper. Asked me. I showed her the chocks, and she said 'thank you' the way you'd say it to somebody you'd only just noticed was there."
+      },
+      {
+        "say": "hild",
+        "text": "Nobody rowed the High Keeper but the High Keeper. She'll row herself, then. I'll only push."
+      },
+      {
+        "say": "hild",
+        "text": "Merrit's been down twice to look. He doesn't say anything. He counts the rollers."
       },
       {
         "end": true

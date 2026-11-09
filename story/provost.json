@@ -1572,6 +1572,21 @@
         "if": "flag:cindermoor_seventh_answered=left"
       },
       {
+        "say": "provost",
+        "text": "She's going up behind you. The High Keeper, up the east stair, and nobody to say she mayn't. I'm not sure there's anybody left who could.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "provost",
+        "text": "She's gone down to the eighth boat, and Hild with her. I've written it in: 'Gone down to the water.' Not 'left'. There's a difference, and the Long Book's going to learn it.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "provost",
+        "text": "She's stood behind me an hour and not said a word. It's the best hour I've had of her in forty years.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
         "end": true
       }
     ],

@@ -1,0 +1,18 @@
+{
+  "id": "what_she_was",
+  "title": "What She Was to You",
+  "future": true,
+  "giver": "oriel",
+  "region": "cindermoor_spire_foot",
+  "description": "Oriel heard the count come down the east stair from the ring path. She remembers somebody asking to carry a coal, once. She doesn't know it was the Wakebearer.",
+  "stages": [
+    {
+      "id": "heard",
+      "text": "Down from the last landing, the woman by the Spire's foot heard the Wakebearer counting and didn't know whose count it was. The novice she gave the last coal to is standing in front of her."
+    },
+    {
+      "id": "told",
+      "text": "Oriel Sayre knows: the novice on the last landing was the Wakebearer, and they came back up the hill with what she gave them. She asked what they wanted of her, plain, and stopped walking for good."
+    }
+  ]
+}

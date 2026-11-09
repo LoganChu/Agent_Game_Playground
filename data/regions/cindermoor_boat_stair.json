@@ -648,6 +648,42 @@
         "!flag:cindermoor_chapter_up"
       ],
       "note": "By the oil barrels with her box of forty candles."
+    },
+    {
+      "npc": "oriel",
+      "model": "res://assets/models/characters/oriel_seated.glb",
+      "idle": "sit",
+      "position": [
+        -3.4,
+        0,
+        3.4
+      ],
+      "rotation_y": -100,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_oriel_choice=boat"
+      ],
+      "note": "Day 93: gone down to her boat. Seated at the eighth slip's mouth (the east end of the boathouse), facing into it, getting the weight of the oars."
+    },
+    {
+      "npc": "hild",
+      "position": [
+        -3.0,
+        0,
+        5.2
+      ],
+      "rotation_y": -150,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_oriel_choice=boat"
+      ],
+      "note": "Day 93: she said she'd grease the eighth's rollers, in case; there was a case."
     }
   ],
   "objects": [

@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "!flag:cindermoor_oriel_choice=",
+        "goto": "after_knows"
+      },
+      {
         "if": "flag:cindermoor_eighth_told=told",
         "goto": "after_told"
       },
@@ -361,7 +365,21 @@
       {
         "say": "oriel",
         "text": "Somebody came down that stair counting. I heard it from here. I used to know a sound like that.",
-        "if": "flag:cindermoor_stair_down"
+        "if": "flag:cindermoor_stair_down",
+        "quest_start": "what_she_was"
+      },
+      {
+        "if": "flag:cindermoor_stair_down",
+        "choice": [
+          {
+            "text": "It was me you gave it to. On the last landing.",
+            "goto": "novice"
+          },
+          {
+            "text": "Not today. Let her sit.",
+            "end": true
+          }
+        ]
       },
       {
         "end": true
@@ -389,7 +407,21 @@
       {
         "say": "oriel",
         "text": "You came down. I heard you counting. ...I said I'd want it, then. I'm not sure I'm brave enough. Not today. Ask me again.",
-        "if": "flag:cindermoor_stair_down"
+        "if": "flag:cindermoor_stair_down",
+        "quest_start": "what_she_was"
+      },
+      {
+        "if": "flag:cindermoor_stair_down",
+        "choice": [
+          {
+            "text": "You said to ask you again when I came down. I'm asking.",
+            "goto": "asked_again"
+          },
+          {
+            "text": "Not today. Let her walk.",
+            "end": true
+          }
+        ]
       },
       {
         "end": true
@@ -417,7 +449,355 @@
       {
         "say": "oriel",
         "text": "Somebody came down that stair counting. I walked faster. I don't know why.",
-        "if": "flag:cindermoor_stair_down"
+        "if": "flag:cindermoor_stair_down",
+        "quest_start": "what_she_was"
+      },
+      {
+        "if": "flag:cindermoor_stair_down",
+        "choice": [
+          {
+            "text": "Somebody asked to carry one of those, you said. You gave it them.",
+            "goto": "kept_told"
+          },
+          {
+            "text": "Not today. Let her walk.",
+            "end": true
+          }
+        ]
+      },
+      {
+        "end": true
+      }
+    ],
+    "asked_again": [
+      {
+        "say": "oriel",
+        "text": "So you are."
+      },
+      {
+        "say": "narrator",
+        "text": "She stops walking. Not for you, this time. She stops the way a clock does when nobody's wound it."
+      },
+      {
+        "say": "oriel",
+        "text": "Go on, then. Quickly, before I'm brave about it."
+      },
+      {
+        "say": "player",
+        "text": "Your name is Oriel Sayre. You were the High Keeper. You read the Spire's book to its first page, and you starved the Firstflame on purpose so everything it ate would come home. You wrote it down, and signed it."
+      },
+      {
+        "say": "oriel",
+        "text": "Sayre."
+      },
+      {
+        "say": "narrator",
+        "text": "She tries it like a key in a door. It turns, and she puts a hand down on the nearest edge-stone, and sits, because her legs have decided to."
+      },
+      {
+        "say": "oriel",
+        "text": "Heavy. You said it would be. You didn't say it would fit."
+      },
+      {
+        "goto": "novice"
+      }
+    ],
+    "kept_told": [
+      {
+        "say": "oriel",
+        "text": "Did I? Then I had one to give."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks up the Spire, all the way, to the dark of the lantern room under the cap; and then at the ember in your hand; and then she stops walking."
+      },
+      {
+        "say": "oriel",
+        "text": "Nobody has a coal like that but whoever keeps the flame. So that's who I was. I wondered why the door kept drawing."
+      },
+      {
+        "say": "oriel",
+        "text": "Don't tell me my name yet. Tell me who I gave it to. I'd like them in that order. I think I owe it that order."
+      },
+      {
+        "goto": "novice"
+      }
+    ],
+    "novice": [
+      {
+        "say": "player",
+        "text": "On the last landing, the night you put it out, a novice came up past the third notch because they'd heard somebody go up alone. They asked you for the last coal. It was me."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at the ember first. Then at your hood, pushed back. Then at your face, a long time, the way the Provost looked at the foot of the stair; except that she's looking for something, and the Provost wasn't."
+      },
+      {
+        "say": "oriel",
+        "text": "I pinned that hood. So nobody would see your face on that stair tonight. ...I didn't think I'd be one of the nobody."
+      },
+      {
+        "say": "oriel",
+        "text": "You were so young. You said 'I can count' as if that were a thing to bring to a fire."
+      },
+      {
+        "say": "player",
+        "text": "It was. It's all I got to the bottom with."
+      },
+      {
+        "say": "oriel",
+        "text": "And then I went down to the niche with Aldous's knife and took you off the roll. I remember the sound of it. I remember that and not your face."
+      },
+      {
+        "say": "oriel",
+        "text": "You've written it back. I saw Agathe stop at the niche and read something and not say it aloud. That'll be you.",
+        "if": "flag:cindermoor_seventh_answered=written"
+      },
+      {
+        "say": "oriel",
+        "text": "You've struck it. Good. Struck can still be read. Scraped can't. I knew that when I did it.",
+        "if": "flag:cindermoor_seventh_answered=struck"
+      },
+      {
+        "say": "oriel",
+        "text": "You left it scraped. ...Thank you. It's the one thing I did that night I'm sure of.",
+        "if": "flag:cindermoor_seventh_answered=left"
+      },
+      {
+        "say": "oriel",
+        "text": "I gave the last of the Spire to a child and told them to forget me. And they came back up the hill with it, and stood in my way."
+      },
+      {
+        "say": "oriel",
+        "text": "Nobody ever gave me back anything. I don't know where you put it."
+      },
+      {
+        "say": "player",
+        "text": "Oriel Sayre. You were the High Keeper.",
+        "if": "flag:cindermoor_eighth_told=kept"
+      },
+      {
+        "say": "oriel",
+        "text": "...Oriel. Yes. That's the right weight. I'd have known it was mine if I'd found it in the road.",
+        "if": "flag:cindermoor_eighth_told=kept"
+      },
+      {
+        "say": "narrator",
+        "text": "Down at the niche step the Provost has turned round. She isn't pretending not to watch any more."
+      },
+      {
+        "say": "oriel",
+        "text": "Agathe. It was one of yours."
+      },
+      {
+        "say": "provost",
+        "text": "I know. They told me at the foot of the stair.",
+        "if": "flag:cindermoor_provost_knows"
+      },
+      {
+        "say": "provost",
+        "text": "...I see that now. I saw the face and didn't know it.",
+        "if": "!flag:cindermoor_provost_knows"
+      },
+      {
+        "say": "oriel",
+        "text": "You're going up. The lantern room. I can see it on you, the way the ember leans. It used to lean like that in my hands, at the top of the year."
+      },
+      {
+        "say": "oriel",
+        "text": "What do you want of me? Say it plain. I've had enough of careful."
+      },
+      {
+        "choice": [
+          {
+            "text": "Come up with me. You were the last one in that room.",
+            "set": {
+              "cindermoor_oriel_knows": true,
+              "cindermoor_oriel_choice": "climb"
+            },
+            "goto": "climb"
+          },
+          {
+            "text": "Your boat's still in the eighth slip. Merrit's kept her greased.",
+            "set": {
+              "cindermoor_oriel_knows": true,
+              "cindermoor_oriel_choice": "boat"
+            },
+            "goto": "boat_down"
+          },
+          {
+            "text": "Nothing. I'm not going to choose for you.",
+            "set": {
+              "cindermoor_oriel_knows": true,
+              "cindermoor_oriel_choice": "own"
+            },
+            "goto": "own"
+          }
+        ]
+      }
+    ],
+    "climb": [
+      {
+        "say": "oriel",
+        "text": "I said that was somebody else's stair."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at the door a long while."
+      },
+      {
+        "say": "oriel",
+        "text": "It is. It's yours. But I know where the lantern-room door sticks, and I know where the coal sat. I'll come up behind you and carry nothing and touch nothing."
+      },
+      {
+        "say": "oriel",
+        "text": "If they ask for it up there, the ember, I'd like to be in the room. Somebody should be who knows what it cost."
+      },
+      {
+        "say": "narrator",
+        "text": "She goes and stands by the east stair door, close enough to put her hand on the frame. She doesn't. Not yet.",
+        "quest_stage": [
+          "what_she_was",
+          "told"
+        ],
+        "quest_complete": "what_she_was"
+      },
+      {
+        "end": true
+      }
+    ],
+    "boat_down": [
+      {
+        "say": "oriel",
+        "text": "Has he. He would have."
+      },
+      {
+        "say": "oriel",
+        "text": "I'll not run in her. I've done running. Round and round."
+      },
+      {
+        "say": "oriel",
+        "text": "But somebody should see the Spire from the water, whatever you do up there. From the islands' side, where everybody else will be looking from. I'll go down and sit in her, and wait."
+      },
+      {
+        "say": "hild",
+        "text": "I'll take her down. I said I'd grease the rollers. In case.",
+        "if": "flag:cindermoor_morning"
+      },
+      {
+        "say": "oriel",
+        "text": "Thank you. I never did learn how they go. Somebody always did it for me. That was the trouble with everything."
+      },
+      {
+        "say": "narrator",
+        "text": "She goes off down the road towards the long steps, not round. It's the first time in a season her feet have gone anywhere but round.",
+        "quest_stage": [
+          "what_she_was",
+          "told"
+        ],
+        "quest_complete": "what_she_was"
+      },
+      {
+        "end": true
+      }
+    ],
+    "own": [
+      {
+        "say": "narrator",
+        "text": "She hears her own line come back to her. You can see it land."
+      },
+      {
+        "say": "oriel",
+        "text": "'I will not choose for them again.' ...Nobody's ever handed me that. I only ever gave it."
+      },
+      {
+        "say": "oriel",
+        "text": "Then I'll stand at the foot with the chapter, where I should have stood. The hand goes up. The chapter stays at the foot."
+      },
+      {
+        "say": "oriel",
+        "text": "Somebody ought to count you who knows how many landings there are. Agathe only learned it this week."
+      },
+      {
+        "say": "narrator",
+        "text": "She goes down to the niche step and stands a pace behind the Provost, her hands folded the same way. The Provost doesn't look round. She moves over.",
+        "quest_stage": [
+          "what_she_was",
+          "told"
+        ],
+        "quest_complete": "what_she_was"
+      },
+      {
+        "end": true
+      }
+    ],
+    "after_knows": [
+      {
+        "if": "flag:cindermoor_oriel_choice=boat",
+        "goto": "after_boat"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre stands by the east stair door, with her hand not quite on the frame.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "oriel",
+        "text": "When you're ready. Not before. I walked round the bottom of it a whole season; I can stand still at it a while.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "oriel",
+        "text": "It draws. It always drew. I used to think that was the wind.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre stands on the niche step a pace behind the Provost, her hands folded the same way.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "say": "oriel",
+        "text": "We don't talk. We don't need to. We've read the same book, and we've each of us signed something.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "say": "oriel",
+        "text": "Your name's on the roll beside me. I read it, and I don't say it. That's a Keeper's manners.",
+        "if": [
+          "flag:cindermoor_oriel_choice=own",
+          "flag:cindermoor_seventh_answered=written"
+        ]
+      },
+      {
+        "say": "oriel",
+        "text": "She's quieter. Isolde. Or I'm listening better.",
+        "if": "flag:cindermoor_choir_heard"
+      },
+      {
+        "say": "oriel",
+        "text": "Seven landings. Count them going up. It's the coming down that's hard, and you've done that."
+      },
+      {
+        "end": true
+      }
+    ],
+    "after_boat": [
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre sits on the eighth boat's thwart, up in her slip, with the oars across her knees, getting the weight of them."
+      },
+      {
+        "say": "oriel",
+        "text": "Hild says you lean back, not pull. Let the boat come to you. I'll have it by the time you're up."
+      },
+      {
+        "say": "oriel",
+        "text": "Merrit came and looked at me a long time and said 'Eighth' and went back to his bollard. I think that's the most anybody's said to me since I got here."
+      },
+      {
+        "say": "oriel",
+        "text": "Go on up. I'll be looking from the water, with everybody else."
       },
       {
         "end": true

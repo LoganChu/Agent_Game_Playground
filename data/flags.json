@@ -1172,6 +1172,22 @@
         "left"
       ],
       "future": true
+    },
+    "cindermoor_oriel_knows": {
+      "description": "Told Oriel Sayre the Wakebearer was the novice she gave the last coal to on the last landing (Day 93, What She Was to You). An asked Oriel takes her name then too; a kept one asks who she gave it to first, then her name. Her ring-path name gives way to 'Oriel Sayre'.",
+      "default": false,
+      "future": true
+    },
+    "cindermoor_oriel_choice": {
+      "description": "What the Wakebearer asked of Oriel once she knew them (Day 93): '' (not yet), 'climb' (come up to the lantern room: she waits at the east stair door, 'carry nothing and touch nothing'), 'boat' (her boat's in the eighth slip: she goes down to the Boat Stair to sit in it and see the Spire from the water; Hild greases the rollers) or 'own' (not choosing for her: she stands at the foot with the chapter, a pace behind the Provost). For the lantern room.",
+      "default": "",
+      "values": [
+        "",
+        "climb",
+        "boat",
+        "own"
+      ],
+      "future": true
     }
   }
 }
