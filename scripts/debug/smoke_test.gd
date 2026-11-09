@@ -522,6 +522,23 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(world.get_flag("cindermoor_seventh_answered") == "written" and world.quest_state("the_seventh_name") == WorldState.QUEST_DONE
 			and world.quest_state("the_last_landing") == WorldState.QUEST_DONE, "the seventh name written back on the roll")
 	print("Smoke: the east stair — the last landing, the seventh name written")
+	# Day 93: what she was to you — Oriel told it was the Wakebearer she gave the coal to; asked up the stair.
+	var seated := _npc("oriel")
+	_check(seated != null, "Oriel by the path after the stair")
+	if seated == null:
+		return
+	seated.interact()
+	_check(_choose(ui, "It was me you gave it to. On the last landing."), "telling Oriel")
+	_check(_choose(ui, "Come up with me. You were the last one in that room."), "asking her up")
+	_finish_dialogue(ui, "oriel (what she was)")
+	for i in 2:
+		await get_tree().process_frame
+	_check(world.get_flag("cindermoor_oriel_choice") == "climb" and world.quest_state("what_she_was") == WorldState.QUEST_DONE,
+			"What She Was to You done")
+	var waiting := _npc("oriel")
+	_check(waiting != null and Vector2(waiting.position.x, waiting.position.z).distance_to(Vector2(7.0, -2.9)) < 1.0,
+			"she waits by the east stair door (%s)" % [waiting.position if waiting != null else Vector3.ZERO])
+	print("Smoke: what she was to you — Oriel told, and waiting at the door")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the

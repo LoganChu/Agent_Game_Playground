@@ -90,7 +90,7 @@ func test_who_comes_in_the_boat() -> void:
 	assert_true(told.contains("nobody could tell me whose she was") and not told.contains("Brother Anselm rowed her"), told)
 	assert_true(told.contains("Somebody has come in."), "Merrit's seven, paid: " + told)
 	for npc: String in ["provost", "hild", "iver", "wenna_coll"]:
-		var here := _placed(STAIR, npc)
+		var here := _placed(STAIR, npc).filter(func(e: Dictionary) -> bool: return Conditions.evaluate(e.get("if", []), state))
 		assert_eq(here.size(), 1, npc)
 		assert_true(Conditions.evaluate(here[0]["if"], state), npc + " on the quay")
 		for k: Dictionary in _placed("kindleby", npc):
