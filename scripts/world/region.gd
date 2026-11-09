@@ -77,6 +77,7 @@ func build(id: String) -> void:
 ## left as it is until the next refresh without it: nobody vanishes mid-sentence or pops up on a step while the
 ## box is still talking about them walking there. A swap in place (the same NPC, another model or pose on
 ## the same spot, e.g. Corran without his cord) still happens at once.
+## When `animate`, an NPC who comes or goes (not a swap in place) fades in or out (Day 94, NpcActor.fade_in/out).
 func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> void:
 	var world := GameState.world
 	_refresh_greying(world, animate)
@@ -96,8 +97,10 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 		if want != (node != null):
 			changes.append({"entry": entry, "want": want})
 	held_npc_moves = 0
+	# NPCs who come, go or move (not a swap in place): held while the box is open, faded otherwise.
+	var moving := _held_npcs(changes)
 	if hold_npc_moves:
-		var held := _held_npcs(changes)
+		var held := moving
 		held_npc_moves = held.size()
 		changes = changes.filter(func(c: Dictionary) -> bool:
 			return not (c["entry"]["kind"] == "npc" and held.has(str(c["entry"]["data"].get("npc", "")))))
@@ -111,16 +114,22 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 			builds.append(entry)
 			continue
 		var node: Node3D = entry["node"]
-		if node is NpcActor:
-			left[(node as NpcActor).npc_id] = node
-		node.queue_free()
 		entry["node"] = null
+		if node is NpcActor:
+			var actor := node as NpcActor
+			if animate and moving.has(actor.npc_id):
+				actor.fade_out()
+				continue
+			left[actor.npc_id] = node
+		node.queue_free()
 	for entry: Dictionary in builds:
 		var node := _build(entry["kind"], entry["data"])
 		if node:
 			var before: NpcActor = left.get(str(entry["data"].get("npc", "")))
 			if node is NpcActor and before != null:
 				(node as NpcActor).take_over(before)
+			elif node is NpcActor and animate and moving.has((node as NpcActor).npc_id):
+				(node as NpcActor).fade_in()
 			add_child(node)
 		entry["node"] = node
 

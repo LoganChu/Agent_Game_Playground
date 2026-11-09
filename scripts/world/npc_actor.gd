@@ -14,11 +14,15 @@ extends Interactable
 ## the NPC round and round a circle on the ground from where it was placed (the woman on Cindermoor's ring path);
 ## it stops while talking, while a modal holds input, and while the Wakebearer stands in its way. How far round it has
 ## got is kept in the world state (`WorldState.walkers`, saved), so a reload or a return finds it there.
+## Day 94: an NPC who comes or goes mid-visit (Region.refresh_conditional, animated) fades in or out over
+## FADE_SECONDS instead of cutting. One leaving is out of the "npcs" group and can't be talked to from the start.
 
 ## How quickly the NPC turns towards the player and back (1/s, exponential ease).
 const TURN_SPEED := 6.0
 ## A walking NPC holds while the Wakebearer is this close (m), so it never walks into them.
 const CIRCUIT_HOLD := 1.6
+## How long an NPC takes to fade in on arriving, or out on leaving, mid-visit (s).
+const FADE_SECONDS := 0.8
 
 var npc_id := ""
 var npc_data: Dictionary = {}
@@ -40,6 +44,10 @@ var work_sounds_played := 0
 var _circuit: Dictionary = {}
 var _circuit_angle := 0.0
 var _ground := Callable()
+## Fade: current opacity (1 = solid), where it's heading, and whether the actor frees itself at 0.
+var _opacity := 1.0
+var _opacity_target := 1.0
+var _leaving := false
 
 
 func setup(id: String, data: Dictionary) -> void:
@@ -70,6 +78,52 @@ func interact() -> void:
 	if player:
 		face(player.global_position)
 	GameState.dialogue_requested.emit(str(npc_data.get("dialogue", "")), npc_id)
+
+
+## Starts invisible and fades in (an NPC arriving mid-visit). Call before it enters the tree or after.
+func fade_in() -> void:
+	_opacity = 0.0
+	_opacity_target = 1.0
+	_apply_opacity()
+
+
+## Fades out and frees itself (an NPC leaving mid-visit). It leaves the "npcs" group and stops being something to
+## talk to or bump into at once, so nothing finds it while it fades.
+func fade_out() -> void:
+	_leaving = true
+	_opacity_target = 0.0
+	remove_from_group("npcs")
+	collision_layer = 0
+	prompt = ""
+	if _body is CollisionObject3D:
+		(_body as CollisionObject3D).collision_layer = 0
+	if _label:
+		_label.visible = false
+
+
+## True while fading out (tests).
+func is_leaving() -> bool:
+	return _leaving
+
+
+## The NPC's current opacity (1 = solid; tests).
+func opacity() -> float:
+	return _opacity
+
+
+func can_interact() -> bool:
+	return not _leaving
+
+
+func _apply_opacity() -> void:
+	if _body == null:
+		return
+	for node in _body.find_children("*", "GeometryInstance3D", true, false):
+		var mesh := node as GeometryInstance3D
+		mesh.transparency = 1.0 - _opacity
+		mesh.visible = _opacity > 0.0
+	if _label:
+		_label.modulate.a = _opacity
 
 
 ## Starts turning to face `point` (world space) for the conversation about to open.
@@ -186,6 +240,12 @@ func _place_on_circuit() -> void:
 
 
 func _process(delta: float) -> void:
+	if _opacity != _opacity_target:
+		_opacity = move_toward(_opacity, _opacity_target, delta / FADE_SECONDS)
+		_apply_opacity()
+	if _leaving and _opacity <= 0.0:
+		queue_free()
+		return
 	step_circuit(delta)
 	# The dialogue opens (and locks input) in the same frame as interact(); once it has
 	# closed again, turn back to the placed facing.
@@ -197,7 +257,7 @@ func _process(delta: float) -> void:
 	# Every other nameplate hides too while a modal holds input (dialogue, menus, the act
 	# card): they showed through the card's shade.
 	if _label:
-		_label.visible = not _talking and not GameState.input_locked
+		_label.visible = not _talking and not GameState.input_locked and not _leaving
 	if _body == null:
 		return
 	var target := _face_yaw if _talking else 0.0
@@ -309,3 +369,5 @@ func _build_body() -> void:
 	label.outline_size = 8
 	label.modulate = PropFactory.color("bone")
 	add_child(label)
+	if _opacity < 1.0:
+		_apply_opacity()
