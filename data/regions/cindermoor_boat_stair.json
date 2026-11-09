@@ -1,5 +1,6 @@
 {
   "id": "cindermoor_boat_stair",
+  "clock": "cindermoor",
   "name": "Cindermoor — the Boat Stair",
   "description": "The Keepers' landing under Cindermoor's east cliff, where the lane in comes ashore: a quay of black dressed stone with a flight of steps into the water, an empty bow-lantern rack, the boathouse's eight slips cut into the cliff (seven empty), and the cinder road going up the moor into the thickest fog on the ring. The Hearthspire stands dark on the crown.",
   "water_level": -0.25,
@@ -8,15 +9,15 @@
     "color": "#9DA2A6",
     "overrides": [
       {
-        "if": "flag:cindermoor_morning",
+        "time": "morning",
         "color": "#9DA2A6"
       },
       {
-        "if": "flag:cindermoor_chapter_sat",
+        "time": "night",
         "color": "#6E7480"
       },
       {
-        "if": "flag:cindermoor_chapter_up",
+        "time": "dusk",
         "color": "#8C8F97"
       }
     ]
@@ -34,7 +35,7 @@
     "shadow": 0.35,
     "overrides": [
       {
-        "if": "flag:cindermoor_morning",
+        "time": "morning",
         "sun_color": "#C9C3B6",
         "sun_energy": 0.36,
         "sun_pitch": -16,
@@ -46,7 +47,7 @@
         "shadow": 0.3
       },
       {
-        "if": "flag:cindermoor_chapter_sat",
+        "time": "night",
         "sun_color": "#7E889B",
         "sun_energy": 0.2,
         "sun_pitch": -14,
@@ -58,7 +59,7 @@
         "shadow": 0.22
       },
       {
-        "if": "flag:cindermoor_chapter_up",
+        "time": "dusk",
         "sun_color": "#B4A598",
         "sun_energy": 0.32,
         "sun_pitch": -10,

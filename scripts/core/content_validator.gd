@@ -59,6 +59,7 @@ func validate() -> bool:
 	_validate_flags()
 	_validate_audio()
 	_validate_lanes()
+	_validate_clocks()
 	for id: String in db.items:
 		_validate_item(id, db.items[id])
 	for id: String in db.npcs:
@@ -792,11 +793,9 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_check_prop_figure(where, prop, model)
 		_ref_condition(where, prop.get("if"))
 	var fog: Dictionary = region.get("fog", {})
-	for override: Variant in fog.get("overrides", []):
-		if not override is Dictionary or not (override as Dictionary).has("if"):
-			_err(where, "fog override needs an 'if' condition")
-			continue
-		_ref_condition(where, override["if"])
+	if region.has("clock") and not StoryClock.has_clock(str(region["clock"])):
+		_err(where, "names unknown story clock '%s' (data/clocks.json)" % region["clock"])
+	for override: Variant in _mood_overrides(where, "fog", region):
 		if override.has("density") and not (override["density"] is float or override["density"] is int):
 			_err(where, "fog override density must be a number")
 		if override.has("color") and not _valid_color(str(override["color"])):
@@ -976,8 +975,66 @@ func _check_region_water(where: String, region: Dictionary) -> void:
 			_err(where, "water has unknown key '%s'" % key)
 
 
+## The well-formed overrides of a region's `fog` or `light` (`block`). Each has exactly one of an `if` condition or,
+## in a region with a story clock (Day 94), a `time` on that clock: not its default (that's the base values), and
+## each time at most once per block.
+func _mood_overrides(where: String, block: String, region: Dictionary) -> Array:
+	var out: Array = []
+	var clock := str(region.get("clock", ""))
+	var seen: Dictionary = {}
+	var base: Variant = region.get(block, {})
+	if not base is Dictionary:
+		return out
+	for override: Variant in (base as Dictionary).get("overrides", []):
+		if not override is Dictionary or (override as Dictionary).has("if") == (override as Dictionary).has("time"):
+			_err(where, "%s override needs an 'if' condition or a story-clock 'time' (one, not both)" % block)
+			continue
+		if override.has("if"):
+			_ref_condition(where, override["if"])
+		else:
+			var time := str(override["time"])
+			if clock.is_empty():
+				_err(where, "%s override names time '%s' but the region has no 'clock'" % [block, time])
+				continue
+			if StoryClock.has_clock(clock) and (time not in StoryClock.times(clock) or time == StoryClock.default_time(clock)):
+				_err(where, "%s override time '%s' is not one of clock '%s''s times (its default '%s' is the base)" \
+						% [block, time, clock, StoryClock.default_time(clock)])
+			if seen.has(time):
+				_err(where, "%s overrides name time '%s' twice" % [block, time])
+			seen[time] = true
+		out.append(override)
+	return out
+
+
+## data/clocks.json (StoryClock): each clock has a default time and a list of times, each with a unique id
+## (not the default) and a valid condition.
+func _validate_clocks() -> void:
+	var where := "data/clocks.json"
+	var clocks := StoryClock.clocks()
+	for clock_id: String in clocks:
+		if clock_id == "note":
+			continue
+		var clock: Dictionary = clocks[clock_id]
+		if str(clock.get("default", "")).is_empty():
+			_err(where, "clock '%s' needs a 'default' time" % clock_id)
+		var ids: Dictionary = {}
+		var times: Variant = clock.get("times", [])
+		if not times is Array or (times as Array).is_empty():
+			_err(where, "clock '%s' needs a list of 'times'" % clock_id)
+			continue
+		for time: Variant in times:
+			if not time is Dictionary or str((time as Dictionary).get("id", "")).is_empty() or not (time as Dictionary).has("if"):
+				_err(where, "clock '%s': every time needs an 'id' and an 'if'" % clock_id)
+				continue
+			var tid := str(time["id"])
+			if ids.has(tid) or tid == str(clock.get("default", "")):
+				_err(where, "clock '%s' has time '%s' twice" % [clock_id, tid])
+			ids[tid] = true
+			_ref_condition(where, time["if"])
+
+
 ## Region `light` (RegionMood.light): known keys, palette/#hex colours, numeric values;
-## each override needs an `if`.
+## each override needs an `if` or a story-clock `time` (see _mood_overrides).
 func _check_region_light(where: String, region: Dictionary) -> void:
 	if not region.has("light"):
 		return
@@ -986,15 +1043,10 @@ func _check_region_light(where: String, region: Dictionary) -> void:
 		return
 	var light: Dictionary = region["light"]
 	var blocks: Array = [light]
-	for override: Variant in light.get("overrides", []):
-		if not override is Dictionary or not (override as Dictionary).has("if"):
-			_err(where, "light override needs an 'if' condition")
-			continue
-		_ref_condition(where, override["if"])
-		blocks.append(override)
+	blocks.append_array(_mood_overrides(where, "light", region))
 	for block: Dictionary in blocks:
 		for key: String in block:
-			if key in ["note", "overrides", "if"]:
+			if key in ["note", "overrides", "if", "time"]:
 				continue
 			if not RegionMood.LIGHT_DEFAULTS.has(key):
 				_err(where, "light has unknown key '%s'" % key)

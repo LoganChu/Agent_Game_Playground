@@ -1,0 +1,11 @@
+{
+  "note": "Story clocks (Day 94): a time of day that story flags move, not a running day/night. A region names its clock (\"clock\": id) and its fog/light overrides name a time (\"time\": id) instead of an \"if\". The time is the first of `times` whose condition holds, so the latest time in the story goes first; none holding is `default`, which is the region's base fog and light.",
+  "cindermoor": {
+    "default": "day",
+    "times": [
+      {"id": "morning", "if": "flag:cindermoor_morning", "note": "The night after the chapter sat is over (the lower rooms, Day 87)."},
+      {"id": "night", "if": "flag:cindermoor_chapter_sat", "note": "The chapter has sat on the Spire (Day 86)."},
+      {"id": "dusk", "if": "flag:cindermoor_chapter_up", "note": "The chapter has come up to the Spire's foot (Day 85)."}
+    ]
+  }
+}

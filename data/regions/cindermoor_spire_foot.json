@@ -1,5 +1,6 @@
 {
   "id": "cindermoor_spire_foot",
+  "clock": "cindermoor",
   "name": "Cindermoor — the Spire's Foot",
   "description": "The crown of Cindermoor, where the cinder road ends at the Hearthspire's foot. The fog stands round the crown like a wall and leaves the Spire clear, pale stone going straight up into the grey. On its east face the east stair door stands ajar on the dark, and beside it the door-warden's niche: Aldous's seat, his tapers, his knife, and the novices' roll.",
   "fog": {
@@ -7,15 +8,15 @@
     "color": "#A4A8AB",
     "overrides": [
       {
-        "if": "flag:cindermoor_morning",
+        "time": "morning",
         "color": "#A4A8AB"
       },
       {
-        "if": "flag:cindermoor_chapter_sat",
+        "time": "night",
         "color": "#737987"
       },
       {
-        "if": "flag:cindermoor_chapter_up",
+        "time": "dusk",
         "color": "#90939A"
       }
     ]
@@ -33,7 +34,7 @@
     "shadow": 0.32,
     "overrides": [
       {
-        "if": "flag:cindermoor_morning",
+        "time": "morning",
         "sun_color": "#C9C3B6",
         "sun_energy": 0.36,
         "sun_pitch": -16,
@@ -45,7 +46,7 @@
         "shadow": 0.3
       },
       {
-        "if": "flag:cindermoor_chapter_sat",
+        "time": "night",
         "sun_color": "#7E889B",
         "sun_energy": 0.2,
         "sun_pitch": -14,
@@ -57,7 +58,7 @@
         "shadow": 0.22
       },
       {
-        "if": "flag:cindermoor_chapter_up",
+        "time": "dusk",
         "sun_color": "#B4A598",
         "sun_energy": 0.32,
         "sun_pitch": -10,
