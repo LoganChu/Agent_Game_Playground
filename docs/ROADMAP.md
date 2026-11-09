@@ -737,22 +737,32 @@ each .glb < 5 MB.
       Provost, Merrit, Oriel, the niche's roll. Blender `landing_shaft`, `landing_window`, `landing_stairhead`. Checkpoint
       `the_last_landing`; the smoke walk climbs, remembers, comes down and writes the name. `test_the_last_landing.gd` (10).
 
+- [x] [C] **What she was to you** (Day 93, Act III step 8's close): down from the stair Oriel hears the count (new quest
+      *What She Was to You*, `future`, opened on her after-line) and the Wakebearer can tell her it was them she gave the
+      last coal to (`cindermoor_oriel_knows`): told, straight in; **asked, asked again** and she takes her name (pays her
+      "ask me again"); **kept**, she works out who she was and asks for the novice first, then her name. The hood, the
+      knife, the roll as answered; "Agathe. It was one of yours." Then **`cindermoor_oriel_choice`**: **climb** (waits
+      at the east stair door), **boat** (down to the eighth slip; Hild greases the rollers, Merrit sees her: 1b paid),
+      **own** (stands at the foot a pace behind the Provost). She stops walking in all three; her ring-path name gives way
+      to Oriel Sayre. Lines for the Provost, Hild (incl. the stair climbed), Merrit. Checkpoint `what_she_was`; the smoke
+      walk tells her and asks her up. `test_what_she_was.gd` (8). No new art (reuses `oriel`/`oriel_seated`).
+
 ### Next up
-1. [C] **What she was to you** (Act III step 8's close, before the lantern room): **tell Oriel** it was the Wakebearer she
-   gave the coal to on the last landing (she remembers "somebody asked to carry one of those, once"); pays
-   `cindermoor_eighth_told=asked` (she said "ask me again" twice now) and lets `told`/`kept` meet it too. The Provost's
-   `cindermoor_provost_knows`; whether Oriel goes up the stair with them, or launches the eighth boat (open). Also fold in
-   1b. Then **step 9, the lantern room** (the final choice; the Choir behind the door; whether the Hearthspire takes the
-   ember, which is the Wakebearer — `cindermoor_seventh_answered`, `cindermoor_choir_answered` and every burn should
-   colour it). Fetch and reset `main` before trusting it.
+1. [P] **Polish fifteen** (due by ~Day 96; take it next, content ran Days 92-93): see 1a.
+2. [C] **Step 9, the lantern room** (the final choice; the Choir behind the door; whether the Hearthspire takes the
+   ember, which is the Wakebearer): `cindermoor_oriel_choice` (Oriel behind them in the room / on the water in the
+   eighth / counting at the foot), `cindermoor_seventh_answered`, `cindermoor_choir_answered` and every burn should
+   colour it. Probably two or three sessions: the room and the Choir first, the choice and the ending after. A new
+   interior (reuse the last landing's approach) and the Act III end card. Fetch and reset `main` before trusting it.
 1a. [P] **Polish fifteen candidates** (due by ~Day 96): the last landing reads very dark in Compatibility (judge on Vulkan;
    the slit's `silverfog` light is faint); a shared "Cindermoor clock" helper (#2); the framed two-NPC
    shot (#9); the robe/white read on Oriel (Vulkan, #4); an NPC held for the box could walk/fade in rather than appear
    when it closes (Day 91 holds the move; the arrival is still a cut).
-1b. [C] **Small follow-ups for step 6** (fold into the next content session): Hild greasing the eighth's rollers at the
-   Boat Stair once she's said she would (a prop swap on the boathouse slip?); Oda hearing the High Keeper's alive (she
+1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
+   down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); whether Oriel comes to the chapter's next sitting (the Provost said
-   it will sit again before it chooses); Hild, Iver, Wenna and Ness have no lines yet for the stair climbed (Day 92).
+   it will sit again before it chooses — `own` puts her with the chapter); Iver, Wenna and Ness have no lines yet for the
+   stair climbed or Oriel told (Day 92/93; Hild's landed Day 93). Ness on the moor could hear Oriel went down to the boat.
 2. [S] **The days pass on Cindermoor** — *decided Day 86:* Cindermoor's clock is a **story clock**, not a free-running
    day/night: flags move it, and each Cindermoor region carries light and fog overrides for it (`cindermoor_chapter_sat` →
    night, `cindermoor_chapter_up` → dusk; first match wins, so later times go first in the list). Follow-up with the lower

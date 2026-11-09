@@ -1638,8 +1638,42 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     the stair ... That's right, novice. Up, and then down." (his "It's the coming down I count", paid); Oriel hears the
     count from the path (told: "I used to know a sound like that"; asked: "I said I'd want it, then. I'm not sure I'm brave
     enough. Not today. Ask me again."; kept: "I walked faster").
-  - *(Still secret / open: Oriel doesn't know the Wakebearer is the novice — telling her is the next beat; what the Choir
+  - *(Still secret / open: *(told Day 93, below)*; what the Choir
     behind the lantern-room door is; whether the Hearthspire asks for the ember, which is the Wakebearer — step 9.)*
+- **What she was to you (Day 93, Act III step 8's close; quest *What She Was to You*, `cindermoor_oriel_knows`,
+  `cindermoor_oriel_choice`).** Down from the stair, Oriel heard the count from the ring path and didn't know whose it
+  was. The Wakebearer tells her: a novice came up past the third notch because they'd heard somebody go up alone, and
+  asked for the last coal, "It was me." How she comes to it follows Day 89's answer: **told**, she has her name already;
+  **asked**, the Wakebearer asks again, as she said to, and she takes her name ("Heavy. You said it would be. You didn't
+  say it would fit.") and sits, because her legs decide to; **kept**, she works out who she was from the coal ("Nobody has
+  a coal like that but whoever keeps the flame") and asks for the novice first and her name after — "I'd like them in
+  that order. I think I owe it that order." — and takes it: "That's the right weight."
+  - What she says: **"I pinned that hood. So nobody would see your face on that stair tonight. ...I didn't think I'd be
+    one of the nobody."** "You said 'I can count' as if that were a thing to bring to a fire." She scraped the roll with
+    **Aldous's knife out of the niche** and remembers the sound and not the face. On the roll: written ("That'll be
+    you"), struck ("Struck can still be read. Scraped can't. I knew that when I did it."), left ("It's the one thing I did
+    that night I'm sure of"). "I gave the last of the Spire to a child and told them to forget me. And they came back up
+    the hill with it, and stood in my way. **Nobody ever gave me back anything.**" To the Provost: "Agathe. It was one of
+    yours." She sees the ember lean towards the lantern room "the way it used to lean in my hands, at the top of the
+    year", and asks plainly what they want of her ("I've had enough of careful").
+  - **What the Wakebearer asks** (`cindermoor_oriel_choice`; she stops walking for good in all three):
+    - **climb** — "Come up with me. You were the last one in that room." She knows where the lantern-room door sticks
+      and where the coal sat; she'll come up behind them and **"carry nothing and touch nothing"**, and wants to be in
+      the room if the ember is asked for: "Somebody should be who knows what it cost." She waits by the east stair door
+      with her hand not quite on the frame.
+    - **boat** — her boat is still in the eighth slip. She won't run in it ("I've done running. Round and round"), but
+      **somebody should see the Spire from the water, from the islands' side**, whatever happens up there. She goes down
+      the road (not round) to the Boat Stair and sits on the eighth's thwart with the oars across her knees; **Hild
+      greases the rollers** as she said she would (Day 89: "Turns out there was a case") and shows her the chocks —
+      "Nobody rowed the High Keeper but the High Keeper. She'll row herself, then. I'll only push." Merrit: "Eighth. Her
+      word. ...Come down, then. Not gone out. Not yet." The Provost writes "Gone down to the water. Not 'left'."
+    - **own** — "Nothing. I'm not going to choose for you." Her own line comes back to her ("Nobody's ever handed me
+      that. I only ever gave it"); she stands at the foot with the chapter, a pace behind the Provost, hands folded the
+      same way ("The hand goes up. The chapter stays at the foot."), to count the Wakebearer who knows how many landings
+      there are. The Provost moves over: "It's the best hour I've had of her in forty years."
+  - Hild, on the stair climbed: "Twelve years I've rowed Keepers in hoods, and never once looked under one."
+  - *(Open for step 9: Oriel's place at the lantern room — behind the Wakebearer in the room, on the water, or counting
+    at the foot; what the Choir behind the door is; whether the Hearthspire asks for the ember.)*
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1709,7 +1743,8 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    helped Oriel at the Snuffing and fed their own memories to the last ember to carry it out of
    the Spire. The ember in their hand holds their past.
    *(Revealed in play Day 92, the last landing: the seventh novice of Kindleby's last midwinter, who asked Oriel for the
-   last coal and fed it themself on the way down; Oriel pinned the hood and scraped the name. The name is never shown.)*
+   last coal and fed it themself on the way down; Oriel pinned the hood and scraped the name. The name is never shown.
+   Day 93: Oriel is told, and recognises them.)*
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —
    everything the Firstflame burned for 900 years, drifting home. The Hushed are overwhelmed by
    other people's memories, not emptied. *(Revealed in play Day 87: the Spire's book's oldest page.)*

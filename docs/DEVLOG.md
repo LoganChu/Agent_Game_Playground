@@ -2,6 +2,51 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-09 09:00 UTC — Day 93: what she was to you (content)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 (bpy 5.2.2 installing in the background; no Blender work needed).
+  Detached HEAD again; `main` reset to `origin/main` (Day 92's `8bfec92`).
+- **Content (ROADMAP *Next up* #1, Act III step 8's close). New quest *What She Was to You* (`future`):**
+  - **She hears the count.** Oriel's Day 92 after-lines (told / asked / kept) now open the quest, and a choice follows
+    them: the Wakebearer can tell her it was them she gave the last coal to, or leave it for today.
+  - **How she comes to it** follows Day 89's answer. *Told*: straight in. *Asked*: "I'm asking", her "ask me again"
+    paid. She takes her name, and sits because her legs decide to. *Kept*: she works out who she was from the coal and
+    asks for the novice first, her name after: "I'd like them in that order." Then: "I pinned that hood. ...I didn't
+    think I'd be one of the nobody." Aldous's knife and the roll, coloured by `cindermoor_seventh_answered`.
+    "Nobody ever gave me back anything." "Agathe. It was one of yours." (`cindermoor_oriel_knows`)
+  - **What the Wakebearer asks of her** (`cindermoor_oriel_choice`). **climb**: she'll come up behind them, "carry
+    nothing and touch nothing", and waits by the east stair door. **boat**: she goes down to the eighth slip to see the
+    Spire from the water. Hild goes with her and greases the rollers (her Day 89 promise, ROADMAP 1b), and Merrit sees
+    her. **own**: "I'm not going to choose for you." Her own line comes back to her, and she stands at the foot a pace
+    behind the Provost. She stops walking in all three, and her ring-path name gives way to Oriel Sayre.
+  - After-lines for Oriel (each choice), the Provost, Hild (each choice, plus the stair climbed, 1b) and Merrit (boat).
+- **Tests:** `test_what_she_was.gd` (8): not before the stair; the quest opens on each Day 89 answer; telling her
+  three ways (her name in the right order, the Provost, the display name); the roll's colour; the three choices and
+  where Oriel and Hild stand (one placement each, nobody walking); who says what after; the name never spelled out;
+  the checkpoint. `test_the_chapter.gd`'s quay count now counts only the placements that stand (Hild has two there
+  now). The smoke walk tells her, asks her up, and finds her at the door. Checkpoint `what_she_was`.
+  675 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-09-am-what-she-was.png` (Oriel Sayre waiting by the east stair door, the
+Wakebearer just down, the Provost and Hild at the niche; also `docs/checkpoints/what_she_was.png`).
+
+**Decisions**
+- **The Wakebearer asks; Oriel still decides.** Each option is a request, and she answers it in her own way, so
+  "I will not choose for them again" isn't turned back on her by the game. The third option hands her that line
+  directly.
+- **The Day 89 answer is kept, not overwritten.** `cindermoor_eighth_told` stays `asked`/`kept` even after she has her
+  name. The new `cindermoor_oriel_knows` carries "she knows" for the name and the lines. The lantern room can still
+  tell the three paths apart.
+- **Boat means not yet gone.** She sits in the eighth, up in the slip. Launching belongs to the ending ("You don't go
+  out till it's light"). Hild's boat-stair placement needs the full crown state (chapter up, morning, sought), because
+  the validator caught her able to show in two places at once.
+- No new art: `oriel` / `oriel_seated` cover all three. A tallow tin on the slip is noted for dressing.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish fifteen** (due by ~Day 96; content ran Days 92-93). Then step 9, the lantern room.
+   Fetch and reset `main` before trusting it.
+
 ## 2026-11-08 21:00 UTC — Day 92: the east stair (content, mystery #2)
 
 **Did**
