@@ -2,6 +2,67 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-10 21:00 UTC — Day 96: the choice at the cradle — Act III ends (content)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and bpy 5.2.2 (the wheel again took most of the session to
+  download). Detached HEAD again; `main` reset to `origin/main` (Day 95's `0cc38da`). Baseline (692 tests + smoke +
+  launch) was green before any edit.
+- **Content (ROADMAP *Next up* #1, Act III step 9's close): the final choice, the count down, the Long Book shut, the
+  `act3` card.**
+  - **The six lights weighed.** Back at the cradle with the ember held once, the Wakebearer thinks of what each light
+    cost: one line per burning (all 15 values; a test pins every one), once (`cindermoor_ring_weighed`). "This one would
+    cost more, and go on costing."
+  - **Three choices, each with a "Not yet."** (`cindermoor_cradle_choice`):
+    - **lit**: it takes, the panes go the colour of a coal through the soot, and **it starts with the Wakebearer**: the
+      stair, the counting, the coal and the hood go up like sparks. The Stair-Taper and Hood-Pin burn, so the
+      Hearthspire *does* ask for the own Remnants (LORE's open question). Coming down, they can't count, and the
+      Provost counts them down "as if she were carrying you". The Long Book: whoever feeds it from now "is written in this
+      book by name, and is asked."
+    - **released**: the casement the Keepers opened each midwinter; the hand opened out of it. **The ember walks the
+      Hollow Choir out to the six lights the way it always walked the Wakebearer out of the fog** (the Day 11 hook,
+      paid), and spends itself. What's left is a black coal the size of a hazelnut. "We have nothing to feed it with, and
+      we will not go looking."
+    - **dark**: the hand closed. The Choir sings on, the ring of six holds, and at midwinter the ember goes round the
+      ring while every island chooses its own burning and writes it down.
+    - Coloured by Isolde's answer (named / written / left), Oriel's place (in the room / on the water / at the foot), the
+      roll (left: the Choir says the name once, to you, going out) and the Provost's "I'd light it".
+  - **The count down and the witness** (spire foot event `cindermoor_count_down` → `cindermoor_counted_down`): she counts
+    them down from eight, writes the last line under the chapter's, then: "A witness signs. Nine hundred years of this
+    book and not one witness in it." The Wakebearer signs as the roll was answered (lit + written: copies the name off the
+    roll "as if it were somebody else's"); Oriel signs under them, "who put it out" (in her boat, nobody writes her in).
+    **"That's the Long Book shut."** Quest *The Lantern Room* completes, and **the `act3` card** follows (14 recap lines).
+  - **After:** Oriel's and the Provost's after-lines per ending. The lantern room per ending: lit cradle, warm light and
+    fire for lit; the Choir's haze and singing gone and the wind in for released; unchanged for dark. Lit is also a new time
+    on the Cindermoor story clock (`spire_lit`): the Boat Stair, the long steps and the foot go gold, with the fog halved. Oriel (climb) comes down with the Wakebearer.
+- **Blender:** `build_cindermoor.py firstflame_cradle_lit` builder written (red bands, gold ash, a tall flame and a ring of
+  tongues). **Not yet exported:** the bpy wheel took the whole session to download, so for now the lit ending shows the
+  cold cradle model with the lit cradle's warm `light` (`fire` ambience, the warm room light). The cold cradle is renamed
+  `firstflame_cradle`, because the validator's prop-variant check groups props by the first word of the file name, and
+  the cradle shares the shell's origin (TECH, *A small interior*).
+- **Tests:** `test_the_cradle_choice.gd` (10): the choice waits for the hand; the six lights weighed once; each ending
+  (flags, items, looks, light, ambience, count down, the witness per roll/Oriel); Oriel comes down; after-lines; Act
+  III's card; the name never said; checkpoint `the_spire_lit`. `test_the_lantern_room` reads the new
+  options; the lighting counts (audio, music) are seven now, and the clock test knows `spire_lit`. The smoke walk lights the cradle, goes down two exits, is counted down and reads the card.
+
+**Decisions**
+- **No ending is the "good" one.** Lit clears the Reach and costs the Wakebearer their past, and someone every midwinter
+  after, but now by name and asked. Released frees the oldest dead and spends the ember: the Spire is never lit, and
+  the Greying goes home at its own pace. Dark keeps the Wakebearer whole, and asks every island to choose its own
+  burning each year. Each answers the Act I question (what should the Lanternreach remember?) differently.
+- **The Hearthspire asks for the own Remnants only if it's lit.** That was the last open question of mystery #2. The
+  flame takes "what's behind the hand" first, so in the lit ending they burn, and in the others they stay ordinary things.
+- **A witness signs.** Mystery #1 was nine hundred years of an order that wrote down its lost and never its witnesses.
+  The last page has two.
+- **The ending's world changes are data** (props, overrides, ambience `if`s); the island epilogues are next.
+
+**Next run should**
+1. First: `.tools/bin/blender-py tools/blender/build_cindermoor.py firstflame_cradle_lit`, point the lantern room's lit
+   cradle prop at `firstflame_cradle_lit.glb` and the three `_shows` checks in `test_the_cradle_choice.gd` at it.
+   Then ROADMAP *Next up* #1: **Epilogues** — after the card, each island coloured by the ending; Oda's lane off Cindermoor in
+   every ending; what the Greying/ember HUD does after `released` and `lit`. Polish sixteen is due by ~Day 102. Fetch
+   and reset `main` before trusting it.
+
 ## 2026-11-10 09:00 UTC — Day 95: the lantern room, part one (content, mystery #4 closed)
 
 **Did**

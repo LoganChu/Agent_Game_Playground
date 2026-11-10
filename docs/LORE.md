@@ -1716,9 +1716,38 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     way. Held over the cradle the ember leans and the ash stirs and the room stops singing to listen; **it would take**, and
     the Wakebearer takes their hand back — "not till you know what you'd be asking of them. And of you"
     (`cindermoor_cradle_held`).
-  - *(Open for step 9's close: the choice itself — light it (and be what it eats first), let the Choir go, leave it dark
-    with the ring of six — and the ending and Act III's card. Every burn, Oriel's place, the roll and Isolde's answer
-    should colour it.)*
+- **The choice at the cradle (Day 96, Act III step 9's close — `cindermoor_cradle_choice`, `cindermoor_counted_down`; the
+  `act3` card).** Once the ember has been held over the cradle, the Wakebearer thinks once of **the six lights and what each
+  cost** (a line per burning) — "This one would cost more, and go on costing." Then one of three:
+  - **lit** — the ember put in the ash. **It takes**: gold up through the ash, the bands red, every pane the colour of a coal
+    through the soot. **It starts with the Wakebearer**, not the hand but what's behind it: the stair, the counting, the coal
+    asked for, the hood pinned go up "like sparks off a fire" — **the Stair-Taper and the Hood-Pin burn** (the Hearthspire
+    does ask for the own Remnants: it takes them first). The Choir stands in close round the fire, warm, not singing.
+    Named Isolde: "We'll keep you company. It isn't so bad, with company." Oriel (climb): "I'll carry you down. Somebody has
+    to count." Coming down, **the Wakebearer can't count**; the Provost counts them down "as if she were carrying you". The
+    Long Book's line: **"The Hearthspire was lit again by the hand that carried it down, and it took that hand first. By
+    midwinter it will be hungry. Whoever feeds it from this day is written in this book by name, and is asked."** The
+    Wakebearer no longer knows the Provost, and copies their own name off the roll "as if it were somebody else's".
+  - **released** — the casement (the Keepers opened it every midwinter to let the light go out to the ring) pushed open
+    and the hand opened out of it. **The ember goes ahead of the Choir the way it always walked the Wakebearer out of the
+    fog** *(the Day 11 hook, paid: something in it knew the way out)*, out over the water **to the six lights — "the last
+    warm things anybody on the Reach keeps"** — and spends itself. Isolde (named) sees them out, keeping the time, and looks
+    back once at the pane like a person. The Wakebearer's hand holds **a black coal the size of a hazelnut, with nothing in
+    it**; the own Remnants stay, ordinary. The room is only a room. Long Book: **"The Hearthspire was not lit. The hand that
+    carried it down opened, and let them out by it, and came down cold. There is nothing in the cradle and nobody in the
+    room. We have nothing to feed it with, and we will not go looking."**
+  - **dark** — the hand closed on the ember. The Choir sings on ("Come up at midwinter and tell us how the six did" —
+    Isolde). **Six lights round a dark Spire, every one fed by somebody who knew what it cost.** At midwinter the ember
+    goes round the ring and **every island chooses its own burning and writes it down**. Long Book: **"The Hearthspire was
+    not lit. The hand that carried it down carried it down again, still lit. At midwinter it goes round the ring, and every
+    island chooses for itself what to burn, and writes it down."** Oriel wants to row the first lane.
+  - **The witness.** "A witness signs. Nine hundred years of this book and not one witness in it." *(Mystery #1's last
+    echo: the order that never wrote down its witnesses.)* The Wakebearer signs as the roll was answered (written: the name;
+    struck: the struck name, this one left standing; left: a mark, no name). **Oriel signs under them** — "Oriel Sayre,
+    High Keeper, who put it out" (climb; own, without being asked); in her boat (boat) nobody writes her in. "That's the
+    Long Book shut." **The Long Book is shut** — nobody living had shut it. **Act III ends** (the `act3` card).
+  - *(Open for the epilogues: each island after the ending — the Gull, the Ridge, the Heron, the Wrack, the Vigil Light,
+    Lowsong — under a lit Spire, a Reach whose lights keep the Choir, or a ring that chooses its own midwinter.)*
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1777,8 +1806,10 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    see *Cindermoor*)* *(mystery #2)*: the Stair-Taper lit for the stair it was cut for; counting the landings; the
    Hood-Pin's "tonight"; the Wakebearer's own Remnants and whether the Hearthspire asks for them. Last before the end.
 9. **The lantern room** *(Day 95, part one written: the chapter's last sitting — it does not choose — up past seven, the
-   cradle, the Hollow Choir and what lighting it would cost — see *Cindermoor*)* — the final choice: what the Lanternreach
+   cradle, the Hollow Choir and what lighting it would cost; Day 96, the choice written: lit / released / dark, the count
+   down, the witness, the Long Book shut — see *Cindermoor*)* — the final choice: what the Lanternreach
    should remember, or whether it should forget.
+10. **Epilogues** (plan): the islands after the ending, one per island, coloured by the choice and that island's burning.
 
 ## Long-term mysteries (payoff over months)
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
@@ -1825,3 +1856,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - The same day (Day 92): up the east stair, seven landings; the Wakebearer remembers the night of the Snuffing.
 - The same day (Day 93-95): Oriel told; the chapter's last sitting by daylight ("does not choose"); up past seven to the
   lantern room.
+- The same day (Day 96): the choice at the cradle; the count down; the Long Book shut.

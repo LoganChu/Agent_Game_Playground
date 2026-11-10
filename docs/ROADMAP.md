@@ -761,15 +761,31 @@ each .glb < 5 MB.
       `lantern_room`, `lantern_cradle`. Checkpoint `the_lantern_room`; the smoke walk sits, climbs, holds the ember.
       `test_the_lantern_room.gd` (11).
 
+- [x] [C] **The choice at the cradle — Act III ends** (Day 96, Act III step 9's close): with the ember held once, the six
+      lights weighed (a line per burning, once: `cindermoor_ring_weighed`), then **lit** (it takes, and takes the
+      Wakebearer's past first — the Stair-Taper and Hood-Pin burn; they can't count coming down), **released** (the casement
+      opened; the ember walks the Hollow Choir out to the six lights and spends itself — the Day 11 hook paid; a cold coal)
+      or **dark** (the hand closed; the Choir sings on; each island chooses its own midwinter) — `cindermoor_cradle_choice`,
+      coloured by Isolde's answer, Oriel's place, the roll, the Provost's "I'd light it". The count down at the foot
+      (`cindermoor_count_down` event), the Long Book's last line per ending, **the witness** (the Wakebearer and Oriel sign),
+      the Long Book shut (`cindermoor_counted_down`) → the **`act3` card**. Oriel and
+      the Provost after-lines per ending; the lantern room's looks per ending (lit cradle + warm light + fire; Choir gone;
+      unchanged) and the clock's new `spire_lit` time (Cindermoor outside goes gold). Blender: the cradle renamed `firstflame_cradle`; the `firstflame_cradle_lit` builder is written but **not yet exported** (bpy didn't install in time: the lit ending uses the cold model + its light).
+      Checkpoint `the_spire_lit`; the smoke walk lights it and reads the card. `test_the_cradle_choice.gd` (10).
+
 ### Next up
-1. [C] **Step 9's close: the choice and the ending** (probably two sessions): at the cradle, with
-   `cindermoor_cradle_held` set — **light it** (the Spire burns; the Wakebearer is what it eats first; the grey goes back),
-   **let the Choir go** (what that means for the Greying: decide — e.g. the ember opened, the oldest let out to the six
-   lights or the sea), **leave it dark** (the ring of six keeps the Reach; the Choir keeps singing). Colour by every burn,
-   `cindermoor_oriel_choice` (in the room / on the water / at the foot), `cindermoor_seventh_answered`,
-   `cindermoor_choir_answered`, `cindermoor_provost_would_light`. Then the count down, the Long Book's line, and the
-   **Act III end card** (`act3`, ActRecap) and an epilogue per island. Consider a lit variant of `lantern_cradle`/`lantern_room`
-   (panes glowing) and a warm `light` for the lit ending. Fetch and reset `main` before trusting it.
+0. [A] **Export `firstflame_cradle_lit`** (Day 96's builder; bpy didn't finish installing) and swap it in for the lit
+   ending's cradle prop (`cindermoor_lantern_room`, the prop with `if: flag:cindermoor_cradle_choice=lit`) and the tests.
+1. [C] **Epilogues** (one or two sessions): after the `act3` card the game keeps going ("Keep exploring") — give each
+   island a short after-the-ending beat, coloured by `cindermoor_cradle_choice` and that island's burning: a lit Spire
+   seen over the water (the `hearthspire_far` prop needs a lit variant, and the six regions a gold-on-the-horizon light
+   override), a Reach whose lights keep the Choir (released: something warm sitting by each light — a hum, a figure),
+   or a ring choosing its own midwinter (dark: the first island asking the Wakebearer to carry the ember round). Oda's
+   lane off Cindermoor ("no lane off that water till the Spire's lit, or till Oda finds one") must open in every ending.
+   Also decide what happens to play after `released` (no ember: the Greying walker and the HUD ember bar should know —
+   e.g. the Greying no longer drains, or the Wakebearer can't enter thick fog) and after `lit` (the grey gone back: the
+   Greying areas' `if`s). A final credits/epilogue card after the last epilogue. Fetch and reset `main` before trusting it.
+
 1a. [P] **Polish sixteen candidates** (due by ~Day 102; Day 94 was fifteen): the lantern room's camera in the corners
    (11 m square: the arm shortens against the panes; Day 95 raised its ceiling slab to 5.1 m); the last landing reads very dark in
    Compatibility (judge on Vulkan; the slit's `silverfog` light is faint); the robe/white read on Oriel (Vulkan, #4);
