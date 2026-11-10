@@ -1,0 +1,37 @@
+{
+  "id": "cindermoor_lantern_choir",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You stand in the grey and listen. A great many voices, none of them getting to the end of the line, all of them starting it again together, so that nobody's left behind."
+      },
+      {
+        "say": "narrator",
+        "text": "Isolde stands apart from them by the cradle, not singing. Keeping the time.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "Over the rest, one voice finishes the line every time now, and goes back for the others.",
+        "if": "flag:cindermoor_choir_answered=written"
+      },
+      {
+        "say": "narrator",
+        "text": "One voice keeps breaking off to talk, and coming back in on the beat.",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "Here and there in the grey, a word you know. A boat's name. A kind of bread. Somebody's mother. Nine hundred years of the Lanternreach, kept by people who aren't anybody now, for nobody."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember is warm. It's the only warm thing in the room, and the grey leans to it, a little, the way your hands lean to a fire."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

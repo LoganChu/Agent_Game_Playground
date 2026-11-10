@@ -1188,6 +1188,24 @@
         "own"
       ],
       "future": true
+    },
+    "cindermoor_chapter_chose": {
+      "description": "The chapter's last sitting at the Spire's foot, by daylight (Day 95, Act III step 9): once Oriel's been asked (`cindermoor_oriel_choice`), the Provost sits the chapter on the one line — whether the Hearthspire is lit again — and writes that it does not choose: 'The hand that carried it down carries it up.' Opens the stair on up from the last landing to the lantern room.",
+      "default": false
+    },
+    "cindermoor_provost_would_light": {
+      "description": "At the last sitting (Day 95) the Wakebearer asked the Provost what she'd choose: she'd light it, tonight, 'and I'd be wrong in some way I can't see from here' — which is why it isn't hers. For the ending.",
+      "default": false,
+      "future": true
+    },
+    "cindermoor_lantern_room_entered": {
+      "description": "Up the last of the east stair into the Hearthspire's lantern room (Day 95, Act III step 9, mystery #4's close): the cold cradle, the soot-black panes, and the Hollow Choir — everything the Firstflame ate that had nobody left to go home to, kept together by singing since Isolde Vane woke among them.",
+      "default": false
+    },
+    "cindermoor_cradle_held": {
+      "description": "The Wakebearer held the ember out over the lantern room's cradle (Day 95): it would take, the room stopped singing to listen, and they took their hand back — not till they know what they'd be asking. The final choice (step 9's close) reads it.",
+      "default": false,
+      "future": true
     }
   }
 }

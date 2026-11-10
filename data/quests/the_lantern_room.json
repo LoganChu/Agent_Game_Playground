@@ -1,0 +1,18 @@
+{
+  "id": "the_lantern_room",
+  "title": "The Lantern Room",
+  "future": true,
+  "giver": "provost",
+  "region": "cindermoor_spire_foot",
+  "description": "The chapter has sat once more at the Spire's foot, by daylight, on one line: whether the Hearthspire is lit again. The stair goes on up from the last landing to the lantern room, where the singing is.",
+  "stages": [
+    {
+      "id": "chosen",
+      "text": "The chapter sat on the one line and wrote that it does not choose: the hand that carried the last coal down carries it up. The stair on up from the last landing is open."
+    },
+    {
+      "id": "the_room",
+      "text": "In the lantern room the cradle is cold, and the Hollow Choir stands round it: everything the Firstflame ate that had nobody left to go home to. Isolde Vane told what lighting it again would cost. Nobody asked the Wakebearer for anything."
+    }
+  ]
+}

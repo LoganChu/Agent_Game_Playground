@@ -902,9 +902,10 @@
       "rotation_y": -160,
       "if": [
         "flag:cindermoor_eighth_sought",
-        "flag:cindermoor_oriel_choice=climb"
+        "flag:cindermoor_oriel_choice=climb",
+        "!flag:cindermoor_lantern_room_entered"
       ],
-      "note": "Day 93: asked up, she waits by the east stair door with her hand not quite on the frame."
+      "note": "Day 93: asked up, she waits by the east stair door with her hand not quite on the frame. Day 95: once she's gone up behind them into the lantern room, she stays up there."
     },
     {
       "npc": "oriel",

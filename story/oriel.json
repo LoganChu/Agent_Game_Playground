@@ -739,17 +739,50 @@
       {
         "say": "narrator",
         "text": "Oriel Sayre stands by the east stair door, with her hand not quite on the frame.",
-        "if": "flag:cindermoor_oriel_choice=climb"
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "!flag:cindermoor_lantern_room_entered"
+        ]
       },
       {
         "say": "oriel",
         "text": "When you're ready. Not before. I walked round the bottom of it a whole season; I can stand still at it a while.",
-        "if": "flag:cindermoor_oriel_choice=climb"
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "!flag:cindermoor_lantern_room_entered"
+        ]
       },
       {
         "say": "oriel",
         "text": "It draws. It always drew. I used to think that was the wind.",
-        "if": "flag:cindermoor_oriel_choice=climb"
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "!flag:cindermoor_lantern_room_entered"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre stands just inside the lantern-room door, carrying nothing, touching nothing.",
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "flag:cindermoor_lantern_room_entered"
+        ]
+      },
+      {
+        "say": "oriel",
+        "text": "Thirty-one midwinters I fed it in this room. I never once looked at those panes from inside. I thought they were black because it was night.",
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "flag:cindermoor_lantern_room_entered"
+        ]
+      },
+      {
+        "say": "oriel",
+        "text": "They stood round me every year while I sang the rite. I sang at them. I thought it was the wind in the glass.",
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "flag:cindermoor_lantern_room_entered"
+        ]
       },
       {
         "say": "narrator",
@@ -773,6 +806,14 @@
         "say": "oriel",
         "text": "She's quieter. Isolde. Or I'm listening better.",
         "if": "flag:cindermoor_choir_heard"
+      },
+      {
+        "say": "oriel",
+        "text": "I sat with the chapter and didn't choose. I didn't know a Keeper could. I thought it was the one thing we couldn't help.",
+        "if": [
+          "flag:cindermoor_oriel_choice=own",
+          "flag:cindermoor_chapter_chose"
+        ]
       },
       {
         "say": "oriel",

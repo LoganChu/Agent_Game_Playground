@@ -1473,6 +1473,13 @@
         "goto": "choir_wait"
       },
       {
+        "if": [
+          "!flag:cindermoor_oriel_choice=",
+          "!flag:cindermoor_chapter_chose"
+        ],
+        "goto": "sit"
+      },
+      {
         "say": "narrator",
         "text": "The Provost stands on the niche step, watching the path the way you'd watch a door.",
         "if": "flag:cindermoor_eighth_told="
@@ -1587,6 +1594,24 @@
         "if": "flag:cindermoor_oriel_choice=own"
       },
       {
+        "say": "provost",
+        "text": "It's written. 'Does not choose.' Forty years a Keeper, and I've never been so frightened of three words.",
+        "if": [
+          "flag:cindermoor_chapter_chose",
+          "!flag:cindermoor_lantern_room_entered"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "I counted you up to seven, and then I kept going, under my breath. Eight. There's no notch on any taper for eight.",
+        "if": "flag:cindermoor_lantern_room_entered"
+      },
+      {
+        "say": "provost",
+        "text": "Whatever's up there sang to us every midwinter, and we stood at the foot and called it the wind.",
+        "if": "flag:cindermoor_lantern_room_entered"
+      },
+      {
         "end": true
       }
     ],
@@ -1657,6 +1682,144 @@
       {
         "say": "provost",
         "text": "The door, Wakebearer. She's waiting, and she's waited long enough."
+      }
+    ],
+    "sit": [
+      {
+        "say": "narrator",
+        "text": "The Provost turns from the niche before you've said anything. She has the Long Book open on her arm, at the page with the Spire's line on it."
+      },
+      {
+        "say": "provost",
+        "text": "I said the chapter would sit again before it chose. It's sitting. Now, while there's light. I'll not ask anybody to do this one by candle."
+      },
+      {
+        "say": "narrator",
+        "text": "The Keepers come in off the crown and sit down in the cinder where the ring of candles stood, in plain daylight, with nothing lit."
+      },
+      {
+        "say": "narrator",
+        "text": "Hild sits on the end of the row with her sleeves still pushed up.",
+        "if": "!flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "narrator",
+        "text": "Hild's place is empty: she's down at the eighth slip with the High Keeper. The Provost puts a candle-end in the cinder where she'd sit, and doesn't light it.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre sits down a pace behind the Provost, in the place a novice takes.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "say": "oriel",
+        "text": "I've been the chapter. I'll not be it twice.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "She stays by the east stair door, and doesn't sit.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "provost",
+        "text": "The question's one line. Whether the Hearthspire's lit again."
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody says anything for a long time. The wind comes down the east stair, and under the wind the singing."
+      },
+      {
+        "say": "provost",
+        "text": "Nine hundred years we chose. Who sat in the Quiet House. What went down the stair under the warden's seat. Whose name went into the Long Book and whose came out of it. We were very good at it."
+      },
+      {
+        "say": "provost",
+        "text": "And one midwinter a novice of mine chose, on that stair, with nobody's leave. I've read the line. I know whose hand it was.",
+        "if": "flag:cindermoor_provost_knows"
+      },
+      {
+        "say": "provost",
+        "text": "And one midwinter somebody chose, on that stair, with nobody's leave, and walked it out of the Spire. I don't know whose hand. I know it was a hand.",
+        "if": "!flag:cindermoor_provost_knows"
+      },
+      {
+        "choice": [
+          {
+            "text": "Ask her what she'd choose.",
+            "set": {
+              "cindermoor_provost_would_light": true
+            },
+            "goto": "sit_ask"
+          },
+          {
+            "text": "Say nothing. Wait with them.",
+            "goto": "sit_wait"
+          }
+        ]
+      }
+    ],
+    "sit_ask": [
+      {
+        "say": "provost",
+        "text": "Me?"
+      },
+      {
+        "say": "provost",
+        "text": "I'd light it. Tonight. I'm cold, and I'm old, and I'm a Keeper, and I've wanted to see it burn every night since the Snuffing. I'd be wrong in some way I can't see from here, and I'd do it anyway."
+      },
+      {
+        "say": "provost",
+        "text": "That's why it isn't mine."
+      },
+      {
+        "goto": "sit_write"
+      }
+    ],
+    "sit_wait": [
+      {
+        "say": "narrator",
+        "text": "You wait. It's what the chapter's doing too. A Keeper down the row lets out a breath as if she'd been holding it since Kindleby."
+      },
+      {
+        "goto": "sit_write"
+      }
+    ],
+    "sit_write": [
+      {
+        "say": "narrator",
+        "text": "The Provost writes, standing, with the book on her arm. She reads it out the way the Long Book is read, without looking up."
+      },
+      {
+        "say": "provost",
+        "text": "'The chapter sat at the Spire's foot by daylight, and does not choose. The hand that carried it down carries it up. We will count it up, and count it down, and write down what comes down.'"
+      },
+      {
+        "say": "oriel",
+        "text": "That's a better line than any I ever wrote in that book.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "say": "oriel",
+        "text": "Good.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "Far down the moor, past the cliff, the Boat Stair is out of sight. You look that way anyway.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "provost",
+        "text": "Go up, Wakebearer. Past seven. It was always going to be yours, I think. We only had to stop pretending we could write it for you.",
+        "set": {
+          "cindermoor_chapter_chose": true
+        },
+        "quest_start": "the_lantern_room"
+      },
+      {
+        "end": true
       }
     ]
   }

@@ -1,0 +1,220 @@
+{
+  "id": "cindermoor_lantern_room",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre has come up behind you, a step down, carrying nothing.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "oriel",
+        "text": "It sticks. Lift it on the latch and lean. I always had to lean.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "You lift the latch and lean, and it gives.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "It sticks. You lift it on the latch and lean, and it gives all at once, as doors do that are leaned on every year.",
+        "if": "!flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "The singing stops."
+      },
+      {
+        "say": "narrator",
+        "text": "The lantern room. Square, and bigger than it looked from the moor: tall panes on every side, and every pane black. Not dark. Black, from the inside, with nine hundred years of soot."
+      },
+      {
+        "say": "narrator",
+        "text": "In the middle, over the top of the shaft, the cradle: an iron basket you could sit a boat in, full of pale ash, and cold. In the ash, a hollow the size of two hands put together."
+      },
+      {
+        "say": "oriel",
+        "text": "That's where it sat.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "She stays by the door. She said she'd touch nothing, and she keeps her hands folded to make sure of it.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "The room is full of grey. Not the fog: the Greying never came into the Spire. This is thinner than fog, and it doesn't drift. It stands round the cradle the way people stand round a fire that's gone out, because nobody's told them they can go home."
+      },
+      {
+        "say": "narrator",
+        "text": "Then, all round you, a great many voices breathe in. Not to sing. To listen."
+      },
+      {
+        "if": "flag:cindermoor_choir_answered=named",
+        "goto": "named"
+      },
+      {
+        "if": "flag:cindermoor_choir_answered=written",
+        "goto": "written"
+      },
+      {
+        "goto": "left"
+      }
+    ],
+    "named": [
+      {
+        "say": "narrator",
+        "text": "One of them isn't with the rest. A cold stands by the cradle, where a hand would stand to feed it, and you know her the way you know a word you've only ever read."
+      },
+      {
+        "say": "narrator",
+        "text": "'You said my name,' Isolde Vane says. 'So I can talk to you like a person, and not like the weather. Listen, then. They want you to know what they are.'"
+      },
+      {
+        "goto": "what"
+      }
+    ],
+    "written": [
+      {
+        "say": "narrator",
+        "text": "One voice among them gets to the end of its line. Only the one; the rest stop where they always stop. She doesn't know she's been written. She knows she can finish, now, and not why."
+      },
+      {
+        "say": "narrator",
+        "text": "'You,' Isolde Vane says. 'The one who goes by counting. They want you to know what they are, and I'll tell it. I'm the only one of us who gets to the end of a sentence.'"
+      },
+      {
+        "goto": "what"
+      }
+    ],
+    "left": [
+      {
+        "say": "narrator",
+        "text": "One of them breaks off and comes to the front of the grey, the way she came to the rail on the stair."
+      },
+      {
+        "say": "narrator",
+        "text": "'Not Hushed,' Isolde Vane says. 'Awake. I asked them.' And then, with something like a laugh in it: 'You came all the way up. Counting. Listen, then. They want you to know what they are.'"
+      },
+      {
+        "goto": "what"
+      }
+    ],
+    "what": [
+      {
+        "say": "narrator",
+        "text": "'What the flame was fed went home, mostly. It went out over the water looking for whoever it was taken from. That's your Greying: nine hundred years of it, coming home.'"
+      },
+      {
+        "say": "narrator",
+        "text": "'But some of it had nobody left to go to. The old ones. Whoever they were taken from was dead a hundred years before the fire let go of them. They didn't go anywhere. Where would they go? They stayed by the last warm thing they knew.'"
+      },
+      {
+        "say": "narrator",
+        "text": "'I was the first of them that woke. They fed me to it here, three hundred midwinters back, awake. I'd read the book. I came up out of the ash knowing what I was, and nobody else did. So I asked them to sing. If you sing together you keep hold of each other. It was the one thing we could all still do.'"
+      },
+      {
+        "say": "narrator",
+        "text": "The Hollow Choir. Not the Hushed. Everything the Hearthspire ever ate that had nowhere left to be, keeping hold of itself in a cold room at the top of the world."
+      },
+      {
+        "say": "narrator",
+        "text": "Then, once, round the room in a great many voices, low: your name. They were there; they heard her scrape it off the roll. It goes round the room once, and then it's yours again, and nobody has said it aloud.",
+        "if": "flag:cindermoor_seventh_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "'They heard your name read, at the foot,' she says. 'Written back in. None of us ever was. They've been trying it over all morning, under their breath.'",
+        "if": "flag:cindermoor_seventh_answered=written"
+      },
+      {
+        "say": "narrator",
+        "text": "'Struck,' she says. 'We were all struck, one way or another. You kept your hand, at least.'",
+        "if": "flag:cindermoor_seventh_answered=struck"
+      },
+      {
+        "say": "narrator",
+        "text": "'Now. The cradle.'"
+      },
+      {
+        "say": "narrator",
+        "text": "'What's in your hand is the last of it, and it's made of you. Put it in the ash and it'll take. The Spire will burn, and every island on the Reach will see it over the water by dark, and the grey will go back off them like a tide off a beach.'"
+      },
+      {
+        "say": "narrator",
+        "text": "'And by midwinter it'll be hungry. It always was. It starts with the hand that lit it, and then it wants the next one. It never once wanted less.'"
+      },
+      {
+        "say": "narrator",
+        "text": "'We're not asking you for anything. Nobody ever asked us. We only wanted you to know what you'd be choosing with.'"
+      },
+      {
+        "say": "narrator",
+        "text": "What we'd be choosing with. The Provost said it, the night the chapter first sat at the foot. Theirs too, now.",
+        "if": "flag:cindermoor_chapter_chose"
+      },
+      {
+        "if": "flag:cindermoor_oriel_choice=climb",
+        "goto": "oriel_climb"
+      },
+      {
+        "if": "flag:cindermoor_oriel_choice=boat",
+        "goto": "oriel_boat"
+      },
+      {
+        "goto": "oriel_own"
+      }
+    ],
+    "oriel_climb": [
+      {
+        "say": "oriel",
+        "text": "I sang the midwinter rite in this room thirty-one years running. I thought it was the wind in the panes."
+      },
+      {
+        "say": "narrator",
+        "text": "'It wasn't the wind,' Isolde says, not unkindly. Oriel nods, as if she's been told the time."
+      },
+      {
+        "goto": "close"
+      }
+    ],
+    "oriel_boat": [
+      {
+        "say": "narrator",
+        "text": "Through a scrape in the soot of the south panes, far down: the moor, the cliff, a grey that's the whole Lanternreach. Somewhere under the cliff, the eighth slip, and a woman sitting in a boat that hasn't gone out. You can't see her. You know which way to look."
+      },
+      {
+        "goto": "close"
+      }
+    ],
+    "oriel_own": [
+      {
+        "say": "narrator",
+        "text": "Far below, faint as the wind, two voices at the foot, counting. They've stopped at seven. They're waiting for the count to go the other way."
+      },
+      {
+        "goto": "close"
+      }
+    ],
+    "close": [
+      {
+        "say": "narrator",
+        "text": "The singing starts again, quieter, the way people go back to talking in a room when somebody's sat down."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember leans to the cradle, as every cradle on every island leaned to it. Your hand doesn't. Not yet.",
+        "quest_stage": [
+          "the_lantern_room",
+          "the_room"
+        ]
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

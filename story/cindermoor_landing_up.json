@@ -3,6 +3,19 @@
   "knots": {
     "start": [
       {
+        "if": "flag:cindermoor_lantern_room_entered",
+        "goto": "again"
+      },
+      {
+        "if": "flag:cindermoor_chapter_chose",
+        "goto": "chosen"
+      },
+      {
+        "goto": "not_yet"
+      }
+    ],
+    "not_yet": [
+      {
         "say": "narrator",
         "text": "The stair goes on up from the landing's far side, turning left out of sight. At the top of the turn, a door: you can't see it, but you can feel the singing coming through it, the way you feel a cart go by through a floor."
       },
@@ -25,6 +38,67 @@
       },
       {
         "end": true
+      }
+    ],
+    "chosen": [
+      {
+        "say": "narrator",
+        "text": "The stair goes on up from the landing's far side, turning left out of sight, into the singing."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember leans to it. The chapter has sat, and written down that it does not choose. Your feet don't stop you this time."
+      },
+      {
+        "choice": [
+          {
+            "text": "Go on up. Past seven.",
+            "goto": "up"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "up": [
+      {
+        "say": "narrator",
+        "text": "Eight. There's no notch for it on any taper. The stair turns once more and stops at a door: oak, three iron bands, the twin of the one at the foot. The singing is on the other side of it, close enough that the wood hums under your hand.",
+        "sound": "choir_far",
+        "travel": [
+          "cindermoor_lantern_room",
+          "from_stair"
+        ]
+      }
+    ],
+    "again": [
+      {
+        "say": "narrator",
+        "text": "The stair on up to the lantern room. The door's as you left it, and the singing comes down past it."
+      },
+      {
+        "choice": [
+          {
+            "text": "Go back up to the lantern room.",
+            "goto": "up_again"
+          },
+          {
+            "text": "Not now.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "up_again": [
+      {
+        "say": "narrator",
+        "text": "Eight.",
+        "travel": [
+          "cindermoor_lantern_room",
+          "from_stair"
+        ]
       }
     ]
   }

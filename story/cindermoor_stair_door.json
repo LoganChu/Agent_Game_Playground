@@ -504,6 +504,14 @@
       },
       {
         "say": "narrator",
+        "text": "Oriel Sayre comes in behind you, a step down, and stays a step down all the way. She carries nothing.",
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "flag:cindermoor_chapter_chose"
+        ]
+      },
+      {
+        "say": "narrator",
         "text": "At the second turn the cold stands still, where somebody leans on a rail and doesn't sing.",
         "if": "flag:cindermoor_choir_answered=named"
       },

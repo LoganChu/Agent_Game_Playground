@@ -1,0 +1,79 @@
+{
+  "id": "cindermoor_cradle",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The cradle. Iron bands gone brown with a heat that isn't there any more, and the ash in it pale and fine as flour. The hollow in the middle is the size of two hands put together."
+      },
+      {
+        "say": "narrator",
+        "text": "Nobody's touched the ash since she lifted the coal out of it. You can see where her fingers went in.",
+        "if": "!flag:cindermoor_cradle_held"
+      },
+      {
+        "choice": [
+          {
+            "text": "Hold the ember out over the cradle.",
+            "if": "!flag:cindermoor_cradle_held",
+            "goto": "hold"
+          },
+          {
+            "text": "Hold the ember out over it again.",
+            "if": "flag:cindermoor_cradle_held",
+            "goto": "again"
+          },
+          {
+            "text": "Leave it.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "hold": [
+      {
+        "say": "narrator",
+        "text": "You hold your hand out over the ash. The ember leans down to it, the way it leaned over every beacon on every island, and the ash stirs in the hollow as if somebody breathed on it from underneath."
+      },
+      {
+        "say": "narrator",
+        "text": "All round the room the singing stops, to listen."
+      },
+      {
+        "say": "narrator",
+        "text": "It would take. You can feel that it would, the way you feel the next step in the dark before your foot comes down."
+      },
+      {
+        "say": "oriel",
+        "text": "I stood there. Every midwinter. It feels like that every time.",
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "flag:cindermoor_lantern_room_entered"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "You take your hand back. Not like this: not with every voice in the room holding its breath, and you only just told what they are. Not till you know what you'd be asking of them. And of you.",
+        "set": {
+          "cindermoor_cradle_held": true
+        }
+      },
+      {
+        "end": true
+      }
+    ],
+    "again": [
+      {
+        "say": "narrator",
+        "text": "The ash stirs. The room goes quiet to listen. It would take."
+      },
+      {
+        "say": "narrator",
+        "text": "You take your hand back. Not yet. They start singing again, as if they knew you would."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

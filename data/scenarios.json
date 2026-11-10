@@ -955,6 +955,23 @@
         "what_she_was": "done"
       },
       "shot": "--camera=11.0,3.2,-0.6:6.8,1.9,-5.0"
+    },
+    {
+      "id": "the_lantern_room",
+      "act": "Act III — The Spire",
+      "title": "The Lantern Room",
+      "inherits": "what_she_was",
+      "region": "cindermoor_lantern_room",
+      "spawn": "from_stair",
+      "description": "The chapter sat once more at the Spire's foot by daylight and wrote that it does not choose. Up past seven, with Oriel Sayre a step behind, the Wakebearer stands in the lantern room: the cradle cold, the panes black, and the Hollow Choir round it, listening.",
+      "flags": {
+        "cindermoor_chapter_chose": true,
+        "cindermoor_lantern_room_entered": true
+      },
+      "quests": {
+        "the_lantern_room": "the_room"
+      },
+      "shot": "--camera=4.6,3.0,3.6:-0.6,1.2,-0.8"
     }
   ]
 }

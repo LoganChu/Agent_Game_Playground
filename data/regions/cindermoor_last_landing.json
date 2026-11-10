@@ -46,6 +46,11 @@
       4.0,
       0,
       2.4
+    ],
+    "from_above": [
+      -4.6,
+      0,
+      -2.0
     ]
   },
   "spawn_facing": {
@@ -56,6 +61,10 @@
     "from_stair": [
       -1.5,
       -1.0
+    ],
+    "from_above": [
+      1.0,
+      0.6
     ]
   },
   "ground": {
@@ -268,7 +277,7 @@
         3.4,
         2.3
       ],
-      "note": "The stair going on up the west wall toward the lantern room (the lower rooms' stair foot, turned): shut to the hand till the chapter chooses (Act III step 9)."
+      "note": "The stair going on up the west wall toward the lantern room (the lower rooms' stair foot, turned): open once the chapter has sat and does not choose (Day 95)."
     },
     {
       "model": "res://assets/models/dressing/landing_window.glb",
@@ -360,7 +369,7 @@
         1.6,
         0
       ],
-      "note": "To the lantern room: not yet (Act III step 9)."
+      "note": "To the lantern room: not yet till the chapter's last sitting (Day 95); then up, past seven."
     }
   ],
   "exits": [

@@ -1,0 +1,41 @@
+{
+  "id": "cindermoor_lantern_panes",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You rub a hand's width of soot off the inside of a pane. It comes away like velvet, and under it the glass is good."
+      },
+      {
+        "say": "narrator",
+        "text": "The Lanternreach, all of it, from higher than anybody but a High Keeper ever saw it: grey to the edge of the world, and set round the rim of it, the six lights you lit. From up here you can see they make a ring, and that the ring has nothing in the middle."
+      },
+      {
+        "say": "narrator",
+        "text": "Saltmarrow's, on the Gull, the first. The lullaby in Pell's pebble went into that one.",
+        "if": "flag:saltmarrow_beacon_burned=pebble"
+      },
+      {
+        "say": "narrator",
+        "text": "Saltmarrow's, on the Gull, the first. Saltmarrow's founding knot went into that one.",
+        "if": "flag:saltmarrow_beacon_burned=knot"
+      },
+      {
+        "say": "narrator",
+        "text": "Saltmarrow's, on the Gull, the first. What Mara remembered of her brother went into that one, with the whittled gull.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "narrator",
+        "text": "Lowsong's, last, low on the water in the south, where the singing used to come from."
+      },
+      {
+        "say": "narrator",
+        "text": "Behind you, the room is singing to the backs of your shoulders. Nobody up here ever looked out, you think. They looked in, at the fire."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}
