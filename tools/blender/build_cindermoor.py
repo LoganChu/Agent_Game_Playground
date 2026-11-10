@@ -611,6 +611,95 @@ def build_landing_stairhead() -> None:
     bd.export("landing_stairhead")
 
 
+def build_lantern_room() -> None:
+    """The Hearthspire's lantern room (Day 95, Act III step 9): the top of the Spire, a square room 11 m across inside
+    (the walls' inner faces at ±5.5 m, so the region's ground walls stand just behind them). A knee wall of the pale
+    stone 0.9 m high, then a ring of tall panes black with nine hundred years of soot between iron mullions, three to
+    a side, stone piers at the corners, and over it the roof's underside going up in a dark pyramid to an iron boss.
+    The door comes in through the east wall (+X) at the head of the stair, its oak leaf swung back into the room.
+    Origin on the floor at the room's centre, where the cradle stands."""
+    bd.reset()
+    PALE, PALE2, IRON, SOOT, SOOT2 = (mat("bone", -0.4), mat("bone", -0.55), mat("ink", 0.15), mat("ink", -0.25),
+                                      mat("silverfog", -0.72))
+    OAK, DARK = mat("driftwood", -0.45), mat("ink", -0.4)
+    INNER, T = 5.5, 0.5
+    for sx, sy, w, d in ((0, -1, 12.0, T), (0, 1, 12.0, T), (-1, 0, T, 12.0), (1, 0, T, 12.0)):
+        x, y = sx * (INNER + T / 2), sy * (INNER + T / 2)
+        if sx == 1:
+            # The east wall's knee is broken by the door: two lengths either side of the 1.4 m opening.
+            for side in (-1, 1):
+                box("Knee", (T, 5.1, 0.9), (x, side * 3.15, 0), PALE2)
+        else:
+            box("Knee", (w, d, 0.9), (x, y, 0), PALE2)
+        box("Cap", (w if sx == 0 else T + 0.1, d if sy == 0 else T + 0.1, 0.12), (x * 0.985, y * 0.985, 0.9), PALE)
+    # The panes: three to a side between iron mullions (on the east side the middle one is the door).
+    for side_k in range(4):
+        a = side_k * math.pi / 2
+        n = (round(math.cos(a)), round(math.sin(a)))
+        t = (-n[1], n[0])
+        for k in range(3):
+            off = (k - 1) * 3.6
+            cx, cy = n[0] * (INNER + 0.15) + t[0] * off, n[1] * (INNER + 0.15) + t[1] * off
+            is_door = side_k == 0 and k == 1
+            if not is_door:
+                box("Pane", (3.3 if n[0] == 0 else 0.06, 0.06 if n[0] == 0 else 3.3, 3.2), (cx, cy, 1.02),
+                    SOOT2 if (k + side_k) % 2 else SOOT)
+            for m in (-1, 1):
+                mx, my = cx + t[0] * m * 1.8, cy + t[1] * m * 1.8
+                box("Mullion", (0.14, 0.14, 3.3), (mx, my, 0.95), IRON)
+        box("Head", (12.0 if n[0] == 0 else 0.4, 0.4 if n[0] == 0 else 12.0, 0.35),
+            (n[0] * (INNER + 0.2), n[1] * (INNER + 0.2), 4.2), PALE2)
+    for cx in (-1, 1):
+        for cy in (-1, 1):
+            box("Pier", (0.9, 0.9, 4.55), (cx * (INNER + 0.1), cy * (INNER + 0.1), 0), PALE)
+    # The door: a pale frame at the stairhead, the dark of the stair going down beyond, the oak leaf swung back.
+    box("Jamb", (0.6, 0.3, 3.0), (INNER + 0.2, -0.85, 0), PALE)
+    box("Jamb", (0.6, 0.3, 3.0), (INNER + 0.2, 0.85, 0), PALE)
+    box("Lintel", (0.6, 2.0, 0.4), (INNER + 0.2, 0, 2.8), PALE)
+    box("Stairdark", (0.1, 1.4, 2.8), (INNER + 0.55, 0, 0), DARK)
+    box("Leaf", (1.35, 0.1, 2.6), (INNER - 0.55, 0.92, 0.04), OAK, 0.25)
+    for z in (0.5, 1.3, 2.1):
+        box("Band", (1.37, 0.12, 0.08), (INNER - 0.55, 0.92, z), IRON, 0.25)
+    # The roof's underside: a dark pyramid from the panes' head to an iron boss over the cradle.
+    cyl("Roof", 8.6, 0.35, 3.0, 4, (0, 0, 4.55), mat("ink", 0.05), math.pi / 4)
+    cyl("Boss", 0.45, 0.2, 0.4, 8, (0, 0, 7.4), IRON)
+    for k in range(4):
+        a = math.pi / 4 + k * math.pi / 2
+        rod("Rafter", (math.cos(a) * 7.6, math.sin(a) * 7.6, 4.5), (math.cos(a) * 0.4, math.sin(a) * 0.4, 7.4), 0.12,
+            IRON)
+    bd.export("lantern_room")
+
+
+def build_lantern_cradle() -> None:
+    """The Firstflame's cradle (Day 95, the lantern room): the iron basket the Hearthspire burned in for nine hundred
+    years, over the top of the shaft — a kerb of the pale stone r 1.7 round the shaft's mouth, four iron legs curving
+    up to a bowl of iron bands r 1.5 at 1.1-2.0 m, and in it a heap of pale ash with a hollow in the middle the size of
+    two hands, where the last coal sat. Cold. Origin at the kerb's centre on the floor."""
+    bd.reset()
+    PALE, PALE2, IRON, ASH, DARK = (mat("bone", -0.35), mat("bone", -0.5), mat("ink", 0.15), mat("bone", -0.15),
+                                    mat("ink", -0.4))
+    cyl("Kerb", 1.75, 1.7, 0.35, 16, (0, 0, 0), PALE2)
+    cyl("Mouth", 1.35, 1.35, 0.02, 16, (0, 0, 0.34), DARK)
+    for k in range(4):
+        a = math.pi / 4 + k * math.pi / 2
+        c, s = math.cos(a), math.sin(a)
+        rod("Leg", (c * 1.6, s * 1.6, 0.35), (c * 1.75, s * 1.75, 1.1), 0.08, IRON)
+        rod("Leg", (c * 1.75, s * 1.75, 1.1), (c * 1.5, s * 1.5, 2.0), 0.07, IRON)
+    cyl("Bowl", 0.5, 1.45, 0.9, 16, (0, 0, 1.1), DARK)
+    for z, r in ((1.12, 0.55), (1.45, 0.95), (1.75, 1.25), (2.0, 1.5)):
+        for k in range(16):
+            a0, a1 = k / 16 * math.tau, (k + 1) / 16 * math.tau
+            rod("Band", (math.cos(a0) * (r + 0.03), math.sin(a0) * (r + 0.03), z),
+                (math.cos(a1) * (r + 0.03), math.sin(a1) * (r + 0.03), z), 0.045, IRON)
+    for k in range(12):
+        a = k / 12 * math.tau
+        rod("Rib", (math.cos(a) * 0.55, math.sin(a) * 0.55, 1.12), (math.cos(a) * 1.52, math.sin(a) * 1.52, 2.05),
+            0.035, IRON)
+    cyl("Ash", 1.42, 1.05, 0.14, 14, (0, 0, 1.99), ASH)
+    cyl("Hollow", 0.3, 0.2, 0.03, 8, (0, 0, 2.12), DARK)
+    bd.export("lantern_cradle")
+
+
 BUILDERS = {
     "spire_foot": build_spire_foot,
     "spire_foot_open": build_spire_foot_open,
@@ -631,6 +720,8 @@ BUILDERS = {
     "landing_shaft": build_landing_shaft,
     "landing_window": build_landing_window,
     "landing_stairhead": build_landing_stairhead,
+    "lantern_room": build_lantern_room,
+    "lantern_cradle": build_lantern_cradle,
 }
 
 if __name__ == "__main__":
