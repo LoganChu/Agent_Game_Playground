@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:cindermoor_counted_down",
+        "goto": "after_end"
+      },
+      {
         "if": "flag:cindermoor_chapter_came",
         "goto": "stair"
       },
@@ -1817,6 +1821,39 @@
           "cindermoor_chapter_chose": true
         },
         "quest_start": "the_lantern_room"
+      },
+      {
+        "end": true
+      }
+    ],
+    "after_end": [
+      {
+        "say": "narrator",
+        "text": "The Provost sits on the doorstep of the east stair with the Long Book shut on her knee, both hands flat on it."
+      },
+      {
+        "say": "provost",
+        "text": "Shut. I've never shut it. Nobody living has. There was always another line coming."
+      },
+      {
+        "say": "provost",
+        "text": "Look at it. You can see the Gull from here, and the Ridge. Nine hundred years they saw this every night and I never once thought what it cost to look at.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "provost",
+        "text": "Midwinter. Somebody will come up that stair and say 'me', and I'll write them down, and ask them twice.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "provost",
+        "text": "The colliers on the wall at home will want to know what it was we did. I'll tell them: nothing. A hand opened. It's the truest thing the chapter's ever done.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "provost",
+        "text": "At midwinter you'll go round the ring with that, and they'll choose for themselves. They'll choose badly, some of them. So did we.",
+        "if": "flag:cindermoor_cradle_choice=dark"
       },
       {
         "end": true

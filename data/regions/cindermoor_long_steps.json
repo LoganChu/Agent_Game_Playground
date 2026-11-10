@@ -8,6 +8,11 @@
     "color": "#989DA1",
     "overrides": [
       {
+        "time": "spire_lit",
+        "density": 0.015,
+        "color": "#B0A592"
+      },
+      {
         "time": "morning",
         "color": "#989DA1"
       },
@@ -33,6 +38,18 @@
     "sky_horizon": "#A2A6A9",
     "shadow": 0.3,
     "overrides": [
+      {
+        "time": "spire_lit",
+        "sun_color": "#E8C79A",
+        "sun_energy": 0.6,
+        "sun_pitch": -30,
+        "sun_yaw": 30,
+        "ambient_color": "#B9AE9E",
+        "ambient_energy": 0.42,
+        "sky_top": "slate",
+        "sky_horizon": "#D2BFA2",
+        "shadow": 0.34
+      },
       {
         "time": "morning",
         "sun_color": "#C9C3B6",

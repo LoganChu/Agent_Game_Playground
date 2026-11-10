@@ -972,6 +972,24 @@
         "the_lantern_room": "the_room"
       },
       "shot": "--camera=4.6,3.0,3.6:-0.6,1.2,-0.8"
+    },
+    {
+      "id": "the_spire_lit",
+      "act": "Act III — The Spire",
+      "title": "The Spire Lit",
+      "inherits": "the_lantern_room",
+      "region": "cindermoor_lantern_room",
+      "spawn": "from_stair",
+      "description": "At the cradle the Wakebearer put the ember in the ash. The Firstflame burns in the lantern room again, the panes gold through the soot, and the Hollow Choir stands in close round it, warm. It took the hand that lit it first.",
+      "flags": {
+        "cindermoor_cradle_held": true,
+        "cindermoor_ring_weighed": true,
+        "cindermoor_cradle_choice": "lit"
+      },
+      "quests": {
+        "the_lantern_room": "the_choice"
+      },
+      "shot": "--camera=4.6,3.0,3.6:-0.6,1.2,-0.8"
     }
   ]
 }

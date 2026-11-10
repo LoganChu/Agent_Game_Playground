@@ -1206,6 +1206,25 @@
       "description": "The Wakebearer held the ember out over the lantern room's cradle (Day 95): it would take, the room stopped singing to listen, and they took their hand back — not till they know what they'd be asking. The final choice (step 9's close) reads it.",
       "default": false,
       "future": true
+    },
+    "cindermoor_ring_weighed": {
+      "description": "At the lantern room's cradle once the ember's been held over it (Day 96), the Wakebearer thought of the six lights and what each one cost (a line per burning) — once.",
+      "default": false,
+      "future": true
+    },
+    "cindermoor_cradle_choice": {
+      "description": "The final choice at the lantern room's cradle (Day 96, Act III step 9's close): '' (not yet), 'lit' (the ember put in the ash: the Hearthspire burns, the grey goes back, and it took the Wakebearer's own past first — the Stair-Taper and Hood-Pin burn; by midwinter it will be hungry), 'released' (the ember let go out of the open casement: it walked the Hollow Choir out to the six lights and spent itself; the Spire stays dark and the Wakebearer's hand holds a cold coal) or 'dark' (the hand closed on it: the Spire stays dark, the Choir sings on, the ring of six holds and each island chooses its own midwinter burning; the ember goes round the ring).",
+      "default": "",
+      "values": [
+        "",
+        "lit",
+        "released",
+        "dark"
+      ]
+    },
+    "cindermoor_counted_down": {
+      "description": "Back down the east stair after the cradle (Day 96): the Provost counted the Wakebearer down, wrote the Long Book's last line under the chapter's (as the cradle was chosen), and a witness signed it; the Long Book shut. Ends Act III (the act3 card).",
+      "default": false
     }
   }
 }

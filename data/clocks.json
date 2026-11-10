@@ -3,6 +3,7 @@
   "cindermoor": {
     "default": "day",
     "times": [
+      {"id": "spire_lit", "if": "flag:cindermoor_cradle_choice=lit", "note": "The Hearthspire lit again at the cradle (Day 96): gold from the crown, the grey going back."},
       {"id": "morning", "if": "flag:cindermoor_morning", "note": "The night after the chapter sat is over (the lower rooms, Day 87)."},
       {"id": "night", "if": "flag:cindermoor_chapter_sat", "note": "The chapter has sat on the Spire (Day 86)."},
       {"id": "dusk", "if": "flag:cindermoor_chapter_up", "note": "The chapter has come up to the Spire's foot (Day 85)."}

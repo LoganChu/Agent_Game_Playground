@@ -8,6 +8,11 @@
     "color": "#A4A8AB",
     "overrides": [
       {
+        "time": "spire_lit",
+        "density": 0.017,
+        "color": "#BDB09A"
+      },
+      {
         "time": "morning",
         "color": "#A4A8AB"
       },
@@ -33,6 +38,18 @@
     "sky_horizon": "#ABAFB2",
     "shadow": 0.32,
     "overrides": [
+      {
+        "time": "spire_lit",
+        "sun_color": "#E8C79A",
+        "sun_energy": 0.6,
+        "sun_pitch": -30,
+        "sun_yaw": 30,
+        "ambient_color": "#B9AE9E",
+        "ambient_energy": 0.42,
+        "sky_top": "slate",
+        "sky_horizon": "#D2BFA2",
+        "shadow": 0.34
+      },
       {
         "time": "morning",
         "sun_color": "#C9C3B6",
@@ -695,6 +712,18 @@
       },
       "dialogue": "cindermoor_stair_down",
       "note": "Day 92: back down from the last landing: the Provost counts the hand down, sees the face; the novices' roll (cindermoor_seventh_answered)."
+    },
+    {
+      "id": "cindermoor_count_down",
+      "if": [
+        "!flag:cindermoor_cradle_choice=",
+        "!flag:cindermoor_counted_down"
+      ],
+      "set": {
+        "cindermoor_counted_down": true
+      },
+      "dialogue": "cindermoor_count_down",
+      "note": "Day 96 (Act III step 9's close): down from the cradle, the count down, the Long Book's last line and its witness; ends Act III."
     }
   ],
   "npcs": [
@@ -920,6 +949,22 @@
         "flag:cindermoor_oriel_choice=own"
       ],
       "note": "Day 93: not chosen for, she stands at the foot with the chapter, a pace behind the Provost, hands folded the same way."
+    },
+    {
+      "npc": "oriel",
+      "position": [
+        7.0,
+        0,
+        -2.9
+      ],
+      "rotation_y": -150,
+      "if": [
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_oriel_choice=climb",
+        "flag:cindermoor_lantern_room_entered",
+        "!flag:cindermoor_cradle_choice="
+      ],
+      "note": "Day 96: back down from the lantern room with the Wakebearer, by the east stair door."
     }
   ]
 }

@@ -733,6 +733,10 @@
     ],
     "after_knows": [
       {
+        "if": "!flag:cindermoor_cradle_choice=",
+        "goto": "after_end"
+      },
+      {
         "if": "flag:cindermoor_oriel_choice=boat",
         "goto": "after_boat"
       },
@@ -839,6 +843,60 @@
       {
         "say": "oriel",
         "text": "Go on up. I'll be looking from the water, with everybody else."
+      },
+      {
+        "end": true
+      }
+    ],
+    "after_end": [
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre stands in the gold coming down off the Spire, and doesn't look up at it.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "oriel",
+        "text": "You don't know me now. That's all right. I knew you for one night, and I didn't know you either.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "oriel",
+        "text": "It'll be hungry by midwinter. I'll be here. I know the rite; somebody ought to sing it who knows what it's for.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre has her head back, looking up at the top of the Spire, where one pane stands open.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "oriel",
+        "text": "Nothing in it. I put it out to stop it eating, and I never thought what to do about what it had eaten. You did.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "oriel",
+        "text": "Show me. ...That's the coal? It's very small. It was always very small.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel Sayre stands with her hands folded. When the wind drops you can both hear the singing, very high up.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "oriel",
+        "text": "You kept it out. You could have put it in, and you kept it out. I'll take that down the lane with me.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "oriel",
+        "text": "At midwinter, when you go round the ring, I'd like to row the first lane. I've a boat.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "oriel",
+        "text": "Seven landings. I counted you down every one."
       },
       {
         "end": true

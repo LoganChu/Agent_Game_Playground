@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "!flag:cindermoor_cradle_choice=",
+        "goto": "after"
+      },
+      {
         "say": "narrator",
         "text": "The cradle. Iron bands gone brown with a heat that isn't there any more, and the ash in it pale and fine as flour. The hollow in the middle is the size of two hands put together."
       },
@@ -12,6 +16,167 @@
         "if": "!flag:cindermoor_cradle_held"
       },
       {
+        "say": "narrator",
+        "text": "The ember is warm in your hand. You think of the six lights it caught on the way here, and what each of them cost.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Gull, on a lullaby. Nobody on Saltmarrow will hum it again.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:saltmarrow_beacon_burned=pebble"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Gull, on the founding knot. Saltmarrow's nets begin in the middle now.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:saltmarrow_beacon_burned=knot"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Gull, on Mara's brother. She sets out two cups and doesn't know why.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:saltmarrow_beacon_burned=gull"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Ridge Light, on Hob Marl's waiting. He doesn't watch the road any more.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:thornwold_beacon_burned=boots"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Ridge Light, on the salt row. The camp doesn't know who brings its charcoal.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:thornwold_beacon_burned=salt_row"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Heron, on Hesper Vail's name. She meets the boats without it.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:fen_beacon_burned=name"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Heron, on Corran's channels. Nobody living knows the way through the deep water.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:fen_beacon_burned=channels"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Wrack, on Wenna's answer. Nobody on Wrackholm remembers she ever answered a horn.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:wrackholm_beacon_burned=answer"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Wrack, on the Gannet's crew board. The crew are nobody again.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:wrackholm_beacon_burned=board"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Wrack, on Hale's white-lead pot. Nobody on the island has walked behind a lampwarden.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:wrackholm_beacon_burned=white"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Vigil Light, on the night of the boats. Kindleby doesn't know how its Keepers came.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:kindleby_beacon_burned=boats"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The Vigil Light, on Tobin's coal-pan. He'll never think to go up.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:kindleby_beacon_burned=pan"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Lowsong, on Iver's lamp. The singing's only wind to him now.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:lowsong_beacon_burned=lamp"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Lowsong, on Iver's cell key. He keeps the light and doesn't know there was anywhere else.",
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed",
+          "flag:lowsong_beacon_burned=key"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Six things somebody can't remember, so that the rest of it could stay. That's what a light costs. This one would cost more, and go on costing.",
+        "set": {
+          "cindermoor_ring_weighed": true
+        },
+        "if": [
+          "flag:cindermoor_cradle_held",
+          "flag:cindermoor_cradle_choice=",
+          "!flag:cindermoor_ring_weighed"
+        ]
+      },
+      {
         "choice": [
           {
             "text": "Hold the ember out over the cradle.",
@@ -19,9 +184,19 @@
             "goto": "hold"
           },
           {
-            "text": "Hold the ember out over it again.",
+            "text": "Put the ember in the ash.",
             "if": "flag:cindermoor_cradle_held",
-            "goto": "again"
+            "goto": "weigh_lit"
+          },
+          {
+            "text": "Open your hand. Let them go home by it.",
+            "if": "flag:cindermoor_cradle_held",
+            "goto": "weigh_released"
+          },
+          {
+            "text": "Close your hand on it, and go down.",
+            "if": "flag:cindermoor_cradle_held",
+            "goto": "weigh_dark"
           },
           {
             "text": "Leave it.",
@@ -62,14 +237,308 @@
         "end": true
       }
     ],
-    "again": [
+    "weigh_lit": [
       {
         "say": "narrator",
-        "text": "The ash stirs. The room goes quiet to listen. It would take."
+        "text": "You hold your hand over the hollow. Put it in, and the Spire burns, and the grey goes back off every island on the Reach by dark. It starts with you. By midwinter it'll want the next."
       },
       {
         "say": "narrator",
+        "text": "She'd have lit it. Tonight. She told you so at the foot, and told you why it wasn't hers.",
+        "if": "flag:cindermoor_provost_would_light"
+      },
+      {
+        "choice": [
+          {
+            "text": "Put it in.",
+            "goto": "lit"
+          },
+          {
+            "text": "Not yet.",
+            "goto": "not_yet"
+          }
+        ]
+      }
+    ],
+    "weigh_released": [
+      {
+        "say": "narrator",
+        "text": "Every time the fog had you, the ember walked you out of it. It knows the way out; it always did. It would walk them out, if you opened your hand and let it go ahead of them. It would spend itself doing it."
+      },
+      {
+        "say": "narrator",
+        "text": "The Spire would stay dark. The cradle would stay cold. And your hand would be only a hand."
+      },
+      {
+        "choice": [
+          {
+            "text": "Open your hand.",
+            "goto": "released"
+          },
+          {
+            "text": "Not yet.",
+            "goto": "not_yet"
+          }
+        ]
+      }
+    ],
+    "weigh_dark": [
+      {
+        "say": "narrator",
+        "text": "You could leave it as it is. The ring of six holds the Reach. At every midwinter each island would have to choose for itself what to feed its light, the way you chose for them, this once, every time."
+      },
+      {
+        "say": "narrator",
+        "text": "The Choir would sing on up here. And the ember would stay in your hand, and what's left of you in it."
+      },
+      {
+        "choice": [
+          {
+            "text": "Close your hand on it.",
+            "goto": "dark"
+          },
+          {
+            "text": "Not yet.",
+            "goto": "not_yet"
+          }
+        ]
+      }
+    ],
+    "not_yet": [
+      {
+        "say": "narrator",
         "text": "You take your hand back. Not yet. They start singing again, as if they knew you would."
+      },
+      {
+        "end": true
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "You open your hand over the hollow, and the ember goes down into the ash as if it's been waiting three months to be put down.",
+        "set": {
+          "cindermoor_cradle_choice": "lit"
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "It takes.",
+        "sound": "kindle",
+        "music": "music_lighting"
+      },
+      {
+        "say": "narrator",
+        "text": "Gold comes up through the ash from underneath. The cradle's bands go red, and then the panes: every pane in the room goes the colour of a coal through nine hundred years of soot."
+      },
+      {
+        "say": "narrator",
+        "text": "And it starts with you, the way she said it would. Not the hand: what's behind it. The stair goes first. Seven landings, and the counting, and a coal asked for, and a hood pinned, going up into the light like sparks off a fire; and you watch them go, and can't think what they were."
+      },
+      {
+        "say": "narrator",
+        "text": "In your satchel the Stair-Taper is a candle-end. Whatever it kept is in the fire.",
+        "if": "item:stair_taper",
+        "take_item": "stair_taper"
+      },
+      {
+        "say": "narrator",
+        "text": "The Hood-Pin is a bent pin. You let it fall in after the rest.",
+        "if": "item:hood_pin",
+        "take_item": "hood_pin"
+      },
+      {
+        "say": "narrator",
+        "text": "The Choir doesn't sing. It stands in close round the fire, the way people stand round a fire somebody's lit at last, and holds its hands out to it."
+      },
+      {
+        "say": "narrator",
+        "text": "'Well,' Isolde says, by the cradle, with the light going through her. 'Now you know what I knew. We'll keep you company. It isn't so bad, with company.'",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "One voice finishes its line over the fire, the whole of it, and doesn't start again.",
+        "if": "flag:cindermoor_choir_answered=written"
+      },
+      {
+        "say": "narrator",
+        "text": "'Not Hushed,' somebody says beside you. 'Awake. You asked it, at least. Nobody asked me.'",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "oriel",
+        "text": "I said I'd carry nothing. I'll carry you down. Somebody has to count.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "Far down under the cliff, a boat goes out of the eighth slip, and turns, and lies on the water with its oars up, so that the woman in it can watch the Spire burn.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "narrator",
+        "text": "Far down at the foot, two voices stop counting, and one of them says, 'Oh.'",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "goto": "go_down"
+      }
+    ],
+    "released": [
+      {
+        "say": "narrator",
+        "text": "You go to the pane you rubbed clear, and put your shoulder to the iron. It's a casement: the Keepers opened it every midwinter to let the light go out to the ring. It gives, onto the cold.",
+        "set": {
+          "cindermoor_cradle_choice": "released"
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "You hold your hand out of it, into the wind, and open it."
+      },
+      {
+        "say": "narrator",
+        "text": "The ember doesn't fall. It goes out off your palm like breath on a cold morning, and the grey in the room leans after it; and then the grey goes after it."
+      },
+      {
+        "say": "narrator",
+        "text": "A great many of them, past you, through the pane, not singing now. The ember goes ahead over the moor and down off the cliff and out over the water, getting smaller, the way it went ahead of you every time the fog had you. Walking them out."
+      },
+      {
+        "say": "narrator",
+        "text": "They go to the six lights. You can see the threads of it going out over the grey: to the Gull, the Ridge, the Heron, the Wrack, the Vigil Light, Lowsong. The last warm things anybody on the Reach keeps."
+      },
+      {
+        "say": "narrator",
+        "text": "'I'll see them out,' Isolde says. She does, keeping the time, and at the pane she looks back once, like a person. Then she's gone after them.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "One voice finishes its line at the pane, the whole of it, and goes.",
+        "if": "flag:cindermoor_choir_answered=written"
+      },
+      {
+        "say": "narrator",
+        "text": "'Not Hushed,' says the last of them going out. 'Going home. Wherever that is now.'",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "Going out, one of them says your name. Once, to you. Then it's yours.",
+        "if": "flag:cindermoor_seventh_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "Your hand's cold. There's a coal in it, black, the size of a hazelnut, with nothing in it at all."
+      },
+      {
+        "say": "narrator",
+        "text": "The room's empty. Only a room: soot on the panes, ash in the cradle, the wind coming in. You hadn't known how loud the singing was."
+      },
+      {
+        "say": "oriel",
+        "text": "Thirty-one years. I never once opened that pane for anything but the light.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "Far down on the water a woman sitting in a boat that hasn't gone out feels something go over her, warm, and looks up, and doesn't know what it was.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "narrator",
+        "text": "Far down at the foot, two voices counting stop, and look up.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "goto": "go_down"
+      }
+    ],
+    "dark": [
+      {
+        "say": "narrator",
+        "text": "You close your hand. The ember's warm against your fingers, the way it's been since the beach.",
+        "set": {
+          "cindermoor_cradle_choice": "dark"
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "The singing starts again. Not louder; not sadder. The way a room goes on when somebody's decided to stay a while."
+      },
+      {
+        "say": "narrator",
+        "text": "'Then we'll sing,' Isolde says. 'We're good at it. Come up at midwinter and tell us how the six did.'",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "The one voice finishes its line, and goes back for the others, and starts again with them.",
+        "if": "flag:cindermoor_choir_answered=written"
+      },
+      {
+        "say": "narrator",
+        "text": "'Not Hushed,' says the voice by the cradle. 'Awake.' And goes back in on the beat.",
+        "if": "flag:cindermoor_choir_answered=left"
+      },
+      {
+        "say": "narrator",
+        "text": "Six lights round a dark Spire, every one of them fed by somebody who knew what it cost. Nobody on the Reach has had that in nine hundred years."
+      },
+      {
+        "say": "oriel",
+        "text": "I put it out. And you'll keep it out. I didn't think anyone would ever agree with me.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "Far down under the cliff, a woman gets out of a boat that never went out, and pulls it back up the rollers into the eighth slip, and sits down beside it.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "narrator",
+        "text": "Far down at the foot, two voices counting wait.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "goto": "go_down"
+      }
+    ],
+    "go_down": [
+      {
+        "say": "narrator",
+        "text": "Time to go down. They'll be counting.",
+        "quest_stage": [
+          "the_lantern_room",
+          "the_choice"
+        ]
+      },
+      {
+        "end": true
+      }
+    ],
+    "after": [
+      {
+        "say": "narrator",
+        "text": "Gold all through the ash, and the bands red. The heat of it is on your face from across the room, and the panes glow like the inside of a hand held up to a candle.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "The Choir stands in close round it. Nobody's singing. They're warm.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "Ash, and the hollow in it, and nothing else. The casement stands open, and the wind's had the room to itself since.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "narrator",
+        "text": "Ash, and the hollow in it. The Choir sings round it, and the ember in your closed hand is warm.",
+        "if": "flag:cindermoor_cradle_choice=dark"
       },
       {
         "end": true

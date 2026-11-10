@@ -208,6 +208,71 @@
       ],
       "coda": "The Slow Mercy goes in to Cindermoor on the morning ebb, down a lane no Tidewright has ever sailed. Every light you lit will be burning behind you.",
       "unfinished": "Still undone on the islands, with a night before the ebb: %s."
+    },
+    {
+      "id": "act3",
+      "when": "flag:cindermoor_counted_down",
+      "title": "Act III — The Spire",
+      "subtitle": "The hand that carried it down.",
+      "recap": [
+        {
+          "if": "flag:cindermoor_cradle_choice=lit",
+          "text": "The Hearthspire burns again. It took the hand that lit it first, and by midwinter it will be hungry. Whoever feeds it now is written down by name, and asked."
+        },
+        {
+          "if": "flag:cindermoor_cradle_choice=released",
+          "text": "The Hearthspire stands dark. The ember walked the Hollow Choir out to the six lights and spent itself, and your hand is only a hand."
+        },
+        {
+          "if": "flag:cindermoor_cradle_choice=dark",
+          "text": "The Hearthspire stands dark, and the Choir sings at the top of it. The ember is still in your hand, and at midwinter it goes round the ring."
+        },
+        {
+          "if": "flag:cindermoor_provost_would_light",
+          "text": "The Provost would have lit it, and told you so, and left it to you."
+        },
+        {
+          "if": "flag:cindermoor_provost_knows",
+          "text": "The Provost knows whose hand carried the last coal down."
+        },
+        {
+          "if": "flag:cindermoor_oriel_choice=climb",
+          "text": "Oriel Sayre came up the east stair behind you, into the room she put out, and signed the Long Book under you."
+        },
+        {
+          "if": "flag:cindermoor_oriel_choice=boat",
+          "text": "Oriel Sayre watched it from her boat in the eighth slip, where she always wanted to see the Spire from."
+        },
+        {
+          "if": "flag:cindermoor_oriel_choice=own",
+          "text": "Oriel Sayre counted at the foot, a pace behind the Provost, and signed without being asked."
+        },
+        {
+          "if": "flag:cindermoor_seventh_answered=written",
+          "text": "Your name is back in the seventh place on the novices' roll, in upright Keeper's letters."
+        },
+        {
+          "if": "flag:cindermoor_seventh_answered=struck",
+          "text": "Your name is on the roll, struck through. The novice is finished."
+        },
+        {
+          "if": "flag:cindermoor_seventh_answered=left",
+          "text": "The seventh place on the roll stays scraped. Nobody has written you down."
+        },
+        {
+          "if": "flag:cindermoor_choir_answered=named",
+          "text": "You said Isolde Vane's name up the stair, and she talked to you like a person."
+        },
+        {
+          "if": "flag:cindermoor_choir_answered=written",
+          "text": "Isolde Vane is in the Long Book as she was: Not Hushed."
+        },
+        {
+          "if": "flag:cindermoor_choir_answered=left",
+          "text": "Isolde Vane was left to sing, and got the rest of her line out on her own."
+        }
+      ],
+      "coda": "The Long Book is shut. What the Lanternreach does with its lights now isn't written in any book yet."
     }
   ]
 }

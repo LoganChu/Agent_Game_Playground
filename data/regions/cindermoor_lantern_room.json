@@ -5,7 +5,18 @@
   "fog": {
     "density": 0.07,
     "color": "#4A4C56",
-    "note": "No Greying in the Spire: the pale haze is the Choir standing round the cradle (Day 95)."
+    "note": "No Greying in the Spire: the pale haze is the Choir standing round the cradle (Day 95).",
+    "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "density": 0.012
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.04,
+        "color": "#6A5A48"
+      }
+    ]
   },
   "light": {
     "note": "The panes are black with soot; a little grey comes through where the soot is thin. The ember is the light.",
@@ -17,7 +28,18 @@
     "ambient_energy": 0.4,
     "sky_top": "ink",
     "sky_horizon": "#1A1A22",
-    "shadow": 0.25
+    "shadow": 0.25,
+    "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 96: the panes glowing; the fire is the light.",
+        "sun_color": "#E0A866",
+        "sun_energy": 0.3,
+        "ambient_color": "#A07A58",
+        "ambient_energy": 0.7,
+        "sky_horizon": "#3A2A1C"
+      }
+    ]
   },
   "ambience": [
     {
@@ -26,7 +48,18 @@
     },
     {
       "sound": "choir_near",
-      "volume": 0.7
+      "volume": 0.7,
+      "if": "!flag:cindermoor_cradle_choice=released|lit"
+    },
+    {
+      "sound": "fire",
+      "volume": 0.6,
+      "if": "flag:cindermoor_cradle_choice=lit"
+    },
+    {
+      "sound": "wind_high",
+      "volume": 0.35,
+      "if": "flag:cindermoor_cradle_choice=released"
     }
   ],
   "footsteps": "stone",
@@ -181,7 +214,7 @@
       "note": "The room's shell: knee walls, the soot-black panes, the door in the east wall swung back, the roof's dark pyramid (Day 95). The slab collider (underside 5.1 m, under the pyramid all the way to the panes) keeps the camera inside without pulling the arm in at its usual height (~4.5 m)."
     },
     {
-      "model": "res://assets/models/dressing/lantern_cradle.glb",
+      "model": "res://assets/models/dressing/firstflame_cradle.glb",
       "position": [
         0,
         0,
@@ -193,7 +226,34 @@
         2.1,
         3.6
       ],
-      "note": "The Firstflame's cradle over the top of the shaft, cold; the hollow in the ash where the last coal sat (Day 95)."
+      "note": "The Firstflame's cradle over the top of the shaft, cold; the hollow in the ash where the last coal sat (Day 95).",
+      "if": "!flag:cindermoor_cradle_choice=lit"
+    },
+    {
+      "model": "res://assets/models/dressing/firstflame_cradle.glb",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_y": 0,
+      "collider": [
+        3.6,
+        2.1,
+        3.6
+      ],
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "light": {
+        "color": "#FFB45A",
+        "energy": 3.2,
+        "range": 12.0,
+        "offset": [
+          0,
+          2.8,
+          0
+        ]
+      },
+      "note": "Day 96: the cradle lit — the Firstflame in the ash again."
     }
   ],
   "objects": [
@@ -284,7 +344,8 @@
       "if": [
         "flag:cindermoor_oriel_choice=climb",
         "flag:cindermoor_chapter_chose",
-        "flag:cindermoor_lantern_room_entered"
+        "flag:cindermoor_lantern_room_entered",
+        "flag:cindermoor_cradle_choice="
       ],
       "note": "Day 95: asked up, she came up behind the Wakebearer and stands just inside the door, carrying nothing, touching nothing."
     }

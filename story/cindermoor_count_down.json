@@ -1,0 +1,207 @@
+{
+  "id": "cindermoor_count_down",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "You come down the east stair, and at the foot of it somebody is counting up to meet you."
+      },
+      {
+        "say": "provost",
+        "text": "...Eight. Seven. Six."
+      },
+      {
+        "say": "narrator",
+        "text": "You can't count with them. You know there are numbers, and that they go somewhere. The Provost counts you down, landing by landing, as if she were carrying you.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel has your arm. She counts under her breath all the way down, so you'll have it.",
+        "if": [
+          "flag:cindermoor_cradle_choice=lit",
+          "flag:cindermoor_oriel_choice=climb"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "You count with her, down the turns, the coal cold in your pocket.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "narrator",
+        "text": "You count with her, down the turns, the ember warm in your shut hand.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel a step behind you, counting too.",
+        "if": [
+          "!flag:cindermoor_cradle_choice=lit",
+          "flag:cindermoor_oriel_choice=climb"
+        ]
+      },
+      {
+        "say": "provost",
+        "text": "...Two. One.",
+        "sound": "quay_bell"
+      },
+      {
+        "say": "narrator",
+        "text": "Over all their heads the Hearthspire is burning. Gold through the soot, the colour of a coal held up to the eye, and the grey going back off the moor all round like a tide off a beach.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "Over all their heads the Hearthspire stands dark, one pane open at the top of it, and the wind going in.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "narrator",
+        "text": "Over all their heads the Hearthspire stands dark. If you listen, there's singing at the top of it.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "narrator",
+        "text": "The Provost sits down on the doorstep with the Long Book on her knee, and opens it under the chapter's line, and writes."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "released"
+      },
+      {
+        "goto": "dark"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "'The Hearthspire was lit again by the hand that carried it down, and it took that hand first. By midwinter it will be hungry. Whoever feeds it from this day is written in this book by name, and is asked.'"
+      },
+      {
+        "say": "provost",
+        "text": "Asked. Nine hundred years, and we never once wrote that word."
+      },
+      {
+        "say": "provost",
+        "text": "I'd have lit it. I said I'd be wrong in some way I couldn't see from down here. I can see it from here.",
+        "if": "flag:cindermoor_provost_would_light"
+      },
+      {
+        "say": "provost",
+        "text": "You don't know me, do you. You did, an hour since.",
+        "if": "flag:cindermoor_provost_knows"
+      },
+      {
+        "goto": "witness"
+      }
+    ],
+    "released": [
+      {
+        "say": "narrator",
+        "text": "'The Hearthspire was not lit. The hand that carried it down opened, and let them out by it, and came down cold. There is nothing in the cradle and nobody in the room. We have nothing to feed it with, and we will not go looking.'"
+      },
+      {
+        "say": "provost",
+        "text": "Nothing in the middle of the ring. I'll learn to look at that."
+      },
+      {
+        "say": "provost",
+        "text": "I'd have lit it. I'm glad it wasn't mine.",
+        "if": "flag:cindermoor_provost_would_light"
+      },
+      {
+        "goto": "witness"
+      }
+    ],
+    "dark": [
+      {
+        "say": "narrator",
+        "text": "'The Hearthspire was not lit. The hand that carried it down carried it down again, still lit. At midwinter it goes round the ring, and every island chooses for itself what to burn, and writes it down.'"
+      },
+      {
+        "say": "provost",
+        "text": "Every island its own Long Book. Tobin will want to know who's teaching them their letters."
+      },
+      {
+        "say": "provost",
+        "text": "I'd have lit it. I'll be glad of being wrong at midwinter, I expect. Ask me then.",
+        "if": "flag:cindermoor_provost_would_light"
+      },
+      {
+        "goto": "witness"
+      }
+    ],
+    "witness": [
+      {
+        "say": "provost",
+        "text": "A witness signs. Nine hundred years of this book and not one witness in it. You were the only one up there."
+      },
+      {
+        "say": "narrator",
+        "text": "You copy your name off the roll, letter by letter, as if it were somebody else's. It's a good name. You'd have liked to know them.",
+        "if": [
+          "flag:cindermoor_seventh_answered=written",
+          "flag:cindermoor_cradle_choice=lit"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "You sign it. Upright, every letter finished, the way you were taught on Kindleby, by someone on this doorstep.",
+        "if": [
+          "flag:cindermoor_seventh_answered=written",
+          "!flag:cindermoor_cradle_choice=lit"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "You sign it, the name the roll has struck through, and leave this one standing.",
+        "if": "flag:cindermoor_seventh_answered=struck"
+      },
+      {
+        "say": "narrator",
+        "text": "You make a mark under it. No name. She scraped it off so nobody could write you down, and nobody has.",
+        "if": "flag:cindermoor_seventh_answered=left"
+      },
+      {
+        "say": "oriel",
+        "text": "And the hand that put it out signs under the hand that carried it.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel takes the pen from her, and signs under you: Oriel Sayre, High Keeper, who put it out.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "narrator",
+        "text": "Oriel, a pace behind the Provost, signs under you without being asked: Oriel Sayre, who put it out.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "say": "narrator",
+        "text": "Down on the water, a woman in a boat sees it all from where she always wanted to see it, and nobody writes her in. She'd want it that way.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "provost",
+        "text": "There. That's the Long Book shut."
+      },
+      {
+        "say": "narrator",
+        "text": "She shuts it.",
+        "set": {
+          "cindermoor_counted_down": true
+        },
+        "quest_complete": "the_lantern_room"
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}
