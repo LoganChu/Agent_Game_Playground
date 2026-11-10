@@ -62,6 +62,8 @@ func test_every_model_loads_small_and_upright() -> void:
 			limit = Vector3(8.0, 12.5, 8.0)  # the Spire at 1/3 scale, placed scaled up and far off
 		elif path.ends_with("lower_vault.glb"):
 			limit = Vector3(26.5, 7.0, 20.5)  # the lower rooms' roof (Day 87): one slab over the whole room
+		elif path.ends_with("lantern_room.glb"):
+			limit = Vector3(12.5, 8.0, 12.5)  # the Hearthspire's lantern room (Day 95): the whole room's shell, 12 m square
 		elif path.get_file().begins_with("spire_foot"):
 			limit = Vector3(11.5, 17.5, 11.5)  # the Hearthspire's foot at full scale (Day 83; Day 86's spire_foot_open, the seat lifted), the shaft going up into the fog
 		assert_true(box.size.length() > 0.2 and box.size.x < limit.x and box.size.z < limit.z and box.size.y < limit.y, "%s has sane bounds %s" % [path, box])

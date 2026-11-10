@@ -134,6 +134,7 @@ func test_who_says_what_after() -> void:
 		var oriel := _lines(state, "oriel")
 		assert_true(oriel.contains(expect[how][0]), "%s: %s" % [how, oriel])
 		assert_false(oriel.contains("Somebody came down that stair counting"), "%s: past that now" % how)
+		_lines(state, "provost", ["Say nothing. Wait with them."])  # Day 95: the chapter's last sitting comes first
 		assert_true(_lines(state, "provost").contains(expect[how][1]), how)
 		var hild := _lines(state, "hild")
 		if how == "boat":

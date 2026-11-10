@@ -539,6 +539,32 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(waiting != null and Vector2(waiting.position.x, waiting.position.z).distance_to(Vector2(7.0, -2.9)) < 1.0,
 			"she waits by the east stair door (%s)" % [waiting.position if waiting != null else Vector3.ZERO])
 	print("Smoke: what she was to you — Oriel told, and waiting at the door")
+	# Day 95: the chapter's last sitting (it does not choose), up past seven, the lantern room and the Hollow Choir.
+	_npc("provost").interact()
+	_check(_choose(ui, "Say nothing. Wait with them."), "the chapter sits on the one line")
+	_finish_dialogue(ui, "provost (the last sitting)")
+	_check(world.get_flag("cindermoor_chapter_chose") == true and world.quest_stage("the_lantern_room") == "chosen",
+			"the chapter does not choose")
+	_object("foot_door").interact()
+	_check(_choose(ui, "Go up to the last landing."), "back up the east stair")
+	_finish_dialogue(ui, "the door (up again)")
+	if not await _arrived(main, ui, "cindermoor_last_landing", "seven landings, Oriel a step behind"):
+		return
+	_object("landing_up").interact()
+	_check(_choose(ui, "Go on up. Past seven."), "the stair on up")
+	_finish_dialogue(ui, "landing_up (eight)")
+	if not await _arrived(main, ui, "cindermoor_lantern_room", "eight: the lantern room"):
+		return
+	for i in 2:
+		await get_tree().process_frame
+	_check(world.get_flag("cindermoor_lantern_room_entered") == true and world.quest_stage("the_lantern_room") == "the_room",
+			"the lantern room: the cradle and the Hollow Choir")
+	_check(_npc("oriel") != null and _object("lantern_cradle") != null, "Oriel inside the door; the cradle")
+	_object("lantern_cradle").interact()
+	_check(_choose(ui, "Hold the ember out over the cradle."), "the ember over the cradle")
+	_finish_dialogue(ui, "the cradle (not yet)")
+	_check(world.get_flag("cindermoor_cradle_held") == true, "it would take; not yet")
+	print("Smoke: the lantern room — the chapter does not choose; the Hollow Choir")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
