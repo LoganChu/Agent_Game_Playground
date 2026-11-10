@@ -202,7 +202,7 @@ func test_the_cradle_waits() -> void:
 	assert_eq(state.quest_stage(QUEST), "the_room", "nothing is chosen yet")
 	offered.clear()
 	_lines(state, "cindermoor_cradle", [], offered)
-	assert_true(offered.has("Hold the ember out over it again.") and not offered.has(HOLD), str(offered))
+	assert_true(offered.has("Put the ember in the ash.") and not offered.has(HOLD), str(offered))
 	var panes := _lines(state, "cindermoor_lantern_panes")
 	assert_true(panes.contains("the ring has nothing in the middle"), panes)
 	assert_true(panes.contains("Saltmarrow's, on the Gull"), "the first light, as it was burned")

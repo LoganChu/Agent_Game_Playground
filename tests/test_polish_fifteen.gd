@@ -18,13 +18,17 @@ func _actors(region: Region, npc: String) -> Array[NpcActor]:
 func test_the_cindermoor_clock_reads_the_story_in_order() -> void:
 	assert_true(StoryClock.has_clock("cindermoor"))
 	assert_eq(StoryClock.default_time("cindermoor"), "day")
-	assert_eq(StoryClock.times("cindermoor"), ["morning", "night", "dusk", "day"] as Array[String])
+	assert_eq(StoryClock.times("cindermoor"), ["spire_lit", "morning", "night", "dusk", "day"] as Array[String], "Day 96: spire_lit")
 	var world := WorldState.new()
 	assert_eq(StoryClock.now("cindermoor", world), "day", "before the chapter comes up")
 	var expected := ["dusk", "night", "morning"]
 	for i in CLOCK_FLAGS.size():
 		world.set_flag(CLOCK_FLAGS[i], true)
 		assert_eq(StoryClock.now("cindermoor", world), expected[i], "after " + CLOCK_FLAGS[i])
+	world.set_flag("cindermoor_cradle_choice", "dark")
+	assert_eq(StoryClock.now("cindermoor", world), "morning", "a dark Spire keeps the morning")
+	world.set_flag("cindermoor_cradle_choice", "lit")
+	assert_eq(StoryClock.now("cindermoor", world), "spire_lit", "the Spire lit (Day 96)")
 	assert_eq(StoryClock.now("no_such_clock", world), "")
 
 
@@ -39,7 +43,7 @@ func test_every_cindermoor_outside_region_keeps_the_one_clock() -> void:
 				assert_false(override.has("if"), "%s %s: a time, not the flags again" % [id, block])
 				times.append(override.get("time"))
 			times.sort()
-			assert_eq(times, ["dusk", "morning", "night"], "%s %s gives every time its look" % [id, block])
+			assert_eq(times, ["dusk", "morning", "night", "spire_lit"], "%s %s gives every time its look" % [id, block])
 
 
 func test_the_crown_darkens_and_lightens_with_the_clock() -> void:

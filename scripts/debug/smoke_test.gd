@@ -565,6 +565,30 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_finish_dialogue(ui, "the cradle (not yet)")
 	_check(world.get_flag("cindermoor_cradle_held") == true, "it would take; not yet")
 	print("Smoke: the lantern room — the chapter does not choose; the Hollow Choir")
+	# Day 96: the choice at the cradle (lit), the count down, the Long Book's last line, Act III's card.
+	_object("lantern_cradle").interact()
+	_check(_choose(ui, "Put the ember in the ash."), "the ember to the ash")
+	_check(_choose(ui, "Put it in."), "put it in")
+	_finish_dialogue(ui, "the cradle (lit)")
+	for i in 2:
+		await get_tree().process_frame
+	_check(world.get_flag("cindermoor_cradle_choice") == "lit" and world.quest_stage("the_lantern_room") == "the_choice",
+			"the Hearthspire lit")
+	_check(_npc("oriel") == null, "Oriel goes down ahead")
+	if not await _take_exit(main, ui, "cindermoor_last_landing", "down from the lantern room"):
+		return
+	if not await _take_exit(main, ui, "cindermoor_spire_foot", "counted down the east stair"):
+		return
+	var earlier_recap := _act_end_recap  # Act I's close is checked from it later in the walk
+	_act_end_recap = ""
+	await _close_act_end_card(main)
+	var act_three_recap := _act_end_recap
+	_act_end_recap = earlier_recap
+	_check(world.get_flag("cindermoor_counted_down") == true and world.quest_state("the_lantern_room") == WorldState.QUEST_DONE,
+			"the Long Book shut")
+	_check(act_three_recap.contains("The Hearthspire burns again"), "the Act III card: " + act_three_recap.left(160))
+	_check(_npc("oriel") != null, "Oriel at the foot")
+	print("Smoke: the cradle lit; counted down; Act III ends")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
