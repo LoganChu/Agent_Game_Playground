@@ -108,7 +108,7 @@ func test_light_it() -> void:
 	assert_true(said.contains("I'll carry you down. Somebody has to count."), "Oriel, climbed")
 	assert_false(state.item_count("stair_taper") > 0 or state.item_count("hood_pin") > 0, "the own Remnants go into the fire")
 	assert_eq(state.quest_stage(QUEST), "the_choice")
-	assert_true(_shows(ROOM, "firstflame_cradle.glb", state))
+	assert_true(_shows(ROOM, "firstflame_cradle_lit.glb", state) and not _shows(ROOM, "firstflame_cradle.glb", state))
 	assert_eq(RegionMood.light(_region(ROOM), state)["sun_color"], "#E0A866")
 	for id: String in ["cindermoor_boat_stair", "cindermoor_long_steps", FOOT]:
 		assert_eq(RegionMood.clock_time(_region(id), state), "spire_lit", id)
@@ -212,4 +212,4 @@ func test_the_checkpoint() -> void:
 	assert_eq(str(scenario.get("region", "")), ROOM)
 	Scenarios.apply(_content(), state, scenario)
 	assert_eq(str(state.get_flag("cindermoor_cradle_choice")), "lit")
-	assert_true(_shows(ROOM, "firstflame_cradle.glb", state))
+	assert_true(_shows(ROOM, "firstflame_cradle_lit.glb", state))

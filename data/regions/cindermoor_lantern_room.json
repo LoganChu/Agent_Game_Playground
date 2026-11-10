@@ -230,7 +230,7 @@
       "if": "!flag:cindermoor_cradle_choice=lit"
     },
     {
-      "model": "res://assets/models/dressing/firstflame_cradle.glb",
+      "model": "res://assets/models/dressing/firstflame_cradle_lit.glb",
       "position": [
         0,
         0,
