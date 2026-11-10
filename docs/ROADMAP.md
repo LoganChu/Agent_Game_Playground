@@ -770,12 +770,10 @@ each .glb < 5 MB.
       (`cindermoor_count_down` event), the Long Book's last line per ending, **the witness** (the Wakebearer and Oriel sign),
       the Long Book shut (`cindermoor_counted_down`) → the **`act3` card**. Oriel and
       the Provost after-lines per ending; the lantern room's looks per ending (lit cradle + warm light + fire; Choir gone;
-      unchanged) and the clock's new `spire_lit` time (Cindermoor outside goes gold). Blender: the cradle renamed `firstflame_cradle`; the `firstflame_cradle_lit` builder is written but **not yet exported** (bpy didn't install in time: the lit ending uses the cold model + its light).
+      unchanged) and the clock's new `spire_lit` time (Cindermoor outside goes gold). Blender `firstflame_cradle_lit` (the cradle renamed `firstflame_cradle`).
       Checkpoint `the_spire_lit`; the smoke walk lights it and reads the card. `test_the_cradle_choice.gd` (10).
 
 ### Next up
-0. [A] **Export `firstflame_cradle_lit`** (Day 96's builder; bpy didn't finish installing) and swap it in for the lit
-   ending's cradle prop (`cindermoor_lantern_room`, the prop with `if: flag:cindermoor_cradle_choice=lit`) and the tests.
 1. [C] **Epilogues** (one or two sessions): after the `act3` card the game keeps going ("Keep exploring") — give each
    island a short after-the-ending beat, coloured by `cindermoor_cradle_choice` and that island's burning: a lit Spire
    seen over the water (the `hearthspire_far` prop needs a lit variant, and the six regions a gold-on-the-horizon light

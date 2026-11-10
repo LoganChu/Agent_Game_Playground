@@ -35,15 +35,18 @@ Newest entries first. Each entry: what was done, decisions & why, problems, next
   - **After:** Oriel's and the Provost's after-lines per ending. The lantern room per ending: lit cradle, warm light and
     fire for lit; the Choir's haze and singing gone and the wind in for released; unchanged for dark. Lit is also a new time
     on the Cindermoor story clock (`spire_lit`): the Boat Stair, the long steps and the foot go gold, with the fog halved. Oriel (climb) comes down with the Wakebearer.
-- **Blender:** `build_cindermoor.py firstflame_cradle_lit` builder written (red bands, gold ash, a tall flame and a ring of
-  tongues). **Not yet exported:** the bpy wheel took the whole session to download, so for now the lit ending shows the
-  cold cradle model with the lit cradle's warm `light` (`fire` ambience, the warm room light). The cold cradle is renamed
-  `firstflame_cradle`, because the validator's prop-variant check groups props by the first word of the file name, and
-  the cradle shares the shell's origin (TECH, *A small interior*).
+- **Blender:** `build_cindermoor.py firstflame_cradle_lit` (red bands, gold ash, a tall flame and a ring of tongues,
+  113 KB). bpy finished installing late in the session, so the content went out first with the cold model and the lit
+  light, and the model followed in its own commit. The cold cradle is renamed `firstflame_cradle`, because the
+  validator's prop-variant check groups props by the first word of the file name, and the cradle shares the shell's
+  origin (TECH, *A small interior*).
 - **Tests:** `test_the_cradle_choice.gd` (10): the choice waits for the hand; the six lights weighed once; each ending
   (flags, items, looks, light, ambience, count down, the witness per roll/Oriel); Oriel comes down; after-lines; Act
   III's card; the name never said; checkpoint `the_spire_lit`. `test_the_lantern_room` reads the new
   options; the lighting counts (audio, music) are seven now, and the clock test knows `spire_lit`. The smoke walk lights the cradle, goes down two exits, is counted down and reads the card.
+
+Screenshot: `docs/screenshots/2026-11-10-pm-spire-lit.png` (checkpoint `the_spire_lit`: the Firstflame in the cradle,
+the room gone gold through the soot; also `docs/checkpoints/the_spire_lit.png`).
 
 **Decisions**
 - **No ending is the "good" one.** Lit clears the Reach and costs the Wakebearer their past, and someone every midwinter
@@ -57,9 +60,7 @@ Newest entries first. Each entry: what was done, decisions & why, problems, next
 - **The ending's world changes are data** (props, overrides, ambience `if`s); the island epilogues are next.
 
 **Next run should**
-1. First: `.tools/bin/blender-py tools/blender/build_cindermoor.py firstflame_cradle_lit`, point the lantern room's lit
-   cradle prop at `firstflame_cradle_lit.glb` and the three `_shows` checks in `test_the_cradle_choice.gd` at it.
-   Then ROADMAP *Next up* #1: **Epilogues** — after the card, each island coloured by the ending; Oda's lane off Cindermoor in
+1. ROADMAP *Next up* #1: **Epilogues** — after the card, each island coloured by the ending; Oda's lane off Cindermoor in
    every ending; what the Greying/ember HUD does after `released` and `lit`. Polish sixteen is due by ~Day 102. Fetch
    and reset `main` before trusting it.
 
