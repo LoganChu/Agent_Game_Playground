@@ -670,7 +670,7 @@ def build_lantern_room() -> None:
     bd.export("lantern_room")
 
 
-def build_lantern_cradle() -> None:
+def build_firstflame_cradle() -> None:
     """The Firstflame's cradle (Day 95, the lantern room): the iron basket the Hearthspire burned in for nine hundred
     years, over the top of the shaft — a kerb of the pale stone r 1.7 round the shaft's mouth, four iron legs curving
     up to a bowl of iron bands r 1.5 at 1.1-2.0 m, and in it a heap of pale ash with a hollow in the middle the size of
@@ -697,7 +697,43 @@ def build_lantern_cradle() -> None:
             0.035, IRON)
     cyl("Ash", 1.42, 1.05, 0.14, 14, (0, 0, 1.99), ASH)
     cyl("Hollow", 0.3, 0.2, 0.03, 8, (0, 0, 2.12), DARK)
-    bd.export("lantern_cradle")
+    bd.export("firstflame_cradle")
+
+
+def build_firstflame_cradle_lit() -> None:
+    """The cradle lit (Day 96, the `lit` ending): the same kerb, legs and bowl, the bands gone red with the heat, the
+    ash caught gold from underneath, and the Firstflame standing up out of the hollow — a ring of short tongues round
+    one tall one, all emissive (the region gives it its light). Fire centre Godot [0, 2.8, 0]."""
+    bd.reset()
+    rng = random.Random(961)
+    PALE2, IRON, HOT, DARK = mat("bone", -0.5), mat("ink", 0.15), mat("coal", 0.0, emissive=True), mat("ink", -0.4)
+    cyl("Kerb", 1.75, 1.7, 0.35, 16, (0, 0, 0), PALE2)
+    cyl("Mouth", 1.35, 1.35, 0.02, 16, (0, 0, 0.34), DARK)
+    for k in range(4):
+        a = math.pi / 4 + k * math.pi / 2
+        c, s = math.cos(a), math.sin(a)
+        rod("Leg", (c * 1.6, s * 1.6, 0.35), (c * 1.75, s * 1.75, 1.1), 0.08, IRON)
+        rod("Leg", (c * 1.75, s * 1.75, 1.1), (c * 1.5, s * 1.5, 2.0), 0.07, IRON)
+    cyl("Bowl", 0.5, 1.45, 0.9, 16, (0, 0, 1.1), DARK)
+    for z, r in ((1.12, 0.55), (1.45, 0.95), (1.75, 1.25), (2.0, 1.5)):
+        for k in range(16):
+            a0, a1 = k / 16 * math.tau, (k + 1) / 16 * math.tau
+            rod("Band", (math.cos(a0) * (r + 0.03), math.sin(a0) * (r + 0.03), z),
+                (math.cos(a1) * (r + 0.03), math.sin(a1) * (r + 0.03), z), 0.045, HOT if z > 1.6 else IRON)
+    for k in range(12):
+        a = k / 12 * math.tau
+        rod("Rib", (math.cos(a) * 0.55, math.sin(a) * 0.55, 1.12), (math.cos(a) * 1.52, math.sin(a) * 1.52, 2.05),
+            0.035, IRON)
+    cyl("Ash", 1.42, 1.05, 0.14, 14, (0, 0, 1.99), mat("ember", -0.1, emissive=True))
+    cyl("Heart", 0.55, 0.4, 0.12, 10, (0, 0, 2.1), mat("kindle", 0.1, emissive=True))
+    flame = mat("kindle", 0.2, emissive=True)
+    cyl("Flame", 0.38, 0.0, 1.6, 5, (0, 0, 2.15), flame, 0.3)
+    for k in range(7):
+        a = k / 7 * math.tau + rng.uniform(-0.2, 0.2)
+        r = rng.uniform(0.55, 0.9)
+        cyl("Flame", rng.uniform(0.14, 0.22), 0.0, rng.uniform(0.6, 1.0), 4,
+            (math.cos(a) * r, math.sin(a) * r, 2.1), flame, a)
+    bd.export("firstflame_cradle_lit")
 
 
 BUILDERS = {
@@ -721,7 +757,8 @@ BUILDERS = {
     "landing_window": build_landing_window,
     "landing_stairhead": build_landing_stairhead,
     "lantern_room": build_lantern_room,
-    "lantern_cradle": build_lantern_cradle,
+    "firstflame_cradle": build_firstflame_cradle,
+    "firstflame_cradle_lit": build_firstflame_cradle_lit,
 }
 
 if __name__ == "__main__":

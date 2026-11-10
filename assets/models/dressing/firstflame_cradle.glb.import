@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cphflp0u81rfk"
-path="res://.godot/imported/lantern_cradle.glb-59bbd8f3ee21c044f5ded111b8d178ce.scn"
+uid="uid://b6fhio2arcsi0"
+path="res://.godot/imported/firstflame_cradle.glb-ea9976d877e2244e9b98d0c637a36d0f.scn"
 
 [deps]
 
-source_file="res://assets/models/dressing/lantern_cradle.glb"
-dest_files=["res://.godot/imported/lantern_cradle.glb-59bbd8f3ee21c044f5ded111b8d178ce.scn"]
+source_file="res://assets/models/dressing/firstflame_cradle.glb"
+dest_files=["res://.godot/imported/firstflame_cradle.glb-ea9976d877e2244e9b98d0c637a36d0f.scn"]
 
 [params]
 
