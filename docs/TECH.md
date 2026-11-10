@@ -682,6 +682,18 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
 - **`chapter_boat.glb`** floats (model z 0 = the waterline, `snap: false` at the water level, `float` like the ferry);
   `test_dressing` lists it among the models that don't stand on their origin.
 
+### A small interior: the lantern room (Day 95)
+`cindermoor_lantern_room` follows the lower rooms' pattern (ground walls, a roof prop with only `colliders`, the way in a
+dialogue `travel` from `cindermoor_landing_up`, the way back an exit to the landing's new `from_above` spawn). Two things
+a room this small (11 m square) taught:
+- **Keep the roof slab above the camera's height.** The arm's natural height is ~4.5 m (pivot 1.2 m, 7 m at -28°), so a
+  slab with its underside at ~4.7 m (as in the lower rooms) pulls the arm in on every frame and the body fade hides the
+  Wakebearer. The lantern room's slab sits at 5.4 (underside 5.1), still under the roof pyramid at the panes.
+- **Nothing between the spawn and the arm.** An NPC placed behind the arrival spot (Oriel by the door) blocks the arm
+  just as a wall does. Spawn diagonal into the room, facing the centre (`spawn_facing` is a **point**, not a direction),
+  and stand NPCs to the side of that line.
+- The shell (`lantern_room.glb`) is one model 12 m square; `test_dressing` exempts its size.
+
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:
 - **Walls are ground.** An inland region (no `water_level`): a level floor at `base` 0 and four `land` rects 5 m high with

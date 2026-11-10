@@ -750,20 +750,34 @@ each .glb < 5 MB.
       overrides name a `time`; validated); NPCs who come or go mid-visit fade in/out (0.8 s); a second NPC who speaks
       joins the conversation's shot (`Player.frame_also`, eased, backed off). `test_polish_fifteen.gd` (6).
 
+- [x] [C] **The lantern room, part one** (Day 95, Act III step 9; mystery #4 closed): once Oriel's been asked, the Provost
+      sits the chapter **by daylight** on one line — whether the Hearthspire is lit again — and writes that it **does not
+      choose** (`cindermoor_chapter_chose`; asked, she'd light it: `cindermoor_provost_would_light`); Oriel sits behind her
+      (own) / stays at the door (climb) / Hild's place empty (boat). **Eight**: the stair on up from the last landing to the
+      new interior **`cindermoor_lantern_room`** (soot-black panes, the cold cradle, the hollow where the coal sat); the
+      **Hollow Choir** — what the flame ate that had nobody to go home to — and Isolde as answered telling what lighting it
+      costs ("We're not asking you for anything"); Oriel up behind them (climb), the roll colouring the Choir; the cradle
+      held over and taken back (`cindermoor_cradle_held`); the panes (the ring of six, Saltmarrow's burn). Blender
+      `lantern_room`, `lantern_cradle`. Checkpoint `the_lantern_room`; the smoke walk sits, climbs, holds the ember.
+      `test_the_lantern_room.gd` (11).
+
 ### Next up
-1. [C] **Step 9, the lantern room** (the final choice; the Choir behind the door; whether the Hearthspire takes the
-   ember, which is the Wakebearer): `cindermoor_oriel_choice` (Oriel behind them in the room / on the water in the
-   eighth / counting at the foot), `cindermoor_seventh_answered`, `cindermoor_choir_answered` and every burn should
-   colour it. Probably two or three sessions: the room and the Choir first, the choice and the ending after. A new
-   interior (reuse the last landing's approach) and the Act III end card. Fetch and reset `main` before trusting it.
-1a. [P] **Polish sixteen candidates** (due by ~Day 102; Day 94 was fifteen): the last landing reads very dark in
+1. [C] **Step 9's close: the choice and the ending** (probably two sessions): at the cradle, with
+   `cindermoor_cradle_held` set — **light it** (the Spire burns; the Wakebearer is what it eats first; the grey goes back),
+   **let the Choir go** (what that means for the Greying: decide — e.g. the ember opened, the oldest let out to the six
+   lights or the sea), **leave it dark** (the ring of six keeps the Reach; the Choir keeps singing). Colour by every burn,
+   `cindermoor_oriel_choice` (in the room / on the water / at the foot), `cindermoor_seventh_answered`,
+   `cindermoor_choir_answered`, `cindermoor_provost_would_light`. Then the count down, the Long Book's line, and the
+   **Act III end card** (`act3`, ActRecap) and an epilogue per island. Consider a lit variant of `lantern_cradle`/`lantern_room`
+   (panes glowing) and a warm `light` for the lit ending. Fetch and reset `main` before trusting it.
+1a. [P] **Polish sixteen candidates** (due by ~Day 102; Day 94 was fifteen): the lantern room's camera in the corners
+   (11 m square: the arm shortens against the panes; Day 95 raised its ceiling slab to 5.1 m); the last landing reads very dark in
    Compatibility (judge on Vulkan; the slit's `silverfog` light is faint); the robe/white read on Oriel (Vulkan, #4);
    a placement-to-placement move could walk rather than crossfade (Day 94 fades); the two-speaker shot in tight spots
    (the Mercy's deck, #9) and a third speaker; seated/low NPC framing (#9).
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
    down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
-   steered round the Spire 38 years); whether Oriel comes to the chapter's next sitting (the Provost said
-   it will sit again before it chooses — `own` puts her with the chapter); Iver, Wenna and Ness have no lines yet for the
+   steered round the Spire 38 years); (Oriel at the chapter's next sitting: Day 95); Iver, Wenna and Ness have no lines yet for the
    stair climbed or Oriel told (Day 92/93; Hild's landed Day 93). Ness on the moor could hear Oriel went down to the boat.
 2. [S] **The days pass on Cindermoor** — *decided Day 86:* Cindermoor's clock is a **story clock**, not a free-running
    day/night: flags move it, and each Cindermoor region carries light and fog overrides for it (`cindermoor_chapter_sat` →

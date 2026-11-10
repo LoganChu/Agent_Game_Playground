@@ -1674,6 +1674,51 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   - Hild, on the stair climbed: "Twelve years I've rowed Keepers in hoods, and never once looked under one."
   - *(Open for step 9: Oriel's place at the lantern room — behind the Wakebearer in the room, on the water, or counting
     at the foot; what the Choir behind the door is; whether the Hearthspire asks for the ember.)*
+- **The lantern room (Day 95, Act III step 9, part one — mystery #4 closed; quest *The Lantern Room*,
+  `cindermoor_chapter_chose` → `cindermoor_lantern_room_entered`).**
+  - **The chapter's last sitting.** Once Oriel has been asked, the Provost sits the chapter once more, **by daylight, with
+    nothing lit**, in the cinder where the ring stood: "I'll not ask anybody to do this one by candle." Hild on the end of
+    the row (or, if Oriel went down to the boat, Hild's place empty and an unlit candle-end in it); Oriel **sits a pace
+    behind the Provost in the place a novice takes** (own), or **stays at the door: "I've been the chapter. I'll not be it
+    twice."** (climb). The question is one line: **whether the Hearthspire is lit again.** "Nine hundred years we chose.
+    ... We were very good at it." Asked what she'd choose (`cindermoor_provost_would_light`): **"I'd light it. Tonight.
+    ... I'd be wrong in some way I can't see from here, and I'd do it anyway. That's why it isn't mine."** She writes:
+    **"The chapter sat at the Spire's foot by daylight, and does not choose. The hand that carried it down carries it up.
+    We will count it up, and count it down, and write down what comes down."** After: "I've never been so frightened of
+    three words."
+  - **Eight.** "There's no notch for it on any taper." The stair on up from the last landing ends at an oak door, the
+    twin of the foot's; it sticks ("Lift it on the latch and lean. I always had to lean." — Oriel, climbed). The singing
+    stops when the ember comes in.
+  - **The room**: square, tall panes on every side **black from the inside with nine hundred years of soot**; the
+    **cradle** over the top of the shaft, an iron basket "you could sit a boat in", full of pale ash, cold, with **a hollow
+    the size of two hands** where the last coal sat ("That's where it sat." — Oriel). From a pane rubbed clear, the six
+    lights make a ring, "and the ring has nothing in the middle". Nobody up here ever looked out; they looked in, at the fire.
+  - **The Hollow Choir** (mystery #4, closed): a grey thinner than fog, which doesn't drift, standing round the cradle
+    "the way people stand round a fire that's gone out, because nobody's told them they can go home". What the flame was
+    fed mostly went home as the Greying; **the oldest had nobody left to go home to** — whoever they were taken from was
+    dead long before — and stayed by the last warm thing they knew. **Isolde Vane was the first of them to wake**: fed to
+    the flame here awake, three hundred midwinters back, having read the book, she came up out of the ash knowing what
+    she was, and **asked them to sing — "If you sing together you keep hold of each other."** Not the Hushed: everything
+    the Hearthspire ever ate that had nowhere left to be. As she was answered: **named**, she stands apart by the cradle,
+    keeping the time, and talks "like a person, and not like the weather"; **written**, hers is the one voice that gets to
+    the end of its line, and she doesn't know why; **left**, she breaks off to talk ("Not Hushed. Awake. I asked them.").
+    The roll: **left** — the Choir sings the Wakebearer's name once round the room (they heard her scrape it); it is not
+    shown and nobody says it aloud; **written** — "None of us ever was. They've been trying it over all morning";
+    **struck** — "We were all struck, one way or another."
+  - **What lighting it would cost** (Isolde): the ember is the last of the Firstflame and made of the Wakebearer; **put in
+    the ash it will take**, the Spire burns, every island sees it by dark, the grey goes back off them "like a tide off a
+    beach" — **and by midwinter it will be hungry: it starts with the hand that lit it, then wants the next, and never once
+    wanted less.** "**We're not asking you for anything. Nobody ever asked us. We only wanted you to know what you'd be
+    choosing with.**" (The Provost's words, the night the chapter first sat.)
+  - Oriel: climbed, she stands inside the door, carrying nothing ("I sang the midwinter rite in this room thirty-one years
+    running. I thought it was the wind in the panes." — "It wasn't the wind."); boat, a woman in a boat that hasn't gone
+    out, too far down to see; own, two voices at the foot counting, stopped at seven, waiting for the count to go the other
+    way. Held over the cradle the ember leans and the ash stirs and the room stops singing to listen; **it would take**, and
+    the Wakebearer takes their hand back — "not till you know what you'd be asking of them. And of you"
+    (`cindermoor_cradle_held`).
+  - *(Open for step 9's close: the choice itself — light it (and be what it eats first), let the Choir go, leave it dark
+    with the ring of six — and the ending and Act III's card. Every burn, Oriel's place, the roll and Isolde's answer
+    should colour it.)*
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1731,7 +1776,9 @@ The order Act III's sessions should take, paced over months: one big reveal per 
 8. **The east stair** *(Day 92, written: the taper lit, seven landings, the last landing, the coal asked for, the roll —
    see *Cindermoor*)* *(mystery #2)*: the Stair-Taper lit for the stair it was cut for; counting the landings; the
    Hood-Pin's "tonight"; the Wakebearer's own Remnants and whether the Hearthspire asks for them. Last before the end.
-9. **The lantern room** — the final choice: what the Lanternreach should remember, or whether it should forget.
+9. **The lantern room** *(Day 95, part one written: the chapter's last sitting — it does not choose — up past seven, the
+   cradle, the Hollow Choir and what lighting it would cost — see *Cindermoor*)* — the final choice: what the Lanternreach
+   should remember, or whether it should forget.
 
 ## Long-term mysteries (payoff over months)
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
@@ -1752,7 +1799,9 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    "burned" by the Keepers; the Hollow Choir sings her memory.
    *(Revealed in play Day 90: the nearest voice on the east stair says "Not Hushed", and the Spire's book has the one line
    that says so, three hundred midwinters back, with her name scraped off it and kept on the story. Whether she is answered:
-   named, written, or left to sing.)*
+   named, written, or left to sing. Day 95: the lantern room — the Hollow Choir is everything the Firstflame ate that had
+   nobody left to go home to; Isolde was the first of them to wake, and asked them to sing so they'd keep hold of each
+   other.)*
 5. **Where did Dunstan Tollen go?** He is alive in the fog, among the Unmoored, and chose to go. *(Found Day 37 at the end of
    the long walk; what he put down stays unknown even to him. Day 51: he walks back for his name behind the Wakebearer's
    ember and goes home to Saltmarrow or stays to turn the long walk's boards — paid. What he put down is never told.)*
@@ -1774,3 +1823,5 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - The same morning (Day 89): the chapter comes back up; the woman on the ring path is the High Keeper, Oriel Sayre.
 - The same day (Day 90): singing on the east stair; back down to the middle of the Spire's book; Isolde Vane's line.
 - The same day (Day 92): up the east stair, seven landings; the Wakebearer remembers the night of the Snuffing.
+- The same day (Day 93-95): Oriel told; the chapter's last sitting by daylight ("does not choose"); up past seven to the
+  lantern room.

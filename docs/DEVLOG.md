@@ -2,6 +2,64 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-10 09:00 UTC — Day 95: the lantern room, part one (content, mystery #4 closed)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and bpy 5.2.2 (the wheel took ~10 min to download). Detached HEAD
+  again; `main` reset to `origin/main` (Day 94's `e72fc6e`).
+- **Content (ROADMAP *Next up* #1, Act III step 9: "the room and the Choir first"). New quest *The Lantern Room*
+  (`future`):**
+  - **The chapter's last sitting.** Once Oriel has been asked (`cindermoor_oriel_choice`), the Provost sits the chapter
+    by daylight, with nothing lit, on one line: whether the Hearthspire is lit again. Oriel sits a pace behind her in a
+    novice's place (own), or stays at the door ("I've been the chapter. I'll not be it twice.", climb). If she went to the
+    boat, Hild's place is empty, with an unlit candle-end in it. The Wakebearer can ask what she'd choose ("I'd light it.
+    Tonight. ... That's why it isn't mine.", `cindermoor_provost_would_light`) or wait. She writes **"does not choose. The
+    hand that carried it down carries it up."** (`cindermoor_chapter_chose`). This pays 1b's "Oriel at the next sitting".
+  - **Eight.** The last landing's stair on up opens: "There's no notch for it on any taper." If Oriel was asked up, she
+    follows the Wakebearer up the east stair, a step behind.
+  - **The lantern room** (new interior `cindermoor_lantern_room`): the door sticks, the singing stops, the panes are black
+    with soot, and the cradle is cold with a hollow in the ash where the last coal sat. **The Hollow Choir** is everything
+    the flame ate that had nobody left to go home to, still standing round the last warm thing it knew. Isolde was the
+    first of them to wake, and asked them to sing so they'd keep hold of each other. She tells it as she was answered
+    (named / written / left). Lighting the cradle would take: the Spire burns and the grey goes back, "and by midwinter
+    it'll be hungry. It starts with the hand that lit it." **"We're not asking you for anything. ... We only wanted you to
+    know what you'd be choosing with."** That is the Provost's line from the first sitting. The roll colours the Choir:
+    left, they sing the name once (never shown). Oriel's place colours it too: inside the door (climb), on the water
+    (boat), or counting at the foot (own).
+  - **In the room:** the cradle (hold the ember over it: it would take, the room stops to listen, and you take your
+    hand back: `cindermoor_cradle_held`), a pane rubbed clear (the ring of six "has nothing in the middle"; Saltmarrow's
+    burn named) and the singing. Oriel, climbed, has after-lines there; the Provost has new ones ("Eight. There's no notch
+    on any taper for eight.").
+- **Blender:** `build_cindermoor.py lantern_room lantern_cradle` (the room's shell: knee walls, 12 soot panes, the door,
+  a roof pyramid; the cradle: kerb, legs, banded bowl, ash, the hollow).
+- **Tests:** `test_the_lantern_room.gd` (11): not before the sitting; the chapter doesn't choose (both picks); the
+  sitting follows Oriel; up past seven; the room and the Choir in order; Isolde as answered; Oriel and the roll colour
+  it; Oriel goes up; the cradle waits; the name never said; the checkpoint. `test_what_she_was` now sits the chapter
+  before reading the Provost's after-lines, and `test_dressing` exempts the room shell's size. The smoke walk sits, climbs
+  and holds the ember over the cradle. Checkpoint `the_lantern_room`. 692 tests + smoke + launch pass.
+
+Screenshot: `docs/screenshots/2026-11-10-am-lantern-room.png` (the Wakebearer at the cold cradle, the pale ash and the
+hollow, the soot panes, the door swung back; also `docs/checkpoints/the_lantern_room.png`).
+
+**Decisions**
+- **The chapter's choice is not to choose.** Nine hundred years of Keepers choosing for others (the Quiet House, the
+  stair, the Long Book) end with the order writing that it won't. That keeps the final choice the player's without the
+  game taking it from the Keepers by force. Asking the Provost is recorded, so the ending can know she'd have lit it.
+- **What the Choir is** (mystery #4): not the Hushed and not Isolde alone. It is the oldest of what was burned, with
+  nobody left to go home to, which is why it never went out as fog, and Isolde woke first and taught it to sing. This fits
+  "the Hollow Choir sings her memory" (canon since Day 1) and the Greying's rule ("memories coming home").
+- **Nobody asks the Wakebearer for anything.** The Choir only tells them the cost. The Provost's "what we'd be
+  choosing with" (Day 86) comes back as theirs.
+- **The cradle stays a "not yet" this session,** with a reason the player feels: every voice is listening. The choice
+  needs the whole session it deserves.
+- **Camera:** the room is 11 m square, so the ceiling slab went up to 5.1 m and Oriel stands off the arrival line
+  (TECH, *A small interior*).
+
+**Next run should**
+1. ROADMAP *Next up* #1: **step 9's close, the choice at the cradle** (light it / let the Choir go / leave it dark),
+   coloured by every burn and Act III answer, then the count down and the Act III card. Probably two sessions. Polish
+   sixteen is due by ~Day 102. Fetch and reset `main` before trusting it.
+
 ## 2026-11-09 21:00 UTC — Day 94: polish pass fifteen (polish)
 
 **Did**
