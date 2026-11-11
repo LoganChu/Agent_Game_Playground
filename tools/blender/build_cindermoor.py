@@ -9,6 +9,7 @@ the lane in comes ashore, into the dressing kit:
   arched slips** opening to the water (-Y), a slate roof stepped into the cliff behind. Seven slips are empty, their
   greased rollers running down to the water; **in the eighth (the +X end) a Keepers' boat still sits on its
   rollers, oars shipped, never launched**.
+- **hearthspire_far_lit** (Day 97): the same, lit — the lantern gold with the Firstflame in it, the slits glowing.
 - **hearthspire_far**: the Hearthspire as seen from the Boat Stair, far up on the crown of the moor: a tall slender
   tower of pale stone (the only pale thing on the island), banded, a gallery, and the lantern room **dark** — ink
   panes and a cold iron cap. Modelled ~1/3 scale (11 m) to stand on the terrain's distant crown, so the fog and the
@@ -172,11 +173,15 @@ def build_boathouse_slips() -> None:
     bd.export("boathouse_slips")
 
 
-def build_hearthspire_far() -> None:
-    """The Hearthspire, dark (~11 m tall, ~1/3 scale for distance): pale banded stone, gallery, a dark lantern."""
+def build_hearthspire_far(lit: bool = False) -> None:
+    """The Hearthspire, dark (~11 m tall, ~1/3 scale for distance): pale banded stone, gallery, a dark lantern.
+    `lit` (Day 97, the lit ending): the lantern full of the Firstflame, the slits up the stair glowing, the stone's
+    top catching the gold."""
     bd.reset()
     PALE, PALE2 = mat("bone", -0.12), mat("bone", -0.25)
     DARK, IRON = mat("ink", 0.0), mat("ink", 0.12)
+    if lit:
+        DARK = mat("kindle", 0.1, emissive=True)
     cyl("Foot", 1.7, 1.45, 1.2, 12, (0, 0, -0.4), PALE2)
     cyl("Shaft", 1.25, 0.82, 7.4, 12, (0, 0, 0.8), PALE)
     for k in range(5):
@@ -199,7 +204,15 @@ def build_hearthspire_far() -> None:
         rod("Mullion", (math.cos(a) * 0.8, math.sin(a) * 0.8, 8.4), (math.cos(a) * 0.8, math.sin(a) * 0.8, 9.9), 0.05, IRON)
     cyl("Cap", 0.95, 0.1, 1.1, 8, (0, 0, 9.9), IRON)
     rod("Finial", (0, 0, 10.9), (0, 0, 11.4), 0.05, IRON)
-    bd.export("hearthspire_far")
+    if lit:
+        # The flame standing up inside the lantern, and the gallery's stone warmed from above.
+        cyl("Flame", 0.5, 0.0, 1.2, 5, (0, 0, 8.45), mat("ember", 0.15, emissive=True), 0.3)
+        cyl("GalleryGlow", 1.27, 1.27, 0.06, 12, (0, 0, 8.4), mat("ember", -0.2, emissive=True))
+    bd.export("hearthspire_far_lit" if lit else "hearthspire_far")
+
+
+def build_hearthspire_far_lit() -> None:
+    build_hearthspire_far(lit=True)
 
 
 def _cresset_frame(IRON) -> None:
@@ -743,6 +756,7 @@ BUILDERS = {
     "boat_stair": build_boat_stair,
     "boathouse_slips": build_boathouse_slips,
     "hearthspire_far": build_hearthspire_far,
+    "hearthspire_far_lit": build_hearthspire_far_lit,
     "cinder_cresset": build_cinder_cresset,
     "cinder_cresset_lit": build_cinder_cresset_lit,
     "cinder_cresset_doused": build_cinder_cresset_doused,
