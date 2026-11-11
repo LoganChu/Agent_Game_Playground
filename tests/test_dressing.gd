@@ -58,7 +58,7 @@ func test_every_model_loads_small_and_upright() -> void:
 			limit = Vector3(12.0, 7.0, 8.0)  # Wrackholm's lane-house is the one long hall (10 m)
 		elif path.ends_with("boathouse_slips.glb"):
 			limit = Vector3(17.5, 7.0, 8.0)  # Cindermoor's boathouse: eight slips in a row (16.6 m)
-		elif path.ends_with("hearthspire_far.glb"):
+		elif path.get_file().begins_with("hearthspire_far"):
 			limit = Vector3(8.0, 12.5, 8.0)  # the Spire at 1/3 scale, placed scaled up and far off
 		elif path.ends_with("lower_vault.glb"):
 			limit = Vector3(26.5, 7.0, 20.5)  # the lower rooms' roof (Day 87): one slab over the whole room
@@ -70,7 +70,7 @@ func test_every_model_loads_small_and_upright() -> void:
 		# Boats sit on the waterline; the dock (and the fen's staithe/boardwalk), lantern room, Cindermoor's quay and
 		# boathouse (foundations under the water) and the far Spire are placed at absolute heights; the chapter's boat (Day 85) floats.
 		if not path.get_file().get_basename() in ["moored_boat", "ferry", "dock", "beacon_lit", "staithe", "boardwalk",
-				"boat_stair", "boathouse_slips", "hearthspire_far", "spire_foot", "spire_foot_open", "chapter_boat"]:
+				"boat_stair", "boathouse_slips", "hearthspire_far", "hearthspire_far_lit", "spire_foot", "spire_foot_open", "chapter_boat"]:
 			assert_true(box.position.y > -0.3, "%s stands on its origin (min y %.2f)" % [path, box.position.y])
 		node.free()
 

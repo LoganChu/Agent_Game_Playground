@@ -589,6 +589,23 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(act_three_recap.contains("The Hearthspire burns again"), "the Act III card: " + act_three_recap.left(160))
 	_check(_npc("oriel") != null, "Oriel at the foot")
 	print("Smoke: the cradle lit; counted down; Act III ends")
+	# Day 97: the epilogue — the hand holds no ember now; down to the Boat Stair, where Oda finds the lane out by the
+	# lit Spire, and Kindleby's quay bell rings the second stroke.
+	var ember_walker: GreyingWalker = main.get("greying")
+	_check(ember_walker.ember_gone and (main.get("player") as Player).is_ember_gone(), "lit: the ember's in the cradle, not the hand")
+	if not await _take_exit(main, ui, "cindermoor_long_steps", "down from the crown"):
+		return
+	_check((main.get("region") as Region).greying_scale < 1.0, "the grey goes back")
+	if not await _take_exit(main, ui, "cindermoor_boat_stair", "down the long steps"):
+		return
+	_npc("oda").interact()
+	_check(_choose(ui, "Take me out to Kindleby."), "Oda finds the lane out")
+	_finish_dialogue(ui, "the lane out")
+	if not await _arrived(main, ui, "kindleby", "the lane out, by the Spire's light"):
+		return
+	_check(world.get_flag("kindleby_homecoming_seen") == true, "the quay bell's second stroke")
+	_check(world.get_flag("lanes_ferry_at") == "kindleby", "the Mercy at Kindleby")
+	print("Smoke: the epilogue — the lane out; Kindleby's homecoming")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
