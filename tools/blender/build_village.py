@@ -339,6 +339,38 @@ def build_brazier_laid() -> None:
     bd.export("brazier_laid")
 
 
+def build_brazier_lit() -> None:
+    """The Wrens' brazier lit at last (Day 98, the dark ending's homecoming): the laid fire caught from the ember,
+    for whoever came down the stair. The driftwood burned through red at the crossing, the wrack a gold heart,
+    three short tongues of flame standing up out of the bowl (all emissive; the region gives it a small light).
+    Fire centre Godot [-1.25, 0.95, 2.0] on house_wren's origin (before the house's turn)."""
+    bd.reset()
+    rng = random.Random(98)
+    bx, by = BRAZIER
+    _raked_ash(bx, by)
+    wood = mat("driftwood", -0.35)
+    glow = mat("coal", 0.1, emissive=True)
+    for k in range(3):
+        a = math.pi * k / 3 + 0.2
+        dx, dy = math.cos(a) * 0.26, math.sin(a) * 0.26
+        z = 0.84 + 0.035 * k
+        beam(f"Stick{k}", (bx - dx, by - dy, z), (bx - dx * 0.35, by - dy * 0.35, z + 0.01), 0.035, wood)
+        beam(f"Burn{k}", (bx - dx * 0.35, by - dy * 0.35, z + 0.01), (bx + dx * 0.4, by + dy * 0.4, z + 0.015),
+             0.036, glow)
+        beam(f"StickEnd{k}", (bx + dx * 0.4, by + dy * 0.4, z + 0.015), (bx + dx, by + dy, z + 0.02), 0.035, wood)
+    for k in range(5):
+        a = rng.uniform(0, math.tau)
+        r = rng.uniform(0.08, 0.22)
+        box(f"Coal{k}", (0.07, 0.06, 0.05), (bx + math.cos(a) * r, by + math.sin(a) * r, 0.82), glow, a)
+    cyl("Heart", 0.11, 0.08, 0.07, 6, (bx, by, 0.85), mat("ember", 0.0, emissive=True))
+    flame = mat("kindle", 0.15, emissive=True)
+    for k, (h, r) in enumerate(((0.36, 0.08), (0.26, 0.06), (0.22, 0.05))):
+        a = k / 3 * math.tau + 0.9
+        off = 0.0 if k == 0 else 0.08
+        cyl(f"Flame{k}", r, 0.0, h, 4, (bx + math.cos(a) * off, by + math.sin(a) * off, 0.9), flame)
+    bd.export("brazier_lit")
+
+
 def _ember_disc(wrapped: bool) -> None:
     """The sign on the Wrens' ember-hook, modelled where the hook is on house_wren (its origin
     is the house's): hung by a short chain below the hook at (-1.02, -1.5, 1.94)."""
@@ -551,7 +583,7 @@ def build_net_loft_mended() -> None:
 
 BUILDERS = [build_house_tall, build_house_porch, build_gate_post, build_house_stilt, build_house_wren,
             build_ember_sign, build_ember_sign_wrapped, build_brazier_ash, build_brazier_raked, build_brazier_laid,
-            build_net_loft_broken,
+            build_brazier_lit, build_net_loft_broken,
             build_plank_bench, build_net_loft_mended]
 
 if __name__ == "__main__":
