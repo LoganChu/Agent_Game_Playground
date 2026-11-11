@@ -2,6 +2,65 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-11 09:00 UTC — Day 97: the lane out and the homecoming — the epilogues begin (content + systems)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and bpy 5.2.2. Detached HEAD again; `main` reset to `origin/main`
+  (Day 96's `a379e5a`).
+- **Content (ROADMAP *Next up* #1, Epilogues part one):**
+  - **Oda finds the lane out in every ending.** At the Boat Stair after the count down she tells the night as the Mercy
+    saw it, once (lit: "a door in the sky"; released: something went past "out, not in", singing, and now all six lights
+    show from the Stair; dark: "it isn't mine to decide"). "Take me out to Kindleby." sails it:
+    **lit** by the Spire astern, its light lying down the water like a swept road, and **the Wakebearer loses count of
+    the six lights at two, so Oda counts them**; **released** by the six lights ahead, brighter, "like somebody's sitting
+    up with them", the fog letting the Mercy by; **dark** with the ember held up in the bow, the fog parting the width of a
+    ferry ("Thirty-eight years. I could have just asked."). From then the lane runs both ways (`lane_back_in` from
+    Kindleby, a one-line `lane_out_again`).
+  - **Kindleby's homecoming** (arrival event `kindleby_homecoming`): Tobin strikes the quay bell's **second stroke**, the
+    one for coming back from the Spire (Oda, Day 79: "The second's for when they come back."). Lit: the Hearthspire a gold
+    point low in the west, the old brothers crying and laughing, "It took me first." / "Took what?"; Anselm says whoever
+    feeds it will be written down and asked. Released: a warmth by the Vigil Light, the candles don't gutter, "Your hand's
+    gone out." Dark: **the first island to ask the Wakebearer to carry the ember round at midwinter**
+    (`kindleby_midwinter`: Kindleby first, or round from the Gull with Kindleby last). Tobin asks after the Provost: "When
+    the Long Book's put away. It's shut." Tobin's after-lines per ending. Kindleby's light and fog go gold in the lit ending.
+- **Systems — after the ember** (`data/game.json` `after_the_ember`, validated): lit or released, the hand holds no ember
+  (`Greying.ember_gone`): no drain and so no turn-back, no meter, no grey wash, no pool, the hand light out and the hand's
+  glow a cold coal (`Player.set_ember_gone`). Lit, **the grey goes back**: every Greying area at 0.35 strength, look and
+  drain (`Greying.after_scale` → `Region.greying_scale` → `GreyingFog.set_thin`, a new `thin` shader uniform). Dark changes
+  nothing. `GreyingWalker.walk()` split out of the physics tick so a test can step it.
+- **The chart:** Cindermoor's landmark gets `after` words per ending (`Lanes.landmark_words`; "Ask Oda") and `lit` (the
+  spike drawn gold).
+- **Blender:** `build_cindermoor.py hearthspire_far_lit` (the lantern gold with a flame, the stair slits glowing; 62 KB).
+  It swaps for the dark one on the Boat Stair and the long steps when lit (the Day 96 gap: the far Spire stayed dark),
+  and stands far off Kindleby (x -185, a halo) for the lit ending only.
+- **Tests:** `test_the_lane_out.gd` (11): no lane before the count down; Oda's night and lane per ending; she counts for
+  the Wakebearer; the homecoming once per ending; the midwinter ask; the lane both ways; `after_the_ember` and its
+  validation; the walker takes nothing without an ember (and dark keeps it); the chart; the far Spire variants; the
+  checkpoint. `test_dressing` knows the lit far Spire's size and origin; `test_kindleby_art` counts its halo. The smoke
+  walk goes down from the crown after the card (ember gone, grey thinned), sails out and is rung home. Checkpoint
+  `the_homecoming`.
+
+Screenshot: `docs/screenshots/2026-11-11-am-homecoming.png` (checkpoint `the_homecoming`: Kindleby's quay at evening,
+Tobin at the bell, the lit Hearthspire low in the west over the water; also `docs/checkpoints/the_homecoming.png`).
+
+**Decisions**
+- **After lit or released the Greying takes nothing from the Wakebearer.** The roadmap offered "can't enter thick fog"
+  for released. I didn't take it, because it would strand content behind fog the validator proved walkable, and the
+  ending shouldn't punish the player. The story reasons differ: lit, the grey has gone back; released, it lets them by,
+  as it let the Mercy by. Dark keeps the ember and the old rules: the ember goes round the ring.
+- **The thinning is one scale, not per-area `if`s.** Every island's fog would otherwise need a duplicate set of areas.
+  One data rule in game.json keeps that in a single place, and the validator still proves the worst case (before any
+  ending).
+- **The lane off Cindermoor stays dialogue, not a chart port.** Making Cindermoor a port would mean passage knots from
+  every port and route changes. The Mercy only ever goes Kindleby ↔ Boat Stair, which matches canon (the lane in is
+  Kindleby's), and the chart says "Ask Oda".
+- **Kindleby first** because it's the lane's other end, and the bell's second stroke was the open hook there.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **Epilogues, part two**: the other islands' beats (arrival events on `cindermoor_lane_out`),
+   Saltmarrow's Gull first; then a final epilogue/credits card. Polish sixteen is due by ~Day 102. Fetch and reset `main`
+   before trusting it.
+
 ## 2026-11-10 21:00 UTC — Day 96: the choice at the cradle — Act III ends (content)
 
 **Did**

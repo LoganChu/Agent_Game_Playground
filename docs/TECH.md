@@ -707,6 +707,24 @@ a room this small (11 m square) taught:
   first in `data/clocks.json`), not an `if` override: clocked regions take only `time` overrides, and every outside
   region gives each time its look (`test_polish_fifteen`).
 
+### After the ending: the lane out, after the ember (Day 97)
+- **`after_the_ember`** in `data/game.json`: `{ember_gone?: condition, greying_scale?: [{if, scale 0..1}]}` (validated:
+  known keys, conditions, scale range). `Greying.ember_gone(db, state)` → `GreyingWalker` refills the meter every step
+  instead of draining (so no turn-back), emits depth 0 to the HUD (no meter, no wash), closes the ember's pool and calls
+  `Player.set_ember_gone` (the hand light off; every surface whose material name ends `_glow` gets a cold `coal` override).
+  `GreyingWalker.walk(p, on_floor, delta)` is one step (the physics tick calls it; tests call it directly).
+  `Greying.after_scale(db, state)` → `Region.greying_scale`, read on every `_refresh_greying`: `greying_depth` is
+  multiplied by it (drain, atmosphere, audio follow) and each `GreyingFog.set_thin(scale, animate)` sets the shader's
+  `thin` uniform. Forgetting fog and the validator's budgets ignore it (they prove the worst case). Dark changes nothing.
+- **The lane off Cindermoor** is dialogue, not the chart: Oda's `cindermoor` knot jumps to `cindermoor_after` once
+  `cindermoor_counted_down`; `lane_out` (first, per ending) / `lane_out_again` set `lanes_ferry_at=kindleby` and travel;
+  Kindleby's menu offers `lane_back_in` once `cindermoor_lane_out`. The Cindermoor landmark stays a `ferry` landmark
+  (`moored` refuses every chart voyage); its words change with **`after`** `[{if, text?, moored?}]` (first match per key,
+  `Lanes.landmark_words`; the map's focus line and `voyage`'s reason use it), and it takes **`lit`** (the chart draws the
+  spike gold). The epilogue on each island is an arrival event gated on `cindermoor_lane_out` (Kindleby's
+  `kindleby_homecoming`). `hearthspire_far_lit` swaps for `hearthspire_far` by `if` (one prop family; the validator's
+  variant check covers it); Kindleby carries one far out (x -185, halo) for the lit ending only.
+
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:
 - **Walls are ground.** An inland region (no `water_level`): a level floor at `base` 0 and four `land` rects 5 m high with

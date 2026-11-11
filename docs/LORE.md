@@ -1748,6 +1748,37 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     Long Book shut." **The Long Book is shut** — nobody living had shut it. **Act III ends** (the `act3` card).
   - *(Open for the epilogues: each island after the ending — the Gull, the Ridge, the Heron, the Wrack, the Vigil Light,
     Lowsong — under a lit Spire, a Reach whose lights keep the Choir, or a ring that chooses its own midwinter.)*
+- **The lane out (Day 97, the epilogues begin — `cindermoor_lane_out`).** "No lane off this water till the Spire's lit, or
+  till I find one": Oda finds one in every ending. At the Boat Stair she tells the night as the Mercy saw it, once (lit:
+  "a door in the sky" left open; released: something went past "out, not in", singing, going away, and the crew stood up
+  for it, and the six lights are all visible from the Stair; dark: "it isn't mine to decide", and she has a use for the
+  ember). The crossing out:
+  - **lit** — she steers by the Spire astern, its light lying down the water "like a road somebody has swept", the fog
+    going off it like snow off a warm roof. **The Wakebearer loses count of the six lights at two; Oda counts them for
+    them.**
+  - **released** — nothing astern; ahead, for the first time on that water, the six lights all round the ring, brighter,
+    "like somebody's sitting up with them". The fog lets the Mercy by "as if she were nobody it needed anything from".
+    "I said I'd find one. I didn't say I'd be the one to find it."
+  - **dark** — the Wakebearer stands in the bow and holds the ember up, and the fog parts round it the width of a ferry.
+    "Thirty-eight years. I could have just asked."
+  - From then the lane runs both ways (Kindleby ↔ the Boat Stair), by Oda's dialogue, never the chart.
+- **The second stroke (Day 97, Kindleby's homecoming).** The Keepers' quay bell has one stroke for a boat going out to the
+  Spire and **a second for when it comes back**; nobody living had heard it. Tobin strikes it. Then, per ending:
+  - **lit** — the Hearthspire a gold point low in the west that doesn't flicker; the old brothers on the quay steps,
+    crying and laughing. "It took me first." / "Took what?" / "I don't know. That's how I know it took it." Brother
+    Anselm says whoever goes up at midwinter will be written down by name, first, and asked. Tobin is thinking what he'd say.
+  - **released** — the Vigil Light burns without a gutter, and beside it **a warmth, not a shape** (the Choir sitting up
+    with the light); the candles along the wall haven't guttered since; the step on the crown is warm. "Your hand's gone
+    out." Tobin keeps changing the candles "so they've got something to sit by". By later he counts six warm steps.
+  - **dark** — Anselm says the ember comes round at midwinter and every island writes down its own burning. **Tobin is
+    the first to ask the Wakebearer to carry it round** (`kindleby_midwinter`: Kindleby first, or "round the way the
+    light goes", from the Gull, Kindleby last). Kindleby has started its list: "Nobody wants to be on it, and everybody
+    wants to have been asked."
+  - Tobin asks whether the Provost is coming back: "When the Long Book's put away. It's shut." — "Nobody's ever shut it."
+- **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
+  and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
+  about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks
+  them through the fog as it always has.
 
 ## Main story arc (outline)
 - **Act I — The Wake (Saltmarrow):** player wakes, learns the rules of the Greying, helps
@@ -1857,3 +1888,5 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - The same day (Day 93-95): Oriel told; the chapter's last sitting by daylight ("does not choose"); up past seven to the
   lantern room.
 - The same day (Day 96): the choice at the cradle; the count down; the Long Book shut.
+- After (Day 97): Oda finds the lane out; the Mercy comes in under Kindleby's wall at evening and Tobin strikes the second
+  stroke. About six weeks to midwinter.

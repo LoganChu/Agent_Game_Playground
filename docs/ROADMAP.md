@@ -773,16 +773,29 @@ each .glb < 5 MB.
       unchanged) and the clock's new `spire_lit` time (Cindermoor outside goes gold). Blender `firstflame_cradle_lit` (the cradle renamed `firstflame_cradle`).
       Checkpoint `the_spire_lit`; the smoke walk lights it and reads the card. `test_the_cradle_choice.gd` (10).
 
+- [x] [C] **Epilogues, part one — the lane out and the homecoming** (Day 97): Oda finds a lane off Cindermoor in every
+      ending (`cindermoor_after` / `lane_out`: by the lit Spire astern — she counts the six lights for the Wakebearer; by
+      the six lights ahead, warm; by the ember held up in the bow), and it runs both ways after (`lane_back_in`,
+      `lane_out_again`). **Kindleby's homecoming** (event `kindleby_homecoming`): Tobin strikes the quay bell's second
+      stroke; lit (the Spire a gold point in the west, "It took me first."), released (a warmth by the Vigil Light, the
+      candles don't gutter, "Your hand's gone out."), dark (Tobin asks the Wakebearer to carry the ember round at
+      midwinter: `kindleby_midwinter` first/ring); Tobin's after-lines; Kindleby goes gold in the lit ending. **After the
+      ember** (game.json `after_the_ember`): lit/released, no ember in the hand (no drain, meter, pool or hand light, the
+      glow a cold coal); lit, every Greying area at 0.35 (look and drain). The chart's Cindermoor (`after` words, gold
+      when lit). Blender `hearthspire_far_lit` (boat stair, long steps, far off Kindleby). Checkpoint `the_homecoming`;
+      the smoke walk sails out and is rung home. `test_the_lane_out.gd` (11).
+
 ### Next up
-1. [C] **Epilogues** (one or two sessions): after the `act3` card the game keeps going ("Keep exploring") — give each
-   island a short after-the-ending beat, coloured by `cindermoor_cradle_choice` and that island's burning: a lit Spire
-   seen over the water (the `hearthspire_far` prop needs a lit variant, and the six regions a gold-on-the-horizon light
-   override), a Reach whose lights keep the Choir (released: something warm sitting by each light — a hum, a figure),
-   or a ring choosing its own midwinter (dark: the first island asking the Wakebearer to carry the ember round). Oda's
-   lane off Cindermoor ("no lane off that water till the Spire's lit, or till Oda finds one") must open in every ending.
-   Also decide what happens to play after `released` (no ember: the Greying walker and the HUD ember bar should know —
-   e.g. the Greying no longer drains, or the Wakebearer can't enter thick fog) and after `lit` (the grey gone back: the
-   Greying areas' `if`s). A final credits/epilogue card after the last epilogue. Fetch and reset `main` before trusting it.
+1. [C] **Epilogues, part two** (one or two sessions; part one Day 97 — the lane out, Kindleby's homecoming, after the
+   ember): each other island's after-the-ending beat, coloured by `cindermoor_cradle_choice` and that island's burning —
+   arrival events like `kindleby_homecoming` gated on `flag:cindermoor_lane_out` (the Mercy sails the ring's lanes as
+   before from Kindleby). Lit: a gold-on-the-west light override per region (Kindleby's is the model) and the far Spire
+   where it would be seen (`hearthspire_far_lit` far off, a halo; Kindleby's is at x -185); released: a warmth by each
+   light (a halo + hum by the beacon, an NPC noticing a warm step) — Saltmarrow's Gull first (Mara, Aldous); dark: each
+   island's list for midwinter, the ember asked for (Kindleby asked first: `kindleby_midwinter`). Lowsong (Hild's skiff)
+   and the Choir's voices gone quiet there (released) are natural beats. Then a final epilogue/credits card once the last
+   island's beat is seen. Check the far Spire on Kindleby on a real screen (a tower with a halo at 185 m; maybe too
+   plain in daylight). Fetch and reset `main` before trusting it.
 
 1a. [P] **Polish sixteen candidates** (due by ~Day 102; Day 94 was fifteen): the lantern room's camera in the corners
    (11 m square: the arm shortens against the panes; Day 95 raised its ceiling slab to 5.1 m); the last landing reads very dark in
