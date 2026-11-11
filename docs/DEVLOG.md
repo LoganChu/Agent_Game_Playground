@@ -2,6 +2,59 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-11 21:00 UTC — Day 98: Saltmarrow's homecoming — the Wrens' fire (content)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and bpy 5.2.2. Detached HEAD again; `main` reset to `origin/main`
+  (Day 97's `f4d8f83`). Baseline (713 tests + smoke + launch) was green before any edit.
+- **Content (ROADMAP *Next up* #1, Epilogues part two): Saltmarrow, the first harbor.**
+  - **The homecoming** (arrival event `saltmarrow_homecoming`, once, when the Mercy puts in after the lane out): the horn's
+    old signal, and **the green lantern still on the dock-post** because Mara wouldn't take it down. Per ending, coloured
+    by the Gull's burning (pebble / knot / gull, and Dunstan if home): **lit**, the Spire a gold point over the lofts in the
+    north-east, every boat out past the wall, "I half thought it'd give things back... It doesn't, does it." and, for
+    "It took me first.", "Then you're Saltmarrow's. You woke on our shingle."; **released**, somebody sits up at the Gull
+    at night, the step warm, the beacon humming (after the pebble burn it hums the lullaby nobody on the island knows,
+    and **Oda knows it and won't give it back**: the Day 13 rule, "rain off a coat"); **dark**, Mara calls the village to
+    write its own midwinter list, and if the Wakebearer told Tobin "round from the Gull", Saltmarrow is first.
+  - **Aldous told the Long Book's shut** (a new first hub option, once): per ending; **Oriel's name said aloud** for the
+    first time if she signed (climb/own), or "she always did wait for the tide" if she sat in her boat. **The seventh
+    novice** (released/dark only, once Oriel knows): he still can't find the face and takes their word. **The Wrens'
+    brazier**, laid since Day 47 "for whoever comes down the stair": in the dark ending the Wakebearer holds the ember to it
+    and **it burns for the first time since the Snuffing** (he lays it on the spot if it wasn't laid); lit, it waits for a
+    midwinter coal off the Spire; released, the step by it is warm of a morning. **The door-warden's answer to the
+    Provost kept** (letter): lit/released "It's one or the other" → he'll cross (`saltmarrow_aldous_crossing=now`); dark
+    → "I'll come at midwinter, with you. Carrying nothing." After-lines for Aldous and Mara per ending.
+  - **Saltmarrow lit:** a gold light override from the north-east and the fog nearly clear, and `hearthspire_far_lit` at
+    [120, -6, -140] with a halo.
+- **Blender:** `build_village.py brazier_lit`: the laid driftwood burned red at the crossing, a gold heart and three
+  tongues of flame, all emissive, 27 KB. The region gives it a small kindle light, a halo and the `fire` loop. The three
+  older brazier props now also need `!flag:saltmarrow_brazier_lit`, so only one sits in the bowl.
+- **Tests:** `test_saltmarrow_homecoming.gd` (13): no homecoming before the lane out or without the Mercy here; per ending
+  once; every burning colours it; the lullaby only Oda knows; the dark round from the Gull; Aldous once per ending;
+  Oriel's name (signed / boat); the seventh novice (not in lit); the brazier lit from the ember (one brazier in the bowl,
+  laid or not); the door-warden's answer; Mara's after-lines; the gold harbor; checkpoint `the_wrens_fire`.
+  `test_the_lane_out`'s far-Spire test covers Saltmarrow. The smoke walk sails Kindleby → Saltmarrow after the ending,
+  checks the lit Spire is shown and tells Aldous.
+
+Screenshot: `docs/screenshots/2026-11-11-pm-wrens-fire.png` (checkpoint `the_wrens_fire`: the Wrens' brazier burning
+by the steps, Aldous on his bench; also `docs/checkpoints/the_wrens_fire.png`).
+
+**Decisions**
+- **The brazier is lit only in the dark ending.** The ember lights cressets (Day 82), and it's the only fire on the
+  Reach that came down the stair. Lit or released there's no ember left, and I didn't want a stand-in coal to blur that.
+  So each ending leaves the hearth differently: lit, it waits for an asked-for coal; released, the Choir sits at it.
+- **No `kindle` sound for the brazier.** `kindle` and the lighting music are reserved for beacons and the Spire, and two
+  tests pin that. The brazier's own `fire` loop starts when the prop appears.
+- **The lullaby isn't given back.** Released lights hum. After the pebble burn the Gull hums the lullaby, but only Oda,
+  an off-islander, knows it, and she says so and stops there. The burn rule holds in every ending.
+- **Aldous doesn't board this session.** His crossing is a `future` flag. It belongs with Wynn ("in person, the day the
+  lanes run with nobody counting") or the Provost, so it waits for Thornwold's or Kindleby's next beat.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **Epilogues, part three**: Thornwold (Wynn, and Aldous's sorry in person), the fen, Wrackholm,
+   Lowsong; then the final card. **Polish sixteen** is due by ~Day 102 (1a), so do it next session or the one after.
+   Fetch and reset `main` before trusting it.
+
 ## 2026-11-11 09:00 UTC — Day 97: the lane out and the homecoming — the epilogues begin (content + systems)
 
 **Did**

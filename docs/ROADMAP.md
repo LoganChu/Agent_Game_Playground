@@ -785,19 +785,29 @@ each .glb < 5 MB.
       when lit). Blender `hearthspire_far_lit` (boat stair, long steps, far off Kindleby). Checkpoint `the_homecoming`;
       the smoke walk sails out and is rung home. `test_the_lane_out.gd` (11).
 
-### Next up
-1. [C] **Epilogues, part two** (one or two sessions; part one Day 97 — the lane out, Kindleby's homecoming, after the
-   ember): each other island's after-the-ending beat, coloured by `cindermoor_cradle_choice` and that island's burning —
-   arrival events like `kindleby_homecoming` gated on `flag:cindermoor_lane_out` (the Mercy sails the ring's lanes as
-   before from Kindleby). Lit: a gold-on-the-west light override per region (Kindleby's is the model) and the far Spire
-   where it would be seen (`hearthspire_far_lit` far off, a halo; Kindleby's is at x -185); released: a warmth by each
-   light (a halo + hum by the beacon, an NPC noticing a warm step) — Saltmarrow's Gull first (Mara, Aldous); dark: each
-   island's list for midwinter, the ember asked for (Kindleby asked first: `kindleby_midwinter`). Lowsong (Hild's skiff)
-   and the Choir's voices gone quiet there (released) are natural beats. Then a final epilogue/credits card once the last
-   island's beat is seen. Check the far Spire on Kindleby on a real screen (a tower with a halo at 185 m; maybe too
-   plain in daylight). Fetch and reset `main` before trusting it.
+- [x] [C] **Epilogues, part two (Saltmarrow) — the Gull's homecoming** (Day 98): event `saltmarrow_homecoming` once
+      the Mercy puts in after the lane out (the green lantern still on the post; lit: the Spire gold over the lofts, the
+      boats out, "Then you're Saltmarrow's"; released: somebody sitting up at the Gull, the step warm, the beacon humming —
+      the lullaby Oda won't give back after a pebble burn; dark: Saltmarrow writes its own midwinter list, first if "round
+      from the Gull"). Aldous told the Long Book's shut: Oriel's name said, the seventh novice, **the Wrens' brazier lit
+      from the ember** (dark; Blender `brazier_lit`, a fire light and loop), the door-warden's answer
+      (`saltmarrow_aldous_crossing`, future). Mara's after-lines; Saltmarrow gold with the far Spire NE when lit.
+      Checkpoint `the_wrens_fire`; the smoke walk sails home round the ring and tells Aldous.
+      `test_saltmarrow_homecoming.gd` (13).
 
-1a. [P] **Polish sixteen candidates** (due by ~Day 102; Day 94 was fifteen): the lantern room's camera in the corners
+### Next up
+1. [C] **Epilogues, part three** (one or two sessions; Kindleby Day 97, Saltmarrow Day 98): the other islands' beats
+   as arrival events gated on `flag:cindermoor_lane_out` + the Mercy at that port (`saltmarrow_homecoming` is the model:
+   per ending, coloured by the island's burning; an after-line per NPC). **Thornwold** (Wynn at the Ridge Light: "the day
+   the lanes run with nobody counting" — Aldous's sorry, in person if he crossed), **the fen** (Hesper; Dunstan's boards
+   if he stayed), **Wrackholm** (the Book's last line), **Lowsong** (Hild's skiff; the Choir's voices gone quiet there
+   if released). Lit: a gold override + `hearthspire_far_lit` where it'd be seen (Kindleby x -185, Saltmarrow NE at
+   [120, -6, -140]; check each from the spawn — Saltmarrow's hides behind the island from low on the dock). Then a
+   final epilogue/credits card once every island's beat is seen. Gull's Head and Shingle Point could take the lit
+   override too. *Aldous on the Mercy* (`saltmarrow_aldous_crossing=now`) is a natural beat with Wynn or the Provost.
+   Fetch and reset `main` before trusting it.
+
+1a. [P] **Polish sixteen candidates** (due by ~Day 102 — do it next session or the one after; Day 94 was fifteen): the lantern room's camera in the corners
    (11 m square: the arm shortens against the panes; Day 95 raised its ceiling slab to 5.1 m); the last landing reads very dark in
    Compatibility (judge on Vulkan; the slit's `silverfog` light is faint); the robe/white read on Oriel (Vulkan, #4);
    a placement-to-placement move could walk rather than crossfade (Day 94 fades); the two-speaker shot in tight spots

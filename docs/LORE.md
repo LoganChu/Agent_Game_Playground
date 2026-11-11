@@ -1746,7 +1746,7 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     struck: the struck name, this one left standing; left: a mark, no name). **Oriel signs under them** — "Oriel Sayre,
     High Keeper, who put it out" (climb; own, without being asked); in her boat (boat) nobody writes her in. "That's the
     Long Book shut." **The Long Book is shut** — nobody living had shut it. **Act III ends** (the `act3` card).
-  - *(Open for the epilogues: each island after the ending — the Gull, the Ridge, the Heron, the Wrack, the Vigil Light,
+  - *(Open for the epilogues: each island after the ending — the Gull (Day 98), the Ridge, the Heron, the Wrack, the Vigil Light,
     Lowsong — under a lit Spire, a Reach whose lights keep the Choir, or a ring that chooses its own midwinter.)*
 - **The lane out (Day 97, the epilogues begin — `cindermoor_lane_out`).** "No lane off this water till the Spire's lit, or
   till I find one": Oda finds one in every ending. At the Boat Stair she tells the night as the Mercy saw it, once (lit:
@@ -1775,6 +1775,40 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     light goes", from the Gull, Kindleby last). Kindleby has started its list: "Nobody wants to be on it, and everybody
     wants to have been asked."
   - Tobin asks whether the Provost is coming back: "When the Long Book's put away. It's shut." — "Nobody's ever shut it."
+- **Saltmarrow's homecoming (Day 98, the epilogues part two — event `saltmarrow_homecoming`).** The Mercy puts in past the
+  breakwater with the horn's old signal (one long, two short). **The green lantern is still on the dock-post**: Mara
+  wouldn't take it down ("she'll be back. Harbormaster's word."). The Spire lies **north-east** of Saltmarrow, over the
+  lofts. **The light gives nothing back** — every burning stands (the burn rule holds in every ending).
+  - **lit** — the Hearthspire a gold point low in the north-east, "steady as a nail"; the grey gone off the harbor mouth;
+    every boat out past the wall, further than the Gull can see. "It took me first." / "Then you're Saltmarrow's. You
+    woke on our shingle. If you don't know you, we will." Mara counts the boats in by the Spire's light.
+  - **released** — somebody sits up at the Gull's Beacon at night (Tam went up the ladder: nobody, the step warm) and it
+    hums. **After the lullaby burned it hums a tune with no end that nobody on the island knows; Oda knows it, and won't
+    give it back** ("It'd only go past you like rain off a coat" — the Day 13 rule). Otherwise it hums "like somebody
+    keeping time for somebody else". Mara: the step is theirs at night, the harbor Saltmarrow's in the mornings. Tam
+    takes a blanket up for the step.
+  - **dark** — Mara calls the village to the dock: **Saltmarrow writes its own midwinter list** ("Nobody chooses for
+    Saltmarrow but Saltmarrow"; the list hangs on the dock-post under the green lantern, every name put there by its own
+    hand). If the Wakebearer told Tobin "round from the Gull", Saltmarrow is first.
+  - **Aldous, told the Long Book's shut** (`saltmarrow_aldous_after_seen`): he corks the bottle. Lit, he felt it "like
+    the Gull, only the whole sky had hold of me". Released, his letter's words come true: "when it's lit, or when it isn't
+    worth lighting" — he meant it as a way of saying never. Dark: "Somebody'll have to show them how to write it."
+    - **Oriel's name.** Told she signed the Long Book, **Aldous says "Oriel" for the first time in thirty-one years**
+      ("Names carry, in this fog. ...Let it carry, then."). **She brought the door-warden a cup on the coldest night of
+      every winter, and never said why; he never asked** — "that was the trouble with the pair of us". Told she sits in
+      a boat that never went out: "She always did wait for the tide to make her mind up for her."
+    - **The seventh novice** (released/dark, once Oriel knows; in the lit ending the stair burned first and the
+      Wakebearer can't tell it): he still can't find the face, and takes their word over his eyes. "You went down past me
+      with a light in your hands, and I let you. ...I'm glad I never asked."
+    - **The Wrens' brazier**, laid for whoever comes down the stair: **dark — the Wakebearer holds the ember to it and it
+      burns for the first time since the Snuffing** (`saltmarrow_brazier_lit`; he lays it on the spot if it wasn't laid);
+      he feeds it a stick of driftwood a night ("Nobody said he had to keep it cold"). Lit — it waits for a midwinter coal
+      off the Spire, "except whoever goes up for it will have been asked". Released — nothing to light it with, but the
+      step by it is warm of a morning: "They came down."
+    - **The door-warden's answer kept** (if he wrote to the Provost): lit/released, he'll cross and pay twice
+      (`saltmarrow_aldous_crossing=now`); dark, "It's neither... I'll come at midwinter, with you. Carrying nothing."
+      (`midwinter`). Refused the boat: "Nobody's weighing, now, are they." He puts the bottle under the bench with the
+      empty one. *(Future: Aldous on the Mercy.)*
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks
