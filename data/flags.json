@@ -1243,6 +1243,34 @@
       "default": "",
       "values": ["", "first", "ring"],
       "future": true
+    },
+    "saltmarrow_homecoming_seen": {
+      "description": "The epilogue on Saltmarrow (Day 98, arrival event saltmarrow_homecoming): the Mercy puts in past the breakwater after the ending, the green lantern still on the dock-post; Mara sees what the ending made of the night (lit: the Spire a gold point over the lofts, the boats out; released: somebody sitting up at the Gull, the step warm; dark: the midwinter round, Saltmarrow writes its own list).",
+      "default": false
+    },
+    "saltmarrow_aldous_after_seen": {
+      "description": "Told Aldous the Long Book's shut (Day 98, the epilogue, one-time): per ending, Oriel's name, the seventh novice, the brazier and the door-warden's answer to the Provost.",
+      "default": false
+    },
+    "saltmarrow_aldous_heard_oriel": {
+      "description": "Told Aldous of the High Keeper after the ending (Day 98): Oriel Sayre signed the Long Book (climb/own) — he says her name for the first time — or sits in a boat that never went out (boat).",
+      "default": false,
+      "future": true
+    },
+    "saltmarrow_aldous_knows_novice": {
+      "description": "Told Aldous the Wakebearer was the seventh novice on the east landing (Day 98; released or dark, once Oriel knows). He still can't find the face, and takes their word over his eyes.",
+      "default": false,
+      "future": true
+    },
+    "saltmarrow_brazier_lit": {
+      "description": "The dark ending's homecoming (Day 98): the Wakebearer held the ember to the Wrens' brazier, laid for whoever comes down the stair, and it burns for the first time since the Snuffing (brazier_lit, a small fire light).",
+      "default": false
+    },
+    "saltmarrow_aldous_crossing": {
+      "description": "The door-warden's answer to the Provost, kept (Day 98; needs saltmarrow_aldous_boat=letter): '' (not said), 'now' (lit or released: 'it's one or the other' — he'll cross and pay twice) or 'midwinter' (dark: he'll come with the ember on the round, carrying nothing). Future: Aldous on the Mercy.",
+      "default": "",
+      "values": ["", "now", "midwinter"],
+      "future": true
     }
   }
 }

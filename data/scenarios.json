@@ -1010,6 +1010,24 @@
         "the_lantern_room": "done"
       },
       "shot": "--camera=12,6,17:-60,6,-6"
+    },
+    {
+      "id": "the_wrens_fire",
+      "act": "Act III — The Spire",
+      "title": "The Wrens' Fire",
+      "inherits": "the_homecoming",
+      "region": "saltmarrow",
+      "spawn": "from_ferry",
+      "description": "In the dark ending the Mercy put in at Saltmarrow with the ember still burning in the Wakebearer's hand. Mara called the village to write its own midwinter list, and by the Wrens' steps the brazier Aldous kept laid for whoever came down the stair burns at last.",
+      "flags": {
+        "cindermoor_cradle_choice": "dark",
+        "kindleby_midwinter": "ring",
+        "lanes_ferry_at": "saltmarrow",
+        "saltmarrow_homecoming_seen": true,
+        "saltmarrow_aldous_after_seen": true,
+        "saltmarrow_brazier_lit": true
+      },
+      "shot": "--camera=-6.2,2.4,3.4:-9.6,0.9,-1.0"
     }
   ]
 }

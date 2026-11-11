@@ -24,6 +24,31 @@
         "goto": "dunstan_home"
       },
       {
+        "if": [
+          "flag:saltmarrow_homecoming_seen",
+          "flag:cindermoor_cradle_choice=lit"
+        ],
+        "say": "mara",
+        "text": "Boats out past the wall again. I count them in of an evening by the Spire's light. Harbormaster's never had it so easy, and I don't trust it.",
+        "note": "Day 98: Mara after the homecoming, per ending."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_homecoming_seen",
+          "flag:cindermoor_cradle_choice=released"
+        ],
+        "say": "mara",
+        "text": "Tam's taken a blanket up to the Gull. For the step, he says. I've not asked who it's for. I've let him."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_homecoming_seen",
+          "flag:cindermoor_cradle_choice=dark"
+        ],
+        "say": "mara",
+        "text": "The list's on the dock-post under the lantern. Three names on it so far, and every one of them put there by its own hand. Mine's not one. Yet."
+      },
+      {
         "goto": "hub"
       }
     ],

@@ -7,6 +7,10 @@
         "goto": "first"
       },
       {
+        "if": "flag:saltmarrow_aldous_after_seen",
+        "goto": "after"
+      },
+      {
         "if": "flag:saltmarrow_aldous_novice=self",
         "say": "narrator",
         "text": "Aldous looks up at your face the way he has since you asked him, as if it might come back to him if he caught it unawares."
@@ -36,6 +40,17 @@
     "hub": [
       {
         "choice": [
+          {
+            "text": "The Long Book's shut, Brother.",
+            "if": [
+              "flag:cindermoor_lane_out",
+              "!flag:saltmarrow_aldous_after_seen"
+            ],
+            "set": {
+              "saltmarrow_aldous_after_seen": true
+            },
+            "goto": "homecoming"
+          },
           {
             "text": "Do you know me?",
             "goto": "know_me"
@@ -1051,6 +1066,407 @@
       {
         "say": "narrator",
         "text": "He goes back to his slate. After a while: \"Don't make a habit of it.\""
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "homecoming": [
+      {
+        "say": "narrator",
+        "text": "He has corked the bottle and set it down on the slate, and he looks at your hand before he looks at you, the way he always has.",
+        "note": "Day 98, the epilogue: Aldous after the ending (one-time; per cindermoor_cradle_choice). The brazier laid for whoever comes down the stair (Day 47) is lit in the dark ending; Oriel's name; the seventh novice; the door-warden's answer to the Provost (Day 66)."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "home_lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "home_released"
+      },
+      {
+        "goto": "home_dark"
+      }
+    ],
+    "home_lit": [
+      {
+        "say": "aldous",
+        "text": "I felt it go. Two nights back. Like the Gull, the hand on the back of my neck. Only it was the whole sky had hold of me, and it didn't let go."
+      },
+      {
+        "say": "aldous",
+        "text": "It's lit. And your hand's empty. ...It started with you, then. It would. It always starts with the hand."
+      },
+      {
+        "say": "aldous",
+        "text": "You asked me once did I know you. I still don't. I'd think now neither do you.",
+        "if": "flag:saltmarrow_aldous_novice=self"
+      },
+      {
+        "goto": "home_name"
+      }
+    ],
+    "home_released": [
+      {
+        "say": "aldous",
+        "text": "It isn't lit. I'd have felt it. ...And your hand's empty."
+      },
+      {
+        "say": "player",
+        "text": "There's nothing in the cradle to feed, and nobody in the room. It isn't worth lighting."
+      },
+      {
+        "say": "narrator",
+        "text": "Something goes across his face that might have been a laugh, a long time ago."
+      },
+      {
+        "say": "aldous",
+        "text": "'When the Spire's lit, or when it isn't worth lighting.' I wrote that to the Provost. I meant it for a door-warden's answer. A way of saying never.",
+        "if": "flag:saltmarrow_aldous_boat=letter"
+      },
+      {
+        "say": "aldous",
+        "text": "Nothing in the cradle. Nine hundred years, and nothing in it. I'd not have believed I'd live to be glad of that.",
+        "if": "!flag:saltmarrow_aldous_boat=letter"
+      },
+      {
+        "goto": "home_name"
+      }
+    ],
+    "home_dark": [
+      {
+        "say": "aldous",
+        "text": "Still lit. I could see it in your hand from the breakwater, before I could see the boat."
+      },
+      {
+        "say": "player",
+        "text": "The Spire's dark. At midwinter the ember goes round the ring, and every island chooses its own burning."
+      },
+      {
+        "say": "aldous",
+        "text": "Chooses. ...Nine hundred years we chose for them, up the stair, and wrote it down after. Somebody'll have to show them how to write it. They'll do it better than we did."
+      },
+      {
+        "goto": "home_name"
+      }
+    ],
+    "home_name": [
+      {
+        "if": "flag:cindermoor_oriel_choice=climb|own",
+        "choice": [
+          {
+            "text": "She signed the Long Book. \"Oriel Sayre, High Keeper, who put it out.\"",
+            "set": {
+              "saltmarrow_aldous_heard_oriel": true
+            },
+            "goto": "home_oriel"
+          },
+          {
+            "text": "Say nothing of the High Keeper.",
+            "goto": "home_novice"
+          }
+        ]
+      },
+      {
+        "if": "flag:cindermoor_oriel_choice=boat",
+        "choice": [
+          {
+            "text": "The High Keeper's alive. She's sitting in a boat at the slips that never went out.",
+            "set": {
+              "saltmarrow_aldous_heard_oriel": true
+            },
+            "goto": "home_oriel_boat"
+          },
+          {
+            "text": "Say nothing of the High Keeper.",
+            "goto": "home_novice"
+          }
+        ]
+      },
+      {
+        "goto": "home_novice"
+      }
+    ],
+    "home_oriel": [
+      {
+        "say": "narrator",
+        "text": "He says nothing for so long that a gull comes down on the end of the bench and goes again."
+      },
+      {
+        "say": "aldous",
+        "text": "Oriel."
+      },
+      {
+        "say": "aldous",
+        "text": "Thirty-one years I'd not say it. Names carry, in this fog. ...Let it carry, then."
+      },
+      {
+        "say": "aldous",
+        "text": "She came down past the niche on the coldest night of every winter with a cup of something for the door-warden. Never said why. I never asked. That was the trouble with the pair of us: we never asked."
+      },
+      {
+        "say": "aldous",
+        "text": "Signed it. Under you. ...Good. Somebody should be written down for what they saw."
+      },
+      {
+        "goto": "home_novice"
+      }
+    ],
+    "home_oriel_boat": [
+      {
+        "say": "aldous",
+        "text": "Alive."
+      },
+      {
+        "say": "aldous",
+        "text": "In a boat that never went out. ...That'll be her. She always did wait for the tide to make her mind up for her. So did I. We had that in common, at the end."
+      },
+      {
+        "goto": "home_novice"
+      }
+    ],
+    "home_novice": [
+      {
+        "if": [
+          "flag:cindermoor_oriel_knows",
+          "!flag:cindermoor_cradle_choice=lit"
+        ],
+        "choice": [
+          {
+            "text": "The seventh novice on the east landing, with the light in their hands. It was me.",
+            "set": {
+              "saltmarrow_aldous_knows_novice": true
+            },
+            "goto": "home_novice_told"
+          },
+          {
+            "text": "Let the stair be.",
+            "goto": "home_brazier"
+          }
+        ]
+      },
+      {
+        "goto": "home_brazier"
+      }
+    ],
+    "home_novice_told": [
+      {
+        "say": "narrator",
+        "text": "He looks at your face, close, the way a man looks for a hook he's sure he put a coat on."
+      },
+      {
+        "say": "aldous",
+        "text": "I still can't find you. Thirty-one years on that stair and I never lost a face off it, and I can't find yours. ...But I'll take your word over my eyes. My eyes were drunk a good deal of the time."
+      },
+      {
+        "say": "aldous",
+        "text": "You went down past me with a light in your hands, and I let you. I never asked. ...I'm glad I never asked. That's a thing I didn't think I'd say about any of it."
+      },
+      {
+        "goto": "home_brazier"
+      }
+    ],
+    "home_brazier": [
+      {
+        "say": "narrator",
+        "text": "He looks past you at the brazier by the Wrens' steps."
+      },
+      {
+        "say": "aldous",
+        "text": "A door-warden keeps a hearth laid for whoever comes down the stair. I've kept that one laid since you asked me about the coal.",
+        "if": "!flag:saltmarrow_aldous_novice="
+      },
+      {
+        "say": "aldous",
+        "text": "A door-warden keeps a hearth laid for whoever comes down the stair. I've never laid that one. Nobody was coming.",
+        "if": "flag:saltmarrow_aldous_novice="
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "brazier_lit_ending"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "brazier_released"
+      },
+      {
+        "goto": "brazier_dark"
+      }
+    ],
+    "brazier_lit_ending": [
+      {
+        "say": "aldous",
+        "text": "Nothing to light it with, now. It'll wait for midwinter and a coal down off the Spire, the old way. ...Except whoever goes up for it will have been asked. That's not the old way. That's better."
+      },
+      {
+        "goto": "home_crossing"
+      }
+    ],
+    "brazier_released": [
+      {
+        "say": "aldous",
+        "text": "Nothing to light it with, now, and I'll not go looking. But somebody's been sitting at it. The step's warm of a morning, and it's not where I sit."
+      },
+      {
+        "say": "aldous",
+        "text": "I leave it laid. A door-warden keeps a hearth for whoever comes down. They came down."
+      },
+      {
+        "goto": "home_crossing"
+      }
+    ],
+    "brazier_dark": [
+      {
+        "say": "aldous",
+        "text": "You came down the stair."
+      },
+      {
+        "choice": [
+          {
+            "text": "Hold the ember to it.",
+            "set": {
+              "saltmarrow_brazier_lit": true
+            },
+            "goto": "brazier_dark_lit"
+          },
+          {
+            "text": "Leave it laid, Brother. For midwinter.",
+            "goto": "brazier_dark_left"
+          }
+        ]
+      }
+    ],
+    "brazier_dark_lit": [
+      {
+        "say": "narrator",
+        "text": "Aldous gets up off the bench for the first time since you've known him, slowly, and goes ahead of you to the steps.",
+        "if": "!flag:saltmarrow_aldous_novice="
+      },
+      {
+        "say": "narrator",
+        "text": "He lays it while you watch, with hands that know how: three sticks of driftwood crossed over a twist of dry wrack on the raked ash.",
+        "if": "flag:saltmarrow_aldous_novice="
+      },
+      {
+        "say": "narrator",
+        "text": "Your hand knows where to hold the ember: low, under the lip, where the draught comes in. The wrack catches, then the driftwood, and the Wrens' brazier burns for the first time since the Snuffing."
+      },
+      {
+        "say": "aldous",
+        "text": "Thirty-one years on the stair, and all these on the step, and that's the first time anybody came down to it."
+      },
+      {
+        "say": "narrator",
+        "text": "He holds his hands out over it. They're shaking, and then they aren't."
+      },
+      {
+        "goto": "home_crossing"
+      }
+    ],
+    "brazier_dark_left": [
+      {
+        "say": "aldous",
+        "text": "For midwinter. ...Aye. Bring it round when you bring it round. It'll keep. It's kept this long."
+      },
+      {
+        "goto": "home_crossing"
+      }
+    ],
+    "home_crossing": [
+      {
+        "if": [
+          "flag:saltmarrow_aldous_boat=letter",
+          "flag:cindermoor_cradle_choice=lit|released"
+        ],
+        "goto": "crossing_now"
+      },
+      {
+        "if": [
+          "flag:saltmarrow_aldous_boat=letter",
+          "flag:cindermoor_cradle_choice=dark"
+        ],
+        "goto": "crossing_midwinter"
+      },
+      {
+        "if": "flag:saltmarrow_aldous_boat=no",
+        "say": "aldous",
+        "text": "I said I'd not get in a boat to be weighed by a chapter. Nobody's weighing, now, are they. ...I'll think on it. Don't tell Mara I said so."
+      },
+      {
+        "say": "narrator",
+        "text": "He picks up the bottle, looks at it, and puts it under the bench with the empty one."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "crossing_now": [
+      {
+        "say": "aldous",
+        "text": "I told her I'd come when it's lit, or when it isn't worth lighting. A door-warden's answer. ...Well. It's one or the other."
+      },
+      {
+        "say": "aldous",
+        "text": "Ask Oda what a Keeper pays. Twice, she'll say. Tell her I've got it.",
+        "set": {
+          "saltmarrow_aldous_crossing": "now"
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "He picks up the bottle, looks at it, and puts it under the bench with the empty one."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "crossing_midwinter": [
+      {
+        "say": "aldous",
+        "text": "I told her I'd come when it's lit, or when it isn't worth lighting. It's neither. It's worth lighting every winter, by somebody who's asked. That's not an answer I had."
+      },
+      {
+        "say": "aldous",
+        "text": "I'll come at midwinter. With you, when you bring it round. Carrying nothing.",
+        "set": {
+          "saltmarrow_aldous_crossing": "midwinter"
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "He picks up the bottle, looks at it, and puts it under the bench with the empty one."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "after": [
+      {
+        "say": "aldous",
+        "text": "I go up the walkway of an evening to where you can see it over the lofts. Every evening. Mara says I'll wear a groove.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "aldous",
+        "text": "Warm step again this morning. I've taken to saying good morning to it. Mara thinks I've gone soft. I went soft years ago; this is something else.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "aldous",
+        "text": "Keeps going, that fire. I feed it a stick of driftwood of a night. A door-warden keeps the hearth. Nobody said he had to keep it cold.",
+        "if": [
+          "flag:cindermoor_cradle_choice=dark",
+          "flag:saltmarrow_brazier_lit"
+        ]
+      },
+      {
+        "say": "aldous",
+        "text": "Still laid, and waiting for midwinter. So am I.",
+        "if": [
+          "flag:cindermoor_cradle_choice=dark",
+          "!flag:saltmarrow_brazier_lit"
+        ]
       },
       {
         "goto": "hub"

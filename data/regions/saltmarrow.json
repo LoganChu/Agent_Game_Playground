@@ -8,6 +8,11 @@
     "color": "silverfog",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.005,
+        "color": "#C2BBAE"
+      },
+      {
         "if": "quest:a_light_for_saltmarrow=done",
         "density": 0.008
       }
@@ -24,6 +29,15 @@
     "sky_top": "tide",
     "sky_horizon": "silverfog",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 98: the Hearthspire lit — a gold low in the north-east the Gull never had, the harbor warmed from that side.",
+        "sun_color": "#F2C98E",
+        "sun_energy": 1.25,
+        "ambient_color": "#BDB3A2",
+        "ambient_energy": 0.38,
+        "sky_horizon": "#DCC29A"
+      },
       {
         "if": "quest:a_light_for_saltmarrow=done",
         "sun_energy": 1.2,
@@ -309,7 +323,8 @@
       "rotation_y": 15,
       "if": [
         "!flag:saltmarrow_aldous_confessed=full",
-        "flag:saltmarrow_aldous_novice="
+        "flag:saltmarrow_aldous_novice=",
+        "!flag:saltmarrow_brazier_lit"
       ],
       "note": "The cold brazier's grey ash and dead coals, as left (untold or grudging). Same position and turn as the house: the model sits in its bowl."
     },
@@ -324,7 +339,8 @@
       "rotation_y": 15,
       "if": [
         "flag:saltmarrow_aldous_confessed=full",
-        "flag:saltmarrow_aldous_novice="
+        "flag:saltmarrow_aldous_novice=",
+        "!flag:saltmarrow_brazier_lit"
       ],
       "note": "After a full confession the ash is raked, not lit: he has no ember to light it (LORE, Day 16)."
     },
@@ -337,8 +353,49 @@
         -3
       ],
       "rotation_y": 15,
-      "if": "!flag:saltmarrow_aldous_novice=",
+      "if": [
+        "!flag:saltmarrow_aldous_novice=",
+        "!flag:saltmarrow_brazier_lit"
+      ],
       "note": "After the novice on the east stair (Day 47): a fire laid on the raked ash for whoever comes down the stair. Still not lit."
+    },
+    {
+      "model": "res://assets/models/dressing/brazier_lit.glb",
+      "shape": "brazier",
+      "position": [
+        -9,
+        0,
+        -3
+      ],
+      "rotation_y": 15,
+      "if": "flag:saltmarrow_brazier_lit",
+      "halo": [
+        -1.25,
+        1.0,
+        2.0
+      ],
+      "halo_size": 1.4,
+      "halo_bloom": 0.3,
+      "light": {
+        "color": "kindle",
+        "energy": 1.1,
+        "range": 6.0,
+        "offset": [
+          -1.25,
+          1.2,
+          2.0
+        ]
+      },
+      "sound": {
+        "id": "fire",
+        "offset": [
+          -1.25,
+          0.9,
+          2.0
+        ],
+        "range": 10
+      },
+      "note": "Day 98, the dark ending's homecoming: the brazier laid for whoever comes down the stair, lit from the ember at last. Same origin and turn as the house; the fire sits in the bowl at [-1.25, ~0.95, 2.0]."
     },
     {
       "model": "res://assets/models/dressing/plank_bench.glb",
@@ -1273,6 +1330,27 @@
         ],
         "foam_y": 0.2
       }
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far_lit.glb",
+      "position": [
+        120.0,
+        -6.0,
+        -140.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 2.0,
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "halo": [
+        0,
+        9.1,
+        0
+      ],
+      "halo_size": 9.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.6,
+      "note": "Day 98: the Hearthspire lit, seen from Saltmarrow — a gold point low in the north-east over the lofts (Cindermoor lies north-east of the Gull on the chart; far out past the fog, the halo carries it)."
     }
   ],
   "npcs": [
@@ -1417,6 +1495,21 @@
         -1.0
       ],
       "reach": 1.5
+    }
+  ],
+  "events": [
+    {
+      "id": "saltmarrow_homecoming",
+      "if": [
+        "flag:lanes_ferry_at=saltmarrow",
+        "flag:cindermoor_lane_out",
+        "!flag:saltmarrow_homecoming_seen"
+      ],
+      "set": {
+        "saltmarrow_homecoming_seen": true
+      },
+      "dialogue": "saltmarrow_homecoming",
+      "note": "Day 98, the epilogue: the Mercy puts in at the first harbor after the ending (sailed round from Kindleby)."
     }
   ]
 }

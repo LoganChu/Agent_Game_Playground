@@ -1,0 +1,246 @@
+{
+  "id": "saltmarrow_homecoming",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Mercy comes in past the breakwater with the tide under her. Oda puts the bone horn to her mouth: one long note, then two short. Putting in, passengers welcome.",
+        "sound": "horn_near",
+        "note": "Day 98, the epilogue on Saltmarrow (arrival event saltmarrow_homecoming): the Mercy back at the first harbor after the ending. Per cindermoor_cradle_choice, coloured by the Gull's burning."
+      },
+      {
+        "say": "narrator",
+        "text": "On the dock-post the green lantern still hangs where Mara hung it, the glass gone cloudy with salt. Nobody has taken it down."
+      },
+      {
+        "say": "mara",
+        "text": "Somebody said take it down, the ferry's been and gone. I said she'll be back. Harbormaster's word."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "released"
+      },
+      {
+        "goto": "dark"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "Over the lofts in the north-east, where there was only ever fog, the Hearthspire burns: a gold point low over the water, steady as a nail. The grey has gone off the harbor mouth like breath off a glass."
+      },
+      {
+        "say": "mara",
+        "text": "Boats went out past the wall this morning. All of them, and further than the Gull can see. Old Hesk's lot came down off the lofts to watch, and nobody had to tell them where to look."
+      },
+      {
+        "say": "mara",
+        "text": "I half thought it'd give things back. The light. ...It doesn't, does it."
+      },
+      {
+        "say": "mara",
+        "text": "There's still no song I can find the end of. I went looking.",
+        "if": "flag:saltmarrow_beacon_burned=pebble"
+      },
+      {
+        "say": "mara",
+        "text": "The nets still begin in the middle. Nobody's found the corner.",
+        "if": "flag:saltmarrow_beacon_burned=knot"
+      },
+      {
+        "say": "mara",
+        "text": "There's still two cups by my door of a morning. I still don't know whose the second is.",
+        "if": [
+          "flag:saltmarrow_beacon_burned=gull",
+          "!flag:fen_dunstan_walk=home"
+        ]
+      },
+      {
+        "say": "mara",
+        "text": "There's a big man on the stool by my door says the second cup's his. The light didn't tell me if he's right.",
+        "if": [
+          "flag:saltmarrow_beacon_burned=gull",
+          "flag:fen_dunstan_walk=home"
+        ]
+      },
+      {
+        "choice": [
+          {
+            "text": "No. It doesn't give anything back.",
+            "goto": "lit_back"
+          },
+          {
+            "text": "It took me first.",
+            "goto": "lit_took"
+          }
+        ]
+      }
+    ],
+    "lit_back": [
+      {
+        "say": "mara",
+        "text": "No. Well. We knew what we paid when we paid it. That's more than most get."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "lit_took": [
+      {
+        "say": "mara",
+        "text": "Took what?"
+      },
+      {
+        "say": "player",
+        "text": "Whatever I was before your beach."
+      },
+      {
+        "say": "narrator",
+        "text": "Mara looks at you a long while, the way she looks at a hull she's deciding whether to trust."
+      },
+      {
+        "say": "mara",
+        "text": "Then you're Saltmarrow's. You woke on our shingle. If you don't know you, we will."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "released": [
+      {
+        "say": "narrator",
+        "text": "There's nothing in the north-east but fog: the Spire's not lit. But up on the headland the Gull's Beacon is burning steadier than it has since the night it caught, and the gulls won't settle on its roof."
+      },
+      {
+        "say": "mara",
+        "text": "Tam went up to the Gull last night. Says there's somebody sitting at the beacon. He went right up the ladder. Nobody. The step was warm."
+      },
+      {
+        "say": "mara",
+        "text": "And it hums. The beacon. Some tune with no end to it, and nobody on the island knows it.",
+        "if": "flag:saltmarrow_beacon_burned=pebble"
+      },
+      {
+        "say": "narrator",
+        "text": "Oda, coiling the stern line, stops with the rope in her hands. She opens her mouth, and shuts it again.",
+        "if": "flag:saltmarrow_beacon_burned=pebble"
+      },
+      {
+        "say": "oda",
+        "text": "I know it. It's not mine to give back. It'd only go past you like rain off a coat.",
+        "if": "flag:saltmarrow_beacon_burned=pebble"
+      },
+      {
+        "say": "mara",
+        "text": "And it hums. Low, like somebody keeping time for somebody else.",
+        "if": "!flag:saltmarrow_beacon_burned=pebble"
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at your hand, the way everybody on Saltmarrow always looked at your hand. There's nothing in it to look at."
+      },
+      {
+        "say": "mara",
+        "text": "Where's your coal gone?"
+      },
+      {
+        "choice": [
+          {
+            "text": "It walked them out. The ones the Spire burned.",
+            "goto": "released_told"
+          },
+          {
+            "text": "Somebody needed it more than I did.",
+            "goto": "released_told"
+          }
+        ]
+      }
+    ],
+    "released_told": [
+      {
+        "say": "mara",
+        "text": "...Then they're welcome to the step. Tell them the harbor's ours in the mornings, and the Gull's theirs at night. That's fair."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "dark": [
+      {
+        "say": "narrator",
+        "text": "The Spire is dark in the north-east, where it has always been dark. In your hand the ember burns, and Mara looks at it the way she looks at weather coming."
+      },
+      {
+        "say": "oda",
+        "text": "Tell her. It's hers to hear first.",
+        "if": "flag:kindleby_midwinter="
+      },
+      {
+        "say": "oda",
+        "text": "You told the Kindleby boy round the way the light goes, from the Gull. That's here. That's first.",
+        "if": "flag:kindleby_midwinter=ring"
+      },
+      {
+        "say": "oda",
+        "text": "Kindleby asked first, and you said yes. She's still to hear it, though. Tell her.",
+        "if": "flag:kindleby_midwinter=first"
+      },
+      {
+        "say": "player",
+        "text": "At midwinter the ember comes round the ring. Every island says what it'll burn, and writes it down."
+      },
+      {
+        "say": "mara",
+        "text": "Writes it down. Itself."
+      },
+      {
+        "say": "mara",
+        "text": "We've burned one already. We know what it costs. A song nobody can finish.",
+        "if": "flag:saltmarrow_beacon_burned=pebble"
+      },
+      {
+        "say": "mara",
+        "text": "We've burned one already. We know what it costs. We know where a net doesn't begin.",
+        "if": "flag:saltmarrow_beacon_burned=knot"
+      },
+      {
+        "say": "mara",
+        "text": "We've burned one already. I don't know what it cost me. That's what it costs.",
+        "if": "flag:saltmarrow_beacon_burned=gull"
+      },
+      {
+        "say": "mara",
+        "text": "All right. I'll call them down to the dock. Harbormaster's business. Nobody chooses for Saltmarrow but Saltmarrow."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "end": [
+      {
+        "say": "narrator",
+        "text": "By her door Dunstan lifts his cup at the Mercy, and at you, and doesn't get up.",
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "By her door the big man on the stool lifts his cup at the Mercy, and at you, and doesn't get up.",
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Down the walkway, on his bench by the Wrens' steps, Aldous has set his bottle down on the slate and is watching the ferry. He doesn't get up either. He's waiting for you to come to him."
+      }
+    ]
+  }
+}
