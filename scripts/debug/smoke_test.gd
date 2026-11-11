@@ -606,6 +606,20 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(world.get_flag("kindleby_homecoming_seen") == true, "the quay bell's second stroke")
 	_check(world.get_flag("lanes_ferry_at") == "kindleby", "the Mercy at Kindleby")
 	print("Smoke: the epilogue — the lane out; Kindleby's homecoming")
+	# Day 98: round the ring to the first harbor — the green lantern still up, the Spire gold over the lofts; Aldous hears
+	# the Long Book's shut.
+	_npc("oda").interact()
+	_check(_sail(ui, "saltmarrow"), "the Mercy sails the ring home to Saltmarrow after the ending")
+	_finish_dialogue(ui, "oda (home after the ending)")
+	if not await _arrived(main, ui, "saltmarrow", "home to the Gull, after"):
+		return
+	_check(world.get_flag("saltmarrow_homecoming_seen") == true, "Saltmarrow's homecoming")
+	_check(_shown_model(main.get("region"), "hearthspire_far_lit.glb") == 1, "the lit Spire over the lofts")
+	_npc("aldous").interact()
+	_check(_choose(ui, "The Long Book's shut, Brother."), "Aldous can be told the Book's shut")
+	_finish_dialogue(ui, "aldous (after)")
+	_check(world.get_flag("saltmarrow_aldous_after_seen") == true, "the door-warden told")
+	print("Smoke: the epilogue — Saltmarrow's homecoming; Aldous told")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the

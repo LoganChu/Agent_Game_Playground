@@ -235,7 +235,7 @@ func test_the_chart_after() -> void:
 
 func test_the_far_spire_lit() -> void:
 	var db := _content()
-	for region_id: String in ["cindermoor_boat_stair", "cindermoor_long_steps", "kindleby"]:
+	for region_id: String in ["cindermoor_boat_stair", "cindermoor_long_steps", "kindleby", "saltmarrow"]:
 		for ending: String in ["", "lit", "released", "dark"]:
 			var state := fresh_state(db)
 			state.set_flag("cindermoor_cradle_choice", ending)
@@ -250,7 +250,7 @@ func test_the_far_spire_lit() -> void:
 				elif model.ends_with("hearthspire_far_lit.glb"):
 					lit += 1
 			assert_eq(lit, 1 if ending == "lit" else 0, "%s / %s: the lit Spire" % [region_id, ending])
-			if region_id != "kindleby":
+			if region_id.begins_with("cindermoor"):
 				assert_eq(dark, 0 if ending == "lit" else 1, "%s / %s: the dark Spire" % [region_id, ending])
 
 
