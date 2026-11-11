@@ -34,6 +34,22 @@ static func ferry_landmark(db: ContentDatabase, state: WorldState) -> Dictionary
 	return {}
 
 
+## A landmark's words as the story stands (Day 97): its `text` and `moored`, each replaced by the first
+## `after` entry whose `if` holds and that has that key (Cindermoor after the ending: the Spire lit, or not, and
+## a lane off the water after all). → {"text": …, "moored": …}
+static func landmark_words(mark: Dictionary, state: WorldState) -> Dictionary:
+	var words := {"text": str(mark.get("text", "")), "moored": str(mark.get("moored", "The Slow Mercy sails nowhere from here."))}
+	var taken := {}
+	for entry: Dictionary in mark.get("after", []):
+		if not Conditions.evaluate(entry.get("if"), state):
+			continue
+		for key: String in ["text", "moored"]:
+			if entry.has(key) and not taken.has(key):
+				words[key] = str(entry[key])
+				taken[key] = true
+	return words
+
+
 ## Where the ferry lies, by name: a port's, or a landmark's when she lies at one.
 static func ferry_place_name(db: ContentDatabase, state: WorldState) -> String:
 	var mark := ferry_landmark(db, state)
@@ -169,7 +185,7 @@ static func voyage(db: ContentDatabase, state: WorldState, to: String) -> Dictio
 	var from := current_port(db, state)
 	var moored := ferry_landmark(db, state)
 	if not moored.is_empty():
-		return {"ok": false, "reason": str(moored.get("moored", "The Slow Mercy sails nowhere from here."))}
+		return {"ok": false, "reason": landmark_words(moored, state)["moored"]}
 	if not port_known(db, state, to):
 		return {"ok": false, "reason": "Oda knows no lane there."}
 	if to == from:

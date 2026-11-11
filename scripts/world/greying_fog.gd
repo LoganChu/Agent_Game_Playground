@@ -20,6 +20,7 @@ var _material: ShaderMaterial
 
 var _surface: Callable
 var _recut_tween: Tween
+var _thin_tween: Tween
 
 
 ## Builds the layers for `area`. `surface` maps x, z → the height the fog lies on; `clears`
@@ -56,6 +57,26 @@ func set_pool(center: Vector3, radius: float, push: float) -> void:
 ## The pool the shader was last given: Vector4(x, y, z, radius) (for tests).
 func pool() -> Vector4:
 	return _material.get_shader_parameter("ember_pool") if _material else Vector4.ZERO
+
+
+## Thins the whole layer (Day 97: the grey going back after the lit ending; 1 = as built), easing over
+## FADE_SECONDS when `animate`.
+func set_thin(value: float, animate: bool = false) -> void:
+	if _material == null:
+		return
+	if _thin_tween:
+		_thin_tween.kill()
+		_thin_tween = null
+	if not animate:
+		_material.set_shader_parameter("thin", value)
+		return
+	_thin_tween = create_tween().set_trans(Tween.TRANS_SINE)
+	_thin_tween.tween_method(func(v: float) -> void: _material.set_shader_parameter("thin", v), thin(), value, FADE_SECONDS)
+
+
+## The layer's thinning as the shader has it now (1 = as built).
+func thin() -> float:
+	return float(_material.get_shader_parameter("thin")) if _material else 1.0
 
 
 func _set_opacity(value: float) -> void:

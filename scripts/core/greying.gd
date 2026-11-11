@@ -51,6 +51,26 @@ static func active_areas(region_data: Dictionary, state: WorldState) -> Array[Di
 	return out
 
 
+## After the ending (Day 97, data/game.json `after_the_ember`): the Greying's strength everywhere — the first
+## `greying_scale` entry whose `if` holds gives its `scale` (the lit Spire: the grey goes back), else 1.
+## Look and drain both follow it (Region.greying_depth, GreyingFog.set_thin); the validator's budgets don't
+## (they prove the worst case, before any ending).
+static func after_scale(db: ContentDatabase, state: WorldState) -> float:
+	var after: Dictionary = db.game.get("after_the_ember", {}) if db else {}
+	for entry: Dictionary in after.get("greying_scale", []):
+		if Conditions.evaluate(entry.get("if"), state):
+			return float(entry.get("scale", 1.0))
+	return 1.0
+
+
+## After the ending (Day 97): true when the Wakebearer's hand holds no ember any more (game.json
+## `after_the_ember.ember_gone`: put in the cradle, or spent walking the Choir out). The fog then takes
+## nothing from them: no drain, no meter, no turning back, no pool, and the hand's light is out.
+static func ember_gone(db: ContentDatabase, state: WorldState) -> bool:
+	var after: Dictionary = db.game.get("after_the_ember", {}) if db else {}
+	return after.has("ember_gone") and Conditions.evaluate(after["ember_gone"], state)
+
+
 ## Every area regardless of its condition (all fog and all light).
 static func all_areas(region_data: Dictionary) -> Array[Dictionary]:
 	var out: Array[Dictionary] = []

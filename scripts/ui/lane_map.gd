@@ -193,7 +193,8 @@ func _focus_port(id: String) -> void:
 	var moored := Lanes.ferry_landmark(db, state)
 	if not moored.is_empty() and id == str(moored.get("ferry", "")):
 		# The Mercy lies at a landmark (the Boat Stair): say so; nothing sails from it.
-		_info.text = "%s — %s %s" % [moored.get("name", ""), moored.get("text", ""), moored.get("moored", "")]
+		var words := Lanes.landmark_words(moored, state)
+		_info.text = "%s — %s %s" % [moored.get("name", ""), words["text"], words["moored"]]
 		return
 	var entry := Lanes.port(db, id)
 	var lit := "lit" if Lanes.port_lit(db, state, id) else "dark"
@@ -278,8 +279,14 @@ func _draw_chart() -> void:
 			_draw_island(c, ISLAND_RADIUS * 1.8, Color(ink, 1.0).lerp(fog, 0.15), false)
 			if str(mark.get("ferry", "")) == str(state.get_flag(Lanes.FLAG, "")) and mark.has("ferry"):
 				_chart.draw_arc(c, ISLAND_RADIUS * 1.8 + 7.0, 0.0, TAU, 40, ember, 2.5, true)  # the Mercy lies here
-			# The dark Spire: a cold spike on the isle.
-			_chart.draw_colored_polygon(PackedVector2Array([c + Vector2(-5, 6), c + Vector2(5, 6), c + Vector2(0, -26)]), Color(fog, 0.45))
+			# The dark Spire: a cold spike on the isle. Lit (Day 97, the landmark's `lit`): gold, with a glow and a point.
+			var spike := PackedVector2Array([c + Vector2(-5, 6), c + Vector2(5, 6), c + Vector2(0, -26)])
+			if Lanes.landmark_lit(mark, state):
+				_chart.draw_circle(c + Vector2(0, -24), ISLAND_RADIUS * 2.2, Color(kindle, 0.14))
+				_chart.draw_colored_polygon(spike, Color(kindle, 0.8))
+				_chart.draw_circle(c + Vector2(0, -26), 4.0, kindle)
+			else:
+				_chart.draw_colored_polygon(spike, Color(fog, 0.45))
 		var font := get_theme_default_font()
 		var text := str(mark.get("name", ""))
 		var fsize := get_theme_default_font_size()

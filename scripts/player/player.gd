@@ -63,6 +63,8 @@ var _ember_light: OmniLight3D
 ## Ember strength (1 = full; the Greying drains it) and the flicker clock.
 var _ember := 1.0
 var _flicker_time := 0.0
+## After the ending (Day 97, Greying.ember_gone): the hand holds no ember — the light out, the glow dark.
+var _ember_gone := false
 ## Where the NPC we're talking to stands (the Wakebearer turns to it while input is locked).
 var _talk_to: Variant = null
 ## The player's own camera pitch (the mouse sets it; dialogue framing blends away from it).
@@ -171,6 +173,33 @@ func heading() -> float:
 func set_ember(value: float) -> void:
 	_ember = clampf(value, 0.0, 1.0)
 	_update_ember_light()
+
+
+## After the lit or released ending the hand holds no ember (Greying.ember_gone): its light goes out and the
+## glowing surfaces in the hand go to a cold coal (the released ending's "black coal the size of a hazelnut").
+func set_ember_gone(gone: bool) -> void:
+	if gone == _ember_gone:
+		return
+	_ember_gone = gone
+	var coal: StandardMaterial3D = null
+	if gone:
+		coal = StandardMaterial3D.new()
+		coal.albedo_color = PropFactory.color("coal")
+		coal.roughness = 0.9
+	for node in _body_meshes:
+		var mesh_node := node as MeshInstance3D
+		if mesh_node == null or mesh_node.mesh == null:
+			continue
+		for i in mesh_node.mesh.get_surface_count():
+			var material := mesh_node.mesh.surface_get_material(i)
+			if material and material.resource_name.ends_with("_glow"):
+				mesh_node.set_surface_override_material(i, coal)
+	_update_ember_light()
+
+
+## True while the hand holds no ember (after the lit or released ending).
+func is_ember_gone() -> bool:
+	return _ember_gone
 
 
 ## The ember breathes: a slow, uneven flicker on top of its strength.
@@ -336,7 +365,7 @@ func _update_ember_light() -> void:
 		return
 	var t := _flicker_time
 	var flicker := 1.0 + 0.08 * sin(t * 2.3) + 0.05 * sin(t * 5.7 + 1.3) + 0.03 * sin(t * 11.0)
-	_ember_light.light_energy = EMBER_LIGHT_ENERGY * lerpf(0.3, 1.0, _ember) * flicker
+	_ember_light.light_energy = 0.0 if _ember_gone else EMBER_LIGHT_ENERGY * lerpf(0.3, 1.0, _ember) * flicker
 
 
 ## Turns the Wakebearer towards the NPC being talked to; stops once the dialogue has closed.

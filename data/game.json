@@ -5,6 +5,13 @@
   "start_spawn": "default",
   "intro_dialogue": "wake_intro",
   "player_model": "res://assets/models/characters/wakebearer.glb",
+  "after_the_ember": {
+    "note": "Day 97: after the ending. Lit (the ember in the cradle) or released (spent walking the Choir out), the hand holds no ember: the fog takes nothing, no meter, no pool, the hand's light out (Greying.ember_gone). Lit, the grey goes back everywhere: every Greying area at a third of its strength, look and drain (Greying.after_scale). Dark changes nothing: the ember still walks the Wakebearer through.",
+    "ember_gone": "flag:cindermoor_cradle_choice=lit|released",
+    "greying_scale": [
+      {"if": "flag:cindermoor_cradle_choice=lit", "scale": 0.35}
+    ]
+  },
   "act_ends": [
     {
       "id": "act1",

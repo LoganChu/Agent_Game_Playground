@@ -33,6 +33,8 @@ var _greying_clears: Array[Dictionary] = []
 ## `_greying_blend` (0 → 1 over GreyingFog.FADE_SECONDS in `_process`; 1 = settled).
 var _greying_from: Array[Dictionary] = []
 var _greying_blend := 1.0
+## The whole Greying's strength after the ending (Day 97: Greying.after_scale; 1 = as the areas say).
+var greying_scale := 1.0
 ## The ember's pool last given to the fog: [center, radius, push] (see set_ember_pool).
 var _ember_pool: Array = [Vector3.ZERO, 0.0, 0.0]
 ## NPCs whose coming, going or moving the last refresh held for the end of a conversation (tests).
@@ -162,6 +164,11 @@ func _held_npcs(changes: Array[Dictionary]) -> Dictionary:
 func _refresh_greying(world: WorldState, animate: bool) -> void:
 	var previous := greying_areas
 	greying_areas = Greying.active_areas(data, world)
+	var scale := Greying.after_scale(Content.db, world)
+	if not is_equal_approx(scale, greying_scale):
+		greying_scale = scale
+		for fog: GreyingFog in _greying_fog.values():
+			fog.set_thin(scale, animate)
 	if greying_areas != previous:
 		_ease_greying_depth(previous, animate)
 	var clears := Greying.clear_areas(greying_areas)
@@ -180,6 +187,7 @@ func _refresh_greying(world: WorldState, animate: bool) -> void:
 			fog = GreyingFog.new()
 			fog.setup(areas[i], fog_surface, clears)
 			fog.set_pool(_ember_pool[0], _ember_pool[1], _ember_pool[2])
+			fog.set_thin(greying_scale)
 			add_child(fog)
 			if animate:
 				fog.fade(true)
@@ -229,10 +237,10 @@ func set_ember_pool(center: Vector3, radius: float, push: float) -> void:
 
 ## Fog depth (0..1) of the Greying at x/z right now (eased while the fog re-cuts).
 func greying_depth(x: float, z: float) -> float:
-	var depth := Greying.depth_at(greying_areas, Vector2(x, z))
+	var depth := Greying.depth_at(greying_areas, Vector2(x, z)) * greying_scale
 	if _greying_blend >= 1.0:
 		return depth
-	return lerpf(Greying.depth_at(_greying_from, Vector2(x, z)), depth, _greying_blend)
+	return lerpf(Greying.depth_at(_greying_from, Vector2(x, z)) * greying_scale, depth, _greying_blend)
 
 
 ## How lost the road is at x/z (Greying.forgetting_at over the active areas; the walker turns

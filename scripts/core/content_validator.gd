@@ -138,6 +138,7 @@ func _validate_game() -> void:
 		_ref_dialogue(where, str(db.game["intro_dialogue"]))
 	if db.game.has("player_model"):
 		_ref_character_model(where, str(db.game["player_model"]))
+	_validate_after_the_ember(where)
 	var acts: Variant = db.game.get("act_ends", [])
 	if not acts is Array:
 		_err(where, "act_ends must be a list")
@@ -156,6 +157,31 @@ func _validate_game() -> void:
 			_ref_condition(where, (line as Dictionary).get("if"))
 		if a.has("unfinished") and str(a["unfinished"]).count("%s") != 1:
 			_err(where, "act_ends '%s' unfinished needs exactly one %%s (the quest titles)" % a.get("id", ""))
+
+
+## Day 97: `after_the_ember` {ember_gone?: condition, greying_scale?: [{if, scale 0..1}]} (Greying.ember_gone/after_scale).
+func _validate_after_the_ember(where: String) -> void:
+	var after: Variant = db.game.get("after_the_ember", {})
+	if not after is Dictionary:
+		_err(where, "after_the_ember must be an object")
+		return
+	for key: String in (after as Dictionary).keys():
+		if key not in ["ember_gone", "greying_scale", "note"]:
+			_err(where, "after_the_ember: unknown key '%s'" % key)
+	if (after as Dictionary).has("ember_gone"):
+		_ref_condition(where + " after_the_ember", after["ember_gone"])
+	var scales: Variant = (after as Dictionary).get("greying_scale", [])
+	if not scales is Array:
+		_err(where, "after_the_ember.greying_scale must be a list")
+		return
+	for entry: Variant in scales:
+		if not entry is Dictionary or not (entry as Dictionary).has("if") or not (entry as Dictionary).has("scale"):
+			_err(where, "after_the_ember.greying_scale entries need 'if' and 'scale'")
+			continue
+		_ref_condition(where + " after_the_ember", entry["if"])
+		var s: Variant = entry["scale"]
+		if not (s is float or s is int) or float(s) < 0.0 or float(s) > 1.0:
+			_err(where, "after_the_ember.greying_scale 'scale' must be a number in 0..1")
 
 
 ## Every knot of the lanes dialogue the lane map can jump to.
@@ -213,6 +239,13 @@ func _validate_lanes() -> void:
 		if str((mark as Dictionary).get("look", "spire")) not in Lanes.LANDMARK_LOOKS:
 			_err(mw, "look must be one of %s" % [Lanes.LANDMARK_LOOKS])
 		_ref_condition(mw, (mark as Dictionary).get("lit"))
+		# Day 97: `after` [{if, text?, moored?}] — the words once the story has moved on (Lanes.landmark_words).
+		for entry: Variant in (mark as Dictionary).get("after", []):
+			if not entry is Dictionary or not (entry as Dictionary).has("if") \
+					or not ((entry as Dictionary).has("text") or (entry as Dictionary).has("moored")):
+				_err(mw, "'after' entries need 'if' and 'text' or 'moored'")
+				continue
+			_ref_condition(mw + " after", entry["if"])
 		var links: Variant = (mark as Dictionary).get("links", [])
 		if not links is Array or not (links as Array).all(func(l: Variant) -> bool: return ports.has(str(l))):
 			_err(mw, "'links' must list ports")

@@ -34,6 +34,8 @@ var _last_remembered := Vector3.INF
 var forget_time := 0.0
 ## How lost the way is under the player on the last physics frame (Greying.forgetting_at).
 var forgetting := 0.0
+## After the lit or released ending (Greying.ember_gone, Day 97): no ember, so no drain, meter or pool.
+var ember_gone := false
 var _pool_time := 0.0
 
 
@@ -55,14 +57,22 @@ func enter_region(p_region: Region) -> void:
 func _physics_process(delta: float) -> void:
 	if player == null or region == null or not is_instance_valid(region) or turning_back:
 		return
-	var p := player.global_position
+	walk(player.global_position, player.is_on_floor(), delta)
+
+
+## One step of the walk with the Wakebearer at `p` (tests call it directly).
+func walk(p: Vector3, on_floor: bool, delta: float) -> void:
 	depth = region.greying_depth(p.x, p.z)
-	if not GameState.input_locked:
+	# After the lit or released ending there is no ember to drain (Day 97): the fog takes nothing.
+	ember_gone = Greying.ember_gone(Content.db, GameState.world)
+	if ember_gone:
+		meter.refill()
+	elif not GameState.input_locked:
 		meter.step(delta, depth)
-	if depth < Greying.CLEAR_DEPTH and player.is_on_floor():
+	if depth < Greying.CLEAR_DEPTH and on_floor:
 		_last_clear = p
 	forgetting = region.forgetting(p.x, p.z)
-	if forgetting < Greying.FORGET_DEPTH * 0.5 and player.is_on_floor():
+	if forgetting < Greying.FORGET_DEPTH * 0.5 and on_floor:
 		_last_remembered = p
 	if not GameState.input_locked:
 		if forgetting >= Greying.FORGET_DEPTH:
@@ -76,8 +86,10 @@ func _physics_process(delta: float) -> void:
 		# Hidden under a modal (a cresset lit mid-road); the fade covers it when the road forgets.
 		hud.set_lost(0.0 if GameState.input_locked else lost_cue(forgetting, forget_time))
 	player.set_ember(meter.ember)
+	player.set_ember_gone(ember_gone)
 	_open_pool(p, delta)
-	ember_changed.emit(meter.ember, depth)
+	# With no ember the HUD has nothing to show: no meter, no grey wash.
+	ember_changed.emit(meter.ember, 0.0 if ember_gone else depth)
 
 
 ## The HUD's road-forgetting cue (Day 84; Hud.set_lost): a faint hint (up to LOST_HINT) as the way
@@ -97,7 +109,7 @@ static func lost_cue(p_forgetting: float, p_forget_time: float) -> float:
 func _open_pool(p: Vector3, delta: float) -> void:
 	_pool_time += delta
 	var breath := 1.0 + 0.04 * sin(_pool_time * 2.3) + 0.025 * sin(_pool_time * 5.7 + 1.3)
-	region.set_ember_pool(p + Vector3.UP, pool_radius() * breath, Greying.EMBER_POOL_PUSH)
+	region.set_ember_pool(p + Vector3.UP, 0.0 if ember_gone else pool_radius() * breath, Greying.EMBER_POOL_PUSH)
 
 
 ## The pool's radius for the ember right now (before the breathing).
