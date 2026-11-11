@@ -1,0 +1,206 @@
+{
+  "id": "kindleby_homecoming",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Mercy comes in under Kindleby's wall at evening. The candles are lit along it, all forty, and somebody is changing them.",
+        "note": "Day 97, the epilogue (arrival event kindleby_homecoming): the Mercy back off Cindermoor's water after the ending. The quay bell's second stroke (Day 79: 'You only ever hear the one. The second's for when they come back.')."
+      },
+      {
+        "say": "narrator",
+        "text": "Up at the quay bell Tobin sees her, and stands very still with his hands at his sides. Then he takes the rope in both of them and strikes it, once.",
+        "sound": "quay_bell"
+      },
+      {
+        "say": "oda",
+        "text": "That's the other one. The second stroke. I've never heard it. Nobody living has."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "released"
+      },
+      {
+        "goto": "dark"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "Astern, over the water where the chart was always black, the Hearthspire burns. From Kindleby's quay it's a gold point no bigger than a star, low in the west, and it doesn't flicker."
+      },
+      {
+        "say": "narrator",
+        "text": "The old brothers have come down to the quay steps to look at it. One of them is crying, and one of them is laughing, and one of them, the oldest, is doing both and holding on to the rail."
+      },
+      {
+        "say": "tobin",
+        "text": "Is that it? Is that the Spire? ...It's lit. You lit it."
+      },
+      {
+        "choice": [
+          {
+            "text": "It's lit.",
+            "goto": "lit_told"
+          },
+          {
+            "text": "It took me first.",
+            "goto": "lit_took"
+          }
+        ]
+      }
+    ],
+    "lit_took": [
+      {
+        "say": "tobin",
+        "text": "Took what?"
+      },
+      {
+        "say": "player",
+        "text": "I don't know. That's how I know it took it."
+      },
+      {
+        "say": "tobin",
+        "text": "...Oh."
+      },
+      {
+        "goto": "lit_told"
+      }
+    ],
+    "lit_told": [
+      {
+        "say": "tobin",
+        "text": "Brother Anselm says somebody has to go up to it at midwinter now. With something. He says the chapter will write them down by name, first, and ask them."
+      },
+      {
+        "say": "tobin",
+        "text": "He says that's the difference. That they'll be asked. ...I've been thinking what I'd say. I don't know yet. I've got till midwinter."
+      },
+      {
+        "goto": "provost"
+      }
+    ],
+    "released": [
+      {
+        "say": "narrator",
+        "text": "There's nothing astern but fog: the Spire's not lit. But up on Kindleby's crown the Vigil Light is burning steadier than you have ever seen it, without a gutter, and there's something beside it. Not a shape. A warmth, the way a room is warm when somebody's only just got up and gone out of it."
+      },
+      {
+        "say": "tobin",
+        "text": "There's somebody up at the light. I went up twice. There's nobody. But the step's warm, where you'd sit."
+      },
+      {
+        "say": "tobin",
+        "text": "And the candles don't gutter. Forty, and not one of them's guttered since last night. ...Is it them? The ones that forgot to go home?"
+      },
+      {
+        "choice": [
+          {
+            "text": "They've gone home. Some of them are sitting up a while first.",
+            "goto": "released_told"
+          },
+          {
+            "text": "They're the ones the Spire burned. They're keeping the lights company.",
+            "goto": "released_told"
+          }
+        ]
+      }
+    ],
+    "released_told": [
+      {
+        "say": "tobin",
+        "text": "Then I'll keep changing the candles. So they've got something to sit by."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks at your hand, the way everybody on Kindleby always looked at your hand. There's nothing in it to look at."
+      },
+      {
+        "say": "tobin",
+        "text": "Your hand's gone out."
+      },
+      {
+        "say": "player",
+        "text": "It walked them out. That's what it was for."
+      },
+      {
+        "goto": "provost"
+      }
+    ],
+    "dark": [
+      {
+        "say": "narrator",
+        "text": "The Spire's dark astern. In your hand the ember burns the way it always has, and on the quay steps the old brothers look at it, and then at each other, and don't say anything."
+      },
+      {
+        "say": "tobin",
+        "text": "Brother Anselm says it comes round now. At midwinter. Round the ring, and every island says what it'll burn, and writes it down itself, and nobody chooses for them."
+      },
+      {
+        "say": "tobin",
+        "text": "He says somebody has to carry it round. ...Will it be you? Will you come here first? We're good at waiting. We've had the practice."
+      },
+      {
+        "choice": [
+          {
+            "text": "Kindleby first. You've waited longest.",
+            "set": {
+              "kindleby_midwinter": "first"
+            },
+            "goto": "dark_first"
+          },
+          {
+            "text": "Round the way the light goes. From the Gull, and here last.",
+            "set": {
+              "kindleby_midwinter": "ring"
+            },
+            "goto": "dark_ring"
+          }
+        ]
+      }
+    ],
+    "dark_first": [
+      {
+        "say": "tobin",
+        "text": "First. ...I'll tell them. I'll be on the bell. Two strokes. I know the second one now."
+      },
+      {
+        "goto": "provost"
+      }
+    ],
+    "dark_ring": [
+      {
+        "say": "tobin",
+        "text": "Last, then. That's all right. Somebody's always last. I'll have the candles lit for you all the way down the wall."
+      },
+      {
+        "goto": "provost"
+      }
+    ],
+    "provost": [
+      {
+        "if": "flag:cindermoor_chapter_came",
+        "say": "tobin",
+        "text": "Is the Provost coming back? And the others?"
+      },
+      {
+        "if": "flag:cindermoor_chapter_came",
+        "say": "player",
+        "text": "When the Long Book's put away. It's shut."
+      },
+      {
+        "if": "flag:cindermoor_chapter_came",
+        "say": "tobin",
+        "text": "Shut. ...Nobody's ever shut it."
+      },
+      {
+        "say": "narrator",
+        "text": "Behind you, on the stage, Oda is making the Mercy fast for the night, and talking to her the way she does when she thinks nobody's listening."
+      }
+    ]
+  }
+}

@@ -1777,6 +1777,11 @@
             "goto": "lane_in_sail"
           },
           {
+            "text": "Take me back in to Cindermoor.",
+            "if": "flag:cindermoor_lane_out",
+            "goto": "lane_back_in"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true
           },
@@ -2132,6 +2137,10 @@
     ],
     "cindermoor": [
       {
+        "if": "flag:cindermoor_counted_down",
+        "goto": "cindermoor_after"
+      },
+      {
         "say": "oda",
         "text": "I'll be here. There's no lane off this water till the Spire's lit, and I'll not go looking for one with you up there.",
         "if": "!flag:cindermoor_oda_waiting"
@@ -2221,6 +2230,226 @@
       },
       {
         "goto": "cindermoor"
+      }
+    ],
+    "cindermoor_after": [
+      {
+        "if": "flag:cindermoor_oda_after_seen",
+        "say": "oda",
+        "text": "Still here. The Mercy's ready when you are, and so am I, which is rarer.",
+        "note": "Day 97, the epilogue: Oda at the Boat Stair after the count down. What the night looked like from the Mercy, once; then the lane out."
+      },
+      {
+        "if": [
+          "!flag:cindermoor_oda_after_seen",
+          "flag:cindermoor_cradle_choice=lit"
+        ],
+        "say": "oda",
+        "text": "I saw it go. Gold, straight up out of the fog, like somebody'd opened a door in the sky and left it open."
+      },
+      {
+        "if": [
+          "!flag:cindermoor_oda_after_seen",
+          "flag:cindermoor_cradle_choice=lit"
+        ],
+        "say": "oda",
+        "text": "Thirty-eight years I've steered round that. Now I'll be steering by it. ...You look like somebody who's put something down. I'll not ask what. It wouldn't stick."
+      },
+      {
+        "if": [
+          "!flag:cindermoor_oda_after_seen",
+          "flag:cindermoor_cradle_choice=released"
+        ],
+        "say": "oda",
+        "text": "Something went past the Mercy in the night. Out, not in. Like a lot of people walking on a floor that isn't there, and singing, going away."
+      },
+      {
+        "if": [
+          "!flag:cindermoor_oda_after_seen",
+          "flag:cindermoor_cradle_choice=released"
+        ],
+        "say": "oda",
+        "text": "The crew stood up for it. Nobody told them to. ...The fog's no thinner. But I can see the six lights from here, all six, and I couldn't yesterday."
+      },
+      {
+        "if": [
+          "!flag:cindermoor_oda_after_seen",
+          "flag:cindermoor_cradle_choice=dark"
+        ],
+        "say": "oda",
+        "text": "Still dark up there. I sat up all night deciding whether that was good, and then I remembered I'm a ferry-master, and it isn't mine to decide."
+      },
+      {
+        "if": [
+          "!flag:cindermoor_oda_after_seen",
+          "flag:cindermoor_cradle_choice=dark"
+        ],
+        "say": "oda",
+        "text": "You've still got it, then. I can see it from here, in your hand. Good. I've a use for it."
+      },
+      {
+        "if": "!flag:cindermoor_oda_after_seen",
+        "say": "oda",
+        "text": "I said there was no lane off this water till the Spire's lit, or till I found one. Well. Get aboard when you're ready, and we'll see which.",
+        "set": {
+          "cindermoor_oda_after_seen": true
+        }
+      },
+      {
+        "choice": [
+          {
+            "text": "Take me out to Kindleby.",
+            "if": "!flag:cindermoor_lane_out",
+            "goto": "lane_out"
+          },
+          {
+            "text": "Take me out to Kindleby.",
+            "if": "flag:cindermoor_lane_out",
+            "goto": "lane_out_again"
+          },
+          {
+            "text": "Not yet.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "lane_out": [
+      {
+        "say": "narrator",
+        "text": "Oda gives the word, and the Mercy comes off the Boat Stair's quay stern first, the way she came in, and turns."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "narrator",
+        "text": "She doesn't look at the chart. She doesn't need to. Astern, on the crown, the Hearthspire burns, and its light lies down the water ahead of the Mercy like a road somebody has swept. The fog goes back off it the way snow goes off a warm roof.",
+        "sound": "horn_near"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "oda",
+        "text": "No lane off this water till the Spire's lit. Well. It's lit."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "narrator",
+        "text": "One by one the six lights come up out of the grey ahead. You try to count them and lose your place at two. Oda counts them for you, under her breath, without being asked: the Gull, the Ridge, the Heron, the Wrack, the Vigil Light, Lowsong."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "narrator",
+        "text": "There's nothing astern to steer by: the Spire's a dark spike against a dark sky. Oda stands at the wheel with her chart folded and looks ahead instead, and ahead, for the first time on this water, are the six lights. All of them, all round the ring, like a table laid.",
+        "sound": "horn_near"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "oda",
+        "text": "There. ...They're brighter than they were. Like somebody's sitting up with them."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "narrator",
+        "text": "Your hand on the rail is cold. The black coal in it is only a coal. The fog lies on the water either side, thick as ever, and it lets the Mercy by as if she were nobody it needed anything from."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "oda",
+        "text": "That's my lane, then. I said I'd find one. I didn't say I'd be the one to find it."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "narrator",
+        "text": "Past the quay's end the fog stands up off the water like a wall. Oda looks at it, and then at your hand."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "oda",
+        "text": "Go up in the bow. Hold it up."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "narrator",
+        "text": "You go up in the bow and hold the ember up, and the fog parts round it the way it has always parted round you, only wider now, the width of a ferry, and the Mercy goes out down the gap with her lantern swinging.",
+        "sound": "horn_near"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "oda",
+        "text": "So that's how you do it. Thirty-eight years. I could have just asked."
+      },
+      {
+        "say": "narrator",
+        "text": "By evening the candles of Kindleby's wall are a line of sparks low on the water ahead, and Oda folds the chart along the lane in, and puts it away, and doesn't need it."
+      },
+      {
+        "set": {
+          "cindermoor_lane_out": true,
+          "lanes_ferry_at": "kindleby"
+        }
+      },
+      {
+        "travel": [
+          "kindleby",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "lane_out_again": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "narrator",
+        "text": "The lane out again, down the Spire's light. Oda doesn't make a speech."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "narrator",
+        "text": "The lane out again, between the six lights. Oda doesn't make a speech."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "narrator",
+        "text": "The lane out again, the ember up in the bow. Oda doesn't make a speech."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "kindleby"
+        }
+      },
+      {
+        "travel": [
+          "kindleby",
+          "from_ferry"
+        ],
+        "end": true
+      }
+    ],
+    "lane_back_in": [
+      {
+        "say": "oda",
+        "text": "Back in? ...Aye. I'll not say I like that water. I'll say I know the way now."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "narrator",
+        "text": "The Spire's light comes up out of the fog to meet the Mercy halfway, and she runs in down it to the Boat Stair."
+      },
+      {
+        "if": "!flag:cindermoor_cradle_choice=lit",
+        "say": "narrator",
+        "text": "The Mercy runs in down the lane she found coming out, and the Boat Stair comes up out of the fog where it always was."
+      },
+      {
+        "set": {
+          "lanes_ferry_at": "cindermoor"
+        }
+      },
+      {
+        "travel": [
+          "cindermoor_boat_stair",
+          "from_ferry"
+        ],
+        "end": true
       }
     ]
   }

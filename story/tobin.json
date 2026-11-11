@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:kindleby_homecoming_seen",
+        "goto": "after"
+      },
+      {
         "say": "tobin",
         "text": "The Provost says you've bowed to the rite. The old brothers cried. I didn't see it. I've been told not to say.",
         "if": [
@@ -302,6 +306,38 @@
         "say": "tobin",
         "text": "Funny. I feel like I ought to know that. Like a word you've got on your tongue. ...It's gone.",
         "if": "flag:kindleby_beacon_burned=pan"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "after": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "tobin",
+        "text": "I go up the crown of an evening and look at it. You can see it from the top step if you know where. Brother Anselm says I'll get tired of looking. I haven't yet.",
+        "note": "Day 97: Tobin after the homecoming, per ending."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "tobin",
+        "text": "Still not one guttered. I've stopped counting them going down the wall. I count the warm steps instead. There's six on the crown now."
+      },
+      {
+        "if": [
+          "flag:cindermoor_cradle_choice=dark",
+          "flag:kindleby_midwinter=first"
+        ],
+        "say": "tobin",
+        "text": "Six weeks to midwinter. I've started on the list of what we'd burn. It's a short list. Nobody wants to be on it, and everybody wants to have been asked."
+      },
+      {
+        "if": [
+          "flag:cindermoor_cradle_choice=dark",
+          "flag:kindleby_midwinter=ring"
+        ],
+        "say": "tobin",
+        "text": "Six weeks to midwinter, and you'll come here last. I've started on the list of what we'd burn. We'll have it written down by the time you get round."
       },
       {
         "goto": "hub"

@@ -1225,6 +1225,24 @@
     "cindermoor_counted_down": {
       "description": "Back down the east stair after the cradle (Day 96): the Provost counted the Wakebearer down, wrote the Long Book's last line under the chapter's (as the cradle was chosen), and a witness signed it; the Long Book shut. Ends Act III (the act3 card).",
       "default": false
+    },
+    "cindermoor_oda_after_seen": {
+      "description": "Oda has told the Wakebearer, at the Boat Stair after the count down, what the night looked like from the Mercy (Day 97, per ending).",
+      "default": false
+    },
+    "cindermoor_lane_out": {
+      "description": "The epilogue (Day 97): Oda has sailed the Wakebearer off Cindermoor's water to Kindleby after the ending — by the lit Spire's light astern (lit), by the six lights warm ahead (released), or by the ember held up in the bow (dark). From then the lane runs both ways (Oda's 'Take me back in to Cindermoor.').",
+      "default": false
+    },
+    "kindleby_homecoming_seen": {
+      "description": "The epilogue on Kindleby (Day 97, arrival event kindleby_homecoming): Tobin rings the quay bell's second stroke, the one for coming back from the Spire, and Kindleby sees what the ending made of the night.",
+      "default": false
+    },
+    "kindleby_midwinter": {
+      "description": "The dark ending's first ask (Day 97): Tobin asks whether the Wakebearer will carry the ember round to Kindleby first at midwinter. '' (not asked, or another ending), 'first' (Kindleby first: it has waited longest) or 'ring' (round the way the light goes, from the Gull). Future: the midwinter round.",
+      "default": "",
+      "values": ["", "first", "ring"],
+      "future": true
     }
   }
 }

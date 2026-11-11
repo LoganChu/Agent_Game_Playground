@@ -8,6 +8,11 @@
     "color": "#B8B6B0",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.016,
+        "color": "#BCB2A2"
+      },
+      {
         "if": "!flag:kindleby_beacon_burned=",
         "density": 0.024
       }
@@ -24,6 +29,15 @@
     "sky_top": "abyss",
     "sky_horizon": "#B8B6B0",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 97: the Hearthspire lit — a gold the Vigil Light never had low on the west, the cloud lid warmed from underneath.",
+        "sun_color": "#F0C88C",
+        "sun_energy": 0.75,
+        "ambient_color": "#B8AE9E",
+        "ambient_energy": 0.44,
+        "sky_horizon": "#D8BD96"
+      },
       {
         "if": "!flag:kindleby_beacon_burned=",
         "sun_color": "#EBCB98",
@@ -1061,6 +1075,27 @@
         -12.5
       ],
       "rotation_y": 200
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far_lit.glb",
+      "position": [
+        -185.0,
+        -6.0,
+        -10.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 2.0,
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "halo": [
+        0,
+        9.1,
+        0
+      ],
+      "halo_size": 9.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.6,
+      "note": "Day 97: the Hearthspire lit, seen from Kindleby — a gold point low in the west over the water (far out past the fog; the halo carries it)."
     }
   ],
   "npcs": [
@@ -1287,6 +1322,18 @@
       },
       "dialogue": "kindleby_arrival",
       "note": "First landfall at Kindleby."
+    },
+    {
+      "id": "kindleby_homecoming",
+      "if": [
+        "flag:cindermoor_lane_out",
+        "!flag:kindleby_homecoming_seen"
+      ],
+      "set": {
+        "kindleby_homecoming_seen": true
+      },
+      "dialogue": "kindleby_homecoming",
+      "note": "Day 97, the epilogue: the Mercy comes in off Cindermoor's water after the ending; the quay bell's second stroke."
     }
   ]
 }

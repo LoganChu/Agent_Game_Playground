@@ -628,7 +628,29 @@
       "rotation_y": 0,
       "snap": false,
       "scale": 3.0,
-      "note": "The Hearthspire, dark, on the crown above the long steps, nearer now (the 1/3-scale stand-in, scaled; the fog does the rest). Day 84: on the line of the road up past the crown exit, its foot sunk below the top terrace's edge so it no longer floats on the fog."
+      "note": "The Hearthspire, dark, on the crown above the long steps, nearer now (the 1/3-scale stand-in, scaled; the fog does the rest). Day 84: on the line of the road up past the crown exit, its foot sunk below the top terrace's edge so it no longer floats on the fog.",
+      "if": "!flag:cindermoor_cradle_choice=lit"
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far_lit.glb",
+      "position": [
+        22.0,
+        0.0,
+        -95.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 3.0,
+      "note": "Day 97: the Hearthspire lit (the lit ending): the Firstflame in its lantern, a halo seen over the moor.",
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "halo": [
+        0,
+        9.1,
+        0
+      ],
+      "halo_size": 4.5,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.5
     },
     {
       "model": "res://assets/models/dressing/ridge_outcrop.glb",

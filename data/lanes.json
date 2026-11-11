@@ -61,7 +61,13 @@
       "map": [0.56, 0.56],
       "lane": {"from": "kindleby", "name": "the lane in", "known": "flag:kindleby_oda_lane_in"},
       "ferry": "cindermoor",
-      "moored": "The Slow Mercy lies at the Boat Stair. There's no lane off this water till the Spire's lit."
+      "moored": "The Slow Mercy lies at the Boat Stair. There's no lane off this water till the Spire's lit.",
+      "lit": "flag:cindermoor_cradle_choice=lit",
+      "after": [
+        {"if": "flag:cindermoor_cradle_choice=lit", "text": "The Hearthspire, lit again. You can see it from every light on the ring.", "moored": "The Slow Mercy lies at the Boat Stair. Ask Oda: the lane out runs by the Spire's light now."},
+        {"if": "flag:cindermoor_cradle_choice=released", "text": "The Hearthspire, dark, and nobody in it. Nothing in the cradle to feed.", "moored": "The Slow Mercy lies at the Boat Stair. Ask Oda: she found a lane out by the six lights."},
+        {"if": "flag:cindermoor_cradle_choice=dark", "text": "The Hearthspire, dark. The ember goes round the ring at midwinter now.", "moored": "The Slow Mercy lies at the Boat Stair. Ask Oda: she found a lane out by the ember in the bow."}
+      ]
     },
     {
       "name": "the Low Water",

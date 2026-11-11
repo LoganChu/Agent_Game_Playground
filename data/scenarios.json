@@ -990,6 +990,26 @@
         "the_lantern_room": "the_choice"
       },
       "shot": "--camera=4.6,3.0,3.6:-0.6,1.2,-0.8"
+    },
+    {
+      "id": "the_homecoming",
+      "act": "Act III — The Spire",
+      "title": "The Homecoming",
+      "inherits": "the_spire_lit",
+      "region": "kindleby",
+      "spawn": "from_ferry",
+      "description": "After the lit ending Oda sailed the lane out by the Spire's light astern. On Kindleby's quay Tobin rang the bell's second stroke, the one for coming back, and low in the west the Hearthspire burns gold over the water.",
+      "flags": {
+        "cindermoor_counted_down": true,
+        "cindermoor_oda_after_seen": true,
+        "cindermoor_lane_out": true,
+        "lanes_ferry_at": "kindleby",
+        "kindleby_homecoming_seen": true
+      },
+      "quests": {
+        "the_lantern_room": "done"
+      },
+      "shot": "--camera=12,6,17:-60,6,-6"
     }
   ]
 }
