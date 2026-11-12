@@ -786,6 +786,10 @@ func _validate_region(id: String, region: Dictionary) -> void:
 		_err(where, "spawn_points must contain 'default'")
 	_validate_spawn_facing(where, region)
 	_validate_region_audio(where, region)
+	if region.has("camera_distance"):
+		var reach: Variant = region["camera_distance"]
+		if not (reach is float or reach is int) or float(reach) < Player.CAMERA_REACH_MIN or float(reach) > Player.CAMERA_DISTANCE:
+			_err(where, "camera_distance must be a number from %.1f to %.1f" % [Player.CAMERA_REACH_MIN, Player.CAMERA_DISTANCE])
 	for placement: Dictionary in region.get("npcs", []):
 		var npc_id := str(placement.get("npc", ""))
 		# A placement may pose the NPC differently there (Hob seated at the camp): its own

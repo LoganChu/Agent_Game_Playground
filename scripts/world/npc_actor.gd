@@ -57,6 +57,11 @@ func setup(id: String, data: Dictionary) -> void:
 	_refresh_prompt()
 
 
+## Whether this NPC sits (its placed `idle` is a seated style): the conversation framing looks lower at them.
+func is_seated() -> bool:
+	return CharacterRig.is_seated_style(str(npc_data.get("idle", "breathe")))
+
+
 ## "Talk to <name>" and the name over the head, by the NPC's conditional `names`.
 func _refresh_prompt() -> void:
 	var shown := ContentDatabase.npc_display_name(npc_data, GameState.world, npc_id)

@@ -19,6 +19,16 @@ const EMBER_LIGHT_ENERGY := 0.6
 ## Orbit camera: full distance, the radius of the sphere swept ahead of it (keeps the near
 ## plane out of walls and cliffs), and how fast it eases back out after being pushed in.
 const CAMERA_DISTANCE := 7.0
+## Day 100: a small interior may shorten the arm's reach (region `camera_distance`, CAMERA_REACH_MIN..CAMERA_DISTANCE),
+## so a wall at the Wakebearer's back doesn't snap a 7 m arm in to a step behind them in every corner.
+const CAMERA_REACH_MIN := 3.0
+## Day 100: when the arm at the player's own pitch is blocked short of CAMERA_LIFT_CLEAR of its reach (the lantern
+## room's cradle, a knee wall, a hut at the Wakebearer's back), the camera rises over it: each CAMERA_LIFT_PITCHES
+## (degrees, shallowest first) steeper than the player's own is probed with the arm's sphere, and the first that clears
+## is eased to at CAMERA_LIFT_SPEED (1/s). The probe never reads the arm, so the lift can't feed back on itself.
+const CAMERA_LIFT_PITCHES: Array[float] = [-38.0, -48.0, -58.0]
+const CAMERA_LIFT_CLEAR := 0.6
+const CAMERA_LIFT_SPEED := 2.5
 const CAMERA_PROBE_RADIUS := 0.3
 const CAMERA_RETURN_SPEED := 4.0
 ## Pushed in closer than this (a wall at the player's back), the camera would sit inside the
@@ -47,6 +57,11 @@ const FRAME_GROUP_SIDE := 0.5
 const FRAME_GROUP_BACK := 0.6
 const FRAME_GROUP_BACK_MAX := 2.2
 const FRAME_RETARGET_SPEED := 3.0
+## Day 100: someone seated (CharacterRig.SEATED_STYLES: Aldous on his bench, Hesk at her net) is framed a touch lower:
+## the pivot drops DIALOGUE_LOW_DROP and the camera looks across at DIALOGUE_LOW_PITCH rather than down, so the seated
+## figure clears the dialogue box. A group shot drops by the share of those framed who sit.
+const DIALOGUE_LOW_DROP := 0.4
+const DIALOGUE_LOW_PITCH := -9.0
 
 var focus: Interactable = null
 
@@ -56,6 +71,11 @@ var _camera: Camera3D
 var _camera_arm: SpringArm3D
 ## Current camera distance: snaps in when something blocks, eases back out (no popping).
 var _camera_distance := CAMERA_DISTANCE
+## The arm's full reach here (CAMERA_DISTANCE, or a region's shorter `camera_distance`).
+var _camera_reach := CAMERA_DISTANCE
+## The lift's target pitch and the pitch shown (radians; 0 = no lift: the player's own).
+var _lift_target := 0.0
+var _shown_lift := 0.0
 var _visual: Node3D
 var _sensor: Area3D
 var _rig: CharacterRig
@@ -77,6 +97,10 @@ var _frame_pivot := Vector3.ZERO
 var _frame_distance := DIALOGUE_DISTANCE
 ## Where everyone framed stands (world space), and the framing actually shown, easing to the targets above.
 var _framed: Array[Vector3] = []
+## Whether each one framed sits, the share of them who do (the target) and the share shown, easing to it.
+var _framed_low: Array[bool] = []
+var _frame_low := 0.0
+var _shown_low := 0.0
 var _shown_yaw := 0.0
 var _shown_pivot := Vector3.ZERO
 var _shown_distance := DIALOGUE_DISTANCE
@@ -144,7 +168,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func talk_to(npc: NpcActor) -> void:
 	_talk_to = npc.global_position
 	if GameSettings.current().dialogue_camera:
-		frame_towards(npc.global_position - global_position)
+		frame_towards(npc.global_position - global_position, npc.is_seated())
 	npc.interact()
 
 
@@ -206,6 +230,7 @@ func is_ember_gone() -> bool:
 func _process(delta: float) -> void:
 	_flicker_time += delta
 	_update_ember_light()
+	_update_lift(delta)
 	_update_framing(delta)
 	_update_camera_distance(delta)
 
@@ -230,8 +255,8 @@ func framing() -> float:
 	return _framing
 
 
-## Starts framing a conversation with someone standing `offset` away (while input stays locked).
-func frame_towards(offset: Vector3) -> void:
+## Starts framing a conversation with someone standing `offset` away (while input stays locked); `low` if they sit.
+func frame_towards(offset: Vector3, low: bool = false) -> void:
 	var to := Vector3(offset.x, 0.0, offset.z)
 	if to.length() < 0.3:
 		return
@@ -239,16 +264,19 @@ func frame_towards(offset: Vector3) -> void:
 	_frame_pivot = (to * DIALOGUE_PIVOT_SHARE).limit_length(DIALOGUE_PIVOT_MAX)
 	_frame_distance = DIALOGUE_DISTANCE
 	_framed = [_here() + to]
+	_framed_low = [low]
+	_frame_low = 1.0 if low else 0.0
 	if _framing <= 0.0:
 		_shown_yaw = _frame_yaw
 		_shown_pivot = _frame_pivot
 		_shown_distance = _frame_distance
+		_shown_low = _frame_low
 	_framing_on = true
 
 
-## Brings someone else standing at `point` (world space) into the conversation's shot: a second speaker. Returns
-## whether the shot changed (not framing, already framed, or too far away: no).
-func frame_also(point: Vector3) -> bool:
+## Brings someone else standing at `point` (world space) into the conversation's shot: a second speaker (`low` if they
+## sit). Returns whether the shot changed (not framing, already framed, or too far away: no).
+func frame_also(point: Vector3, low: bool = false) -> bool:
 	if not _framing_on or _framed.is_empty():
 		return false
 	for framed: Vector3 in _framed:
@@ -258,6 +286,8 @@ func frame_also(point: Vector3) -> bool:
 	if Vector2(point.x - here.x, point.z - here.z).length() > FRAME_JOIN_MAX:
 		return false
 	_framed.append(point)
+	_framed_low.append(low)
+	_frame_low = float(_framed_low.count(true)) / _framed_low.size()
 	var centre := Vector3.ZERO
 	for framed: Vector3 in _framed:
 		centre += framed
@@ -285,6 +315,11 @@ func framed_count() -> int:
 	return _framed.size() if _framing_on else 0
 
 
+## The share of those framed who sit (0..1; the shot's target, tests).
+func framed_low() -> float:
+	return _frame_low if _framing_on else 0.0
+
+
 ## The view yaw that frames someone `to` away (horizontal): looking along the line from the
 ## Wakebearer to them, swung `side` (DIALOGUE_SIDE) to whichever side is nearer the `current` yaw.
 static func dialogue_yaw(current: float, to: Vector3, side: float = DIALOGUE_SIDE) -> float:
@@ -300,6 +335,7 @@ func _update_framing(delta: float) -> void:
 	if _framing_on and not GameState.input_locked and _framing > 0.0:
 		_framing_on = false
 		_framed.clear()
+		_framed_low.clear()
 	var target := 1.0 if _framing_on else 0.0
 	_framing = move_toward(_framing, target, delta / DIALOGUE_EASE_SECONDS)
 	# A second speaker joining moves the shot: ease there.
@@ -307,12 +343,83 @@ func _update_framing(delta: float) -> void:
 	_shown_yaw = lerp_angle(_shown_yaw, _frame_yaw, k)
 	_shown_pivot = _shown_pivot.lerp(_frame_pivot, k)
 	_shown_distance = lerpf(_shown_distance, _frame_distance, k)
+	_shown_low = lerpf(_shown_low, _frame_low, k)
 	var w := smoothstep(0.0, 1.0, _framing)
 	_camera_pitch.rotation.y = angle_difference(_camera_yaw.rotation.y, _shown_yaw) * w
-	_camera_pitch.rotation.x = lerpf(_pitch, deg_to_rad(DIALOGUE_PITCH), w)
-	_camera_yaw.position = CAMERA_PIVOT + _shown_pivot * w
+	_camera_pitch.rotation.x = lerpf(own_pitch(), deg_to_rad(lerpf(DIALOGUE_PITCH, DIALOGUE_LOW_PITCH, _shown_low)), w)
+	_camera_yaw.position = CAMERA_PIVOT + (_shown_pivot + Vector3.DOWN * DIALOGUE_LOW_DROP * _shown_low) * w
 	if _camera_arm:
-		_camera_arm.spring_length = lerpf(CAMERA_DISTANCE, _shown_distance, w)
+		_camera_arm.spring_length = lerpf(_camera_reach, minf(_shown_distance, maxf(_camera_reach, DIALOGUE_DISTANCE)), w)
+
+
+## The pitch the camera looks down at outside a conversation: the player's own, or steeper while lifted.
+func own_pitch() -> float:
+	return minf(_pitch, _shown_lift) if _shown_lift < 0.0 else _pitch
+
+
+## Which pitch the lift wants (radians, 0 = none), from how far the arm clears at the player's own pitch
+## (`base_clear`) and at each of CAMERA_LIFT_PITCHES (`clears`, same order), out of `reach`. Only pitches steeper than
+## `base` count; the shallowest that clears CAMERA_LIFT_CLEAR of the reach wins; none clearing = no lift.
+static func choose_lift(base: float, base_clear: float, clears: Array[float], reach: float) -> float:
+	var need := reach * CAMERA_LIFT_CLEAR
+	if base_clear >= need:
+		return 0.0
+	for i in mini(clears.size(), CAMERA_LIFT_PITCHES.size()):
+		var pitch := deg_to_rad(CAMERA_LIFT_PITCHES[i])
+		if pitch < base - 0.01 and clears[i] >= need:
+			return pitch
+	return 0.0
+
+
+## Probes the arm at the player's pitch and the lift pitches (outside conversations), and eases the lift.
+func _update_lift(delta: float) -> void:
+	if _camera_arm == null or not is_inside_tree():
+		return
+	var target := 0.0
+	if not _framing_on and _framing <= 0.0:
+		var clears: Array[float] = []
+		var base_clear := _arm_clearance(_pitch)
+		if base_clear < _camera_reach * CAMERA_LIFT_CLEAR:
+			for degrees: float in CAMERA_LIFT_PITCHES:
+				clears.append(_arm_clearance(deg_to_rad(degrees)))
+		target = choose_lift(_pitch, base_clear, clears, _camera_reach)
+	_lift_target = target
+	var from := _shown_lift if _shown_lift < 0.0 else _pitch
+	var to := target if target < 0.0 else _pitch
+	var eased := lerpf(from, to, 1.0 - exp(-CAMERA_LIFT_SPEED * delta))
+	_shown_lift = 0.0 if target >= 0.0 and absf(eased - _pitch) < 0.005 else eased
+
+
+## How far the arm's sphere travels from the pivot at `pitch` (the current view yaw) before it hits something.
+func _arm_clearance(pitch: float) -> float:
+	var space := get_world_3d().direct_space_state
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape = _camera_arm.shape
+	query.collision_mask = _camera_arm.collision_mask
+	query.exclude = [get_rid()]
+	var origin := _camera_yaw.global_position
+	query.transform = Transform3D(Basis.IDENTITY, origin)
+	var direction := Basis(Vector3.UP, view_yaw()) * Basis(Vector3.RIGHT, pitch) * Vector3.BACK
+	query.motion = direction * _camera_reach
+	var hit := space.cast_motion(query)
+	return _camera_reach * (hit[0] if hit.size() > 0 else 1.0)
+
+
+## Whether the camera is lifted over something at the player's back (tests, debug).
+func is_lifted() -> bool:
+	return _lift_target < 0.0
+
+
+## Sets the arm's full reach for this region (`camera_distance`; 0 or anything out of range = the usual 7 m).
+func set_camera_reach(reach: float) -> void:
+	_camera_reach = clampf(reach, CAMERA_REACH_MIN, CAMERA_DISTANCE) if reach > 0.0 else CAMERA_DISTANCE
+	if _camera_arm and _framing <= 0.0:
+		_camera_arm.spring_length = _camera_reach
+
+
+## The arm's full reach here (tests).
+func camera_reach() -> float:
+	return _camera_reach
 
 
 ## How far the camera currently sits behind the pivot (for tests).

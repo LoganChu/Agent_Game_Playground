@@ -321,6 +321,7 @@ func load_region(region_id: String, spawn: String) -> void:
 	var facing: Variant = null if pos is Vector3 else region.spawn_facing(spawn)
 	if facing is Vector3:
 		player.face_towards((facing as Vector3) - Vector3(player.global_position.x, 0.0, player.global_position.z))
+	player.set_camera_reach(float(region.data.get("camera_distance", 0.0)))
 	greying.enter_region(region)
 	audio.enter_region(region.data)
 	_apply_region_mood(false)
@@ -389,7 +390,7 @@ func _on_line_shown(speaker: String, _text: String) -> void:
 				< nearest.global_position.distance_to(player.global_position):
 			nearest = actor
 	if nearest != null:
-		player.frame_also(nearest.global_position)
+		player.frame_also(nearest.global_position, nearest.is_seated())
 
 
 ## NPC moves held while the box was open happen now it has closed.

@@ -12,6 +12,9 @@ extends Node
 
 const PARTS: Array[String] = ["LegL", "LegR", "Torso", "Head", "ArmL", "ArmR"]
 const STYLES: Array[String] = ["breathe", "mend", "rake", "chisel", "sit", "still", "bottle", "scrape"]
+## The styles of a seated model (Day 100: the conversation framing looks a touch lower at them). "still" is left out:
+## the standing Oriel and Ness keep it too.
+const SEATED_STYLES: Array[String] = ["mend", "sit", "bottle"]
 ## The "chisel" beat: two taps, then a pause (seconds).
 const CHISEL_PERIOD := 3.4
 ## The "sit" doze: once a cycle the head sinks, holds, and comes up with a start (seconds).
@@ -372,3 +375,8 @@ func _offset(part: String, move: Vector3, euler: Vector3, scale: Vector3 = Vecto
 		return
 	var rest: Transform3D = _rest[part]
 	node.transform = Transform3D(rest.basis * Basis.from_euler(euler).scaled(scale), rest.origin + move)
+
+
+## Whether `style` is a seated model's idle (SEATED_STYLES).
+static func is_seated_style(style: String) -> bool:
+	return SEATED_STYLES.has(style)
