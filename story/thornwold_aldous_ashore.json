@@ -1,0 +1,40 @@
+{
+  "id": "thornwold_aldous_ashore",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Mercy puts in under the pines. Last down the plank, a bag over his shoulder and both hands on the rope, comes Brother Aldous.",
+        "sound": "horn_near",
+        "note": "Day 99: Aldous crosses after Thornwold's homecoming was already seen (arrival event thornwold_aldous_ashore)."
+      },
+      {
+        "say": "narrator",
+        "text": "He stands on the jetty and looks up past the pines at the ridge, a long time. Bram comes down to see who it is."
+      },
+      {
+        "say": "bram",
+        "text": "Keeper."
+      },
+      {
+        "say": "aldous",
+        "text": "Door-warden. Was. ...Is there a ladder up to that?"
+      },
+      {
+        "say": "bram",
+        "text": "There's a ladder. It's stood."
+      },
+      {
+        "say": "aldous",
+        "text": "Then I'll go up it. There's somebody up there I owe a thing to, in person. He said so himself."
+      },
+      {
+        "say": "narrator",
+        "text": "He goes up the cart road toward the gap in the brambles, slowly, and doesn't look back.",
+        "set": {
+          "thornwold_aldous_landed": true
+        }
+      }
+    ]
+  }
+}

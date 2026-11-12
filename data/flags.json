@@ -1241,7 +1241,11 @@
     "kindleby_midwinter": {
       "description": "The dark ending's first ask (Day 97): Tobin asks whether the Wakebearer will carry the ember round to Kindleby first at midwinter. '' (not asked, or another ending), 'first' (Kindleby first: it has waited longest) or 'ring' (round the way the light goes, from the Gull). Future: the midwinter round.",
       "default": "",
-      "values": ["", "first", "ring"],
+      "values": [
+        "",
+        "first",
+        "ring"
+      ],
       "future": true
     },
     "saltmarrow_homecoming_seen": {
@@ -1269,7 +1273,32 @@
     "saltmarrow_aldous_crossing": {
       "description": "The door-warden's answer to the Provost, kept (Day 98; needs saltmarrow_aldous_boat=letter): '' (not said), 'now' (lit or released: 'it's one or the other' — he'll cross and pay twice) or 'midwinter' (dark: he'll come with the ember on the round, carrying nothing). Future: Aldous on the Mercy.",
       "default": "",
-      "values": ["", "now", "midwinter"],
+      "values": [
+        "",
+        "now",
+        "midwinter"
+      ],
+      "future": true
+    },
+    "thornwold_homecoming_seen": {
+      "description": "The epilogue on Thornwold (Day 99, arrival event thornwold_homecoming): the Mercy puts in at the lumber camp after the ending; Bram sees what the ending made of the night (lit: the Spire a gold point east past the cove's point, and he's stopped notching it; released: two at the Ridge Light's bench of a night, the far end warm; dark: a WINTER row cut on the tally board for what Thornwold would give at midwinter). Pell, if landed, per ending.",
+      "default": false
+    },
+    "thornwold_bram_cut_row": {
+      "description": "Told Bram 'It took me first' in the lit ending's homecoming (Day 99): he cuts the Wakebearer a row on the tally board, not to count — a place on the board that's theirs.",
+      "default": false
+    },
+    "thornwold_aldous_landed": {
+      "description": "Aldous kept the door-warden's answer (saltmarrow_aldous_crossing=now) and, knowing Wynn Sallow lives, came ashore at Thornwold off the Mercy and went up to the ridge (Day 99; in the homecoming, or the thornwold_aldous_ashore event if that was already seen). Moves Aldous off his Saltmarrow bench onto the Ridge Light's lantern bench.",
+      "default": false
+    },
+    "thornwold_aldous_met_wynn": {
+      "description": "The two keepers on the ridge (Day 99, ridge arrival event thornwold_two_keepers): Aldous's sorry said in person; 'A door-warden isn't the door', said on the day the lanes run with nobody counting.",
+      "default": false
+    },
+    "thornwold_last_coal_out": {
+      "description": "The last of the Spire's midwinter coal in the Lamp's iron box let go out, with Aldous watching (Day 99, lit or released: nothing left for it to keep). Future: the box empty on the bench.",
+      "default": false,
       "future": true
     }
   }

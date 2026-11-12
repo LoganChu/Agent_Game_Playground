@@ -8,6 +8,11 @@
     "color": "silverfog",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.008,
+        "color": "#C2BBAE"
+      },
+      {
         "if": "quest:a_light_for_thornwold=done",
         "density": 0.02
       }
@@ -24,6 +29,17 @@
     "sky_top": "abyss",
     "sky_horizon": "silverfog",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 99: the Hearthspire lit, low in the east past the cove's point; the cove warm from that side.",
+        "sun_color": "#F2C98E",
+        "sun_energy": 1.15,
+        "sun_yaw": 95,
+        "ambient_color": "#B8B09A",
+        "ambient_energy": 0.37,
+        "sky_top": "tide",
+        "sky_horizon": "#DCC29A"
+      },
       {
         "if": "quest:a_light_for_thornwold=done",
         "sun_color": "#EFC98C",
@@ -1436,6 +1452,27 @@
         -10.5
       ],
       "rotation_y": 160
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far_lit.glb",
+      "position": [
+        180.0,
+        -6.0,
+        60.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 2.0,
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "halo": [
+        0,
+        9.1,
+        0
+      ],
+      "halo_size": 9.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.6,
+      "note": "Day 99: the Hearthspire lit, seen from Thornwold's cove — a gold point low in the east past the cove's point (Cindermoor lies east-south-east of Thornwold on the chart)."
     }
   ],
   "npcs": [
@@ -1539,6 +1576,33 @@
       },
       "dialogue": "hob_comes_in",
       "note": "Hob keeps his promise: in by daylight once the road's a road again (the Ridge Light lit, his salt paid)."
+    },
+    {
+      "id": "thornwold_homecoming",
+      "if": [
+        "flag:lanes_ferry_at=thornwold",
+        "flag:cindermoor_lane_out",
+        "!flag:thornwold_homecoming_seen"
+      ],
+      "set": {
+        "thornwold_homecoming_seen": true
+      },
+      "dialogue": "thornwold_homecoming",
+      "note": "Day 99, the epilogue: the Mercy puts in at the lumber camp after the ending. Aldous comes ashore in it if he's crossing and knows Wynn lives."
+    },
+    {
+      "id": "thornwold_aldous_ashore",
+      "if": [
+        "flag:lanes_ferry_at=thornwold",
+        "flag:saltmarrow_aldous_crossing=now",
+        "!flag:saltmarrow_aldous_novice=",
+        "!flag:thornwold_aldous_landed"
+      ],
+      "set": {
+        "thornwold_aldous_landed": true
+      },
+      "dialogue": "thornwold_aldous_ashore",
+      "note": "Day 99: Aldous crosses after Thornwold's homecoming was already seen (the homecoming carries him when it's first)."
     }
   ],
   "exits": []

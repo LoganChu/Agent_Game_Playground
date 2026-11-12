@@ -7,6 +7,11 @@
     "color": "silverfog",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.009,
+        "color": "#C2BBAE"
+      },
+      {
         "if": "quest:a_light_for_thornwold=done",
         "density": 0.018
       }
@@ -23,6 +28,17 @@
     "sky_top": "abyss",
     "sky_horizon": "silverfog",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 99: the Hearthspire lit, east past the shoulder of the spine.",
+        "sun_color": "#F5C77E",
+        "sun_energy": 1.15,
+        "sun_yaw": 95,
+        "ambient_color": "#B8B09A",
+        "ambient_energy": 0.37,
+        "sky_top": "tide",
+        "sky_horizon": "#DCC29A"
+      },
       {
         "if": "quest:a_light_for_thornwold=done",
         "sun_color": "#F5C77E",
@@ -905,6 +921,38 @@
         9.5
       ],
       "rotation_y": 320
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far_lit.glb",
+      "position": [
+        175.0,
+        -8.0,
+        95.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 2.0,
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "halo": [
+        0,
+        9.1,
+        0
+      ],
+      "halo_size": 9.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.6,
+      "note": "Day 99: the Hearthspire lit, seen from the Ridge Light's bench — east-south-east past the shoulder of the spine, low over the sea (checked from the ladder head)."
+    },
+    {
+      "model": "res://assets/models/dressing/plank_bench.glb",
+      "position": [
+        -5.0,
+        0,
+        -5.6
+      ],
+      "rotation_y": 65,
+      "if": "flag:thornwold_aldous_landed",
+      "note": "Day 99: a plank seat brought out in front of the lodge for the door-warden (Aldous sits on it, aldous_seated at the same spot)."
     }
   ],
   "npcs": [
@@ -948,6 +996,19 @@
         "flag:thornwold_hob_ladder=up"
       ],
       "note": "At the ladder's head by the lit waymark (The Fifth): the Lamp's lantern held out in front of him, looking up the old road north-east, waiting on the player's word."
+    },
+    {
+      "npc": "aldous",
+      "position": [
+        -5.0,
+        0,
+        -5.6
+      ],
+      "rotation_y": 65,
+      "model": "res://assets/models/characters/aldous_seated.glb",
+      "idle": "bottle",
+      "if": "flag:thornwold_aldous_landed",
+      "note": "Day 99: on a plank seat in front of the lodge, facing Wynn at the lantern bench — came up the ladder to say sorry in person (aldous_seated on plank_bench, as on Saltmarrow)."
     }
   ],
   "objects": [
@@ -992,6 +1053,18 @@
       },
       "dialogue": "hob_up_the_ladder",
       "note": "Hob went on ahead up the ladder (The Fifth): the Lamp tells him he is the fifth and gives him a lantern lit off the Ridge Light."
+    },
+    {
+      "id": "thornwold_two_keepers",
+      "if": [
+        "flag:thornwold_aldous_landed",
+        "!flag:thornwold_aldous_met_wynn"
+      ],
+      "set": {
+        "thornwold_aldous_met_wynn": true
+      },
+      "dialogue": "thornwold_two_keepers",
+      "note": "Day 99: Aldous went up ahead; the sorry in person, the day the lanes run with nobody counting."
     }
   ],
   "exits": [

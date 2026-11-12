@@ -1,0 +1,241 @@
+{
+  "id": "thornwold_two_keepers",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "At the top of the ladder you hear them before you see them: two old men by the lodge, and neither of them talking. Aldous got up ahead of you. He's on a plank seat somebody's dragged out in front of the lantern bench, his bag between his feet, breathing like a man who's climbed a ladder for the first time in thirty-one years.",
+        "note": "Day 99 (ridge arrival event thornwold_two_keepers): Aldous's sorry in person — the Lamp's promise of Day 47, 'the day the lanes run with nobody counting'."
+      },
+      {
+        "say": "narrator",
+        "text": "Wynn has put the chisel down. The hood is back, and the grey eyes are on the door-warden as if he were weather coming in.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "narrator",
+        "text": "The Lamp has put the chisel down. The hood turns to the door-warden and stays there.",
+        "if": "!flag:thornwold_lamp_name=told"
+      },
+      {
+        "if": "flag:thornwold_lamp_name=told",
+        "goto": "named"
+      },
+      {
+        "goto": "unnamed"
+      }
+    ],
+    "named": [
+      {
+        "say": "aldous",
+        "text": "Wynn."
+      },
+      {
+        "say": "lamp",
+        "text": "Aldous Wren. You've got old."
+      },
+      {
+        "say": "aldous",
+        "text": "You've got older."
+      },
+      {
+        "goto": "sorry"
+      }
+    ],
+    "unnamed": [
+      {
+        "say": "aldous",
+        "text": "Wy..."
+      },
+      {
+        "say": "narrator",
+        "text": "The Lamp lifts one black hand off the bench."
+      },
+      {
+        "say": "lamp",
+        "text": "Don't. It's paid. The Book's keeping it.",
+        "if": "flag:thornwold_lamp_name=left"
+      },
+      {
+        "say": "lamp",
+        "text": "Whatever you were going to call me, I put it somewhere. Leave it there.",
+        "if": "flag:thornwold_lamp_name="
+      },
+      {
+        "say": "aldous",
+        "text": "...Lamp, then. It suits you better than it should."
+      },
+      {
+        "goto": "sorry"
+      }
+    ],
+    "sorry": [
+      {
+        "say": "aldous",
+        "text": "I'm sorry. For all of it. For the door, and the coal you carried down past me, and thirty winters of not coming up a ladder to say so."
+      },
+      {
+        "say": "lamp",
+        "text": "A door-warden isn't the door. I said I'd tell you that myself."
+      },
+      {
+        "say": "lamp",
+        "text": "I said I'd tell you the day the lanes run with nobody counting."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "lit"
+      },
+      {
+        "goto": "released"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "It turns on the bench and looks east, past the shoulder of the spine, to where the Hearthspire stands gold on the edge of the sea."
+      },
+      {
+        "say": "lamp",
+        "text": "Bram Kettle's stopped notching it. So I reckon that's today."
+      },
+      {
+        "say": "aldous",
+        "text": "It took the hand first. The one that carried it."
+      },
+      {
+        "say": "lamp",
+        "text": "It always does. That's why we wrote the names down."
+      },
+      {
+        "goto": "box"
+      }
+    ],
+    "released": [
+      {
+        "say": "lamp",
+        "text": "Nothing out east to count. Nothing in the box worth breaking. And something sits up with me at this bench of a night that doesn't need a sliver to see by."
+      },
+      {
+        "say": "narrator",
+        "text": "The far end of the plank seat, past Aldous, is warm. He puts his hand to it, and takes it away."
+      },
+      {
+        "say": "aldous",
+        "text": "...They came down."
+      },
+      {
+        "say": "lamp",
+        "text": "They came out. It's not the same. So I reckon that's today."
+      },
+      {
+        "goto": "box"
+      }
+    ],
+    "box": [
+      {
+        "say": "narrator",
+        "text": "It lifts the lid of the iron box. The last of the Spire's midwinter coal is in there, the size of a thumbnail, cold down one side."
+      },
+      {
+        "say": "lamp",
+        "text": "I kept it for the four. They came home along the ridge without it.",
+        "if": "flag:thornwold_far_shore=up"
+      },
+      {
+        "say": "lamp",
+        "text": "I kept it for the four.",
+        "if": "!flag:thornwold_far_shore=up"
+      },
+      {
+        "say": "lamp",
+        "text": "At midwinter somebody goes up for a coal and comes back asked. This can go out now. I'd like you to watch it go, Wren. You watched the rest.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "lamp",
+        "text": "It's going out anyway. Let it go out in company.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "narrator",
+        "text": "Aldous watches it. It takes a long while, and neither of them says anything, and it goes out.",
+        "set": {
+          "thornwold_last_coal_out": true
+        }
+      },
+      {
+        "if": "flag:saltmarrow_aldous_knows_novice",
+        "goto": "novice"
+      },
+      {
+        "goto": "bench"
+      }
+    ],
+    "novice": [
+      {
+        "say": "narrator",
+        "text": "Aldous looks at you, and then at the bench beside him."
+      },
+      {
+        "say": "aldous",
+        "text": "The seventh light on the east landing, that last winter. It was them. I still can't find the face. I've taken their word."
+      },
+      {
+        "say": "narrator",
+        "text": "The grey eyes come round to you and stay, the way they'd stay on a coal deciding whether it's caught.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "lamp",
+        "text": "Keep one back this year, Keeper Sallow.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "lamp",
+        "text": "I kept one back. It kept this ridge lit thirty winters, and the colliers' road, and your stair. I said I'd thank whoever it was. Thank you.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "lamp",
+        "text": "And I said I'd ask how you knew my name.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "narrator",
+        "text": "You don't know. You tell it so.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "lamp",
+        "text": "No. Well. The stair kept its own counsel. It always did.",
+        "if": "flag:thornwold_lamp_name=told"
+      },
+      {
+        "say": "lamp",
+        "text": "I don't know what that is to me. It sits like a thing I put down somewhere and can't go back for.",
+        "if": "!flag:thornwold_lamp_name=told"
+      },
+      {
+        "goto": "bench"
+      }
+    ],
+    "bench": [
+      {
+        "say": "aldous",
+        "text": "I thought I was the only one of us who ran and lived."
+      },
+      {
+        "say": "lamp",
+        "text": "You ran. I stayed and broke a coal. We both lived. It's a long bench."
+      },
+      {
+        "say": "narrator",
+        "text": "Aldous stays on it.",
+        "set": {
+          "thornwold_aldous_met_wynn": true
+        }
+      }
+    ]
+  }
+}

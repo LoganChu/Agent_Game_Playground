@@ -7,6 +7,47 @@
         "goto": "first"
       },
       {
+        "if": [
+          "flag:thornwold_homecoming_seen",
+          "flag:cindermoor_cradle_choice=lit"
+        ],
+        "say": "bram",
+        "text": "Still there of an evening, east. I've stopped looking for it to be gone. Takes some doing, for a tally man.",
+        "note": "Day 99: Bram after the homecoming, per ending."
+      },
+      {
+        "if": [
+          "flag:thornwold_homecoming_seen",
+          "flag:thornwold_bram_cut_row"
+        ],
+        "say": "bram",
+        "text": "Your row's on the board, under SPIRE. Nothing on it. It's yours."
+      },
+      {
+        "if": [
+          "flag:thornwold_homecoming_seen",
+          "flag:cindermoor_cradle_choice=released"
+        ],
+        "say": "bram",
+        "text": "Lads took a second cup up the ladder last night, for the far end of the bench. Came down empty. I didn't ask."
+      },
+      {
+        "if": [
+          "flag:thornwold_homecoming_seen",
+          "flag:cindermoor_cradle_choice=dark"
+        ],
+        "say": "bram",
+        "text": "Two sticks on the WINTER row now. Both put there by their own hands. I watched, and I didn't count them. That's harder than it sounds."
+      },
+      {
+        "if": [
+          "flag:thornwold_aldous_landed",
+          "!flag:thornwold_aldous_met_wynn"
+        ],
+        "say": "bram",
+        "text": "Your old Keeper's gone up the ladder. I held the foot. Never heard a man pray and swear in the one breath before."
+      },
+      {
         "goto": "hub"
       }
     ],

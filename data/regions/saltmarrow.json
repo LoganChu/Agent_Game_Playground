@@ -1374,7 +1374,8 @@
       "rotation_y": 130,
       "model": "res://assets/models/characters/aldous_seated.glb",
       "idle": "bottle",
-      "note": "On his bench by the Wrens' steps (LORE: he sits on one), the bottle on his thigh. Seated here (aldous_seated, the bottle idle): a swig now and then."
+      "note": "On his bench by the Wrens' steps (LORE: he sits on one), the bottle on his thigh. Seated here (aldous_seated, the bottle idle): a swig now and then. Day 99: off the bench for good once he's crossed and gone up Thornwold's ridge to Wynn.",
+      "if": "!flag:thornwold_aldous_landed"
     },
     {
       "npc": "tam",

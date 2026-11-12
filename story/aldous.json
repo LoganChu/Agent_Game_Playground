@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:thornwold_aldous_landed",
+        "goto": "ridge"
+      },
+      {
         "if": "!flag:saltmarrow_met_aldous",
         "goto": "first"
       },
@@ -1414,6 +1418,12 @@
         }
       },
       {
+        "if": "!flag:saltmarrow_aldous_novice=",
+        "say": "aldous",
+        "text": "Thornwold first, mind. There's a man on that ridge said he'd tell me a thing himself. I'd not make him come down a ladder for it.",
+        "note": "Day 99: he knows Wynn lives (told on the east stair); the Mercy carries him there first."
+      },
+      {
         "say": "narrator",
         "text": "He picks up the bottle, looks at it, and puts it under the bench with the empty one."
       },
@@ -1470,6 +1480,30 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "ridge": [
+      {
+        "say": "narrator",
+        "text": "Aldous is on the plank seat in front of the lodge, his bag between his feet, the Ridge Light over his shoulder.",
+        "note": "Day 99: Aldous on Thornwold's ridge after the two keepers' meeting."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "aldous",
+        "text": "You can see it from here, east. I came all this way to sit on a bench and look at a light with a man who doesn't talk. Best crossing I ever paid for. Twice."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "aldous",
+        "text": "The far end of the bench is warm of a night. He says good evening to it. I've started doing it too. We're a pair of old fools, and we're not cold."
+      },
+      {
+        "say": "aldous",
+        "text": "I'll go on to Kindleby when Oda's going. The Provost's owed a door-warden in a room with the candles lit. Not yet, though. Not yet."
+      },
+      {
+        "end": true
       }
     ]
   }

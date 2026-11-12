@@ -1,0 +1,276 @@
+{
+  "id": "thornwold_homecoming",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Mercy noses into the cove under the black pines with the tide behind her, and Oda puts the bone horn to her mouth: one long note, then two short. Up on the ridge, over the trees, the Ridge Light answers the only way a beacon can. It goes on burning.",
+        "sound": "horn_near",
+        "note": "Day 99, the epilogue on Thornwold (arrival event thornwold_homecoming): the Mercy back at the lumber camp after the ending. Per cindermoor_cradle_choice, coloured by the Ridge Light's burning (boots / salt_row)."
+      },
+      {
+        "say": "narrator",
+        "text": "Bram Kettle is on the jetty before the plank is down, a tally stick in one hand and his knife in the other."
+      },
+      {
+        "say": "bram",
+        "text": "Mercy's in. That's a... I was going to say that's a notch. Habit."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "released"
+      },
+      {
+        "goto": "dark"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "Out past the cove's east point, low on the water where the fog used to stand like a wall, there's a gold point that doesn't flicker. The Ridge Light over the pines, the Hearthspire out on the sea: two lights, and the cove between them as warm as a kitchen."
+      },
+      {
+        "say": "bram",
+        "text": "First night it showed, I cut it a row. SPIRE. One notch. Second night, another. Third night I stood there with the knife out and thought: it's not going anywhere, is it. You don't count a thing that stays."
+      },
+      {
+        "say": "bram",
+        "text": "So I've stopped. Thirty years of tallies, and I've a row I don't keep. The lads think I'm ill."
+      },
+      {
+        "say": "bram",
+        "text": "Hob sat on my step and watched it with me. Said it was a fine light. Didn't say what for. He's not once looked up the stair since you lit the Ridge, and he didn't start then.",
+        "if": [
+          "flag:thornwold_beacon_burned=boots",
+          "flag:thornwold_hob_came_in"
+        ]
+      },
+      {
+        "say": "bram",
+        "text": "My thumb still goes to the bare pegs at the bottom of the board. The light didn't put anything back on them. I never thought it would.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "choice": [
+          {
+            "text": "Nobody's counting, then.",
+            "goto": "lit_counting"
+          },
+          {
+            "text": "It took me first.",
+            "goto": "lit_took"
+          }
+        ]
+      }
+    ],
+    "lit_counting": [
+      {
+        "say": "bram",
+        "text": "Somebody will. Whoever goes up at midwinter to feed it gets written down, Oda says. By name, and asked first. I can live with a count like that."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "lit_took": [
+      {
+        "say": "bram",
+        "text": "Took what?"
+      },
+      {
+        "say": "player",
+        "text": "Whatever I was before Saltmarrow's beach."
+      },
+      {
+        "say": "narrator",
+        "text": "Bram turns the tally stick over in his fingers, end to end, the way he does with a count that won't come out."
+      },
+      {
+        "say": "bram",
+        "text": "Then I'll cut you a row. Not to count. So there's a place on the board that's yours, and nobody else's.",
+        "set": {
+          "thornwold_bram_cut_row": true
+        }
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "released": [
+      {
+        "say": "narrator",
+        "text": "There's no gold in the east; the sea past the cove's point is as grey as it ever was. But the Ridge Light burns over the pines steadier than a fire has any right to, and the fog lies back off the cove like a dog that's been spoken to."
+      },
+      {
+        "say": "bram",
+        "text": "The lads on the night tally say there's somebody up at the Light, nights. Besides the Lamp. Two at the bench, when the fog leans. The Lamp says leave them be. Says it's company."
+      },
+      {
+        "say": "bram",
+        "text": "I went up the ladder myself, the once. The Lamp at the bench, and the other end of the bench warm. Nobody on it."
+      },
+      {
+        "say": "bram",
+        "text": "Hob says somebody up there hums of a night. He hums back. Doesn't know the tune either.",
+        "if": [
+          "flag:thornwold_beacon_burned=boots",
+          "flag:thornwold_hob_came_in"
+        ]
+      },
+      {
+        "say": "bram",
+        "text": "Bare pegs on my board. The Lamp says whatever sits up there with it doesn't mind them. I don't know what that means. I find I don't mind them either.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "narrator",
+        "text": "His eyes go to your hand, the way everybody's on Thornwold always did. There's a black coal in it the size of a hazelnut, and nothing in the coal."
+      },
+      {
+        "say": "bram",
+        "text": "Never thought I'd miss a thing I didn't like the look of."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "dark": [
+      {
+        "say": "narrator",
+        "text": "The Ridge Light burns over the pines. Past the cove's point the east is grey, and the Spire's nowhere in it. In your hand the ember is still warm, and Bram's eyes go to it the way everybody's do."
+      },
+      {
+        "say": "bram",
+        "text": "Oda's lads brought the word ahead of you. At midwinter it comes round in your hand, and every island says what it'll burn. Says it, and writes it down."
+      },
+      {
+        "say": "narrator",
+        "text": "On the board by the tally-house door there's a new row cut, longer than the others, with no notches on it yet. Over it, burned into the wood with a hot nail: WINTER."
+      },
+      {
+        "say": "bram",
+        "text": "Thirty years I've counted what goes out on the ferry. Logs, sacks, salt. That one's for what we'd give. Nobody's to cut a notch on it for anybody else. That's the rule. I made it this morning."
+      },
+      {
+        "say": "bram",
+        "text": "Hob came and stood at it a long while. Couldn't think what he'd give. Said he'd nothing he'd miss. I don't think that's true. I don't think he knows it isn't.",
+        "if": [
+          "flag:thornwold_beacon_burned=boots",
+          "flag:thornwold_hob_came_in"
+        ]
+      },
+      {
+        "say": "bram",
+        "text": "There's bare pegs under it, where the salt row was. Nobody's put a stick on them. Nobody will.",
+        "if": "flag:thornwold_beacon_burned=salt_row"
+      },
+      {
+        "say": "bram",
+        "text": "Round the way the light goes, Oda says, from the Gull. That puts us second. I've never been second at a thing I minded less.",
+        "if": "flag:kindleby_midwinter=ring"
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "end": [
+      {
+        "if": "flag:thornwold_pell_landed",
+        "goto": "pell"
+      },
+      {
+        "goto": "aldous_check"
+      }
+    ],
+    "pell": [
+      {
+        "say": "narrator",
+        "text": "Pell comes down the jetty at a run, both fists full of Bram's nails, and stops short a stride off."
+      },
+      {
+        "say": "pell",
+        "text": "You came back! Did you find it? The thing you went looking for, in the fog?"
+      },
+      {
+        "say": "pell",
+        "text": "Bram says it took something off you. That's a lost thing, then. I keep those. I'll keep an eye out for yours.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "pell",
+        "text": "Your hand's all dark. Can I hold it? Is it warm?",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "narrator",
+        "text": "It isn't. Pell holds the black coal anyway, solemn, the way they used to hold a gull's egg off the shingle, and gives it back.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "pell",
+        "text": "Finders keep FOR. It's yours. You'll want to know what it was for.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "pell",
+        "text": "It's still lit! Bram's making a list. I'm on it. I put myself on. Bram said I wasn't to, I'm twelve. I said Saltmarrow lets anybody.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "pell",
+        "text": "And Dunstan's home! On his stool, by Mara's door. Tam wrote. Well, Tam wrote it and Mara told him what to put.",
+        "if": "flag:fen_dunstan_walk=home",
+        "note": "Day 99: the Act II follow-up, Pell on Thornwold hearing Dunstan's home."
+      },
+      {
+        "goto": "aldous_check"
+      }
+    ],
+    "aldous_check": [
+      {
+        "if": [
+          "flag:saltmarrow_aldous_crossing=now",
+          "!flag:saltmarrow_aldous_novice="
+        ],
+        "goto": "aldous"
+      },
+      {
+        "end": true
+      }
+    ],
+    "aldous": [
+      {
+        "say": "narrator",
+        "text": "Last down the plank, a bag over his shoulder and both hands on the rope, comes Brother Aldous. He stands on the jetty and looks up past the pines at the ridge, a long time.",
+        "note": "Day 99: the door-warden's answer kept (saltmarrow_aldous_crossing=now, and he knows Wynn lives). Thornwold first: there's a sorry he owes in person."
+      },
+      {
+        "say": "bram",
+        "text": "Keeper."
+      },
+      {
+        "say": "aldous",
+        "text": "Door-warden. Was. ...Is there a ladder up to that?"
+      },
+      {
+        "say": "bram",
+        "text": "There's a ladder. It's stood."
+      },
+      {
+        "say": "aldous",
+        "text": "Then I'll go up it. There's somebody up there I owe a thing to, in person. He said so himself."
+      },
+      {
+        "say": "narrator",
+        "text": "He goes up the cart road toward the gap in the brambles, slowly, and doesn't look back.",
+        "set": {
+          "thornwold_aldous_landed": true
+        }
+      }
+    ]
+  }
+}

@@ -1028,6 +1028,31 @@
         "saltmarrow_brazier_lit": true
       },
       "shot": "--camera=-6.2,2.4,3.4:-9.6,0.9,-1.0"
+    },
+    {
+      "id": "the_two_keepers",
+      "act": "Act III — The Spire",
+      "title": "The Two Keepers",
+      "inherits": "the_homecoming",
+      "region": "thornwold_ridge",
+      "spawn": "from_ladder",
+      "description": "After the lit ending Aldous kept the door-warden's answer and crossed, Thornwold first. He climbed the Keepers' ladder ahead of the Wakebearer, and on the lantern bench under the Ridge Light he said his sorry to Wynn Sallow in person, the day the lanes run with nobody counting. The Hearthspire burns gold in the east.",
+      "flags": {
+        "saltmarrow_aldous_boat": "letter",
+        "kindleby_provost_read_letter": true,
+        "saltmarrow_homecoming_seen": true,
+        "saltmarrow_aldous_after_seen": true,
+        "saltmarrow_aldous_crossing": "now",
+        "lanes_ferry_at": "thornwold",
+        "thornwold_homecoming_seen": true,
+        "thornwold_aldous_landed": true,
+        "thornwold_aldous_met_wynn": true,
+        "thornwold_last_coal_out": true
+      },
+      "quests": {
+        "a_boat_for_aldous": "done"
+      },
+      "shot": "--camera=-8.6,1.7,-4.6:-5.4,0.9,-6.6"
     }
   ]
 }
