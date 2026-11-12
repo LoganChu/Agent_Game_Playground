@@ -794,23 +794,32 @@ each .glb < 5 MB.
       (`saltmarrow_aldous_crossing`, future). Mara's after-lines; Saltmarrow gold with the far Spire NE when lit.
       Checkpoint `the_wrens_fire`; the smoke walk sails home round the ring and tells Aldous.
       `test_saltmarrow_homecoming.gd` (13).
+- [x] [C] **Epilogues, part three (Thornwold) — the two keepers** (Day 99): event `thornwold_homecoming` (Bram at the
+      plank: lit, SPIRE no longer notched — "You don't count a thing that stays" — and a row cut for the Wakebearer;
+      released, two at the Lamp's bench, the far end warm; dark, a WINTER row on the tally board, Thornwold second round
+      from the Gull; coloured by boots/salt_row; Pell per ending, and Dunstan's news). **Aldous on the Mercy**: "Thornwold
+      first" (crossing `now` and he knows Wynn lives) — ashore in the homecoming or `thornwold_aldous_ashore`, off his
+      Saltmarrow bench for the ridge; **`thornwold_two_keepers`**: the sorry in person, "A door-warden isn't the door",
+      the name kept as it was left, the last midwinter coal let go out, the seventh novice thanked. Bram/Wynn/Aldous
+      after-lines; both Thornwold regions gold with the far Spire when lit. Checkpoint `the_two_keepers`; the smoke walk
+      sails on to Thornwold. `test_thornwold_homecoming.gd` (15).
 
 ### Next up
-1. [C] **Epilogues, part three** (one or two sessions; Kindleby Day 97, Saltmarrow Day 98): the other islands' beats
-   as arrival events gated on `flag:cindermoor_lane_out` + the Mercy at that port (`saltmarrow_homecoming` is the model:
-   per ending, coloured by the island's burning; an after-line per NPC). **Thornwold** (Wynn at the Ridge Light: "the day
-   the lanes run with nobody counting" — Aldous's sorry, in person if he crossed), **the fen** (Hesper; Dunstan's boards
-   if he stayed), **Wrackholm** (the Book's last line), **Lowsong** (Hild's skiff; the Choir's voices gone quiet there
-   if released). Lit: a gold override + `hearthspire_far_lit` where it'd be seen (Kindleby x -185, Saltmarrow NE at
-   [120, -6, -140]; check each from the spawn — Saltmarrow's hides behind the island from low on the dock). Then a
-   final epilogue/credits card once every island's beat is seen. Gull's Head and Shingle Point could take the lit
-   override too. *Aldous on the Mercy* (`saltmarrow_aldous_crossing=now`) is a natural beat with Wynn or the Provost.
-   Fetch and reset `main` before trusting it.
+1. [C] **Epilogues, part four** (Kindleby Day 97, Saltmarrow Day 98, Thornwold Day 99): **the fen** (Hesper; Dunstan's
+   boards if he stayed), **Wrackholm** (the Book's last line; Wenna and the yard), **Lowsong** (Hild's skiff; Iver; the
+   Choir's voices gone quiet there if released) as arrival events gated on `flag:cindermoor_lane_out` + the Mercy at that
+   port (Lowsong has no Mercy port — Hild's skiff from Kindleby, or an event on Kindleby). `thornwold_homecoming` /
+   `saltmarrow_homecoming` are the model: per ending, coloured by the island's burning, an after-line per NPC, lit → gold
+   override + `hearthspire_far_lit` (check each from the spawn). Then **a final epilogue/credits card** once every island's
+   beat is seen. Gull's Head and Shingle Point could take the lit override too. **Aldous before the Provost** on Kindleby
+   (he says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) is the natural next beat for him — the
+   `midwinter` Aldous (dark) waits for a midwinter round, if one is ever played. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish sixteen candidates** (due by ~Day 102 — do it next session or the one after; Day 94 was fifteen): the lantern room's camera in the corners
+1a. [P] **Polish sixteen candidates** (**due next session**, Day 100 — Day 94 was fifteen, and Days 95–99 were all content): the lantern room's camera in the corners
    (11 m square: the arm shortens against the panes; Day 95 raised its ceiling slab to 5.1 m); the last landing reads very dark in
    Compatibility (judge on Vulkan; the slit's `silverfog` light is faint); the robe/white read on Oriel (Vulkan, #4);
-   a placement-to-placement move could walk rather than crossfade (Day 94 fades); the two-speaker shot in tight spots
+   a placement-to-placement move could walk rather than crossfade (Day 94 fades); the Lamp's name label still reads "The Lamp" once
+   it's told its name (Day 99 checkpoint: Wynn, hood back — an NPC `name` override per placement or by flag); the two-speaker shot in tight spots
    (the Mercy's deck, #9) and a third speaker; seated/low NPC framing (#9).
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
    down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she

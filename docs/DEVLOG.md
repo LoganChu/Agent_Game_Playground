@@ -2,6 +2,62 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-12 09:00 UTC — Day 99: Thornwold's homecoming — the two keepers (content)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 (bpy 5.2.2 was still installing when the session's work began; no
+  Blender work this session). Detached HEAD again; `main` reset to `origin/main` (Day 98's `e9bfc31`). Baseline
+  (726 tests + smoke + launch) green before any edit.
+- **Content (ROADMAP *Next up* #1, Epilogues part three): Thornwold.**
+  - **The homecoming** (arrival event `thornwold_homecoming`, once, after the lane out with the Mercy at the jetty): the
+    horn's old signal, the Ridge Light "answering" by burning, Bram at the plank with a tally stick ("that's a notch.
+    Habit."). **Lit**: the Spire a gold point east past the cove's point; Bram cut a SPIRE row and stopped on the third
+    night, "You don't count a thing that stays"; "It took me first." → he cuts the Wakebearer a row of their own, not to
+    count. **Released**: two at the Lamp's bench of a night, the far end warm, nobody on it. **Dark**: a WINTER row on the
+    tally board for what Thornwold would give at midwinter ("Nobody's to cut a notch on it for anybody else"), Thornwold
+    second round from the Gull. Coloured by boots (Hob on the step, never looking up) / salt_row (the bare pegs). Pell,
+    if they crossed, per ending, plus Dunstan's news (an Act II follow-up).
+  - **Aldous on the Mercy.** With the door-warden's answer kept (`now`) and Wynn known alive, Aldous adds "Thornwold
+    first" at Saltmarrow, comes ashore in the homecoming (or `thornwold_aldous_ashore` if the homecoming was already seen)
+    and goes up the ladder; his Saltmarrow bench placement now ends at `thornwold_aldous_landed`.
+  - **The two keepers** (ridge event `thornwold_two_keepers`): Aldous on a plank seat in front of the lantern bench;
+    "I'm sorry. For all of it." / **"A door-warden isn't the door."**: the Day 47 promise, said on "the day the lanes run
+    with nobody counting" (lit: Bram's stopped notching it; released: "They came out. It's not the same."). The name stays
+    as the player left it (told: "Wynn." / "You've got old."; left or never carried home: stopped at "Wy—", "Lamp, then").
+    The last midwinter coal in the iron box is let go out with Aldous watching. If Aldous knows the Wakebearer was the
+    seventh novice and Wynn has its name, Wynn says the novice's words back and thanks them. "It's a long bench."
+  - After-lines: Bram per ending (+ the cut row, + "I held the foot"), Wynn per ending (+ "a door-warden who snores",
+    + the dark ending's midwinter and Aldous coming with it), Aldous on the ridge (Kindleby "when Oda's going. Not yet.").
+  - **Lit:** both Thornwold regions get a gold light/fog override and a `hearthspire_far_lit` (landing [180, -6, 60];
+    ridge [175, -8, 95]), each checked by screenshot from where the player stands.
+- **Tests:** `test_thornwold_homecoming.gd` (15): no homecoming before the lane out or away from the jetty; per ending
+  once; the burning colours it; the cut row; second round from the Gull; Pell; Aldous ashore and off his bench (and not
+  if he never heard Wynn lives); the later crossing event; "Thornwold first"; the two keepers per ending; the name kept as
+  left; the seventh novice thanked only with the name; after-lines; the gold regions; checkpoint `the_two_keepers`.
+  `test_aldous_bench` now expects his bench to carry the crossing's `if`. The smoke walk sails on from Saltmarrow to
+  Thornwold and checks the homecoming and the far Spire.
+
+Screenshot: `docs/screenshots/2026-11-12-am-two-keepers.png` (checkpoint `the_two_keepers`: Wynn at the lantern bench,
+Aldous on the plank seat, the Ridge Light lit behind; also `docs/checkpoints/the_two_keepers.png`).
+
+**Decisions**
+- **A passenger is a flag.** The Mercy has no passenger list. Aldous's placements are exclusive by
+  `thornwold_aldous_landed`, and the homecoming dialogue sets it itself, because only the first matching arrival event
+  fires. Putting Aldous in a separate event would have cost the player a second arrival to see him come ashore.
+- **Aldous only goes to Thornwold if he knows Wynn lives** (told on the east stair). Otherwise "he'll cross" stays a
+  Kindleby beat for later. I didn't want him climbing a ridge to see a man he thinks is dead.
+- **The name isn't given back by Aldous.** He knew Wynn's name from the stair, but the player chose to leave it in the
+  Book (or never carried it home). His saying it would undo that choice, so the Lamp stops him, and the choice holds.
+- **A plank seat, not the lantern bench.** The lodge's lantern bench is a 0.72 m worktable. `aldous_seated` needs a seat,
+  so a `plank_bench` comes out with him (as on Saltmarrow). The dialogue was rewritten to match.
+- **Polish sixteen is now due.** Days 95–99 were all content, and five content sessions since Day 94's polish pass is
+  the limit I keep to.
+
+**Next run should**
+1. ROADMAP *Next up* #1a: **Polish sixteen** (the lantern room camera, Oriel's robe read, the two-speaker shot, seated
+   NPC framing, the Lamp's name label once named). Then #1, Epilogues part four (the fen, Wrackholm, Lowsong, the final
+   card). Fetch and reset `main` before trusting it.
+
 ## 2026-11-11 21:00 UTC — Day 98: Saltmarrow's homecoming — the Wrens' fire (content)
 
 **Did**

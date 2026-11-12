@@ -1746,7 +1746,7 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     struck: the struck name, this one left standing; left: a mark, no name). **Oriel signs under them** — "Oriel Sayre,
     High Keeper, who put it out" (climb; own, without being asked); in her boat (boat) nobody writes her in. "That's the
     Long Book shut." **The Long Book is shut** — nobody living had shut it. **Act III ends** (the `act3` card).
-  - *(Open for the epilogues: each island after the ending — the Gull (Day 98), the Ridge, the Heron, the Wrack, the Vigil Light,
+  - *(Open for the epilogues: each island after the ending — the Gull (Day 98), the Ridge (Day 99), the Heron, the Wrack, the Vigil Light,
     Lowsong — under a lit Spire, a Reach whose lights keep the Choir, or a ring that chooses its own midwinter.)*
 - **The lane out (Day 97, the epilogues begin — `cindermoor_lane_out`).** "No lane off this water till the Spire's lit, or
   till I find one": Oda finds one in every ending. At the Boat Stair she tells the night as the Mercy saw it, once (lit:
@@ -1808,7 +1808,40 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     - **The door-warden's answer kept** (if he wrote to the Provost): lit/released, he'll cross and pay twice
       (`saltmarrow_aldous_crossing=now`); dark, "It's neither... I'll come at midwinter, with you. Carrying nothing."
       (`midwinter`). Refused the boat: "Nobody's weighing, now, are they." He puts the bottle under the bench with the
-      empty one. *(Future: Aldous on the Mercy.)*
+      empty one. *(Aldous on the Mercy: Day 99, Thornwold first.)*
+- **Thornwold's homecoming (Day 99, the epilogues part three — event `thornwold_homecoming`).** The Mercy noses into the
+  cove under the black pines with the horn's old signal; the Ridge Light answers by going on burning. **Cindermoor lies
+  east-south-east of Thornwold**, past the cove's east point. Bram Kettle meets the plank with a tally stick and his knife
+  out ("I was going to say that's a notch. Habit."):
+  - **lit** — the Spire a gold point low in the east; the cove "warm as a kitchen" between two lights. Bram cut it a row,
+    SPIRE, and **stopped notching it on the third night: "You don't count a thing that stays."** "It took me first." →
+    he cuts the Wakebearer **a row of their own, not to count** (`thornwold_bram_cut_row`), under SPIRE.
+  - **released** — no gold in the east, but the Ridge Light burns "steadier than a fire has any right to"; the night
+    tally sees **two at the Lamp's bench**; Bram climbed the ladder once: the far end of the bench warm, nobody on it.
+    The lads take a second cup up for it.
+  - **dark** — Bram has cut **a WINTER row** on his tally board, longer than the others, for what Thornwold would give at
+    midwinter: "Nobody's to cut a notch on it for anybody else." Round from the Gull, **Thornwold is second**.
+  - Coloured by the burning: **boots** — Hob, on the step, watches the light and never looks up the stair (he hums back
+    at whatever hums at the Ridge, released; can't think what he'd give, dark); **salt_row** — Bram's thumb still goes to
+    the bare pegs; the light put nothing back. **Pell** (if they crossed): lit, "a lost thing, then. I keep those";
+    released, holds the black coal like a gull's egg ("Finders keep FOR"); dark, put themself on Bram's WINTER row at
+    twelve. If Dunstan went home, Pell has had word (Tam wrote it; Mara told him what to put).
+- **The two keepers (Day 99 — Aldous's sorry in person; `thornwold_aldous_landed`, `thornwold_aldous_met_wynn`).** If
+  Aldous kept the door-warden's answer (lit/released) and knows Wynn lives (told on the east stair), he says
+  **"Thornwold first"** and comes ashore off the Mercy ("Door-warden. Was. ...Is there a ladder up to that?"); Bram holds
+  the ladder's foot ("Never heard a man pray and swear in the one breath before"). On the ridge, on a plank seat dragged
+  out in front of the lantern bench, he says **"I'm sorry. For all of it."** — and Wynn answers as promised on Day 47:
+  **"A door-warden isn't the door."** — on the day the lanes run with nobody counting (lit: "Bram Kettle's stopped
+  notching it"; released: "They came out. It's not the same."). **The name stays where it was put:** told, "Wynn." /
+  "Aldous Wren. You've got old."; left in the Book (or never carried home), the Lamp stops him at "Wy—" ("Lamp, then. It
+  suits you better than it should."). **The last of the midwinter coal** in the iron box is let go out with Aldous
+  watching ("You watched the rest"). If Aldous knows the Wakebearer was the seventh novice and Wynn has its name back,
+  Wynn says the novice's words to them — "Keep one back this year, Keeper Sallow" — and thanks them; how they knew the
+  name, the Wakebearer can't say ("The stair kept its own counsel"). "I thought I was the only one of us who ran and
+  lived." / "You ran. I stayed and broke a coal. We both lived. **It's a long bench.**" Aldous stays on the ridge for
+  now; he'll go on to Kindleby and the Provost "when Oda's going. Not yet." *(Future: Aldous before the Provost.)* In the
+  dark ending he comes at midwinter with the ember; Wynn will "have the bench swept", and wants the box's coal to meet
+  the ember it came from.
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks

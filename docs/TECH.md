@@ -725,6 +725,13 @@ a room this small (11 m square) taught:
   `kindleby_homecoming`). `hearthspire_far_lit` swaps for `hearthspire_far` by `if` (one prop family; the validator's
   variant check covers it); Kindleby carries one far out (x -185, halo) for the lit ending only.
 
+- **Thornwold's epilogue (Day 99):** `thornwold_homecoming` (landing) follows the Saltmarrow model. A character who
+  sails with the Mercy is a flag, not a passenger list: Aldous is placed on his Saltmarrow bench `!flag:thornwold_aldous_landed`
+  and on the ridge `flag:thornwold_aldous_landed`. The homecoming sets that flag itself (a dialogue `set`) when Aldous is
+  aboard, because only one arrival event fires per arrival; `thornwold_aldous_ashore` covers a later crossing. The ridge's
+  `thornwold_two_keepers` event plays the meeting. Lit, both Thornwold regions get a gold `light` override and a
+  `hearthspire_far_lit` (landing [180, -6, 60]; ridge [175, -8, 95], below the ridge's height — checked from the ladder head).
+
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:
 - **Walls are ground.** An inland region (no `water_level`): a level floor at `base` 0 and four `land` rects 5 m high with
