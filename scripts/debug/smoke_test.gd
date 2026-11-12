@@ -620,6 +620,17 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_finish_dialogue(ui, "aldous (after)")
 	_check(world.get_flag("saltmarrow_aldous_after_seen") == true, "the door-warden told")
 	print("Smoke: the epilogue — Saltmarrow's homecoming; Aldous told")
+	# Day 99: on round to Thornwold's cove — Bram's stopped notching the Spire; if Aldous is crossing, he goes up the
+	# ridge (the two keepers' meeting is a ridge arrival, covered by tests/test_thornwold_homecoming.gd).
+	_npc("oda").interact()
+	_check(_sail(ui, "thornwold"), "the Mercy sails on round to Thornwold after the ending")
+	_finish_dialogue(ui, "oda (Thornwold after the ending)")
+	if not await _arrived(main, ui, "thornwold_landing", "Thornwold's cove, after"):
+		return
+	_check(world.get_flag("thornwold_homecoming_seen") == true, "Thornwold's homecoming")
+	_check(_shown_model(main.get("region"), "hearthspire_far_lit.glb") == 1, "the lit Spire east past the cove's point")
+	_check((_npc("aldous") != null) == false, "Aldous isn't on the cove (on his bench, or up the ridge)")
+	print("Smoke: the epilogue — Thornwold's homecoming")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the

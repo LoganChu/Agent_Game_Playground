@@ -34,7 +34,8 @@ func test_aldous_sits_on_his_bench() -> void:
 	var aldous: Dictionary = places[0]
 	assert_eq(str(aldous.get("model", "")), SEATED)
 	assert_eq(str(aldous.get("idle", "")), "bottle")
-	assert_false(aldous.has("if"), "he's always on it")
+	# Day 99: always on it, until he crosses and goes up Thornwold's ridge to Wynn.
+	assert_eq(str(aldous.get("if", "")), "!flag:thornwold_aldous_landed", "he's on it till he crosses")
 	var benches := _props("plank_bench.glb")
 	assert_eq(benches.size(), 1, "one bench")
 	assert_eq(benches[0].get("position"), aldous.get("position"), "Aldous sits on it")
