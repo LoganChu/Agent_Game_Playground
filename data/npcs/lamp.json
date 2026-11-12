@@ -1,6 +1,12 @@
 {
   "id": "lamp",
   "name": "The Lamp",
+  "names": [
+    {
+      "if": "flag:thornwold_lamp_name=told",
+      "name": "Wynn Sallow"
+    }
+  ],
   "faction": "keepers",
   "color": "bone",
   "dialogue": "lamp",
