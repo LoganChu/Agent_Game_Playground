@@ -803,6 +803,11 @@ each .glb < 5 MB.
       the name kept as it was left, the last midwinter coal let go out, the seventh novice thanked. Bram/Wynn/Aldous
       after-lines; both Thornwold regions gold with the far Spire when lit. Checkpoint `the_two_keepers`; the smoke walk
       sails on to Thornwold. `test_thornwold_homecoming.gd` (15).
+- [x] [P] **Polish sixteen** (Day 100): the Lamp named **Wynn Sallow** over its head and in the dialogue box once told
+      (NPC `names`; still "The Lamp" if left); **seated NPCs framed lower** (`CharacterRig.SEATED_STYLES`: the pivot drops
+      0.4 m, the pitch -9°; Aldous on his bench clears the dialogue box); a region **`camera_distance`** (the lantern room
+      4.5 m); **the camera lift** — blocked at the player's pitch, it rises to the shallowest of -38/-48/-58° that clears
+      (over the lantern room's cradle instead of snapping into the Wakebearer's back). `test_polish_sixteen.gd` (7).
 
 ### Next up
 1. [C] **Epilogues, part four** (Kindleby Day 97, Saltmarrow Day 98, Thornwold Day 99): **the fen** (Hesper; Dunstan's
@@ -815,12 +820,14 @@ each .glb < 5 MB.
    (he says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) is the natural next beat for him — the
    `midwinter` Aldous (dark) waits for a midwinter round, if one is ever played. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish sixteen candidates** (**due next session**, Day 100 — Day 94 was fifteen, and Days 95–99 were all content): the lantern room's camera in the corners
-   (11 m square: the arm shortens against the panes; Day 95 raised its ceiling slab to 5.1 m); the last landing reads very dark in
-   Compatibility (judge on Vulkan; the slit's `silverfog` light is faint); the robe/white read on Oriel (Vulkan, #4);
-   a placement-to-placement move could walk rather than crossfade (Day 94 fades); the Lamp's name label still reads "The Lamp" once
-   it's told its name (Day 99 checkpoint: Wynn, hood back — an NPC `name` override per placement or by flag); the two-speaker shot in tight spots
-   (the Mercy's deck, #9) and a third speaker; seated/low NPC framing (#9).
+1a. [P] **Polish seventeen candidates** (due by ~Day 105; Day 100 was sixteen): the lantern room's east door leaf
+   clips the near plane when the lifted camera passes over it (black corner at bottom right from the spawn — give the
+   shell's door a camera collider, or nudge the spawn); a **two-speaker shot in tight spots** (the Mercy's deck, #9) and a
+   third speaker; the lift outdoors needs an owner's feel check (it triggers under 60 % of the reach — trees and huts at
+   the back now raise the camera instead of snapping it in; tune `CAMERA_LIFT_CLEAR` if it's too eager); the last landing
+   reads very dark in Compatibility (judge on Vulkan); the robe/white read on Oriel (Vulkan, #4); a placement-to-placement
+   move could walk rather than crossfade (Day 94 fades); the nameplate floats at 2 m over seated NPCs too (could sit
+   lower for SEATED_STYLES).
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
    down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); (Oriel at the chapter's next sitting: Day 95); Iver, Wenna and Ness have no lines yet for the
@@ -873,7 +880,7 @@ each .glb < 5 MB.
    them (Tam off the gate?) once Saltmarrow has more people. (Aldous seated and the gate lofts: Day 32.)
 9. [S] Interaction polish follow-ups (framing and the body fade landed Day 73; spawn facing Day 88 — add
    `spawn_facing` to older stair/door arrivals as they're touched): frame seated/low NPCs a touch lower
-   (Hesk, Aldous on the bench); (the two-speaker shot: Day 94, `Player.frame_also`); in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
+   (Hesk, Aldous on the bench: Day 100); (the two-speaker shot: Day 94, `Player.frame_also`); in tight spots (the Mercy's deck) the arm pulls in to ~2 m and the shot is crowded.
 
 ## Milestone 2 — Alpha (Act II begins)
 - [x] [C] **The crossing** — landed Day 17 (see Done).

@@ -2,6 +2,53 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-12 21:00 UTC — Day 100: polish sixteen — Wynn's name, seated framing, the camera lift (polish)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 (bpy was still installing; no Blender work needed). `main` was already
+  at `origin/main` (Day 99's `247a2cd`). Baseline (741 tests + smoke + launch) green before any edit.
+- **Polish sixteen (ROADMAP *Next up* #1a, due).** Days 95–99 were all content.
+  - **The Lamp's name.** Once the player has told it its name (`thornwold_lamp_name=told`), its nameplate and the
+    dialogue box read **Wynn Sallow**. If it chose to leave the name in the Book (`left`), it stays "The Lamp". This uses
+    the NPC `names` list Dunstan, the Provost and Oriel already have, so it's a data-only change.
+  - **Seated NPCs framed lower.** Talking to someone whose placed idle is a seated style (`sit`, `bottle`, `mend`:
+    Aldous on his bench, Hob, Ottie at home, Hesk at her net) drops the conversation camera's pivot 0.4 m and looks across
+    at -9° instead of down at -14°. Before, Aldous's knees and the bench sat behind the dialogue box. Now the whole
+    figure is in frame (`docs/screenshots/2026-11-12-pm-seated-framing.png`). A group shot drops by the share of
+    the people framed who are seated.
+  - **A region `camera_distance`** (3–7 m, validated) shortens the arm in a small interior. The lantern room uses 4.5 m.
+    Conversations still frame at 4.4 m, and a group shot never reaches past the region's arm.
+  - **The camera lift.** I took screenshots in the lantern room's corners. They showed the real culprit was the cradle,
+    not the panes: its camera blocker sits in the middle of the room, and with the Wakebearer facing a wall it snapped
+    the arm into their back. Now, outside conversations, the player casts the arm's sphere at the player's own pitch.
+    If that clears less than 60 % of the reach, it tries -38°, -48° and -58° and eases the camera to the shallowest one
+    that clears. A ceiling clears none of them, so the camera doesn't lift. Result: the camera rises over the cradle
+    instead of jamming (`docs/screenshots/2026-11-12-pm-camera-lift.png`).
+- **Tests:** `test_polish_sixteen.gd` (7): Wynn's name (told / left / the dialogue box); seated styles and
+  `NpcActor.is_seated` (Aldous yes, Mara no); seated framing (pivot drop, shallower pitch, half the drop for a group of
+  one seated and one standing, back home afterwards); the region reach (arm length, conversations inside it, the clamp,
+  the lantern room's value, the validator); the lift's choice and that it only makes the pitch steeper and stays out of
+  conversations. 748 tests + smoke + launch green.
+
+**Decisions**
+- **Seated comes from the idle, not the model's height.** I measured every character's mesh top. Props skew the numbers
+  (Hild's oar reaches 2.47 m, and seated Dunstan is 1.72 m because he's big), so height can't tell seated from
+  standing. `still` is left out because the standing Oriel and Ness use it.
+- **The lift probes, it doesn't read the arm.** If the lift were driven by the arm's own hit length, it would feed back
+  on itself: lifting clears the hit, the camera drops, the hit comes back, and it lifts again. Casting at fixed pitches
+  depends only on where the player stands and faces, so it can't oscillate.
+- **The lift is game-wide, not limited to the lantern room.** A hut or tree at the Wakebearer's back now raises the
+  camera instead of snapping it in, which is what most third-person cameras do. The threshold is 60 % rather than 75 %
+  so it isn't too eager outdoors. It still needs a feel check on a real machine (ROADMAP 1a).
+
+**Problems**
+- From the lantern room's spawn, the lifted camera passes over the east door leaf (no camera collider) and clips the
+  near plane, leaving a black corner at bottom right. This is minor, and it's logged as the first item for polish seventeen.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **Epilogues part four**: the fen, Wrackholm, Lowsong, then the final card. Fetch and reset
+   `main` before trusting it.
+
 ## 2026-11-12 09:00 UTC — Day 99: Thornwold's homecoming — the two keepers (content)
 
 **Did**

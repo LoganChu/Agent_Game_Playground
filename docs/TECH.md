@@ -151,7 +151,19 @@ to the NPC, `DIALOGUE_SIDE` (0.8 rad) to whichever side is nearer the current ya
 eases back to it when input unlocks; movement follows `view_yaw()`. The spring arm still sweeps from the moved pivot,
 so a framed camera never goes through walls. The speaking NPC's floating name hides while talking (the dialogue box
 names them). Debug: `--talk=<npc_id>` walks up to an NPC (1.6 m off, the first side with ground at their level) and
-talks, for screenshots. Every model prop with a `collider`
+talks, for screenshots. **Seated (Day 100):** an NPC whose placed `idle` is in `CharacterRig.SEATED_STYLES` (`sit`,
+`bottle`, `mend` — not `still`, which the standing Oriel and Ness use) is framed lower: `frame_towards(offset, low)`
+drops the pivot `DIALOGUE_LOW_DROP` (0.4 m) and looks across at `DIALOGUE_LOW_PITCH` (-9°); a group shot drops by the
+share of those framed who sit (`frame_also(point, low)`, `framed_low()`), so a seated figure clears the dialogue box.
+**Reach (Day 100):** a region's `camera_distance` (3–7 m, `Player.set_camera_reach`, set on every region entry; the
+validator checks the range) shortens the arm in a small interior; a conversation still frames at 4.4 m and a group
+shot never reaches past it. **The lift (Day 100):** outside conversations, each frame `Player._update_lift` casts the
+arm's sphere at the player's own pitch (`_arm_clearance`); if it clears less than `CAMERA_LIFT_CLEAR` (60 %) of the
+reach, it casts at each `CAMERA_LIFT_PITCHES` (-38/-48/-58°) steeper than the player's own and the camera eases
+(`CAMERA_LIFT_SPEED`) to the shallowest that clears (`Player.choose_lift`; none clears — a ceiling — = no lift). The
+probes never read the arm, so the lift can't oscillate; `own_pitch()` is the steeper of the player's and the lift's.
+It is what keeps the lantern room's cradle (a camera blocker) from snapping the arm into the Wakebearer's back.
+Every model prop with a `collider`
 whose mesh is ≥ `Region.CAMERA_BLOCK_MIN_HEIGHT` (2.4 m) tall gets a `CameraBlocker` (layer 4
 only) over its mesh bounds from the collider's top up — roofs, eaves, canopies. Automatic,
 no data field.
@@ -195,6 +207,7 @@ Every record lives in its own file whose name equals its `id`.
   "footsteps": "shingle", "footsteps_raised": "stone",  // surfaces (audio.json); raised = decks etc. (default boards)
   "spawn_points": {"default": [x,y,z], ...},    // "default" required
   "spawn_facing": {"from_stair": [x, z]},       // optional (Day 88): the point a spawn looks toward on arrival
+  "camera_distance": 4.5,                       // optional (Day 100): the camera arm's reach here, 3..7 m (small interiors)
   "ground": {...},                              // sculpted terrain — see "Ground" below
   "terrain": [{"size": [w,h,d], "position": [x,top_y,z], "color": "moss", "rotation_y": 0}],  // legacy slabs (absolute y)
   "props":   [{"model": "res://assets/models/x.glb", "collider": [w,h,d],   // or
@@ -1248,6 +1261,11 @@ WorldState.to_dict()}` (the world: `flags`, `quests`, `inventory`, `collected`, 
 save without it simply starts walkers from their placements). Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
 
 ## Testing
+- `tests/test_polish_sixteen.gd` — (Day 100) the Lamp's `names` (Wynn Sallow once told; the Lamp if left; the
+  dialogue box too); seated styles and `NpcActor.is_seated`; seated framing (the pivot drop, the shallower pitch, half
+  for a group of one seated and one standing, home after); a region's reach (the arm, conversations inside it, the
+  clamp, the lantern room's, the validator); the lift's choice (`choose_lift`) and that it only steepens and steps aside
+  for a conversation.
 - `tests/test_polish_twelve.gd` — (Day 84) every nameplate hides while a modal holds input (the act card's shade);
   the lost cue's curve and the HUD veil/line; the validator's ground memo (no re-walk when unchanged, one re-walk for
   an edited region, remembered findings still reported); the long steps' road legs on the grid; the far Spire on the
