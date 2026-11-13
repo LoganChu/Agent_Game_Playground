@@ -1308,6 +1308,23 @@
     "fen_hesper_tussock": {
       "description": "Lit ending, at the fen's homecoming, the Wakebearer told Hesper the light took them first: she gave them a tussock past the west walk to sit on and not be spoken to ('That's a kindness, here').",
       "default": false
+    },
+    "wrackholm_homecoming_seen": {
+      "description": "The epilogue on Wrackholm (Day 102, arrival event wrackholm_homecoming): the Mercy puts in at the yard's jetty after the ending and the answering horn answers a boat for the first time since the Gannet (Wenna cuts the lashing now if it was never sounded); Wenna comes down to the jetty's foot. Lit: the Spire gold in the south-west, the Teeth plain, boats home without soundings; released: the Wrack burns untrimmed and its lantern room is warm, warmest by the Gannet's bracket ('Nobody we'd know'); dark: the yard putting things in the hand-scale's pan to see what they weigh, Wrackholm fourth round from the Gull. Coloured by the Wrack's burning (answer: Oda keeps it, a copper mouthpiece if Jory went up; board: Oda says the names at the jetty; white: Jory's marks to the eleventh rock).",
+      "default": false
+    },
+    "wrackholm_held_for": {
+      "description": "Lit ending, at Wrackholm's homecoming, the Wakebearer told Wenna the light took them first: salvage law, she writes 'Held for. Whatever the Wakebearer was. A year and a tide.' in the Book under the last line.",
+      "default": false
+    },
+    "wrackholm_last_line": {
+      "description": "After the homecoming Wenna shows the Book's last line again (Day 102, mystery #2's Wrackholm hook paid): the Wakebearer's own name in their own hand, and after it 'I can count.' (lit: legible in the gold, a stranger's name in a known hand; released: read by the dents with the thumb; dark: the ember brings it back). Wenna's guess: a burned thing goes home to where it was kept, and a Keeper's name was only ever kept here. '' (not shown), 'came_in' (the Wakebearer wrote 'Came in.' under it: a fare closed) or 'left' (a fare's a fare).",
+      "default": "",
+      "values": [
+        "",
+        "came_in",
+        "left"
+      ]
     }
   }
 }

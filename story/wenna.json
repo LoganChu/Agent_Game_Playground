@@ -7,6 +7,11 @@
         "goto": "first"
       },
       {
+        "if": "flag:wrackholm_homecoming_seen",
+        "goto": "after",
+        "note": "Day 102: Wenna after the Wrackholm homecoming, per ending."
+      },
+      {
         "say": "wenna",
         "text": "Still here. So's the horn.",
         "if": "!flag:wrackholm_gannet_named"
@@ -224,9 +229,18 @@
             "text": "Show me the Book.",
             "if": [
               "flag:wrackholm_horn_sounded",
-              "!flag:wrackholm_book_opened"
+              "!flag:wrackholm_book_opened",
+              "!flag:wrackholm_homecoming_seen"
             ],
             "goto": "book_open"
+          },
+          {
+            "text": "Show me the last line.",
+            "if": [
+              "flag:wrackholm_homecoming_seen",
+              "flag:wrackholm_last_line="
+            ],
+            "goto": "last_line"
           },
           {
             "text": "Swear me a friend of the lanes.",
@@ -844,6 +858,221 @@
       {
         "say": "wenna",
         "text": "Keepers'll ask you the same, one day, by their rites. Answer them as straight."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "after": [
+      {
+        "say": "wenna",
+        "text": "Gold every night, down past the Wrack. The lads have stopped looking up at it. That's how you know a light's home.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "wenna",
+        "text": "Warm out on the Wrack again last night, Jory says. I don't go out on the Teeth. I've not the knees for it, nor the white.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "wenna",
+        "text": "Somebody put a knife in the pan last night. Took it out again before morning. That's how it goes, the first while.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "wenna",
+        "text": "Came in. I read it of a morning, when I open up. Nobody else's line in that Book says it.",
+        "if": "flag:wrackholm_last_line=came_in"
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "last_line": [
+      {
+        "say": "narrator",
+        "text": "The lane-house is one long smoky room, the yard folk round the fire. At the back, on a lectern of black timber, the Book, bound in tarred sailcloth, as thick as a man's arm is long.",
+        "if": "!flag:wrackholm_book_opened",
+        "note": "Day 102, the Book's last line (mystery #2's Wrackholm hook, Day 43): per ending, then the guess, then came_in / left."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna turns to the last page without looking, the way you'd find a step in the dark. One line at the bottom, dated the night the Spire went dark.",
+        "set": {
+          "wrackholm_book_opened": true
+        }
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "last_lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "last_released"
+      },
+      {
+        "goto": "last_dark"
+      }
+    ],
+    "last_lit": [
+      {
+        "say": "narrator",
+        "text": "Wenna carries the Book to the open door in both arms and lays it on the sill, where the gold off the water comes in. The grey has gone off the last line the way it went off the Teeth."
+      },
+      {
+        "say": "narrator",
+        "text": "A name, written fast, hard enough to dent the paper. It's the name you copied off the novices' roll at the Spire's foot, as if it were somebody else's. The same letters. The same lean. Your hand knows it before you do."
+      },
+      {
+        "say": "narrator",
+        "text": "After the name, smaller, as if it were said going out of a door: I can count."
+      },
+      {
+        "say": "narrator",
+        "text": "You don't know why anybody would write that."
+      },
+      {
+        "goto": "last_guess"
+      }
+    ],
+    "last_released": [
+      {
+        "say": "narrator",
+        "text": "Wenna brings the lamp. The grey is still on the last line. The coal in your hand doesn't lean to it; it doesn't lean to anything now."
+      },
+      {
+        "say": "narrator",
+        "text": "She takes your thumb, the way you'd take a child's, and lays it on the page where the pen went hard. The dents run under it. Your hand goes along them before you've thought, the way it would if it were writing them."
+      },
+      {
+        "say": "narrator",
+        "text": "A name. Yours. Then, smaller: I can count."
+      },
+      {
+        "say": "narrator",
+        "text": "You know where you said that. On a landing, to a woman with a coal in her hands."
+      },
+      {
+        "goto": "last_guess"
+      }
+    ],
+    "last_dark": [
+      {
+        "say": "narrator",
+        "text": "Wenna brings the lamp. Your ember leans to the last line the way it leaned the first night. This time you let it."
+      },
+      {
+        "say": "narrator",
+        "text": "The name comes back the way breath goes onto glass, only backward: written fast, hard enough to dent the paper. It's yours. You'd know your own hand in the dark."
+      },
+      {
+        "say": "narrator",
+        "text": "After the name, smaller: I can count."
+      },
+      {
+        "say": "narrator",
+        "text": "You know where you said that. On a landing, to a woman with a coal in her hands."
+      },
+      {
+        "goto": "last_guess"
+      }
+    ],
+    "last_guess": [
+      {
+        "say": "wenna",
+        "text": "Nobody came in that night. I'll swear it on the scale. I was at the horn till morning, and the door's under my elbow."
+      },
+      {
+        "say": "player",
+        "text": "Then how is it here?"
+      },
+      {
+        "say": "wenna",
+        "text": "I can tell you what I've seen. Thirty winters back the fog took a Keeper's name out of its head and left it here, safe, on the page. Wynn Sallow.",
+        "if": "flag:wrackholm_lamp_name_read"
+      },
+      {
+        "say": "wenna",
+        "text": "I can tell you what I've seen. The fog's taken a Keeper's name out of its head before now and left it here, safe, on the page.",
+        "if": "!flag:wrackholm_lamp_name_read"
+      },
+      {
+        "say": "wenna",
+        "text": "Maybe it goes the other way about, too. A thing that's burned goes home, Oda says, to wherever it was kept. And there's only the one place a Keeper ever gave their name to be kept."
+      },
+      {
+        "say": "wenna",
+        "text": "That's a Tidewright's guess. I'll not weigh it for you."
+      },
+      {
+        "say": "narrator",
+        "text": "Under the line, in Wenna's square hand and still black: Held for. Whatever the Wakebearer was. A year and a tide.",
+        "if": "flag:wrackholm_held_for"
+      },
+      {
+        "say": "wenna",
+        "text": "You're a friend of the lanes. Whatever you're owed, the lanes owe you. I'd not thought the Book would be the one paying.",
+        "if": "flag:wrackholm_sworn=sworn"
+      },
+      {
+        "say": "narrator",
+        "text": "She dips the pen and holds it out, and doesn't say what for."
+      },
+      {
+        "choice": [
+          {
+            "text": "Write under it: Came in.",
+            "goto": "last_came_in"
+          },
+          {
+            "text": "Leave it as it is.",
+            "goto": "last_left"
+          }
+        ]
+      }
+    ],
+    "last_came_in": [
+      {
+        "say": "narrator",
+        "text": "You write it under the line: Came in. It's the same hand. You'd know it anywhere, it turns out; you only didn't know it was yours.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "You write it under the line: Came in. It's the same hand, slower.",
+        "if": "!flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "wenna",
+        "text": "That's a fare closed. Crossing made. Nine hundred years of Keepers in this Book, and not one ever came back to close their own.",
+        "set": {
+          "wrackholm_last_line": "came_in"
+        }
+      },
+      {
+        "goto": "last_shut"
+      }
+    ],
+    "last_left": [
+      {
+        "say": "wenna",
+        "text": "A fare's a fare. Paid's paid. You don't go round after for the change.",
+        "set": {
+          "wrackholm_last_line": "left"
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "She wipes the pen and lays it in the gutter of the Book, where the next one will find it."
+      },
+      {
+        "goto": "last_shut"
+      }
+    ],
+    "last_shut": [
+      {
+        "say": "narrator",
+        "text": "Wenna shuts the Book. This time you watch her do it."
       },
       {
         "goto": "hub"

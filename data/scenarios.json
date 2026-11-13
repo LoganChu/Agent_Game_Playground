@@ -1071,6 +1071,22 @@
         "fen_dunstan_walk": "stayed"
       },
       "shot": "--camera=0.5,2.4,0.5:9,2.2,18"
+    },
+    {
+      "id": "the_wrack_answers",
+      "act": "Act III — The Spire",
+      "title": "The Wrack Answers",
+      "inherits": "the_staithe_lantern",
+      "region": "wrackholm",
+      "spawn": "from_ferry",
+      "description": "After the lit ending the Mercy sailed east-about to Wrackholm, and the answering horn answered a boat for the first time since the Gannet. Wenna came down to the jetty's foot to meet it. The Teeth lie plain in the gold off the Hearthspire, south-west past the Wrack; in the lane-house Book, under the last line, the Wakebearer has written: Came in.",
+      "flags": {
+        "lanes_ferry_at": "wrackholm",
+        "wrackholm_homecoming_seen": true,
+        "wrackholm_held_for": true,
+        "wrackholm_last_line": "came_in"
+      },
+      "shot": "--camera=8,2.6,-4:-30,3,14"
     }
   ]
 }

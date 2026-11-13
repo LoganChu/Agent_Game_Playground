@@ -8,6 +8,11 @@
     "color": "#AEB3B8",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.008,
+        "color": "#C8C2B6"
+      },
+      {
         "if": "quest:a_light_for_wrackholm=done",
         "density": 0.03
       }
@@ -24,6 +29,18 @@
     "sky_top": "slate",
     "sky_horizon": "#AEB3B8",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 102: the Hearthspire lit, low in the south-west past the Wrack; the black island warmed from that side.",
+        "sun_color": "#F2C98E",
+        "sun_energy": 1.0,
+        "sun_pitch": -28,
+        "sun_yaw": 225,
+        "ambient_color": "#BFB6A4",
+        "ambient_energy": 0.44,
+        "sky_top": "tide",
+        "sky_horizon": "#D9BE96"
+      },
       {
         "if": "quest:a_light_for_wrackholm=done",
         "sun_color": "#E6D2AE",
@@ -995,6 +1012,27 @@
         "flag:wrackholm_tide=low",
         "flag:wrackholm_teeth_marks"
       ]
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far_lit.glb",
+      "position": [
+        -140.0,
+        -6.0,
+        130.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 2.0,
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "halo": [
+        0,
+        9.1,
+        0
+      ],
+      "halo_size": 9.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.6,
+      "note": "Day 102: the Hearthspire lit, seen from Wrackholm's hard — a gold point low in the south-west past the Wrack (Cindermoor lies south-west of Wrackholm on the chart)."
     }
   ],
   "npcs": [
@@ -1123,6 +1161,19 @@
     }
   ],
   "events": [
+    {
+      "id": "wrackholm_homecoming",
+      "if": [
+        "flag:lanes_ferry_at=wrackholm",
+        "flag:cindermoor_lane_out",
+        "!flag:wrackholm_homecoming_seen"
+      ],
+      "set": {
+        "wrackholm_homecoming_seen": true
+      },
+      "dialogue": "wrackholm_homecoming",
+      "note": "Day 102, the epilogue: the Mercy puts in at the yard's jetty after the ending; the answering horn answers a boat, and Wenna comes down to the jetty's foot."
+    },
     {
       "id": "wrackholm_arrival",
       "if": [

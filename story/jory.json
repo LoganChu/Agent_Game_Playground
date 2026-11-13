@@ -7,6 +7,11 @@
         "goto": "first"
       },
       {
+        "if": "flag:wrackholm_homecoming_seen",
+        "goto": "after",
+        "note": "Day 102: Jory after the Wrackholm homecoming, per ending."
+      },
+      {
         "say": "jory",
         "text": "Every nail.",
         "if": [
@@ -374,6 +379,37 @@
       {
         "say": "narrator",
         "text": "He puts it on the stack of copper, where he can see it."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "after": [
+      {
+        "say": "jory",
+        "text": "You can see the whole reef now. Every rock of it. It's worse, somehow. I liked it better when the white was all there was to look at.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "jory",
+        "text": "I sit out in the lantern room some nights. Nobody's there. It's still the best company on the island.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "jory",
+        "text": "I put Ruan's pry bar in the pan. It weighed about what you'd think. I took it out again.",
+        "if": [
+          "flag:cindermoor_cradle_choice=dark",
+          "!flag:wrackholm_beacon_burned=board"
+        ]
+      },
+      {
+        "say": "jory",
+        "text": "I put my brother's pry bar in the pan. It weighed about what you'd think. I took it out again.",
+        "if": [
+          "flag:cindermoor_cradle_choice=dark",
+          "flag:wrackholm_beacon_burned=board"
+        ]
       },
       {
         "goto": "hub"

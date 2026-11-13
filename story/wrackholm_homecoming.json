@@ -1,0 +1,288 @@
+{
+  "id": "wrackholm_homecoming",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Mercy comes in past the Teeth on the last of the flood, and Oda puts the bone horn to her mouth: one long note, then two short. Putting in, passengers welcome.",
+        "sound": "horn_near",
+        "note": "Day 102, the epilogue on Wrackholm (arrival event wrackholm_homecoming): the Mercy back at the yard's jetty after the ending. Per cindermoor_cradle_choice, coloured by the Wrack's burning (answer / board / white), Jory gone up or not, and the horn sounded or not."
+      },
+      {
+        "say": "narrator",
+        "text": "Before the shorts have gone off the water, the answering horn on the shingle answers her: long, and two short. Wrackholm hasn't answered a boat since the night of the Gannet.",
+        "if": "flag:wrackholm_horn_sounded",
+        "sound": "horn_near"
+      },
+      {
+        "say": "narrator",
+        "text": "On the shingle Wenna takes a knife to the lashing on the answering horn, the way you'd take off a bandage, and pulls the bung, and answers her: long, and two short. Wrackholm hasn't answered a boat since the night of the Gannet. She'd been waiting for somebody to answer.",
+        "if": "!flag:wrackholm_horn_sounded",
+        "sound": "horn_near",
+        "set": {
+          "wrackholm_horn_sounded": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "Jory has his shoulder under the bell. When the note's done he stays there a moment, as if the horn might want him again.",
+        "if": "flag:wrackholm_jory_up"
+      },
+      {
+        "say": "narrator",
+        "text": "She blows it through a mouthpiece that's new: beaten copper, still bright, a Gannet nail-hole in the flange.",
+        "if": [
+          "flag:wrackholm_beacon_burned=answer",
+          "flag:wrackholm_jory_up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "She blows it bare-lipped. Nobody's made her a mouthpiece yet.",
+        "if": [
+          "flag:wrackholm_beacon_burned=answer",
+          "!flag:wrackholm_jory_up"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "She blows it bare-lipped. Her brass is still in your satchel, and she still doesn't ask.",
+        "if": "item:wennas_answer"
+      },
+      {
+        "goto": "burning"
+      }
+    ],
+    "burning": [
+      {
+        "if": "flag:wrackholm_beacon_burned=answer",
+        "goto": "burn_answer"
+      },
+      {
+        "if": "flag:wrackholm_beacon_burned=board",
+        "goto": "burn_board"
+      },
+      {
+        "if": "flag:wrackholm_beacon_burned=white",
+        "goto": "burn_white"
+      },
+      {
+        "goto": "landed"
+      }
+    ],
+    "burn_answer": [
+      {
+        "say": "oda",
+        "text": "Did you hear that? She doesn't know she's ever done it. Fifty years of boats came home on that answer, and she thinks it's her first."
+      },
+      {
+        "say": "oda",
+        "text": "I said I'd keep it for her. I'll go on keeping it. A thing like that's not a gift. You don't hand it back to somebody who'd have to carry it."
+      },
+      {
+        "goto": "landed"
+      }
+    ],
+    "burn_board": [
+      {
+        "say": "narrator",
+        "text": "Oda stands in the bow while the lads make fast, and says three names at the jetty, the way she's said them at every jetty she's tied up at since: Hale Corbet. Annis Corbet. Ruan Pask."
+      },
+      {
+        "say": "narrator",
+        "text": "On the hard the yard stops work to hear them, and starts again. Nobody on Wrackholm can keep them. They've started waiting for the Mercy to bring them round.",
+        "if": "!flag:wrackholm_jory_up"
+      },
+      {
+        "say": "narrator",
+        "text": "Up by the horn Jory says the last one after her, under his breath, and you see it go out of him again before he's finished turning round.",
+        "if": "flag:wrackholm_jory_up"
+      },
+      {
+        "goto": "landed"
+      }
+    ],
+    "burn_white": [
+      {
+        "say": "narrator",
+        "text": "Out on the Teeth, under the Wrack, there's white on the rocks again: a daub a hand wide, four strokes off the heel, rock after rock as far as the eleventh. Then nothing."
+      },
+      {
+        "say": "oda",
+        "text": "That's Jory's. Went out at the bottom of the last springs with a pot of white lead, learning it off the old marks. He got to eleven before the flood turned him."
+      },
+      {
+        "say": "oda",
+        "text": "Hale used to do it in a morning. Never looked up. The lad looked up at every rock, Wenna says. He'll get better at not."
+      },
+      {
+        "goto": "landed"
+      }
+    ],
+    "landed": [
+      {
+        "say": "narrator",
+        "text": "Wenna comes down the shingle to the jetty's foot, slowly, in her guild coat buttoned to the chin. She has never come down to meet a boat before. Tidewrights answer from the horn."
+      },
+      {
+        "say": "wenna",
+        "text": "A horn answered is a lane promised. I've promised the Mercy a lane in, so I thought I'd best stand at the end of it."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "released"
+      },
+      {
+        "goto": "dark"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "Low in the south-west, past the Wrack, where there was only weather for three months, the Hearthspire burns: a gold point on the water that doesn't flicker. The fog's gone off the Teeth. You can see the reef from end to end, black and plain, and the yard's hulls sitting on their own shadows."
+      },
+      {
+        "say": "wenna",
+        "text": "The lads took the Gannet's sister out to the far banks two nights back and came home without a lead going, steering by it. First time in three months a Tidewright boat came in without a man in the bows singing out soundings."
+      },
+      {
+        "say": "wenna",
+        "text": "I told you once we didn't care whose hands lit it. Only that we could steer by it. I've seen it from the shingle every night since. I find I want to know whose hands."
+      },
+      {
+        "choice": [
+          {
+            "text": "Steer by it. That's what it's for.",
+            "goto": "lit_steer"
+          },
+          {
+            "text": "It took me first.",
+            "goto": "lit_took"
+          }
+        ]
+      }
+    ],
+    "lit_steer": [
+      {
+        "say": "wenna",
+        "text": "Aye, we will. And when it's hungry at midwinter, somebody'll go up to feed it, and the Keepers will write them down. We'll write them down too. We're good at books."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "lit_took": [
+      {
+        "say": "wenna",
+        "text": "Took what?"
+      },
+      {
+        "say": "player",
+        "text": "Whatever I was before Saltmarrow's beach."
+      },
+      {
+        "say": "narrator",
+        "text": "Wenna looks at you the way she'd look at a hull hauled up on the hard: where she's sound, where she's stove."
+      },
+      {
+        "say": "wenna",
+        "text": "What the sea takes, the yard holds a year and a tide for its owner. Every nail. That's salvage law, and it's older than the Spire."
+      },
+      {
+        "say": "wenna",
+        "text": "I'll put it in the Book tonight. Held for: whatever the Wakebearer was. If it comes back on any tide, it's yours. If it doesn't, the Book'll still say somebody was owed it.",
+        "set": {
+          "wrackholm_held_for": true
+        }
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "released": [
+      {
+        "say": "narrator",
+        "text": "No gold in the south-west; the fog lies off the reef the way it always has. But out on its stack the Wrack burns steady behind the horn panes, and the reclaimed timbers of its lantern room glow at the joints like a hull with a lamp lit inside."
+      },
+      {
+        "say": "wenna",
+        "text": "Nobody's trimmed it since you left Cindermoor. Nobody's needed to. Jory goes out at low water to see to it, and comes back and says the lantern room's warm, like somebody's been sat up all night with the light."
+      },
+      {
+        "say": "wenna",
+        "text": "Warmest by the new bracket, he says. The Gannet's. Hale fitted it himself."
+      },
+      {
+        "say": "jory",
+        "text": "There's nobody there. I looked. I sat a while, in case.",
+        "if": "flag:wrackholm_jory_up"
+      },
+      {
+        "say": "wenna",
+        "text": "Not the Gannet's. I'd not say that, and you'd not believe me. Nobody we'd know. Old ones, from before anybody's grandmother. Nobody came for them, so they hold up the light. That's what a year and a tide's for."
+      },
+      {
+        "say": "narrator",
+        "text": "Her eyes go to your hand. There's a black coal in it the size of a hazelnut, and nothing in the coal."
+      },
+      {
+        "say": "wenna",
+        "text": "Your hand's empty. It weighs the same, I'd guess. Things do, after."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "dark": [
+      {
+        "say": "narrator",
+        "text": "No gold in the south-west. The Wrack burns on its stack as it has since you lit it, and the fog stands off the Teeth at the edge of its light. In your hand the ember is still lit, warm as ever, leaning toward the lane-house."
+      },
+      {
+        "say": "wenna",
+        "text": "Oda's lads brought the word ahead of you. At midwinter it comes round in your hand, and every island says what it'll burn, and writes it down."
+      },
+      {
+        "say": "wenna",
+        "text": "Well. Tidewrights have kept the Keepers' names nine hundred years in that Book. We can keep our own. Seems only fair."
+      },
+      {
+        "say": "narrator",
+        "text": "Over the lane-house door the guild's iron hand-scale hangs where it always has. There's a chalk line on the doorpost under it, and under the line, marks: a hook, a boat, a cup, a float."
+      },
+      {
+        "say": "wenna",
+        "text": "They come and put a thing in the pan, to see what it weighs. Nobody's said they'll give it. It's a start. We weigh things here. It's what the scale's for."
+      },
+      {
+        "say": "wenna",
+        "text": "Round the way the light goes, Oda says, from the Gull. That makes us fourth. Fourth's a good place. You get to hear what the others weighed.",
+        "if": "flag:kindleby_midwinter=ring"
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "end": [
+      {
+        "say": "jory",
+        "text": "Copper's all off her now. I've started on the keel bolts.",
+        "if": "!flag:wrackholm_jory_up"
+      },
+      {
+        "say": "wenna",
+        "text": "Come up to the house when you're ready. There's a line in the Book I said I'd show you some other night. It's some other night.",
+        "if": "flag:wrackholm_book_opened"
+      },
+      {
+        "say": "wenna",
+        "text": "Come up to the house when you're ready. There's a line at the back of the Book I'd like you to see. I've been waiting on the right night for it.",
+        "if": "!flag:wrackholm_book_opened"
+      }
+    ]
+  }
+}
