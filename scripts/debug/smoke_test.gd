@@ -631,6 +631,16 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(_shown_model(main.get("region"), "hearthspire_far_lit.glb") == 1, "the lit Spire east past the cove's point")
 	_check((_npc("aldous") != null) == false, "Aldous isn't on the cove (on his bench, or up the ridge)")
 	print("Smoke: the epilogue — Thornwold's homecoming")
+	# Day 101: north-about to the fen — Hesper meets the Mercy with a lantern on a pole; the Spire gold in the south.
+	_npc("oda").interact()
+	_check(_sail(ui, "fen"), "the Mercy sails on north-about to the fen after the ending")
+	_finish_dialogue(ui, "oda (the fen after the ending)")
+	if not await _arrived(main, ui, "glasswater_fen", "Stillhithe's staithe, after"):
+		return
+	_check(world.get_flag("fen_homecoming_seen") == true, "the fen's homecoming")
+	_check(_shown_model(main.get("region"), "hearthspire_far_lit.glb") == 1, "the lit Spire south past the reeds")
+	_check(_shown_model(main.get("region"), "hut_lantern.glb") == 1, "Hesper's lantern on its pole by the staithe")
+	print("Smoke: the epilogue — the fen's homecoming")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
