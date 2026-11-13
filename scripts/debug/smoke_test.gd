@@ -641,6 +641,16 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(_shown_model(main.get("region"), "hearthspire_far_lit.glb") == 1, "the lit Spire south past the reeds")
 	_check(_shown_model(main.get("region"), "hut_lantern.glb") == 1, "Hesper's lantern on its pole by the staithe")
 	print("Smoke: the epilogue — the fen's homecoming")
+	# Day 102: east-about to Wrackholm — the answering horn answers a boat; the Spire gold in the south-west.
+	_npc("oda").interact()
+	_check(_sail(ui, "wrackholm"), "the Mercy sails on east-about to Wrackholm after the ending")
+	_finish_dialogue(ui, "oda (Wrackholm after the ending)")
+	if not await _arrived(main, ui, "wrackholm", "the yard's jetty, after"):
+		return
+	_check(world.get_flag("wrackholm_homecoming_seen") == true, "Wrackholm's homecoming")
+	_check(world.get_flag("wrackholm_horn_sounded") == true, "the answering horn's open")
+	_check(_shown_model(main.get("region"), "hearthspire_far_lit.glb") == 1, "the lit Spire south-west past the Wrack")
+	print("Smoke: the epilogue — Wrackholm's homecoming")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
