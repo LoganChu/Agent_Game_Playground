@@ -809,9 +809,16 @@ each .glb < 5 MB.
       4.5 m); **the camera lift** — blocked at the player's pitch, it rises to the shallowest of -38/-48/-58° that clears
       (over the lantern room's cradle instead of snapping into the Wakebearer's back). `test_polish_sixteen.gd` (7).
 
+- [x] [C] **Epilogues, part four (the fen) — the staithe lantern** (Day 101): event `fen_homecoming` (Hesper meets the
+      Mercy with a lantern on a pole: lit, the fog thin as breath on the pools — "a shallower place to put them" — and
+      "It took me first." gives the Wakebearer a tussock; released, a second light going round the Heron's walk, the skiff
+      bell, the Unmoored looking out at the Heron; dark, the fen's midwinter list the Unmoored are never asked to sign,
+      the fen third round from the Gull; coloured by name/channels and the cupped ember; Dunstan per walk). Hesper,
+      Corran and Dunstan (stayed) after-lines; the fen gold with the far Spire south when lit; Hesper's pole lantern.
+      Checkpoint `the_staithe_lantern`; the smoke walk sails on to the fen. `test_fen_homecoming.gd` (10).
+
 ### Next up
-1. [C] **Epilogues, part four** (Kindleby Day 97, Saltmarrow Day 98, Thornwold Day 99): **the fen** (Hesper; Dunstan's
-   boards if he stayed), **Wrackholm** (the Book's last line; Wenna and the yard), **Lowsong** (Hild's skiff; Iver; the
+1. [C] **Epilogues, part five** (Kindleby Day 97, Saltmarrow Day 98, Thornwold Day 99, the fen Day 101): **Wrackholm** (the Book's last line; Wenna and the yard), **Lowsong** (Hild's skiff; Iver; the
    Choir's voices gone quiet there if released) as arrival events gated on `flag:cindermoor_lane_out` + the Mercy at that
    port (Lowsong has no Mercy port — Hild's skiff from Kindleby, or an event on Kindleby). `thornwold_homecoming` /
    `saltmarrow_homecoming` are the model: per ending, coloured by the island's burning, an after-line per NPC, lit → gold
@@ -820,7 +827,8 @@ each .glb < 5 MB.
    (he says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) is the natural next beat for him — the
    `midwinter` Aldous (dark) waits for a midwinter round, if one is ever played. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish seventeen candidates** (due by ~Day 105; Day 100 was sixteen): the lantern room's east door leaf
+1a. [P] **Polish seventeen candidates** (due by ~Day 105; Day 100 was sixteen): the far Spire reads pale in the fen's horizon wash (Compatibility; judge on Vulkan, and
+   the `heron_mere` region could take the lit override too); the lantern room's east door leaf
    clips the near plane when the lifted camera passes over it (black corner at bottom right from the spawn — give the
    shell's door a camera collider, or nudge the spawn); a **two-speaker shot in tight spots** (the Mercy's deck, #9) and a
    third speaker; the lift outdoors needs an owner's feel check (it triggers under 60 % of the reach — trees and huts at

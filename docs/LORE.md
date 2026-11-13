@@ -1842,6 +1842,31 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   now; he'll go on to Kindleby and the Provost "when Oda's going. Not yet." *(Future: Aldous before the Provost.)* In the
   dark ending he comes at midwinter with the ember; Wynn will "have the bench swept", and wants the box's coal to meet
   the ember it came from.
+- **The fen's homecoming (Day 101, the epilogues part four — event `fen_homecoming`).** The Mercy comes up the reed
+  channel on slack water with the horn's old signal; the reeds take the sound and don't give it back. **Cindermoor lies
+  south of the fen.** **Hesper meets the Mercy with a lantern on a pole**, the way the fen folk met every boat — the first
+  time she has carried one (Corran lent the pole; "he says I'm holding it wrong"). After the `name` burning, when Oda
+  calls her by name she looks over her shoulder to see who's meant.
+  - **lit** — the Spire a gold point low in the south past the reeds; the fog on the pools **thin as breath** (the Heron and
+    the dead alders plain from the staithe). Nobody on Stillhithe wanted to look at the bottom of the water: some went out
+    along the long walk to the Deeps, where it's still thick; some sat in the light and remembered, and thanked nobody.
+    **"The fog's where we put things down. You've made it a shallower place to put them."** Corran can see every channel
+    (after `channels`) and still can't tell which one goes. "It took me first." → "Then you put a thing down on the
+    water, same as the rest of us. Only nobody let you choose." — **Hesper gives the Wakebearer a tussock past the west
+    walk** to sit by a pool and not be spoken to ("That's a kindness, here"; `fen_hesper_tussock`).
+  - **released** — the fog as thick as ever, but **a second light goes round the Heron's walk at night**, small, at the
+    pace the lost keeper used to go round (Corran: "I'm not a man for stories"). The keeper's skiff bell rang once by
+    itself the night the Wakebearer left Cindermoor (on her bow if hung; in the satchel, a note, if kept). **The Unmoored
+    by the pools stop looking into the water and look out at the Heron**, all the same way. "Somebody came to us that
+    wasn't put down here. We don't ask who." *(The Heron's keeper stays open: the light only moves like her.)* Dunstan
+    (stayed) found the long walk's turned boards wet one morning: something came back along them out of the Deeps.
+  - **dark** — the Unmoored turn their faces from the ember as always. **The fen's midwinter list hangs on Hesper's first
+    post, under the gull**: the fen folk sign it in their own hands; **the Unmoored are never asked** ("not my rule —
+    the fen's"). After `name`, Hesper keeps the list and can't sign it. Corran signs ("Seventy years I've wanted to give
+    somebody a piece of my mind"); Dunstan (stayed) puts himself on it but **not the name**. Round from the Gull, the
+    **fen is third**.
+  - Dunstan stayed: he lifts a board at the Mercy like a hat and Oda keeps her hand up till he bends to the next one.
+    Dunstan home: his boat's still gone off Hesper's first post — "I've stopped looking for it to be back."
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks

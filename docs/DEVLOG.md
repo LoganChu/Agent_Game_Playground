@@ -2,6 +2,51 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-13 09:00 UTC — Day 101: the fen's homecoming — the staithe lantern (content)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2 (no Blender work this session, so bpy wasn't installed).
+  Detached HEAD again; `main` reset to `origin/main` (Day 100's `78132be`). Baseline: 748 tests green.
+- **Content (ROADMAP *Next up* #1, Epilogues part four): Glasswater Fen.**
+  - **The homecoming** (arrival event `fen_homecoming`, once, after the lane out with the Mercy at the staithe): the
+    horn's old signal swallowed by the reeds; **Hesper meets the Mercy with a lantern on a pole**, the way the fen folk
+    met every boat, for the first time (Corran lent the pole). **Lit**: the Spire a gold point in the south, the fog on
+    the pools thin as breath, and the Unmoored not grateful for it: "You've made it a shallower place to put them."
+    "It took me first." → "Only nobody let you choose." and a tussock of the Wakebearer's own past the west walk.
+    **Released**: a second light going round the Heron's walk at night, at the lost keeper's pace; the skiff bell
+    rings once (on her bow, or in the satchel); the Unmoored look out at the Heron instead of into the water.
+    **Dark**: a midwinter list on Hesper's first post, signed by the fen folk and never put to the Unmoored; the fen
+    third round from the Gull. Coloured by the Heron's burning (Hesper nameless / Corran's channels) and whether the
+    Wakebearer cupped the ember for her. Dunstan per walk: stayed, he lifts a board at the Mercy like a hat; home, his
+    boat still gone off her post; never walked in, his lantern still lit out on the long walk.
+  - After-lines per ending for **Hesper**, **Corran** and **Dunstan** (stayed).
+  - **Lit:** a gold light/fog override and `hearthspire_far_lit` at [30, -6, 190] (south). Hesper's lantern on its pole
+    (`hut_lantern`) stands by her post once the homecoming's been seen.
+- **Tests:** `test_fen_homecoming.gd` (10): gating; per ending, once; the burning colours it; the tussock; the bell and
+  the cupped ember; the fen third; Dunstan per walk; after-lines; gold when lit (and south); checkpoint
+  `the_staithe_lantern`. The smoke walk sails on from Thornwold to the fen. 758 tests + smoke + launch green.
+
+Screenshot: `docs/screenshots/2026-11-13-am-staithe-lantern.png` (also `docs/checkpoints/the_staithe_lantern.png`).
+
+**Decisions**
+- **The fen's ending is about the right to forget, not about thanks.** Every other island is glad of the light in some
+  way. The Unmoored came to the fen *for* the fog, so the lit ending costs them something, and the released ending
+  gives them company they don't have to name. The dark ending's list follows the fen's one rule: nobody asks them.
+- **The Heron's keeper stays open.** In the released ending something walks the Heron's rail at her pace, and the bell
+  rings, but nobody says it's her. That thread (open since Day 29) is for later, if ever.
+- **Dunstan's walk home stays open.** He's still turning boards in every ending. Finishing it would move him to
+  Saltmarrow mid-epilogue; it's better as its own beat (ROADMAP #3).
+- **A pending Act II event can follow the homecoming.** In the checkpoint chain Dunstan was never walked in, so his
+  walk-back event plays on the *next* fen arrival. That's fine; the homecoming is listed first so it always wins.
+
+**Problems**
+- In Compatibility the far Spire reads as a pale tower in the fen's horizon wash, not a gold point. Lower fog didn't
+  change it (the wash is the sky/horizon, not the fog). Logged under polish seventeen; judge on Vulkan.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **Epilogues part five**: Wrackholm (the Book's last line; Wenna and the yard), then Lowsong,
+   then the final card. Polish seventeen is due by ~Day 105. Fetch and reset `main` before trusting it.
+
 ## 2026-11-12 21:00 UTC — Day 100: polish sixteen — Wynn's name, seated framing, the camera lift (polish)
 
 **Did**

@@ -744,6 +744,11 @@ a room this small (11 m square) taught:
   aboard, because only one arrival event fires per arrival; `thornwold_aldous_ashore` covers a later crossing. The ridge's
   `thornwold_two_keepers` event plays the meeting. Lit, both Thornwold regions get a gold `light` override and a
   `hearthspire_far_lit` (landing [180, -6, 60]; ridge [175, -8, 95], below the ridge's height — checked from the ladder head).
+- **The fen's epilogue (Day 101):** `fen_homecoming` is the fen's **first** event in the list (events fire first-match;
+  an Act II event still pending — Dunstan's walk back, `fen_dunstan_coming`, if he was never walked in — plays on the
+  *next* arrival, which is fine: his walk can still happen after the ending). Lit: a gold `light`/`fog` override and
+  `hearthspire_far_lit` at [30, -6, 190] (Cindermoor is south of the fen; +Z is south). Hesper's lantern on a pole is a
+  `hut_lantern` by her post (`if: flag:fen_homecoming_seen`). Tests use `_homecoming_next` rather than "no event left".
 
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:
