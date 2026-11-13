@@ -92,6 +92,39 @@
     ],
     "greet": [
       {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=lit"
+        ],
+        "say": "hesper",
+        "text": "Thin as breath on the pools still. Some of them have stopped going out to the Deeps. Some haven't. Nobody's counting.",
+        "note": "Day 101: Hesper after the fen's homecoming, per ending."
+      },
+      {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:fen_hesper_tussock"
+        ],
+        "say": "hesper",
+        "text": "Your tussock's still there, past the west walk. Nobody's sat on it. Nobody will."
+      },
+      {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=released"
+        ],
+        "say": "hesper",
+        "text": "The lantern went round the Heron's walk again last night. I didn't watch. I listened. You can hear a person walk a plank, even that far."
+      },
+      {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=dark"
+        ],
+        "say": "hesper",
+        "text": "The list's on my first post, under the gull. Fen folk's names on it, in their own hands. The Unmoored walk past it like it's a tree."
+      },
+      {
         "say": "narrator",
         "text": "She doesn't say her name. When you say it, she looks over her shoulder to see who you mean.",
         "if": "flag:fen_beacon_burned=name"

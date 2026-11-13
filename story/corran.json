@@ -48,6 +48,41 @@
     ],
     "greet": [
       {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=lit",
+          "flag:fen_beacon_burned=channels"
+        ],
+        "say": "corran",
+        "text": "Fog's off the water. I can see every channel in the fen from here, and I couldn't tell you which one goes. That light of yours gives nothing back. I asked it.",
+        "note": "Day 101: Corran after the fen's homecoming, per ending."
+      },
+      {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=lit",
+          "!flag:fen_beacon_burned=channels"
+        ],
+        "say": "corran",
+        "text": "Fog's off the water. I can see the Heron from my landing, plain as a post. Hesper's still not got her name. I looked, in the clear. Don't know where I thought I'd find it."
+      },
+      {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=released"
+        ],
+        "say": "corran",
+        "text": "There's a lantern goes round the Heron's walk of a night. Same way she went round. Same pace. I'm not a man for stories, so don't ask me for one."
+      },
+      {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=dark"
+        ],
+        "say": "corran",
+        "text": "I'm on Hesper's list. Put my own name to it. Seventy years I've wanted to give somebody a piece of my mind. Come midwinter, I'll give your ember one."
+      },
+      {
         "say": "corran",
         "text": "Eels don't care what anybody forgot. That's what I like about eels.",
         "if": "!flag:fen_corran_decided"

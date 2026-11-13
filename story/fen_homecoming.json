@@ -1,0 +1,262 @@
+{
+  "id": "fen_homecoming",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "The Mercy comes up the reed channel on slack water, and Oda puts the bone horn to her mouth: one long note, then two short. Putting in, passengers welcome. The reeds take the sound and don't give it back.",
+        "sound": "horn_near",
+        "note": "Day 101, the epilogue on Glasswater Fen (arrival event fen_homecoming): the Mercy back at Stillhithe's staithe after the ending. Per cindermoor_cradle_choice, coloured by the Heron's burning (name / channels) and by what Hesper asked of the ember (fen_ember)."
+      },
+      {
+        "say": "narrator",
+        "text": "Between the whittled gulls on the staithe posts somebody is waiting with a lantern on a pole, the way the fen folk used to meet every boat. It's Hesper. She has never carried one before."
+      },
+      {
+        "say": "narrator",
+        "text": "When Oda calls down to her by name, she looks over her shoulder to see who's meant.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "hesper",
+        "text": "I meet the boats. I thought, after all that, I'd meet this one properly. Corran lent me the pole. He says I'm holding it wrong."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "released"
+      },
+      {
+        "goto": "dark"
+      }
+    ],
+    "lit": [
+      {
+        "say": "narrator",
+        "text": "Low in the south, past the end of the reeds, where the fog stood so long it looked like weather, the Hearthspire burns: a gold point on the water. The fog on the pools has gone thin as breath. From the staithe you can see the Heron on its legs, and the dead alders all the way out to the mere."
+      },
+      {
+        "say": "hesper",
+        "text": "It came off the pools the second night. First time in three months a body could see the bottom of the water, and nobody on Stillhithe wanted to look."
+      },
+      {
+        "say": "hesper",
+        "text": "Some of them went out along the long walk to the Deeps, where it's still thick. Some sat where they were, in the light, and remembered things. Nobody thanked anybody for it."
+      },
+      {
+        "say": "hesper",
+        "text": "The fog's where we put things down. You've made it a shallower place to put them."
+      },
+      {
+        "say": "hesper",
+        "text": "Somebody on the dyke called me by a name yesterday, the way you'd call to anybody. It went past me. The light didn't put that back. I didn't think it would.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "hesper",
+        "text": "The eel-man can see every channel in the fen from his landing now. He says he still couldn't tell you which one goes. He's been sat looking since.",
+        "if": "flag:fen_beacon_burned=channels"
+      },
+      {
+        "choice": [
+          {
+            "text": "They'll come back to it, in time.",
+            "goto": "lit_time"
+          },
+          {
+            "text": "It took me first.",
+            "goto": "lit_took"
+          }
+        ]
+      }
+    ],
+    "lit_time": [
+      {
+        "say": "hesper",
+        "text": "Some will. Some won't. That's theirs to say, and nobody's to say it for them. It's the one rule, and your light didn't burn it."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "lit_took": [
+      {
+        "say": "hesper",
+        "text": "Took what?"
+      },
+      {
+        "say": "player",
+        "text": "Whatever I was before Saltmarrow's beach."
+      },
+      {
+        "say": "narrator",
+        "text": "Hesper looks at your open hand, then at her own wrist, at the string of small things she never looks at."
+      },
+      {
+        "say": "hesper",
+        "text": "Then you put a thing down on the water, same as the rest of us. Only nobody let you choose."
+      },
+      {
+        "say": "hesper",
+        "text": "There's a tussock past the west walk with nobody on it. If you ever want to sit by a pool and not be spoken to, it's yours. That's a kindness, here.",
+        "set": {
+          "fen_hesper_tussock": true
+        }
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "released": [
+      {
+        "say": "narrator",
+        "text": "There's no gold in the south; the fog lies on the pools as thick as it ever did. But out on the mere the Heron burns behind its horn panes, and the reeds stand a little back from the staithe, as if they'd been asked to."
+      },
+      {
+        "say": "hesper",
+        "text": "Corran's been telling it to anybody who'll stand still. Nights, there's a second light on the Heron. Small, like a lantern carried round the walk at the top, the way the keeper used to go round. He's not a man for stories."
+      },
+      {
+        "say": "hesper",
+        "text": "And the bell on her skiff rang. Once, by itself, the night you left Cindermoor. There's no wind in the fen. There never is.",
+        "if": "flag:fen_skiff_bell=hung"
+      },
+      {
+        "say": "narrator",
+        "text": "In your satchel the keeper's skiff bell gives one small note by itself, and is still.",
+        "if": "item:heron_skiff_bell"
+      },
+      {
+        "say": "hesper",
+        "text": "And the ones by the pools. They don't look into the water now. They look out at the Heron, all of them the same way, like they're waiting for a boat."
+      },
+      {
+        "say": "hesper",
+        "text": "Somebody came to us that wasn't put down here. We don't ask who. That's the rule. They seem to like the rule."
+      },
+      {
+        "say": "narrator",
+        "text": "Her eyes go to your hand. There's a black coal in it the size of a hazelnut, and nothing in the coal."
+      },
+      {
+        "say": "hesper",
+        "text": "All those times I asked you to shut your hand over it. There's nothing in it now to mind.",
+        "if": "flag:fen_ember=cupped"
+      },
+      {
+        "say": "hesper",
+        "text": "All those times you wouldn't cup it. There's nothing in it now to cup.",
+        "if": "!flag:fen_ember=cupped"
+      },
+      {
+        "choice": [
+          {
+            "text": "It walked them out. The ones the Spire burned.",
+            "goto": "released_told"
+          },
+          {
+            "text": "Somebody needed it more than I did.",
+            "goto": "released_told"
+          }
+        ]
+      }
+    ],
+    "released_told": [
+      {
+        "say": "hesper",
+        "text": "Then they've come to the one fen in the Lanternreach where nobody will ask them their names. They could have done worse. So could you."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "dark": [
+      {
+        "say": "narrator",
+        "text": "The south is grey, and the Spire's nowhere in it. In your hand the ember burns, and all along the dyke the Unmoored turn their faces from it, the way they always did."
+      },
+      {
+        "say": "hesper",
+        "text": "Shut your hand. There's a fen here.",
+        "if": "flag:fen_ember=cupped"
+      },
+      {
+        "say": "hesper",
+        "text": "Still bare, that light. Stand downwind of me, then.",
+        "if": "!flag:fen_ember=cupped"
+      },
+      {
+        "say": "hesper",
+        "text": "Oda's lads brought the word ahead of you. At midwinter it comes round in your hand, and every island says what it'll burn, and writes it down."
+      },
+      {
+        "say": "hesper",
+        "text": "We came out here to have nothing left that anybody could ask us for. And now there's to be a list."
+      },
+      {
+        "say": "narrator",
+        "text": "She plants the lantern pole in the mud at the staithe's foot and leans on it."
+      },
+      {
+        "say": "hesper",
+        "text": "The fen folk will put something on it. The Unmoored won't, and nobody's to ask them. That's not my rule. That's the fen's."
+      },
+      {
+        "say": "hesper",
+        "text": "I'll keep the list. I can't sign it. There's no name to put at the bottom. That seems right, for whoever keeps it.",
+        "if": "flag:fen_beacon_burned=name"
+      },
+      {
+        "say": "hesper",
+        "text": "Corran says he's nothing left worth a coal, now his channels are gone. He's wrong, and he knows it, and he's cross about it.",
+        "if": "flag:fen_beacon_burned=channels"
+      },
+      {
+        "say": "hesper",
+        "text": "Round the way the light goes, Oda says, from the Gull. That makes us third. I'll not tell them. They'd only want to argue it.",
+        "if": "flag:kindleby_midwinter=ring"
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "end": [
+      {
+        "say": "narrator",
+        "text": "Up at the head of the long walk Dunstan straightens with a board in both hands, sees the Mercy, and lifts the board at her like a hat. At the rail Oda lifts her hand back, and keeps it up till he's bent to the next one.",
+        "if": [
+          "flag:fen_dunstan_walk=stayed",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Up at the head of the long walk the big man straightens with a board in both hands, sees the Mercy, and lifts the board at her like a hat. At the rail Oda lifts her hand back, and keeps it up till he's bent to the next one.",
+        "if": [
+          "flag:fen_dunstan_walk=stayed",
+          "flag:saltmarrow_beacon_burned=gull"
+        ]
+      },
+      {
+        "say": "hesper",
+        "text": "The big man's boat's still gone off my first post. I've stopped looking for it to be back. That's a thing, for me.",
+        "if": "flag:fen_dunstan_walk=home"
+      },
+      {
+        "say": "narrator",
+        "text": "Far out along the long walk, in the Deeps' fog, the big man's lantern is still lit on the boards. He hasn't finished, out there.",
+        "if": [
+          "flag:fen_dunstan_met",
+          "flag:fen_dunstan_walk=|coming"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Down at his landing Corran Teal lifts his leister at the Mercy, once, and goes back to his traps."
+      }
+    ]
+  }
+}

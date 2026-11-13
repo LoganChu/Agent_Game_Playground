@@ -8,6 +8,11 @@
     "color": "#CBCCC9",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.008,
+        "color": "#C9C3B4"
+      },
+      {
         "if": "quest:a_light_for_glasswater=done",
         "density": 0.03
       }
@@ -24,6 +29,18 @@
     "sky_top": "slate",
     "sky_horizon": "#CBCCC9",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 101: the Hearthspire lit, low in the south past the end of the reeds; the white fen warmed from that side.",
+        "sun_color": "#F2C98E",
+        "sun_energy": 1.05,
+        "sun_pitch": -30,
+        "sun_yaw": 180,
+        "ambient_color": "#C4BBA6",
+        "ambient_energy": 0.44,
+        "sky_top": "tide",
+        "sky_horizon": "#DCC29A"
+      },
       {
         "if": "quest:a_light_for_glasswater=done",
         "sun_color": "#E8CC9C",
@@ -1188,6 +1205,49 @@
         "!flag:fen_dunstan_walk="
       ],
       "note": "The last board, once Dunstan has picked up his lantern and walked back (Day 51): no light at the end of the long walk."
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far_lit.glb",
+      "position": [
+        30.0,
+        -6.0,
+        190.0
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 2.0,
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "halo": [
+        0,
+        9.1,
+        0
+      ],
+      "halo_size": 9.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.6,
+      "note": "Day 101: the Hearthspire lit, seen from Glasswater's staithe — a gold point low in the south past the reeds (Cindermoor lies south of the fen on the chart)."
+    },
+    {
+      "model": "res://assets/models/dressing/hut_lantern.glb",
+      "position": [
+        4.4,
+        0,
+        7.1
+      ],
+      "rotation_y": 160,
+      "collider": [
+        0.3,
+        1.7,
+        0.3
+      ],
+      "halo": [
+        0,
+        1.28,
+        0.32
+      ],
+      "halo_size": 2.4,
+      "if": "flag:fen_homecoming_seen",
+      "note": "Day 101: the lantern on a pole Hesper met the Mercy with after the ending (Corran lent the pole), planted in the mud by her post at the staithe's foot."
     }
   ],
   "npcs": [
@@ -1349,6 +1409,19 @@
     }
   ],
   "events": [
+    {
+      "id": "fen_homecoming",
+      "if": [
+        "flag:lanes_ferry_at=fen",
+        "flag:cindermoor_lane_out",
+        "!flag:fen_homecoming_seen"
+      ],
+      "set": {
+        "fen_homecoming_seen": true
+      },
+      "dialogue": "fen_homecoming",
+      "note": "Day 101, the epilogue: the Mercy puts in at Stillhithe's staithe after the ending; Hesper meets it with a lantern on a pole."
+    },
     {
       "id": "fen_arrival",
       "if": [

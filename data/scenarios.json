@@ -1053,6 +1053,24 @@
         "a_boat_for_aldous": "done"
       },
       "shot": "--camera=-8.6,1.7,-4.6:-5.4,0.9,-6.6"
+    },
+    {
+      "id": "the_staithe_lantern",
+      "act": "Act III — The Spire",
+      "title": "The Staithe Lantern",
+      "inherits": "the_homecoming",
+      "region": "glasswater_fen",
+      "spawn": "from_ferry",
+      "description": "After the lit ending the Mercy sailed round to Glasswater Fen. Hesper met it with a lantern on a pole, the way the fen folk used to meet every boat; the fog has gone thin as breath on the pools, and the Hearthspire burns gold in the south past the reeds. Dunstan stayed, and is turning the long walk's boards.",
+      "flags": {
+        "lanes_ferry_at": "fen",
+        "saltmarrow_homecoming_seen": true,
+        "thornwold_homecoming_seen": true,
+        "fen_homecoming_seen": true,
+        "fen_hesper_tussock": true,
+        "fen_dunstan_walk": "stayed"
+      },
+      "shot": "--camera=0.5,2.4,0.5:9,2.2,18"
     }
   ]
 }

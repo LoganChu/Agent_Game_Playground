@@ -704,6 +704,31 @@
         "if": "flag:saltmarrow_beacon_burned=gull"
       },
       {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=lit"
+        ],
+        "say": "dunstan",
+        "text": "Saw your light come up in the south, from the walk. Bright enough to turn boards by, nights. I'll be done sooner than I said.",
+        "note": "Day 101: Dunstan (stayed) after the fen's homecoming, per ending."
+      },
+      {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=released"
+        ],
+        "say": "dunstan",
+        "text": "Something came along the walk last night, the way I've turned it. Out of the Deeps, toward the staithe. I didn't see anybody. The boards were wet this morning. That's what they're for."
+      },
+      {
+        "if": [
+          "flag:fen_homecoming_seen",
+          "flag:cindermoor_cradle_choice=dark"
+        ],
+        "say": "dunstan",
+        "text": "Hesper's got a list going. I put myself on it. Not the name; took me long enough to get that back. I'll find something worth a coal by midwinter. I've time. I'm turning boards."
+      },
+      {
         "say": "dunstan",
         "text": "Two turned so far, and the rest to come. Some of them come off their tussocks and watch me do it. Nobody's said a word. That's the rule, I suppose."
       },

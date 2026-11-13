@@ -1300,6 +1300,14 @@
       "description": "The last of the Spire's midwinter coal in the Lamp's iron box let go out, with Aldous watching (Day 99, lit or released: nothing left for it to keep). Future: the box empty on the bench.",
       "default": false,
       "future": true
+    },
+    "fen_homecoming_seen": {
+      "description": "The epilogue on Glasswater Fen (Day 101, arrival event fen_homecoming): the Mercy puts in at Stillhithe's staithe after the ending and Hesper meets it with a lantern on a pole (lit: the fog thin on the pools, the Spire a gold point in the south, the Unmoored remembering in the light or gone out to the Deeps; released: a second light going round the Heron's walk at night, the Unmoored looking out at it; dark: a midwinter list the fen folk sign and the Unmoored are never asked to). Coloured by the Heron's burning and the ember Hesper asked to be cupped.",
+      "default": false
+    },
+    "fen_hesper_tussock": {
+      "description": "Lit ending, at the fen's homecoming, the Wakebearer told Hesper the light took them first: she gave them a tussock past the west walk to sit on and not be spoken to ('That's a kindness, here').",
+      "default": false
     }
   }
 }
