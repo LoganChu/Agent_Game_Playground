@@ -816,18 +816,29 @@ each .glb < 5 MB.
       the fen third round from the Gull; coloured by name/channels and the cupped ember; Dunstan per walk). Hesper,
       Corran and Dunstan (stayed) after-lines; the fen gold with the far Spire south when lit; Hesper's pole lantern.
       Checkpoint `the_staithe_lantern`; the smoke walk sails on to the fen. `test_fen_homecoming.gd` (10).
+- [x] [C] **Epilogues, part five (Wrackholm) — the Wrack answers, and the Book's last line** (Day 102): event
+      `wrackholm_homecoming` (the answering horn answers a boat for the first time since the Gannet — unlashed now if it
+      never was; Wenna comes down to the jetty's foot; lit, the Teeth plain and "It took me first." → "Held for", a year
+      and a tide, in the Book; released, the Wrack untrimmed and warm by the Gannet's bracket; dark, the yard weighing
+      things in the scale's pan, Wrackholm fourth; coloured by answer/board/white). **The Book's last line** paid
+      (`wrackholm_last_line`): their own hand, "I can count.", Wenna's guess; "Came in." or left. Wenna and Jory
+      after-lines; gold with the far Spire south-west when lit. Checkpoint `the_wrack_answers`; the smoke walk sails on
+      to Wrackholm. `test_wrackholm_homecoming.gd` (11).
 
 ### Next up
-1. [C] **Epilogues, part five** (Kindleby Day 97, Saltmarrow Day 98, Thornwold Day 99, the fen Day 101): **Wrackholm** (the Book's last line; Wenna and the yard), **Lowsong** (Hild's skiff; Iver; the
-   Choir's voices gone quiet there if released) as arrival events gated on `flag:cindermoor_lane_out` + the Mercy at that
-   port (Lowsong has no Mercy port — Hild's skiff from Kindleby, or an event on Kindleby). `thornwold_homecoming` /
-   `saltmarrow_homecoming` are the model: per ending, coloured by the island's burning, an after-line per NPC, lit → gold
+1. [C] **Epilogues, part six** (Kindleby Day 97, Saltmarrow Day 98, Thornwold Day 99, the fen Day 101, Wrackholm and the
+   Book's last line Day 102): **Lowsong** (Hild's skiff; Iver; the Choir's voices gone quiet there if released) —
+   Lowsong has no Mercy port, so Hild's skiff from Kindleby, or an event on Kindleby. `wrackholm_homecoming` /
+   `fen_homecoming` are the model: per ending, coloured by the island's burning, an after-line per NPC, lit → gold
    override + `hearthspire_far_lit` (check each from the spawn). Then **a final epilogue/credits card** once every island's
-   beat is seen. Gull's Head and Shingle Point could take the lit override too. **Aldous before the Provost** on Kindleby
-   (he says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) is the natural next beat for him — the
-   `midwinter` Aldous (dark) waits for a midwinter round, if one is ever played. Fetch and reset `main` before trusting it.
+   beat is seen (it could read `wrackholm_last_line`: "Came in."). Gull's Head and Shingle Point could take the lit
+   override too. **Aldous before the Provost** on Kindleby (he says "when Oda's going" from the ridge;
+   `thornwold_aldous_met_wynn`) is the natural next beat for him — the `midwinter` Aldous (dark) waits for a midwinter
+   round, if one is ever played. Wrackholm leftovers: Wenna could stand at the jetty's foot after the homecoming (she
+   goes back to the horn); the dark ending's chalk marks on the doorpost could be a prop. Fetch and reset `main` before
+   trusting it.
 
-1a. [P] **Polish seventeen candidates** (due by ~Day 105; Day 100 was sixteen): the far Spire reads pale in the fen's horizon wash (Compatibility; judge on Vulkan, and
+1a. [P] **Polish seventeen candidates** (due by ~Day 105 — do it next run if Lowsong won't fit; Day 100 was sixteen): the far Spire reads pale in the fen's and Wrackholm's horizon wash (Compatibility; judge on Vulkan, and
    the `heron_mere` region could take the lit override too); the lantern room's east door leaf
    clips the near plane when the lifted camera passes over it (black corner at bottom right from the spawn — give the
    shell's door a camera collider, or nudge the spawn); a **two-speaker shot in tight spots** (the Mercy's deck, #9) and a

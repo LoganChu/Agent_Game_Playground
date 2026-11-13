@@ -749,6 +749,12 @@ a room this small (11 m square) taught:
   *next* arrival, which is fine: his walk can still happen after the ending). Lit: a gold `light`/`fog` override and
   `hearthspire_far_lit` at [30, -6, 190] (Cindermoor is south of the fen; +Z is south). Hesper's lantern on a pole is a
   `hut_lantern` by her post (`if: flag:fen_homecoming_seen`). Tests use `_homecoming_next` rather than "no event left".
+- **Wrackholm's epilogue (Day 102):** `wrackholm_homecoming` is first in Wrackholm's events; it **sets
+  `wrackholm_horn_sounded`** when the horn was never unlashed after the lighting (the open model and the working yard
+  folk follow). Lit: gold `light`/`fog` overrides and `hearthspire_far_lit` at [-140, -6, 130] (south-west; -X is west,
+  +Z south). The Book's last line is a Wenna hub knot (`last_line`, gated on the homecoming and `wrackholm_last_line=`);
+  `wenna`/`jory` `start` jump to an `after` knot once the homecoming's been seen, so the old stacked greetings don't
+  pile up. Tests read hub choices through `play_dialogue`'s `offered` array (choice texts aren't in the returned lines).
 
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:

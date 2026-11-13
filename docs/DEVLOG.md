@@ -2,6 +2,80 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-13 21:00 UTC — Day 102: Wrackholm's homecoming — the Wrack answers, and the Book's last line (content)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session, so bpy wasn't installed.
+  HEAD was detached again; I reset `main` to `origin/main` (Day 101's `72f80d9`).
+- **Content (ROADMAP *Next up* #1, Epilogues part five): Wrackholm.**
+  - **The homecoming** (arrival event `wrackholm_homecoming`, once, after the lane out with the Mercy at the jetty).
+    Oda's horn gives the old signal, and **the answering horn answers a boat** for the first time since the Gannet.
+    If the player never had it sounded after the lighting, Wenna cuts the lashing now and sets `wrackholm_horn_sounded`,
+    so the open horn model shows from then on. Wenna comes down to the jetty's foot: "A horn answered is a lane
+    promised." The Wrack's burning colours it:
+    - **answer**: Oda keeps it for her. With Jory up, Wenna has a mouthpiece beaten out of the Gannet's copper.
+    - **board**: Oda says the three names in the bow at every jetty.
+    - **white**: Jory painted the white as far as the eleventh rock.
+
+    Per ending:
+    - **Lit**: the Teeth lie plain and the Spire is gold in the south-west. Wenna: "I find I want to know whose hands."
+      If the player answers "It took me first.", she invokes salvage law and writes **"Held for. Whatever the Wakebearer
+      was. A year and a tide."** in the Book.
+    - **Released**: the Wrack burns untrimmed and its lantern room is warm, warmest by the Gannet's empty bracket.
+      "Nobody we'd know."
+    - **Dark**: the yard puts things in the hand-scale's pan to see what they weigh. Wrackholm is fourth round from the Gull.
+  - **The Book's last line**, Wenna's new hub option once the homecoming's been seen ("It's some other night"). It
+    replaces "Show me the Book." Day 43 opened this hook.
+    - What the line says: the Wakebearer's own name in their own hand, and after it, smaller, **"I can count."** That's
+      what the novice said to Oriel on the last landing.
+    - How the player reads it, per ending:
+      - **Lit**: in the gold at the door. It's the name they copied off the roll as a stranger's.
+      - **Released**: by the dents, with the thumb.
+      - **Dark**: the ember brings it back.
+    - Wenna's guess at how it got there: a burned thing goes home to where it was kept, and the Book was the only place
+      a Keeper's name was ever kept.
+    - Then the player chooses: write **"Came in."** under it (a fare closed), or leave it.
+  - After-lines per ending for **Wenna** (plus one if the player wrote "Came in.") and **Jory**.
+  - **Lit:** a gold light/fog override and `hearthspire_far_lit` at [-140, -6, 130] (south-west).
+- **Tests:** `test_wrackholm_homecoming.gd` (11) covers:
+  - gating, and the homecoming per ending, once
+  - a horn that was never sounded gets unlashed now
+  - the burning colours it
+  - "Held for", in the Book
+  - the dark ending puts Wrackholm fourth
+  - the last line per ending ("Came in." / left, once)
+  - the name is never shown
+  - a Book never opened is found now
+  - after-lines
+  - gold south-west when lit
+  - checkpoint `the_wrack_answers`
+
+  The smoke walk sails on from the fen to Wrackholm.
+
+Screenshot: `docs/screenshots/2026-11-13-pm-wrack-answers.png` (also `docs/checkpoints/the_wrack_answers.png`).
+
+**Decisions**
+- **How the last line got into the Book (Day 43 left this open; decided now).** Nobody came in that night. The coal ate
+  the novice's name on the stair, and by mystery #3's rule a burned thing goes home to where it was kept. A Keeper's name
+  was only ever kept in the Book. This adds no new magic: it's the Greying's own rule, and it mirrors the Lamp's name
+  (the fog took Wynn's name out of its head and left it on the page). In play it is **only Wenna's guess**, "I'll not
+  weigh it for you", and nothing should ever confirm it further.
+- **"I can count." is the line's second half.** It ties Wrackholm's oldest hook to the last landing without showing the
+  name. The canon rule holds: the Wakebearer's name is never written on screen.
+- **Wrackholm's ending is about what's owed.** Lit: salvage law applied to the Wakebearer's past. Released: boats
+  nobody came for hold up the light, which is the Choir in Tidewright terms. Dark: the hand-scale weighs the island's
+  own midwinter.
+- Wenna goes back to the horn after the homecoming rather than staying at the jetty's foot. Tidewrights answer from
+  the horn.
+
+**Problems**
+- In Compatibility the far Spire again reads as a pale tower in the horizon wash, not a gold point. It's the same issue
+  as the fen and is already logged under polish seventeen.
+
+**Next run should**
+1. Polish seventeen is due by ~Day 105. Do it next run unless Lowsong's epilogue (ROADMAP #1) fits cleanly first;
+   the final card follows Lowsong. Fetch and reset `main` before trusting it.
+
 ## 2026-11-13 09:00 UTC — Day 101: the fen's homecoming — the staithe lantern (content)
 
 **Did**

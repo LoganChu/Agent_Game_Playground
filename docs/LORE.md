@@ -875,7 +875,7 @@ debts, salvage, and who answers for a thing.
       came in** (Wenna was out by the horn till morning). The ember leans to it — and the Wakebearer finds they've shut
       the Book without deciding to. Wenna: "…Aye. Some other night." *[SECRET — planned]* the hand is the Wakebearer's
       own (mystery #2); how it came to be written that night with nobody coming in stays open — decide before paying it
-      off, never before Act III.
+      off, never before Act III. *(Decided and paid Day 102: see* The Book's last line *in Cindermoor's epilogues.)*
     - **A friend of the lanes** (`wrackholm_sworn`): a palm in the pan of the iron hand-scale over the door — "Weighed,
       and not found light. Whatever deck you step on, you step on as one of ours. Whatever you're owed, the lanes owe you.
       And what you owe, you'll pay." The yard folk: "Weighed." Declined: "The scale doesn't need you on it to know what
@@ -1867,6 +1867,41 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     **fen is third**.
   - Dunstan stayed: he lifts a board at the Mercy like a hat and Oda keeps her hand up till he bends to the next one.
     Dunstan home: his boat's still gone off Hesper's first post — "I've stopped looking for it to be back."
+- **Wrackholm's homecoming (Day 102, the epilogues part five — event `wrackholm_homecoming`).** The Mercy comes in past
+  the Teeth on the last of the flood with the horn's old signal, and **the answering horn answers a boat** (long and two
+  short) for the first time since the Gannet; if it was never unlashed after the lighting, Wenna cuts the lashing now.
+  **Cindermoor lies south-west of Wrackholm.** Jory, if he went up, has his shoulder under the bell. **Wenna comes down
+  the shingle to the jetty's foot**, the first boat she has ever met there ("A horn answered is a lane promised. I've
+  promised the Mercy a lane in, so I thought I'd best stand at the end of it"). By the Wrack's burning:
+  **answer** — she doesn't know she's ever done it; Oda keeps it for her ("a thing like that's not a gift"); with Jory up,
+  **a new mouthpiece beaten out of the Gannet's copper**, a nail-hole in the flange; **board** — Oda says Hale Corbet,
+  Annis Corbet, Ruan Pask in the bow at every jetty, and the yard has started waiting for the Mercy to bring them round;
+  **white** — Jory went out at the bottom of the last springs and painted the white **as far as the eleventh rock** before
+  the flood turned him (he looked up at every rock).
+  - **lit** — the Spire a gold point low in the south-west past the Wrack; the fog gone off the Teeth, the reef plain end
+    to end; boats home from the far banks without a lead going. Wenna, who said "we don't care whose hands": **"I find I
+    want to know whose hands."** "It took me first." → **salvage law, held a year and a tide**: she writes in the Book
+    **"Held for. Whatever the Wakebearer was. A year and a tide."** (`wrackholm_held_for`).
+  - **released** — the Wrack burns untrimmed since the Wakebearer left Cindermoor; its lantern room is warm of a morning,
+    **warmest by the Gannet's empty bracket**. "Not the Gannet's ... Nobody we'd know. Old ones ... Nobody came for them,
+    so they hold up the light. That's what a year and a tide's for." (The Choir sitting up with the lights, as at Kindleby.)
+  - **dark** — the yard comes and puts things in the iron hand-scale's pan **to see what they weigh**; chalk marks on the
+    doorpost (a hook, a boat, a cup, a float); nobody's said they'll give it. "Tidewrights have kept the Keepers' names
+    nine hundred years ... We can keep our own." Round from the Gull, **Wrackholm is fourth**.
+- **The Book's last line (Day 102 — `wrackholm_last_line`; mystery #2's Wrackholm hook, paid).** "It's some other night."
+  The last line, dated the night the Spire went dark, is **the Wakebearer's name in their own hand**, written fast, and
+  after it, smaller: **"I can count."** (what the novice said to Oriel on the last landing). **lit** — legible in the gold
+  off the water at the door: the name they copied off the roll "as if it were somebody else's", the same lean; they don't
+  know why anybody would write that. **released** — still grey; Wenna lays their thumb in the dents and the hand moves
+  with them. **dark** — the ember brings it back "the way breath goes onto glass, only backward". The name is never
+  shown on screen.
+  - **How it came there (decided Day 102):** nobody came in — Wenna was at the horn all night. **A thing that's burned
+    goes home to wherever it was kept** (mystery #3's rule): the coal ate the novice's name on the stair, and a Keeper's
+    name was only ever kept in one place, the Book. Wenna offers this only as **"a Tidewright's guess. I'll not weigh it for
+    you."** — never confirm it further. (The Lamp's name went the other way: out of its head, and stayed on the page.)
+  - **came_in** — the Wakebearer writes **"Came in."** under it, a fare closed: "Nine hundred years of Keepers in this Book,
+    and not one ever came back to close their own." **left** — "A fare's a fare. Paid's paid." Wenna shuts the Book; this
+    time the Wakebearer watches her do it.
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks
@@ -1945,7 +1980,7 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    the Spire. The ember in their hand holds their past.
    *(Revealed in play Day 92, the last landing: the seventh novice of Kindleby's last midwinter, who asked Oriel for the
    last coal and fed it themself on the way down; Oriel pinned the hood and scraped the name. The name is never shown.
-   Day 93: Oriel is told, and recognises them.)*
+   Day 93: Oriel is told, and recognises them. Day 102: Wrackholm's Book — the last line is their name in their own hand and "I can count."; Wenna's guess, never confirmed: a burned thing goes home to where it was kept.)*
 3. **What is the Greying?** *[SECRET]* The fog is the world's forgotten memories returning —
    everything the Firstflame burned for 900 years, drifting home. The Hushed are overwhelmed by
    other people's memories, not emptied. *(Revealed in play Day 87: the Spire's book's oldest page.)*
