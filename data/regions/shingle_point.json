@@ -8,6 +8,11 @@
     "color": "silverfog",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.004,
+        "color": "#C2BBAE"
+      },
+      {
         "if": "quest:a_light_for_saltmarrow=done",
         "density": 0.007
       }
@@ -24,6 +29,15 @@
     "sky_top": "tide",
     "sky_horizon": "silverfog",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 104 (polish seventeen): the Hearthspire lit; the beach where the Wakebearer woke, warmed like the harbor round the point.",
+        "sun_color": "#F2C98E",
+        "sun_energy": 1.2,
+        "ambient_color": "#BDB3A2",
+        "ambient_energy": 0.36,
+        "sky_horizon": "#DCC29A"
+      },
       {
         "if": "quest:a_light_for_saltmarrow=done",
         "sun_energy": 1.15,

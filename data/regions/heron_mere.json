@@ -8,6 +8,11 @@
     "color": "#CBCCC9",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.012,
+        "color": "#C9C3B4"
+      },
+      {
         "if": "quest:a_light_for_glasswater=done",
         "density": 0.03
       }
@@ -24,6 +29,18 @@
     "sky_top": "#CBCCC9",
     "sky_horizon": "#CBCCC9",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 104 (polish seventeen): the Hearthspire lit, as on the fen: the white hole in the fog warmed from the south.",
+        "sun_color": "#F2C98E",
+        "sun_energy": 1.0,
+        "sun_pitch": -30,
+        "sun_yaw": 180,
+        "ambient_color": "#C4BBA6",
+        "ambient_energy": 0.48,
+        "sky_top": "tide",
+        "sky_horizon": "#DCC29A"
+      },
       {
         "if": "quest:a_light_for_glasswater=done",
         "sun_color": "#EBCB97",

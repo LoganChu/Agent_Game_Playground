@@ -8,6 +8,11 @@
     "color": "silverfog",
     "overrides": [
       {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "density": 0.006,
+        "color": "#C2BBAE"
+      },
+      {
         "if": "quest:a_light_for_saltmarrow=done",
         "density": 0.014
       }
@@ -24,6 +29,16 @@
     "sky_top": "slate",
     "sky_horizon": "silverfog",
     "overrides": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "note": "Day 104 (polish seventeen): the Hearthspire lit, as on Saltmarrow below: the headland warmed from the north-east, the fog off the Gull nearly gone.",
+        "sun_color": "#F2C98E",
+        "sun_energy": 1.25,
+        "ambient_color": "#BDB3A2",
+        "ambient_energy": 0.36,
+        "sky_top": "tide",
+        "sky_horizon": "#DCC29A"
+      },
       {
         "if": "quest:a_light_for_saltmarrow=done",
         "sun_color": "#F5C77E",
