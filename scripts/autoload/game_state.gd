@@ -19,6 +19,9 @@ var region_id := ""
 var spawn_point := "default"
 ## Set by SaveSystem on load so the world can restore an exact position.
 var pending_player_position: Variant = null
+## True while a checkpoint is being applied: its quests start and finish silently (Day 104 — the toast stack used to
+## fill the screen with "Quest started/complete" for every quest a late checkpoint set).
+var _quiet := false
 
 
 func _ready() -> void:
@@ -53,13 +56,20 @@ func start_scenario(id: String) -> bool:
 	if scenario.is_empty():
 		push_warning("Unknown scenario '%s'" % id)
 		return false
-	Scenarios.apply(Content.db, world, scenario)
+	apply_scenario(scenario)
 	travel(str(scenario["region"]), str(scenario.get("spawn", "default")))
 	var intro := str(Content.db.game.get("intro_dialogue", ""))
 	if not world.get_flag("intro_seen") and not intro.is_empty():
 		dialogue_requested.emit.call_deferred(intro, "")
 	toast.emit("Checkpoint: " + str(scenario["title"]))
 	return true
+
+
+## Applies a resolved checkpoint to the world without a toast per quest or item.
+func apply_scenario(scenario: Dictionary) -> void:
+	_quiet = true
+	Scenarios.apply(Content.db, world, scenario)
+	_quiet = false
 
 
 func travel(to_region: String, spawn: String = "default") -> void:
@@ -70,6 +80,8 @@ func travel(to_region: String, spawn: String = "default") -> void:
 
 
 func _on_quest_changed(id: String, state: String, _stage: String) -> void:
+	if _quiet:
+		return
 	var title := str(Content.db.get_quest(id).get("title", id))
 	match state:
 		WorldState.QUEST_ACTIVE:
@@ -82,6 +94,8 @@ func _on_quest_changed(id: String, state: String, _stage: String) -> void:
 
 
 func _on_inventory_changed(item_id: String, count: int) -> void:
+	if _quiet:
+		return
 	var item_name := str(Content.db.get_item(item_id).get("name", item_id))
 	toast.emit("%s (%d)" % [item_name, count])
 

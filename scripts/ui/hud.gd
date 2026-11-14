@@ -3,6 +3,8 @@ extends CanvasLayer
 ## Interaction prompt, region title card, toast notifications, and the Greying: the ember
 ## meter, a grey wash as the ember wanes, and the full-screen fade when it runs out.
 
+## The most toasts shown at once (Day 104); older ones are dropped first.
+const TOAST_MAX := 5
 const TOAST_SECONDS := 3.0
 ## Seconds the ember meter lingers once full and out of the fog.
 const METER_LINGER := 1.5
@@ -115,6 +117,13 @@ func show_region_title(text: String) -> void:
 
 
 func show_toast(text: String) -> void:
+	# Day 104: a burst (a checkpoint loaded, a story beat that starts and finishes quests at once) keeps only the newest
+	# TOAST_MAX on screen, so the stack never runs off the bottom of the screen.
+	var shown := _toasts.get_children().filter(func(n: Node) -> bool: return not n.is_queued_for_deletion())
+	while shown.size() >= TOAST_MAX:
+		var oldest: Node = shown.pop_front()
+		_toasts.remove_child(oldest)
+		oldest.queue_free()
 	var label := Label.new()
 	label.text = text
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT

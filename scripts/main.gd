@@ -100,7 +100,7 @@ func _ready() -> void:
 		if resolved.is_empty():
 			push_error("--scenario: unknown checkpoint '%s' (try --scenario=list)" % scenario)
 		else:
-			Scenarios.apply(Content.db, GameState.world, resolved)
+			GameState.apply_scenario(resolved)
 			GameState.region_id = str(resolved["region"])
 			GameState.spawn_point = str(resolved.get("spawn", "default"))
 			fresh = not GameState.world.get_flag("intro_seen")
