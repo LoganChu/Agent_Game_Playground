@@ -215,8 +215,11 @@ func test_never_a_name_in_the_choir() -> void:
 	for id: String in ["iver", "lowsong_rowing_out", "lowsong_light", "lowsong_row_back", "hild", "provost"]:
 		for knot: String in _content().dialogues[id]["knots"]:
 			for step: Dictionary in _content().dialogues[id]["knots"][knot]:
-				if JSON.stringify(step).contains("Isolde"):
-					assert_true(JSON.stringify(step.get("if", "")).contains("cindermoor_choir_"), "%s/%s: %s" % [id, knot, step])
+				# A choice step is checked per option (Day 103: "Her name is Isolde Vane.", told Iver after the ending).
+				var parts: Array = step["choice"] if step.has("choice") else [step]
+				for part: Dictionary in parts:
+					if JSON.stringify(part).contains("Isolde"):
+						assert_true(JSON.stringify(part.get("if", "")).contains("cindermoor_choir_"), "%s/%s: %s" % [id, knot, part])
 
 
 func test_lowsong_assets() -> void:

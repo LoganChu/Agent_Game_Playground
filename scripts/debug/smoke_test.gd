@@ -651,6 +651,27 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	_check(world.get_flag("wrackholm_horn_sounded") == true, "the answering horn's open")
 	_check(_shown_model(main.get("region"), "hearthspire_far_lit.glb") == 1, "the lit Spire south-west past the Wrack")
 	print("Smoke: the epilogue — Wrackholm's homecoming")
+	# Day 103: on to Kindleby, where Hild crossed home in the Mercy's stern; she rows out to Lowsong, quiet under the gold.
+	_npc("oda").interact()
+	_check(_sail(ui, "kindleby"), "the Mercy sails on to Kindleby after the ending")
+	_finish_dialogue(ui, "oda (Kindleby after the ending)")
+	if not await _arrived(main, ui, "kindleby", "Kindleby's quay, after"):
+		return
+	_check(_npc("hild") != null, "Hild home at the chapter's skiff")
+	_npc("hild").interact()
+	_check(_choose(ui, "Row me out to Lowsong."), "Hild rows out after the ending")
+	_finish_dialogue(ui, "hild (Lowsong after the ending)")
+	if not await _arrived(main, ui, "lowsong", "the Low Water, quiet"):
+		return
+	_check(world.get_flag("lowsong_homecoming_seen") == true, "Lowsong's homecoming")
+	_check(_shown_model(main.get("region"), "hearthspire_far_lit.glb") == 1, "the lit Spire in the north")
+	_check(_npc("iver") != null and _npc("hild") != null, "Iver still under the light (key); Hild by the skiff")
+	_npc("hild").interact()
+	_check(_choose(ui, "Take me back to Kindleby."), "Hild rows back")
+	_finish_dialogue(ui, "hild (back from Lowsong after the ending)")
+	if not await _arrived(main, ui, "kindleby", "rowed back to Kindleby, after"):
+		return
+	print("Smoke: the epilogue — Lowsong's homecoming")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the

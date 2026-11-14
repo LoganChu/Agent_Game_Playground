@@ -52,10 +52,11 @@ func _odas_offer(state: WorldState) -> Array[String]:
 	return offered
 
 
+## Hild's Act II placements on Kindleby (the epilogue's, Day 103, is tested in test_lowsong_homecoming).
 func _hilds_placements() -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
 	for placed: Dictionary in _content().get_region(BY)["npcs"]:
-		if placed["npc"] == "hild":
+		if placed["npc"] == "hild" and not JSON.stringify(placed.get("if", "")).contains("cindermoor_lane_out"):
 			out.append(placed)
 	return out
 

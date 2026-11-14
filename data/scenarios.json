@@ -1087,6 +1087,23 @@
         "wrackholm_last_line": "came_in"
       },
       "shot": "--camera=8,2.6,-4:-30,3,14"
+    },
+    {
+      "id": "the_quiet_water",
+      "act": "Act III — The Spire",
+      "title": "The Quiet Water",
+      "inherits": "the_wrack_answers",
+      "region": "lowsong",
+      "spawn": "from_skiff",
+      "description": "After the lit ending Hild crossed home to Kindleby in the Mercy's stern and rowed the Wakebearer out to Lowsong. The Low Water is quiet for the first time in anybody's memory: the Choir has gone in to the fire. The fog's off the skerries, the Hearthspire burns gold in the north past the skerries, and Brother Iver, who never left, has heard the nearest voice get to the end, and been told her name. He's listening now for whatever the light took first.",
+      "flags": {
+        "lanes_ferry_at": "kindleby",
+        "lowsong_out": true,
+        "lowsong_homecoming_seen": true,
+        "lowsong_kept_for": true,
+        "lowsong_iver_told_isolde": true
+      },
+      "shot": "--camera=18,3.2,8:-14,4,-30"
     }
   ]
 }
