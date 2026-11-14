@@ -824,21 +824,31 @@ each .glb < 5 MB.
       (`wrackholm_last_line`): their own hand, "I can count.", Wenna's guess; "Came in." or left. Wenna and Jory
       after-lines; gold with the far Spire south-west when lit. Checkpoint `the_wrack_answers`; the smoke walk sails on
       to Wrackholm. `test_wrackholm_homecoming.gd` (11).
+- [x] [C] **Epilogues, part six (Lowsong) — the quiet water** (Day 103): Hild crossed home in the Mercy's stern and rows
+      out from Kindleby's shingle after the ending; event `lowsong_homecoming` (lit, no singing — gone in to the fire — and
+      the Spire gold in the north; released, no singing, only fog, the step under the light warm; dark, the singing further
+      off and waiting). Key: Iver never left, asks Hild her name; lit "I think she got to the end" and "It took me first." →
+      he'll listen for it (`lowsong_kept_for`); released, he shares the step; dark, Lowsong's list is his own name. Lamp:
+      the rock empty; lit, Iver's lost boat on the bottom and Hild will row the Wakebearer anywhere unasked; dark, "Hild
+      Garrow, for Lowsong". Lowsong fifth, Kindleby last. Iver can be told **Isolde Vane**'s name. Hild/Iver after-lines;
+      Lowsong gold with the far Spire north when lit. Checkpoint `the_quiet_water`; the smoke walk sails on to Kindleby and
+      rows out. `test_lowsong_homecoming.gd` (10).
 
 ### Next up
-1. [C] **Epilogues, part six** (Kindleby Day 97, Saltmarrow Day 98, Thornwold Day 99, the fen Day 101, Wrackholm and the
-   Book's last line Day 102): **Lowsong** (Hild's skiff; Iver; the Choir's voices gone quiet there if released) —
-   Lowsong has no Mercy port, so Hild's skiff from Kindleby, or an event on Kindleby. `wrackholm_homecoming` /
-   `fen_homecoming` are the model: per ending, coloured by the island's burning, an after-line per NPC, lit → gold
-   override + `hearthspire_far_lit` (check each from the spawn). Then **a final epilogue/credits card** once every island's
-   beat is seen (it could read `wrackholm_last_line`: "Came in."). Gull's Head and Shingle Point could take the lit
-   override too. **Aldous before the Provost** on Kindleby (he says "when Oda's going" from the ridge;
-   `thornwold_aldous_met_wynn`) is the natural next beat for him — the `midwinter` Aldous (dark) waits for a midwinter
-   round, if one is ever played. Wrackholm leftovers: Wenna could stand at the jetty's foot after the homecoming (she
-   goes back to the horn); the dark ending's chalk marks on the doorpost could be a prop. Fetch and reset `main` before
-   trusting it.
+1. [P] **Polish seventeen** — due now (Day 100 was sixteen; ~Day 105 at the latest). Candidates under 1a.
+2. [C] **The final card** (every island's epilogue is now written: Kindleby 97, Saltmarrow 98, Thornwold 99, the fen 101,
+   Wrackholm 102, Lowsong 103): an epilogue/credits card once every homecoming's been seen — or offered by Oda once the
+   player has seen "enough" of them (decide: all six, or any, with the rest optional). It could read
+   `wrackholm_last_line` ("Came in."), `lowsong_kept_for`, `wrackholm_held_for`, `fen_hesper_tussock`, `thornwold_bram_cut_row`.
+   Also open: Gull's Head and Shingle Point could take the lit override; **Aldous before the Provost** on Kindleby (he says
+   "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) — the chapter is still on Cindermoor after the ending
+   (only Hild came home), so that meeting wants Oda to run the lane in again, or the chapter to come home first. The dark
+   ending's midwinter round (Gull 1, Thornwold 2, fen 3, Wrackholm 4, Lowsong 5, Kindleby last) is now fully ordered if
+   it's ever played. Wrackholm leftovers: Wenna at the jetty's foot after the homecoming; the chalk marks as a prop.
+   Lowsong leftovers: a warm-step cue (released) and Iver's boat on the bottom (lit, lamp) are text-only — props would
+   help. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish seventeen candidates** (due by ~Day 105 — do it next run if Lowsong won't fit; Day 100 was sixteen): the far Spire reads pale in the fen's and Wrackholm's horizon wash (Compatibility; judge on Vulkan, and
+1a. [P] **Polish seventeen candidates** (do it next run; Day 100 was sixteen): the far Spire reads pale in the fen's, Wrackholm's and Lowsong's horizon wash (Compatibility; judge on Vulkan, and
    the `heron_mere` region could take the lit override too); the lantern room's east door leaf
    clips the near plane when the lifted camera passes over it (black corner at bottom right from the spawn — give the
    shell's door a camera collider, or nudge the spawn); a **two-speaker shot in tight spots** (the Mercy's deck, #9) and a

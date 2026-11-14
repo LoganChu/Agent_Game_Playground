@@ -2,6 +2,74 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-14 09:00 UTC — Day 103: Lowsong's homecoming — the quiet water (content)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session, so bpy wasn't installed.
+  HEAD was detached again; I reset `main` to `origin/main` (Day 102's `40d9c30`).
+- **Content (ROADMAP *Next up* #1, Epilogues part six): Lowsong** — the last island's epilogue.
+  - **Getting there.** Lowsong has no Mercy port, and the chapter (Hild included) was still on Cindermoor after the
+    ending. Now **Hild crossed home in the Mercy's stern** ("Nobody does see you, in a boat") and is back at the
+    chapter's skiff on Kindleby, scraping; "Row me out to Lowsong." works as in Act II. Her Cindermoor placements end
+    at the lane out.
+  - **The homecoming** (arrival event `lowsong_homecoming`, once):
+    - **Lit**: no singing. The Choir has gone in to the fire. Hild stops rowing to listen to nothing. The fog is off
+      the Low Water and the Spire is gold in the north.
+    - **Released**: no singing, only fog ("The door's open. There's nobody in the room."). The light burns as if
+      somebody sat up with it, and the step under its door is warm of a morning.
+    - **Dark**: the singing further off, toward the dark Spire, and to Iver it sounds like waiting.
+  - **Per Lowsong's burning:**
+    - **key**: Iver never left. He asks Hild her name.
+      - Lit: "I think she got to the end." "It took me first." → he'll listen for it (`lowsong_kept_for`).
+      - Released: she went by closest, and he shares the step with whatever sits there.
+      - Dark: Lowsong's midwinter list is one name, his own.
+    - **lamp**: the rock is empty.
+      - Lit: Iver's lost boat lies plain on the bottom. "It took me first." → Hild will row the Wakebearer anywhere,
+        unasked.
+      - Released: the step is warm and "It isn't Iver."
+      - Dark: "Hild Garrow, for Lowsong, since there's nobody."
+    - In the dark round from the Gull, Lowsong is fifth and Kindleby last.
+  - **Iver told Isolde's name** (key, once it's been read in the Spire's book), per ending. After-lines for Hild (on
+    Kindleby and on the landing) and Iver.
+  - **Lit:** gold light/fog overrides, a thinner greying, and `hearthspire_far_lit` at [-20, -6, -140] (north).
+- **Tests:** `test_lowsong_homecoming.gd` (10) covers:
+  - Hild home and rowing out
+  - the homecoming per ending, once
+  - Iver or the empty rock
+  - kept-for
+  - fifth
+  - Isolde's name
+  - after-lines
+  - gold north
+  - rowing back
+  - checkpoint `the_quiet_water`
+
+  Two older tests were adjusted. The Isolde-name guard now checks choice options one by one. The Act II Hild-placement
+  count skips the epilogue placement. The smoke walk sails on to Kindleby and rows out to Lowsong and back.
+
+Screenshot: `docs/checkpoints/the_quiet_water.png`.
+
+**Decisions**
+- **Hild comes home first, the chapter doesn't.** Tobin's "When the Long Book's put away" still stands for the Provost
+  and the rest. Hild is the boatwoman, and the skiff and Lowsong are hers to see to. That's why the Provost sends her.
+  It also leaves **Aldous before the Provost** needing the chapter home, or the lane in run again (noted in the ROADMAP).
+- **Lowsong's ending is about quiet.** Every other island's epilogue adds a light or a list. On Lowsong, where the Choir
+  was heard closest, the lit and released endings take the singing away, and the dark ending changes how it sounds.
+  Iver, who listened for months, gets the one thing he wanted in each case: an ending heard, company, or a list with
+  his own name on it.
+- **"It took me first." gets a promise on Lowsong, not a record.** Iver listens for it (the lit counterpart of Wenna's
+  "Held for"). With the rock empty, Hild offers to row.
+- **The round order is settled.** Gull 1, Thornwold 2, fen 3, Wrackholm 4, Lowsong 5, Kindleby last. Lowsong is fifth
+  because the Mercy brings the ember to Kindleby, Hild rows it out and back, and Kindleby keeps its "here last".
+
+**Problems**
+- The far Spire is pale in Lowsong's horizon wash in Compatibility, the same issue as the fen and Wrackholm (polish
+  seventeen).
+
+**Next run should**
+1. **Polish seventeen** (ROADMAP #1, due: Day 100 was sixteen). Then the final card (#2): every island's epilogue is
+   written now. Fetch and reset `main` before trusting it.
+
 ## 2026-11-13 21:00 UTC — Day 102: Wrackholm's homecoming — the Wrack answers, and the Book's last line (content)
 
 **Did**

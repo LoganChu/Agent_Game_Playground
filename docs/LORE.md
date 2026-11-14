@@ -1746,8 +1746,8 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     struck: the struck name, this one left standing; left: a mark, no name). **Oriel signs under them** — "Oriel Sayre,
     High Keeper, who put it out" (climb; own, without being asked); in her boat (boat) nobody writes her in. "That's the
     Long Book shut." **The Long Book is shut** — nobody living had shut it. **Act III ends** (the `act3` card).
-  - *(Open for the epilogues: each island after the ending — the Gull (Day 98), the Ridge (Day 99), the Heron, the Wrack, the Vigil Light,
-    Lowsong — under a lit Spire, a Reach whose lights keep the Choir, or a ring that chooses its own midwinter.)*
+  - *(Open for the epilogues: each island after the ending — the Gull (Day 98), the Ridge (Day 99), the Heron (Day 101), the Wrack (Day 102), the Vigil Light (Day 97),
+    Lowsong (Day 103) — under a lit Spire, a Reach whose lights keep the Choir, or a ring that chooses its own midwinter.)*
 - **The lane out (Day 97, the epilogues begin — `cindermoor_lane_out`).** "No lane off this water till the Spire's lit, or
   till I find one": Oda finds one in every ending. At the Boat Stair she tells the night as the Mercy saw it, once (lit:
   "a door in the sky" left open; released: something went past "out, not in", singing, going away, and the crew stood up
@@ -1902,6 +1902,36 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   - **came_in** — the Wakebearer writes **"Came in."** under it, a fare closed: "Nine hundred years of Keepers in this Book,
     and not one ever came back to close their own." **left** — "A fare's a fare. Paid's paid." Wenna shuts the Book; this
     time the Wakebearer watches her do it.
+- **Lowsong's homecoming (Day 103, the epilogues part six — event `lowsong_homecoming`).** Lowsong has no Mercy port.
+  **Hild crossed home to Kindleby in the Mercy's stern** ("Nobody does see you, in a boat; that's the half of rowing"):
+  the Provost sent her to see to the skiff and to go out to Lowsong and tell him. She rows the Wakebearer out past the
+  candles as before. **Cindermoor lies due north of the Low Water.** (If Oriel took the boat: "She's got the tide to make
+  her mind up." If Iver burned his lamp he stays with the chapter: "He wanted to come. He couldn't think why, so he didn't.")
+  - **lit** — **no singing**: the Choir has gone in to the fire. Hild stops rowing to listen to nothing ("Thirty years this
+    water's sung at me ... Now there's nothing to listen to, and I've stopped"). The fog off the Low Water, the cairns
+    standing up "like a row of people waiting for a boat", the Spire a gold point low in the north.
+  - **released** — **no singing**, only fog, "wet, and grey, and nobody in it" ("The door's open. There's nobody in the
+    room."); Lowsong's light burns as if somebody were sitting up with it, and **the step under its door is warm of a
+    morning** (the Choir sitting up with the lights, as at Kindleby and the Wrack).
+  - **dark** — the singing further off, out toward the dark Spire; to Iver it sounds like **waiting rather than trying**,
+    "like somebody at a window". The hood-pin stays in the satchel ("let her").
+  - **key (Iver never left)** — he stands where he always stood, lamp held out low, and **asks Hild her name** ("Hild. I'll
+    keep that." He won't; she'll tell him again). Lit: **"I think she got to the end"** — the first thing he ever heard
+    finished; "It took me first." → **he'll listen for it** over the Low Water (`lowsong_kept_for`), and Hild tells him the
+    Provost wrote him under the light, "He'll not know. I will." Released: she went by closest of all, going somewhere,
+    and he was glad for her; **he sits on the other end of the step now** ("It's a short step, but we manage"). Dark:
+    **Lowsong's midwinter list is one name long — his own** ("it looks like a name. I don't know what I expected").
+  - **lamp (the rock empty)** — the bothy door open as Iver left it; nobody's been out ("It keeps itself, Iver says. Then he
+    laughs, because how would he know?"). Lit: **Iver's lost boat lies plain on the sand off the north rock**; "It took me
+    first." → **Hild will row the Wakebearer anywhere the skiff goes, no asking the Provost** (`lowsong_kept_for`).
+    Released: the step warm ("It isn't Iver"). Dark: **Hild stands for Lowsong** — "Hild Garrow, for Lowsong, since there's
+    nobody" — and her hand shook writing it.
+  - **The midwinter round** (dark, "round from the Gull"): the Mercy brings the ember to Kindleby fifth, Hild rows it out
+    to Lowsong and back in for the candles: **Lowsong fifth, Kindleby last** (consistent with Tobin's "here last").
+  - **Iver told her name** (`lowsong_iver_told_isolde`, key, once the Wakebearer has read it in the Spire's book): he learned
+    the story on Kindleby's steps "and never once thought of her as somebody who'd be tired". Lit: "She got to the end,
+    then. Isolde did." Released: he'll say it to the step of a morning. Dark: "You don't shout a person's name across water
+    at night. I'll keep it for when she gets her word out."
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks

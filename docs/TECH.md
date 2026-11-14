@@ -755,6 +755,15 @@ a room this small (11 m square) taught:
   +Z south). The Book's last line is a Wenna hub knot (`last_line`, gated on the homecoming and `wrackholm_last_line=`);
   `wenna`/`jory` `start` jump to an `after` knot once the homecoming's been seen, so the old stacked greetings don't
   pile up. Tests read hub choices through `play_dialogue`'s `offered` array (choice texts aren't in the returned lines).
+- **Lowsong's epilogue (Day 103):** Lowsong has no Mercy port, so the way out is still Hild's skiff from Kindleby. After
+  the lane out Hild is placed on Kindleby's shingle (and on Lowsong's landing while `lowsong_out`); her Cindermoor
+  placements gained `!flag:cindermoor_lane_out`. The epilogue placements carry `cindermoor_chapter_came`,
+  `cindermoor_chapter_up` and `cindermoor_morning` too: the one-NPC-one-place validator reasons per flag, so it can't
+  infer those from `cindermoor_lane_out` and needs them spelled out to see the placements are exclusive. `lowsong_homecoming`
+  is appended to Lowsong's events (`lowsong_rowing_out` needs `!lowsong_landed`, so the order doesn't matter, and
+  `test_lowsong` reads `events[0]`). `hild`/`iver` `start` jump to `epilogue` knots first. Lit: gold `light`/`fog`
+  overrides, a thinner greying rect (the old 0.25 one gained `!lit`), and `hearthspire_far_lit` at [-20, -6, -140] (north;
+  -Z is north). The Isolde-name tests now check a choice step per option.
 
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:
