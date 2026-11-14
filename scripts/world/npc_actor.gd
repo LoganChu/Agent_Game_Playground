@@ -23,6 +23,10 @@ const TURN_SPEED := 6.0
 const CIRCUIT_HOLD := 1.6
 ## How long an NPC takes to fade in on arriving, or out on leaving, mid-visit (s).
 const FADE_SECONDS := 0.8
+## The nameplate's height over a standing NPC, and over a seated one (Day 104: at 2 m it floated a head and a half above
+## Aldous on his bench or Hesk at her net; seated heads top out near 1.3 m).
+const NAMEPLATE_HEIGHT := 2.0
+const NAMEPLATE_SEATED_HEIGHT := 1.6
 
 var npc_id := ""
 var npc_data: Dictionary = {}
@@ -60,6 +64,11 @@ func setup(id: String, data: Dictionary) -> void:
 ## Whether this NPC sits (its placed `idle` is a seated style): the conversation framing looks lower at them.
 func is_seated() -> bool:
 	return CharacterRig.is_seated_style(str(npc_data.get("idle", "breathe")))
+
+
+## Where the nameplate hangs: lower over someone seated.
+func nameplate_height() -> float:
+	return NAMEPLATE_SEATED_HEIGHT if is_seated() else NAMEPLATE_HEIGHT
 
 
 ## "Talk to <name>" and the name over the head, by the NPC's conditional `names`.
@@ -369,7 +378,7 @@ func _build_body() -> void:
 	_label = label
 	label.text = ContentDatabase.npc_display_name(npc_data, GameState.world, npc_id)
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	label.position = Vector3(0, 2.0, 0)
+	label.position = Vector3(0, nameplate_height(), 0)
 	label.font_size = 40
 	label.outline_size = 8
 	label.modulate = PropFactory.color("bone")

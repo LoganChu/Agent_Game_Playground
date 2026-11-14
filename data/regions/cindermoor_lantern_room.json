@@ -209,10 +209,22 @@
             5.4,
             0
           ]
+        },
+        {
+          "size": [
+            1.2,
+            2.6,
+            0.3
+          ],
+          "offset": [
+            4.9,
+            0.04,
+            -0.92
+          ]
         }
       ],
       "shadow": false,
-      "note": "The room's shell: knee walls, the soot-black panes, the door in the east wall swung back, the roof's dark pyramid (Day 95). The slab collider (underside 5.1 m, under the pyramid all the way to the panes) keeps the camera inside without pulling the arm in at its usual height (~4.5 m)."
+      "note": "The room's shell: knee walls, the soot-black panes, the door in the east wall swung back, the roof's dark pyramid (Day 95). The slab collider (underside 5.1 m, under the pyramid all the way to the panes) keeps the camera inside without pulling the arm in at its usual height (~4.5 m). The second box is the oak leaf swung back by the door (Day 104): the lifted camera used to pass through it from the spawn."
     },
     {
       "model": "res://assets/models/dressing/firstflame_cradle.glb",
