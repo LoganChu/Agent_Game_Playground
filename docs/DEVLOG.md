@@ -2,6 +2,45 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-14 21:00 UTC — Day 104: polish seventeen — quiet checkpoints, seated nameplates, the door leaf (polish)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 103's `063dc0c`). Baseline (780 tests + smoke + launch) green before any edit.
+- **Polish seventeen (ROADMAP *Next up* #1, due: Day 100 was sixteen).**
+  - **Checkpoints load quietly.** Loading a late checkpoint (`--scenario`, or the pause menu's Chapter select) toasted
+    "Quest started / Quest complete" for every quest it set: forty-odd lines running off the bottom of the screen and
+    sitting over the region's title card for seconds. `GameState.apply_scenario` now mutes quest and item toasts while
+    the checkpoint sets the world up; both entry points use it.
+  - **The toast stack is capped** at `Hud.TOAST_MAX` (5), dropping the oldest first, so a story beat that starts and
+    finishes several quests at once can't fill the screen either.
+  - **Nameplates over seated NPCs hang lower** (1.6 m instead of 2 m: `NpcActor.nameplate_height`, the same seated
+    styles as Day 100's framing). Aldous's name now sits just over his head on the bench
+    (`docs/screenshots/2026-11-14-pm-seated-nameplate.png`).
+  - **The lantern room's door leaf is solid.** The oak leaf swung back by the east door had no collider, so the lifted
+    camera could pass through it from the spawn (Day 100's black corner), and the Wakebearer could walk through it. A
+    1.2 × 2.6 × 0.3 m box beside the doorway now stops both; the doorway itself stays clear.
+  - **The lit ending reaches the side regions.** Gull's Head and Shingle Point take Saltmarrow's gold light and a nearly
+    clear fog when the Spire is lit, and the Heron's mere takes the fen's (the sun low in the south). Before, walking
+    from the gold harbor up to the Gull went back to the old "relit beacon" light.
+- **Tests:** `test_polish_seventeen.gd` (5): a checkpoint applies with no toasts (and play toasts after it); the toast
+  cap keeps the newest; the seated nameplate (and the built label uses it); the door leaf's collider beside a clear
+  doorway; the three regions' lit light and fog go first and are gold only when lit. 785 tests + smoke + launch green.
+
+**Decisions**
+- **Mute at the source, not in the HUD.** Checkpoints are the only place the world is rebuilt from a list of quests,
+  so the mute lives in `GameState` around `Scenarios.apply`; the HUD cap is a separate safety net for real play.
+- **No far Spire on Gull's Head or Shingle Point yet.** The lit light is a pure data change; placing the Spire needs its
+  bearing worked out in each region's own frame (each island region is laid out independently), and a wrong bearing
+  would contradict Saltmarrow's "low in the north-east". Logged under polish eighteen.
+- **The door leaf's wedge in the first frame stays for now.** With the collider in, the leaf reads as a door in the
+  foreground, not a clipped black corner. Framing it out means changing the arrival facing, which other screenshots and
+  the Day 95 rule ("spawn diagonal, facing the centre") depend on; it's noted as a polish-eighteen candidate.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **The final card** (every island's epilogue is written). A systems session is overdue too
+   (#1c). Fetch and reset `main` before trusting it.
+
 ## 2026-11-14 09:00 UTC — Day 103: Lowsong's homecoming — the quiet water (content)
 
 **Did**

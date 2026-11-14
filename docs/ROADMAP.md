@@ -835,28 +835,32 @@ each .glb < 5 MB.
       rows out. `test_lowsong_homecoming.gd` (10).
 
 ### Next up
-1. [P] **Polish seventeen** — due now (Day 100 was sixteen; ~Day 105 at the latest). Candidates under 1a.
-2. [C] **The final card** (every island's epilogue is now written: Kindleby 97, Saltmarrow 98, Thornwold 99, the fen 101,
+1. [C] **The final card** (every island's epilogue is now written: Kindleby 97, Saltmarrow 98, Thornwold 99, the fen 101,
    Wrackholm 102, Lowsong 103): an epilogue/credits card once every homecoming's been seen — or offered by Oda once the
    player has seen "enough" of them (decide: all six, or any, with the rest optional). It could read
    `wrackholm_last_line` ("Came in."), `lowsong_kept_for`, `wrackholm_held_for`, `fen_hesper_tussock`, `thornwold_bram_cut_row`.
-   Also open: Gull's Head and Shingle Point could take the lit override; **Aldous before the Provost** on Kindleby (he says
+   Also open: **Aldous before the Provost** on Kindleby (he says
    "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) — the chapter is still on Cindermoor after the ending
    (only Hild came home), so that meeting wants Oda to run the lane in again, or the chapter to come home first. The dark
    ending's midwinter round (Gull 1, Thornwold 2, fen 3, Wrackholm 4, Lowsong 5, Kindleby last) is now fully ordered if
    it's ever played. Wrackholm leftovers: Wenna at the jetty's foot after the homecoming; the chalk marks as a prop.
    Lowsong leftovers: a warm-step cue (released) and Iver's boat on the bottom (lit, lamp) are text-only — props would
-   help. Fetch and reset `main` before trusting it.
+   help. (Gull's Head, Shingle Point and the Heron's mere took the lit override: Day 104.) Fetch and reset `main` before
+   trusting it.
+1c. [S] **A systems session is overdue** (last: Day 97's after-the-ember): candidates — gamepad rebinding (#5), the
+   Cindermoor morning flag and rest prompt (#2), or autosave (Milestone 3 save item; "Return to title" relies on manual
+   saves).
 
-1a. [P] **Polish seventeen candidates** (do it next run; Day 100 was sixteen): the far Spire reads pale in the fen's, Wrackholm's and Lowsong's horizon wash (Compatibility; judge on Vulkan, and
-   the `heron_mere` region could take the lit override too); the lantern room's east door leaf
-   clips the near plane when the lifted camera passes over it (black corner at bottom right from the spawn — give the
-   shell's door a camera collider, or nudge the spawn); a **two-speaker shot in tight spots** (the Mercy's deck, #9) and a
-   third speaker; the lift outdoors needs an owner's feel check (it triggers under 60 % of the reach — trees and huts at
-   the back now raise the camera instead of snapping it in; tune `CAMERA_LIFT_CLEAR` if it's too eager); the last landing
-   reads very dark in Compatibility (judge on Vulkan); the robe/white read on Oriel (Vulkan, #4); a placement-to-placement
-   move could walk rather than crossfade (Day 94 fades); the nameplate floats at 2 m over seated NPCs too (could sit
-   lower for SEATED_STYLES).
+1a. [P] **Polish eighteen candidates** (due by ~Day 109; Day 104 was seventeen): the far Spire reads pale in the fen's,
+   Wrackholm's and Lowsong's horizon wash (Compatibility; judge on Vulkan); a **two-speaker shot in tight spots** (the
+   Mercy's deck, #9) and a third speaker; the lift outdoors needs an owner's feel check (it triggers under 60 % of the
+   reach; tune `CAMERA_LIFT_CLEAR` if it's too eager); the last landing reads very dark in Compatibility (judge on
+   Vulkan); the robe/white read on Oriel (Vulkan, #4); a placement-to-placement move could walk rather than crossfade
+   (Day 94 fades); the lantern room's spawn shows the swung-back door leaf as a brown wedge at the right edge of the
+   first frame (it has a collider since Day 104; nudging `spawn_facing` a little north would frame it out); the far
+   Spire isn't placed on Gull's Head or Shingle Point (their lit light came Day 104 — the Spire's bearing from each
+   region's own frame needs working out first). (Done Day 104: the lantern room's door leaf collider, the seated
+   nameplate, checkpoint toasts, the toast cap, the lit override on the three Saltmarrow/fen side regions.)
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
    down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); (Oriel at the chapter's next sitting: Day 95); Iver, Wenna and Ness have no lines yet for the
@@ -1006,7 +1010,7 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 93 (what she was to you). Last polish: Day 94 (pass fifteen); **pass sixteen due by ~Day 102**.
+- Last content session: Day 103 (Lowsong's homecoming). Last polish: Day 104 (pass seventeen); **pass eighteen due by ~Day 109**.
 - Three Garrows (Wenna the Wrackholm lane-warden, Sister Hild, Ness of the Unmoored), probably by accident: decide whether
   Garrow is just a common Tidewright name, or a thread (Hild relit the cresset Ness kept doused).
 - Last polish/debt session: Day 80 (polish eleven: what's still owed on the act cards, the more-below cue, the Bend

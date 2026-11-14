@@ -155,6 +155,11 @@ talks, for screenshots. **Seated (Day 100):** an NPC whose placed `idle` is in `
 `bottle`, `mend` — not `still`, which the standing Oriel and Ness use) is framed lower: `frame_towards(offset, low)`
 drops the pivot `DIALOGUE_LOW_DROP` (0.4 m) and looks across at `DIALOGUE_LOW_PITCH` (-9°); a group shot drops by the
 share of those framed who sit (`frame_also(point, low)`, `framed_low()`), so a seated figure clears the dialogue box.
+**Nameplates (Day 104):** an NPC's Label3D hangs at `NAMEPLATE_HEIGHT` 2 m, or `NAMEPLATE_SEATED_HEIGHT` 1.6 m when its
+placed idle is a seated style (`NpcActor.nameplate_height`). **Toasts:** at most `Hud.TOAST_MAX` (5) at once; a
+checkpoint (`--scenario`, the Chapter select) goes through `GameState.apply_scenario`, which mutes the quest/item toasts
+while it sets the world up.
+
 **Reach (Day 100):** a region's `camera_distance` (3–7 m, `Player.set_camera_reach`, set on every region entry; the
 validator checks the range) shortens the arm in a small interior; a conversation still frames at 4.4 m and a group
 shot never reaches past it. **The lift (Day 100):** outside conversations, each frame `Player._update_lift` casts the
@@ -1281,6 +1286,11 @@ WorldState.to_dict()}` (the world: `flags`, `quests`, `inventory`, `collected`, 
 save without it simply starts walkers from their placements). Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
 
 ## Testing
+- `tests/test_polish_seventeen.gd` — (Day 104) a checkpoint applies quietly (`GameState.apply_scenario`: no toast per
+  quest or item; play toasts afterwards); the HUD toast stack keeps only the newest `Hud.TOAST_MAX` (5); the nameplate
+  over a seated NPC hangs at `NpcActor.NAMEPLATE_SEATED_HEIGHT` (1.6 m, standing 2 m); the lantern room's door-leaf
+  collider beside a clear doorway; the lit ending's light and fog overrides on Gull's Head, Shingle Point and the
+  Heron's mere (first in each list, gold horizon only when lit).
 - `tests/test_polish_sixteen.gd` — (Day 100) the Lamp's `names` (Wynn Sallow once told; the Lamp if left; the
   dialogue box too); seated styles and `NpcActor.is_seated`; seated framing (the pivot drop, the shallower pitch, half
   for a group of one seated and one standing, home after); a region's reach (the arm, conversations inside it, the
