@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:cindermoor_lane_out",
+        "goto": "epilogue"
+      },
+      {
         "if": "flag:cindermoor_chapter_came",
         "goto": "cindermoor"
       },
@@ -599,6 +603,131 @@
       },
       {
         "end": true
+      }
+    ],
+    "epilogue": [
+      {
+        "if": "flag:lowsong_out",
+        "goto": "epilogue_lowsong"
+      },
+      {
+        "if": "flag:lowsong_homecoming_seen",
+        "goto": "epilogue_kindleby"
+      },
+      {
+        "say": "narrator",
+        "text": "Sister Hild is on the shingle at the chapter's skiff, stooped at its bow with the scraper, taking off three months of weed a strake at a time."
+      },
+      {
+        "say": "hild",
+        "text": "I came over in the Mercy's stern. You didn't see me. Nobody does, in a boat; that's the half of rowing. The Provost said somebody's to see to the skiff, and somebody's to go out to Lowsong and tell him."
+      },
+      {
+        "say": "hild",
+        "text": "Sister Oriel's in her boat. She doesn't need me to sit with her. She's got the tide to make her mind up.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "hild",
+        "text": "Iver's staying with the chapter. He wanted to come. He couldn't think why, so he didn't.",
+        "if": "flag:lowsong_beacon_burned=lamp"
+      },
+      {
+        "say": "hild",
+        "text": "Tell who what, though? He'll not know me. He asked me my name last time.",
+        "if": "flag:lowsong_beacon_burned=key"
+      },
+      {
+        "say": "hild",
+        "text": "She's clean enough. Will you come out? It's quicker with somebody in the bow to look at."
+      },
+      {
+        "goto": "row_choice"
+      }
+    ],
+    "epilogue_kindleby": [
+      {
+        "say": "narrator",
+        "text": "Hild is at the skiff again, though there's nothing left on her bottom to scrape."
+      },
+      {
+        "say": "hild",
+        "text": "I keep looking north for the gold. Then I look at the oars, and they're the same oars.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "hild",
+        "text": "I row out of an evening sometimes now, just to hear it quiet. I'd never have said I'd miss a noise like that.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "hild",
+        "text": "Iver's list'll want fetching in before midwinter. Lowsong's got no boat of its own. Never has had.",
+        "if": [
+          "flag:cindermoor_cradle_choice=dark",
+          "flag:lowsong_beacon_burned=key"
+        ]
+      },
+      {
+        "say": "hild",
+        "text": "I've written it. Hild Garrow, for Lowsong. My hand shook. I've not told the Provost yet.",
+        "if": [
+          "flag:cindermoor_cradle_choice=dark",
+          "flag:lowsong_beacon_burned=lamp"
+        ]
+      },
+      {
+        "say": "hild",
+        "text": "Anywhere the skiff'll go. I said it and I meant it.",
+        "if": "flag:lowsong_kept_for"
+      },
+      {
+        "say": "hild",
+        "text": "Back out? She's ready when you are."
+      },
+      {
+        "goto": "row_choice"
+      }
+    ],
+    "epilogue_lowsong": [
+      {
+        "say": "narrator",
+        "text": "Hild stands on the landing by the drawn-up skiff, an oar stood beside her, looking out over the Low Water."
+      },
+      {
+        "say": "hild",
+        "text": "You can see the bottom all the way to Kindleby, near enough. I keep wanting to tell somebody.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "hild",
+        "text": "Quiet as a church with the door open. Take your time. Nobody's waiting.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "hild",
+        "text": "She's further off. I'm still not stopping to listen. I'm stood still, which is different.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "hild",
+        "text": "He'll ask my name again next time. I'll tell him again. It's no trouble. It's a short name.",
+        "if": "flag:lowsong_beacon_burned=key"
+      },
+      {
+        "choice": [
+          {
+            "text": "Take me back to Kindleby.",
+            "set": {
+              "lowsong_out": false
+            },
+            "goto": "row_back"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
       }
     ]
   }

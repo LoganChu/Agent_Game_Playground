@@ -1325,6 +1325,18 @@
         "came_in",
         "left"
       ]
+    },
+    "lowsong_homecoming_seen": {
+      "description": "The epilogue on Lowsong (Day 103, arrival event lowsong_homecoming): Hild rows the Wakebearer out from Kindleby after the ending (she crossed home in the Mercy's stern). Lit: no singing (they've gone in to the fire), the fog off the Low Water, the Spire a gold point in the north; released: no singing, only fog, the light burning as if somebody sat up with it (the step warm); dark: the singing further off, waiting more than trying. Per Lowsong's burning: key — Iver still under the light, asking Hild her name (lit: 'I think she got to the end'; released: she went by and the step is shared; dark: Lowsong's list, his own name on it); lamp — nobody on the rock, Hild looks in for Iver (dark: she stands for Lowsong herself). Round from the Gull, Lowsong is fifth and Kindleby last.",
+      "default": false
+    },
+    "lowsong_kept_for": {
+      "description": "Lit ending, at Lowsong's homecoming, the Wakebearer said the light took them first: with Iver there (key), he'll listen for anything of theirs that comes back over the Low Water; with the rock empty (lamp), Hild will row them wherever the skiff goes, unasked.",
+      "default": false
+    },
+    "lowsong_iver_told_isolde": {
+      "description": "After Lowsong's homecoming (Day 103, key burned: Iver still on the rock), the Wakebearer told Iver the nearest voice's name, Isolde Vane: lit, 'She got to the end, then'; released, he says it to the warm step of a morning; dark, he keeps it for when she gets her word out. Replaces asking who she is.",
+      "default": false
     }
   }
 }

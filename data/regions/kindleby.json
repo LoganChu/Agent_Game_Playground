@@ -1282,6 +1282,25 @@
         "flag:thornwold_hob_ladder=gone"
       ],
       "note": "On the east wall with his lantern held out, counting candles."
+    },
+    {
+      "npc": "hild",
+      "position": [
+        -2.3,
+        0,
+        5.05
+      ],
+      "rotation_y": 255,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_lane_out",
+        "!flag:lowsong_out"
+      ],
+      "note": "Day 103, the epilogue: Hild crossed home in the Mercy's stern after the ending and is back at the chapter's skiff, scraping.",
+      "model": "res://assets/models/characters/hild_scraping.glb",
+      "idle": "scrape"
     }
   ],
   "objects": [

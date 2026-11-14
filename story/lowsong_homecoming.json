@@ -1,0 +1,381 @@
+{
+  "id": "lowsong_homecoming",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Hild rows the way she always has: plainly, and without hurry. Kindleby's candles go small astern, all forty of them lit along the wall, then a row of sparks, then a smudge.",
+        "sound": "oars",
+        "note": "Day 103, the epilogue on Lowsong (arrival event lowsong_homecoming): Hild rows the Wakebearer out from Kindleby after the ending. Per cindermoor_cradle_choice, and per Lowsong's burning: key (Iver kept the light, listening) or lamp (Iver went home; the rock has nobody)."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "lit_water"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "released_water"
+      },
+      {
+        "goto": "dark_water"
+      }
+    ],
+    "lit_water": [
+      {
+        "say": "narrator",
+        "text": "Then the skerries, and no singing. Hild pulls a stroke or two before she notices. Then she stops, the oars dripping, and listens to nothing."
+      },
+      {
+        "say": "hild",
+        "text": "...They've gone in. To the fire. Thirty years this water's sung at me, and I always said I'd not stop and listen. Now there's nothing to listen to, and I've stopped."
+      },
+      {
+        "say": "narrator",
+        "text": "The fog's gone off the Low Water. The skerries lie black and plain all the way to the rock, and the old brothers' cairns stand up on them like a row of people waiting for a boat. Low in the north, past the last of the skerries, the Hearthspire burns: a gold point that doesn't flicker."
+      },
+      {
+        "say": "hild",
+        "text": "Twelve years I've rowed this looking at your ember. I could row it looking at that. ...I'll go on looking at you, if it's all the same."
+      },
+      {
+        "goto": "landing"
+      }
+    ],
+    "released_water": [
+      {
+        "say": "narrator",
+        "text": "Then the skerries, and no singing. The fog lies on the Low Water as thick as it ever has, and it's only fog: wet, and grey, and nobody in it."
+      },
+      {
+        "say": "hild",
+        "text": "Evening office and the door shut, I used to say. ...The door's open. There's nobody in the room."
+      },
+      {
+        "say": "narrator",
+        "text": "Ahead on the rock Lowsong's light burns steadier than a fire has any right to, the way the Vigil Light burned the night you came home: as if somebody were sitting up with it."
+      },
+      {
+        "goto": "landing"
+      }
+    ],
+    "dark_water": [
+      {
+        "say": "narrator",
+        "text": "Then the skerries, and the singing: there still, but further off than it was, out past the rocks to the north where the Spire stands dark. The way voices in the next room go quiet when somebody shuts the door.",
+        "sound": "choir_far"
+      },
+      {
+        "say": "hild",
+        "text": "Still at it. ...She said come up at midwinter and tell them how the six did, you said. They'll be wanting to hear about this one, then.",
+        "if": "flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "hild",
+        "text": "Still at it. Somebody'll have to go up at midwinter and tell them how the six did.",
+        "if": "!flag:cindermoor_choir_answered=named"
+      },
+      {
+        "say": "narrator",
+        "text": "In your hand the ember burns the way it always has, and Hild threads the rocks by it without looking round."
+      },
+      {
+        "goto": "landing"
+      }
+    ],
+    "landing": [
+      {
+        "if": "flag:lowsong_beacon_burned=key",
+        "goto": "iver"
+      },
+      {
+        "goto": "empty"
+      }
+    ],
+    "iver": [
+      {
+        "say": "narrator",
+        "text": "Under the light, on the rock below its door, Brother Iver stands where he has always stood: his little lamp held out low over the water, his head turned to it, silver to the knee. He never left. He didn't know there was anywhere to leave for."
+      },
+      {
+        "say": "iver",
+        "text": "A boat. ...Who's that rowing?"
+      },
+      {
+        "say": "hild",
+        "text": "Hild. Hild Garrow. I row the skiff."
+      },
+      {
+        "say": "iver",
+        "text": "Hild. I'll keep that."
+      },
+      {
+        "say": "narrator",
+        "text": "Hild doesn't say anything. She ships the oars and holds the boat off the rock with her hand flat on it while you get out."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "iver_lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "iver_released"
+      },
+      {
+        "goto": "iver_dark"
+      }
+    ],
+    "iver_lit": [
+      {
+        "say": "iver",
+        "text": "She stopped. The night the gold came up in the north. I thought it was mid-word, and I stood up, and then I thought no. It was the end of one. I think she got to the end."
+      },
+      {
+        "say": "iver",
+        "text": "Thirty-one winters on this rock and four months listening, and it's the first thing I ever heard finished."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks north at the gold for the first time, the way you'd look at somebody across a room who's finished speaking."
+      },
+      {
+        "say": "iver",
+        "text": "Hild says it was you lit it. I'd not know. What did it cost?"
+      },
+      {
+        "choice": [
+          {
+            "text": "Nothing I can count.",
+            "goto": "iver_lit_count"
+          },
+          {
+            "text": "It took me first.",
+            "goto": "iver_lit_took"
+          }
+        ]
+      }
+    ],
+    "iver_lit_count": [
+      {
+        "say": "iver",
+        "text": "No. You'd not, after. That's how a burning works, I'm told. You only know by the hole."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "iver_lit_took": [
+      {
+        "say": "iver",
+        "text": "Took what?"
+      },
+      {
+        "say": "player",
+        "text": "Whatever I was before Saltmarrow's beach."
+      },
+      {
+        "say": "iver",
+        "text": "...Then I'll listen for it. If anything comes back over this water that's yours, I'll hear it. It's all I'm good for, listening. I've had the practice.",
+        "set": {
+          "lowsong_kept_for": true
+        }
+      },
+      {
+        "say": "hild",
+        "text": "The Provost wrote him under the light once, where the living go. He'll not know. She said: I will."
+      },
+      {
+        "say": "iver",
+        "text": "Did she? ...Then somebody'll know about you, and you'll not. It's not so bad, not knowing, if somebody does."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "iver_released": [
+      {
+        "say": "iver",
+        "text": "They went by. The night your hand opened. Out past the skerries, all of them at once, going the way the lights are, singing, and then not."
+      },
+      {
+        "say": "iver",
+        "text": "She came by closest. The nearest one. Nearer than she ever got, all the nights I sat out. I held the lamp out for her, and she didn't stop. She was going somewhere. I was glad for her. I'd not expected to be."
+      },
+      {
+        "say": "narrator",
+        "text": "He looks down at the step under the light's door, worn hollow where a man has sat thirty-one winters."
+      },
+      {
+        "say": "iver",
+        "text": "It's warm of a morning, the step. Where I sit. I sit on the other end now. It's a short step, but we manage."
+      },
+      {
+        "say": "narrator",
+        "text": "His eyes go to your hand. There's a black coal in it the size of a hazelnut, and nothing in the coal."
+      },
+      {
+        "say": "iver",
+        "text": "Yours is out. ...So's the singing. Funny. I thought I'd mind the quiet more."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "iver_dark": [
+      {
+        "say": "iver",
+        "text": "She's at it still. Further off, since the light. But it's not the same singing. Some nights I think she's waiting for something, more than trying to get it out. Like somebody at a window."
+      },
+      {
+        "say": "narrator",
+        "text": "His eyes go to the ember in your hand, and stay there."
+      },
+      {
+        "say": "iver",
+        "text": "Hild says you'll bring that round at midwinter, and every island says what it'll burn and writes it down. ...What would Lowsong give? There's me. There's my lamp. There's the rock, and I'll not burn the rock."
+      },
+      {
+        "say": "iver",
+        "text": "I'll write the list. It'll be short. I'll put my own name on it and see how it looks."
+      },
+      {
+        "say": "hild",
+        "text": "Round from the Gull, the Mercy brings you to Kindleby fifth, and I row you out here, and back in for the candles. That makes Lowsong fifth and Kindleby last. Tobin'll like that. He likes a long wait.",
+        "if": "flag:kindleby_midwinter=ring"
+      },
+      {
+        "say": "narrator",
+        "text": "The hood-pin's in your satchel. You don't take it out. Out past the skerries she's still singing; let her.",
+        "if": "item:hood_pin"
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "empty": [
+      {
+        "say": "narrator",
+        "text": "Nobody stands under the light. The rock is bare where Iver held his lamp out over the water, and the bothy door stands open the way he left it the morning he rowed home with you."
+      },
+      {
+        "say": "hild",
+        "text": "Nobody's been out since. It keeps itself, Iver says. Then he laughs, because how would he know? He asked me to look in on it. He couldn't say why it mattered. He said it the way you'd say mind the step."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "goto": "empty_lit"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "empty_released"
+      },
+      {
+        "goto": "empty_dark"
+      }
+    ],
+    "empty_lit": [
+      {
+        "say": "hild",
+        "text": "Look at it. You can see the bottom. Iver lost his boat the second week, listening, and it's lying there on the sand off the north rock, plain as a spoon in a basin."
+      },
+      {
+        "say": "hild",
+        "text": "My mother sang the story over the cradle: her ember walked her out of the grey, every time. Nobody ever sang what it walked her out of. ...What did yours cost you?"
+      },
+      {
+        "choice": [
+          {
+            "text": "Nothing I can count.",
+            "goto": "empty_lit_count"
+          },
+          {
+            "text": "It took me first.",
+            "goto": "empty_lit_took"
+          }
+        ]
+      }
+    ],
+    "empty_lit_count": [
+      {
+        "say": "hild",
+        "text": "No. Nobody can, after. That's the trouble with it."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "empty_lit_took": [
+      {
+        "say": "hild",
+        "text": "Took what?"
+      },
+      {
+        "say": "player",
+        "text": "Whatever I was before Saltmarrow's beach."
+      },
+      {
+        "say": "hild",
+        "text": "...Well. I'll row you, then. Wherever the skiff'll go, whenever you like, and no asking the Provost first. It's not much. It's what I've got.",
+        "set": {
+          "lowsong_kept_for": true
+        }
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "empty_released": [
+      {
+        "say": "narrator",
+        "text": "The step under the light's door is worn hollow where a man sat thirty-one winters. Hild puts her hand on it, and keeps it there."
+      },
+      {
+        "say": "hild",
+        "text": "Warm. ...It isn't Iver. Iver's on Cindermoor, counting the chapter's candles."
+      },
+      {
+        "say": "hild",
+        "text": "Somebody's sitting up with it. Somebody nobody came for. That's what it's for, now, I suppose, a light out here: to sit by."
+      },
+      {
+        "say": "narrator",
+        "text": "Her eyes go to your hand. There's a black coal in it the size of a hazelnut, and nothing in the coal."
+      },
+      {
+        "say": "hild",
+        "text": "And the singing's gone with your ember. I'd have said I'd be glad. I'm only quiet."
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "empty_dark": [
+      {
+        "say": "hild",
+        "text": "At midwinter, when you bring that round, every island says what it'll burn. Nobody lives on Lowsong to say it."
+      },
+      {
+        "say": "hild",
+        "text": "So I will. Hild Garrow, for Lowsong, since there's nobody. I'm the one that rows here. That's near enough to living here, on this water."
+      },
+      {
+        "say": "hild",
+        "text": "Round from the Gull the Mercy brings you to Kindleby fifth, and I row you out here, and back in for the candles. That makes Lowsong fifth and Kindleby last.",
+        "if": "flag:kindleby_midwinter=ring"
+      },
+      {
+        "say": "narrator",
+        "text": "The hood-pin's in your satchel. You don't take it out. Out past the skerries she's still singing; let her.",
+        "if": "item:hood_pin"
+      },
+      {
+        "goto": "end"
+      }
+    ],
+    "end": [
+      {
+        "say": "hild",
+        "text": "I'll bide with the boat. Take your time. There's nobody waiting on this water for us. That's new, too."
+      }
+    ]
+  }
+}

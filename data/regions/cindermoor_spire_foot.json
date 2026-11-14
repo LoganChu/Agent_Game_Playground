@@ -753,7 +753,8 @@
       "if": [
         "flag:cindermoor_chapter_came",
         "flag:cindermoor_chapter_up",
-        "!flag:cindermoor_morning"
+        "!flag:cindermoor_morning",
+        "!flag:cindermoor_lane_out"
       ],
       "note": "At the ring's north edge by the Long Book."
     },
@@ -840,7 +841,8 @@
         "flag:cindermoor_chapter_up",
         "flag:cindermoor_morning",
         "flag:cindermoor_eighth_sought",
-        "!flag:cindermoor_oriel_choice=boat"
+        "!flag:cindermoor_oriel_choice=boat",
+        "!flag:cindermoor_lane_out"
       ],
       "note": "Back from the path with the Long Book, counting the rounds."
     },

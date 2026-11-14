@@ -4,6 +4,13 @@
     "start": [
       {
         "if": [
+          "flag:lowsong_homecoming_seen",
+          "flag:lowsong_beacon_burned=key"
+        ],
+        "goto": "epilogue"
+      },
+      {
+        "if": [
           "flag:cindermoor_chapter_came",
           "flag:lowsong_iver_home"
         ],
@@ -475,8 +482,24 @@
           },
           {
             "text": "Who is she, the one you listen for?",
-            "if": "flag:lowsong_beacon_burned=key",
+            "if": [
+              "flag:lowsong_beacon_burned=key",
+              "!flag:lowsong_iver_told_isolde"
+            ],
             "goto": "who"
+          },
+          {
+            "text": "Her name is Isolde Vane.",
+            "if": [
+              "flag:lowsong_homecoming_seen",
+              "flag:lowsong_beacon_burned=key",
+              "flag:cindermoor_choir_line_read",
+              "!flag:lowsong_iver_told_isolde"
+            ],
+            "set": {
+              "lowsong_iver_told_isolde": true
+            },
+            "goto": "told_isolde"
           },
           {
             "text": "Goodbye.",
@@ -631,6 +654,71 @@
       },
       {
         "end": true
+      }
+    ],
+    "epilogue": [
+      {
+        "say": "narrator",
+        "text": "He holds his little lamp out low over the water with his head turned to it, the way he always has."
+      },
+      {
+        "say": "iver",
+        "text": "It's quiet. I keep the lamp out anyway. You don't stop holding a light out because nobody's coming. That's when you hold it out.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "iver",
+        "text": "Somebody's had the step warm again. I said good morning to it. You feel a fool, and then you don't.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "iver",
+        "text": "The list's one name long. Mine. I've looked at it every night, and it looks like a name. I don't know what I expected.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "iver",
+        "text": "I'm listening for yours. Nothing yet. I'll say if.",
+        "if": "flag:lowsong_kept_for"
+      },
+      {
+        "say": "iver",
+        "text": "Who was it rowed you? ...Hild. Yes. I'll keep that."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "told_isolde": [
+      {
+        "say": "narrator",
+        "text": "He doesn't turn round. The lamp doesn't move."
+      },
+      {
+        "say": "iver",
+        "text": "Isolde Vane. ...The story. Her ember walked her out of the grey, every time. I learned it on the steps at Kindleby, same as everybody, and I never once thought of her as somebody who'd be tired.",
+        "if": "flag:cindermoor_choir_line_read"
+      },
+      {
+        "say": "iver",
+        "text": "She got to the end, then. Isolde did. I'm glad it had a name on it.",
+        "if": [
+          "flag:cindermoor_cradle_choice=lit",
+          "flag:cindermoor_choir_line_read"
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "I'll say it to the step of a morning. She mightn't want it. She can leave it there, if she doesn't.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "iver",
+        "text": "Should I call it out to her? ...No. You don't shout a person's name across water at night. I'll keep it for when she gets her word out.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "goto": "after_hub"
       }
     ]
   }

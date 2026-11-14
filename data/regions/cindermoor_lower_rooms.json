@@ -448,7 +448,8 @@
         "flag:cindermoor_chapter_came",
         "flag:cindermoor_chapter_up",
         "flag:cindermoor_morning",
-        "!flag:cindermoor_eighth_sought"
+        "!flag:cindermoor_eighth_sought",
+        "!flag:cindermoor_lane_out"
       ],
       "note": "On the lectern's other side, the Long Book under her arm."
     },

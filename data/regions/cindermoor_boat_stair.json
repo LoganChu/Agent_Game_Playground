@@ -721,7 +721,8 @@
         "flag:cindermoor_chapter_up",
         "flag:cindermoor_morning",
         "flag:cindermoor_eighth_sought",
-        "flag:cindermoor_oriel_choice=boat"
+        "flag:cindermoor_oriel_choice=boat",
+        "!flag:cindermoor_lane_out"
       ],
       "note": "Day 93: she said she'd grease the eighth's rollers, in case; there was a case."
     }
