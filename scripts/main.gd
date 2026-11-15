@@ -34,6 +34,9 @@ var audio: AudioDirector
 var act_end_card: ActEndCard
 var pause_menu: PauseMenu
 var title_screen: TitleScreen
+var autosaver: Autosaver
+## The next region load isn't an arrival worth autosaving (launch, new game, the title, a loaded save).
+var _skip_arrival_autosave := true
 ## Acts whose end the story had already reached (so a card shows once, when it changes).
 var _acts_reached: Dictionary = {}
 
@@ -84,6 +87,17 @@ func _ready() -> void:
 	greying.ember_changed.connect(hud.set_ember)
 	greying.turned_back.connect(audio.on_turned_back)
 	add_child(greying)
+	autosaver = Autosaver.new()
+	autosaver.name = "Autosaver"
+	autosaver.is_safe = is_quiet_moment
+	add_child(autosaver)
+	SaveSystem.saved.connect(func(slot: String) -> void:
+		if slot == SaveSystem.AUTO_SLOT:
+			hud.show_autosave())
+	SaveSystem.loaded.connect(func(_slot: String) -> void:
+		_skip_arrival_autosave = true
+		autosaver.cancel())
+	GameState.world.quest_changed.connect(_on_quest_changed.unbind(3))
 	GameState.region_change_requested.connect(_on_region_change_requested)
 	GameState.world.flag_changed.connect(_on_world_changed.unbind(2))
 	GameState.world.quest_changed.connect(_on_world_changed.unbind(3))
@@ -122,6 +136,7 @@ func _ready() -> void:
 			shot.path = arg.get_slice("=", 1)
 			add_child(shot)
 		elif arg.begins_with("--region="):
+			GameState.dev_session = true
 			GameState.travel(arg.get_slice("=", 1))
 		elif arg.begins_with("--lane-map"):
 			_open_lane_map.call_deferred(arg.get_slice("=", 1) if arg.contains("=") else "")
@@ -155,17 +170,24 @@ static func wants_title(args: PackedStringArray) -> bool:
 ## waking narration (once the region is in).
 func start_new_game() -> void:
 	GameState.new_game()
+	_skip_arrival_autosave = true
+	autosaver.cancel()
 	GameState.travel(GameState.region_id, GameState.spawn_point)
 	var intro := str(Content.db.game.get("intro_dialogue", ""))
 	if not intro.is_empty():
 		dialogue_ui.open.call_deferred(intro)
 
 
-## "Return to title" (pause menu, act-end card): the world reset to a fresh start behind the
-## title screen, as at launch. Deferred: the menu that asked unlocks input on a deferred
-## call of its own, which must land before the title locks it again.
+## "Return to title" (pause menu, act-end card): the game is autosaved (Day 106; when allowed),
+## then the world reset to a fresh start behind the title screen, as at launch. Deferred: the
+## menu that asked unlocks input on a deferred call of its own, which must land before the
+## title locks it again.
 func return_to_title() -> void:
+	if not title_screen.is_open():
+		SaveSystem.autosave()
 	GameState.new_game()
+	_skip_arrival_autosave = true
+	autosaver.cancel()
 	GameState.travel(GameState.region_id, GameState.spawn_point)
 	title_screen.open.call_deferred()
 
@@ -278,6 +300,7 @@ func _read_through_arrival() -> void:
 
 ## Debug-only world setup from `--flags=` / `--quest=` (see the header comment).
 func _apply_debug_state(arg: String) -> void:
+	GameState.dev_session = true
 	var world := GameState.world
 	var is_flags := arg.begins_with("--flags=")
 	for entry: String in arg.substr(arg.find("=") + 1).split(",", false):
@@ -328,6 +351,11 @@ func load_region(region_id: String, spawn: String) -> void:
 	hud.show_region_title(str(region.data.get("name", region_id)))
 	# A load can jump the story anywhere; only acts ended *in play* get a card.
 	_acts_reached = ActRecap.reached(Content.db, GameState.world)
+	# Travel in play (an exit, a sailing, a story `travel`) autosaves on arrival; a load doesn't.
+	if _skip_arrival_autosave or pos is Vector3:
+		_skip_arrival_autosave = false
+	else:
+		autosaver.request(true)
 	_fire_arrival_event.call_deferred()
 
 
@@ -360,6 +388,25 @@ func _check_act_end() -> void:
 			act_end_card.show_act.call_deferred(act, ActRecap.card_lines(Content.db, act, GameState.world))
 			break
 	_acts_reached = now
+
+
+## A quest started, moved on or finished in play: autosave at the next quiet moment.
+func _on_quest_changed() -> void:
+	if region != null and not title_screen.is_open():
+		autosaver.request()
+
+
+## Whether the game can autosave now: nothing holds input (dialogue, menus, cards, the title)
+## and the Wakebearer is out of the Greying and not being brought back from it.
+func is_quiet_moment() -> bool:
+	return region != null and not GameState.input_locked and not title_screen.is_open() \
+			and greying.depth <= 0.0 and not greying.turning_back and greying.forgetting <= 0.0
+
+
+## Closing the window mid-game autosaves, as Quit on the pause menu does.
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST and region != null and title_screen != null and not title_screen.is_open():
+		SaveSystem.autosave()
 
 
 func _on_region_change_requested(region_id: String, spawn: String) -> void:

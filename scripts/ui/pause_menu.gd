@@ -2,8 +2,8 @@ class_name PauseMenu
 extends MenuScreen
 ## Esc / Start: pauses the world and offers Resume, Save, Load, Settings, Return to title
 ## and Quit. Save lists the manual slots (SaveSystem.SLOTS) with region and time; Load (from
-## MenuScreen) also the F5 quicksave. Overwriting a used slot, returning to the title and
-## quitting each ask for a second press. Debug builds add "Chapter select (dev)". Modal:
+## MenuScreen) also the F5 quicksave and the autosave. Overwriting a used slot, returning to
+## the title and quitting each ask for a second press; leaving autosaves first (Day 106). Debug builds add "Chapter select (dev)". Modal:
 ## holds `GameState.input_locked`, and only opens when nothing else does.
 
 ## "Return to title" was confirmed; main resets the world and shows the title screen.
@@ -83,14 +83,23 @@ func _save(slot: String) -> void:
 		_note.text = "Couldn't save to %s." % SaveSystem.slot_label(slot)
 
 
+## What leaving the game does to progress: autosaved (Day 106), or lost since the last save
+## when autosave is off (or in a developer jump).
+static func leave_warning(where: String) -> String:
+	if SaveSystem.autosave_allowed():
+		return "Your progress will be autosaved. Press again to %s." % where
+	return "Unsaved progress since your last save will be lost. Press again to %s." % where
+
+
 func _return_to_title() -> void:
-	if not _confirm("title", "Unsaved progress since your last save will be lost. Press again to return to the title."):
+	if not _confirm("title", leave_warning("return to the title")):
 		return
 	close()
 	title_requested.emit()
 
 
 func _quit() -> void:
-	if not _confirm("quit", "Unsaved progress since your last save will be lost. Press again to quit."):
+	if not _confirm("quit", leave_warning("quit")):
 		return
+	SaveSystem.autosave()
 	AudioDirector.quit_game(get_tree())

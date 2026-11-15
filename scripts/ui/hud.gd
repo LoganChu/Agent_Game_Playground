@@ -19,6 +19,7 @@ var _meter_bar: ProgressBar
 var _wash: ColorRect
 var _fade: ColorRect
 var _keys: Label
+var _saving: Label
 ## The road starting to forget (Day 84): a fog veil and a line, before the fade turns them back.
 var _lost_veil: ColorRect
 var _lost_line: Label
@@ -116,6 +117,21 @@ func show_region_title(text: String) -> void:
 	tween.tween_property(_title, "modulate:a", 0.0, 1.5)
 
 
+## A small "Saving…" in the bottom-right corner after an autosave (Day 106), fading out.
+## Quieter than a toast: autosaves happen often and need no attention.
+func show_autosave() -> void:
+	_saving.modulate.a = 1.0
+	_saving.visible = true
+	var tween := _saving.create_tween()
+	tween.tween_interval(1.2)
+	tween.tween_property(_saving, "modulate:a", 0.0, 0.8)
+	tween.tween_callback(_saving.hide)
+
+
+func is_autosave_shown() -> bool:
+	return _saving.visible
+
+
 func show_toast(text: String) -> void:
 	# Day 104: a burst (a checkpoint loaded, a story beat that starts and finishes quests at once) keeps only the newest
 	# TOAST_MAX on screen, so the stack never runs off the bottom of the screen.
@@ -177,6 +193,17 @@ func _build() -> void:
 	_keys = keys
 	_update_key_hint()
 	GameSettings.current().changed.connect(_update_key_hint)
+	_saving = Label.new()
+	_saving.name = "AutosaveCue"
+	_saving.text = "Saving…"
+	_saving.theme_type_variation = UiTheme.HUD_KEYS
+	_saving.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	_saving.offset_left = -160
+	_saving.offset_right = -24
+	_saving.offset_top = -40
+	_saving.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_saving.visible = false
+	root.add_child(_saving)
 	_toasts = VBoxContainer.new()
 	_toasts.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	_toasts.offset_left = -420

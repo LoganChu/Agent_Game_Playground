@@ -1,7 +1,7 @@
 class_name GameSettings
 extends RefCounted
 ## Player settings: audio bus volumes, text size and dialogue text speed, camera
-## sensitivity/invert, conversation framing, stick deadzone, window mode and vsync, and keyboard rebinding. Persisted to `user://settings.cfg` (ConfigFile), never in save games, so they
+## sensitivity/invert, conversation framing, stick deadzone, window mode and vsync, autosave, and keyboard rebinding. Persisted to `user://settings.cfg` (ConfigFile), never in save games, so they
 ## carry across playthroughs. `current()` is the live instance the game reads; tests make
 ## their own with a scratch `path`.
 ##
@@ -52,6 +52,8 @@ var stick_deadzone := DEFAULT_DEADZONE
 ## "windowed" or "fullscreen" (WINDOW_MODES).
 var window_mode := "windowed"
 var vsync := true
+## Whether the game writes the autosave slot (Day 106; SaveSystem.autosave).
+var autosave := true
 ## Rebound primary keys: action → physical keycode. Only actions the player changed.
 var keys: Dictionary = {}
 
@@ -87,6 +89,7 @@ func reset_values() -> void:
 	stick_deadzone = DEFAULT_DEADZONE
 	window_mode = "windowed"
 	vsync = true
+	autosave = true
 	keys.clear()
 
 
@@ -208,6 +211,11 @@ func cycle_window_mode() -> void:
 	set_window_mode(modes[(modes.find(window_mode) + 1) % modes.size()])
 
 
+func set_autosave(value: bool) -> void:
+	autosave = value
+	changed.emit()
+
+
 func set_vsync(value: bool) -> void:
 	vsync = value
 	_apply_display()
@@ -323,6 +331,7 @@ func save() -> bool:
 	cfg.set_value("display", "text_speed", text_speed)
 	cfg.set_value("display", "window_mode", window_mode)
 	cfg.set_value("display", "vsync", vsync)
+	cfg.set_value("game", "autosave", autosave)
 	cfg.set_value("camera", "sensitivity", camera_sensitivity)
 	cfg.set_value("camera", "invert_x", invert_x)
 	cfg.set_value("camera", "invert_y", invert_y)
@@ -350,6 +359,7 @@ func load_file() -> bool:
 	var mode := str(cfg.get_value("display", "window_mode", "windowed"))
 	window_mode = mode if _window_modes().has(mode) else "windowed"
 	vsync = bool(cfg.get_value("display", "vsync", true))
+	autosave = bool(cfg.get_value("game", "autosave", true))
 	camera_sensitivity = clampf(float(cfg.get_value("camera", "sensitivity", 1.0)), SENSITIVITY_MIN, SENSITIVITY_MAX)
 	invert_x = bool(cfg.get_value("camera", "invert_x", false))
 	invert_y = bool(cfg.get_value("camera", "invert_y", false))

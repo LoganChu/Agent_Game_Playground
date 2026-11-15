@@ -1,8 +1,9 @@
 extends Node
 ## Autoload "SaveSystem": JSON save files in user://saves/.
 ##
-## A quicksave slot (F5/F9) plus three manual slots (pause menu). No thumbnails, no
-## migration beyond a version check. See ROADMAP for the full save system.
+## A quicksave slot (F5/F9), three manual slots (pause menu) and an autosave slot (Day 106:
+## written quietly by `Autosaver` on travel and story progress, and before Return to title or
+## Quit). No thumbnails, no migration beyond a version check.
 
 signal saved(slot: String)
 signal loaded(slot: String)
@@ -13,6 +14,10 @@ const SAVE_DIR := "user://saves"
 ## Manual slots offered by the pause menu, in order (the quicksave is "quick").
 const SLOTS: Array[String] = ["slot1", "slot2", "slot3"]
 const QUICK_SLOT := "quick"
+## Written only by the game (Autosaver, leaving for the title or the desktop), never offered on the Save page.
+const AUTO_SLOT := "auto"
+## Every slot the Load page and the title's Continue look at, in the order they are listed.
+const LOADABLE: Array[String] = ["auto", "quick", "slot1", "slot2", "slot3"]
 
 ## Nodes in this group provide the player's position: `get_save_position() -> Vector3`.
 const PLAYER_GROUP := "player"
@@ -33,6 +38,8 @@ func has_save(slot: String = QUICK_SLOT) -> bool:
 static func slot_label(slot: String) -> String:
 	if slot == QUICK_SLOT:
 		return "Quicksave"
+	if slot == AUTO_SLOT:
+		return "Autosave"
 	if slot.begins_with("slot"):
 		return "Slot " + slot.substr(4)
 	return slot.capitalize()
@@ -65,12 +72,12 @@ func slot_summary(slot: String) -> String:
 	return "%s — %s · %s" % [slot_label(slot), info["region_name"], info["saved_at"]]
 
 
-## The slot saved most recently (quicksave included), or "" if there are no saves. For the
-## title screen's Continue.
+## The slot saved most recently (quicksave and autosave included), or "" if there are no
+## saves. For the title screen's Continue.
 func latest_slot() -> String:
 	var best := ""
 	var best_stamp := ""
-	for slot: String in [QUICK_SLOT] + SLOTS:
+	for slot: String in LOADABLE:
 		var info := slot_info(slot)
 		if info.is_empty():
 			continue
@@ -96,6 +103,21 @@ func build_save_data() -> Dictionary:
 	return data
 
 
+## Whether the game may write the autosave: the setting is on and this isn't a developer jump
+## (a checkpoint or debug state — GameState.dev_session), which would overwrite the player's
+## real progress with a test state.
+func autosave_allowed() -> bool:
+	return GameSettings.current().autosave and not GameState.dev_session
+
+
+## Writes the autosave slot without a toast (the HUD shows a small "Saving…" cue from `saved`).
+## Does nothing (false) when autosave isn't allowed.
+func autosave() -> bool:
+	if not autosave_allowed() or GameState.region_id.is_empty():
+		return false
+	return save_game(AUTO_SLOT)
+
+
 func save_game(slot: String = QUICK_SLOT) -> bool:
 	DirAccess.make_dir_recursive_absolute(save_dir)
 	var file := FileAccess.open(slot_path(slot), FileAccess.WRITE)
@@ -105,7 +127,8 @@ func save_game(slot: String = QUICK_SLOT) -> bool:
 	file.store_string(JSON.stringify(build_save_data(), "\t"))
 	file.close()
 	saved.emit(slot)
-	GameState.toast.emit("Game saved" if slot == QUICK_SLOT else "Saved to " + slot_label(slot))
+	if slot != AUTO_SLOT:
+		GameState.toast.emit("Game saved" if slot == QUICK_SLOT else "Saved to " + slot_label(slot))
 	return true
 
 
@@ -123,6 +146,7 @@ func load_game(slot: String = QUICK_SLOT) -> bool:
 	if not Content.db.regions.has(region):
 		push_warning("Save '%s' references unknown region '%s'" % [slot, region])
 		return false
+	GameState.dev_session = false
 	GameState.world.load_dict(save.get("world", {}))
 	GameState.region_id = region
 	GameState.spawn_point = str(save.get("spawn", "default"))

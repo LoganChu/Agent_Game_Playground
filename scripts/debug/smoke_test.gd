@@ -22,6 +22,9 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Never touch the player's real saves.
 	SaveSystem.save_dir = "user://smoke_saves"
+	# A stale autosave from an earlier run would put Continue on the title.
+	for slot: String in SaveSystem.LOADABLE:
+		DirAccess.remove_absolute(SaveSystem.slot_path(slot))
 	# ...nor their settings: run on defaults, write to a scratch file.
 	var settings := GameSettings.current()
 	settings.path = "user://smoke_settings.cfg"
@@ -88,6 +91,7 @@ func _run() -> void:
 	await _cross_in(main, ui)
 	await _walk_the_way_up(main, ui)
 	_check(_walked.size() == Content.db.regions.size(), "the walk reached every region (%s)" % ", ".join(PackedStringArray(_walked.keys())))
+	_check_autosave(main)
 	await _check_journal(main.get("journal_ui"))
 	await _check_pause_menu(main)
 	await _check_settings(main)
@@ -100,6 +104,7 @@ func _run() -> void:
 	_check(SaveSystem.load_game("smoke_test"), "load succeeds")
 	_check(JSON.stringify(GameState.world.to_dict()) == JSON.stringify(before), "state round-trips through save")
 	DirAccess.remove_absolute(SaveSystem.slot_path("smoke_test"))
+	DirAccess.remove_absolute(SaveSystem.slot_path(SaveSystem.AUTO_SLOT))
 	for i in 3:
 		await get_tree().process_frame
 	_check(main.get("region") != null, "region rebuilt after load")
@@ -1738,7 +1743,8 @@ func _check_pause_menu(main: Node) -> void:
 	_check(menu.is_open() and menu.page == MenuScreen.Page.MAIN, "Esc backs out to the main page")
 	GameState.world.set_flag("intro_seen", false)
 	_check(menu.press("Load game") and menu.page == MenuScreen.Page.LOAD, "pause menu opens the load page")
-	_check(menu.buttons()[0].disabled, "empty quicksave can't be loaded")
+	_check(menu.buttons()[0].text.begins_with("Autosave") and not menu.buttons()[0].disabled, "the walk's autosave is listed first, loadable")
+	_check(menu.buttons()[1].disabled, "empty quicksave can't be loaded")
 	_check(menu.press("Slot 1"), "loading slot 1")
 	_check(not menu.is_open() and not get_tree().paused, "loading closes the menu and unpauses")
 	for i in 3:
@@ -1816,6 +1822,16 @@ func _check_chapter_select(main: Node) -> void:
 	_check(region != null and region.region_id == "thornwold_landing", "the checkpoint's region loads")
 	_check(world.get_flag("lanes_ferry_at") == "thornwold" and world.quest_state("a_light_for_thornwold") == WorldState.QUEST_INACTIVE, "the world is reset to the checkpoint")
 	_check(not menu.is_open() and not get_tree().paused and not GameState.input_locked, "jumping closes the menu")
+
+
+## The walk autosaved as it went (Day 106): on arrivals and quest changes, at quiet moments,
+## into the Autosave slot, which loads back to where it was written.
+func _check_autosave(main: Node) -> void:
+	var saver: Autosaver = main.get("autosaver")
+	_check(saver.count > 0 and SaveSystem.has_save(SaveSystem.AUTO_SLOT), "the walk autosaved (%d times)" % saver.count)
+	var info := SaveSystem.slot_info(SaveSystem.AUTO_SLOT)
+	_check(Content.db.regions.has(str(info.get("region", ""))), "the autosave names a real region (%s)" % info.get("region", ""))
+	_check(not GameState.dev_session, "the walk is real play, not a developer jump")
 
 
 ## The game opens on the title screen over the start region (the HUD hidden, input held,

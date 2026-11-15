@@ -4,10 +4,10 @@ extends CanvasLayer
 ## panel with a page title, a scrolling list of buttons/sliders, a note line and an "[Esc]
 ## back" hint. Subclasses build their own MAIN page (and any page of their own, like the
 ## pause menu's Save); this class builds the pages both menus offer:
-##   Load        the F5 quicksave and the manual slots (SaveSystem), with region and time
+##   Load        the autosave, the F5 quicksave and the manual slots (SaveSystem.LOADABLE), with region and time
 ##   Chapters    debug builds: jump to a story checkpoint in data/scenarios.json
 ##   Settings    volumes, text size and speed, camera sensitivity, invert and conversation framing, stick deadzone,
-##               display (window mode, vsync), Controls, Reset
+##               display (window mode, vsync), autosave, Controls, Reset
 ##   Controls    rebind each action (press the action, then the new key; Esc cancels)
 ## Settings are saved to user://settings.cfg as they change (a dragged slider once, when it
 ## is let go) and again when their pages are left. Esc backs out page by page; on the MAIN
@@ -156,7 +156,7 @@ func _show_page(which: Page) -> void:
 			_build_main()
 		Page.LOAD:
 			_title.text = "Load game"
-			for slot: String in [SaveSystem.QUICK_SLOT] + SaveSystem.SLOTS:
+			for slot: String in SaveSystem.LOADABLE:
 				var button := _add(SaveSystem.slot_summary(slot), _load.bind(slot))
 				button.disabled = not SaveSystem.has_save(slot)
 			_add("Back", _show_page.bind(Page.MAIN))
@@ -262,6 +262,7 @@ func _build_settings() -> void:
 		GameSettings.DEADZONE_MAX * 100.0, 5.0, "%d%%", func(value: float) -> void: settings.set_stick_deadzone(value / 100.0))
 	_add_toggle("Display: " + settings.window_mode_label(), settings.cycle_window_mode)
 	_add_toggle("VSync: " + _on_off(settings.vsync), func() -> void: settings.set_vsync(not settings.vsync))
+	_add_toggle("Autosave: " + _on_off(settings.autosave), func() -> void: settings.set_autosave(not settings.autosave))
 	_add("Controls", _show_page.bind(Page.CONTROLS))
 	_add("Reset to defaults", _reset_settings)
 	_add("Back", _show_page.bind(Page.MAIN))

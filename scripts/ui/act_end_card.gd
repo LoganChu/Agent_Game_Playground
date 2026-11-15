@@ -1,8 +1,8 @@
 class_name ActEndCard
 extends CanvasLayer
 ## Full-screen end-of-act card: title, the player's choices as recap lines, a coda, and a
-## "Keep exploring" button, or "Return to title" (asks for a second press: unsaved progress
-## is lost). Fades in over the world; modal (locks input) while open. A recap taller than about half
+## "Keep exploring" button, or "Return to title" (asks for a second press: progress is
+## autosaved — Day 106 — or, with autosave off, unsaved progress is lost). Fades in over the world; modal (locks input) while open. A recap taller than about half
 ## the screen (Act II's) scrolls: mouse wheel, or up/down on keys and pad. While there is more
 ## below, a faint "more below" cue sits under the box (Day 80) and goes once the end is reached.
 ## Day 105: the coda can depend on the world (ActRecap.coda), and an act's `credits` (the final card's "The End")
@@ -14,6 +14,7 @@ signal title_requested
 
 const TITLE_TEXT := "Return to title"
 const TITLE_CONFIRM_TEXT := "Return to title? Unsaved progress is lost. Press again."
+const TITLE_CONFIRM_AUTOSAVED := "Return to title? Your progress will be autosaved. Press again."
 const MORE_TEXT := "·  more below  ·"
 
 var _root: Control
@@ -93,8 +94,9 @@ func _show_credits(lines: PackedStringArray) -> void:
 
 ## First press arms, second press closes the card and asks for the title screen.
 func return_to_title() -> void:
-	if _title_button.text != TITLE_CONFIRM_TEXT:
-		_title_button.text = TITLE_CONFIRM_TEXT
+	var confirm := TITLE_CONFIRM_AUTOSAVED if SaveSystem.autosave_allowed() else TITLE_CONFIRM_TEXT
+	if _title_button.text != confirm:
+		_title_button.text = confirm
 		return
 	close()
 	title_requested.emit()

@@ -22,6 +22,9 @@ var pending_player_position: Variant = null
 ## True while a checkpoint is being applied: its quests start and finish silently (Day 104 — the toast stack used to
 ## fill the screen with "Quest started/complete" for every quest a late checkpoint set).
 var _quiet := false
+## True after a developer jump (a checkpoint, Chapter select, --flags/--quest/--region): the
+## world is a test state, so it is never autosaved (Day 106). A new game or a loaded save clears it.
+var dev_session := false
 
 
 func _ready() -> void:
@@ -41,6 +44,7 @@ func note_input(event: InputEvent) -> void:
 
 
 func new_game() -> void:
+	dev_session = false
 	world.load_dict({})
 	for flag_id: String in Content.db.flags:
 		world.flags[flag_id] = Content.db.flag_default(flag_id)
@@ -67,6 +71,7 @@ func start_scenario(id: String) -> bool:
 
 ## Applies a resolved checkpoint to the world without a toast per quest or item.
 func apply_scenario(scenario: Dictionary) -> void:
+	dev_session = true
 	_quiet = true
 	Scenarios.apply(Content.db, world, scenario)
 	_quiet = false
