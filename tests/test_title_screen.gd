@@ -15,7 +15,7 @@ func _write_save(dir: String, slot: String, saved_at: String, region: String = "
 
 
 func _clear(dir: String) -> void:
-	for slot: String in [SaveSystem.QUICK_SLOT] + SaveSystem.SLOTS:
+	for slot: String in SaveSystem.LOADABLE:
 		DirAccess.remove_absolute(dir.path_join(slot + ".json"))
 	DirAccess.remove_absolute(dir)
 
@@ -75,7 +75,7 @@ func test_title_pages() -> void:
 	assert_true(title.buttons()[0].text.begins_with("Continue") and title.buttons()[0].text.contains("Slot 2"), "Continue first, naming the slot (%s)" % title.buttons()[0].text)
 	assert_false(title.buttons()[2].disabled, "Load open with a save")
 	assert_true(title.press("Load game") and title.page == MenuScreen.Page.LOAD, "the shared Load page")
-	assert_true(title.buttons()[0].disabled and not title.buttons()[2].disabled, "empty quicksave greyed, slot 2 loadable")
+	assert_true(title.buttons()[0].disabled and title.buttons()[1].disabled and not title.buttons()[3].disabled, "empty autosave and quicksave greyed, slot 2 loadable")
 	title.free()
 	_clear(SCRATCH)
 	SaveSystem.save_dir = real_dir
