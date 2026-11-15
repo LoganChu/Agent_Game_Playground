@@ -672,6 +672,24 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 	if not await _arrived(main, ui, "kindleby", "rowed back to Kindleby, after"):
 		return
 	print("Smoke: the epilogue — Lowsong's homecoming")
+	# Day 105: the final card — every homecoming seen, Oda ties the Mercy up for the winter, and the story ends.
+	_npc("oda").interact()
+	_check(_choose(ui, "That's the ring. Tie her up for the winter."), "Oda offers to tie up once the ring's been round")
+	_check(_choose(ui, "Crew the Mercy, if you'll have me."), "the winter on the Mercy's deck")
+	_finish_dialogue(ui, "oda (tied up)")
+	var before_epilogue := _act_end_recap
+	_act_end_recap = ""
+	var card: ActEndCard = main.get("act_end_card")
+	await get_tree().process_frame
+	var credits := card.credits_text() if card.is_open() else ""
+	await _close_act_end_card(main)
+	var epilogue_recap := _act_end_recap
+	_act_end_recap = before_epilogue
+	_check(world.get_flag("epilogue_tied_up") == true, "the Mercy tied up")
+	_check(epilogue_recap.contains("Lowsong: the Low Water is quiet") and epilogue_recap.contains("coiling sun-wise")
+			and not epilogue_recap.contains("never put in"), "the epilogue card: " + epilogue_recap.left(160))
+	_check(credits.begins_with("The End"), "the final card ends: " + credits)
+	print("Smoke: the final card")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
