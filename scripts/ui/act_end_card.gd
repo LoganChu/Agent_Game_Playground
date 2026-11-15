@@ -5,6 +5,8 @@ extends CanvasLayer
 ## is lost). Fades in over the world; modal (locks input) while open. A recap taller than about half
 ## the screen (Act II's) scrolls: mouse wheel, or up/down on keys and pad. While there is more
 ## below, a faint "more below" cue sits under the box (Day 80) and goes once the end is reached.
+## Day 105: the coda can depend on the world (ActRecap.coda), and an act's `credits` (the final card's "The End")
+## are drawn under it, the first line as a heading.
 
 signal closed
 ## "Return to title" was confirmed; main resets the world and shows the title screen.
@@ -21,6 +23,7 @@ var _recap: RichTextLabel
 var _recap_scroll: ScrollContainer
 var _more: Label
 var _coda: Label
+var _credits: VBoxContainer
 var _button: Button
 var _title_button: Button
 
@@ -48,7 +51,8 @@ func show_act(act: Dictionary, recap: PackedStringArray) -> void:
 	_subtitle.text = str(act.get("subtitle", ""))
 	_subtitle.visible = not _subtitle.text.is_empty()
 	_recap.text = "\n".join(Array(recap).map(func(line: String) -> String: return "•  " + line))
-	_coda.text = str(act.get("coda", ""))
+	_coda.text = ActRecap.coda(act, GameState.world)
+	_show_credits(ActRecap.credits(act))
 	_title_button.text = TITLE_TEXT
 	_root.modulate.a = 0.0
 	_root.show()
@@ -64,6 +68,27 @@ func close() -> void:
 	_root.hide()
 	(func() -> void: GameState.input_locked = false).call_deferred()
 	closed.emit()
+
+
+## The closing lines currently shown, joined by newlines (for tests / smoke checks).
+func credits_text() -> String:
+	var out: PackedStringArray = []
+	for label: Node in _credits.get_children():
+		out.append((label as Label).text)
+	return "\n".join(out)
+
+
+func _show_credits(lines: PackedStringArray) -> void:
+	for child: Node in _credits.get_children():
+		_credits.remove_child(child)
+		child.queue_free()
+	for i in lines.size():
+		var label := Label.new()
+		label.text = lines[i]
+		label.theme_type_variation = UiTheme.SUBHEADING if i == 0 else UiTheme.HINT
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		_credits.add_child(label)
+	_credits.visible = not lines.is_empty()
 
 
 ## First press arms, second press closes the card and asks for the title screen.
@@ -83,7 +108,9 @@ func recap_scrolls() -> bool:
 ## The recap box: as tall as the lines, up to a bit over half the screen.
 func _fit_recap() -> void:
 	var screen := _root.get_viewport_rect().size.y if _root.is_inside_tree() else 720.0
-	var limit := maxf(160.0, screen * 0.55)
+	# The credits (the final card) take their height out of the recap's share, so the buttons stay on screen.
+	var credits := _credits.get_combined_minimum_size().y + 16.0 if _credits.visible else 0.0
+	var limit := maxf(160.0, screen * 0.55 - credits)
 	_recap_scroll.custom_minimum_size.y = minf(float(_recap.get_content_height()), limit)
 	_update_more()
 
@@ -170,6 +197,10 @@ func _build() -> void:
 	_coda.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_coda.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	box.add_child(_coda)
+	_credits = VBoxContainer.new()
+	_credits.add_theme_constant_override(&"separation", 4)
+	_credits.hide()
+	box.add_child(_credits)
 	_button = Button.new()
 	_button.text = "Keep exploring"
 	_button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER

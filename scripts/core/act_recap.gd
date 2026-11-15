@@ -10,6 +10,9 @@ extends RefCounted
 ## `unfinished` (Day 80): the card's last line names the quests of that act (a quest's `act`) still
 ## in progress, oldest first — the errands the Wakebearer could still go back for. No line when
 ## every one is done.
+##
+## Day 105 (the final card, `epilogue`): `coda` may be a list of {"if", "text"} (the first that holds is shown), and
+## `credits` an optional list of closing lines drawn under it (the first one large: "The End").
 
 
 ## The act_ends entries from game.json.
@@ -60,4 +63,23 @@ static func card_lines(db: ContentDatabase, act: Dictionary, world: WorldState) 
 	var titles := unfinished_titles(db, world, str(act.get("id", "")))
 	if not template.is_empty() and not titles.is_empty():
 		out.append(template % ", ".join(titles))
+	return out
+
+
+## The coda the card shows now: the text, or the first {if, text} of a list whose `if` holds ('' if none).
+static func coda(act: Dictionary, world: WorldState) -> String:
+	var value: Variant = act.get("coda", "")
+	if value is Array:
+		for line: Variant in value:
+			if line is Dictionary and Conditions.evaluate((line as Dictionary).get("if"), world):
+				return str((line as Dictionary).get("text", ""))
+		return ""
+	return str(value)
+
+
+## The card's closing lines (`credits`), if any.
+static func credits(act: Dictionary) -> PackedStringArray:
+	var out: PackedStringArray = []
+	for line: Variant in act.get("credits", []):
+		out.append(str(line))
 	return out

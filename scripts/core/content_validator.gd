@@ -155,6 +155,18 @@ func _validate_game() -> void:
 				_err(where, "act_ends recap lines need 'text'")
 				continue
 			_ref_condition(where, (line as Dictionary).get("if"))
+		var coda: Variant = a.get("coda", "")
+		if coda is Array:
+			for line: Variant in coda:
+				if not line is Dictionary or str((line as Dictionary).get("text", "")).is_empty():
+					_err(where, "act_ends '%s' coda lines need 'text'" % a.get("id", ""))
+					continue
+				_ref_condition(where, (line as Dictionary).get("if"))
+		elif not coda is String:
+			_err(where, "act_ends '%s' coda must be text or a list of {if, text}" % a.get("id", ""))
+		var credits: Variant = a.get("credits", [])
+		if not credits is Array or (credits as Array).any(func(c: Variant) -> bool: return not c is String):
+			_err(where, "act_ends '%s' credits must be a list of text lines" % a.get("id", ""))
 		if a.has("unfinished") and str(a["unfinished"]).count("%s") != 1:
 			_err(where, "act_ends '%s' unfinished needs exactly one %%s (the quest titles)" % a.get("id", ""))
 
