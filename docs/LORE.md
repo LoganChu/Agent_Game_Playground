@@ -1932,6 +1932,22 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     the story on Kindleby's steps "and never once thought of her as somebody who'd be tired". Lit: "She got to the end,
     then. Isolde did." Released: he'll say it to the step of a morning. Dark: "You don't shout a person's name across water
     at night. I'll keep it for when she gets her word out."
+- **The Mercy tied up (Day 105, the final card — `epilogue_tied_up`).** Six weeks to midwinter, the lanes go quiet in
+  the dark of the year. At whichever port the Wakebearer says "That's the ring", Oda — if any island hasn't been home to
+  yet, she names it ("They'll keep. Islands do") and lets them tie up anyway — **sets the brass hand-scale on the
+  stern-post, pan up and empty**: "Thirty-eight years I've weighed every soul that came up my plank. Never once weighed
+  the lanes." Lit: nothing left to weigh, and "I'll remember you said it" (that the light took them first). Released:
+  the crews swear the lanes run warmer of a night; the Wakebearer walks "like somebody who's set a thing down". Dark: in
+  six weeks she carries the ember round in her bow — "I'd just never been asked to carry the fire before. ...I find I'm
+  proud." **The last fare of the year:** what the Wakebearer does with the winter (`epilogue_winter`) — **stay** at that
+  port, **crew** the Mercy (coil sun-wise, never touch the chart, the dog watch when it's sleeting), or **walk** the
+  islands ("I'll see you on the lanes, and wave ... and neither of us'll stop. That's how you know it's done"). The
+  scale is hung on its hook in the wheelhouse, and **the Mercy's green masthead lantern is let go out for the first time
+  in thirty-eight years**. The epilogue card's codas — lit: "The Lanternreach remembers. What it's willing to forget, it
+  will be asked."; released: "Nothing in the Lanternreach burns now that didn't choose to. The lights are kept, and the
+  keepers keep each other."; dark: "Nobody chooses for the Lanternreach any more. At midwinter it chooses for itself,
+  and writes it down." Oda still ferries after ("that's only ferrying"). *(Open: Aldous before the Provost; the winter
+  itself; midwinter.)*
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks
@@ -1997,7 +2013,8 @@ The order Act III's sessions should take, paced over months: one big reveal per 
    cradle, the Hollow Choir and what lighting it would cost; Day 96, the choice written: lit / released / dark, the count
    down, the witness, the Long Book shut — see *Cindermoor*)* — the final choice: what the Lanternreach
    should remember, or whether it should forget.
-10. **Epilogues** (plan): the islands after the ending, one per island, coloured by the choice and that island's burning.
+10. **Epilogues** *(Days 97–103, written: one homecoming per island, coloured by the choice and that island's burning;
+   Day 105: the Mercy tied up for the winter and the final card — see* Cindermoor*)*.
 
 ## Long-term mysteries (payoff over months)
 1. **Who snuffed the Hearthspire, and why?** *[SECRET]* The High Keeper, **Oriel Sayre**, did —
@@ -2047,3 +2064,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - The same day (Day 96): the choice at the cradle; the count down; the Long Book shut.
 - After (Day 97): Oda finds the lane out; the Mercy comes in under Kindleby's wall at evening and Tobin strikes the second
   stroke. About six weeks to midwinter.
+- After the homecomings (Day 105): Oda ties the Slow Mercy up for the winter; the masthead lantern goes out.

@@ -834,22 +834,27 @@ each .glb < 5 MB.
       Lowsong gold with the far Spire north when lit. Checkpoint `the_quiet_water`; the smoke walk sails on to Kindleby and
       rows out. `test_lowsong_homecoming.gd` (10).
 
+- [x] [C] **The final card** (Day 105): after the lane out, at any port, Oda's "That's the ring. Tie her up for the
+      winter." (decided: offered once; with every homecoming seen it goes straight on, otherwise Oda names the islands
+      not yet visited and the Wakebearer can tie up anyway — the rest stay optional). Oda weighs the lanes per ending,
+      asks what they'll do with the winter (**stay** at that port / **crew** the Mercy / **walk**, `epilogue_winter`) and
+      puts the Mercy to bed (`epilogue_tied_up`) → the **`epilogue` card**: the ending, a line or two per island seen
+      (reading `thornwold_bram_cut_row`, `fen_hesper_tussock`, `wrackholm_held_for`, `wrackholm_last_line`,
+      `lowsong_kept_for`, `kindleby_midwinter`, `thornwold_aldous_landed`, `saltmarrow_brazier_lit`), a line per island
+      missed, the winter, a coda per ending, and **credits** ("The End"). Engine: conditional `coda`, `credits`. Oda
+      still ferries after. Checkpoint `the_winter`; the smoke walk ties up. `test_final_card.gd` (9).
+
 ### Next up
-1. [C] **The final card** (every island's epilogue is now written: Kindleby 97, Saltmarrow 98, Thornwold 99, the fen 101,
-   Wrackholm 102, Lowsong 103): an epilogue/credits card once every homecoming's been seen — or offered by Oda once the
-   player has seen "enough" of them (decide: all six, or any, with the rest optional). It could read
-   `wrackholm_last_line` ("Came in."), `lowsong_kept_for`, `wrackholm_held_for`, `fen_hesper_tussock`, `thornwold_bram_cut_row`.
-   Also open: **Aldous before the Provost** on Kindleby (he says
-   "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) — the chapter is still on Cindermoor after the ending
-   (only Hild came home), so that meeting wants Oda to run the lane in again, or the chapter to come home first. The dark
-   ending's midwinter round (Gull 1, Thornwold 2, fen 3, Wrackholm 4, Lowsong 5, Kindleby last) is now fully ordered if
-   it's ever played. Wrackholm leftovers: Wenna at the jetty's foot after the homecoming; the chalk marks as a prop.
-   Lowsong leftovers: a warm-step cue (released) and Iver's boat on the bottom (lit, lamp) are text-only — props would
-   help. (Gull's Head, Shingle Point and the Heron's mere took the lit override: Day 104.) Fetch and reset `main` before
-   trusting it.
-1c. [S] **A systems session is overdue** (last: Day 97's after-the-ember): candidates — gamepad rebinding (#5), the
-   Cindermoor morning flag and rest prompt (#2), or autosave (Milestone 3 save item; "Return to title" relies on manual
-   saves).
+1. [S] **A systems session is overdue** (last: Day 97's after-the-ember; Day 105 was content): candidates — **autosave**
+   (Milestone 3 save item; "Return to title" — now also on the final card — relies on manual saves), gamepad rebinding
+   (#5), or the Cindermoor morning flag and rest prompt (#2). Autosave first: the story now has an end.
+1d. [C] **After the final card** (fold into the next content session): **Aldous before the Provost** on Kindleby (he
+   says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) — the chapter is still on Cindermoor after the
+   ending (only Hild came home), so that meeting wants Oda to run the lane in again, or the chapter to come home first;
+   the winter itself (`epilogue_winter`: crew lines on the Mercy, the stay port's folk noticing) and midwinter (the dark
+   round, the lit Spire's first asking) are open if the game goes on past the card. Wrackholm leftovers: Wenna at the
+   jetty's foot after the homecoming; the chalk marks as a prop. Lowsong leftovers: a warm-step cue (released) and
+   Iver's boat on the bottom (lit, lamp) are text-only — props would help. Fetch and reset `main` before trusting it.
 
 1a. [P] **Polish eighteen candidates** (due by ~Day 109; Day 104 was seventeen): the far Spire reads pale in the fen's,
    Wrackholm's and Lowsong's horizon wash (Compatibility; judge on Vulkan); a **two-speaker shot in tight spots** (the

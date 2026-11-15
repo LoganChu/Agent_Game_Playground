@@ -2,6 +2,66 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-15 09:00 UTC — Day 105: the final card — the Mercy tied up for the winter (content)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 104's `fac4714`). Baseline (785 tests + smoke + launch) green before any edit.
+- **Content (ROADMAP *Next up* #1): the final card.** Every island's epilogue was written (Days 97–103); the story had
+  no end.
+  - **Oda ties up.** At any port after the lane out (Saltmarrow, Thornwold, the fen, Wrackholm, Kindleby), once:
+    "That's the ring. Tie her up for the winter."
+    - With every homecoming seen she goes straight on.
+    - Otherwise she names each island not yet visited (Lowsong: "Hild would, if you asked her"). "They'll keep. Islands
+      do." The Wakebearer can tie up anyway or say not yet.
+    - She sets the hand-scale on the stern-post, pan up and empty ("Never once weighed the lanes"). Lit: nothing left to
+      weigh, and "I'll remember you said it". Released: the lanes run warmer of a night. Dark: she'll carry the fire round
+      in six weeks, and she's proud.
+    - **The last fare of the year: what'll you do with the winter?** Stay at that port, crew the Mercy, or walk the
+      islands (`epilogue_winter`). The Mercy's green masthead lantern goes out for the first time in thirty-eight years
+      (`epilogue_tied_up`).
+  - **The `epilogue` card** ("Epilogue — The Lanternreach", "Six weeks to midwinter."):
+    - the ending, then a line or two per island whose homecoming was seen, read from the flags the homecomings left
+      (Bram's row, Hesper's tussock, Held for, Came in., Iver listening or Hild rowing, Kindleby's midwinter order,
+      Aldous on the long bench, the Wrens' brazier);
+    - a line per island missed ("Whatever it made of the night, it kept.");
+    - where the winter goes (the stay line names the port);
+    - a coda per ending, then **"The End"**, the title and a thank-you.
+  - Oda still ferries after the card ("that's only ferrying"), and "Keep exploring" works as at every act's end.
+- **Engine:** an act's `coda` may be a list of `{if, text}` (`ActRecap.coda`, first match). `credits` is a list of
+  closing lines under the coda (the first as a heading). Both are validated. The recap box gives up the credits' height,
+  so the buttons stay on a 720p screen: the first screenshot had them clipped.
+- **Checkpoint** `the_winter` (shot: the card). **The smoke walk ties up** at Kindleby after Lowsong (crew) and checks
+  the card and "The End".
+- **Tests:** `test_final_card.gd` (9):
+  - offered at every port, only after the lane out, once
+  - all seen goes straight on
+  - unseen islands named, optional, and on the card
+  - Oda per ending
+  - the card reached
+  - every island's line (lit)
+  - released and dark lines
+  - the stay line per port
+  - credits drawn and cleared
+
+  794 tests + smoke + launch green.
+
+**Decisions**
+- **Any, not all six.** Making all six homecomings compulsory would turn the ending into a checklist. Oda names what's
+  left once, and the card says honestly which islands the Wakebearer never went back to. That makes skipping a choice
+  with a visible cost, which suits the game ("What is worth keeping…").
+- **The card is an `act_ends` entry, not a new screen.** It reuses `ActEndCard` (scroll, more-below cue, return to
+  title). The only engine additions are a conditional coda and credits.
+- **Not a hard stop.** The world stays playable after "The End" (save, explore, Oda ferries). Midwinter and the winter
+  itself stay open if the game grows past the card.
+- Grouped under Act III in Chapter select: the scenario validator rejects a new act label that carries Act III's open
+  quests unrestated, and the other epilogue checkpoints sit there too.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a systems session**, which is overdue (last Day 97). Autosave first: the story now has an end,
+   and "Return to title" relies on manual saves. Polish eighteen is due by ~Day 109. Fetch and reset `main` before
+   trusting it.
+
 ## 2026-11-14 21:00 UTC — Day 104: polish seventeen — quiet checkpoints, seated nameplates, the door leaf (polish)
 
 **Did**

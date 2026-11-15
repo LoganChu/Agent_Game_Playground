@@ -410,6 +410,11 @@ Colors are palette names from `PropFactory.PALETTE` (= GAME_DESIGN palette) or `
   **`unfinished`** template (`"…: %s."`, exactly one `%s`): the card's last line names that act's quests still in
   progress (`ActRecap.card_lines` / `unfinished_titles`, oldest first) — Oda's "anybody left you owe a word?" made
   concrete after the choice, never a checklist before it.
+  **Day 105 (the final card):** `coda` may also be a list of `{if, text}` (`ActRecap.coda`: the first whose `if`
+  holds), and an act may carry **`credits`**, a list of closing lines drawn under the coda (the first as a
+  heading — "The End"; `ActEndCard.credits_text()`); both validated. The recap's box gives up the credits' height
+  so the buttons stay on a 720p screen. The `epilogue` act ends on `flag:epilogue_tied_up` (Oda's `tie_up_end`);
+  `--act-end=epilogue` shows it.
 
 ### The lanes (Day 17)
 The *Slow Mercy* is the only way between islands for now. `lanes_ferry_at` ('' → still at
