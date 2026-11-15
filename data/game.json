@@ -280,6 +280,311 @@
         }
       ],
       "coda": "The Long Book is shut. What the Lanternreach does with its lights now isn't written in any book yet."
+    },
+    {
+      "id": "epilogue",
+      "when": "flag:epilogue_tied_up",
+      "title": "Epilogue — The Lanternreach",
+      "subtitle": "Six weeks to midwinter.",
+      "recap": [
+        {
+          "if": "flag:cindermoor_cradle_choice=lit",
+          "text": "The Hearthspire burns gold in the middle of the ring, and every island can see it. The grey has gone back to a third of what it was. Whoever feeds it at midwinter will be written down by name, and asked."
+        },
+        {
+          "if": "flag:cindermoor_cradle_choice=released",
+          "text": "The Hearthspire stands dark, and the six lights burn as if somebody were sitting up with them. Of a morning the step under each one is warm."
+        },
+        {
+          "if": "flag:cindermoor_cradle_choice=dark",
+          "text": "The Hearthspire stands dark. At midwinter the ember goes round the ring, and every island chooses its own burning, and writes it down."
+        },
+        {
+          "if": [
+            "flag:saltmarrow_homecoming_seen",
+            "flag:cindermoor_cradle_choice=lit"
+          ],
+          "text": "Saltmarrow: Mara counts the boats in by the Spire's light, and the green lantern stays on the dock-post."
+        },
+        {
+          "if": [
+            "flag:saltmarrow_homecoming_seen",
+            "flag:cindermoor_cradle_choice=released"
+          ],
+          "text": "Saltmarrow: somebody sits up at the Gull's Beacon at night. Tam has taken a blanket up for the step."
+        },
+        {
+          "if": [
+            "flag:saltmarrow_homecoming_seen",
+            "flag:cindermoor_cradle_choice=dark"
+          ],
+          "text": "Saltmarrow: the village's own list hangs on the dock-post under the green lantern."
+        },
+        {
+          "if": "flag:saltmarrow_brazier_lit",
+          "text": "The Wrens' brazier burns for the first time since the Snuffing. Aldous feeds it a stick of driftwood a night."
+        },
+        {
+          "if": [
+            "flag:thornwold_homecoming_seen",
+            "flag:cindermoor_cradle_choice=lit"
+          ],
+          "text": "Thornwold: Bram Kettle stopped notching the Spire's row. You don't count a thing that stays."
+        },
+        {
+          "if": [
+            "flag:thornwold_homecoming_seen",
+            "flag:thornwold_bram_cut_row"
+          ],
+          "text": "Under it is a row that's yours, with no notches on it. It isn't for counting."
+        },
+        {
+          "if": [
+            "flag:thornwold_homecoming_seen",
+            "flag:cindermoor_cradle_choice=released"
+          ],
+          "text": "Thornwold: the night tally at the Ridge Light counts two at the Lamp's bench."
+        },
+        {
+          "if": [
+            "flag:thornwold_homecoming_seen",
+            "flag:cindermoor_cradle_choice=dark"
+          ],
+          "text": "Thornwold: Bram has cut a WINTER row on the tally board. Nobody is to cut a notch on it for anybody else."
+        },
+        {
+          "if": "flag:thornwold_aldous_landed",
+          "text": "Brother Aldous came ashore and climbed to the Ridge Light, and said he was sorry. A door-warden isn't the door. It's a long bench."
+        },
+        {
+          "if": [
+            "flag:fen_homecoming_seen",
+            "flag:cindermoor_cradle_choice=lit"
+          ],
+          "text": "Glasswater Fen: the fog lies on the pools thin as breath, and nobody there thanks anybody."
+        },
+        {
+          "if": [
+            "flag:fen_homecoming_seen",
+            "flag:fen_hesper_tussock"
+          ],
+          "text": "Past the west walk there's a tussock that's yours, to sit by a pool and not be spoken to."
+        },
+        {
+          "if": [
+            "flag:fen_homecoming_seen",
+            "flag:cindermoor_cradle_choice=released"
+          ],
+          "text": "Glasswater Fen: a second light goes round the Heron's walk at night, at the pace the lost keeper used to go."
+        },
+        {
+          "if": [
+            "flag:fen_homecoming_seen",
+            "flag:cindermoor_cradle_choice=dark"
+          ],
+          "text": "Glasswater Fen: the list hangs on Hesper's first post, under the gull. The Unmoored are never asked."
+        },
+        {
+          "if": "flag:wrackholm_homecoming_seen",
+          "text": "Wrackholm: the answering horn answers boats again."
+        },
+        {
+          "if": [
+            "flag:wrackholm_homecoming_seen",
+            "flag:wrackholm_held_for"
+          ],
+          "text": "In the lane-house Book, under your own hand: Held for. Whatever the Wakebearer was. A year and a tide."
+        },
+        {
+          "if": [
+            "flag:wrackholm_homecoming_seen",
+            "flag:cindermoor_cradle_choice=released"
+          ],
+          "text": "The Wrack's lantern room is warmest of a morning by the Gannet's empty bracket."
+        },
+        {
+          "if": [
+            "flag:wrackholm_homecoming_seen",
+            "flag:cindermoor_cradle_choice=dark"
+          ],
+          "text": "The yard puts things in the iron hand-scale's pan to see what they weigh. Nobody's said they'll give them."
+        },
+        {
+          "if": "flag:wrackholm_last_line=came_in",
+          "text": "Under the Book's last line, in the same hand: Came in. A fare closed."
+        },
+        {
+          "if": [
+            "flag:kindleby_homecoming_seen",
+            "flag:cindermoor_cradle_choice=lit"
+          ],
+          "text": "Kindleby: the old brothers sit on the quay steps under a gold point in the west, and Tobin is thinking what he'd say."
+        },
+        {
+          "if": [
+            "flag:kindleby_homecoming_seen",
+            "flag:cindermoor_cradle_choice=released"
+          ],
+          "text": "Kindleby: Tobin changes the candles on the wall so they've got something to sit by."
+        },
+        {
+          "if": [
+            "flag:kindleby_homecoming_seen",
+            "flag:cindermoor_cradle_choice=dark",
+            "flag:kindleby_midwinter=first"
+          ],
+          "text": "Kindleby takes the ember first at midwinter. It has waited longest."
+        },
+        {
+          "if": [
+            "flag:kindleby_homecoming_seen",
+            "flag:cindermoor_cradle_choice=dark",
+            "flag:kindleby_midwinter=ring"
+          ],
+          "text": "At midwinter the ember goes round from the Gull, the way the light goes. Kindleby last."
+        },
+        {
+          "if": [
+            "flag:lowsong_homecoming_seen",
+            "flag:cindermoor_cradle_choice=lit"
+          ],
+          "text": "Lowsong: the Low Water is quiet. The Choir has gone in to the fire."
+        },
+        {
+          "if": [
+            "flag:lowsong_homecoming_seen",
+            "flag:lowsong_kept_for",
+            "flag:lowsong_beacon_burned=key"
+          ],
+          "text": "Brother Iver listens over the Low Water for anything of yours that comes back."
+        },
+        {
+          "if": [
+            "flag:lowsong_homecoming_seen",
+            "flag:lowsong_kept_for",
+            "flag:lowsong_beacon_burned=lamp"
+          ],
+          "text": "Hild Garrow will row you anywhere the skiff goes, and not ask the Provost."
+        },
+        {
+          "if": [
+            "flag:lowsong_homecoming_seen",
+            "flag:cindermoor_cradle_choice=released",
+            "flag:lowsong_beacon_burned=key"
+          ],
+          "text": "Lowsong: Iver shares the step under the light with whatever sits there of a morning."
+        },
+        {
+          "if": [
+            "flag:lowsong_homecoming_seen",
+            "flag:cindermoor_cradle_choice=released",
+            "flag:lowsong_beacon_burned=lamp"
+          ],
+          "text": "Lowsong: the step under the light is warm of a morning, and it isn't Iver."
+        },
+        {
+          "if": [
+            "flag:lowsong_homecoming_seen",
+            "flag:cindermoor_cradle_choice=dark",
+            "flag:lowsong_beacon_burned=key"
+          ],
+          "text": "Lowsong's list is one name long: Iver's own."
+        },
+        {
+          "if": [
+            "flag:lowsong_homecoming_seen",
+            "flag:cindermoor_cradle_choice=dark",
+            "flag:lowsong_beacon_burned=lamp"
+          ],
+          "text": "Lowsong's list says: Hild Garrow, for Lowsong, since there's nobody."
+        },
+        {
+          "if": "!flag:saltmarrow_homecoming_seen",
+          "text": "The Mercy never put in at Saltmarrow after. Whatever it made of the night, it kept."
+        },
+        {
+          "if": "!flag:thornwold_homecoming_seen",
+          "text": "The Mercy never put in at Thornwold after. Whatever it made of the night, it kept."
+        },
+        {
+          "if": "!flag:fen_homecoming_seen",
+          "text": "The Mercy never went up the fen's reed channel after. Whatever it made of the night, it kept."
+        },
+        {
+          "if": "!flag:wrackholm_homecoming_seen",
+          "text": "The Mercy never came in past the Teeth after. Whatever Wrackholm made of the night, it kept."
+        },
+        {
+          "if": "!flag:kindleby_homecoming_seen",
+          "text": "The Mercy never lay under Kindleby's wall after. Whatever it made of the night, it kept."
+        },
+        {
+          "if": "!flag:lowsong_homecoming_seen",
+          "text": "Nobody rowed you out to Lowsong after. The Low Water kept its own counsel."
+        },
+        {
+          "if": [
+            "flag:epilogue_winter=stay",
+            "flag:lanes_ferry_at=saltmarrow|"
+          ],
+          "text": "You winter on Saltmarrow, where you woke."
+        },
+        {
+          "if": [
+            "flag:epilogue_winter=stay",
+            "flag:lanes_ferry_at=thornwold"
+          ],
+          "text": "You winter at Bram's camp under the black pines."
+        },
+        {
+          "if": [
+            "flag:epilogue_winter=stay",
+            "flag:lanes_ferry_at=fen"
+          ],
+          "text": "You winter on the fen, by the pools."
+        },
+        {
+          "if": [
+            "flag:epilogue_winter=stay",
+            "flag:lanes_ferry_at=wrackholm"
+          ],
+          "text": "You winter on Wrackholm, within sound of the horn."
+        },
+        {
+          "if": [
+            "flag:epilogue_winter=stay",
+            "flag:lanes_ferry_at=kindleby"
+          ],
+          "text": "You winter on Kindleby, among the candles."
+        },
+        {
+          "if": "flag:epilogue_winter=crew",
+          "text": "You winter on the Slow Mercy's deck, coiling sun-wise. Oda hasn't let you touch the chart."
+        },
+        {
+          "if": "flag:epilogue_winter=walk",
+          "text": "You winter on foot, from shingle to shingle. Nobody's counting."
+        }
+      ],
+      "coda": [
+        {
+          "if": "flag:cindermoor_cradle_choice=lit",
+          "text": "The Lanternreach remembers. What it's willing to forget, it will be asked."
+        },
+        {
+          "if": "flag:cindermoor_cradle_choice=released",
+          "text": "Nothing in the Lanternreach burns now that didn't choose to. The lights are kept, and the keepers keep each other."
+        },
+        {
+          "if": "flag:cindermoor_cradle_choice=dark",
+          "text": "Nobody chooses for the Lanternreach any more. At midwinter it chooses for itself, and writes it down."
+        }
+      ],
+      "credits": [
+        "The End",
+        "Emberwake",
+        "Thank you for carrying it this far."
+      ]
     }
   ]
 }

@@ -1104,6 +1104,20 @@
         "lowsong_iver_told_isolde": true
       },
       "shot": "--camera=18,3.2,8:-14,4,-30"
+    },
+    {
+      "id": "the_winter",
+      "act": "Act III — The Spire",
+      "title": "The Winter",
+      "inherits": "the_quiet_water",
+      "region": "kindleby",
+      "spawn": "from_ferry",
+      "description": "Every homecoming seen under the lit Spire, the Wakebearer told Oda on Kindleby's quay that that was the ring, and she tied the Slow Mercy up for the winter: the hand-scale hung on its hook, the green masthead lantern let go out. The Wakebearer is crewing the Mercy till spring. The epilogue card has been shown; the world goes on, and Oda still ferries.",
+      "flags": {
+        "epilogue_tied_up": true,
+        "epilogue_winter": "crew"
+      },
+      "shot": "--act-end=epilogue"
     }
   ]
 }

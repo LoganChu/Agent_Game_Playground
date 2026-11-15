@@ -1337,6 +1337,20 @@
     "lowsong_iver_told_isolde": {
       "description": "After Lowsong's homecoming (Day 103, key burned: Iver still on the rock), the Wakebearer told Iver the nearest voice's name, Isolde Vane: lit, 'She got to the end, then'; released, he says it to the warm step of a morning; dark, he keeps it for when she gets her word out. Replaces asking who she is.",
       "default": false
+    },
+    "epilogue_tied_up": {
+      "description": "The final card (Day 105): the Wakebearer told Oda 'That's the ring. Tie her up for the winter.' at a port after the lane out (every homecoming seen, or the rest left unseen on purpose), and she put the Mercy to bed for the dark of the year. Ends the story: the epilogue card (act_ends `epilogue`) reads every homecoming. Oda still ferries after it.",
+      "default": false
+    },
+    "epilogue_winter": {
+      "description": "What the Wakebearer said they'd do with the winter when Oda tied the Mercy up (Day 105, the final card): '' (not asked), 'stay' (at the port where the Mercy lay: lanes_ferry_at), 'crew' (on the Mercy's deck: coil sun-wise, don't touch the chart) or 'walk' (from shingle to shingle; nobody's counting).",
+      "default": "",
+      "values": [
+        "",
+        "stay",
+        "crew",
+        "walk"
+      ]
     }
   }
 }

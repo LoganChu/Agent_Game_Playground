@@ -313,6 +313,14 @@
             "goto": "dunstan_answer"
           },
           {
+            "text": "That's the ring. Tie her up for the winter.",
+            "if": [
+              "flag:cindermoor_lane_out",
+              "!flag:epilogue_tied_up"
+            ],
+            "goto": "tie_up"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true,
             "if": "quest:across_the_grey=done"
@@ -660,6 +668,14 @@
             "goto": "dunstan_answer"
           },
           {
+            "text": "That's the ring. Tie her up for the winter.",
+            "if": [
+              "flag:cindermoor_lane_out",
+              "!flag:epilogue_tied_up"
+            ],
+            "goto": "tie_up"
+          },
+          {
             "text": "Where can you take me?",
             "lane_map": true
           },
@@ -881,6 +897,14 @@
               "flag:saltmarrow_beacon_burned=gull"
             ],
             "goto": "dunstan_answer"
+          },
+          {
+            "text": "That's the ring. Tie her up for the winter.",
+            "if": [
+              "flag:cindermoor_lane_out",
+              "!flag:epilogue_tied_up"
+            ],
+            "goto": "tie_up"
           },
           {
             "text": "Where can you take me?",
@@ -1236,6 +1260,14 @@
             "text": "Where does the lane go from here?",
             "if": "quest:a_light_for_wrackholm=done",
             "goto": "wrackholm_lane"
+          },
+          {
+            "text": "That's the ring. Tie her up for the winter.",
+            "if": [
+              "flag:cindermoor_lane_out",
+              "!flag:epilogue_tied_up"
+            ],
+            "goto": "tie_up"
           },
           {
             "text": "Where can you take me?",
@@ -1780,6 +1812,14 @@
             "text": "Take me back in to Cindermoor.",
             "if": "flag:cindermoor_lane_out",
             "goto": "lane_back_in"
+          },
+          {
+            "text": "That's the ring. Tie her up for the winter.",
+            "if": [
+              "flag:cindermoor_lane_out",
+              "!flag:epilogue_tied_up"
+            ],
+            "goto": "tie_up"
           },
           {
             "text": "Where can you take me?",
@@ -2449,6 +2489,199 @@
           "cindermoor_boat_stair",
           "from_ferry"
         ],
+        "end": true
+      }
+    ],
+    "tie_up": [
+      {
+        "if": [
+          "flag:saltmarrow_homecoming_seen",
+          "flag:thornwold_homecoming_seen",
+          "flag:fen_homecoming_seen",
+          "flag:wrackholm_homecoming_seen",
+          "flag:kindleby_homecoming_seen",
+          "flag:lowsong_homecoming_seen"
+        ],
+        "goto": "tie_up_go",
+        "note": "Day 105, the final card: offered at any port after the lane out. With every homecoming seen it goes straight on; otherwise Oda names the islands not yet visited and lets the Wakebearer tie up anyway (the rest stay optional, and the card says which were missed)."
+      },
+      {
+        "say": "oda",
+        "text": "Tie her up? ...Six weeks to midwinter, and the lanes go quiet in the dark of the year. Aye. I'd been thinking it."
+      },
+      {
+        "if": "!flag:saltmarrow_homecoming_seen",
+        "say": "oda",
+        "text": "You've not been home to Saltmarrow, mind. Mara's green lantern'll still be on the dock-post. I'd lay money."
+      },
+      {
+        "if": "!flag:thornwold_homecoming_seen",
+        "say": "oda",
+        "text": "Nor Thornwold. Bram'll have a notch cut for every day you weren't there."
+      },
+      {
+        "if": "!flag:fen_homecoming_seen",
+        "say": "oda",
+        "text": "Nor the fen. Hesper'll be out on the staithe of an evening with nothing to meet."
+      },
+      {
+        "if": "!flag:wrackholm_homecoming_seen",
+        "say": "oda",
+        "text": "Nor Wrackholm. There's a horn there that's owed a boat to answer."
+      },
+      {
+        "if": "!flag:kindleby_homecoming_seen",
+        "say": "oda",
+        "text": "Nor Kindleby's quay, and they've a bell there they've been saving."
+      },
+      {
+        "if": "!flag:lowsong_homecoming_seen",
+        "say": "oda",
+        "text": "And nobody's rowed you out to Lowsong. Hild would, if you asked her on Kindleby's shingle. I'll not take the Mercy over that water."
+      },
+      {
+        "say": "oda",
+        "text": "They'll keep. Islands do. I'll still run you round after, if you want: that's only ferrying. But a voyage ends when you say it does, and you don't get to say it twice."
+      },
+      {
+        "choice": [
+          {
+            "text": "Tie her up anyway.",
+            "goto": "tie_up_go"
+          },
+          {
+            "text": "Not yet, then.",
+            "goto": "tie_up_not_yet"
+          }
+        ]
+      }
+    ],
+    "tie_up_not_yet": [
+      {
+        "say": "oda",
+        "text": "Then not yet. The tide doesn't mind. I mind a bit, but I'm not the tide."
+      },
+      {
+        "end": true
+      }
+    ],
+    "tie_up_go": [
+      {
+        "say": "narrator",
+        "text": "Oda doesn't answer straight off. She takes the brass hand-scale off her belt and sets it on the cap of the stern-post, pan up and empty, and looks at it a while."
+      },
+      {
+        "say": "oda",
+        "text": "Thirty-eight years I've weighed every soul that came up my plank. Never once weighed the lanes. I thought they weighed themselves."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "oda",
+        "text": "Now there's a light to steer by down every one of them, and a gold one in the middle of the lot, and I find I've nothing left to weigh."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "oda",
+        "text": "It took you first. I know; you said. I can't give it back, and it'd not stick if I tried. But I'll remember you said it. That's as much as anybody can do for you, and I'll do it."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "oda",
+        "text": "Six lights, and somebody sitting up with every one of them. The crew swear the lanes run warmer of a night. I've stopped telling them it's the drink."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "oda",
+        "text": "Your hand's gone out. I keep looking for the light in it when you come up the plank. ...You walk like somebody who's set a thing down they'd carried so long they'd stopped feeling it. Mind you don't fall over, the first while."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "oda",
+        "text": "Six weeks, and then I'm carrying you round the ring with that coal up in my bow, and every island with its list on a post, in its own hands."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "oda",
+        "text": "Tidewrights carry. It's what we're for. I'd just never been asked to carry the fire before. ...I find I'm proud. Don't tell the crew."
+      },
+      {
+        "say": "oda",
+        "text": "So. Last fare of the year. I don't take coin, and you've no deed left I've not weighed twice over."
+      },
+      {
+        "say": "oda",
+        "text": "What'll you do with the winter?"
+      },
+      {
+        "choice": [
+          {
+            "text": "Stay here.",
+            "set": {
+              "epilogue_winter": "stay"
+            },
+            "goto": "tie_up_stay"
+          },
+          {
+            "text": "Crew the Mercy, if you'll have me.",
+            "set": {
+              "epilogue_winter": "crew"
+            },
+            "goto": "tie_up_crew"
+          },
+          {
+            "text": "Walk the islands. Nobody's counting now.",
+            "set": {
+              "epilogue_winter": "walk"
+            },
+            "goto": "tie_up_walk"
+          }
+        ]
+      }
+    ],
+    "tie_up_stay": [
+      {
+        "say": "oda",
+        "text": "Here. Aye. Well, it's as good a place as any to be from, and better than most I've tied up at."
+      },
+      {
+        "goto": "tie_up_end"
+      }
+    ],
+    "tie_up_crew": [
+      {
+        "say": "oda",
+        "text": "Have you? ...You'll coil sun-wise or not at all, you'll not touch my chart, and you'll take the dog watch when it's sleeting. Welcome aboard."
+      },
+      {
+        "say": "narrator",
+        "text": "She doesn't weigh it. She looks at the scale on the post as if it had said something, and leaves it there."
+      },
+      {
+        "goto": "tie_up_end"
+      }
+    ],
+    "tie_up_walk": [
+      {
+        "say": "oda",
+        "text": "Walk, then. There's no island in the ring now that'd turn you off its shingle. I'll see you on the lanes, and wave, and you'll wave back, and neither of us'll stop. That's how you know it's done."
+      },
+      {
+        "goto": "tie_up_end"
+      }
+    ],
+    "tie_up_end": [
+      {
+        "say": "narrator",
+        "text": "Oda hangs the hand-scale on its hook in the wheelhouse, and gives the word, and the crew put the Mercy to bed: the sail stowed, the warps doubled, the green lantern at her masthead let go out for the first time in thirty-eight years, because there's nobody on the water tonight who needs to find her."
+      },
+      {
+        "say": "oda",
+        "text": "That's the Mercy tied up. Go on. I'll see you in the spring, or before, if you're daft."
+      },
+      {
+        "set": {
+          "epilogue_tied_up": true
+        },
         "end": true
       }
     ]
