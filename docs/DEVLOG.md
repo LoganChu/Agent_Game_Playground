@@ -2,6 +2,51 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-15 21:00 UTC — Day 106: autosave (systems)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 105's `8ba8f5c`).
+- **Systems (ROADMAP *Next up* #1, overdue since Day 97): autosave.** The story has an end, and the final card's
+  "Return to title" used to throw away everything since the last manual save.
+  - **The Autosave slot** (`SaveSystem.AUTO_SLOT`):
+    - listed first on the Load page and counted by the title's Continue;
+    - never offered on the Save page;
+    - written without a toast. A small "Saving…" fades in the bottom-right corner instead.
+  - **`Autosaver`** (a node in `main`, paused with the tree) writes it at the next **quiet moment**: no dialogue, menu,
+    card or title holding input, and the Wakebearer out of the Greying (not turning back, not forgetting the road). A
+    reload never lands mid-conversation or in the fog.
+    - Arrival in a region by travel in play saves as soon as it can.
+    - Quest changes save at most once per 30 s, so a beat that moves several quests writes once.
+    - Launch, New game, the title and a loaded save don't count as arrivals and cancel any pending request.
+  - **Leaving autosaves first:** Return to title (the pause menu and every act-end card, including the final card),
+    the pause menu's Quit, and closing the window. The confirmations now say "Your progress will be autosaved" (or
+    still warn that unsaved progress is lost when autosave is off).
+  - **Never in a developer jump.** New flag `GameState.dev_session`: set by checkpoints (`--scenario`, Chapter select)
+    and by `--flags` / `--quest` / `--region`; cleared by a new game or a loaded save. A screenshot run or a chapter jump
+    can't overwrite the player's real progress.
+  - **Settings → Autosave: On/Off** (`[game] autosave` in settings.cfg).
+- **Smoke:** the walk must have autosaved into a real region in real play, and the pause menu's Load page lists the
+  autosave first. The run clears stale slots from its scratch dir before it starts.
+- **Tests:** `test_autosave.gd` (11): the slot; quiet writes and Continue; no autosave when it isn't allowed (developer
+  jump, setting off, no region); the dev flag; waiting for a quiet moment; story saves spaced, arrivals not; dropped and
+  cancelled requests; the setting round trip; the menus (toggle, leave warnings, Load and Save pages); the act-end
+  card's confirm; the HUD cue. `test_title_screen.gd` follows the new Load order. 805 tests + smoke + launch green.
+
+**Decisions**
+- **One autosave slot, not a rotating set.** It is the smallest model that fixes the real loss (the end card, a closed
+  window). Manual slots stay the player's own. The cost: a New game replaces the autosave once the new story moves on.
+  Per-playthrough autosaves are logged under save follow-ups (#1c).
+- **Quiet moments, not "every N minutes".** Saving on a timer could catch the player mid-fog or mid-dialogue. The
+  story and the map already mark the right moments.
+- **A loaded save doesn't autosave on arrival,** so loading an old manual slot to look at it doesn't overwrite a newer
+  autosave until play actually moves on.
+- No SAVE_VERSION bump: the autosave uses the existing format.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a content session** (Aldous before the Provost, or the winter's first days). Polish eighteen
+   is due by ~Day 109. Fetch and reset `main` before trusting it.
+
 ## 2026-11-15 09:00 UTC — Day 105: the final card — the Mercy tied up for the winter (content)
 
 **Did**

@@ -94,8 +94,9 @@ scripts/
     game_state.gd   "GameState"  – current WorldState, region, signals (toast, dialogue_requested…)
     save_system.gd  "SaveSystem" – JSON saves in user://saves/<slot>.json: "quick" (F5 / F9)
                     and SLOTS slot1..slot3 (pause menu); slot_summary() for menus, latest_slot()
-                    for the title's Continue (newest `saved_at`, quicksave included); `save_dir`
-                    is a var so the smoke test saves elsewhere
+                    for the title's Continue (newest `saved_at`, quicksave and autosave included);
+                    AUTO_SLOT "auto" (Day 106, `autosave()`, no toast; LOADABLE lists all five);
+                    `save_dir` is a var so the smoke test saves elsewhere
   world/       region.gd (builds a region from data), npc_actor.gd, pickup.gd,
                region_exit.gd (optionally gated), inspectable.gd (examine → dialogue),
                interactable.gd, prop_factory.gd (procedural low-poly props),
@@ -1180,6 +1181,7 @@ change** (Day 23: every toggle, rebind, reset and keyboard slider step; a mouse-
 once, on `drag_ended`) and again on leaving.
 `user://settings.cfg` (ConfigFile) — never in save games:
 ```
+[game]     autosave = true|false (Day 106)
 [audio]    Master/Music/Ambience/Effects/Voice = 0..1 (linear; 0 mutes the bus)
 [display]  text_scale = 0.75..2.0   (menu presets 0.85 / 1.0 / 1.25 / 1.5 → UiTheme)
            text_speed = 0..400 chars/s (presets Slow 25 / Normal 50 / Fast 100 / Instant 0)
@@ -1290,7 +1292,34 @@ writes each as a .wav (never commit them).
 WorldState.to_dict()}` (the world: `flags`, `quests`, `inventory`, `collected`, and since Day 91 `walkers`; an older
 save without it simply starts walkers from their placements). Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
 
+### Autosave (Day 106)
+- Slot `auto` (`SaveSystem.AUTO_SLOT`, "Autosave"): written only by the game, never offered on the Save page; listed
+  first on the Load page (`SaveSystem.LOADABLE`) and counted by the title's Continue. No toast: the HUD shows a small
+  "Saving…" in the bottom-right corner (`Hud.show_autosave`, from `SaveSystem.saved`).
+- **When** (`Autosaver`, a node owned by `main.gd`; it pauses with the tree):
+  - on arrival in a region by travel in play (an exit, a sailing, a story `travel`): *urgent*, no interval;
+  - when a quest starts, moves on or finishes: at most once per `Autosaver.MIN_INTERVAL_MSEC` (30 s), so a beat that
+    moves several quests writes once;
+  - either way only at a **quiet moment** (`main.is_quiet_moment()`): nothing holds `GameState.input_locked` (dialogue,
+    menus, cards, the title) and the Wakebearer is out of the Greying (depth 0, not turning back or forgetting the
+    road), so a reload never lands mid-conversation or in the fog;
+  - directly (`SaveSystem.autosave()`) on **Return to title** (pause menu or an act-end card, the final card included),
+    on the pause menu's **Quit**, and when the window is closed mid-game (`NOTIFICATION_WM_CLOSE_REQUEST`).
+  - Not on launch, New game, the title's return, or a loaded save (the next region load is skipped and any pending
+    request cancelled), so loading an old manual save doesn't overwrite a newer autosave until play moves on.
+- **Never** when `SaveSystem.autosave_allowed()` is false: the **Autosave** setting is off, or `GameState.dev_session`
+  — set by a checkpoint (`apply_scenario`: `--scenario`, Chapter select) and the `--flags` / `--quest` / `--region`
+  debug args, cleared by a new game or a loaded save — so a developer jump never overwrites the player's progress.
+- The leave-the-game confirmations say "Your progress will be autosaved" when it's allowed (`PauseMenu.leave_warning`,
+  `ActEndCard.TITLE_CONFIRM_AUTOSAVED`), and warn that unsaved progress is lost when it isn't.
+- One autosave per install: a New game replaces it once the new story makes progress. Manual slots are untouched.
+
 ## Testing
+- `tests/test_autosave.gd` — (Day 106) the Autosave slot (name, Load order, not on the Save page); an autosave writes
+  without a toast and Continue picks it up; none in a developer jump, with the setting off, or before a region; a
+  checkpoint sets `GameState.dev_session` and a new game clears it; `Autosaver` waits for a quiet moment, spaces story
+  saves by the interval (an arrival doesn't wait), drops requests when not allowed and on cancel; the setting round
+  trip; the Settings toggle, leave warnings, the Load page; the act-end card's autosaved confirm; the HUD cue.
 - `tests/test_polish_seventeen.gd` — (Day 104) a checkpoint applies quietly (`GameState.apply_scenario`: no toast per
   quest or item; play toasts afterwards); the HUD toast stack keeps only the newest `Hud.TOAST_MAX` (5); the nameplate
   over a seated NPC hangs at `NpcActor.NAMEPLATE_SEATED_HEIGHT` (1.6 m, standing 2 m); the lantern room's door-leaf

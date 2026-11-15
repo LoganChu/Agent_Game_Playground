@@ -843,11 +843,20 @@ each .glb < 5 MB.
       `lowsong_kept_for`, `kindleby_midwinter`, `thornwold_aldous_landed`, `saltmarrow_brazier_lit`), a line per island
       missed, the winter, a coda per ending, and **credits** ("The End"). Engine: conditional `coda`, `credits`. Oda
       still ferries after. Checkpoint `the_winter`; the smoke walk ties up. `test_final_card.gd` (9).
+- [x] [S] **Autosave** (Day 106): an Autosave slot (Load page first, counted by Continue, never on the Save page, no
+      toast — a small "Saving…" cue). `Autosaver` writes it at a quiet moment (no dialogue/menu/card, out of the
+      Greying) on arrival by travel and on quest changes (spaced 30 s); directly on Return to title (pause menu and
+      every act-end card, the final card included), Quit, and closing the window. Never in a developer jump
+      (`GameState.dev_session`: checkpoints, Chapter select, debug args) or with the new **Autosave** setting off; the
+      leave confirmations say it autosaves. Smoke: the walk autosaves and the Load page lists it. `test_autosave.gd` (11).
 
 ### Next up
-1. [S] **A systems session is overdue** (last: Day 97's after-the-ember; Day 105 was content): candidates — **autosave**
-   (Milestone 3 save item; "Return to title" — now also on the final card — relies on manual saves), gamepad rebinding
-   (#5), or the Cindermoor morning flag and rest prompt (#2). Autosave first: the story now has an end.
+1. [C] **A content session** (Day 105 was the last; fold in #1d/#1b): Aldous before the Provost on Kindleby, or the
+   winter's first days (`epilogue_winter` crew/stay lines). Polish eighteen (#1a) is due by ~Day 109.
+1c. [S] **Save follow-ups** (Milestone 3 save item, after Day 106's autosave): slot thumbnails and play time on the
+   Load page; a save-version migration path (SAVE_VERSION is still 1); per-playthrough autosaves (today one per
+   install — a New game replaces it once the new story moves on); an owner check that the "Saving…" cue reads on a
+   real screen. Then gamepad rebinding (#5) or the Cindermoor morning flag (#2) for the next systems session.
 1d. [C] **After the final card** (fold into the next content session): **Aldous before the Provost** on Kindleby (he
    says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) — the chapter is still on Cindermoor after the
    ending (only Hild came home), so that meeting wants Oda to run the lane in again, or the chapter to come home first;
@@ -954,7 +963,7 @@ each .glb < 5 MB.
 
 ## Milestone 3 — Beta
 - [C] 2 more islands; Keepers faction arc; Hollow Choir hints.
-- [S] Full save system with migration, autosave, Steam Cloud-friendly paths.
+- [S] Full save system with migration, Steam Cloud-friendly paths (autosave: Day 106).
 - [S] Localization pipeline (dialogue string ids).
 - [P] Controller-first UI pass; Steam Deck checks.
 
@@ -1055,7 +1064,7 @@ each .glb < 5 MB.
   camera pulls in a little early beside pines. Fine for now; per-part shapes if it bothers.
 - Pause pauses the whole tree; anything that must run under the menu (HUD, smoke test) sets
   `PROCESS_MODE_ALWAYS`. Toast tweens keep running under the menu (HUD is always-on).
-- Save slots have no thumbnails or play time yet (full save system item, Milestone 3).
+- Save slots have no thumbnails or play time yet (full save system item, Milestone 3). One autosave slot per install.
 - The Vertical Slice is now playable start to finish (wake → beacon → ferry → Act I card).
   After the card the player keeps exploring Saltmarrow with passage taken; nothing sails until
   Act II. Remaining slice work is systems/polish (pause menu, settings, audio, interaction
