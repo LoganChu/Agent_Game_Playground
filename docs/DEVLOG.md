@@ -2,6 +2,51 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-16 09:00 UTC — Day 107: the winter's first days (content)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and Blender (bpy 5.2.2). HEAD was detached again; I reset `main` to
+  `origin/main` (Day 106's `4e10c8c`). Baseline (805 tests + smoke + launch) green before any edit.
+- **Content (ROADMAP *Next up* #1, folding in #1d): the winter's first days.** The final card asked what the Wakebearer
+  would do with the winter, and nothing after it answered.
+  - **The Mercy lies dark.** New Blender variant `ferry_tied.glb` (`build_ferry(tied=True)`): the masthead lantern's
+    glass dark, the windows unlit, the pennant struck, the sail under a lashed cover, doubled warps to port. Swapped in
+    by `if` at all five ports and the Boat Stair, with no masthead `light`. She still ferries like that.
+  - **Oda's first word, once, per winter:**
+    - crew: frost on the warps, "Crew's up before the gulls", then coil that warp, sun-wise. Lit: a gold mark on the
+      chart she won't have touched. Released: the dog watch alone, not lonely. Dark: clear the bow for the coal-pan.
+    - stay: "you'll sleep ashore"; the first she's left somewhere on purpose.
+    - walk: "There's water in the way"; she'll ferry and "not count it".
+
+    Her port hub follows on in the same conversation.
+  - **The stay port's folk take the Wakebearer in, once.** The port is recorded at the tie-up
+    (`epilogue_winter_port`), so ferrying afterwards doesn't move it. Each welcome has a line per ending:
+    - Mara: the net-store loft. Dark: not on the dock-post list, "You've given enough."
+    - Bram: a knife-ring under the tally board's last row, "not a tally".
+    - Hesper: nobody winters on the fen that isn't born to it.
+    - Wenna: the lane-house bunk, empty since the Gannet.
+    - Tobin: the spare cot, the window on the quay.
+  - **Crewing or walking**, each of the five has a line for it.
+- **Smoke:** after the final card, the walk checks the dark Mercy at Kindleby and Oda's first word to her crew.
+- **Tests:** `test_the_winter.gd` (9): port recorded; Oda once per winter; her hub follows; crew lines per ending; the
+  welcome once and only at the stay port; the welcome per ending; the answers; crew/walk lines; the Mercy dark at every
+  port. `test_dressing.gd` knows `ferry_tied`. 814 tests + smoke + launch green.
+- Screenshot: `docs/screenshots/2026-11-16-am-mercy-tied-up.png`.
+
+**Decisions**
+- **The winter answered in dialogue first, not a new mechanic.** The folk's welcomes and Oda's first word make the
+  choice matter at once and cost no systems. Doing the winter's work (nets, the deck) and walking between islands on
+  foot are logged as leftovers.
+- **Record the stay port rather than read `lanes_ferry_at`.** Oda still ferries after the card, so the Mercy's position
+  stops meaning "where you said you'd stay" the moment she sails.
+- **The tied-up Mercy keeps ferrying dark.** Lore says the lantern went out "because there's nobody on the water who
+  needs to find her". That stays true when she's only ferrying, so the model doesn't flip back.
+- Aldous before the Provost stays open: it still needs the chapter home from Cindermoor or Oda to run the lane in again.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish eighteen** (due by ~Day 109). Then a systems session. Fetch and reset `main` before
+   trusting it.
+
 ## 2026-11-15 21:00 UTC — Day 106: autosave (systems)
 
 **Did**

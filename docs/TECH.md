@@ -775,6 +775,16 @@ a room this small (11 m square) taught:
   `test_lowsong` reads `events[0]`). `hild`/`iver` `start` jump to `epilogue` knots first. Lit: gold `light`/`fog`
   overrides, a thinner greying rect (the old 0.25 one gained `!lit`), and `hearthspire_far_lit` at [-20, -6, -140] (north;
   -Z is north). The Isolde-name tests now check a choice step per option.
+- **The winter's first days (Day 107):** after `epilogue_tied_up` each Mercy port (and the Boat Stair) swaps
+  `ferry.glb` for **`ferry_tied.glb`** by `if` (`!flag:epilogue_tied_up` / `flag:epilogue_tied_up` on otherwise identical
+  placements; the tied one has **no `light`**: the masthead lantern let go out). `build_dressing.py ferry_tied` is
+  `build_ferry(tied=True)`: lantern glass slate, windows unlit, pennant struck, the sail under a lashed cover, doubled
+  warps to port — same origin and footprint. Oda's `start` jumps once to `winter_first` (per `epilogue_winter`), which
+  ends `goto start`, so her port hub follows straight on. The stay port is **recorded at the tie-up**
+  (`epilogue_winter_port`, effect-only steps in `tie_up_stay` read `lanes_ferry_at`), so ferrying after doesn't move
+  it; `mara`/`bram`/`hesper`/`wenna`/`tobin` `start` jump once to `winter_stay` (`epilogue_winter_welcomed`) and carry
+  one crew and one walk greeting line. Tests: `test_the_winter.gd`; the smoke walk checks the dark Mercy and Oda's
+  first word after the final card.
 
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:

@@ -1946,8 +1946,31 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   in thirty-eight years**. The epilogue card's codas — lit: "The Lanternreach remembers. What it's willing to forget, it
   will be asked."; released: "Nothing in the Lanternreach burns now that didn't choose to. The lights are kept, and the
   keepers keep each other."; dark: "Nobody chooses for the Lanternreach any more. At midwinter it chooses for itself,
-  and writes it down." Oda still ferries after ("that's only ferrying"). *(Open: Aldous before the Provost; the winter
-  itself; midwinter.)*
+  and writes it down." Oda still ferries after ("that's only ferrying"). *(Open: Aldous before the Provost; midwinter.)*
+- **The winter's first days (Day 107).** The Mercy lies **dark at her warps** wherever she is: masthead lantern out,
+  sail under its cover, the pennant struck — and still ferries so, "that's only ferrying". Oda's first word after:
+  - **crew** — frost on the doubled warps; "Crew's up before the gulls on this boat." Lit: she has put a **gold mark on
+    the chart, in the middle of the ring**, and the Wakebearer's not to touch it. Released: she sat the dog watch with
+    the lantern out and nobody on the water, **and wasn't lonely**. Dark: the first job is to **clear the bow for the
+    coal-pan**, out of the spray: six weeks. Then: coil that warp (sun-wise; Dunstan never did it without singing).
+  - **stay** — "you'll sleep ashore"; "Most folk I carry, I carry away from something. You're the first I've left
+    somewhere on purpose."
+  - **walk** — "Walking's slow, on islands. There's water in the way." She'll ferry, and "not count it".
+  - **Where the Wakebearer stays** (the port the Mercy lay at, recorded then), that port's folk take them in, once:
+    **Mara** — the loft over the net store (Oda walked up the dock to tell her, the first time in thirty-eight years);
+    lit, the bed turned to the Spire or away; released, Tam's nights on the Gull's step; dark, **not on the dock-post
+    list — "You've given enough. Harbormaster's word."** **Bram** — a ring cut with a knife under the tally board's last
+    row, "not a tally", so the lads know whose bunk it is; lit, the lads say goodnight to the gold; released, the second
+    cup up the ladder; dark, someone who's held the coal to stand at the ladder's foot at midwinter. **Hesper** — nobody
+    winters on the fen that isn't born to it; go round by the tussocks; lit, up the Heron once to see the gold; released,
+    she sits by the Heron's warm top step; dark, the fen wants someone not born there to read its list out.
+    **Wenna** — the lane-house bunk nobody's used since the Gannet went; lit, nothing to listen for now ("the strange
+    part"); released, something sits with the Wrack; dark, hold the lamp while she writes Wrackholm's list in the Book.
+    **Tobin** — his candles off the spare cot ("most of them"), the cell with the window on the quay; lit, he's
+    practising what he'd say if asked; released, two of them changing candles; dark, he asked Anselm if the two of them
+    could carry the coal up the wall — "He said ask you."
+  - Crewing or walking, each of the five has a word for it (Wenna: give the horn a word past the Teeth; Tobin keeps a
+    candle in the quay window for the walker).
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks
@@ -2065,3 +2088,4 @@ set/read declared flags (enforced by tests). Flag names use `region_topic_detail
 - After (Day 97): Oda finds the lane out; the Mercy comes in under Kindleby's wall at evening and Tobin strikes the second
   stroke. About six weeks to midwinter.
 - After the homecomings (Day 105): Oda ties the Slow Mercy up for the winter; the masthead lantern goes out.
+- The next morning on (Day 107): the winter's first days — crew, ashore at the port, or on foot. About six weeks to midwinter.

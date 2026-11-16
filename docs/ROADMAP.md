@@ -849,10 +849,16 @@ each .glb < 5 MB.
       every act-end card, the final card included), Quit, and closing the window. Never in a developer jump
       (`GameState.dev_session`: checkpoints, Chapter select, debug args) or with the new **Autosave** setting off; the
       leave confirmations say it autosaves. Smoke: the walk autosaves and the Load page lists it. `test_autosave.gd` (11).
+- [x] [C] **The winter's first days** (Day 107): after the final card the Mercy lies **dark at her warps** at every
+      port (`ferry_tied.glb`: lantern out, sail covered, warps doubled; no light). Oda's first word once per winter
+      (crew: coil sun-wise, plus a line per ending; stay: "you'll sleep ashore"; walk: "I'll not count it"), then her
+      hub. The stay port is recorded at the tie-up (`epilogue_winter_port`) and its folk take the Wakebearer in once
+      (Mara, Bram, Hesper, Wenna or Tobin, per ending; `epilogue_winter_welcomed`); crewing or walking, each of the
+      five has a word for it. Smoke: the dark Mercy and Oda's first word. `test_the_winter.gd` (9).
 
 ### Next up
-1. [C] **A content session** (Day 105 was the last; fold in #1d/#1b): Aldous before the Provost on Kindleby, or the
-   winter's first days (`epilogue_winter` crew/stay lines). Polish eighteen (#1a) is due by ~Day 109.
+1. [P] **Polish eighteen** (#1a, due by ~Day 109; Day 104 was seventeen). Fetch and reset `main` before trusting it.
+   Then a systems session (#1c save follow-ups, or gamepad rebinding #5).
 1c. [S] **Save follow-ups** (Milestone 3 save item, after Day 106's autosave): slot thumbnails and play time on the
    Load page; a save-version migration path (SAVE_VERSION is still 1); per-playthrough autosaves (today one per
    install — a New game replaces it once the new story moves on); an owner check that the "Saving…" cue reads on a
@@ -860,12 +866,16 @@ each .glb < 5 MB.
 1d. [C] **After the final card** (fold into the next content session): **Aldous before the Provost** on Kindleby (he
    says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) — the chapter is still on Cindermoor after the
    ending (only Hild came home), so that meeting wants Oda to run the lane in again, or the chapter to come home first;
-   the winter itself (`epilogue_winter`: crew lines on the Mercy, the stay port's folk noticing) and midwinter (the dark
-   round, the lit Spire's first asking) are open if the game goes on past the card. Wrackholm leftovers: Wenna at the
+   midwinter (the dark round, the lit Spire's first asking) is open if the game goes on past the card. (Done Day 107:
+   the winter's first days — Oda's first word per winter, the stay port's folk, crew/walk lines, the Mercy dark at her
+   warps.) Winter leftovers: props for the stay ports (Mara's loft hatch, Bram's knife-ring on the board, Tobin's cot
+   by the quay window); the Wakebearer actually *doing* the winter's work (a coil-the-warp beat on deck, nets) is
+   text-only; the walk has no "on foot" travel yet (Oda still ferries). Wrackholm leftovers: Wenna at the
    jetty's foot after the homecoming; the chalk marks as a prop. Lowsong leftovers: a warm-step cue (released) and
    Iver's boat on the bottom (lit, lamp) are text-only — props would help. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish eighteen candidates** (due by ~Day 109; Day 104 was seventeen): the far Spire reads pale in the fen's,
+1a. [P] **Polish eighteen candidates** (due by ~Day 109; Day 104 was seventeen): the tied-up Mercy's doubled warps
+   hardly read from the quay (Day 107 shot; they run to port, behind the hull from the landing side); the far Spire reads pale in the fen's,
    Wrackholm's and Lowsong's horizon wash (Compatibility; judge on Vulkan); a **two-speaker shot in tight spots** (the
    Mercy's deck, #9) and a third speaker; the lift outdoors needs an owner's feel check (it triggers under 60 % of the
    reach; tune `CAMERA_LIFT_CLEAR` if it's too eager); the last landing reads very dark in Compatibility (judge on
