@@ -629,10 +629,22 @@ def build_ferry(tied: bool = False) -> None:
         cyl("Fender", 0.13, 0.13, 0.45, 6, (1.68, y, 0.2), mat("ink", 0.2))
     beam("Plank", (1.4, 0.2, 0.9), (2.9, 0.2, 0.55), 0.06, mat("driftwood", 0.2), width=0.55)
     if tied:
-        # Doubled warps from the bow and the quarter, out to port and down to the quay's edge.
-        for y0, y1 in ((-4.0, -5.4), (3.2, 4.6)):
-            for dy in (0.0, 0.18):
-                beam("Warp", (1.0, y0 + dy, 1.0), (3.1, y1 + dy, 0.35), 0.035, mat("driftwood", 0.2), width=0.035)
+        # Doubled warps from the bow and the quarter, out to port and down to the quay's
+        # pilings, plus a breast line either side of the plank. Polish eighteen (Day 108):
+        # thick tarred rope (dark on a pale quay, still brown over grey water), each line
+        # sagging in two runs. The fore and aft warps run down to the waterline (to a piling
+        # under the quay, or a mooring where a port's quay is short); the breast lines end in
+        # an eye on the quay boards beside the plank, which every port has.
+        tar = mat("driftwood", -0.55)
+        lines = [((1.15, -4.0, 1.05), (3.0, -5.6, 0.05), False), ((1.15, -3.78, 1.05), (3.0, -5.3, 0.05), False),
+                 ((1.25, 3.2, 1.05), (3.0, 4.75, 0.05), False), ((1.25, 2.98, 1.05), (3.0, 4.45, 0.05), False),
+                 ((1.5, -0.9, 1.0), (2.95, -0.7, 0.62), True), ((1.5, 1.3, 1.0), (2.95, 1.1, 0.62), True)]
+        for a, b, eye in lines:
+            mid = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2 - 0.12)
+            rod("Warp", a, mid, 0.055, tar, verts=5)
+            rod("Warp", mid, b, 0.055, tar, verts=5)
+            if eye:
+                cyl("WarpEye", 0.11, 0.11, 0.05, 6, (b[0], b[1], b[2] - 0.02), tar)
         cyl("Coil", 0.26, 0.26, 0.1, 8, (-0.6, 3.6, 0.7), mat("driftwood", 0.2))
     export("ferry_tied" if tied else "ferry")
 
