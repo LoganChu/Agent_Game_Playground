@@ -1351,6 +1351,26 @@
         "crew",
         "walk"
       ]
+    },
+    "epilogue_winter_port": {
+      "description": "Where the Wakebearer said they'd stay the winter (Day 107): the port the Mercy lay at when Oda tied her up and the Wakebearer chose 'stay' ('' otherwise). Recorded at the tie-up so ferrying afterwards doesn't move it. That port's folk notice once (epilogue_winter_welcomed): Mara's net-store loft, Bram's knife-ring on the board, Hesper's tussocks, Wenna's lane-house bunk, Tobin's spare cot.",
+      "default": "",
+      "values": [
+        "",
+        "saltmarrow",
+        "thornwold",
+        "fen",
+        "wrackholm",
+        "kindleby"
+      ]
+    },
+    "epilogue_oda_winter_seen": {
+      "description": "Oda's first word after the Mercy's tied up (Day 107, once): crew — frost on the warps, coil sun-wise (lit: a gold mark on the chart; released: the dog watch, not lonely; dark: clear the bow for the coal-pan); stay — 'you'll sleep ashore', the first she's left somewhere on purpose; walk — 'I'll not count it'.",
+      "default": false
+    },
+    "epilogue_winter_welcomed": {
+      "description": "The stay port's folk noticed the Wakebearer wintering with them (Day 107, once, epilogue_winter_port): Mara, Bram, Hesper, Wenna or Tobin, per ending.",
+      "default": false
     }
   }
 }

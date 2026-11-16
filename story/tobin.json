@@ -3,6 +3,32 @@
   "knots": {
     "start": [
       {
+        "if": [
+          "flag:epilogue_tied_up",
+          "flag:epilogue_winter=stay",
+          "flag:epilogue_winter_port=kindleby",
+          "!flag:epilogue_winter_welcomed"
+        ],
+        "goto": "winter_stay",
+        "note": "Day 107: the winter's first days. The stay port's folk notice, once."
+      },
+      {
+        "if": [
+          "flag:epilogue_tied_up",
+          "flag:epilogue_winter=crew"
+        ],
+        "say": "tobin",
+        "text": "You're crew now. Brother Anselm says that's a kind of vow. I said it's a kind of rope."
+      },
+      {
+        "if": [
+          "flag:epilogue_tied_up",
+          "flag:epilogue_winter=walk"
+        ],
+        "say": "tobin",
+        "text": "Oda says you're walking. I'll keep a candle in the quay window, so you can find us the dark way round."
+      },
+      {
         "if": "flag:kindleby_homecoming_seen",
         "goto": "after"
       },
@@ -341,6 +367,66 @@
       },
       {
         "goto": "hub"
+      }
+    ],
+    "winter_stay": [
+      {
+        "set": {
+          "epilogue_winter_welcomed": true
+        }
+      },
+      {
+        "say": "tobin",
+        "text": "Brother Anselm says you're wintering with us. I've moved my candles off the spare cot. Most of them."
+      },
+      {
+        "say": "tobin",
+        "text": "You'll want the cell with the window on the quay. You can hear the bell from it. I don't mean you'll want to hear it. I mean you can."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "tobin",
+        "text": "When they call up at midwinter they'll ask whoever's going, first, by name. I've been practising what I'd say. You can hear it, if you like. Not now."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "tobin",
+        "text": "The candles on the wall don't gutter. I change them anyway. Now there's two of us changing them."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "tobin",
+        "text": "When the coal comes round, somebody carries it up the wall. I asked Brother Anselm if it could be you and me. He said ask you."
+      },
+      {
+        "choice": [
+          {
+            "text": "Thank you, Tobin.",
+            "goto": "winter_thanks"
+          },
+          {
+            "text": "I'll change candles.",
+            "goto": "winter_pay"
+          }
+        ]
+      }
+    ],
+    "winter_thanks": [
+      {
+        "say": "tobin",
+        "text": "It's only a cot. ...It's a good cot, though."
+      },
+      {
+        "goto": "start"
+      }
+    ],
+    "winter_pay": [
+      {
+        "say": "tobin",
+        "text": "Forty, turn and turn. I'll show you which end lights."
+      },
+      {
+        "goto": "start"
       }
     ]
   }

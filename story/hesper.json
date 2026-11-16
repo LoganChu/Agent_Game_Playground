@@ -11,6 +11,32 @@
         "goto": "first"
       },
       {
+        "if": [
+          "flag:epilogue_tied_up",
+          "flag:epilogue_winter=stay",
+          "flag:epilogue_winter_port=fen",
+          "!flag:epilogue_winter_welcomed"
+        ],
+        "goto": "winter_stay",
+        "note": "Day 107: the winter's first days. The stay port's folk notice, once."
+      },
+      {
+        "if": [
+          "flag:epilogue_tied_up",
+          "flag:epilogue_winter=crew"
+        ],
+        "say": "hesper",
+        "text": "Crewing the Mercy. Mind the reed channel when it ices; she'll have you in the bow with a pole."
+      },
+      {
+        "if": [
+          "flag:epilogue_tied_up",
+          "flag:epilogue_winter=walk"
+        ],
+        "say": "hesper",
+        "text": "Walking the islands. Not the fen, I hope, without me. Go round by the tussocks."
+      },
+      {
         "goto": "greet"
       }
     ],
@@ -566,6 +592,71 @@
       {
         "say": "hesper",
         "text": "Not from me. He's to ask for it himself, in his own voice. That's how it's kept, or it isn't kept."
+      }
+    ],
+    "winter_stay": [
+      {
+        "set": {
+          "epilogue_winter_welcomed": true
+        }
+      },
+      {
+        "say": "hesper",
+        "text": "You're stopping. Corran said so, poling back; he'd seen the Mercy's lantern out and couldn't credit it."
+      },
+      {
+        "say": "hesper",
+        "text": "Nobody winters on the fen that isn't born to it. The pools freeze from the edges in, and you go round by the tussocks, never across."
+      },
+      {
+        "if": "flag:fen_hesper_tussock",
+        "say": "hesper",
+        "text": "There's your tussock, if you want somewhere to stand of a morning. It'll hold you. I tried it."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "hesper",
+        "text": "From the top of the Heron you can see the gold, of a clear night. I'll take you up. Once. It's cold."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "hesper",
+        "text": "The Heron's top step is warm of a night. You'll find me sat by it, some nights. Don't make anything of it."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "hesper",
+        "text": "At midwinter the coal comes up the reed channel in Oda's bow, and the fen'll want somebody to read its list out who wasn't born here. You'll do."
+      },
+      {
+        "choice": [
+          {
+            "text": "Thank you, Hesper.",
+            "goto": "winter_thanks"
+          },
+          {
+            "text": "I'll learn the tussocks.",
+            "goto": "winter_pay"
+          }
+        ]
+      }
+    ],
+    "winter_thanks": [
+      {
+        "say": "hesper",
+        "text": "Thank the fen when it's let you through to spring. I only live on it."
+      },
+      {
+        "goto": "start"
+      }
+    ],
+    "winter_pay": [
+      {
+        "say": "hesper",
+        "text": "You will, or you'll learn the water. Either one teaches."
+      },
+      {
+        "goto": "start"
       }
     ]
   }

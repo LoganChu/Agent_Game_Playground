@@ -3,6 +3,14 @@
   "knots": {
     "start": [
       {
+        "if": [
+          "flag:epilogue_tied_up",
+          "!flag:epilogue_oda_winter_seen"
+        ],
+        "goto": "winter_first",
+        "note": "Day 107: the winter's first days. Oda's first word after the Mercy's tied up, once, per epilogue_winter."
+      },
+      {
         "if": "flag:lanes_ferry_at=cindermoor",
         "goto": "cindermoor"
       },
@@ -2640,6 +2648,36 @@
     ],
     "tie_up_stay": [
       {
+        "if": "flag:lanes_ferry_at=saltmarrow|",
+        "set": {
+          "epilogue_winter_port": "saltmarrow"
+        }
+      },
+      {
+        "if": "flag:lanes_ferry_at=thornwold",
+        "set": {
+          "epilogue_winter_port": "thornwold"
+        }
+      },
+      {
+        "if": "flag:lanes_ferry_at=fen",
+        "set": {
+          "epilogue_winter_port": "fen"
+        }
+      },
+      {
+        "if": "flag:lanes_ferry_at=wrackholm",
+        "set": {
+          "epilogue_winter_port": "wrackholm"
+        }
+      },
+      {
+        "if": "flag:lanes_ferry_at=kindleby",
+        "set": {
+          "epilogue_winter_port": "kindleby"
+        }
+      },
+      {
         "say": "oda",
         "text": "Here. Aye. Well, it's as good a place as any to be from, and better than most I've tied up at."
       },
@@ -2683,6 +2721,117 @@
           "epilogue_tied_up": true
         },
         "end": true
+      }
+    ],
+    "winter_first": [
+      {
+        "set": {
+          "epilogue_oda_winter_seen": true
+        }
+      },
+      {
+        "if": "flag:epilogue_winter=crew",
+        "goto": "winter_crew"
+      },
+      {
+        "if": "flag:epilogue_winter=walk",
+        "goto": "winter_walk"
+      },
+      {
+        "goto": "winter_stay"
+      }
+    ],
+    "winter_crew": [
+      {
+        "say": "narrator",
+        "text": "Frost on the doubled warps, and the masthead lantern dark against a white sky. Oda's in the wheelhouse door with a mug she doesn't offer."
+      },
+      {
+        "say": "oda",
+        "text": "Crew's up before the gulls on this boat. The gulls know it. Now you do."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "oda",
+        "text": "I put a mark on the chart in the night. Gold, in the middle of the ring. I'll not tell you twice not to touch it."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "oda",
+        "text": "Had the dog watch myself last night: lantern out, nobody on the water. I wasn't lonely. Last year I'd have said that was the drink."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "oda",
+        "text": "First job's the bow. Clear me a place for the coal-pan, forward of the coil and out of the spray. Six weeks."
+      },
+      {
+        "say": "oda",
+        "text": "Then coil that warp."
+      },
+      {
+        "choice": [
+          {
+            "text": "Sun-wise.",
+            "goto": "winter_crew_sunwise"
+          },
+          {
+            "text": "Which way's sun-wise?",
+            "goto": "winter_crew_which"
+          }
+        ]
+      }
+    ],
+    "winter_crew_sunwise": [
+      {
+        "say": "oda",
+        "text": "Sun-wise. Somebody taught you right, or you were listening. Either'll do."
+      },
+      {
+        "goto": "start"
+      }
+    ],
+    "winter_crew_which": [
+      {
+        "say": "oda",
+        "text": "The way the sun goes, if you face south and it isn't sleeting. ...It'll come. Dunstan took a winter, and he never did it without singing."
+      },
+      {
+        "goto": "start"
+      }
+    ],
+    "winter_stay": [
+      {
+        "say": "narrator",
+        "text": "The Mercy lies dark at her warps. Oda's on the plank, as if she'd been waiting to see which way you'd come down the quay."
+      },
+      {
+        "say": "oda",
+        "text": "You said here. I heard you. I'll still run you round if you ask: that's only ferrying. But you'll sleep ashore."
+      },
+      {
+        "say": "oda",
+        "text": "Most folk I carry, I carry away from something. You're the first I've left somewhere on purpose."
+      },
+      {
+        "goto": "start"
+      }
+    ],
+    "winter_walk": [
+      {
+        "say": "narrator",
+        "text": "The Mercy lies dark at her warps, and Oda's coiling down a line that doesn't need it."
+      },
+      {
+        "say": "oda",
+        "text": "Walking's slow, on islands. There's water in the way. ...You'll be wanting a lift, then."
+      },
+      {
+        "say": "oda",
+        "text": "Go on. I'll not count it."
+      },
+      {
+        "goto": "start"
       }
     ]
   }
