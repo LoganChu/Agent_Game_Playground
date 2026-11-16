@@ -695,6 +695,16 @@ func _walk_the_way_up(main: Node, ui: DialogueUI) -> void:
 			and not epilogue_recap.contains("never put in"), "the epilogue card: " + epilogue_recap.left(160))
 	_check(credits.begins_with("The End"), "the final card ends: " + credits)
 	print("Smoke: the final card")
+	# Day 107: the winter's first days — the Mercy lies dark at her warps, Oda's first word to her new crew, once.
+	await get_tree().process_frame
+	_check(_shown_model(main.get("region"), "ferry_tied.glb") == 1 and _shown_model(main.get("region"), "ferry.glb") == 0,
+			"the Mercy tied up dark at Kindleby's quay")
+	_npc("oda").interact()
+	_check(_choose(ui, "Sun-wise."), "Oda's first word to her crew: coil that warp")
+	_check(_choose(ui, "Not yet."), "then her quay talk, and the walk stays ashore")
+	_finish_dialogue(ui, "oda (the winter's first morning)")
+	_check(world.get_flag("epilogue_oda_winter_seen") == true, "Oda's first word after the tie-up")
+	print("Smoke: the winter's first days")
 
 
 ## Day 79, Act II's end: back from Lowsong, Oda has seen the sixth light and inks the lane in; asked to take the
