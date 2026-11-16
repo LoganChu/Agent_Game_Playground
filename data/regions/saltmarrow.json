@@ -1271,7 +1271,8 @@
         "!flag:lanes_ferry_at=fen",
         "!flag:lanes_ferry_at=wrackholm",
         "!flag:lanes_ferry_at=kindleby",
-        "!flag:lanes_ferry_at=cindermoor"
+        "!flag:lanes_ferry_at=cindermoor",
+        "!flag:epilogue_tied_up"
       ],
       "light": {
         "color": "moss",
@@ -1284,6 +1285,35 @@
         ]
       },
       "note": "The Tidewright ferry Slow Mercy alongside the dock (port side and boarding plank toward the dock); origin at the waterline. The light is its green masthead lantern.",
+      "float": {
+        "bob": 0.04,
+        "roll": 0.8,
+        "period": 6.0,
+        "foam": [
+          1.55,
+          4.4
+        ]
+      }
+    },
+    {
+      "model": "res://assets/models/dressing/ferry_tied.glb",
+      "position": [
+        8.9,
+        -0.25,
+        16.5
+      ],
+      "rotation_y": 180,
+      "snap": false,
+      "if": [
+        "flag:saltmarrow_ferry_arrived",
+        "!flag:lanes_ferry_at=thornwold",
+        "!flag:lanes_ferry_at=fen",
+        "!flag:lanes_ferry_at=wrackholm",
+        "!flag:lanes_ferry_at=kindleby",
+        "!flag:lanes_ferry_at=cindermoor",
+        "flag:epilogue_tied_up"
+      ],
+      "note": "Day 107: the Slow Mercy put to bed for the winter after the final card (epilogue_tied_up): the green masthead lantern let go out, so no light; the sail under its cover, the warps doubled. Oda still ferries in her.",
       "float": {
         "bob": 0.04,
         "roll": 0.8,

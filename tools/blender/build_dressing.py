@@ -572,11 +572,16 @@ def build_grass() -> None:
     export("grass")
 
 
-def build_ferry() -> None:
+def build_ferry(tied: bool = False) -> None:
     """The Tidewright ferry *Slow Mercy* (9 m), origin at the WATERLINE like moored_boat:
     broad tide-blue hull with a bone stripe, a plank deckhouse aft with a slate roof and
     moss-green windows, one mast with a furled sail and the green masthead lantern, a
-    bone horn on the deckhouse roof, fenders and a boarding plank on the port side (+X)."""
+    bone horn on the deckhouse roof, fenders and a boarding plank on the port side (+X).
+
+    `tied` (Day 107, `ferry_tied`): put to bed for the winter after the final card — the
+    masthead lantern let go out (dark glass), the sail under a tarred cover lashed to the yard,
+    the deckhouse windows unlit, the pennant struck and doubled warps fore and aft down to the
+    waterline on the port side. Same footprint and origin, so a region swaps it by `if` alone."""
     reset()
     st = hull_stations(9.0, 1.6, 1.3, 0.8, stations=11, transom=0.7)
     hull("Hull", st, 1.3, 0.8, mat("tide", -0.25))
@@ -590,21 +595,30 @@ def build_ferry() -> None:
     box("HouseDoor", (0.6, 0.05, 1.05), (0, 0.98, 0.68), mat("ink", 0.2))
     for x in (-1.01, 1.01):
         for y in (1.6, 2.6):
-            box("Window", (0.04, 0.45, 0.35), (x, y, 1.35), mat("moss", 0.1, emissive=True))
+            box("Window", (0.04, 0.45, 0.35), (x, y, 1.35), mat("moss", 0.1, emissive=not tied))
     # The horn: a long bone horn on a post on the roof, flaring to the bow.
     rod("HornPost", (0.55, 2.6, 2.2), (0.55, 2.6, 2.6), 0.04, mat("ink", 0.2))
     rod("Horn", (0.55, 3.1, 2.62), (0.55, 1.9, 2.72), 0.05, mat("bone", -0.1), verts=6, r_end=0.2)
     # Mast, boom, furled sail, stays and the green lantern at the masthead.
     rod("Mast", (0, -1.2, 0.6), (0, -1.2, 7.4), 0.1, mat("driftwood", -0.25), r_end=0.07)
     rod("Yard", (-1.4, -1.2, 6.2), (1.4, -1.2, 6.2), 0.05, mat("driftwood", -0.25))
-    rod("Sail", (-1.3, -1.12, 6.05), (1.3, -1.12, 6.05), 0.17, mat("driftwood", 0.2), verts=6, r_end=0.12)
+    if tied:
+        # The sail stowed under a tarred cover, lashed to the yard in three places.
+        rod("SailCover", (-1.32, -1.12, 6.03), (1.32, -1.12, 6.03), 0.2, mat("ink", 0.05), verts=6, r_end=0.16)
+        for x in (-0.8, 0.0, 0.8):
+            rod("Lashing", (x - 0.03, -1.12, 6.03), (x + 0.03, -1.12, 6.03), 0.22, mat("driftwood", 0.2), verts=6)
+    else:
+        rod("Sail", (-1.3, -1.12, 6.05), (1.3, -1.12, 6.05), 0.17, mat("driftwood", 0.2), verts=6, r_end=0.12)
     beam("Stay", (0, -1.2, 7.3), (0, -4.6, 1.3), 0.025, mat("ink", 0.2))
     beam("Stay", (0, -1.2, 7.3), (0, 4.5, 0.95), 0.025, mat("ink", 0.2))
     for x in (-1.45, 1.45):
         beam("Shroud", (0, -1.2, 6.9), (x, -0.9, 0.95), 0.02, mat("ink", 0.2))
     cyl("LanternCap", 0.18, 0.05, 0.14, 6, (0, -1.2, 7.55), mat("ink", 0.2))
-    cyl("LanternGlass", 0.12, 0.12, 0.2, 6, (0, -1.2, 7.35), mat("moss", 0.1, emissive=True))
-    box("Pennant", (0.02, 0.6, 0.2), (0, -0.85, 7.25), mat("bone", -0.1))
+    if tied:
+        cyl("LanternGlass", 0.12, 0.12, 0.2, 6, (0, -1.2, 7.35), mat("slate", -0.1))
+    else:
+        cyl("LanternGlass", 0.12, 0.12, 0.2, 6, (0, -1.2, 7.35), mat("moss", 0.1, emissive=True))
+        box("Pennant", (0.02, 0.6, 0.2), (0, -0.85, 7.25), mat("bone", -0.1))
     # Cargo and gear on the foredeck: crates, a coil, barrels.
     box("Crate", (0.6, 0.6, 0.5), (-0.6, -2.6, 0.7), mat("driftwood", -0.25))
     box("Crate", (0.5, 0.5, 0.4), (-0.55, -2.0, 0.7), mat("driftwood", -0.25))
@@ -614,7 +628,17 @@ def build_ferry() -> None:
     for y in (-2.2, -0.5, 1.2, 2.9):
         cyl("Fender", 0.13, 0.13, 0.45, 6, (1.68, y, 0.2), mat("ink", 0.2))
     beam("Plank", (1.4, 0.2, 0.9), (2.9, 0.2, 0.55), 0.06, mat("driftwood", 0.2), width=0.55)
-    export("ferry")
+    if tied:
+        # Doubled warps from the bow and the quarter, out to port and down to the quay's edge.
+        for y0, y1 in ((-4.0, -5.4), (3.2, 4.6)):
+            for dy in (0.0, 0.18):
+                beam("Warp", (1.0, y0 + dy, 1.0), (3.1, y1 + dy, 0.35), 0.035, mat("driftwood", 0.2), width=0.035)
+        cyl("Coil", 0.26, 0.26, 0.1, 8, (-0.6, 3.6, 0.7), mat("driftwood", 0.2))
+    export("ferry_tied" if tied else "ferry")
+
+
+def build_ferry_tied() -> None:
+    build_ferry(tied=True)
 
 
 def build_bundle() -> None:
@@ -677,7 +701,7 @@ def build_pell_gull() -> None:
 BUILDERS = [build_dock, build_rowboat, build_rowboat_upturned, build_moored_boat, build_smokehouse, build_barrel,
             build_barrels, build_crate, build_lantern_post, build_signal_lantern, build_fence, build_stool, build_cups,
             build_net_racks, build_driftwood_log, build_wreck, build_reeds, build_grass, build_beacon_lit,
-            build_ferry, build_bundle, build_pell_gull]
+            build_ferry, build_ferry_tied, build_bundle, build_pell_gull]
 
 if __name__ == "__main__":
     only = [a for a in sys.argv[1:] if not a.startswith("-")]

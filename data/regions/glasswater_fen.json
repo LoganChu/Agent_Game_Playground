@@ -390,7 +390,10 @@
       ],
       "rotation_y": 180,
       "snap": false,
-      "if": "flag:lanes_ferry_at=fen",
+      "if": [
+        "flag:lanes_ferry_at=fen",
+        "!flag:epilogue_tied_up"
+      ],
       "light": {
         "color": "moss",
         "energy": 1.2,
@@ -411,6 +414,30 @@
         ]
       },
       "note": "The Slow Mercy alongside the staithe while she's at the fen. Masthead lantern lit."
+    },
+    {
+      "model": "res://assets/models/dressing/ferry_tied.glb",
+      "position": [
+        7.9,
+        -0.25,
+        12.5
+      ],
+      "rotation_y": 180,
+      "snap": false,
+      "if": [
+        "flag:lanes_ferry_at=fen",
+        "flag:epilogue_tied_up"
+      ],
+      "float": {
+        "bob": 0.03,
+        "roll": 0.6,
+        "period": 7.0,
+        "foam": [
+          1.55,
+          4.4
+        ]
+      },
+      "note": "Day 107: the Slow Mercy put to bed for the winter after the final card (epilogue_tied_up): the green masthead lantern let go out, so no light; the sail under its cover, the warps doubled. Oda still ferries in her."
     },
     {
       "model": "res://assets/models/dressing/rowboat.glb",

@@ -429,7 +429,10 @@
       ],
       "rotation_y": 90,
       "snap": false,
-      "if": "flag:lanes_ferry_at=cindermoor",
+      "if": [
+        "flag:lanes_ferry_at=cindermoor",
+        "!flag:epilogue_tied_up"
+      ],
       "light": {
         "color": "moss",
         "energy": 1.2,
@@ -450,6 +453,30 @@
         ]
       },
       "note": "The Slow Mercy lying off the quay's seaward end. Masthead lantern lit. No lane off this water till the Spire's lit."
+    },
+    {
+      "model": "res://assets/models/dressing/ferry_tied.glb",
+      "position": [
+        6.0,
+        -0.25,
+        9.6
+      ],
+      "rotation_y": 90,
+      "snap": false,
+      "if": [
+        "flag:lanes_ferry_at=cindermoor",
+        "flag:epilogue_tied_up"
+      ],
+      "float": {
+        "bob": 0.05,
+        "roll": 1.5,
+        "period": 5.0,
+        "foam": [
+          1.55,
+          4.4
+        ]
+      },
+      "note": "Day 107: the Slow Mercy put to bed for the winter after the final card (epilogue_tied_up): the green masthead lantern let go out, so no light; the sail under its cover, the warps doubled. Oda still ferries in her."
     },
     {
       "model": "res://assets/models/dressing/hearthspire_far.glb",

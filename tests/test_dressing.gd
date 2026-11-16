@@ -49,7 +49,7 @@ func test_every_model_loads_small_and_upright() -> void:
 		# tall landmarks (~10-11 m to their vanes) and the lane-house the one long hall; everything else
 		# fits in 8 × 7 m.
 		var limit := Vector3(8.0, 7.0, 8.0)
-		if path.ends_with("ferry.glb"):
+		if path.get_file().begins_with("ferry"):  # ferry.glb and Day 107's ferry_tied.glb
 			limit = Vector3(12.0, 9.0, 12.0)
 		elif path.get_file().begins_with("thornwold_beacon") or path.get_file().begins_with("heron_light") \
 				or path.get_file().begins_with("wrack_light") or path.get_file().begins_with("vigil_light"):
@@ -69,7 +69,7 @@ func test_every_model_loads_small_and_upright() -> void:
 		assert_true(box.size.length() > 0.2 and box.size.x < limit.x and box.size.z < limit.z and box.size.y < limit.y, "%s has sane bounds %s" % [path, box])
 		# Boats sit on the waterline; the dock (and the fen's staithe/boardwalk), lantern room, Cindermoor's quay and
 		# boathouse (foundations under the water) and the far Spire are placed at absolute heights; the chapter's boat (Day 85) floats.
-		if not path.get_file().get_basename() in ["moored_boat", "ferry", "dock", "beacon_lit", "staithe", "boardwalk",
+		if not path.get_file().get_basename() in ["moored_boat", "ferry", "ferry_tied", "dock", "beacon_lit", "staithe", "boardwalk",
 				"boat_stair", "boathouse_slips", "hearthspire_far", "hearthspire_far_lit", "spire_foot", "spire_foot_open", "chapter_boat"]:
 			assert_true(box.position.y > -0.3, "%s stands on its origin (min y %.2f)" % [path, box.position.y])
 		node.free()
