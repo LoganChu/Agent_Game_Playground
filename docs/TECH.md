@@ -1325,6 +1325,11 @@ save without it simply starts walkers from their placements). Bump `SaveSystem.S
 - One autosave per install: a New game replaces it once the new story makes progress. Manual slots are untouched.
 
 ## Testing
+- `tests/test_polish_eighteen.gd` — (Day 108) the lantern room's arrival faces the cradle (≤ 20°) with the door
+  leaf's collider ≥ 100° off the look; the lit far Spire on Gull's Head and Shingle Point is Saltmarrow's point carried
+  across the exit seam (same easting, z shifted by the exit pair, same scale and halo, only when lit); the tied Mercy's
+  warps (the only `driftwood` -0.55 material, merged into one mesh `driftwood_d55`) run out to port past both ends of
+  the hull and down to the waterline, and the sailing Mercy has none.
 - `tests/test_autosave.gd` — (Day 106) the Autosave slot (name, Load order, not on the Save page); an autosave writes
   without a toast and Continue picks it up; none in a developer jump, with the setting off, or before a region; a
   checkpoint sets `GameState.dev_session` and a new game clears it; `Autosaver` waits for a quiet moment, spaces story

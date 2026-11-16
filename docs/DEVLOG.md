@@ -2,6 +2,40 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-16 21:00 UTC — Day 108: polish eighteen
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and Blender (bpy 5.2.2). HEAD was detached again; I reset `main` to
+  `origin/main` (Day 107's `0aeb8c7`). Baseline (814 tests + smoke + launch) green before any edit.
+- **Polish (ROADMAP *Next up* #1, due by ~Day 109):**
+  - **The tied-up Mercy's warps read.** Day 107's thin pale lines vanished against the quay. `build_ferry(tied=True)`
+    now runs thick tarred rope (`driftwood` -0.55, r 0.055 m):
+    - doubled fore and aft, sagging in two runs, down to the waterline (to a piling under the quay);
+    - a breast line either side of the plank, ending in an eye on the quay boards.
+  - **The lantern room's arrival** faces the cradle with the swung-back door leaf out of the first frame
+    (`spawn_facing` [-1, -0.7] → [-1, 0.5]; the leaf was a brown wedge at the right edge). The roadmap said "a little
+    north"; the shots showed it wanted turning the other way, south.
+  - **The lit far Spire on Gull's Head and Shingle Point.** The three Saltmarrow regions share an orientation: each
+    seam's exits face each other on z. So Saltmarrow's point (120, -140) carries across: Gull's Head (120, -103.5),
+    Shingle Point (120, -166.5). Checked by screenshots from each; it stands low in the north-east as Saltmarrow says.
+- **Tests:** `test_polish_eighteen.gd` (3): the arrival's framing (angles to the cradle and the leaf); the Spire's
+  seam arithmetic, halo and condition; the warps' extent in the model. 817 tests + smoke + launch green.
+- Screenshots: `docs/screenshots/2026-11-16-pm-mercy-warps.png`, `docs/screenshots/2026-11-16-pm-gulls-head-far-spire.png`.
+
+**Decisions**
+- **Warps end at the waterline, not on a quay eye.** Each port's quay is shaped differently and the Mercy's model is
+  shared. Lines that drop into the water read as tied to a piling under the boards wherever they land; an eye in mid-air
+  over open water didn't. Only the breast lines, which land beside the plank (on every quay), carry an eye. A per-port
+  mooring post is logged for polish nineteen.
+- **Carry the bearing across the seam, don't eyeball it.** The test pins the arithmetic, so if a seam moves the Spire
+  check fails instead of the Spire quietly drifting.
+- Smaller items left: the two-speaker shot and the placement walk are each a session's work; the Vulkan items still
+  need the owner.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a systems session** (save follow-ups #1c, or gamepad rebinding #5). Fetch and reset `main`
+   before trusting it.
+
 ## 2026-11-16 09:00 UTC — Day 107: the winter's first days (content)
 
 **Did**
