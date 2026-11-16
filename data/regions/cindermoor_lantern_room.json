@@ -78,11 +78,11 @@
   "spawn_facing": {
     "default": [
       -1.0,
-      -0.7
+      0.5
     ],
     "from_stair": [
       -1.0,
-      -0.7
+      0.5
     ]
   },
   "camera_distance": 4.5,
