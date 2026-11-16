@@ -469,6 +469,27 @@
         15.48
       ],
       "rotation_y": 104
+    },
+    {
+      "model": "res://assets/models/dressing/hearthspire_far_lit.glb",
+      "position": [
+        120.0,
+        -6.0,
+        -166.5
+      ],
+      "rotation_y": 0,
+      "snap": false,
+      "scale": 2.0,
+      "if": "flag:cindermoor_cradle_choice=lit",
+      "halo": [
+        0,
+        9.1,
+        0
+      ],
+      "halo_size": 9.0,
+      "halo_strength": 1.0,
+      "halo_bloom": 0.6,
+      "note": "Polish eighteen (Day 108): the Hearthspire lit, seen from Shingle Point — Saltmarrow's bearing carried across the seam (Shingle Point lies 26.5 m south in Saltmarrow's frame), a gold point low in the north-east over the spit, behind Saltmarrow's hill."
     }
   ],
   "npcs": [
