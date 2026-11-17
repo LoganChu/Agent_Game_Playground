@@ -79,7 +79,8 @@ func read_slot(slot: String) -> Dictionary:
 
 ## What a slot holds, for menus: {} if empty or unreadable; {refused: why} for a save this
 ## build can't load (a newer version); else {region, region_name, saved_at ("2026-10-01 09:12",
-## UTC), saved_at_full (with seconds), play_seconds, playthrough}.
+## UTC), saved_at_full (with seconds), saved_unix (sub-second; 0 for saves before Day 110), play_seconds,
+## playthrough}.
 func slot_info(slot: String) -> Dictionary:
 	var read := read_slot(slot)
 	if not read["ok"]:
@@ -92,6 +93,7 @@ func slot_info(slot: String) -> Dictionary:
 		"region_name": str(Content.db.regions.get(region, {}).get("name", region)),
 		"saved_at": stamp.substr(0, 16),
 		"saved_at_full": stamp,
+		"saved_unix": float(data.get("saved_unix", 0.0)),
 		"play_seconds": float(data.get("play_seconds", 0.0)),
 		"playthrough": str(data.get("playthrough", "")),
 	}
@@ -165,8 +167,11 @@ func latest_slot() -> String:
 		var info := slot_info(slot)
 		if info.is_empty() or info.has("refused"):
 			continue
-		# ISO stamps sort as strings; the file's modified time breaks a same-second tie.
-		var stamp := "%s|%012d" % [info["saved_at_full"], FileAccess.get_modified_time(slot_path(slot))]
+		# ISO stamps sort as strings. Two saves in the same second (the smoke walk, a save then Return to title)
+		# are told apart by the sub-second Unix time (Day 110); the file's modified time, whole seconds too, is
+		# the last resort for older saves.
+		var stamp := "%s|%020.4f|%012d" % [info["saved_at_full"], float(info["saved_unix"]),
+				FileAccess.get_modified_time(slot_path(slot))]
 		if stamp > best_stamp:
 			best = slot
 			best_stamp = stamp
@@ -177,6 +182,7 @@ func build_save_data() -> Dictionary:
 	var data := {
 		"version": SAVE_VERSION,
 		"saved_at": Time.get_datetime_string_from_system(true),
+		"saved_unix": Time.get_unix_time_from_system(),
 		"region": GameState.region_id,
 		"spawn": GameState.spawn_point,
 		"world": GameState.world.to_dict(),

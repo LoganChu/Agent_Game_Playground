@@ -7,10 +7,13 @@ const SCRATCH := "user://test_title_saves"
 const MAIN := preload("res://scripts/main.gd")
 
 
-func _write_save(dir: String, slot: String, saved_at: String, region: String = "saltmarrow") -> void:
+func _write_save(dir: String, slot: String, saved_at: String, region: String = "saltmarrow", unix := 0.0) -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	var file := FileAccess.open(dir.path_join(slot + ".json"), FileAccess.WRITE)
-	file.store_string(JSON.stringify({"version": SaveSystem.SAVE_VERSION, "saved_at": saved_at, "region": region, "world": {}}))
+	var data := {"version": SaveSystem.SAVE_VERSION, "saved_at": saved_at, "region": region, "world": {}}
+	if unix > 0.0:
+		data["saved_unix"] = unix
+	file.store_string(JSON.stringify(data))
 	file.close()
 
 
@@ -43,6 +46,22 @@ func test_continue_is_the_latest_save() -> void:
 	bad.store_string("{ not json")
 	bad.close()
 	assert_eq(saves.latest_slot(), "slot2", "an unreadable save is skipped")
+	_clear(SCRATCH)
+	saves.free()
+
+
+## Day 110: two saves in the same second (the smoke walk saves a slot, then Return to title autosaves) are told
+## apart by the sub-second stamp, whatever order the files were written in (their modified times tie too).
+func test_continue_breaks_a_same_second_tie() -> void:
+	var saves: Node = load("res://scripts/autoload/save_system.gd").new()
+	saves.save_dir = SCRATCH
+	_clear(SCRATCH)
+	_write_save(SCRATCH, "slot2", "2026-10-14T09:31:00", "saltmarrow", 1791963060.75)
+	_write_save(SCRATCH, "slot1", "2026-10-14T09:31:00", "saltmarrow", 1791963060.25)
+	assert_eq(saves.latest_slot(), "slot2", "the later of two same-second saves, though written first")
+	_write_save(SCRATCH, "auto", "2026-10-14T09:31:00", "saltmarrow", 1791963060.9)
+	assert_eq(saves.latest_slot(), "auto")
+	assert_true(float(saves.slot_info("auto")["saved_unix"]) > 0.0, "slot_info reads it")
 	_clear(SCRATCH)
 	saves.free()
 
