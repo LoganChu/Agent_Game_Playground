@@ -19,6 +19,8 @@ func open() -> void:
 	if is_open() or GameState.input_locked:
 		return
 	GameState.input_locked = true
+	# The world as it is before the menu draws over it, for the thumbnails of saves made here.
+	SaveSystem.snap_thumbnail()
 	get_tree().paused = true
 	_root.show()
 	_show_page(Page.MAIN)
@@ -68,7 +70,7 @@ func _build_page(which: Page) -> void:
 	if which == Page.SAVE:
 		_title.text = "Save game"
 		for slot in SaveSystem.SLOTS:
-			_add(SaveSystem.slot_summary(slot), _save.bind(slot))
+			_add_slot(slot, _save.bind(slot))
 		_add("Back", _show_page.bind(Page.MAIN))
 
 

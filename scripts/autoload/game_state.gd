@@ -25,6 +25,12 @@ var _quiet := false
 ## True after a developer jump (a checkpoint, Chapter select, --flags/--quest/--region): the
 ## world is a test state, so it is never autosaved (Day 106). A new game or a loaded save clears it.
 var dev_session := false
+## Seconds of play in this story (Day 109): counted by main while a region is up, the title is
+## closed and the tree isn't paused (menus pause it). Saved and restored with the game.
+var play_seconds := 0.0
+## Names the story a New game began (Day 109), so the autosave keeps one slot per story
+## (SaveSystem.autosave moves another story's autosave aside). "" = unknown (a legacy save).
+var playthrough := ""
 
 
 func _ready() -> void:
@@ -45,12 +51,19 @@ func note_input(event: InputEvent) -> void:
 
 func new_game() -> void:
 	dev_session = false
+	play_seconds = 0.0
+	playthrough = new_playthrough_id()
 	world.load_dict({})
 	for flag_id: String in Content.db.flags:
 		world.flags[flag_id] = Content.db.flag_default(flag_id)
 	region_id = str(Content.db.game.get("start_region", ""))
 	spawn_point = str(Content.db.game.get("start_spawn", "default"))
 	pending_player_position = null
+
+
+## A fresh story id: the start time and a random tail, as hex ("19a2c3f4e5-7b2e91").
+static func new_playthrough_id() -> String:
+	return "%x-%06x" % [int(Time.get_unix_time_from_system()), randi() % 0x1000000]
 
 
 ## Developer checkpoint (data/scenarios.json): resets the world to that point in the story

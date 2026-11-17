@@ -326,7 +326,7 @@ func _apply_debug_state(arg: String) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("quick_save") and not GameState.input_locked:
-		SaveSystem.save_game()
+		SaveSystem.save_game(SaveSystem.QUICK_SLOT, true)
 	elif event.is_action_pressed("quick_load") and not GameState.input_locked:
 		SaveSystem.load_game()
 
@@ -406,7 +406,7 @@ func is_quiet_moment() -> bool:
 ## Closing the window mid-game autosaves, as Quit on the pause menu does.
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST and region != null and title_screen != null and not title_screen.is_open():
-		SaveSystem.autosave()
+		SaveSystem.autosave(true)
 
 
 func _on_region_change_requested(region_id: String, spawn: String) -> void:
@@ -459,6 +459,8 @@ func _process(delta: float) -> void:
 	audio.follow_greying(greying.depth)
 	if title_screen.is_open():
 		player.turn_camera(TITLE_DRIFT * delta)
+	elif region != null:
+		GameState.play_seconds += delta
 
 
 ## Fog density the current region is heading toward (for tests).

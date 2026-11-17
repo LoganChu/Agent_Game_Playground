@@ -59,7 +59,7 @@ func try_now(now_msec: int) -> bool:
 	if not is_safe.call():
 		return false
 	cancel()
-	if not SaveSystem.autosave():
+	if not SaveSystem.autosave(true):
 		return false
 	last_msec = now_msec
 	count += 1

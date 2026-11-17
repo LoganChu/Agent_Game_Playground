@@ -48,6 +48,8 @@ func show_act(act: Dictionary, recap: PackedStringArray) -> void:
 	if is_open():
 		return
 	GameState.input_locked = true
+	# The world before the card fades in: the thumbnail of the autosave its Return to title writes.
+	SaveSystem.snap_thumbnail()
 	_title.text = str(act.get("title", ""))
 	_subtitle.text = str(act.get("subtitle", ""))
 	_subtitle.visible = not _subtitle.text.is_empty()

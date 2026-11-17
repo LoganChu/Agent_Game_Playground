@@ -4,7 +4,8 @@ extends CanvasLayer
 ## panel with a page title, a scrolling list of buttons/sliders, a note line and an "[Esc]
 ## back" hint. Subclasses build their own MAIN page (and any page of their own, like the
 ## pause menu's Save); this class builds the pages both menus offer:
-##   Load        the autosave, the F5 quicksave and the manual slots (SaveSystem.LOADABLE), with region and time
+##   Load        the autosave (and the earlier story's, once there is one), the F5 quicksave and the manual slots
+##               (SaveSystem.LOADABLE), with region, play time, date and a thumbnail
 ##   Chapters    debug builds: jump to a story checkpoint in data/scenarios.json
 ##   Settings    volumes, text size and speed, camera sensitivity, invert and conversation framing, stick deadzone,
 ##               display (window mode, vsync), autosave, Controls, Reset
@@ -157,8 +158,10 @@ func _show_page(which: Page) -> void:
 		Page.LOAD:
 			_title.text = "Load game"
 			for slot: String in SaveSystem.LOADABLE:
-				var button := _add(SaveSystem.slot_summary(slot), _load.bind(slot))
-				button.disabled = not SaveSystem.has_save(slot)
+				if slot == SaveSystem.PREV_AUTO_SLOT and not SaveSystem.has_save(slot):
+					continue  # only listed once a second story has begun
+				var button := _add_slot(slot, _load.bind(slot))
+				button.disabled = not SaveSystem.has_save(slot) or SaveSystem.slot_info(slot).has("refused")
 			_add("Back", _show_page.bind(Page.MAIN))
 		Page.CHAPTERS:
 			_title.text = "Chapter select (dev)"
@@ -239,6 +242,16 @@ func _add(text: String, action: Callable) -> Button:
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT if page != Page.MAIN else HORIZONTAL_ALIGNMENT_CENTER
 	button.pressed.connect(action)
 	_buttons.add_child(button)
+	return button
+
+
+## A save slot's button: its summary, and its thumbnail on the left when it has one (Day 109).
+func _add_slot(slot: String, action: Callable) -> Button:
+	var button := _add(SaveSystem.slot_summary(slot), action)
+	var thumb := SaveSystem.slot_thumbnail(slot)
+	if thumb != null:
+		button.icon = thumb
+		button.add_theme_constant_override(&"icon_max_width", SaveSystem.THUMB_SHOWN_WIDTH)
 	return button
 
 
