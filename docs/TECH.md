@@ -95,7 +95,9 @@ scripts/
     save_system.gd  "SaveSystem" – JSON saves in user://saves/<slot>.json: "quick" (F5 / F9)
                     and SLOTS slot1..slot3 (pause menu); slot_summary() for menus, latest_slot()
                     for the title's Continue (newest `saved_at`, quicksave and autosave included);
-                    AUTO_SLOT "auto" (Day 106, `autosave()`, no toast; LOADABLE lists all five);
+                    AUTO_SLOT "auto" (Day 106, `autosave()`, no toast) and PREV_AUTO_SLOT "auto_prev"
+                    (Day 109, the earlier story's autosave; LOADABLE lists all six); `read_slot()` upgrades
+                    through SaveMigrations; `<slot>.png` thumbnails;
                     `save_dir` is a var so the smoke test saves elsewhere
   world/       region.gd (builds a region from data), npc_actor.gd, pickup.gd,
                region_exit.gd (optionally gated), inspectable.gd (examine → dialogue),
@@ -1299,8 +1301,36 @@ writes each as a .wav (never commit them).
 
 ## Save format
 `user://saves/<slot>.json`: `{version, saved_at, region, spawn, player_position, world:
-WorldState.to_dict()}` (the world: `flags`, `quests`, `inventory`, `collected`, and since Day 91 `walkers`; an older
-save without it simply starts walkers from their placements). Bump `SaveSystem.SAVE_VERSION` on breaking changes and add migration.
+WorldState.to_dict(), play_seconds, playthrough}` (the world: `flags`, `quests`, `inventory`, `collected`, and since
+Day 91 `walkers`; an older save without it simply starts walkers from their placements). Beside it, `<slot>.png`: a
+320×180 thumbnail (Day 109).
+
+### Versions and migration (Day 109)
+- `SaveSystem.SAVE_VERSION` is **2**. Every read goes through `SaveSystem.read_slot()` → `SaveMigrations.migrate(data,
+  SAVE_VERSION)`, which upgrades one version at a time (a pure step per version, `_from_<n>`) and returns
+  `{ok, data, from, error}`. A save with no version or below `SaveMigrations.OLDEST` is refused; a save **from a newer
+  build** is refused too, listed on the Load page as "Slot 1 — made by a newer version of the game" (disabled) and
+  skipped by Continue — never overwritten silently by an older build reading it.
+- 1 → 2: `play_seconds` 0 (time before Day 109 wasn't counted, so the Load page shows none) and `playthrough` "" (a
+  legacy story; loading it gives it a fresh id).
+- **To change the format:** bump SAVE_VERSION, add `_from_<old>` in `scripts/core/save_migrations.gd` with a line in its
+  history, and a test in `tests/test_save_follow_ups.gd` that loads a real save of the old version.
+
+### Play time and stories (Day 109)
+- `GameState.play_seconds` counts in `main._process` while a region is up and the title is closed; the tree pauses
+  under menus, so the pause menu doesn't count (dialogue and cards do — that's reading the game). Reset by a New game,
+  restored by a load. The Load and Save pages read "Slot 1 — Saltmarrow · 3h 12m · 2026-10-01 09:12"
+  (`SaveSystem.format_play_time`).
+- `GameState.playthrough`: an id made by each New game (`new_playthrough_id()`, unix time + random tail), saved with
+  every slot. Checkpoints keep the current one (they never autosave anyway).
+
+### Thumbnails (Day 109)
+- `SaveSystem.capture_thumbnail()` reads the viewport and scales it to `THUMB_SIZE` (320×180); nothing in headless runs
+  (no `.png`, and an older save's `.png` is removed so a picture never outlives its save).
+- Saves made **from a menu or card** use the frame snapped as it opened (`snap_thumbnail()`: the pause menu's `open`,
+  `ActEndCard.show_act`), so the picture shows the world, not the menu. The Autosaver, F5 and closing the window take
+  the frame now (`fresh_thumbnail`).
+- Shown at `THUMB_SHOWN_WIDTH` (128 px) as the slot button's icon on the Load and Save pages (`MenuScreen._add_slot`).
 
 ### Autosave (Day 106)
 - Slot `auto` (`SaveSystem.AUTO_SLOT`, "Autosave"): written only by the game, never offered on the Save page; listed
@@ -1322,9 +1352,18 @@ save without it simply starts walkers from their placements). Bump `SaveSystem.S
   debug args, cleared by a new game or a loaded save — so a developer jump never overwrites the player's progress.
 - The leave-the-game confirmations say "Your progress will be autosaved" when it's allowed (`PauseMenu.leave_warning`,
   `ActEndCard.TITLE_CONFIRM_AUTOSAVED`), and warn that unsaved progress is lost when it isn't.
-- One autosave per install: a New game replaces it once the new story makes progress. Manual slots are untouched.
+- **One autosave per story** (Day 109): before writing, an autosave whose `playthrough` isn't this story's (or is a
+  legacy one with none) is moved — with its thumbnail — to `auto_prev`, "Autosave (earlier story)", replacing any
+  older one there. The Load page lists `auto_prev` only once it exists. Loading the earlier story and playing on swaps
+  the two. Manual slots are untouched.
 
 ## Testing
+- `tests/test_save_follow_ups.gd` — (Day 109) SAVE_VERSION 2; a version 1 save upgrades (play time 0, story unknown,
+  the original untouched), loads, and gets a story id; newer, missing and version-0 saves are refused, and every version
+  from OLDEST has a step; a newer save is listed with why, disabled, and skipped by Continue; play time formatting,
+  saving and restoring; a New game starts a new story; one autosave per story (moved aside, swapped back, legacy kept);
+  `auto_prev` listed only once it exists; thumbnails (none headless, a stale one removed, shown on the Load and Save
+  pages, moved with the autosave).
 - `tests/test_polish_eighteen.gd` — (Day 108) the lantern room's arrival faces the cradle (≤ 20°) with the door
   leaf's collider ≥ 100° off the look; the lit far Spire on Gull's Head and Shingle Point is Saltmarrow's point carried
   across the exit seam (same easting, z shifted by the exit pair, same scale and halo, only when lit); the tied Mercy's

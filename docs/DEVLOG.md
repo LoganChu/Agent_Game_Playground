@@ -2,6 +2,52 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-17 09:00 UTC — Day 109: save follow-ups (systems)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 108's `fb2d280`). Baseline (817 tests) green before any edit.
+- **Systems (ROADMAP *Next up* #1 → #1c): save follow-ups.**
+  - **A save-version migration path.** New `SaveMigrations` (`scripts/core/save_migrations.gd`) upgrades a save one
+    version at a time with a pure step per version; every read goes through `SaveSystem.read_slot()`.
+    `SAVE_VERSION` is now **2**. Version 1 saves (Days 1–108) upgrade on read and load as before.
+    - A save **from a newer build** is refused, not misread: the Load page lists it as "made by a newer version of the
+      game" (disabled), and Continue skips it.
+  - **Play time.** `GameState.play_seconds` counts while a region is up, the title is closed and the tree isn't paused
+    (so the pause menu doesn't count; dialogue does). It's saved and restored. The Load and Save pages read
+    "Slot 1 — Saltmarrow · 3h 12m · 2026-10-01 09:12". Upgraded saves show no time rather than a wrong "0m".
+  - **One autosave per story.** Each New game gets a story id (`GameState.playthrough`, saved with every slot). Before
+    the autosave is written, one from another story (or a legacy one with no id) is moved, with its thumbnail, to a new
+    slot **"Autosave (earlier story)"**. It is listed on the Load page only once it exists. Loading it and playing on
+    swaps the two back.
+  - **Slot thumbnails.** Each save writes a 320×180 `<slot>.png` beside its JSON, shown at 128 px as the slot button's
+    icon on the Load and Save pages. Saves made from a menu or card use the frame snapped as it opened (pause menu,
+    act-end cards), so the picture is the world and not the menu. The Autosaver, F5 and closing the window take the
+    frame at that moment. Headless runs write none, and a save never keeps an older save's picture.
+- **Smoke:** the walk's autosave carries this story's id and a play time above zero; play time round-trips through save.
+- **Tests:** `test_save_follow_ups.gd` (9): migration from version 1 (original untouched); refusals (newer, missing,
+  version 0; a step for every version); a version 1 save loads and gets a story id; a newer save listed, disabled,
+  skipped by Continue; play time format/save/restore; New game starts a new story; one autosave per story (moved aside,
+  swapped back, legacy kept); the earlier story listed only once it exists; thumbnails. 826 tests + smoke + launch green.
+- Checked under xvfb (Compatibility renderer): a real save writes its thumbnail and the Load page shows it with the
+  play time. Screenshot: `docs/screenshots/2026-11-17-am-load-page-thumbnails.png`.
+
+**Decisions**
+- **Refuse newer saves; don't guess.** An older build reading a newer save could drop fields and write them back
+  over the player's progress. Listing it with the reason is honest and safe.
+- **Two autosave slots, not one per story.** Keeping the previous story's autosave fixes the real loss (a New game
+  eating a finished story's last autosave) without the Load page filling up. A third story pushes the first one out.
+  That's acceptable while manual slots exist; revisit if players ask.
+- **Thumbnails snapped on menu open, not on a timer.** A rolling capture would mean a GPU readback (a hitch) every few
+  seconds. Snapping once when a menu or card opens costs one readback, at a moment the player is already pausing.
+- **Upgraded saves show no play time** rather than an invented one. It starts counting from the first load.
+- Not done from #1c: the owner's check that the "Saving…" cue reads, and now also that thumbnails look right. Both need
+  a real screen (the sandbox renders headless or Compatibility).
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a content session** (#1d: Aldous before the Provost, or the winter leftovers' props). Polish
+   nineteen is due by ~Day 113. Fetch and reset `main` before trusting it.
+
 ## 2026-11-16 21:00 UTC — Day 108: polish eighteen
 
 **Did**

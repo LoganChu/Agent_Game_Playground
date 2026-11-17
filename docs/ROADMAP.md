@@ -860,14 +860,20 @@ each .glb < 5 MB.
       quay); the **lantern room's arrival** faces the cradle with the swung-back door leaf out of the first frame
       (`spawn_facing` [-1, 0.5]); the **lit far Spire on Gull's Head and Shingle Point**, Saltmarrow's point carried
       across each exit seam. `test_polish_eighteen.gd` (3).
+- [x] [S] **Save follow-ups** (Day 109): **SAVE_VERSION 2** with a migration path (`SaveMigrations`, a step per
+      version; `SaveSystem.read_slot`); newer-build saves refused and listed with the reason; **play time** counted
+      (not under the pause menu) and shown on the Load/Save pages; **one autosave per story** (`GameState.playthrough`;
+      another story's autosave moves to "Autosave (earlier story)"); **slot thumbnails** (`<slot>.png`, snapped as a
+      menu or card opens). Smoke: the autosave's story and play time. `test_save_follow_ups.gd` (9).
 
 ### Next up
-1. [S] **A systems session** (#1c save follow-ups, or gamepad rebinding #5). Then content (#1d: Aldous before the
-   Provost, or the winter leftovers' props). Polish nineteen due by ~Day 113. Fetch and reset `main` before trusting it.
-1c. [S] **Save follow-ups** (Milestone 3 save item, after Day 106's autosave): slot thumbnails and play time on the
-   Load page; a save-version migration path (SAVE_VERSION is still 1); per-playthrough autosaves (today one per
-   install — a New game replaces it once the new story moves on); an owner check that the "Saving…" cue reads on a
-   real screen. Then gamepad rebinding (#5) or the Cindermoor morning flag (#2) for the next systems session.
+1. [C] **A content session** (#1d: Aldous before the Provost, or the winter leftovers' props). Then polish nineteen
+   (due by ~Day 113), then a systems session (gamepad rebinding #5, or the Cindermoor morning flag #2). Fetch and reset
+   `main` before trusting it.
+1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
+   **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
+   never writes one: headless); Steam Cloud-friendly paths with the Steamworks item; a delete-slot option on the Load
+   page.
 1d. [C] **After the final card** (fold into the next content session): **Aldous before the Provost** on Kindleby (he
    says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) — the chapter is still on Cindermoor after the
    ending (only Hild came home), so that meeting wants Oda to run the lane in again, or the chapter to come home first;
@@ -976,7 +982,8 @@ each .glb < 5 MB.
 
 ## Milestone 3 — Beta
 - [C] 2 more islands; Keepers faction arc; Hollow Choir hints.
-- [S] Full save system with migration, Steam Cloud-friendly paths (autosave: Day 106).
+- [S] Full save system with migration, Steam Cloud-friendly paths (autosave: Day 106; migration, play time,
+  per-story autosaves, thumbnails: Day 109).
 - [S] Localization pipeline (dialogue string ids).
 - [P] Controller-first UI pass; Steam Deck checks.
 
