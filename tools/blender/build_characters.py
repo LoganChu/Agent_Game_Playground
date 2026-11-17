@@ -349,7 +349,13 @@ def build_aldous_seated() -> None:
     _aldous(seated=True)
 
 
-def _aldous(seated: bool) -> None:
+def build_aldous_warden() -> None:
+    """Day 110: Aldous as Kindleby's door-warden for midwinter. Standing, sober: no bottle (he left it on the
+    bench), the novices' roll held in the left hand, the stoop eased (head bowed less)."""
+    _aldous(seated=False, warden=True)
+
+
+def _aldous(seated: bool, warden: bool = False) -> None:
     reset_scene()
     b = Body(seated=seated, build=1.05)
     robe = material("silverfog", -0.12)
@@ -378,8 +384,19 @@ def _aldous(seated: bool) -> None:
     fringe = material("silverfog", 0.2)
     h.append(ball(0.2, (0, 0.06, b.head - 0.02), fringe, scale=(1.25, 1.0, 0.6)))
     h.append(ball(0.14, (0, -0.14, b.head - 0.15), fringe, scale=(1.1, 0.8, 0.9)))
-    # A dark green bottle in the left hand, held loose.
     hand = b.hand("L")
+    if warden:
+        # The novices' roll: a pale scroll held upright in the left hand, a cord round its middle.
+        vellum = material("bone", 0.1)
+        b.parts["ArmL"].append(limb(hand + Vector((0, -0.07, -0.14)), hand + Vector((0, -0.07, 0.16)), 0.045, 0.045,
+                                    vellum, verts=8))
+        b.parts["ArmL"].append(limb(hand + Vector((0, -0.07, -0.0125)), hand + Vector((0, -0.07, 0.0125)), 0.05, 0.05,
+                                    material("ember", -0.35), verts=8))                 # the cord
+        b.arm_rest["ArmL"] = (math.radians(-30), 0, math.radians(4))
+        b.head_rest = (math.radians(5), 0, 0)  # the stoop eased: he holds his head up at a door now
+        assemble(b, "aldous_warden")
+        return
+    # A dark green bottle in the left hand, held loose.
     glass = material("pine", -0.1)
     b.parts["ArmL"].append(limb(hand + Vector((0, -0.07, -0.16)), hand + Vector((0, -0.07, 0.02)), 0.06, 0.06, glass))
     b.parts["ArmL"].append(limb(hand + Vector((0, -0.07, 0.02)), hand + Vector((0, -0.07, 0.12)), 0.03, 0.025, glass))
@@ -2152,7 +2169,7 @@ def _oriel(seated: bool) -> None:
     assemble(b, "oriel_seated" if seated else "oriel", scale=1.05)
 
 
-BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, build_aldous_seated, build_tam, build_hesk, build_oda, build_bram,
+BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, build_aldous_seated, build_aldous_warden, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
             build_dunstan_seated_cord, build_dunstan_lantern, build_dunstan_home, build_dunstan_turning,
