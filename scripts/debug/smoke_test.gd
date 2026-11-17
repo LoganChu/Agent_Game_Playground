@@ -99,10 +99,13 @@ func _run() -> void:
 	await _check_return_to_title(main)
 	print("Smoke test end state: ", JSON.stringify(GameState.world.to_dict()))
 	var before := GameState.world.to_dict()
+	var played := GameState.play_seconds
 	_check(SaveSystem.save_game("smoke_test"), "save succeeds")
 	GameState.world.load_dict({})
+	GameState.play_seconds = 0.0
 	_check(SaveSystem.load_game("smoke_test"), "load succeeds")
 	_check(JSON.stringify(GameState.world.to_dict()) == JSON.stringify(before), "state round-trips through save")
+	_check(absf(GameState.play_seconds - played) <= 0.1, "play time round-trips through save")
 	DirAccess.remove_absolute(SaveSystem.slot_path("smoke_test"))
 	DirAccess.remove_absolute(SaveSystem.slot_path(SaveSystem.AUTO_SLOT))
 	for i in 3:
@@ -1842,6 +1845,10 @@ func _check_autosave(main: Node) -> void:
 	var info := SaveSystem.slot_info(SaveSystem.AUTO_SLOT)
 	_check(Content.db.regions.has(str(info.get("region", ""))), "the autosave names a real region (%s)" % info.get("region", ""))
 	_check(not GameState.dev_session, "the walk is real play, not a developer jump")
+	# Day 109: the autosave carries this story's id and its play time.
+	_check(str(info.get("playthrough", "")) == GameState.playthrough and not GameState.playthrough.is_empty(),
+		"the autosave is this story's (%s)" % info.get("playthrough", ""))
+	_check(float(info.get("play_seconds", 0.0)) > 0.0, "the walk's play time is counted (%.1f s)" % float(info.get("play_seconds", 0.0)))
 
 
 ## The game opens on the title screen over the start region (the HUD hidden, input held,
