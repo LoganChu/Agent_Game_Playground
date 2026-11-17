@@ -1,0 +1,223 @@
+{
+  "id": "kindleby_aldous_before_provost",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Aldous comes up out of the Mercy's hatch before the plank's down, which he said he wouldn't. He stands on the quay with his bag and looks up Kindleby's wall at the candles, all forty, the way a man looks at a house he was a boy in.",
+        "note": "Day 110 (arrival event kindleby_aldous_before_provost): Aldous before the Provost, 'in a room, with the candles lit' (Day 66). Lit or released only: in the dark ending he comes at midwinter, with the ember."
+      },
+      {
+        "say": "aldous",
+        "text": "I was a novice on that wall. Dropped a candle off the top of it once and set fire to a gull. ...Not much of one. It was all right."
+      },
+      {
+        "say": "narrator",
+        "text": "Tobin, at the bell, looks at him and then at you. He doesn't ring it. He goes up the steps ahead of you both, at a walk, to tell somebody."
+      },
+      {
+        "say": "narrator",
+        "text": "The chapter-house door stands open. Inside, the candles are lit in the middle of the day, every one, and the Provost is behind the lectern with her hands folded, the way she stood the first day you came."
+      },
+      {
+        "say": "provost",
+        "text": "Brother Wren."
+      },
+      {
+        "say": "aldous",
+        "text": "Sister Agathe. ...Provost. Sorry. Thirty-one years, and I still—"
+      },
+      {
+        "say": "provost",
+        "text": "You spelled it wrong. In the letter. You always did."
+      },
+      {
+        "say": "aldous",
+        "text": "I'd have had it right if I'd been sober. I'm sober now. I've not got it any righter."
+      },
+      {
+        "say": "provost",
+        "text": "You wrote that you'd come when the Spire was lit, or when it wasn't worth lighting."
+      },
+      {
+        "if": [
+          "flag:cindermoor_cradle_choice=lit",
+          "flag:thornwold_aldous_landed"
+        ],
+        "say": "aldous",
+        "text": "It's lit. I've been sitting on Thornwold's ridge looking at it with a man who doesn't talk. Gold. I'd forgotten it was gold. We only ever saw it from underneath."
+      },
+      {
+        "if": [
+          "flag:cindermoor_cradle_choice=lit",
+          "!flag:thornwold_aldous_landed"
+        ],
+        "say": "aldous",
+        "text": "It's lit. I go up the walkway over the lofts of an evening to see it. Gold. I'd forgotten it was gold. We only ever saw it from underneath."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "aldous",
+        "text": "It isn't lit. And it isn't worth lighting, not the way we lit it. So it's the second one. I came for the second one."
+      },
+      {
+        "say": "provost",
+        "text": "Then say it. In the room, with the candles lit. That's what you asked for."
+      },
+      {
+        "say": "aldous",
+        "text": "The night of the Snuffing I was on the east stair door, where I'd been thirty-one years. A light came down past me. A novice's light, counting the landings. I saw it, and I let it by, and I never asked whose it was. Then I ran. Furthest of anybody. And the least far."
+      },
+      {
+        "say": "provost",
+        "text": "I know. It's on the page at the back. I put it there from your letter. Not lost: seen."
+      },
+      {
+        "say": "narrator",
+        "text": "She takes the Long Book down off its shelf, opens it at the back, and turns it round on the lectern so it faces him. One line, in her hand, on a page that has been empty for nine hundred years."
+      },
+      {
+        "say": "provost",
+        "text": "A witnesses' page with one line on it is a rumour, Aldous. Sign it, and it's a record."
+      },
+      {
+        "say": "narrator",
+        "text": "He signs it. His hand doesn't shake. He looks at it afterwards, surprised, as if it were somebody else's."
+      },
+      {
+        "if": [
+          "flag:cindermoor_provost_knows",
+          "flag:saltmarrow_aldous_knows_novice"
+        ],
+        "goto": "second_witness"
+      },
+      {
+        "say": "provost",
+        "text": "There. One, and signed. It's a start, on a page that never had one."
+      },
+      {
+        "goto": "door"
+      }
+    ],
+    "second_witness": [
+      {
+        "say": "aldous",
+        "text": "There's another witness. The light I let by. It's standing in your doorway, Agathe."
+      },
+      {
+        "say": "provost",
+        "text": "I know that too."
+      },
+      {
+        "say": "provost",
+        "text": "Will you sign, Wakebearer? Not your name. I'll not put your name in a book again unless you ask me to. Only that you were on the stair."
+      },
+      {
+        "say": "narrator",
+        "text": "You write it under his: I was on the stair. The letters come out upright, every one finished, in a hand you have seen before and couldn't say where."
+      },
+      {
+        "say": "provost",
+        "text": "Two. The door-warden, and the light. Nine hundred years that page had nothing on it, and now it has the both of you."
+      },
+      {
+        "goto": "door"
+      }
+    ],
+    "door": [
+      {
+        "say": "aldous",
+        "text": "Now weigh me. That's what I came for. I've got used to the idea."
+      },
+      {
+        "say": "provost",
+        "text": "Nobody's weighing. Oda's hung her scale on its hook and I've put the Book on a shelf. There's nothing on this island left to weigh you with."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "provost",
+        "text": "But midwinter's six weeks off. Somebody will come up the wall to go up the Spire, and they're to be asked first. Asking wants a door-warden: somebody who sees every face go by, and this time stops them and asks."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "provost",
+        "text": "But the steps on the crown are warm of a morning, and Tobin changes candles for somebody he can't see. This house wants a door-warden: somebody who sits up with whoever comes, and asks after them."
+      },
+      {
+        "say": "provost",
+        "text": "I'd have you keep the chapter-house door. If you want it."
+      },
+      {
+        "say": "narrator",
+        "text": "Aldous doesn't answer her. He turns round to you instead."
+      },
+      {
+        "say": "aldous",
+        "text": "You were on that stair. You tell me. Do I keep a door again?"
+      },
+      {
+        "choice": [
+          {
+            "text": "Keep the door. This time, ask who's going by.",
+            "set": {
+              "kindleby_aldous_door": "kept"
+            },
+            "goto": "kept"
+          },
+          {
+            "text": "Go home. You've kept enough doors.",
+            "set": {
+              "kindleby_aldous_door": "home",
+              "kindleby_aldous_coming": false
+            },
+            "goto": "go_home"
+          }
+        ]
+      }
+    ],
+    "kept": [
+      {
+        "say": "aldous",
+        "text": "Ask. Aye. ...I'll want a stool. And no bottle on the step, or she'll put me on report."
+      },
+      {
+        "say": "provost",
+        "text": "I will."
+      },
+      {
+        "say": "narrator",
+        "text": "He goes and stands just inside the chapter-house door, where a warden stands, and the candles lean towards the draught he lets in."
+      },
+      {
+        "end": true
+      }
+    ],
+    "go_home": [
+      {
+        "if": "flag:thornwold_aldous_landed",
+        "say": "aldous",
+        "text": "Home. The ridge, then. Wynn'll have the bench swept. He said he would."
+      },
+      {
+        "if": "!flag:thornwold_aldous_landed",
+        "say": "aldous",
+        "text": "Home. The bench, then. Mara will say I wasn't gone long enough to be missed."
+      },
+      {
+        "say": "provost",
+        "text": "Then go with my leave. You never had it, the night you went. Have it now."
+      },
+      {
+        "say": "aldous",
+        "text": "...Thank you, Agathe."
+      },
+      {
+        "say": "narrator",
+        "text": "He says her name right. She doesn't remark on it. He goes back down to the Mercy to wait for her next sailing, and leaves the chapter-house door open behind him."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

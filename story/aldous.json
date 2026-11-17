@@ -3,6 +3,11 @@
   "knots": {
     "start": [
       {
+        "if": "flag:kindleby_aldous_door=kept",
+        "goto": "kindleby",
+        "note": "Day 110: Kindleby's door-warden for midwinter."
+      },
+      {
         "if": "flag:thornwold_aldous_landed",
         "goto": "ridge"
       },
@@ -54,6 +59,18 @@
               "saltmarrow_aldous_after_seen": true
             },
             "goto": "homecoming"
+          },
+          {
+            "text": "The Provost's home. She says the candles are lit.",
+            "if": [
+              "flag:saltmarrow_aldous_crossing=now",
+              "flag:saltmarrow_aldous_novice=",
+              "flag:kindleby_provost_home",
+              "flag:kindleby_aldous_door=",
+              "!flag:kindleby_aldous_coming"
+            ],
+            "goto": "coming",
+            "note": "Day 110: Aldous on his bench (crossing, not Thornwold first) told the Provost's home."
           },
           {
             "text": "Do you know me?",
@@ -1479,6 +1496,12 @@
         ]
       },
       {
+        "if": "flag:kindleby_aldous_door=home",
+        "say": "aldous",
+        "text": "Back on the bench, with the Provost's leave. I've never had leave before. I keep putting it down somewhere and finding it again.",
+        "note": "Day 110: home from Kindleby."
+      },
+      {
         "goto": "hub"
       }
     ],
@@ -1500,7 +1523,86 @@
       },
       {
         "say": "aldous",
-        "text": "I'll go on to Kindleby when Oda's going. The Provost's owed a door-warden in a room with the candles lit. Not yet, though. Not yet."
+        "text": "I'll go on to Kindleby when Oda's going. The Provost's owed a door-warden in a room with the candles lit. Not yet, though. Not yet.",
+        "if": "!flag:kindleby_provost_home"
+      },
+      {
+        "if": "flag:kindleby_aldous_door=home",
+        "say": "aldous",
+        "text": "Home again. She gave me leave. I've never had leave in my life. I keep putting it down somewhere and finding it again."
+      },
+      {
+        "if": [
+          "flag:kindleby_provost_home",
+          "flag:kindleby_aldous_door="
+        ],
+        "choice": [
+          {
+            "text": "The Provost's home. She says the candles are lit.",
+            "goto": "coming"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      },
+      {
+        "end": true
+      }
+    ],
+    "coming": [
+      {
+        "say": "narrator",
+        "text": "Aldous sits very still. Then he picks up the bottle, and puts it down again, and doesn't pick it up.",
+        "note": "Day 110: Aldous goes to Kindleby, 'when Oda's going'."
+      },
+      {
+        "say": "aldous",
+        "text": "Lit. In a room. She remembered."
+      },
+      {
+        "say": "aldous",
+        "text": "Thirty-one years I've been going to Kindleby when Oda's going. ...Is Oda going?"
+      },
+      {
+        "if": "flag:thornwold_aldous_landed",
+        "say": "narrator",
+        "text": "He puts a hand on the Lamp's shoulder going past the lantern bench. The Lamp says, \"Mind the ladder.\" He says he will, and does."
+      },
+      {
+        "say": "aldous",
+        "text": "I'll be on the Mercy. Below, out of the wind. Don't tell me when we're close. I'll know.",
+        "set": {
+          "kindleby_aldous_coming": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "He takes his bag and goes. The bottle stays where he was sitting."
+      },
+      {
+        "end": true
+      }
+    ],
+    "kindleby": [
+      {
+        "say": "narrator",
+        "text": "Aldous stands by the chapter-house steps with the novices' roll under his arm, sober, the candles going behind him."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "aldous",
+        "text": "Six weeks. I'm to ask whoever comes up the wall where they're going, and why, and whether they're sure. Nobody asked me any of that. Nobody asked you."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "aldous",
+        "text": "Nobody comes up the steps but Tobin, with candles. I ask him where he's going anyway. He says, \"The same place, Brother.\" It's good practice."
+      },
+      {
+        "say": "aldous",
+        "text": "She hasn't put me on report yet. I keep waiting."
       },
       {
         "end": true

@@ -670,6 +670,26 @@
       "note": "The chapter came in (Day 85): at the head of the Boat Stair, hands folded, the road up behind whoever comes to her."
     },
     {
+      "npc": "provost",
+      "position": [
+        -1.6,
+        0,
+        5.0
+      ],
+      "rotation_y": 150,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_choir_down",
+        "!flag:cindermoor_choir_answered=",
+        "flag:kindleby_provost_going",
+        "!flag:kindleby_provost_home"
+      ],
+      "note": "Day 110: waiting at the head of the Boat Stair with the Long Book, where the chapter stood the night it came in, for the Mercy home (lane_out_again carries her). The chapter's flags are spelled out so the one-NPC-one-place check can see she's not also at the stair's head before the chapter went up."
+    },
+    {
       "npc": "hild",
       "position": [
         -2.6,

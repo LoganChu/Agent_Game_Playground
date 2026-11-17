@@ -1118,6 +1118,24 @@
         "epilogue_winter": "crew"
       },
       "shot": "--act-end=epilogue"
+    },
+    {
+      "id": "before_the_provost",
+      "act": "Act III — The Spire",
+      "title": "Before the Provost",
+      "inherits": "the_two_keepers",
+      "region": "kindleby",
+      "spawn": "from_ferry",
+      "description": "After the lit ending the Provost came home to Kindleby in the Mercy's stern and put the Long Book on a shelf, shut. Told the candles were lit, Aldous left his bottle on Thornwold's ridge and crossed. In the chapter-house he said what was seen on the east stair and signed the witnesses' page, and the Wakebearer told him to keep the door: he stands by the chapter-house steps for midwinter's asking.",
+      "flags": {
+        "lanes_ferry_at": "kindleby",
+        "kindleby_provost_going": true,
+        "kindleby_provost_home": true,
+        "kindleby_aldous_coming": true,
+        "kindleby_aldous_met_provost": true,
+        "kindleby_aldous_door": "kept"
+      },
+      "shot": "--camera=0.5,2.2,-0.5:3.4,1.2,-6.4"
     }
   ]
 }

@@ -1007,8 +1007,12 @@
       "rotation_y": 65,
       "model": "res://assets/models/characters/aldous_seated.glb",
       "idle": "bottle",
-      "if": "flag:thornwold_aldous_landed",
-      "note": "Day 99: on a plank seat in front of the lodge, facing Wynn at the lantern bench — came up the ladder to say sorry in person (aldous_seated on plank_bench, as on Saltmarrow)."
+      "if": [
+        "flag:thornwold_aldous_landed",
+        "!flag:kindleby_aldous_coming",
+        "!flag:kindleby_aldous_door=kept"
+      ],
+      "note": "Day 99: on a plank seat in front of the lodge, facing Wynn at the lantern bench — came up the ladder to say sorry in person (aldous_seated on plank_bench, as on Saltmarrow). Day 110: away aboard the Mercy for Kindleby, or keeping the chapter-house door there."
     }
   ],
   "objects": [

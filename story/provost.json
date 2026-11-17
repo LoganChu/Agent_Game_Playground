@@ -3,6 +3,16 @@
   "knots": {
     "start": [
       {
+        "if": "flag:kindleby_provost_home",
+        "goto": "home",
+        "note": "Day 110: the Provost home on Kindleby, the Long Book on the shelf."
+      },
+      {
+        "if": "flag:kindleby_provost_going",
+        "goto": "waiting",
+        "note": "Day 110: at the head of the Boat Stair with the Long Book, waiting on the Mercy."
+      },
+      {
         "if": "flag:cindermoor_counted_down",
         "goto": "after_end"
       },
@@ -1854,6 +1864,126 @@
         "say": "provost",
         "text": "At midwinter you'll go round the ring with that, and they'll choose for themselves. They'll choose badly, some of them. So did we.",
         "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "choice": [
+          {
+            "text": "Tobin asks when you're coming home.",
+            "if": [
+              "flag:cindermoor_lane_out",
+              "flag:kindleby_homecoming_seen",
+              "!flag:kindleby_provost_going"
+            ],
+            "goto": "going_home"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "going_home": [
+      {
+        "say": "provost",
+        "text": "Does he. He asked me that the night the chapter sat out on the wall. I told him: when the Long Book's put away.",
+        "note": "Day 110: the Provost goes home. Tobin's question at the homecoming (Day 97) answered."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks down at it, shut on her knee, as if she'd been waiting for somebody to say it."
+      },
+      {
+        "say": "provost",
+        "text": "It's put away. It's only that nobody's said so to me."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "provost",
+        "text": "Midwinter's six weeks off. Whoever goes up that stair is to be written first and asked twice, and the asking's done on Kindleby, in a room, with the candles lit. Not out here on a step."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "provost",
+        "text": "There's nobody left here to keep. They came out, every one. I've been sitting with a warm stair and a shut book and calling it a vigil."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "provost",
+        "text": "Midwinter's six weeks off, and Kindleby's writing its list without me. Tobin will put himself on it twice if nobody stops him."
+      },
+      {
+        "say": "provost",
+        "text": "Tell Oda the Provost of Kindleby would like a passage home. One Keeper. She'll want to weigh me. Let her.",
+        "set": {
+          "kindleby_provost_going": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "She stands with the Book under her arm and goes down the road to the Boat Stair ahead of you. She doesn't look back at the Spire. Not once."
+      },
+      {
+        "end": true
+      }
+    ],
+    "waiting": [
+      {
+        "say": "narrator",
+        "text": "The Provost stands at the head of the Boat Stair with the Long Book under her arm, where the chapter stood the night it came in."
+      },
+      {
+        "say": "provost",
+        "text": "Oda weighed me. Two coins for a Keeper, she said. I gave her three. She gave one back and said the Mercy's not to be tipped by the order."
+      },
+      {
+        "say": "provost",
+        "text": "When you're ready, Wakebearer. I've waited nine hundred years' worth of book. I can wait for a tide."
+      },
+      {
+        "end": true
+      }
+    ],
+    "home": [
+      {
+        "say": "narrator",
+        "text": "The Provost is at the foot of the chapter-house steps, hands folded. Through the open door behind her, the Long Book is on its shelf, spine out."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "provost",
+        "text": "I go in of a morning and don't take it down. It's the hardest thing I do all day, and the best."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "provost",
+        "text": "Tobin's taken to reading the Long Book to the candles of an evening. The names. I let him. Somebody should hear them who isn't counting."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "provost",
+        "text": "Kindleby's list is nine names long, and every one of them wrote their own. Tobin's is the smallest writing on the page."
+      },
+      {
+        "if": [
+          "flag:kindleby_provost_read_letter",
+          "flag:saltmarrow_aldous_crossing=now",
+          "flag:kindleby_aldous_door=",
+          "!flag:kindleby_aldous_coming"
+        ],
+        "say": "provost",
+        "text": "The candles in there are lit. They've been lit since his letter came. If you see Aldous Wren, tell him so. He'll know what it means.",
+        "note": "Day 110: the hook for Aldous before the Provost (he asked for a room with the candles lit)."
+      },
+      {
+        "if": "flag:kindleby_aldous_door=kept",
+        "say": "provost",
+        "text": "The door-warden's on his stool by six with the candles trimmed. He spells my name wrong on the roll. I've not corrected it."
+      },
+      {
+        "if": "flag:kindleby_aldous_door=home",
+        "say": "provost",
+        "text": "He went home, with my leave. He never had it before. I find I miss being disobeyed."
       },
       {
         "end": true

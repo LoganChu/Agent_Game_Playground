@@ -2460,6 +2460,15 @@
         "text": "The lane out again, the ember up in the bow. Oda doesn't make a speech."
       },
       {
+        "if": [
+          "flag:kindleby_provost_going",
+          "!flag:kindleby_provost_home"
+        ],
+        "say": "narrator",
+        "text": "The Provost sits in the stern with the Long Book shut on her knee, both hands flat on it, and watches Cindermoor go into the fog astern until there's nothing left to watch.",
+        "note": "Day 110: the Provost's passage home."
+      },
+      {
         "set": {
           "lanes_ferry_at": "kindleby"
         }

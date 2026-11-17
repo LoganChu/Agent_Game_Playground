@@ -1371,6 +1371,31 @@
     "epilogue_winter_welcomed": {
       "description": "The stay port's folk noticed the Wakebearer wintering with them (Day 107, once, epilogue_winter_port): Mara, Bram, Hesper, Wenna or Tobin, per ending.",
       "default": false
+    },
+    "kindleby_provost_going": {
+      "description": "After coming back in to Cindermoor (Day 110), the Wakebearer told the Provost that Tobin asks when she's coming home: the Long Book's shut, so it's put away, and she goes down to the Boat Stair to take passage home to Kindleby in the Mercy (lane_out_again carries her).",
+      "default": false
+    },
+    "kindleby_provost_home": {
+      "description": "The Provost came home to Kindleby in the Mercy's stern (Day 110, arrival event kindleby_provost_home): Tobin comes down the steps two at a time, and she puts the Long Book on the shelf behind the chapter-house lectern, shut. She's back at the foot of the chapter-house steps.",
+      "default": false
+    },
+    "kindleby_aldous_coming": {
+      "description": "Told Aldous (lit/released, the door-warden's answer kept: saltmarrow_aldous_crossing=now) that the Provost's home and the candles are lit (Day 110): he leaves the bottle and goes aboard the Mercy for Kindleby. While set and the meeting not yet had he is off his bench/ridge seat (below on the Mercy). Cleared again if he goes home after.",
+      "default": false
+    },
+    "kindleby_aldous_met_provost": {
+      "description": "Aldous before the Provost (Day 110, arrival event kindleby_aldous_before_provost): in the chapter-house with the candles lit, he says what was seen on the east stair, and signs the witnesses' page at the back of the Long Book (the Wakebearer under him, if both he and she know they were the light).",
+      "default": false
+    },
+    "kindleby_aldous_door": {
+      "description": "What the Wakebearer told Aldous when the Provost offered him the chapter-house door for midwinter (Day 110): '' (not yet), 'kept' (he keeps the door on Kindleby: this time he asks who's going by) or 'home' (he goes back to his bench or the ridge, with her leave).",
+      "default": "",
+      "values": [
+        "",
+        "kept",
+        "home"
+      ]
     }
   }
 }

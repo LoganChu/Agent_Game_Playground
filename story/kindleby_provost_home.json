@@ -1,0 +1,62 @@
+{
+  "id": "kindleby_provost_home",
+  "knots": {
+    "start": [
+      {
+        "say": "narrator",
+        "text": "Tobin is at the quay bell before the plank's down. He sees who's sitting in the Mercy's stern, and doesn't ring it. He comes down the quay steps instead, two at a time, which novices aren't to do.",
+        "note": "Day 110 (arrival event kindleby_provost_home): the Provost comes home with the Long Book. Tobin's question at the homecoming ('When the Long Book's put away') answered."
+      },
+      {
+        "say": "tobin",
+        "text": "Provost. You said— when the Long Book's put away."
+      },
+      {
+        "say": "provost",
+        "text": "It's put away, Brother Tobin. You may stop asking. You may also walk on the steps."
+      },
+      {
+        "say": "narrator",
+        "text": "She goes up to the chapter-house with the Book under her arm. You follow, and so does Tobin, at very nearly a walk. Inside she sets it on the shelf behind the lectern, shut, spine out, where the order has never once kept it, and stands back from it."
+      },
+      {
+        "say": "provost",
+        "text": "There. Shut, and on a shelf. If anybody had told me a year ago I'd do that with my own hands, I'd have put them on report."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "provost",
+        "text": "It comes down at midwinter for one page: whoever goes up, by name, first, and what they were asked. Then it goes back."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "provost",
+        "text": "It comes down if somebody asks to read it. That's all it's for now. The writing's done; there's nothing left that has to be written down to be borne."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "provost",
+        "text": "It comes down at midwinter, and Kindleby's list goes in it in Kindleby's own hands. Not mine. I'll hold the lamp."
+      },
+      {
+        "say": "tobin",
+        "text": "Can I dust it?"
+      },
+      {
+        "say": "provost",
+        "text": "Not yet."
+      },
+      {
+        "if": [
+          "flag:kindleby_provost_read_letter",
+          "flag:saltmarrow_aldous_crossing=now"
+        ],
+        "say": "provost",
+        "text": "And there's a door-warden owes me a room with the candles lit. I've kept them lit in here since his letter came. Tobin thinks it's a vigil. Let him."
+      },
+      {
+        "end": true
+      }
+    ]
+  }
+}

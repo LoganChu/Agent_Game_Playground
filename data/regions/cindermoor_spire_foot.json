@@ -824,9 +824,10 @@
         "flag:cindermoor_morning",
         "flag:cindermoor_eighth_sought",
         "flag:cindermoor_choir_down",
-        "!flag:cindermoor_choir_answered="
+        "!flag:cindermoor_choir_answered=",
+        "!flag:kindleby_provost_going"
       ],
-      "note": "Day 90: back up from the line with the Long Book, once Isolde's been answered at the door; the same step."
+      "note": "Day 90: back up from the line with the Long Book, once Isolde's been answered at the door; the same step. Day 110: gone down to the Boat Stair once she's taking passage home."
     },
     {
       "npc": "hild",

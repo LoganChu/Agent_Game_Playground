@@ -366,6 +366,12 @@
         "text": "Six weeks to midwinter, and you'll come here last. I've started on the list of what we'd burn. We'll have it written down by the time you get round."
       },
       {
+        "if": "flag:kindleby_provost_home",
+        "say": "tobin",
+        "text": "The Provost says I may walk on the steps. I still run. I only do it where she can't see.",
+        "note": "Day 110: the Provost home."
+      },
+      {
         "goto": "hub"
       }
     ],

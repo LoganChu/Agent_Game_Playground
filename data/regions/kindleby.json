@@ -1161,6 +1161,41 @@
       ]
     },
     {
+      "npc": "provost",
+      "position": [
+        4.0,
+        0,
+        -6.3
+      ],
+      "rotation_y": 0,
+      "if": [
+        "flag:cindermoor_chapter_came",
+        "flag:cindermoor_chapter_up",
+        "flag:cindermoor_morning",
+        "flag:cindermoor_eighth_sought",
+        "flag:cindermoor_choir_down",
+        "!flag:cindermoor_choir_answered=",
+        "flag:kindleby_provost_going",
+        "flag:kindleby_provost_home"
+      ],
+      "note": "Day 110: home, at the foot of the chapter-house steps again; the Long Book on the shelf inside."
+    },
+    {
+      "npc": "aldous",
+      "position": [
+        1.7,
+        0,
+        -5.9
+      ],
+      "rotation_y": 20,
+      "if": [
+        "flag:kindleby_aldous_met_provost",
+        "flag:kindleby_aldous_door=kept"
+      ],
+      "note": "Day 110: Kindleby's door-warden for midwinter, by the chapter-house steps: standing, sober, the novices' roll in his hand (aldous_warden: no bottle).",
+      "model": "res://assets/models/characters/aldous_warden.glb"
+    },
+    {
       "npc": "iver",
       "model": "res://assets/models/characters/iver_nolamp.glb",
       "position": [
@@ -1380,6 +1415,32 @@
       },
       "dialogue": "kindleby_homecoming",
       "note": "Day 97, the epilogue: the Mercy comes in off Cindermoor's water after the ending; the quay bell's second stroke."
+    },
+    {
+      "id": "kindleby_provost_home",
+      "if": [
+        "flag:lanes_ferry_at=kindleby",
+        "flag:kindleby_provost_going",
+        "!flag:kindleby_provost_home"
+      ],
+      "set": {
+        "kindleby_provost_home": true
+      },
+      "dialogue": "kindleby_provost_home",
+      "note": "Day 110: the Provost home in the Mercy's stern; the Long Book goes on a shelf."
+    },
+    {
+      "id": "kindleby_aldous_before_provost",
+      "if": [
+        "flag:lanes_ferry_at=kindleby",
+        "flag:kindleby_aldous_coming",
+        "!flag:kindleby_aldous_met_provost"
+      ],
+      "set": {
+        "kindleby_aldous_met_provost": true
+      },
+      "dialogue": "kindleby_aldous_before_provost",
+      "note": "Day 110: Aldous before the Provost, in a room with the candles lit."
     }
   ]
 }
