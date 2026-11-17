@@ -42,7 +42,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
 $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]  # the procedural sounds as .wav (audio review)
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
-.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad provost tobin keeper_sister keeper_brother keeper_pim hild hild_scraping iver …]  # rebuild characters (assets/models/characters/)
+.tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated aldous_warden oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad provost tobin keeper_sister keeper_brother keeper_pim hild hild_scraping iver …]  # rebuild characters (assets/models/characters/)
 .tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren brazier_ash brazier_raked brazier_laid brazier_lit net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark clamp_rake …]  # Thornwold kit (same kit dir)
@@ -787,6 +787,20 @@ a room this small (11 m square) taught:
   it; `mara`/`bram`/`hesper`/`wenna`/`tobin` `start` jump once to `winter_stay` (`epilogue_winter_welcomed`) and carry
   one crew and one walk greeting line. Tests: `test_the_winter.gd`; the smoke walk checks the dark Mercy and Oda's
   first word after the final card.
+- **The Provost home; Aldous before the Provost (Day 110):** the Provost's `after_end` knot (spire foot) ends in a choice,
+  "Tobin asks when you're coming home." (`cindermoor_lane_out`, `kindleby_homecoming_seen`), which sets
+  `kindleby_provost_going`: her spire-foot placement gains `!flag:kindleby_provost_going` and a Boat Stair placement
+  takes over (`going`, `!home`; the chapter's flags spelled out for the one-NPC-one-place check). Oda's `lane_out_again`
+  names her in the stern. Kindleby's events append `kindleby_provost_home` (sets `kindleby_provost_home`; she's back at the
+  chapter-house steps) and `kindleby_aldous_before_provost` (`kindleby_aldous_coming`, sets `kindleby_aldous_met_provost`).
+  The two can't be pending together: Aldous is only told once she's home. Aldous's `ridge` knot and his Saltmarrow hub
+  (crossing `now`, `saltmarrow_aldous_novice=` — the Thornwold-first Aldous goes from the ridge) offer "The Provost's home.
+  She says the candles are lit." → `coming` (sets `kindleby_aldous_coming`; his bench and ridge placements gain
+  `!kindleby_aldous_coming` and `!kindleby_aldous_door=kept`, so he's below on the Mercy until the meeting). The meeting's
+  choice sets `kindleby_aldous_door` `kept` (placed by the chapter-house steps in **`aldous_warden.glb`** —
+  `build_characters.py aldous_warden`: standing, no bottle, the novices' roll in his left hand, the stoop eased) or `home`
+  (and clears `kindleby_aldous_coming`, so the old placement shows again). Tests: `test_before_the_provost.gd`; checkpoint
+  `before_the_provost`.
 
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:
@@ -1300,7 +1314,7 @@ Listen to the sounds: `$GODOT --headless --path . -s res://tools/debug/export_so
 writes each as a .wav (never commit them).
 
 ## Save format
-`user://saves/<slot>.json`: `{version, saved_at, region, spawn, player_position, world:
+`user://saves/<slot>.json`: `{version, saved_at, saved_unix, region, spawn, player_position, world:
 WorldState.to_dict(), play_seconds, playthrough}` (the world: `flags`, `quests`, `inventory`, `collected`, and since
 Day 91 `walkers`; an older save without it simply starts walkers from their placements). Beside it, `<slot>.png`: a
 320×180 thumbnail (Day 109).
@@ -1321,6 +1335,10 @@ Day 91 `walkers`; an older save without it simply starts walkers from their plac
   under menus, so the pause menu doesn't count (dialogue and cards do — that's reading the game). Reset by a New game,
   restored by a load. The Load and Save pages read "Slot 1 — Saltmarrow · 3h 12m · 2026-10-01 09:12"
   (`SaveSystem.format_play_time`).
+- **Continue's tie-break (Day 110):** `saved_unix` (`Time.get_unix_time_from_system()`, sub-second) sits between
+  `saved_at` and the file's modified time in `latest_slot()`'s sort key. Both of those are whole seconds, so two saves in
+  one second (the smoke walk saves slot 2, then Return to title autosaves) used to pick by slot order — an intermittent
+  smoke failure. An optional key, not a format change: older saves read 0 and fall back as before (no version bump).
 - `GameState.playthrough`: an id made by each New game (`new_playthrough_id()`, unix time + random tail), saved with
   every slot. Checkpoints keep the current one (they never autosave anyway).
 

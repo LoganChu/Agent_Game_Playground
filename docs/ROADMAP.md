@@ -865,19 +865,29 @@ each .glb < 5 MB.
       (not under the pause menu) and shown on the Load/Save pages; **one autosave per story** (`GameState.playthrough`;
       another story's autosave moves to "Autosave (earlier story)"); **slot thumbnails** (`<slot>.png`, snapped as a
       menu or card opens). Smoke: the autosave's story and play time. `test_save_follow_ups.gd` (9).
+- [x] [C] **The Provost home; Aldous before the Provost** (Day 110): back in at Cindermoor, the Provost is told Tobin
+      asks when she's coming home; she takes passage in the Mercy's stern and **puts the Long Book on a shelf, shut**
+      (arrival event `kindleby_provost_home`, per ending). Then Aldous (lit/released, the answer kept), told the candles
+      are lit, leaves the bottle and crosses (`kindleby_aldous_before_provost`): he says what was seen, **signs the
+      witnesses' page** (the Wakebearer under him, "I was on the stair", if both know), and is told to **keep the
+      chapter-house door** for midwinter or **go home with her leave** (`kindleby_aldous_door`). Blender
+      `aldous_warden`. Also a fix: Continue's same-second tie (`saved_unix`; an intermittent smoke failure).
+      `test_before_the_provost.gd` (9) + a title-screen test. Checkpoint `before_the_provost`.
 
 ### Next up
-1. [C] **A content session** (#1d: Aldous before the Provost, or the winter leftovers' props). Then polish nineteen
-   (due by ~Day 113), then a systems session (gamepad rebinding #5, or the Cindermoor morning flag #2). Fetch and reset
-   `main` before trusting it.
+1. [P] **Polish nineteen** (due by ~Day 113; #1a). Then a systems session (gamepad rebinding #5, or the Cindermoor
+   morning flag #2), then a content session (#1d: midwinter, or the winter leftovers' props). Fetch and reset `main`
+   before trusting it.
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item; a delete-slot option on the Load
    page.
-1d. [C] **After the final card** (fold into the next content session): **Aldous before the Provost** on Kindleby (he
-   says "when Oda's going" from the ridge; `thornwold_aldous_met_wynn`) — the chapter is still on Cindermoor after the
-   ending (only Hild came home), so that meeting wants Oda to run the lane in again, or the chapter to come home first;
-   midwinter (the dark round, the lit Spire's first asking) is open if the game goes on past the card. (Done Day 107:
+1d. [C] **After the final card** (fold into the next content session): (Aldous before the Provost: Day 110 — the
+   Provost came home with the Long Book first.) Follow-ups from Day 110: a **stool** prop for Aldous at the chapter-house
+   door (he asked for one; he stands for now), the Long Book **on its shelf** inside (the chapter-house has no interior),
+   Mara/Wynn noticing Aldous gone to Kindleby or home again with leave, and the rest of the chapter (Anselm and the old
+   brothers came home how? — say they came in the Mercy with her if anyone asks); Aldous in the dark ending at midwinter.
+   Midwinter (the dark round, the lit Spire's first asking) is open if the game goes on past the card. (Done Day 107:
    the winter's first days — Oda's first word per winter, the stay port's folk, crew/walk lines, the Mercy dark at her
    warps.) Winter leftovers: props for the stay ports (Mara's loft hatch, Bram's knife-ring on the board, Tobin's cot
    by the quay window); the Wakebearer actually *doing* the winter's work (a coil-the-warp beat on deck, nets) is
@@ -1044,7 +1054,7 @@ each .glb < 5 MB.
   (validator keeps spawns clear, but saved positions aren't checked).
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
-- Last content session: Day 103 (Lowsong's homecoming). Last polish: Day 104 (pass seventeen); **pass eighteen due by ~Day 109**.
+- Last content session: Day 110 (the Provost home; Aldous before the Provost). Last polish: Day 108 (pass eighteen); **pass nineteen due by ~Day 113**.
 - Three Garrows (Wenna the Wrackholm lane-warden, Sister Hild, Ness of the Unmoored), probably by accident: decide whether
   Garrow is just a common Tidewright name, or a thread (Hild relit the cresset Ness kept doused).
 - Last polish/debt session: Day 80 (polish eleven: what's still owed on the act cards, the more-below cue, the Bend

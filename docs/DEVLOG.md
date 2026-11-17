@@ -2,6 +2,59 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-17 21:00 UTC — Day 110: the Provost home; Aldous before the Provost (content)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and Blender (bpy 5.2.2). `main` was on `origin/main` (Day 109's
+  `24b7f02`) this time, not detached. Baseline: 826 tests green before any edit.
+- **Content (ROADMAP *Next up* #1 → #1d): Aldous before the Provost.** The chapter was still on Cindermoor after the
+  ending, so the Provost had to come home first. Two beats:
+  - **The Provost comes home.** Back in at Cindermoor after the lane out, she's on the east stair's doorstep with the
+    Long Book shut on her knee. A new choice: "Tobin asks when you're coming home." Her answer: "It's put away. It's only
+    that nobody's said so to me", with a line per ending. She goes down to the Boat Stair (Oda weighs her: two coins
+    for a Keeper, the third given back). Oda's lane out names her in the stern.
+    On Kindleby (arrival event `kindleby_provost_home`) Tobin runs down the steps instead of ringing the bell. She puts
+    the Long Book **on a shelf, shut**, with a line per ending for when it comes down again. Tobin may not dust it yet.
+    She's back at the chapter-house steps with after-lines per ending. Tobin gets an after-line too.
+  - **Aldous before the Provost** (lit/released, the door-warden's answer kept). The Provost lets slip she's kept the
+    candles lit since his letter came. Told so, Aldous leaves the bottle and crosses. It works from the ridge, or from
+    his bench if he never heard Wynn lives (the Thornwold-first Aldous goes from the ridge). On Kindleby
+    (`kindleby_aldous_before_provost`):
+    - "Brother Wren." / "Sister Agathe. ...Provost." He spelled her name wrong in the letter, as he always did.
+    - He says what was seen on the east stair, in the room with the candles lit, and signs **the witnesses' page**:
+      "a rumour" becomes "a record".
+    - If both he and the Provost know the Wakebearer was the light, the Wakebearer signs under him: not a name, only
+      "I was on the stair".
+    - Nobody weighs him. The Provost offers him the chapter-house door for midwinter's asking, and Aldous asks the
+      Wakebearer to decide. **Keep the door**: he stands at the chapter-house steps in the new `aldous_warden` model.
+      **Go home**: he leaves with her leave and is back on the ridge or bench, with a line for it.
+- **Art:** `build_characters.py aldous_warden`: Aldous standing, no bottle, the novices' roll in his left hand, the stoop
+  eased.
+- **Fix:** the smoke failed once with "Continue offers the latest save". Cause: `latest_slot()` broke a same-second tie
+  with the file's modified time, which is also whole seconds. Saves now carry `saved_unix` (sub-second) between the two.
+  It's an optional key: older saves read 0, so there's no version bump.
+- **Tests:** `test_before_the_provost.gd` (9): asked home only once back in, per ending; Oda carries her; the shelf per
+  ending; Aldous told (ridge, bench; not before she's home; not dark); the meeting per ending and seat; the second
+  witness; going home with leave; the checkpoint. Also `test_title_screen` (same-second tie), and `test_aldous_bench`
+  now expects the bench's new conditions. 836 tests + smoke + launch green.
+- Checkpoint `before_the_provost`. Screenshot: `docs/screenshots/2026-11-17-pm-aldous-before-the-provost.png`.
+
+**Decisions**
+- **The Provost comes home before Aldous goes.** Lore says she stays "till the Long Book's put away", and Aldous wanted
+  "a room, with the candles lit". Bringing her home answers Tobin's Day 97 question and puts the meeting where Aldous
+  asked for it. Running the lane in to fetch Aldous to Cindermoor would have answered neither.
+- **Only the Provost comes home on screen.** The rest of the chapter stays off-stage. The roadmap notes a line if anyone
+  asks how they got back.
+- **The Wakebearer's signature is a sentence, not a name.** Mystery #2's rule is that the name is never shown. "I was on
+  the stair", in the upright hand Wrackholm's Book showed, makes the page a record of two witnesses without breaking it.
+- **The door choice belongs to the Wakebearer.** Aldous asks "You were on that stair. You tell me." That keeps the
+  player's choices meaningful after the final card, and the answer changes where he stands.
+- **Dark ending: nothing new for Aldous.** He promised to come at midwinter with the ember. That stays open with midwinter.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish nineteen** (due by ~Day 113). Then a systems session. Fetch and reset `main` before
+   trusting it.
+
 ## 2026-11-17 09:00 UTC — Day 109: save follow-ups (systems)
 
 **Did**

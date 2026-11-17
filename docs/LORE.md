@@ -1839,7 +1839,7 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   Wynn says the novice's words to them — "Keep one back this year, Keeper Sallow" — and thanks them; how they knew the
   name, the Wakebearer can't say ("The stair kept its own counsel"). "I thought I was the only one of us who ran and
   lived." / "You ran. I stayed and broke a coal. We both lived. **It's a long bench.**" Aldous stays on the ridge for
-  now; he'll go on to Kindleby and the Provost "when Oda's going. Not yet." *(Future: Aldous before the Provost.)* In the
+  now; he'll go on to Kindleby and the Provost "when Oda's going. Not yet." *(Day 110: Aldous before the Provost.)* In the
   dark ending he comes at midwinter with the ember; Wynn will "have the bench swept", and wants the box's coal to meet
   the ember it came from.
 - **The fen's homecoming (Day 101, the epilogues part four — event `fen_homecoming`).** The Mercy comes up the reed
@@ -1946,7 +1946,7 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   in thirty-eight years**. The epilogue card's codas — lit: "The Lanternreach remembers. What it's willing to forget, it
   will be asked."; released: "Nothing in the Lanternreach burns now that didn't choose to. The lights are kept, and the
   keepers keep each other."; dark: "Nobody chooses for the Lanternreach any more. At midwinter it chooses for itself,
-  and writes it down." Oda still ferries after ("that's only ferrying"). *(Open: Aldous before the Provost; midwinter.)*
+  and writes it down." Oda still ferries after ("that's only ferrying"). *(Open: midwinter. Aldous before the Provost: Day 110.)*
 - **The winter's first days (Day 107).** The Mercy lies **dark at her warps** wherever she is: masthead lantern out,
   sail under its cover, the pennant struck — and still ferries so, "that's only ferrying". Oda's first word after:
   - **crew** — frost on the doubled warps; "Crew's up before the gulls on this boat." Lit: she has put a **gold mark on
@@ -1971,6 +1971,41 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
     could carry the coal up the wall — "He said ask you."
   - Crewing or walking, each of the five has a word for it (Wenna: give the horn a word past the Teeth; Tobin keeps a
     candle in the quay window for the walker).
+- **The Provost comes home (Day 110 — `kindleby_provost_going`, `kindleby_provost_home`).** Back in at Cindermoor after
+  the lane out, the Provost still sits on the east stair's doorstep with the Long Book shut on her knee. Told that Tobin
+  asks when she's coming home ("when the Long Book's put away"): **"It's put away. It's only that nobody's said so to
+  me."** Lit: the midwinter asking is done on Kindleby, in a room, with the candles lit; released: there's nobody left on
+  Cindermoor to keep, "a warm stair and a shut book" is no vigil; dark: Kindleby is writing its list without her. She
+  asks Oda for "a passage home. One Keeper. She'll want to weigh me. Let her." — Oda takes two coins for a Keeper and
+  gives back the third ("the Mercy's not to be tipped by the order"). She goes down to the Boat Stair **without once
+  looking back at the Spire**, and sits in the Mercy's stern with both hands flat on the Book. On Kindleby's quay **Tobin
+  doesn't ring the bell; he comes down the steps two at a time**, which novices aren't to do ("You may stop asking. You
+  may also walk on the steps."). **The Long Book goes on the shelf behind the chapter-house lectern, shut, spine out**,
+  where the order never kept it. Lit: it comes down at midwinter for one page (whoever goes up, by name, first, and
+  what they were asked). Released: it comes down only to be read; "the writing's done". Dark: Kindleby's list goes in
+  it in Kindleby's own hands; she holds the lamp. Tobin may not dust it yet. **She has kept the chapter-house candles
+  lit since Aldous's letter came.**
+- **Aldous before the Provost (Day 110 — `kindleby_aldous_coming`, `kindleby_aldous_met_provost`,
+  `kindleby_aldous_door`).** Lit or released, with the door-warden's answer kept (`saltmarrow_aldous_crossing=now`), the
+  Wakebearer tells Aldous (on the ridge, or on his bench if he never heard Wynn lives) that the Provost's home and the
+  candles are lit. **He leaves the bottle where he was sitting** ("Lit. In a room. She remembered. ...Is Oda going?");
+  the Lamp tells him to mind the ladder. He rides below, out of the wind. On Kindleby's quay he looks up the wall like a
+  man at the house he was a boy in (**as a novice he dropped a candle off the wall and set fire to a gull** — "not much of
+  one"). In the chapter-house, candles lit at midday, **"Brother Wren." / "Sister Agathe. ...Provost."** — he spelled
+  her name wrong in the letter, as always, sober or not. He says it in the room: the light came down past him counting
+  landings; he let it by and never asked; he ran, "furthest of anybody, and the least far". She turns the Long Book to
+  **the witnesses' page** (her one line from his letter: "not lost: seen"): **"A witnesses' page with one line on it is
+  a rumour. Sign it, and it's a record."** He signs; his hand doesn't shake. **If both he and she know the Wakebearer was
+  the light** (`cindermoor_provost_knows`, `saltmarrow_aldous_knows_novice`), the Wakebearer signs under him — not a
+  name ("I'll not put your name in a book again unless you ask me to") but **"I was on the stair"**, in upright letters,
+  every one finished, in a hand they've seen before *(mystery #2: never the name)*: **"Two. The door-warden, and the
+  light."** Nobody weighs him — Oda's scale is on its hook and the Book on a shelf. The Provost offers him **the
+  chapter-house door** for midwinter (lit: whoever goes up is to be stopped and asked — "this time"; released: sit up with
+  whoever comes, and ask after them). He asks the Wakebearer, who was on that stair: **keep the door** ("Ask. Aye. ...I'll
+  want a stool. And no bottle on the step") — he stands by the chapter-house steps with the novices' roll, and she hasn't
+  put him on report yet — or **go home** with her leave, "you never had it, the night you went": he says "Agathe" right,
+  and goes back to the ridge (Wynn will have the bench swept) or the bench (Mara will say he wasn't gone long enough to be
+  missed); she finds she misses being disobeyed. In the dark ending he still comes at midwinter, with the ember.
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks
