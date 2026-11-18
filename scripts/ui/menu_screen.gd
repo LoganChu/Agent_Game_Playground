@@ -10,7 +10,7 @@ extends CanvasLayer
 ##   Chapters    debug builds: jump to a story checkpoint in data/scenarios.json
 ##   Settings    volumes, text size and speed, camera sensitivity, invert and conversation framing, stick deadzone,
 ##               display (window mode, vsync), autosave, Controls, Reset
-##   Controls    rebind each action (press the action, then the new key; Esc cancels)
+##   Controls    rebind each action (press the action, then the new key or pad button; Esc/B cancels)
 ## Settings are saved to user://settings.cfg as they change (a dragged slider once, when it
 ## is let go) and again when their pages are left. Esc backs out page by page; on the MAIN
 ## page it calls `_back_from_main()`.
@@ -90,17 +90,23 @@ func note() -> String:
 	return _note.text
 
 
-## While waiting for a key on the Controls page, the next key press is the new binding
-## (Esc cancels); it never reaches the menu or the world.
+## While waiting on the Controls page, the next key press is the action's new key and the
+## next pad button its new button (Esc or the pad's B cancels); it never reaches the menu or
+## the world.
 func _input(event: InputEvent) -> void:
 	if capturing.is_empty() or not is_open():
 		return
-	var key := event as InputEventKey
-	if key == null or not key.pressed or key.echo or Engine.get_process_frames() == _capture_frame:
+	if Engine.get_process_frames() == _capture_frame:
 		return
-	get_viewport().set_input_as_handled()
-	var keycode := key.physical_keycode if key.physical_keycode != KEY_NONE else key.keycode
-	capture_key(keycode)
+	var key := event as InputEventKey
+	if key != null and key.pressed and not key.echo:
+		get_viewport().set_input_as_handled()
+		capture_key(key.physical_keycode if key.physical_keycode != KEY_NONE else key.keycode)
+		return
+	var pad := event as InputEventJoypadButton
+	if pad != null and pad.pressed:
+		get_viewport().set_input_as_handled()
+		capture_button(pad.button_index)
 
 
 ## Finishes a key capture with `keycode` (Esc cancels). Public for tests and the smoke run.
@@ -111,13 +117,61 @@ func capture_key(keycode: Key) -> void:
 		return
 	if keycode == KEY_ESCAPE:
 		_show_page(Page.CONTROLS)
-		_note.text = "Kept %s." % InputSetup.key_label(GameSettings.current().key_for(action))
+		_note.text = "Kept %s." % _binding_text(action)
 		return
-	var why := GameSettings.current().rebind(action, keycode)
+	var why := GameSettings.current().rebind(action, keycode) if InputSetup.REBINDABLE.has(action) \
+			else "%s has no key; press a pad button for it." % InputSetup.action_label(action)
 	if why.is_empty():
 		_commit_settings()
 	_show_page(Page.CONTROLS)
 	_note.text = why if not why.is_empty() else "%s: %s." % [InputSetup.action_label(action), InputSetup.key_label(keycode)]
+
+
+## Finishes a capture with a pad button (B cancels). Public for tests and the smoke run.
+func capture_button(button: JoyButton) -> void:
+	var action := capturing
+	capturing = ""
+	if action.is_empty():
+		return
+	if button == JOY_BUTTON_B:
+		_show_page(Page.CONTROLS)
+		_note.text = "Kept %s." % _binding_text(action)
+		return
+	var why := ""
+	if not InputSetup.PAD_REBINDABLE.has(action):
+		why = "On a pad, %s is the %s." % [InputSetup.action_label(action).to_lower(), str(InputSetup.PAD_AXIS_LABELS.get(action, "stick")).to_lower()]
+	else:
+		why = GameSettings.current().rebind_button(action, button)
+	if why.is_empty():
+		_commit_settings()
+	_show_page(Page.CONTROLS)
+	_note.text = why if not why.is_empty() else "%s: %s." % [InputSetup.action_label(action), InputSetup.button_label(button)]
+
+
+## "J · Back", "W · Left stick", "F5", "LB" — an action's key and its pad binding, as the
+## Controls page lists them.
+static func _binding_text(action: String) -> String:
+	var settings := GameSettings.current()
+	var parts: Array[String] = []
+	if InputSetup.REBINDABLE.has(action):
+		parts.append(InputSetup.key_label(settings.key_for(action)))
+	if InputSetup.PAD_REBINDABLE.has(action):
+		var button := settings.button_for(action)
+		if button != JOY_BUTTON_INVALID or parts.is_empty():
+			parts.append(InputSetup.button_label(button))
+	elif InputSetup.PAD_AXIS_LABELS.has(action):
+		parts.append(str(InputSetup.PAD_AXIS_LABELS[action]))
+	return " · ".join(parts)
+
+
+## The Controls page's rows: every key-rebindable action, then the pad-only ones (the journal's
+## tab shoulders), in menu order.
+static func _controls_actions() -> Array[String]:
+	var out: Array[String] = InputSetup.REBINDABLE.duplicate()
+	for action in InputSetup.PAD_REBINDABLE:
+		if not out.has(action):
+			out.append(action)
+	return out
 
 
 ## Esc (or the pause key) backs out one page while the menu is open.
@@ -200,10 +254,9 @@ func _show_page(which: Page) -> void:
 			_build_settings()
 		Page.CONTROLS:
 			_title.text = "Controls"
-			_note.text = "Pick an action, then press its new key. Arrow keys and Enter still work unless you take them for something else."
-			var settings := GameSettings.current()
-			for action in InputSetup.REBINDABLE:
-				_add("%s — %s" % [InputSetup.action_label(action), InputSetup.key_label(settings.key_for(action))], _start_capture.bind(action))
+			_note.text = "Pick an action, then press its new key or pad button. Arrow keys and Enter still work unless you take them for something else."
+			for action in _controls_actions():
+				_add("%s — %s" % [InputSetup.action_label(action), _binding_text(action)], _start_capture.bind(action))
 			_add("Back", _show_page.bind(Page.SETTINGS))
 		_:
 			_build_page(which)
@@ -314,6 +367,9 @@ func _build_settings() -> void:
 	_add_toggle("Display: " + settings.window_mode_label(), settings.cycle_window_mode)
 	_add_toggle("VSync: " + _on_off(settings.vsync), func() -> void: settings.set_vsync(not settings.vsync))
 	_add_toggle("Autosave: " + _on_off(settings.autosave), func() -> void: settings.set_autosave(not settings.autosave))
+	_add_toggle("Button prompts: " + settings.prompt_style_label(), func() -> void:
+		settings.cycle_prompt_style()
+		GameState.input_device_changed.emit())
 	_add("Controls", _show_page.bind(Page.CONTROLS))
 	_add("Reset to defaults", _reset_settings)
 	_add("Back", _show_page.bind(Page.MAIN))
@@ -390,10 +446,13 @@ func slider(prefix: String) -> HSlider:
 func _start_capture(action: String) -> void:
 	capturing = action
 	_capture_frame = Engine.get_process_frames()
+	var keys := InputSetup.REBINDABLE.has(action)
+	var pad := InputSetup.PAD_REBINDABLE.has(action)
+	var what := "a key or button" if keys and pad else ("a key" if keys else "a pad button")
 	for button in buttons():
 		if button.text.begins_with(InputSetup.action_label(action) + " —"):
-			button.text = "%s — press a key…" % InputSetup.action_label(action)
-	_note.text = "Press the new key for %s. Esc cancels." % InputSetup.action_label(action)
+			button.text = "%s — press %s…" % [InputSetup.action_label(action), what]
+	_note.text = "Press the new %s for %s. Esc / %s cancels." % [what.trim_prefix("a "), InputSetup.action_label(action), InputSetup.button_label(JOY_BUTTON_B)]
 
 
 func _reset_settings() -> void:

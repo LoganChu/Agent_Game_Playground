@@ -1,7 +1,7 @@
 class_name GameSettings
 extends RefCounted
 ## Player settings: audio bus volumes, text size and dialogue text speed, camera
-## sensitivity/invert, conversation framing, stick deadzone, window mode and vsync, autosave, and keyboard rebinding. Persisted to `user://settings.cfg` (ConfigFile), never in save games, so they
+## sensitivity/invert, conversation framing, stick deadzone, window mode and vsync, autosave, keyboard and pad rebinding, and button-prompt names. Persisted to `user://settings.cfg` (ConfigFile), never in save games, so they
 ## carry across playthroughs. `current()` is the live instance the game reads; tests make
 ## their own with a scratch `path`.
 ##
@@ -56,6 +56,10 @@ var vsync := true
 var autosave := true
 ## Rebound primary keys: action → physical keycode. Only actions the player changed.
 var keys: Dictionary = {}
+## Rebound pad buttons (Day 112): action → JoyButton. Only actions the player changed.
+var pad_buttons: Dictionary = {}
+## Button-prompt family: "auto" or an InputSetup.PAD_STYLES key.
+var prompt_style := "auto"
 
 
 func _init() -> void:
@@ -91,6 +95,8 @@ func reset_values() -> void:
 	vsync = true
 	autosave = true
 	keys.clear()
+	pad_buttons.clear()
+	prompt_style = "auto"
 
 
 ## Back to defaults, applied and saved.
@@ -274,6 +280,73 @@ func _set_key(action: String, keycode: Key) -> void:
 		keys[action] = keycode
 
 
+## The pad button of a pad-rebindable action (rebound or default; JOY_BUTTON_INVALID = none).
+func button_for(action: String) -> JoyButton:
+	if pad_buttons.has(action):
+		return pad_buttons[action] as JoyButton
+	return InputSetup.default_button(action)
+
+
+## Puts `action` on pad button `button`. If another action had it, the two swap — unless
+## `action` had no button to give back, which would leave the other with none: then it's
+## refused. Returns "" on success, else why not.
+func rebind_button(action: String, button: JoyButton) -> String:
+	if not InputSetup.PAD_REBINDABLE.has(action):
+		return "%s isn't on a pad button." % InputSetup.action_label(action)
+	if button == JOY_BUTTON_INVALID or InputSetup.RESERVED_BUTTONS.has(button):
+		return "%s is reserved." % InputSetup.button_label(button)
+	var old := button_for(action)
+	for other: String in InputSetup.PAD_REBINDABLE:
+		if other != action and button_for(other) == button:
+			if old == JOY_BUTTON_INVALID:
+				return "%s is already %s." % [InputSetup.button_label(button), InputSetup.action_label(other)]
+			_set_button(other, old)
+	_set_button(action, button)
+	InputSetup.apply_buttons(all_buttons())
+	changed.emit()
+	return ""
+
+
+func _set_button(action: String, button: JoyButton) -> void:
+	if button == InputSetup.default_button(action):
+		pad_buttons.erase(action)
+	else:
+		pad_buttons[action] = button
+
+
+## Every pad-rebindable action's button.
+func all_buttons() -> Dictionary:
+	var out := {}
+	for action: String in InputSetup.PAD_REBINDABLE:
+		out[action] = button_for(action)
+	return out
+
+
+func set_prompt_style(value: String) -> void:
+	prompt_style = value if _prompt_styles().has(value) else "auto"
+	InputSetup.prompt_style = prompt_style
+	changed.emit()
+
+
+func prompt_style_label() -> String:
+	for entry: Array in InputSetup.PROMPT_STYLES:
+		if entry[0] == prompt_style:
+			return str(entry[1])
+	return "Auto"
+
+
+func cycle_prompt_style() -> void:
+	var styles := _prompt_styles()
+	set_prompt_style(styles[(styles.find(prompt_style) + 1) % styles.size()])
+
+
+static func _prompt_styles() -> Array[String]:
+	var out: Array[String] = []
+	for entry: Array in InputSetup.PROMPT_STYLES:
+		out.append(str(entry[0]))
+	return out
+
+
 ## Every rebindable action's primary key.
 func primary_keys() -> Dictionary:
 	var out := {}
@@ -287,6 +360,8 @@ func apply_all() -> void:
 		_apply_volume(bus)
 	UiTheme.set_text_scale(text_scale)
 	InputSetup.apply_keys(primary_keys())
+	InputSetup.apply_buttons(all_buttons())
+	InputSetup.prompt_style = prompt_style
 	InputSetup.apply_deadzone(stick_deadzone)
 	_apply_display()
 
@@ -339,6 +414,9 @@ func save() -> bool:
 	cfg.set_value("pad", "stick_deadzone", stick_deadzone)
 	for action: String in keys:
 		cfg.set_value("keys", action, OS.get_keycode_string(keys[action] as Key))
+	cfg.set_value("pad", "prompts", prompt_style)
+	for action: String in pad_buttons:
+		cfg.set_value("pad_buttons", action, int(pad_buttons[action]))
 	var err := cfg.save(path)
 	if err != OK:
 		push_warning("Couldn't save settings to %s (%s)" % [path, error_string(err)])
@@ -371,6 +449,18 @@ func load_file() -> bool:
 			if InputSetup.REBINDABLE.has(action) and keycode != KEY_NONE and not InputSetup.RESERVED_KEYS.has(keycode):
 				_set_key(action, keycode)
 	_drop_duplicate_keys()
+	var style := str(cfg.get_value("pad", "prompts", "auto"))
+	prompt_style = style if _prompt_styles().has(style) else "auto"
+	if cfg.has_section("pad_buttons"):
+		for action in cfg.get_section_keys("pad_buttons"):
+			var value: Variant = cfg.get_value("pad_buttons", action, -1)
+			if not (value is int):
+				continue
+			var button := value as JoyButton
+			if InputSetup.PAD_REBINDABLE.has(action) and button >= 0 and button < JOY_BUTTON_SDL_MAX \
+					and not InputSetup.RESERVED_BUTTONS.has(button):
+				_set_button(action, button)
+	_drop_duplicate_buttons()
 	return true
 
 
@@ -390,3 +480,24 @@ func _drop_duplicate_keys() -> void:
 			keys.clear()
 			return
 		seen[key] = true
+
+
+## As `_drop_duplicate_keys`, for pad buttons (no button — JOY_BUTTON_INVALID — never clashes).
+func _drop_duplicate_buttons() -> void:
+	for attempt in 2:
+		var seen := {}
+		var clash := false
+		for action: String in InputSetup.PAD_REBINDABLE:
+			var button := button_for(action)
+			if button == JOY_BUTTON_INVALID:
+				continue
+			if seen.has(button):
+				clash = true
+				if attempt == 0:
+					pad_buttons.erase(action)
+				else:
+					pad_buttons.clear()
+					return
+			seen[button_for(action)] = true
+		if not clash:
+			return

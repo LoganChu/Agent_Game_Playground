@@ -271,12 +271,12 @@ func _make_label(variation: StringName) -> Label:
 
 ## Follows the player's key bindings (GameSettings) and the device used last (pad buttons
 ## when it was a pad): the key hint and the "[E] Talk to…" prompt, which stays up under the
-## pause menu (the player is paused with its focus). Lanes is named once the chart is known,
-## on keys only — a pad reaches it from the journal (LB/RB).
+## pause menu (the player is paused with its focus). Lanes is named once the chart is known
+## (on a pad too since Day 112, while Lanes has a pad button).
 func _update_key_hint() -> void:
 	var menu := InputSetup.hint("pause") if InputSetup.pad_last else InputSetup.back_hint()
 	var lanes := ""
-	if not InputSetup.pad_last and Lanes.chart_known(Content.db, GameState.world):
+	if (not InputSetup.pad_last or InputSetup.has_pad_button("lanes")) and Lanes.chart_known(Content.db, GameState.world):
 		lanes = "%s Lanes   " % InputSetup.hint("lanes")
 	_keys.text = "%s Journal   %s%s Satchel   %s Menu" % [InputSetup.hint("journal"), lanes, InputSetup.hint("inventory"), menu]
 	if _prompt and _focus and is_instance_valid(_focus):
