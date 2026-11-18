@@ -112,4 +112,5 @@ func test_the_tied_mercys_warps_run_fore_and_aft_to_the_quay() -> void:
 	assert_true(box.position.x >= 1.0 and box.end.x >= 2.9, "out to port, to the quay's edge (x %.2f..%.2f)"
 			% [box.position.x, box.end.x])
 	assert_true(box.size.z >= 9.5, "fore and aft past both ends of the hull (%.2f m)" % box.size.z)
-	assert_true(box.position.y <= 0.1, "the fore and aft warps run down to the waterline (%.2f)" % box.position.y)
+	# Day 111 (polish nineteen): they drop to the eye round each port's mooring post, not to the waterline.
+	assert_true(box.position.y <= 0.85, "the fore and aft warps drop low, to the mooring posts (%.2f)" % box.position.y)

@@ -247,3 +247,44 @@ func test_thumbnails() -> void:
 		SaveSystem.autosave()
 		assert_true(FileAccess.file_exists(SaveSystem.thumb_path(SaveSystem.PREV_AUTO_SLOT)), "moved aside with the earlier story")
 		assert_false(FileAccess.file_exists(SaveSystem.thumb_path(SaveSystem.AUTO_SLOT)), "the new autosave has none (headless)"))
+
+
+## Day 111 (polish nineteen): a Delete beside each save on the Load page, pressed twice; the slot then shows empty.
+func test_deleting_a_save_from_the_load_page() -> void:
+	_sandboxed(func() -> void:
+		SaveSystem.save_game("slot1")
+		SaveSystem.save_game("slot2")
+		var stale := Image.create(SaveSystem.THUMB_SIZE.x, SaveSystem.THUMB_SIZE.y, false, Image.FORMAT_RGB8)
+		stale.save_png(SaveSystem.thumb_path("slot1"))
+		var menu := PauseMenu.new()
+		menu._build()
+		menu._root.hide()
+		menu._show_page(MenuScreen.Page.LOAD)
+		assert_true(menu.delete_button("slot1") != null and menu.delete_button("slot2") != null, "a Delete beside each save")
+		assert_true(menu.delete_button("slot3") == null and menu.delete_button("quick") == null, "none beside an empty slot")
+		var texts := menu.buttons().map(func(b: Button) -> String: return b.text)
+		assert_false(texts.has("Delete"), "the rows still list as their slots (%s)" % [texts])
+		assert_true(str(texts[texts.size() - 1]) == "Back", "Back last")
+		# One press only asks; another slot's Delete re-arms for that one.
+		menu.delete_button("slot1").pressed.emit()
+		assert_true(SaveSystem.has_save("slot1"), "not on the first press")
+		assert_true(menu.note().contains("again") and menu.note().contains("Slot 1"), "asks first: %s" % menu.note())
+		menu.delete_button("slot2").pressed.emit()
+		assert_true(SaveSystem.has_save("slot2") and SaveSystem.has_save("slot1"), "re-armed for Slot 2, nothing gone")
+		menu.delete_button("slot1").pressed.emit()
+		assert_true(SaveSystem.has_save("slot1"), "Slot 1 asks again after Slot 2 was armed")
+		menu.delete_button("slot1").pressed.emit()
+		assert_false(SaveSystem.has_save("slot1"), "the second press deletes it")
+		assert_false(FileAccess.file_exists(SaveSystem.thumb_path("slot1")), "with its thumbnail")
+		assert_true(SaveSystem.has_save("slot2"), "the other save kept")
+		assert_eq(menu.note(), "Deleted Slot 1.")
+		assert_true(menu.delete_button("slot1") == null, "no Delete on the emptied slot")
+		for button: Button in menu.buttons():
+			if button.text.begins_with("Slot 1"):
+				assert_true(button.disabled and button.text.ends_with("empty"), "shown empty: %s" % button.text)
+		assert_false(SaveSystem.delete_slot("slot1"), "nothing left to delete")
+		# A save from a newer build can't be loaded but can be deleted, to free the slot.
+		_write("slot3", {"version": SaveSystem.SAVE_VERSION + 1, "region": "saltmarrow"})
+		menu._show_page(MenuScreen.Page.LOAD)
+		assert_true(menu.delete_button("slot3") != null, "a newer build's save can be deleted")
+		menu.free())
