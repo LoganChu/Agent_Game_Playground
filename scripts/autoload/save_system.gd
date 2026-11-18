@@ -234,6 +234,15 @@ func _move_slot(from_slot: String, to_slot: String) -> void:
 
 ## Writes a slot (and its thumbnail: the frame snapped when a menu opened, or the frame now
 ## with `fresh_thumbnail` or when nothing was snapped).
+## Deletes a slot's save and its thumbnail (the Load page's Delete, Day 111). False if there was nothing to delete.
+func delete_slot(slot: String) -> bool:
+	if not has_save(slot):
+		return false
+	DirAccess.remove_absolute(slot_path(slot))
+	DirAccess.remove_absolute(thumb_path(slot))
+	return not has_save(slot)
+
+
 func save_game(slot: String = QUICK_SLOT, fresh_thumbnail: bool = false) -> bool:
 	DirAccess.make_dir_recursive_absolute(save_dir)
 	var file := FileAccess.open(slot_path(slot), FileAccess.WRITE)

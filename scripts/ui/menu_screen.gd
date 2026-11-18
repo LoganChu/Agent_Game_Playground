@@ -5,7 +5,8 @@ extends CanvasLayer
 ## back" hint. Subclasses build their own MAIN page (and any page of their own, like the
 ## pause menu's Save); this class builds the pages both menus offer:
 ##   Load        the autosave (and the earlier story's, once there is one), the F5 quicksave and the manual slots
-##               (SaveSystem.LOADABLE), with region, play time, date and a thumbnail
+##               (SaveSystem.LOADABLE), with region, play time, date and a thumbnail; a Delete beside each
+##               save (Day 111), pressed twice
 ##   Chapters    debug builds: jump to a story checkpoint in data/scenarios.json
 ##   Settings    volumes, text size and speed, camera sensitivity, invert and conversation framing, stick deadzone,
 ##               display (window mode, vsync), autosave, Controls, Reset
@@ -50,13 +51,28 @@ func is_open() -> bool:
 	return _root != null and _root.visible
 
 
-## The buttons on the current page, top to bottom (for tests and the smoke run).
+## The buttons on the current page, top to bottom (for tests and the smoke run). A Load page row counts as its slot's
+## button; the Delete beside it is `delete_button(slot)`.
 func buttons() -> Array[Button]:
 	var out: Array[Button] = []
 	for child in _buttons.get_children():
-		if child is Button and not child.is_queued_for_deletion():
+		if child.is_queued_for_deletion():
+			continue
+		if child is Button:
 			out.append(child)
+		elif child is HBoxContainer and child.get_child_count() > 0 and child.get_child(0) is Button:
+			out.append(child.get_child(0))
 	return out
+
+
+## The Delete button beside `slot` on the Load page, or null (no save there, or another page).
+func delete_button(slot: String) -> Button:
+	for row in _buttons.get_children():
+		if row is HBoxContainer and not row.is_queued_for_deletion():
+			for inner in row.get_children():
+				if inner is Button and inner.get_meta(&"delete_slot", "") == slot:
+					return inner
+	return null
 
 
 ## Presses the first button on the page whose text starts with `prefix`; false if none
@@ -162,6 +178,8 @@ func _show_page(which: Page) -> void:
 					continue  # only listed once a second story has begun
 				var button := _add_slot(slot, _load.bind(slot))
 				button.disabled = not SaveSystem.has_save(slot) or SaveSystem.slot_info(slot).has("refused")
+				if SaveSystem.has_save(slot):
+					_add_delete(button, slot)
 			_add("Back", _show_page.bind(Page.MAIN))
 		Page.CHAPTERS:
 			_title.text = "Chapter select (dev)"
@@ -253,6 +271,26 @@ func _add_slot(slot: String, action: Callable) -> Button:
 		button.icon = thumb
 		button.add_theme_constant_override(&"icon_max_width", SaveSystem.THUMB_SHOWN_WIDTH)
 	return button
+
+
+## Puts a Delete button beside a Load page slot's button (Day 111): the two share a row, the slot taking the width.
+## A save from a newer build can be deleted too — it can't be loaded, and the player may want the slot back.
+func _add_delete(slot_button: Button, slot: String) -> void:
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override(&"separation", 8)
+	var at := slot_button.get_index()
+	_buttons.remove_child(slot_button)
+	slot_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(slot_button)
+	var delete := Button.new()
+	delete.text = "Delete"
+	delete.set_meta(&"delete_slot", slot)
+	delete.tooltip_text = "Delete %s (press twice)" % SaveSystem.slot_label(slot)
+	delete.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	delete.pressed.connect(_delete.bind(slot))
+	row.add_child(delete)
+	_buttons.add_child(row)
+	_buttons.move_child(row, at)
 
 
 ## The Settings page: a slider per audio bus, text size and speed, camera sensitivity, stick
@@ -387,6 +425,17 @@ func _load(slot: String) -> void:
 	_leave_for_play()
 	if not SaveSystem.load_game(slot):
 		GameState.toast.emit("Couldn't load " + SaveSystem.slot_label(slot))
+
+
+## Deleting asks for a second press (pressing another slot's Delete re-arms for that one), then rebuilds the page
+## with the slot shown empty and says what went.
+func _delete(slot: String) -> void:
+	var label := SaveSystem.slot_label(slot)
+	if not _confirm("delete:" + slot, "Press Delete again to delete %s for good." % label):
+		return
+	var deleted := SaveSystem.delete_slot(slot)
+	_show_page(Page.LOAD)
+	_note.text = ("Deleted %s." % label) if deleted else ("Couldn't delete %s." % label)
 
 
 ## Jumping leaves the menu first so the world takes over at the checkpoint's region.
