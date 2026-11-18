@@ -479,6 +479,16 @@
       "note": "Day 107: the Slow Mercy put to bed for the winter after the final card (epilogue_tied_up): the green masthead lantern let go out, so no light; the sail under its cover, the warps doubled. Oda still ferries in her."
     },
     {
+      "model": "res://assets/models/dressing/mooring_post.glb",
+      "position": [
+        11.45,
+        -0.25,
+        5.1
+      ],
+      "snap": false,
+      "note": "The mooring post the tied-up Mercy's fore warps make fast to (Day 111; build_dressing.MOORING_FORE), in the shallows."
+    },
+    {
       "model": "res://assets/models/dressing/hearthspire_far.glb",
       "position": [
         2.0,

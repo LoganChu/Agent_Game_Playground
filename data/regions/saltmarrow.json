@@ -1325,6 +1325,26 @@
       }
     },
     {
+      "model": "res://assets/models/dressing/mooring_post.glb",
+      "position": [
+        4.4,
+        -0.25,
+        11.05
+      ],
+      "snap": false,
+      "note": "The mooring post the tied-up Mercy's fore warps make fast to (Day 111; build_dressing.MOORING_FORE), in the shallows."
+    },
+    {
+      "model": "res://assets/models/dressing/mooring_post.glb",
+      "position": [
+        5.8,
+        -0.25,
+        21.1
+      ],
+      "snap": false,
+      "note": "The mooring post the tied-up Mercy's aft warps make fast to (Day 111; build_dressing.MOORING_AFT), in the shallows."
+    },
+    {
       "model": "res://assets/models/dressing/bundle.glb",
       "position": [
         5.2,

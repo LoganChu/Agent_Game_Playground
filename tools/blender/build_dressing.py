@@ -572,6 +572,30 @@ def build_grass() -> None:
     export("grass")
 
 
+# Where the tied-up Mercy's fore and aft warps make fast (Day 111), in the ferry's own frame
+# (Blender X/Y; Godot local (x, -y)): each port stands a `mooring_post` there. Pinned by
+# tests/test_polish_nineteen.gd, which works out each port's post from its ferry placement.
+MOORING_FORE = (4.5, -5.45)  # out past the landing's width, so a shore post stands beside its head, not across it
+MOORING_AFT = (3.1, 4.6)
+MOORING_EYE_Z = 0.85  # the eye's height over the waterline
+
+
+def build_mooring_post() -> None:
+    """A mooring post (Day 111): one stout tarred pile, ~0.17 m round, with an iron band under a
+    rope-worn neck and a coal-dark cap, weed-green slime round the waterline. Origin at its
+    standing level — the waterline when it stands in the shallows (placed at the water level,
+    `snap: false`), or the shingle when it stands up the beach (snapped) — head at z 1.1, foot
+    driven 1.7 m down. The tied Mercy's fore and aft warps end round it (MOORING_FORE/_AFT)."""
+    reset()
+    tar, worn = mat("driftwood", -0.6), mat("driftwood", -0.3)
+    cyl("Pile", 0.19, 0.17, 2.55, 7, (0, 0, -1.7), tar, 0.2)
+    cyl("Neck", 0.17, 0.15, 0.25, 7, (0, 0, 0.85), worn, 0.2)  # rubbed pale by the warps
+    cyl("Head", 0.15, 0.13, 0.08, 7, (0, 0, 1.1), mat("coal", -0.35), 0.2)
+    cyl("Band", 0.2, 0.2, 0.07, 7, (0, 0, 0.74), mat("ink", 0.15), 0.2)
+    cyl("Slime", 0.205, 0.195, 0.28, 7, (0, 0, -0.14), mat("moss", -0.45), 0.2)
+    export("mooring_post")
+
+
 def build_ferry(tied: bool = False) -> None:
     """The Tidewright ferry *Slow Mercy* (9 m), origin at the WATERLINE like moored_boat:
     broad tide-blue hull with a bone stripe, a plank deckhouse aft with a slate roof and
@@ -629,15 +653,19 @@ def build_ferry(tied: bool = False) -> None:
         cyl("Fender", 0.13, 0.13, 0.45, 6, (1.68, y, 0.2), mat("ink", 0.2))
     beam("Plank", (1.4, 0.2, 0.9), (2.9, 0.2, 0.55), 0.06, mat("driftwood", 0.2), width=0.55)
     if tied:
-        # Doubled warps from the bow and the quarter, out to port and down to the quay's
-        # pilings, plus a breast line either side of the plank. Polish eighteen (Day 108):
-        # thick tarred rope (dark on a pale quay, still brown over grey water), each line
-        # sagging in two runs. The fore and aft warps run down to the waterline (to a piling
-        # under the quay, or a mooring where a port's quay is short); the breast lines end in
-        # an eye on the quay boards beside the plank, which every port has.
+        # Doubled warps from the bow and the quarter, out to port, plus a breast line either side
+        # of the plank. Polish eighteen (Day 108): thick tarred rope (dark on a pale quay, still
+        # brown over grey water), each line sagging in two runs; the breast lines end in an eye on
+        # the quay boards beside the plank, which every port has. Polish nineteen (Day 111): the
+        # fore and aft pairs end in an eye round a `mooring_post` standing at MOORING_FORE /
+        # MOORING_AFT (every port places one there, in the shallows or up the shingle), at
+        # MOORING_EYE_Z above the waterline, instead of running into open water.
         tar = mat("driftwood", -0.55)
-        lines = [((1.15, -4.0, 1.05), (3.0, -5.6, 0.05), False), ((1.15, -3.78, 1.05), (3.0, -5.3, 0.05), False),
-                 ((1.25, 3.2, 1.05), (3.0, 4.75, 0.05), False), ((1.25, 2.98, 1.05), (3.0, 4.45, 0.05), False),
+        fx, fy = MOORING_FORE
+        ax, ay = MOORING_AFT
+        ez = MOORING_EYE_Z
+        lines = [((1.15, -4.0, 1.05), (fx - 0.2, fy - 0.08, ez), False), ((1.15, -3.78, 1.05), (fx - 0.2, fy + 0.1, ez - 0.05), False),
+                 ((1.25, 3.2, 1.05), (ax - 0.2, ay + 0.08, ez), False), ((1.25, 2.98, 1.05), (ax - 0.2, ay - 0.1, ez - 0.05), False),
                  ((1.5, -0.9, 1.0), (2.95, -0.7, 0.62), True), ((1.5, 1.3, 1.0), (2.95, 1.1, 0.62), True)]
         for a, b, eye in lines:
             mid = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2 - 0.12)
@@ -645,6 +673,12 @@ def build_ferry(tied: bool = False) -> None:
             rod("Warp", mid, b, 0.055, tar, verts=5)
             if eye:
                 cyl("WarpEye", 0.11, 0.11, 0.05, 6, (b[0], b[1], b[2] - 0.02), tar)
+        for x, y in (MOORING_FORE, MOORING_AFT):
+            # The eye dropped over the post's head and slid down to the iron band: a ring round it.
+            for i in range(8):
+                a0, a1 = math.tau * i / 8, math.tau * (i + 1) / 8
+                rod("WarpEye", (x + math.cos(a0) * 0.23, y + math.sin(a0) * 0.23, ez - 0.02),
+                    (x + math.cos(a1) * 0.23, y + math.sin(a1) * 0.23, ez - 0.02), 0.05, tar, verts=5)
         cyl("Coil", 0.26, 0.26, 0.1, 8, (-0.6, 3.6, 0.7), mat("driftwood", 0.2))
     export("ferry_tied" if tied else "ferry")
 
@@ -713,7 +747,7 @@ def build_pell_gull() -> None:
 BUILDERS = [build_dock, build_rowboat, build_rowboat_upturned, build_moored_boat, build_smokehouse, build_barrel,
             build_barrels, build_crate, build_lantern_post, build_signal_lantern, build_fence, build_stool, build_cups,
             build_net_racks, build_driftwood_log, build_wreck, build_reeds, build_grass, build_beacon_lit,
-            build_ferry, build_ferry_tied, build_bundle, build_pell_gull]
+            build_ferry, build_ferry_tied, build_bundle, build_pell_gull, build_mooring_post]
 
 if __name__ == "__main__":
     only = [a for a in sys.argv[1:] if not a.startswith("-")]
