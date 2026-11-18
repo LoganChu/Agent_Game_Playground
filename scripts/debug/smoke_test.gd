@@ -1803,6 +1803,20 @@ func _check_settings(main: Node) -> void:
 	_check(InputMap.event_is_action(key, "journal"), "K is the journal key now")
 	_check(not InputMap.event_is_action(key, "move_forward") and menu.page == MenuScreen.Page.CONTROLS, "and nothing else; still on Controls")
 	_check((hud.get("_keys") as Label).text.begins_with("[K] Journal"), "the HUD hint follows the binding")
+	_check(menu.press("Satchel"), "picking the satchel to rebind on the pad")
+	await get_tree().process_frame
+	var pad := InputEventJoypadButton.new()
+	pad.button_index = JOY_BUTTON_DPAD_UP
+	pad.pressed = true
+	Input.parse_input_event(pad)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_check(settings.button_for("inventory") == JOY_BUTTON_DPAD_UP and menu.capturing.is_empty(), "a pad press puts the satchel on the d-pad")
+	_check(InputMap.event_is_action(pad, "inventory") and menu.page == MenuScreen.Page.CONTROLS, "the d-pad opens the satchel now; still on Controls")
+	var release := pad.duplicate() as InputEventJoypadButton
+	release.pressed = false
+	Input.parse_input_event(release)
+	await get_tree().process_frame
 	_press("pause")
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -1814,6 +1828,7 @@ func _check_settings(main: Node) -> void:
 	menu.close()
 	await get_tree().process_frame
 	settings.reset()
+	_check(settings.button_for("inventory") == JOY_BUTTON_Y, "reset puts the satchel back on Y")
 	_check(settings.key_for("journal") == KEY_J and is_equal_approx(AudioServer.get_bus_volume_db(0), linear_to_db(GameSettings.DEFAULT_VOLUME)), "reset to defaults")
 	DirAccess.remove_absolute(settings.path)
 

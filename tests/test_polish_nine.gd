@@ -36,7 +36,7 @@ func test_the_key_hint_names_lanes_once_the_chart_is_known() -> void:
 			"the first crossing done, the hint names L: " + keys.text)
 	InputSetup.pad_last = true
 	GameState.input_device_changed.emit()
-	assert_false(keys.text.contains("Lanes"), "a pad has no Lanes button (LB/RB in the journal): " + keys.text)
+	assert_true(keys.text.contains("[X] Lanes"), "since Day 112 a pad has a Lanes button (X): " + keys.text)
 	hud.free()
 	# A load into a playthrough past the crossing re-labels it as the region is rebuilt.
 	InputSetup.pad_last = false

@@ -343,7 +343,7 @@ func test_pause_menu_settings_pages() -> void:
 	assert_true(menu.press("VSync: Off"), "it shows Off")
 	assert_true(menu.press("Controls"), "Controls page")
 	assert_eq(menu.page, MenuScreen.Page.CONTROLS, "on Controls")
-	assert_eq(menu.buttons().size(), InputSetup.REBINDABLE.size() + 1, "a button per action + Back")
+	assert_eq(menu.buttons().size(), InputSetup.REBINDABLE.size() + 3, "a button per action (+ the two pad-only tab shoulders) + Back")
 	assert_true(menu.press("Interact / talk — E"), "interact shows E")
 	assert_eq(menu.capturing, "interact", "waiting for a key")
 	menu.capture_key(KEY_ESCAPE)
