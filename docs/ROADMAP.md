@@ -875,8 +875,8 @@ each .glb < 5 MB.
       `test_before_the_provost.gd` (9) + a title-screen test. Checkpoint `before_the_provost`.
 
 ### Next up
-1. [P] **Polish nineteen** (due by ~Day 113; #1a). Then a systems session (gamepad rebinding #5, or the Cindermoor
-   morning flag #2), then a content session (#1d: midwinter, or the winter leftovers' props). Fetch and reset `main`
+1. [S] **A systems session** (gamepad rebinding #5, or the Cindermoor morning flag #2), then a content session (#1d:
+   midwinter, Aldous's stool, or the winter leftovers' props). Polish twenty is due by ~Day 119. Fetch and reset `main`
    before trusting it.
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
@@ -895,15 +895,16 @@ each .glb < 5 MB.
    jetty's foot after the homecoming; the chalk marks as a prop. Lowsong leftovers: a warm-step cue (released) and
    Iver's boat on the bottom (lit, lamp) are text-only — props would help. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish nineteen candidates** (due by ~Day 113; Day 108 was eighteen): the far Spire reads pale in the
+1a. [P] **Polish twenty candidates** (due by ~Day 119; Day 111 was nineteen): the far Spire reads pale in the
    horizon wash on every island (Compatibility; judge on Vulkan); a **two-speaker shot in tight spots** (the Mercy's
    deck, #9) and a third speaker; the lift outdoors needs an owner's feel check (it triggers under 60 % of the reach;
    tune `CAMERA_LIFT_CLEAR` if it's too eager); the last landing reads very dark in Compatibility (judge on Vulkan); the
    robe/white read on Oriel (Vulkan, #4); a placement-to-placement move could walk rather than crossfade (Day 94 fades);
-   the tied Mercy's fore/aft warps end at the waterline — at a short quay (Kindleby) they meet open water, not a
-   piling (a per-port mooring post prop would finish it); Oriel is out of the lantern room's first frame now (she's a
+   the tied Mercy's fore warp crosses the landing's head at shin height on the short quays (fine for a rope; an owner
+   check that it doesn't read as a tripwire); Oriel is out of the lantern room's first frame now (she's a
    step behind; fine, but a two-speaker framing could bring her in). (Done Day 108: the warps, the lantern room's
-   arrival, the far Spire on Gull's Head and Shingle Point.)
+   arrival, the far Spire on Gull's Head and Shingle Point. Done Day 111: a mooring post at every port for the tied
+   Mercy's fore and aft warps; Delete on the Load page.)
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
    down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); (Oriel at the chapter's next sitting: Day 95); Iver, Wenna and Ness have no lines yet for the

@@ -43,7 +43,7 @@ $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # 
 $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]  # the procedural sounds as .wav (audio review)
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated aldous_warden oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad provost tobin keeper_sister keeper_brother keeper_pim hild hild_scraping iver …]  # rebuild characters (assets/models/characters/)
-.tools/bin/blender-py tools/blender/build_dressing.py [dock wreck …]  # rebuild the dressing kit (assets/models/dressing/)
+.tools/bin/blender-py tools/blender/build_dressing.py [dock wreck … ferry_tied mooring_post]  # rebuild the dressing kit (assets/models/dressing/); Day 111: `mooring_post` (origin at its standing level, foot 1.7 m down) stands at each port where the tied Mercy's fore/aft warps make fast — `MOORING_FORE`/`MOORING_AFT` in the ferry's frame, pinned by tests/test_polish_nineteen.gd (in the shallows: at the water level, `snap: false`; up the shingle: snapped, with a `collider`)
 .tools/bin/blender-py tools/blender/build_village.py [house_stilt house_wren brazier_ash brazier_raked brazier_laid brazier_lit net_loft_broken net_loft_mended plank_bench …]  # village buildings (same kit dir)
 .tools/bin/blender-py tools/blender/build_thornwold.py [bramble bunkhouse tally_house log_bench saw_pit charcoal_clamp pine_dark clamp_rake …]  # Thornwold kit (same kit dir)
 .tools/bin/blender-py tools/blender/build_woods.py [collier_hut (+ collier_hut_cold, collier_hut_cold_cap, collier_hut_cold_empty) sack_cart waymark trail_stake greyed_brush pine_grey]  # Thornwold woods kit (same kit dir)
@@ -1349,6 +1349,13 @@ Day 91 `walkers`; an older save without it simply starts walkers from their plac
   `ActEndCard.show_act`), so the picture shows the world, not the menu. The Autosaver, F5 and closing the window take
   the frame now (`fresh_thumbnail`).
 - Shown at `THUMB_SHOWN_WIDTH` (128 px) as the slot button's icon on the Load and Save pages (`MenuScreen._add_slot`).
+
+### Deleting a save (Day 111)
+- The Load page puts a **Delete** beside every slot that has a save (a newer build's refused save too: it frees the
+  slot). Each row is an `HBoxContainer` (slot button expanding, Delete on the right); `MenuScreen.buttons()` lists a row
+  as its slot's button, and `delete_button(slot)` finds the Delete.
+- Two presses (`_confirm("delete:<slot>")`; pressing another slot's Delete re-arms for that one). Then
+  `SaveSystem.delete_slot(slot)` removes the `.json` and the `.png`, and the page rebuilds with "Deleted Slot 1.".
 
 ### Autosave (Day 106)
 - Slot `auto` (`SaveSystem.AUTO_SLOT`, "Autosave"): written only by the game, never offered on the Save page; listed

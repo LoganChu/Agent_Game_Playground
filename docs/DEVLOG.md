@@ -2,6 +2,47 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-18 09:00 UTC — Day 111: polish nineteen
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and Blender (bpy 5.2.2). `main` was on `origin/main` (Day 110's
+  `da083fe`). Baseline: 836 tests + smoke + launch green before any edit.
+- **Polish (ROADMAP *Next up* #1, due by ~Day 113):**
+  - **A mooring post at every port for the tied Mercy.** Her fore and aft warps ran down to the waterline. At the
+    short quays (Kindleby, Wrackholm) and past every jetty's sea end they met open water. Changes:
+    - New `build_dressing.py mooring_post`: one tarred pile with a rope-worn neck, an iron band, a coal cap, and slime
+      at the waterline. Its foot goes 1.7 m down.
+    - `ferry_tied` now ends both doubled pairs in an eye round a post. The posts stand at `MOORING_FORE` (4.5, -5.45)
+      and `MOORING_AFT` (3.1, 4.6) in the ferry's frame, 0.85 m over the waterline.
+    - Eleven posts placed (two a port; Cindermoor's aft warp lands on the Keepers' quay itself). In the shallows a post
+      stands at the water level. Up the shingle it's snapped and solid (Kindleby, Wrackholm, Thornwold, the fen).
+    - The fore point first sat right across each landing's head, blocking the way off the jetty, so it moved out past
+      the landing's width. On the fen that put it beside Hesper: she stands a step south now, (3.6, 6.4) → (3.9, 6.0),
+      still at the staithe's foot.
+  - **Delete on the Load page** (from #1c). Every save has a Delete beside it. It takes two presses, and pressing
+    another slot's Delete re-arms for that one. The `.json` and the thumbnail go, and the page reads "Deleted Slot 1.".
+    A newer build's refused save can be deleted too, to free the slot. Shared by the pause menu and the title.
+- **Tests:** `test_polish_nineteen.gd` (4): a post (or the quay) at each warp's end, worked out from each port's ferry
+  placement; wet posts at the water level, dry ones snapped and solid; shore posts beside the landing's head and clear
+  of the folk and spawns; the post's model and the warps' reach. Also `test_save_follow_ups` (deleting a save), and
+  `test_polish_eighteen`'s warp check now expects the posts' eye height. 841 tests + smoke + launch green.
+- Screenshots: `docs/screenshots/2026-11-18-am-mooring-post.png`, `docs/screenshots/2026-11-18-am-load-page-delete.png`.
+
+**Decisions**
+- **One post per warp pair, placed per port, not built into the ferry model.** A post inside `ferry_tied.glb` would
+  bob and roll with her. The eye ring is in the ferry model (it moves a few cm with the swell, as a slack eye would).
+  The post is a region prop, and a test derives where it must stand from the ferry's placement, so moving a ferry
+  without its posts fails.
+- **The posts stand whether or not she's tied up.** Harbours have mooring posts. Hiding them until the epilogue would
+  make them look like they appeared for the winter.
+- **Delete lives on the Load page only.** The Save page already overwrites with a second press. Deleting is about
+  clearing old stories, which is where the Load page is.
+- No checkpoint: a polish session adds no story state.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a systems session** (gamepad rebinding #5, or the Cindermoor morning flag #2), then content.
+   Polish twenty is due by ~Day 119. Fetch and reset `main` before trusting it.
+
 ## 2026-11-17 21:00 UTC — Day 110: the Provost home; Aldous before the Provost (content)
 
 **Did**
