@@ -1215,7 +1215,9 @@ once, on `drag_ended`) and again on leaving.
 [camera]   sensitivity = 0.25..2.5, invert_x, invert_y   (Player reads them per event)
            dialogue = bool (default true; Day 73: "Frame conversations")
 [pad]      stick_deadzone = 0.05..0.5 (default 0.2) → InputMap deadzone of the PAD_AXES actions
+           prompts = "auto" | "xbox" | "playstation" | "nintendo"   (Day 112: button names)
 [keys]     <action> = "<key name>"   only rebound actions, e.g. interact = "F"
+[pad_buttons] <action> = <JoyButton int>   (Day 112) only rebound actions, e.g. journal = 11 (d-pad up)
 ```
 - **Audio buses** are created in code (`GameSettings.ensure_bus`, sent to Master) — there is
   no `default_bus_layout.tres`. Everything plays through them by name (see "Audio").
@@ -1223,14 +1225,34 @@ once, on `drag_ended`) and again on leaving.
   primary; rebinding replaces it, swaps with whichever action held the new key, and refuses
   Esc and the menu keys (pause stays Esc/P/Start). Default secondaries (arrows, Enter) stay
   unless another action claims them. `InputSetup.apply_keys` rebuilds the keyboard events;
-  pad bindings are untouched (not rebindable yet). HUD/dialogue hints use `InputSetup.hint()`.
+  pad bindings are untouched by it. HUD/dialogue hints use `InputSetup.hint()`.
+- **Pad rebinding (Day 112)**: each `InputSetup.PAD_REBINDABLE` action (interact, journal, satchel,
+  lanes, the journal's tab shoulders, quicksave/quickload) has **at most one** pad button
+  (`PAD_BUTTONS` default; Lanes defaults to X since Day 112, the quick save/load to none).
+  `GameSettings.rebind_button` swaps with whichever action held the button, but **refuses** when the
+  action has no button to give back (it would leave the other unbound); `RESERVED_BUTTONS` = Start
+  (menu), B (`ui_cancel`), Guide. The sticks (`PAD_AXES`) and Start aren't rebindable.
+  `InputSetup.apply_buttons` rebuilds the pad-button events. The Controls page lists
+  `REBINDABLE` then the pad-only actions, each row "Journal — J · Back" (`_binding_text`); a capture
+  takes the next key **or** pad button (`capture_key` / `capture_button`; Esc or B cancels; a pad
+  press for a stick action or a key for a pad-only one is refused with a note). A file's bad,
+  reserved, out-of-range or clashing buttons are dropped on load (`_drop_duplicate_buttons`).
+  Triggers are axes in Godot and can't be taken yet.
+- **Prompt families (Day 112)**: `InputSetup.PAD_STYLES` names each button per family (Xbox A/B/X/Y,
+  PlayStation Cross/Circle/Square/Triangle, L1/R1, Create/Options; Nintendo by **position** — Godot's
+  `JOY_BUTTON_A` is the bottom button, which a Switch pad labels B); `PAD_COMMON_LABELS` for the d-pad
+  and paddles. Settings → "Button prompts: Auto/Xbox/PlayStation/Nintendo" (`GameSettings.prompt_style`
+  → `InputSetup.prompt_style`). Auto reads `Input.get_joy_name` of the pad used last
+  (`InputSetup.pad_name`, set by `note_device`, which also reports a change of family) through
+  `style_for_name`. `InputSetup.button_label(button)` is the one place a button's name comes from;
+  `PAD_LABELS` is kept as the Xbox table.
 - **Pad prompts (Day 56)**: `InputSetup.pad_last` flips on a pad button or a stick lean
   ≥ 0.5 and back on a key or mouse click (`note_device`, fed since Day 61 by `GameState.note_input`
   on the root window's `window_input` — before any node's `_input`, so a modal handling the event
   still sees it — which emits `GameState.input_device_changed`; the HUD key hint, the journal's
   "close", the menus' "back" and the lane map's legend re-label on it). `InputSetup.back_hint()` is
-  `[Esc]` / `[B]` for `ui_cancel`, whose built-in key event has no physical keycode for `hint()`. While it's set, `hint()` gives the action's pad button
-  (`PAD_LABELS`: A / Y / Back / Start) for actions that have one, the key otherwise.
+  `[Esc]` / `[B]` for `ui_cancel`, whose built-in key event has no physical keycode for `hint()`. While it's set, `hint()` gives the action's bound pad button
+  (`button_label`, in the current family) for actions that have one, the key otherwise.
 - **Dialogue text speed (Day 56)**: `DialogueUI` sets each line's full text and reveals it
   with `RichTextLabel.visible_characters` in `_process` (paused with the tree). Interact/click
   mid-line (`press_continue`) shows the rest, never skips; `advance()` (tests, smoke) always

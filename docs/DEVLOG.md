@@ -2,6 +2,52 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-18 21:00 UTC — Day 112: gamepad rebinding and prompt families (systems)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 111's `0ae4601`). Baseline: 841 tests + smoke + launch green before any edit.
+- **Systems (ROADMAP *Next up* #1 → #5): gamepad rebinding.**
+  - **Pad buttons can be rebound.** Interact, Journal, Satchel, Lanes, the journal's two tab shoulders, Quicksave and
+    Quickload each have at most one pad button (`InputSetup.PAD_REBINDABLE`). `GameSettings.rebind_button` swaps
+    with the action that held the button. Start (menu), B (back out of menus) and Guide are reserved.
+  - **The Controls page shows both bindings.** Rows read "Journal — J · Back" and "Move forward — W · Left stick".
+    Picking a row takes the next key **or** pad button; Esc or B cancels. The tab shoulders get rows of their own
+    (pad-only). A pad press on a stick action or a key on a pad-only action is refused with a note.
+  - **Lanes on X by default.** Before this a pad could reach the chart only through the journal's tabs, so the HUD
+    hid "Lanes" on a pad. Now it reads "[X] Lanes". `test_polish_nine` now expects that (a deliberate change).
+  - **Button prompts per pad family.** Settings → "Button prompts: Auto / Xbox / PlayStation / Nintendo". Auto reads
+    the name of the pad used last (`Input.get_joy_name`): Sony pads get Cross/Circle/Square/Triangle, L1/R1, Options;
+    Nintendo pads get B/A/Y/X **by position** (Godot's `JOY_BUTTON_A` is the bottom button, which a Switch pad calls
+    B), −/+. Every hint, back hint and the Controls page go through one `InputSetup.button_label()`.
+  - Saved in `settings.cfg`: `[pad_buttons]` (only changed actions) and `[pad] prompts`. A file with a reserved,
+    non-numeric, out-of-range, stick-action or clashing button is tolerated (the bad entries are dropped).
+- **Smoke:** on the Controls page, a real d-pad-up press (`Input.parse_input_event`) puts the Satchel on the d-pad;
+  Reset puts it back on Y.
+- **Tests:** `test_pad_rebinding.gd` (5): defaults (no shared or reserved defaults); swaps, refusals, the InputMap
+  following, reset; the file round trip and bad files; prompt families (name detection, labels, a chosen family over
+  Auto, hints following a rebound button); the Controls page capturing a pad button. `test_settings` now counts the
+  two pad-only rows. 846 tests + smoke + launch green.
+- Screenshot: `docs/screenshots/2026-11-18-pm-controls-pad.png` (the Controls page with both bindings).
+
+**Decisions**
+- **One pad button per action, not a primary plus secondaries like keys.** A pad has about a dozen buttons and no
+  "arrow keys" equivalent to keep as fallbacks, so one button each keeps swaps simple.
+- **An action with no button can't take a used one.** Swapping would leave the other action (say, Interact) with no
+  button on the pad, which could strand a pad-only player. The note says which action has it, so they can move that
+  one first.
+- **The sticks stay fixed.** Rebinding axes adds a lot of UI for little gain. Invert and deadzone already cover the
+  common needs. Triggers are axes in Godot, so they can't be taken yet (noted in #5).
+- **Nintendo names by position.** Godot documents its face-button indices by position. If a real Switch pad reports
+  them by label instead, the table is one dictionary to fix. Added to #5 as an owner check with real pads.
+- **Prompt family is a setting with Auto as default.** Detection by name is a guess (third-party pads report odd
+  names), so the player can always override it.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a content session** (#1d: Aldous's stool at the chapter-house door, Mara/Wynn noticing
+   Aldous gone, the winter leftovers' props). Polish twenty is due by ~Day 119. Fetch and reset `main` before
+   trusting it.
+
 ## 2026-11-18 09:00 UTC — Day 111: polish nineteen
 
 **Did**

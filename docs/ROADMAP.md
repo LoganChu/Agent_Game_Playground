@@ -865,6 +865,12 @@ each .glb < 5 MB.
       (not under the pause menu) and shown on the Load/Save pages; **one autosave per story** (`GameState.playthrough`;
       another story's autosave moves to "Autosave (earlier story)"); **slot thumbnails** (`<slot>.png`, snapped as a
       menu or card opens). Smoke: the autosave's story and play time. `test_save_follow_ups.gd` (9).
+- [x] [S] **Gamepad rebinding and prompt families** (Day 112): every pad-rebindable action (interact, journal,
+      satchel, lanes, the tab shoulders, quicksave/quickload) can take another pad button on the Controls page (rows
+      show "Journal — J · Back"; a capture takes a key or a button; swaps; Start/B/Guide reserved; an unbound action
+      can't take a used button); **Lanes on X** by default, so the HUD names it on a pad; **Button prompts:
+      Auto/Xbox/PlayStation/Nintendo** (Auto reads the pad's name). Saved in `settings.cfg` (`[pad_buttons]`,
+      `[pad] prompts`). Smoke: a real d-pad press rebinds the satchel. `test_pad_rebinding.gd` (5).
 - [x] [C] **The Provost home; Aldous before the Provost** (Day 110): back in at Cindermoor, the Provost is told Tobin
       asks when she's coming home; she takes passage in the Mercy's stern and **puts the Long Book on a shelf, shut**
       (arrival event `kindleby_provost_home`, per ending). Then Aldous (lit/released, the answer kept), told the candles
@@ -875,9 +881,9 @@ each .glb < 5 MB.
       `test_before_the_provost.gd` (9) + a title-screen test. Checkpoint `before_the_provost`.
 
 ### Next up
-1. [S] **A systems session** (gamepad rebinding #5, or the Cindermoor morning flag #2), then a content session (#1d:
-   midwinter, Aldous's stool, or the winter leftovers' props). Polish twenty is due by ~Day 119. Fetch and reset `main`
-   before trusting it.
+1. [C] **A content session** (#1d: Aldous's stool at the chapter-house door, Mara/Wynn noticing Aldous gone, the winter
+   leftovers' props; or #1b's small step-6 follow-ups). Then polish twenty (due by ~Day 119), then a systems session
+   (the Cindermoor morning flag #2, or #5's leftovers). Fetch and reset `main` before trusting it.
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item; a delete-slot option on the Load
@@ -929,9 +935,11 @@ each .glb < 5 MB.
    renderer) are washed out; verify palette reads correctly in Forward+ (incl. beacon glow,
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
-5. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56): gamepad
-   rebinding (a Controls column for pad buttons); pad-specific glyph sets (PlayStation/Switch face names via
-   `Input.get_joy_name`); a resolution/scale option for windowed mode. (The "[Esc] back" hints follow the pad since Day 61.)
+5. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56; pad rebinding and
+   prompt families Day 112): a resolution/scale option for windowed mode; the triggers as bindable buttons (they're
+   axes in Godot); button **glyph icons** instead of names once there's art for them; an **owner check with real
+   pads** (a Sony and a Switch pad: does Auto pick the right family, and does a Switch pad report positions as Godot
+   documents?); a "Clear" for the quick save/load pad buttons (today they can only be moved, not unset). (The "[Esc] back" hints follow the pad since Day 61.)
 6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); (the ember light
    pushing fog back round the player: Day 78 — follow-up: let it ease the environment fog's thickening too if it reads
