@@ -1522,6 +1522,8 @@ func _check_ground(main: Node) -> void:
 		for node in get_tree().get_nodes_in_group("npcs"):
 			var npc := node as NpcActor
 			_check(absf(npc.position.y - region.ground_y(npc.position.x, npc.position.z)) < 0.01, "npc %s stands on the ground" % npc.npc_id)
+		if region_id == "saltmarrow":
+			_check_walk_rays(region, player)
 	GameState.travel("gulls_head")
 	for i in 3:
 		await get_tree().physics_frame
@@ -1562,6 +1564,32 @@ func _check_ground(main: Node) -> void:
 
 ## The Greying before the burn: walking up into the Gull's Head fog drains the ember and
 ## shows the meter; when it runs out the player is turned back to clear ground, refilled.
+## Day 114: a walk between placements asks the physics world too. Through a house (open ground either side) the way
+## is blocked; out from where the Wakebearer stands, some way is clear.
+func _check_walk_rays(region: Region, player: Node3D) -> void:
+	var through := 0
+	for entry: Dictionary in region.data.get("props", []):
+		if str(entry.get("shape", "")) != "house" or entry.has("if") or not str(entry.get("model", "")).ends_with(".glb"):
+			continue
+		var at := region.place(entry.get("position"))
+		for angle in range(0, 360, 30):
+			var dir := Vector3(cos(deg_to_rad(angle)), 0, sin(deg_to_rad(angle)))
+			var points := region.walk_ground_clear(at - dir * 5.5, at + dir * 5.5)
+			if points.is_empty():
+				continue
+			through += 1
+			_check(not region.walk_way_clear(points), "a walk through the house at %s (%d°) is blocked" % [at, angle])
+	_check(through > 0, "some walk through a Saltmarrow house had open ground either side")
+	var from := region.to_local(player.global_position)
+	var open := 0
+	for angle in range(0, 360, 45):
+		var dir := Vector3(cos(deg_to_rad(angle)), 0, sin(deg_to_rad(angle)))
+		var points := region.walk_ground_clear(from, from + dir * 4.0)
+		if not points.is_empty() and region.walk_way_clear(points):
+			open += 1
+	_check(open > 0, "some walk out from the Saltmarrow spawn is clear")
+
+
 func _check_greying(main: Node) -> void:
 	var player: Player = get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
 	var walker: GreyingWalker = main.get("greying")

@@ -12,6 +12,16 @@ const KINDS := {"prop": "props", "npc": "npcs", "pickup": "pickups", "object": "
 ## An NPC's placement swapping to one within this distance (m, on the ground plane) is a change of pose or
 ## model in place, not a move: it isn't held for the end of a conversation.
 const SWAP_IN_PLACE := 1.0
+## Day 114: an NPC who moves mid-visit to a spot at most this far away (m) walks there, if the way is clear;
+## farther than that (or the way blocked) it fades out and in again, as since Day 94.
+const WALK_REACH := 14.0
+## The walk's clearance check: a step along the line (m), the most the ground may rise or drop in one step (m), the
+## heights over the ground the way is probed at (m), and how far short of the far spot the probe stops (m: a bench,
+## a stool or a doorway someone is placed into stands right at it).
+const WALK_PROBE_STEP := 0.5
+const WALK_MAX_RISE := 0.45
+const WALK_PROBE_HEIGHTS: Array[float] = [0.45, 1.3]
+const WALK_PROBE_SHORT := 0.9
 
 var region_id := ""
 var data: Dictionary = {}
@@ -80,6 +90,7 @@ func build(id: String) -> void:
 ## box is still talking about them walking there. A swap in place (the same NPC, another model or pose on
 ## the same spot, e.g. Corran without his cord) still happens at once.
 ## When `animate`, an NPC who comes or goes (not a swap in place) fades in or out (Day 94, NpcActor.fade_in/out).
+## One who moves to a near spot with a clear way there walks it instead (Day 114, `walkable_move`, NpcActor.walk_to).
 func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> void:
 	var world := GameState.world
 	_refresh_greying(world, animate)
@@ -101,11 +112,14 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 	held_npc_moves = 0
 	# NPCs who come, go or move (not a swap in place): held while the box is open, faded otherwise.
 	var moving := _held_npcs(changes)
+	var walks: Dictionary = {}  # npc id -> the actor that walks to the new spot
 	if hold_npc_moves:
 		var held := moving
 		held_npc_moves = held.size()
 		changes = changes.filter(func(c: Dictionary) -> bool:
 			return not (c["entry"]["kind"] == "npc" and held.has(str(c["entry"]["data"].get("npc", "")))))
+	elif animate:
+		walks = _walkers(changes, moving)
 	# Removals first, so an NPC whose placement swaps (another model on the same spot, e.g.
 	# Corran without his cord) can hand its turn-to-the-player over to its replacement.
 	var builds: Array[Dictionary] = []
@@ -119,6 +133,8 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 		entry["node"] = null
 		if node is NpcActor:
 			var actor := node as NpcActor
+			if walks.has(actor.npc_id):
+				continue  # walks over once its arrival is built
 			if animate and moving.has(actor.npc_id):
 				actor.fade_out()
 				continue
@@ -128,8 +144,15 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 		var node := _build(entry["kind"], entry["data"])
 		if node:
 			var before: NpcActor = left.get(str(entry["data"].get("npc", "")))
+			var walker: NpcActor = walks.get(str(entry["data"].get("npc", "")))
 			if node is NpcActor and before != null:
 				(node as NpcActor).take_over(before)
+			elif node is NpcActor and walker != null:
+				(node as NpcActor).await_walker()
+				add_child(node)
+				walker.walk_to(node as NpcActor, ground_y)
+				entry["node"] = node
+				continue
 			elif node is NpcActor and animate and moving.has((node as NpcActor).npc_id):
 				(node as NpcActor).fade_in()
 			add_child(node)
@@ -159,6 +182,90 @@ func _held_npcs(changes: Array[Dictionary]) -> Dictionary:
 		if not in_place:
 			held[npc] = true
 	return held
+
+
+## The NPCs among `moving` who walk to their new spot rather than fade (npc id -> the actor that walks): exactly one
+## placement going and one coming, a standing actor (not seated, not on a circuit, not itself mid-walk or fading)
+## going to a placement without a circuit, and `walkable_move` says the way is clear.
+func _walkers(changes: Array[Dictionary], moving: Dictionary) -> Dictionary:
+	var going: Dictionary = {}  # npc id -> [actors]
+	var coming: Dictionary = {}  # npc id -> [entry data]
+	for change: Dictionary in changes:
+		var entry: Dictionary = change["entry"]
+		if entry["kind"] != "npc":
+			continue
+		var npc := str(entry["data"].get("npc", ""))
+		if not moving.has(npc):
+			continue
+		if change["want"]:
+			coming[npc] = coming.get(npc, []) + [entry["data"]]
+		else:
+			going[npc] = going.get(npc, []) + [entry["node"]]
+	var out: Dictionary = {}
+	for npc: String in going:
+		var from: Array = going[npc]
+		var to: Array = coming.get(npc, [])
+		if from.size() != 1 or to.size() != 1 or not from[0] is NpcActor:
+			continue
+		var actor := from[0] as NpcActor
+		var target: Dictionary = to[0]
+		if actor.is_seated() or actor.walks_circuit() or actor.is_walking() or actor.is_leaving() \
+				or actor.is_awaiting_walker() or target.get("circuit") is Dictionary:
+			continue
+		if walkable_move(actor.position, place(target.get("position")), actor):
+			out[npc] = actor
+	return out
+
+
+## True if someone at `from` can walk straight to `to` (local positions) mid-visit: `walk_ground_clear` and
+## `walk_way_clear`. A slab region (no sculpted ground) never walks.
+func walkable_move(from: Vector3, to: Vector3, ignore: NpcActor = null) -> bool:
+	var points := walk_ground_clear(from, to)
+	return not points.is_empty() and walk_way_clear(points, ignore)
+
+
+## The probe points of a straight walk from `from` to `to` (local), or [] if it can't be walked on the ground: farther
+## than WALK_REACH (or a swap in place), off walkable cells, or a step steeper than WALK_MAX_RISE. The points run every
+## WALK_PROBE_STEP on the ground and stop WALK_PROBE_SHORT before `to`.
+func walk_ground_clear(from: Vector3, to: Vector3) -> Array[Vector3]:
+	var points: Array[Vector3] = []
+	var length := Vector2(to.x - from.x, to.z - from.z).length()
+	if field == null or length <= SWAP_IN_PLACE or length > WALK_REACH:
+		return points
+	var steps := maxi(1, ceili(length / WALK_PROBE_STEP))
+	var last_y := ground_y(from.x, from.z)
+	for i in steps + 1:
+		var t := float(i) / steps
+		var x := lerpf(from.x, to.x, t)
+		var z := lerpf(from.z, to.z, t)
+		var cell := field.cell_of(x, z)
+		var y := ground_y(x, z)
+		if not field.is_cell_walkable(cell.x, cell.y) or absf(y - last_y) > WALK_MAX_RISE:
+			return [] as Array[Vector3]
+		last_y = y
+		if length * (1.0 - t) >= WALK_PROBE_SHORT:
+			points.append(Vector3(x, y, z))
+	return points
+
+
+## True if nothing solid (the WORLD layer: props' colliders, other NPCs) stands between the probe `points` (local) at
+## WALK_PROBE_HEIGHTS; `ignore`'s own body doesn't count. Out of the tree there's no physics world to ask (the
+## headless tests): true, and the ground alone decides; the smoke test checks the rays in the running game.
+func walk_way_clear(points: Array[Vector3], ignore: NpcActor = null) -> bool:
+	if not is_inside_tree():
+		return true
+	var space := get_world_3d().direct_space_state
+	var exclude: Array[RID] = []
+	if ignore != null:
+		for body in ignore.find_children("*", "CollisionObject3D", true, false):
+			exclude.append((body as CollisionObject3D).get_rid())
+	for i in points.size() - 1:
+		for height: float in WALK_PROBE_HEIGHTS:
+			var query := PhysicsRayQueryParameters3D.create(to_global(points[i] + Vector3.UP * height),
+				to_global(points[i + 1] + Vector3.UP * height), 1 << (Layers.WORLD - 1), exclude)
+			if not space.intersect_ray(query).is_empty():
+				return false
+	return true
 
 
 func _refresh_greying(world: WorldState, animate: bool) -> void:

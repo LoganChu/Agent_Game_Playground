@@ -16,6 +16,11 @@ extends Interactable
 ## got is kept in the world state (`WorldState.walkers`, saved), so a reload or a return finds it there.
 ## Day 94: an NPC who comes or goes mid-visit (Region.refresh_conditional, animated) fades in or out over
 ## FADE_SECONDS instead of cutting. One leaving is out of the "npcs" group and can't be talked to from the start.
+## Day 114: one who moves to a near spot with a clear way (Region.walkable_move) walks there instead (`walk_to`): the
+## actor at the old spot walks, at WALK_SPEED, holding like a circuit walker (talking, a modal, the Wakebearer in the
+## way), while the actor built for the new spot waits unseen (`await_walker`); on arrival the walker hands over its
+## heading (`arrive`) and frees itself, and the new one turns to its placed facing. Until then the walker is the one
+## you can talk to. If the new spot goes away first, the walker fades out.
 
 ## How quickly the NPC turns towards the player and back (1/s, exponential ease).
 const TURN_SPEED := 6.0
@@ -23,6 +28,8 @@ const TURN_SPEED := 6.0
 const CIRCUIT_HOLD := 1.6
 ## How long an NPC takes to fade in on arriving, or out on leaving, mid-visit (s).
 const FADE_SECONDS := 0.8
+## How fast an NPC walks from one placement to another mid-visit (m/s; the circuit walkers' default is 0.7).
+const WALK_SPEED := 1.1
 ## The nameplate's height over a standing NPC, and over a seated one (Day 104: at 2 m it floated a head and a half above
 ## Aldous on his bench or Hesk at her net; seated heads top out near 1.3 m).
 const NAMEPLATE_HEIGHT := 2.0
@@ -52,6 +59,11 @@ var _ground := Callable()
 var _opacity := 1.0
 var _opacity_target := 1.0
 var _leaving := false
+## Walking to a new placement: the actor waiting there (null when not walking) and the region's ground height.
+var _walk_to: NpcActor = null
+var _walk_ground := Callable()
+## True while this actor waits, unseen and out of play, for a walker to reach its spot.
+var _awaiting := false
 
 
 func setup(id: String, data: Dictionary) -> void:
@@ -85,6 +97,8 @@ func _ready() -> void:
 	if npc_data.has("names"):
 		GameState.world.flag_changed.connect(func(_id: String, _v: Variant) -> void: _refresh_prompt())
 	_build_body()
+	if _awaiting:
+		_set_in_play(false)
 
 
 func interact() -> void:
@@ -126,7 +140,86 @@ func opacity() -> float:
 
 
 func can_interact() -> bool:
-	return not _leaving
+	return not _leaving and not _awaiting
+
+
+## Waits unseen and out of play at its spot until a walker arrives (`arrive`). Call before it enters the tree.
+func await_walker() -> void:
+	_awaiting = true
+	_opacity = 0.0
+	_opacity_target = 0.0
+	_apply_opacity()
+	if is_inside_tree():
+		_set_in_play(false)
+
+
+## True while waiting for a walker (tests).
+func is_awaiting_walker() -> bool:
+	return _awaiting
+
+
+## The walker has reached this spot, facing world yaw `heading`: shown at once, in play, and turning from that
+## heading to the placed facing.
+func arrive(heading: float) -> void:
+	_awaiting = false
+	_opacity = 1.0
+	_opacity_target = 1.0
+	_apply_opacity()
+	_set_in_play(true)
+	if _body:
+		_body.rotation.y = wrapf(heading - rotation.y, -PI, PI)
+
+
+## Starts walking to `arrival`'s spot (an actor waiting there, see `await_walker`) over ground `ground` (x, z) -> y.
+func walk_to(arrival: NpcActor, ground: Callable) -> void:
+	_walk_to = arrival
+	_walk_ground = ground
+
+
+## True while walking to a new placement.
+func is_walking() -> bool:
+	return _walk_to != null
+
+
+## One step of the walk to a new placement over `delta` seconds; returns the distance walked.
+func step_walk(delta: float) -> float:
+	if not is_instance_valid(_walk_to) or _walk_to.is_queued_for_deletion() or _walk_to.is_leaving():
+		_walk_to = null
+		fade_out()
+		return 0.0
+	var speed := 0.0 if circuit_holds() else WALK_SPEED
+	if _rig:
+		_rig.move_speed = speed
+	var target := _walk_to.position
+	var left := Vector2(target.x - position.x, target.z - position.z)
+	if left.length() <= maxf(speed * delta, 0.02):
+		position = target
+		_walk_to.arrive(rotation.y + body_yaw())
+		_walk_to = null
+		queue_free()
+		return left.length()
+	if speed <= 0.0:
+		return 0.0
+	var step := left.normalized() * speed * delta
+	var x := position.x + step.x
+	var z := position.z + step.y
+	position = Vector3(x, float(_walk_ground.call(x, z)) if _walk_ground.is_valid() else position.y, z)
+	rotation.y = turn_step(rotation.y, atan2(left.x, left.y), delta)
+	return step.length()
+
+
+## Puts the actor in play (talkable, solid, found among the "npcs") or takes it out.
+func _set_in_play(on: bool) -> void:
+	if on:
+		add_to_group("npcs")
+		set_collision_layer_value(Layers.INTERACTABLE, true)
+		_refresh_prompt()
+	else:
+		remove_from_group("npcs")
+		collision_layer = 0
+		prompt = ""
+	if _body is CollisionObject3D:
+		(_body as CollisionObject3D).collision_layer = 1 << (Layers.WORLD - 1) if on else 0
 
 
 func _apply_opacity() -> void:
@@ -260,7 +353,12 @@ func _process(delta: float) -> void:
 	if _leaving and _opacity <= 0.0:
 		queue_free()
 		return
-	step_circuit(delta)
+	if _walk_to != null:
+		step_walk(delta)
+		if is_queued_for_deletion():
+			return
+	else:
+		step_circuit(delta)
 	# The dialogue opens (and locks input) in the same frame as interact(); once it has
 	# closed again, turn back to the placed facing.
 	if _talking and not GameState.input_locked:
@@ -271,7 +369,7 @@ func _process(delta: float) -> void:
 	# Every other nameplate hides too while a modal holds input (dialogue, menus, the act
 	# card): they showed through the card's shade.
 	if _label:
-		_label.visible = not _talking and not GameState.input_locked and not _leaving
+		_label.visible = not _talking and not GameState.input_locked and not _leaving and not _awaiting
 	if _body == null:
 		return
 	var target := _face_yaw if _talking else 0.0
