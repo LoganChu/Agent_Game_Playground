@@ -2,6 +2,50 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-19 09:00 UTC — Day 113: the door-warden's stool; who notices he's gone (content)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and Blender (bpy 5.2.2). HEAD was detached again; I reset `main` to
+  `origin/main` (Day 112's `2281811`). Baseline: 846 tests + smoke + launch green before any edit.
+- **Content (ROADMAP *Next up* #1 → #1d): after Aldous before the Provost.**
+  - **The bottle stays where he sat.** Day 110's narration said so; now it does. Aldous's `coming` knot sets
+    `kindleby_aldous_bottle_left`, and a new `bottle_corked` prop stands upright on the end of his seat: the plank
+    bench by the Wrens' steps, or the plank seat on Thornwold's ridge.
+  - **Mara and Wynn notice.** Mara, while he's away: he went off on the Mercy with his bag, and "Tam walks round it like
+    it's a dog asleep". While he keeps the door: "If he wants it he can come and ask me for it." Home: he'd told her
+    she'd say he wasn't gone long enough to be missed, "So I didn't say it." Wynn: sat in his end of the bench after
+    he went ("It was warm"); the ridge too quiet while he keeps the door; home, "He snores with leave now. It's
+    louder." Wynn's old "He snores." line now needs him actually there.
+  - **Home with leave, he sits sober** beside the corked bottle (new `aldous_seated_sober`: hands on his knees), with a
+    narrator line on the bench and on the ridge.
+  - **The stool.** At the chapter-house door Aldous now has a choice, "You asked for a stool." The Provost said a warden
+    stands (his knees have been bad since the Spire's stair). "I'll ask him" → Tobin gives up his quay-bell stool ("for
+    when the boats are late. ...They're not late any more"), carries it up two steps at a time, and asks the warden's
+    question back: "Brother Wren. Where are you going?" — "Nowhere, lad. I'm stopping here." Sets
+    `kindleby_aldous_stool`: Aldous sits (new `aldous_warden_seated`, the stool part of his rig), the stool by the
+    bell is gone, and Tobin and the Provost each get a line. "Then stand, Brother." leaves it to ask again.
+- **Art:** `build_characters.py aldous_warden_seated`, `aldous_seated_sober`; `build_dressing.py bottle_corked`.
+- **Tests:** `test_door_wardens_stool.gd` (7): the bottle per seat and where it stands (plank's end, seat height, the
+  same ground as the bench); Mara/Wynn gone/kept/home; the sober model at home; the stool (stand, then ask; models,
+  props, lines; offered once); the seated warden model; the checkpoint. `test_aldous_bench` now expects the second
+  placement on the bench. 853 tests + smoke + launch green.
+- Checkpoint `the_door_wardens_stool` (`docs/checkpoints/the_door_wardens_stool.png`); `before_the_provost` now carries
+  `kindleby_aldous_bottle_left`.
+
+**Decisions**
+- **The stool is in the seated model, not a prop by the door.** A seated rig's `Stool` part already exists (Hesk,
+  Oriel), so the stool can't drift from under him. The quay-bell stool is a plain `stool.glb` prop that hides when he
+  has it.
+- **A new flag for the bottle, not an OR of the existing ones.** `kindleby_aldous_coming` is cleared when he goes home,
+  and conditions are AND-only. One flag set at the moment he leaves it reads cleanly in every placement.
+- **New seated placements use `idle: sit`.** First run failed two framing/nameplate tests that check every seated model
+  has a seated idle. The `bottle` idle would lift a bottle he isn't holding.
+- No change to the dark ending: Aldous only goes in lit/released.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish twenty** (due by ~Day 119). Then a systems session, then content. Fetch and reset
+   `main` before trusting it.
+
 ## 2026-11-18 21:00 UTC — Day 112: gamepad rebinding and prompt families (systems)
 
 **Did**

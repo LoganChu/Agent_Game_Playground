@@ -2006,6 +2006,20 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   put him on report yet — or **go home** with her leave, "you never had it, the night you went": he says "Agathe" right,
   and goes back to the ridge (Wynn will have the bench swept) or the bench (Mara will say he wasn't gone long enough to be
   missed); she finds she misses being disobeyed. In the dark ending he still comes at midwinter, with the ember.
+- **The door-warden's stool; who notices he's gone (Day 113 — `kindleby_aldous_bottle_left`, `kindleby_aldous_stool`).**
+  **The bottle he left stands where he sat**, upright and corked with a quarter in it — on his plank bench by the Wrens'
+  steps, or the plank seat on Thornwold's ridge — and nobody moves it. **Mara**: he went down the dock with his bag and
+  didn't say where; Tam walks round the bottle "like it's a dog asleep". Told he keeps a door for the Keepers: "If he
+  wants it he can come and ask me for it." Home with leave: he told her she'd say he wasn't gone long enough to be
+  missed, "so I didn't say it." **Wynn**: sat in his end of the bench after he went, "it was warm"; while he keeps the
+  door the ridge is quiet, and "thirty winters I wanted it quiet. I don't like it as much as I did"; home, "he snores
+  with leave now. It's louder." **Home, Aldous sits sober beside the corked bottle** and doesn't look at it, or away from
+  it. **The stool**: kept at the door, he asked for one; the Provost said a warden stands (she was right; **his knees
+  have been bad since the Spire's stair the night it went out**). **Tobin's stool by the quay bell was for when the
+  boats are late**; they aren't any more. Asked, Tobin carries it up the steps himself (two at a time, where the Provost
+  can't see) and asks, as a door-warden would, "Brother Wren. Where are you going?" — "Nowhere, lad. I'm stopping
+  here." Aldous sits on it by the chapter-house steps with the roll across his knees; **Tobin stands at the bell now**,
+  which he never once did. The Provost: on Tobin's stool by six, spelling her name wrong on the roll.
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks

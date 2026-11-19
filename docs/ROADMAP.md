@@ -879,19 +879,25 @@ each .glb < 5 MB.
       chapter-house door** for midwinter or **go home with her leave** (`kindleby_aldous_door`). Blender
       `aldous_warden`. Also a fix: Continue's same-second tie (`saved_unix`; an intermittent smoke failure).
       `test_before_the_provost.gd` (9) + a title-screen test. Checkpoint `before_the_provost`.
+- [x] [C] **The door-warden's stool; who notices he's gone** (Day 113): Aldous **leaves the bottle corked on his seat**
+      (`kindleby_aldous_bottle_left`; prop `bottle_corked` on the Saltmarrow bench or the ridge's plank seat); **Mara**
+      and **Wynn** notice him gone, keeping the door, or home with leave; home, he sits **sober beside it**
+      (`aldous_seated_sober`). At the door he asks for a stool: **Tobin carries his quay-bell stool up the steps**
+      (`kindleby_aldous_stool`; `aldous_warden_seated` with the stool in its rig; the bell's stool gone), and Tobin and
+      the Provost remark on it. `test_door_wardens_stool.gd` (7). Checkpoint `the_door_wardens_stool`.
 
 ### Next up
-1. [C] **A content session** (#1d: Aldous's stool at the chapter-house door, Mara/Wynn noticing Aldous gone, the winter
-   leftovers' props; or #1b's small step-6 follow-ups). Then polish twenty (due by ~Day 119), then a systems session
-   (the Cindermoor morning flag #2, or #5's leftovers). Fetch and reset `main` before trusting it.
+1. [P] **Polish twenty** (due by ~Day 119; candidates in #1a), then a systems session (the Cindermoor morning flag #2,
+   or #5's leftovers), then content (#1d/#1b). Fetch and reset `main` before trusting it.
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item; a delete-slot option on the Load
    page.
 1d. [C] **After the final card** (fold into the next content session): (Aldous before the Provost: Day 110 — the
-   Provost came home with the Long Book first.) Follow-ups from Day 110: a **stool** prop for Aldous at the chapter-house
-   door (he asked for one; he stands for now), the Long Book **on its shelf** inside (the chapter-house has no interior),
-   Mara/Wynn noticing Aldous gone to Kindleby or home again with leave, and the rest of the chapter (Anselm and the old
+   Provost came home with the Long Book first.) (Done Day 113: Tobin's bell stool for Aldous at the chapter-house door;
+   the bottle left corked on his seat; Mara/Wynn noticing him gone, kept, or home; sober home model.) Follow-ups: the
+   Long Book **on its shelf** inside (the chapter-house has no interior), Wenna/Oda remarking on the Wren keeping a door,
+   the bottle's fate if he ever asks Mara for it, and the rest of the chapter (Anselm and the old
    brothers came home how? — say they came in the Mercy with her if anyone asks); Aldous in the dark ending at midwinter.
    Midwinter (the dark round, the lit Spire's first asking) is open if the game goes on past the card. (Done Day 107:
    the winter's first days — Oda's first word per winter, the stay port's folk, crew/walk lines, the Mercy dark at her

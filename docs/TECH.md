@@ -801,6 +801,18 @@ a room this small (11 m square) taught:
   `build_characters.py aldous_warden`: standing, no bottle, the novices' roll in his left hand, the stoop eased) or `home`
   (and clears `kindleby_aldous_coming`, so the old placement shows again). Tests: `test_before_the_provost.gd`; checkpoint
   `before_the_provost`.
+- **The door-warden's stool; the bottle left (Day 113):** Aldous's `coming` knot sets `kindleby_aldous_bottle_left`
+  after "The bottle stays where he was sitting." (from the bench or the ridge). A `bottle_corked` prop
+  (`build_dressing.py bottle_corked`, origin at its base) stands on each plank bench at `y` 0.44 (snapped: ground +
+  seat height), 0.52 m along the plank from its centre, shown with the flag and the seat's own region condition
+  (`thornwold_aldous_landed` or not). The old seated-with-bottle placements gain `!kindleby_aldous_bottle_left`; a
+  second placement on each seat (`bottle_left`, `door=home`) uses **`aldous_seated_sober.glb`** (hands on knees, no
+  bottle; `idle: sit`). Kindleby: the standing `aldous_warden` placement gains `!kindleby_aldous_stool`, and a second
+  (`stool`) uses **`aldous_warden_seated.glb`**, whose rig carries Tobin's three-legged stool as the static `Stool`
+  part (so no separate prop by the door); Tobin's `stool.glb` by the quay bell shows with `!kindleby_aldous_stool`.
+  Any new seated placement needs a seated idle (`sit`/`mend`/`bottle`: `CharacterRig.SEATED_STYLES`) or the
+  nameplate/framing tests fail. Mara's `start` and Wynn's (`lamp`) `greet` carry gone/kept/home lines; Wynn's old
+  "He snores." needs `door=` and `!coming`. Tests: `test_door_wardens_stool.gd`; checkpoint `the_door_wardens_stool`.
 
 ### An interior: the lower rooms (Day 87)
 `cindermoor_lower_rooms` is the game's first room under a roof. The pattern, for any later interior:
