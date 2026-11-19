@@ -2,6 +2,53 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-19 21:00 UTC — Day 114: polish twenty (walking between placements)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 113's `8d3da3c`). Baseline: 853 tests + smoke + launch green before any edit.
+- **Polish (ROADMAP *Next up* #1, due by ~Day 119): "a placement-to-placement move could walk rather than
+  crossfade".** Since Day 94 an NPC who moved mid-visit faded out at one spot and in at the other. Now, when the move
+  is near and the way is clear, they walk it:
+  - **When.** An animated, unheld refresh moves one NPC from exactly one placement to exactly one other. The actor
+    stands (not a seated idle, not on a circuit, not already walking or fading), the new placement has no circuit,
+    and `Region.walkable_move` holds:
+    - `walk_ground_clear`: 1–14 m on the ground plane, every 0.5 m on a walkable cell, no step over 0.45 m.
+    - `walk_way_clear`: rays on the WORLD layer at knee and chest height between the probe points, ignoring the
+      walker's own body. They stop 0.9 m short of the far spot, since a bench or a doorway stands right there.
+  - **How.** The old actor walks at 1.1 m/s, on the ground, turning into the way. It holds like a circuit walker
+    (talking, a modal, the Wakebearer in the way) and can still be spoken to. The actor for the new spot is built at
+    once but waits unseen and out of play. On arrival it takes the walker's heading and eases round to its placed
+    facing, and the walker frees itself. If the new spot goes away first (the story moves on mid-walk), the walker
+    fades out. Too far, into water, blocked, seated or onto a circuit: the Day 94 fade, unchanged.
+  - **What walks today** (a probe over every region in the running game, not committed): Hild on the Boat Stair and at
+    the Spire's foot, Iver and Wenna at the Spire's foot, Oriel's shorter moves there, and Wenna round Coll's Hearth.
+    The rays refuse Oriel's 10–13 m moves across the Spire's foot and Wenna's step round her clamp, so those still fade.
+    Dunstan's fen moves cross water and fade.
+- **Smoke:** `_check_walk_rays` on Saltmarrow: every straight walk through a house (open ground either side) is
+  blocked, and some walk out from the spawn is clear.
+- **Tests:** `test_polish_twenty.gd` (5): the ground's say (reach, the harbor, a swap in place, the probe stopping
+  short, a slab region); a near move walking and handing over (speed, ground, heading, holding while talking, the
+  arrival shown, in play and turning to its facing); too far, wet, seated or onto a circuit still fades; the new spot
+  going first fades the walker; an unanimated refresh still cuts. 858 tests + smoke + launch green.
+
+**Decisions**
+- **Straight lines only, no pathfinding.** A navmesh is a large system for a few moves a playthrough. A blocked
+  straight line keeps the fade, which already reads as the fog taking someone. Paths are a follow-up in #1a.
+- **The rays only run in the tree.** The test runner's nodes never enter a live scene tree, so they have no physics
+  world. Out of the tree the ground alone decides, and the smoke test checks the rays in the real game. That's why the
+  check is two functions (`walk_ground_clear`, `walk_way_clear`).
+- **The walker stays talkable.** Taking them out of the `npcs` group during the walk would leave nobody with that id
+  for a few seconds, which could surprise anything looking them up (the smoke walk, framing). Talking holds the walk,
+  as it does a circuit.
+- **Seated NPCs don't walk.** A seated rig walking would look wrong, and there's no stand-up animation yet. Arriving at
+  a seated spot is a cut to the seated model, like a swap in place.
+- The "third speaker" candidate was stale: `Player.frame_also` already takes any number of speakers. Removed from #1a.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a systems session** (the Cindermoor morning flag, or settings follow-ups), then content
+   (due by ~Day 117). Fetch and reset `main` before trusting it.
+
 ## 2026-11-19 09:00 UTC — Day 113: the door-warden's stool; who notices he's gone (content)
 
 **Did**

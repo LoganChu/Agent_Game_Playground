@@ -885,14 +885,18 @@ each .glb < 5 MB.
       (`aldous_seated_sober`). At the door he asks for a stool: **Tobin carries his quay-bell stool up the steps**
       (`kindleby_aldous_stool`; `aldous_warden_seated` with the stool in its rig; the bell's stool gone), and Tobin and
       the Provost remark on it. `test_door_wardens_stool.gd` (7). Checkpoint `the_door_wardens_stool`.
+- [x] [P] **Polish twenty** (Day 114): an NPC who moves mid-visit to a near spot (≤ 14 m) with a clear straight way
+      **walks there** instead of fading out and in (`Region.walkable_move`: walkable ground, no steep step, nothing solid
+      in the way; `NpcActor.walk_to`/`await_walker`/`arrive`). Seated, circuit, far, wet or blocked moves still fade.
+      `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [P] **Polish twenty** (due by ~Day 119; candidates in #1a), then a systems session (the Cindermoor morning flag #2,
-   or #5's leftovers), then content (#1d/#1b). Fetch and reset `main` before trusting it.
+1. [S] **A systems session** (the Cindermoor morning flag #2, or #5's leftovers), then content (#1d/#1b; content is due
+   by ~Day 117: the last was Day 113). Polish twenty-one is due by ~Day 122 (candidates in #1a). Fetch and reset `main`
+   before trusting it.
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
-   never writes one: headless); Steam Cloud-friendly paths with the Steamworks item; a delete-slot option on the Load
-   page.
+   never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
 1d. [C] **After the final card** (fold into the next content session): (Aldous before the Provost: Day 110 — the
    Provost came home with the Long Book first.) (Done Day 113: Tobin's bell stool for Aldous at the chapter-house door;
    the bottle left corked on his seat; Mara/Wynn noticing him gone, kept, or home; sober home model.) Follow-ups: the
@@ -907,16 +911,19 @@ each .glb < 5 MB.
    jetty's foot after the homecoming; the chalk marks as a prop. Lowsong leftovers: a warm-step cue (released) and
    Iver's boat on the bottom (lit, lamp) are text-only — props would help. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish twenty candidates** (due by ~Day 119; Day 111 was nineteen): the far Spire reads pale in the
+1a. [P] **Polish twenty-one candidates** (due by ~Day 122; Day 114 was twenty): the far Spire reads pale in the
    horizon wash on every island (Compatibility; judge on Vulkan); a **two-speaker shot in tight spots** (the Mercy's
-   deck, #9) and a third speaker; the lift outdoors needs an owner's feel check (it triggers under 60 % of the reach;
-   tune `CAMERA_LIFT_CLEAR` if it's too eager); the last landing reads very dark in Compatibility (judge on Vulkan); the
-   robe/white read on Oriel (Vulkan, #4); a placement-to-placement move could walk rather than crossfade (Day 94 fades);
-   the tied Mercy's fore warp crosses the landing's head at shin height on the short quays (fine for a rope; an owner
-   check that it doesn't read as a tripwire); Oriel is out of the lantern room's first frame now (she's a
-   step behind; fine, but a two-speaker framing could bring her in). (Done Day 108: the warps, the lantern room's
-   arrival, the far Spire on Gull's Head and Shingle Point. Done Day 111: a mooring post at every port for the tied
-   Mercy's fore and aft warps; Delete on the Load page.)
+   deck, #9: the arm backs off by the speakers' spread and may meet the rails; a third speaker already joins the same
+   way); the lift outdoors needs an owner's feel check (it triggers under 60 % of the reach; tune `CAMERA_LIFT_CLEAR`
+   if it's too eager); the last landing reads very dark in Compatibility (judge on Vulkan); the robe/white read on
+   Oriel (Vulkan, #4); the tied Mercy's fore warp crosses the landing's head at shin height on the short quays (an
+   owner check that it doesn't read as a tripwire); Oriel is out of the lantern room's first frame (a two-speaker
+   framing could bring her in). Walk follow-ups (Day 114): a walk **with a path** round an obstacle (Oriel across the
+   Spire's foot and Wenna round her clamp still fade: the straight way is blocked); a seated NPC standing up to walk
+   (seated placements fade); a short sit-down blend on arriving at a seated spot (a cut today); an owner's eye on the
+   walk speed (1.1 m/s). (Done Day 108: the warps, the lantern room's arrival, the far Spire on Gull's Head and Shingle
+   Point. Done Day 111: mooring posts, Delete on the Load page. Done Day 114: a placement-to-placement move walks
+   when the way is clear and near.)
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
    down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); (Oriel at the chapter's next sitting: Day 95); Iver, Wenna and Ness have no lines yet for the

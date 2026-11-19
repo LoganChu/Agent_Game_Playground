@@ -257,6 +257,19 @@ comes or goes instead of cutting: `NpcActor.fade_in()` starts the arrival at opa
 out of the `"npcs"` group, out of interaction and collision at once, then frees it after `NpcActor.FADE_SECONDS` (0.8 s).
 The fade sets `GeometryInstance3D.transparency` on the body's meshes and the label's alpha. A swap in place still cuts,
 so a model change mid-talk keeps working.
+**Since Day 114, a near move walks.** When an animated, unheld refresh moves an NPC from exactly one placement to exactly
+one other, `Region._walkers` lets them walk it if: the actor stands (not a seated idle, not on a `circuit`, not already
+walking/fading/waiting), the new placement has no `circuit`, and `Region.walkable_move` holds. That is
+`walk_ground_clear` (1–`WALK_REACH` 14 m on the ground plane; every `WALK_PROBE_STEP` 0.5 m on a walkable cell, no step
+over `WALK_MAX_RISE` 0.45 m; the probe points stop `WALK_PROBE_SHORT` 0.9 m before the far spot, since a bench or stool
+stands there) **and** `walk_way_clear` (rays on the WORLD layer between the points at 0.45 m and 1.3 m, the walker's own
+body excluded). The rays need the physics world: **out of the tree (the headless tests) only the ground decides**; the
+smoke test checks the rays in the running game (`_check_walk_rays`: through a Saltmarrow house blocked, out from the
+spawn clear). The old actor walks (`NpcActor.walk_to`, `WALK_SPEED` 1.1 m/s, holding like a circuit walker, still
+talkable) to the new actor, which was built at once (the entry's node) and waits unseen and out of play
+(`await_walker`); on arrival it `arrive`s with the walker's heading and eases to its placed facing, and the walker frees
+itself. If the new placement goes first, the walker fades out. Anything else (too far, water, blocked, seated) fades as
+before. The arrival's model/pose is a cut on arrival, like a swap in place.
 **Inland regions (Day 21, `thornwold_woods`):** no `water_level`; the walkable floor is the
 `base` height and steep `land` banks (rects along every edge, falloff ≲ 2 m) bound it, so the
 reachable area never touches `ground.bounds`. With no water the colour rules treat `base` as
