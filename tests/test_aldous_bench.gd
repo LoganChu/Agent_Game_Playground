@@ -30,13 +30,15 @@ func test_aldous_sits_on_his_bench() -> void:
 	for placement: Dictionary in _content().get_region(REGION)["npcs"]:
 		if str(placement.get("npc", "")) == "aldous":
 			places.append(placement)
-	assert_eq(places.size(), 1, "Aldous has one place in Saltmarrow")
+	# Day 113: a second place on the same bench, sober with the bottle stood beside him (home with leave).
+	assert_eq(places.size(), 2, "Aldous has one bench in Saltmarrow, two ways of sitting on it")
+	assert_eq(places[0].get("position"), places[1].get("position"), "the same seat")
 	var aldous: Dictionary = places[0]
 	assert_eq(str(aldous.get("model", "")), SEATED)
 	assert_eq(str(aldous.get("idle", "")), "bottle")
 	# Day 99: always on it, until he crosses and goes up Thornwold's ridge to Wynn. Day 110: or goes to Kindleby.
 	assert_eq(aldous.get("if", []), ["!flag:thornwold_aldous_landed", "!flag:kindleby_aldous_coming",
-			"!flag:kindleby_aldous_door=kept"], "he's on it till he crosses")
+			"!flag:kindleby_aldous_door=kept", "!flag:kindleby_aldous_bottle_left"], "he's on it till he crosses")
 	var benches := _props("plank_bench.glb")
 	assert_eq(benches.size(), 1, "one bench")
 	assert_eq(benches[0].get("position"), aldous.get("position"), "Aldous sits on it")
