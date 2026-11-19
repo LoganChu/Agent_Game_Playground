@@ -355,7 +355,21 @@ def build_aldous_warden() -> None:
     _aldous(seated=False, warden=True)
 
 
-def _aldous(seated: bool, warden: bool = False) -> None:
+def build_aldous_warden_seated() -> None:
+    """Day 113: the door-warden on Tobin's bell stool (fetched from the quay), by the chapter-house steps. Seated,
+    sober, the novices' roll across his knees under both hands, head up: he's asking who goes by. The stool is the
+    rig's static Stool part (three legs and a rung, seat top at the seated hip)."""
+    _aldous(seated=True, warden=True)
+
+
+def build_aldous_seated_sober() -> None:
+    """Day 113: Aldous home on his bench (Saltmarrow or the ridge) with the Provost's leave. As `aldous_seated`
+    but no bottle in his hand (it stands corked beside him: dressing `bottle_corked`), both hands on his knees,
+    the stoop eased a little."""
+    _aldous(seated=True, sober=True)
+
+
+def _aldous(seated: bool, warden: bool = False, sober: bool = False) -> None:
     reset_scene()
     b = Body(seated=seated, build=1.05)
     robe = material("silverfog", -0.12)
@@ -385,6 +399,26 @@ def _aldous(seated: bool, warden: bool = False) -> None:
     h.append(ball(0.2, (0, 0.06, b.head - 0.02), fringe, scale=(1.25, 1.0, 0.6)))
     h.append(ball(0.14, (0, -0.14, b.head - 0.15), fringe, scale=(1.1, 0.8, 0.9)))
     hand = b.hand("L")
+    if seated and warden:
+        # The roll across his knees, held by both hands; Tobin's three-legged stool under him.
+        vellum = material("bone", 0.1)
+        y, z = -0.3, b.hip + 0.16
+        t.append(limb((0.22, y, z), (-0.22, y, z), 0.045, 0.045, vellum, verts=8))
+        t.append(limb((0.0125, y, z), (-0.0125, y, z), 0.05, 0.05, material("ember", -0.35), verts=8))  # the cord
+        b.arm_rest["ArmL"] = (math.radians(-40), 0, math.radians(-6))
+        b.arm_rest["ArmR"] = (math.radians(-40), 0, math.radians(6))
+        b.head_rest = (math.radians(2), 0, 0)  # head up: asking who goes by
+        seat = b.hip - 0.02
+        legs = material("driftwood", -0.3)
+        for i in range(3):
+            a = math.tau * i / 3 + 0.3
+            b.parts["Stool"].append(limb((math.cos(a) * 0.12, 0.02 + math.sin(a) * 0.12, seat - 0.06),
+                                         (math.cos(a) * 0.19, 0.02 + math.sin(a) * 0.19, 0.0), 0.03, 0.03, legs, verts=4))
+        b.parts["Stool"].append(limb((0.11, 0.07, 0.17), (-0.1, 0.1, 0.17), 0.018, 0.018, legs, verts=4))  # the rung
+        b.parts["Stool"].append(limb((0, 0.02, seat - 0.07), (0, 0.02, seat), 0.22, 0.21, material("driftwood", -0.05),
+                                     verts=7))
+        assemble(b, "aldous_warden_seated")
+        return
     if warden:
         # The novices' roll: a pale scroll held upright in the left hand, a cord round its middle.
         vellum = material("bone", 0.1)
@@ -395,6 +429,13 @@ def _aldous(seated: bool, warden: bool = False) -> None:
         b.arm_rest["ArmL"] = (math.radians(-30), 0, math.radians(4))
         b.head_rest = (math.radians(5), 0, 0)  # the stoop eased: he holds his head up at a door now
         assemble(b, "aldous_warden")
+        return
+    if seated and sober:
+        # No bottle: both hands on his knees, the stoop eased a little.
+        b.arm_rest["ArmL"] = (math.radians(-46), 0, math.radians(-6))
+        b.arm_rest["ArmR"] = (math.radians(-46), 0, math.radians(6))
+        b.head_rest = (math.radians(10), 0, 0)
+        assemble(b, "aldous_seated_sober")
         return
     # A dark green bottle in the left hand, held loose.
     glass = material("pine", -0.1)
@@ -2169,7 +2210,8 @@ def _oriel(seated: bool) -> None:
     assemble(b, "oriel_seated" if seated else "oriel", scale=1.05)
 
 
-BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, build_aldous_seated, build_aldous_warden, build_tam, build_hesk, build_oda, build_bram,
+BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, build_aldous_seated, build_aldous_warden,
+            build_aldous_warden_seated, build_aldous_seated_sober, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
             build_unmoored_shawl, build_unmoored_coat, build_dunstan, build_dunstan_seated,
             build_dunstan_seated_cord, build_dunstan_lantern, build_dunstan_home, build_dunstan_turning,

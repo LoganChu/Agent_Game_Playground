@@ -744,10 +744,25 @@ def build_pell_gull() -> None:
     export("pell_gull")
 
 
+def build_bottle_corked() -> None:
+    """Day 113: the bottle Aldous left where he was sitting when he went to Kindleby — stood upright on
+    the bench, corked, a quarter left in it (a darker band at the foot). Origin at its base; placed
+    on a seat at the seat's height (plank_bench: 0.44 m)."""
+    reset()
+    glass = mat("pine", -0.1)
+    cyl("Bottle", 0.055, 0.055, 0.2, 7, (0, 0, 0.0), glass)
+    cyl("Dregs", 0.057, 0.057, 0.05, 7, (0, 0, 0.0), mat("pine", -0.45))
+    cyl("Shoulder", 0.055, 0.03, 0.04, 7, (0, 0, 0.2), glass)
+    cyl("Neck", 0.026, 0.024, 0.08, 6, (0, 0, 0.24), glass)
+    cyl("Cork", 0.024, 0.022, 0.035, 6, (0, 0, 0.31), mat("driftwood", -0.3))
+    export("bottle_corked")
+
+
 BUILDERS = [build_dock, build_rowboat, build_rowboat_upturned, build_moored_boat, build_smokehouse, build_barrel,
             build_barrels, build_crate, build_lantern_post, build_signal_lantern, build_fence, build_stool, build_cups,
             build_net_racks, build_driftwood_log, build_wreck, build_reeds, build_grass, build_beacon_lit,
-            build_ferry, build_ferry_tied, build_bundle, build_pell_gull, build_mooring_post]
+            build_ferry, build_ferry_tied, build_bundle, build_pell_gull, build_mooring_post,
+            build_bottle_corked]
 
 if __name__ == "__main__":
     only = [a for a in sys.argv[1:] if not a.startswith("-")]
