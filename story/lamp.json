@@ -91,10 +91,40 @@
         "text": "The Wren's coming with you, Oda says. Carrying nothing. I'll have the bench swept."
       },
       {
-        "if": "flag:thornwold_aldous_met_wynn",
+        "if": [
+          "flag:thornwold_aldous_met_wynn",
+          "!flag:kindleby_aldous_coming",
+          "flag:kindleby_aldous_door="
+        ],
         "say": "lamp",
         "text": "He snores. Thirty winters on my own on this ridge, and now there's a door-warden on my bench who snores.",
         "note": "Day 99: Wynn after the ending."
+      },
+      {
+        "if": [
+          "flag:thornwold_aldous_met_wynn",
+          "flag:kindleby_aldous_coming",
+          "!flag:kindleby_aldous_met_provost"
+        ],
+        "say": "lamp",
+        "text": "The Wren's gone down the ladder with his bag. For Kindleby. He left the bottle on his seat, stood up and corked. I've not moved it. I sat in his end of the bench, after. It was warm.",
+        "note": "Day 113: Wynn noticing Aldous gone."
+      },
+      {
+        "if": [
+          "flag:thornwold_aldous_met_wynn",
+          "flag:kindleby_aldous_door=kept"
+        ],
+        "say": "lamp",
+        "text": "He's keeping a door on Kindleby till midwinter. The ridge is quiet. Thirty winters I wanted it quiet. I don't like it as much as I did."
+      },
+      {
+        "if": [
+          "flag:thornwold_aldous_met_wynn",
+          "flag:kindleby_aldous_door=home"
+        ],
+        "say": "lamp",
+        "text": "He came back up the ladder with leave, he says. He snores with leave now. It's louder."
       },
       {
         "say": "lamp",

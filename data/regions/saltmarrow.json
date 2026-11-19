@@ -408,6 +408,20 @@
       "note": "Aldous's bench by the Wrens' steps: a salt-silvered plank on two piles of slate, an empty bottle under it. He sits on it (aldous_seated at the same spot)."
     },
     {
+      "model": "res://assets/models/dressing/bottle_corked.glb",
+      "position": [
+        -7.33,
+        0.44,
+        -1.4
+      ],
+      "rotation_y": 130,
+      "if": [
+        "flag:kindleby_aldous_bottle_left",
+        "!flag:thornwold_aldous_landed"
+      ],
+      "note": "Day 113: the bottle Aldous left where he was sitting when he went to Kindleby: stood up on the plank's end (+0.52 m along it), corked."
+    },
+    {
       "model": "res://assets/models/dressing/house_tall.glb",
       "shape": "house",
       "position": [
@@ -1428,8 +1442,26 @@
       "if": [
         "!flag:thornwold_aldous_landed",
         "!flag:kindleby_aldous_coming",
-        "!flag:kindleby_aldous_door=kept"
+        "!flag:kindleby_aldous_door=kept",
+        "!flag:kindleby_aldous_bottle_left"
       ]
+    },
+    {
+      "npc": "aldous",
+      "position": [
+        -7,
+        0,
+        -1
+      ],
+      "rotation_y": 130,
+      "model": "res://assets/models/characters/aldous_seated_sober.glb",
+      "if": [
+        "!flag:thornwold_aldous_landed",
+        "flag:kindleby_aldous_bottle_left",
+        "flag:kindleby_aldous_door=home"
+      ],
+      "note": "Day 113: home on his bench with the Provost's leave: no bottle in hand (it stands corked beside him).",
+      "idle": "sit"
     },
     {
       "npc": "tam",

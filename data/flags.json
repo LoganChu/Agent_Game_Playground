@@ -1396,6 +1396,14 @@
         "kept",
         "home"
       ]
+    },
+    "kindleby_aldous_bottle_left": {
+      "description": "Aldous left the bottle where he was sitting when he went aboard for Kindleby (Day 113; set in his `coming` knot): it stands corked on his bench on Saltmarrow (or the plank seat on Thornwold's ridge) from then on, and he sits beside it, sober, if he comes home with leave.",
+      "default": false
+    },
+    "kindleby_aldous_stool": {
+      "description": "Day 113: the door-warden asked for a stool; the Wakebearer asked Tobin, who carried his quay-bell stool up the steps himself. Aldous sits on it by the chapter-house steps (aldous_warden_seated) and the bell's stool is gone.",
+      "default": false
     }
   }
 }

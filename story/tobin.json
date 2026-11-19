@@ -372,6 +372,12 @@
         "note": "Day 110: the Provost home."
       },
       {
+        "if": "flag:kindleby_aldous_stool",
+        "say": "tobin",
+        "text": "Brother Wren's got my stool. I stand at the bell now. The boats aren't late any more, so I don't need to sit. That's what I tell people.",
+        "note": "Day 113: the bell stool went up the steps."
+      },
+      {
         "goto": "hub"
       }
     ],

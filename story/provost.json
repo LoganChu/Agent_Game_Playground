@@ -1976,9 +1976,20 @@
         "note": "Day 110: the hook for Aldous before the Provost (he asked for a room with the candles lit)."
       },
       {
-        "if": "flag:kindleby_aldous_door=kept",
+        "if": [
+          "flag:kindleby_aldous_door=kept",
+          "!flag:kindleby_aldous_stool"
+        ],
         "say": "provost",
-        "text": "The door-warden's on his stool by six with the candles trimmed. He spells my name wrong on the roll. I've not corrected it."
+        "text": "The door-warden's at the steps by six with the candles trimmed. He asked for a stool and I said a warden stands. He spells my name wrong on the roll. I've not corrected it."
+      },
+      {
+        "if": [
+          "flag:kindleby_aldous_door=kept",
+          "flag:kindleby_aldous_stool"
+        ],
+        "say": "provost",
+        "text": "The door-warden's on Tobin's stool by six with the candles trimmed. He spells my name wrong on the roll. I've not corrected it."
       },
       {
         "if": "flag:kindleby_aldous_door=home",

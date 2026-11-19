@@ -486,6 +486,22 @@
       "note": "The quay bell: one stroke, then three. A boat seen, and welcome. Kindleby answers before you blow."
     },
     {
+      "model": "res://assets/models/dressing/stool.glb",
+      "position": [
+        2.95,
+        0,
+        3.75
+      ],
+      "rotation_y": -25,
+      "collider": [
+        0.45,
+        0.5,
+        0.45
+      ],
+      "if": "!flag:kindleby_aldous_stool",
+      "note": "Day 113: Tobin's stool by the quay bell, for when the boats are late. It goes up the steps to the door-warden (kindleby_aldous_stool)."
+    },
+    {
       "model": "res://assets/models/dressing/chapter_house.glb",
       "position": [
         4.0,
@@ -1214,10 +1230,28 @@
       "rotation_y": 20,
       "if": [
         "flag:kindleby_aldous_met_provost",
-        "flag:kindleby_aldous_door=kept"
+        "flag:kindleby_aldous_door=kept",
+        "!flag:kindleby_aldous_stool"
       ],
       "note": "Day 110: Kindleby's door-warden for midwinter, by the chapter-house steps: standing, sober, the novices' roll in his hand (aldous_warden: no bottle).",
       "model": "res://assets/models/characters/aldous_warden.glb"
+    },
+    {
+      "npc": "aldous",
+      "position": [
+        1.7,
+        0,
+        -5.9
+      ],
+      "rotation_y": 20,
+      "if": [
+        "flag:kindleby_aldous_met_provost",
+        "flag:kindleby_aldous_door=kept",
+        "flag:kindleby_aldous_stool"
+      ],
+      "note": "Day 113: the door-warden on Tobin's bell stool (aldous_warden_seated: the stool is part of the model), the roll across his knees.",
+      "model": "res://assets/models/characters/aldous_warden_seated.glb",
+      "idle": "sit"
     },
     {
       "npc": "iver",

@@ -1496,6 +1496,11 @@
         ]
       },
       {
+        "if": "flag:kindleby_aldous_bottle_left",
+        "say": "narrator",
+        "text": "The bottle's on the plank beside him, stood up, corked. He doesn't look at it. He doesn't look away from it either."
+      },
+      {
         "if": "flag:kindleby_aldous_door=home",
         "say": "aldous",
         "text": "Back on the bench, with the Provost's leave. I've never had leave before. I keep putting it down somewhere and finding it again.",
@@ -1530,6 +1535,14 @@
         "if": "flag:kindleby_aldous_door=home",
         "say": "aldous",
         "text": "Home again. She gave me leave. I've never had leave in my life. I keep putting it down somewhere and finding it again."
+      },
+      {
+        "if": [
+          "flag:kindleby_aldous_door=home",
+          "flag:kindleby_aldous_bottle_left"
+        ],
+        "say": "narrator",
+        "text": "The bottle's still where he stood it on the plank seat, corked. Wynn has dusted round it."
       },
       {
         "if": [
@@ -1582,13 +1595,25 @@
         "text": "He takes his bag and goes. The bottle stays where he was sitting."
       },
       {
+        "set": {
+          "kindleby_aldous_bottle_left": true
+        },
+        "note": "Day 113: the bottle stands corked on his seat (dressing bottle_corked) from now on."
+      },
+      {
         "end": true
       }
     ],
     "kindleby": [
       {
         "say": "narrator",
-        "text": "Aldous stands by the chapter-house steps with the novices' roll under his arm, sober, the candles going behind him."
+        "text": "Aldous stands by the chapter-house steps with the novices' roll under his arm, sober, the candles going behind him.",
+        "if": "!flag:kindleby_aldous_stool"
+      },
+      {
+        "if": "flag:kindleby_aldous_stool",
+        "say": "narrator",
+        "text": "Aldous sits on Tobin's stool by the chapter-house steps with the novices' roll across his knees, sober, the candles going behind him."
       },
       {
         "if": "flag:cindermoor_cradle_choice=lit",
@@ -1603,6 +1628,79 @@
       {
         "say": "aldous",
         "text": "She hasn't put me on report yet. I keep waiting."
+      },
+      {
+        "choice": [
+          {
+            "text": "You asked for a stool.",
+            "if": "!flag:kindleby_aldous_stool",
+            "goto": "stool"
+          },
+          {
+            "text": "Goodbye.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "stool": [
+      {
+        "say": "aldous",
+        "text": "I did. She said a warden stands. She's right. It's only that my knees were on the Spire's stair the night it went out, and they've not been right since."
+      },
+      {
+        "say": "aldous",
+        "text": "There's a stool by the quay bell. Tobin's. For when the boats are late. I'll not ask a novice for his stool."
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll ask him.",
+            "goto": "stool_fetched"
+          },
+          {
+            "text": "Then stand, Brother.",
+            "goto": "stool_stand"
+          }
+        ]
+      }
+    ],
+    "stool_stand": [
+      {
+        "say": "aldous",
+        "text": "Aye. I'll stand. I stood a worse door than this one, and longer."
+      },
+      {
+        "end": true
+      }
+    ],
+    "stool_fetched": [
+      {
+        "say": "narrator",
+        "text": "Tobin is at the bell. When you ask him, he looks down at the stool as if he'd forgotten he had one."
+      },
+      {
+        "say": "tobin",
+        "text": "It's for when the boats are late. ...They're not late any more. He can have it."
+      },
+      {
+        "say": "narrator",
+        "text": "He won't let you carry it. He takes it up the steps himself, two at a time, where the Provost can't see, and sets it down by the door out of the draught."
+      },
+      {
+        "say": "tobin",
+        "text": "Brother Wren. Where are you going?"
+      },
+      {
+        "say": "aldous",
+        "text": "Nowhere, lad. I'm stopping here."
+      },
+      {
+        "say": "narrator",
+        "text": "He sits. The roll goes across his knees. Tobin goes back down to the bell and stands at it, which he has never once done.",
+        "set": {
+          "kindleby_aldous_stool": true
+        }
       },
       {
         "end": true

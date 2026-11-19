@@ -75,6 +75,35 @@
         "text": "The list's on the dock-post under the lantern. Three names on it so far, and every one of them put there by its own hand. Mine's not one. Yet."
       },
       {
+        "if": [
+          "flag:kindleby_aldous_bottle_left",
+          "flag:kindleby_aldous_coming",
+          "!flag:kindleby_aldous_met_provost",
+          "!flag:thornwold_aldous_landed"
+        ],
+        "say": "mara",
+        "text": "Aldous went down the dock with his bag and got on the Mercy. Didn't say where. Left the bottle on the bench, stood up and corked. Tam walks round it like it's a dog asleep.",
+        "note": "Day 113: Mara noticing Aldous gone to Kindleby."
+      },
+      {
+        "if": [
+          "flag:kindleby_aldous_bottle_left",
+          "flag:kindleby_aldous_door=kept",
+          "!flag:thornwold_aldous_landed"
+        ],
+        "say": "mara",
+        "text": "Oda says Aldous is keeping a door on Kindleby for the Keepers. Sober, she says. I've left the bottle where it is. If he wants it he can come and ask me for it."
+      },
+      {
+        "if": [
+          "flag:kindleby_aldous_bottle_left",
+          "flag:kindleby_aldous_door=home",
+          "!flag:thornwold_aldous_landed"
+        ],
+        "say": "mara",
+        "text": "He came back with leave, he says, and sits there with the bottle beside him, corked. He told me I'd say he wasn't gone long enough to be missed. So I didn't say it."
+      },
+      {
         "goto": "hub"
       }
     ],

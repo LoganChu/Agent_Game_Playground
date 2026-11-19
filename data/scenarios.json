@@ -1133,7 +1133,21 @@
         "kindleby_provost_home": true,
         "kindleby_aldous_coming": true,
         "kindleby_aldous_met_provost": true,
-        "kindleby_aldous_door": "kept"
+        "kindleby_aldous_door": "kept",
+        "kindleby_aldous_bottle_left": true
+      },
+      "shot": "--camera=0.5,2.2,-0.5:3.4,1.2,-6.4"
+    },
+    {
+      "id": "the_door_wardens_stool",
+      "act": "Act III — The Spire",
+      "title": "The Door-Warden's Stool",
+      "inherits": "before_the_provost",
+      "region": "kindleby",
+      "spawn": "from_ferry",
+      "description": "Aldous asked for a stool. The Wakebearer asked Tobin, who carried his quay-bell stool up the chapter-house steps himself; Aldous sits on it by the door with the novices' roll across his knees, and Tobin stands at the bell. On Thornwold's ridge the bottle Aldous left stands corked on his empty seat, and Wynn finds the ridge too quiet.",
+      "flags": {
+        "kindleby_aldous_stool": true
       },
       "shot": "--camera=0.5,2.2,-0.5:3.4,1.2,-6.4"
     }
