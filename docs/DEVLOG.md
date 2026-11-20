@@ -2,6 +2,45 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-20 21:00 UTC — Day 116: word goes round (content)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session (no new art was needed). HEAD was
+  detached again; I reset `main` to `origin/main` (Day 115's `4f23d28`). Baseline: 862 tests + smoke + launch green.
+- **Content (ROADMAP *Next up* #1 → #1b and #1d): who has a word for what happened.** These are dialogue only, and
+  they pay off open threads rather than opening new ones.
+  - **Iver and Wenna Coll at the Spire's foot** (they stand there from the morning the eighth is sought, through the
+    ending). For **the stair**: the Provost counted the Wakebearer twice ("I've never heard her count anything twice"),
+    and once she knows, "one of ours". For **Oriel**: told (lighter feet / a clamp raked out years back), climb (at the
+    stair door), boat (sitting in it), own (behind the Provost). **After the cradle** these give way to one line each per
+    ending. Wenna Coll's fourteen kept-back candles (Day 86) are carried home, lit one a night, or kept for the dark
+    round.
+  - **Oda hears the High Keeper's alive.** "The High Keeper's alive. She's up on the crown." is offered at the Boat Stair
+    once the Wakebearer has met Oriel, before or after the count down (`cindermoor_oda_heard_oriel`, once). She steered
+    round that tower for 38 years. With Oriel in the eighth boat she'll take her a cup, same as Merrit.
+  - **The Wren keeping a door.** At Kindleby, with Aldous kept on the door (`kindleby_aldous_door=kept`), Oda's first
+    word is that he asked her where she was going, the first on that door who ever did. She adds a line if he's on
+    Tobin's stool (`kindleby_oda_saw_warden`, once). She'll tell Wenna. At Wrackholm, after the homecoming, Wenna Garrow:
+    "That's a warden. A horn's the same." (`wrackholm_wenna_heard_warden`, once). Nothing if he went home.
+- Checkpoint `word_goes_round` (`docs/checkpoints/word_goes_round.png`): the Boat Stair, Oriel in her boat, Oda told.
+- LORE: a *Word goes round* entry after the door-warden's stool.
+- **Tests:** `test_word_goes_round.gd` (6): Iver/Wenna Coll at the foot (stair known or not, before the stair nothing);
+  where Oriel went (told/boat/own); after the cradle (per ending, the stair lines gone); Oda told (offered once, not
+  before the ring path, the boat's cup, after the count down with the lit line); Oda and Wenna on the warden (stool or
+  standing, once each, nothing if home); the checkpoint. 868 tests + smoke + launch green.
+
+**Decisions**
+- **The stair/Oriel lines stop at the cradle.** Iver and Wenna Coll stay at the Spire's foot into the epilogue. Without
+  the gate they'd stack eight lines, and after the ending what matters is the Spire.
+- **Wenna hears it from Oda, not from the player.** The Mercy carries word between ports (Oda's own line says she'll
+  tell Wenna), so Wenna's line needs only the door kept, not a visit to Oda first.
+- **Ness is left.** She goes off along the shoulder once the doused cresset is relit, before the stair can be climbed.
+  So she has nowhere to stand to hear about Oriel. Giving her a placement is a bigger piece; it's noted in #1b.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish twenty-one** (due by ~Day 122; candidates in #1a) or a systems session, and content
+   again by ~Day 120. Fetch and reset `main` before trusting it.
+
 ## 2026-11-20 09:00 UTC — Day 115: window size, render scale, clearing a pad button (systems)
 
 **Did**

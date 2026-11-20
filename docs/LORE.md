@@ -2020,6 +2020,25 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   can't see) and asks, as a door-warden would, "Brother Wren. Where are you going?" — "Nowhere, lad. I'm stopping
   here." Aldous sits on it by the chapter-house steps with the roll across his knees; **Tobin stands at the bell now**,
   which he never once did. The Provost: on Tobin's stool by six, spelling her name wrong on the roll.
+- **Word goes round (Day 116 — `cindermoor_oda_heard_oriel`, `kindleby_oda_saw_warden`, `wrackholm_wenna_heard_warden`).**
+  **Iver** (at the Spire's foot) heard the Provost count the Wakebearer twice at the stair door — "I've never heard her
+  count anything twice" — and, once she knows, "one of ours": thirty-one midsummers he'll have walked past them on the
+  Kindleby steps "with my mind on a comma". He hears Oriel's feet go lighter once she knows them; at the stair door,
+  "breathing like she's at the top of a stair already"; down to the boat, then nothing ("Sitting, I'd think. In it");
+  behind the Provost, the two of them breathing together. After the cradle: lit, burning "in my teeth"; released,
+  "properly quiet"; dark, still singing, "you can live next to a thing you can hear." **Wenna Coll** counted the
+  Wakebearer up on her fingers and ran out; a novice "doesn't walk like one ... still leans"; Oriel at the stair door
+  stands as you stand at a clamp door; in the boat, "you want to sit in the thing that'd take you away, even when you're
+  not going"; with the Provost, "first thing I've seen her choose". **Her fourteen kept-back candles**: lit, carried home
+  for the huts ("Hob's always short"); released, one lit of a night "for whoever went out that window"; dark, kept for
+  the long dark round. **Oda**, told at the Boat Stair the High Keeper's alive: "Thirty-eight years I've steered round
+  that tower like it was a rock, because it was a rock" — she never thought somebody might still be stood under it. With
+  Oriel in the eighth boat she'll take her a cup, same as Merrit ("She'll not drink it. They never do, the first week").
+  She'd like to ask her what for, and won't. **At Kindleby, the Wren on the door asked Oda where she was going** — the
+  first on that door in thirty-eight years of carrying the Keepers' oil up the steps who ever asked her anything (sat on
+  Tobin's stool to ask it, "like a harbormaster"); she told him nowhere he'd know, and thinks he wrote it down. **She
+  tells Wenna Garrow**, who says: "That's a warden. A horn's the same. You don't answer it to be kind. You answer it so
+  somebody's been counted in."
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks

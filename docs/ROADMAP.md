@@ -891,15 +891,16 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [C] **A content session** (#1d/#1b/#3; content is due by ~Day 117: the last was Day 113). Then polish twenty-one
-   (due by ~Day 122; candidates in #1a). Fetch and reset `main` before trusting it.
+1. [P] **Polish twenty-one** (due by ~Day 122; candidates in #1a), or a systems session first (#1c/#5/#6), then
+   content again by ~Day 120 (#1d/#1b/#3). Fetch and reset `main` before trusting it. (Done Day 116, content: word goes
+   round — Iver/Wenna Coll on the stair and Oriel, Oda on the High Keeper alive, Oda/Wenna on the Wren keeping a door.)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
 1d. [C] **After the final card** (fold into the next content session): (Aldous before the Provost: Day 110 — the
    Provost came home with the Long Book first.) (Done Day 113: Tobin's bell stool for Aldous at the chapter-house door;
    the bottle left corked on his seat; Mara/Wynn noticing him gone, kept, or home; sober home model.) Follow-ups: the
-   Long Book **on its shelf** inside (the chapter-house has no interior), Wenna/Oda remarking on the Wren keeping a door,
+   Long Book **on its shelf** inside (the chapter-house has no interior), (Wenna/Oda on the Wren keeping a door: Day 116),
    the bottle's fate if he ever asks Mara for it, and the rest of the chapter (Anselm and the old
    brothers came home how? — say they came in the Mercy with her if anyone asks); Aldous in the dark ending at midwinter.
    Midwinter (the dark round, the lit Spire's first asking) is open if the game goes on past the card. (Done Day 107:
@@ -924,9 +925,10 @@ each .glb < 5 MB.
    Point. Done Day 111: mooring posts, Delete on the Load page. Done Day 114: a placement-to-placement move walks
    when the way is clear and near.)
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
-   down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
-   steered round the Spire 38 years); (Oriel at the chapter's next sitting: Day 95); Iver, Wenna and Ness have no lines yet for the
-   stair climbed or Oriel told (Day 92/93; Hild's landed Day 93). Ness on the moor could hear Oriel went down to the boat.
+   down to the boat; a tallow-tin prop on the slip would help it read); (Oda hearing the High Keeper's alive: Day 116);
+   (Oriel at the chapter's next sitting: Day 95); (Iver and Wenna Coll on the stair climbed and Oriel told: Day 116).
+   **Ness** still has no line past the doused cresset: she's gone off along the shoulder once it's relit, so she needs a
+   new placement first (on the moor's edge after the ending?) before she can hear Oriel went down to the boat.
 2. [S] ~~**The days pass on Cindermoor**~~ — done: the story clock (Day 86/94), the morning flag and the crown's rest
    (`foot_rest` → `cindermoor_night` sets `cindermoor_morning`, Day 87). Day 115 found this item stale. A free-running
    day/night elsewhere is not planned; any new time of day is a flag, a `clocks.json` line and overrides.
