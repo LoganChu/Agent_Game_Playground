@@ -33,6 +33,14 @@ const DEADZONE_MAX := 0.5
 const DEFAULT_DEADZONE := 0.2
 ## Window modes offered by the menu: [setting value, label].
 const WINDOW_MODES: Array = [["windowed", "Windowed"], ["fullscreen", "Fullscreen"]]
+## Window sizes the Settings page steps through in windowed mode (Day 115). The first is the project's own size.
+const WINDOW_SIZES: Array[Vector2i] = [
+	Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1920, 1080), Vector2i(2560, 1440), Vector2i(3840, 2160),
+]
+const DEFAULT_WINDOW_SIZE := Vector2i(1280, 720)
+## 3D render scale (Day 115): the world is drawn at this fraction of the window and scaled up; the UI stays sharp.
+const RENDER_SCALE_MIN := 0.5
+const RENDER_SCALE_MAX := 1.0
 
 static var _current: GameSettings = null
 
@@ -51,6 +59,10 @@ var dialogue_camera := true
 var stick_deadzone := DEFAULT_DEADZONE
 ## "windowed" or "fullscreen" (WINDOW_MODES).
 var window_mode := "windowed"
+## The windowed-mode size (one of WINDOW_SIZES); fullscreen ignores it.
+var window_size := DEFAULT_WINDOW_SIZE
+## The 3D render scale (RENDER_SCALE_MIN..MAX).
+var render_scale := 1.0
 var vsync := true
 ## Whether the game writes the autosave slot (Day 106; SaveSystem.autosave).
 var autosave := true
@@ -92,6 +104,8 @@ func reset_values() -> void:
 	dialogue_camera = true
 	stick_deadzone = DEFAULT_DEADZONE
 	window_mode = "windowed"
+	window_size = DEFAULT_WINDOW_SIZE
+	render_scale = 1.0
 	vsync = true
 	autosave = true
 	keys.clear()
@@ -217,6 +231,48 @@ func cycle_window_mode() -> void:
 	set_window_mode(modes[(modes.find(window_mode) + 1) % modes.size()])
 
 
+func set_window_size(value: Vector2i) -> void:
+	if not WINDOW_SIZES.has(value):
+		push_warning("Unknown window size %s" % value)
+		return
+	window_size = value
+	_apply_display()
+	changed.emit()
+
+
+func window_size_label() -> String:
+	return size_label(window_size)
+
+
+static func size_label(value: Vector2i) -> String:
+	return "%d × %d" % [value.x, value.y]
+
+
+## The sizes that fit on the screen the window is on (all of them without a window: headless runs and tests). The
+## smallest always counts, so the list is never empty.
+static func fitting_window_sizes() -> Array[Vector2i]:
+	var out: Array[Vector2i] = []
+	var screen := Vector2i.ZERO
+	if DisplayServer.get_name() != "headless":
+		screen = DisplayServer.screen_get_usable_rect(DisplayServer.window_get_current_screen()).size
+	for size in WINDOW_SIZES:
+		if out.is_empty() or screen == Vector2i.ZERO or (size.x <= screen.x and size.y <= screen.y):
+			out.append(size)
+	return out
+
+
+## Steps through the sizes that fit (wrapping); a size that no longer fits steps back to the first.
+func cycle_window_size() -> void:
+	var sizes := fitting_window_sizes()
+	set_window_size(sizes[(sizes.find(window_size) + 1) % sizes.size()])
+
+
+func set_render_scale(value: float) -> void:
+	render_scale = clampf(value, RENDER_SCALE_MIN, RENDER_SCALE_MAX)
+	_apply_render_scale()
+	changed.emit()
+
+
 func set_autosave(value: bool) -> void:
 	autosave = value
 	changed.emit()
@@ -307,6 +363,24 @@ func rebind_button(action: String, button: JoyButton) -> String:
 	return ""
 
 
+## Whether `action`'s pad button can be taken away: only the actions that start with none (quicksave, quickload),
+## so the ones the game needs on a pad can only be moved.
+static func can_clear_button(action: String) -> bool:
+	return InputSetup.PAD_REBINDABLE.has(action) and InputSetup.default_button(action) == JOY_BUTTON_INVALID
+
+
+## Takes `action`'s pad button away (Day 115). Returns "" on success, else why not.
+func clear_button(action: String) -> String:
+	if not can_clear_button(action):
+		return "%s needs a pad button; pick another instead." % InputSetup.action_label(action)
+	if button_for(action) == JOY_BUTTON_INVALID:
+		return "%s has no pad button." % InputSetup.action_label(action)
+	_set_button(action, JOY_BUTTON_INVALID)
+	InputSetup.apply_buttons(all_buttons())
+	changed.emit()
+	return ""
+
+
 func _set_button(action: String, button: JoyButton) -> void:
 	if button == InputSetup.default_button(action):
 		pad_buttons.erase(action)
@@ -364,9 +438,10 @@ func apply_all() -> void:
 	InputSetup.prompt_style = prompt_style
 	InputSetup.apply_deadzone(stick_deadzone)
 	_apply_display()
+	_apply_render_scale()
 
 
-## Window mode and vsync. Nothing to do without a window (headless runs, the test runner).
+## Window mode, windowed size and vsync. Nothing to do without a window (headless runs, the test runner).
 func _apply_display() -> void:
 	if DisplayServer.get_name() == "headless":
 		return
@@ -376,7 +451,19 @@ func _apply_display() -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	elif window_mode == "windowed" and fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	# Only a plain window takes the chosen size: a maximized one is left as the player made it.
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED and DisplayServer.window_get_size() != window_size:
+		DisplayServer.window_set_size(window_size)
+		var screen := DisplayServer.screen_get_usable_rect(DisplayServer.window_get_current_screen())
+		DisplayServer.window_set_position(screen.position + (screen.size - window_size) / 2)
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
+
+
+## The root viewport's 3D scale. Runs headless too (the setting is just a number there).
+func _apply_render_scale() -> void:
+	var tree := Engine.get_main_loop() as SceneTree
+	if tree != null and tree.root != null:
+		tree.root.scaling_3d_scale = render_scale
 
 
 func _apply_volume(bus: String) -> void:
@@ -406,6 +493,8 @@ func save() -> bool:
 	cfg.set_value("display", "text_speed", text_speed)
 	cfg.set_value("display", "window_mode", window_mode)
 	cfg.set_value("display", "vsync", vsync)
+	cfg.set_value("display", "window_size", "%dx%d" % [window_size.x, window_size.y])
+	cfg.set_value("display", "render_scale", render_scale)
 	cfg.set_value("game", "autosave", autosave)
 	cfg.set_value("camera", "sensitivity", camera_sensitivity)
 	cfg.set_value("camera", "invert_x", invert_x)
@@ -437,6 +526,10 @@ func load_file() -> bool:
 	var mode := str(cfg.get_value("display", "window_mode", "windowed"))
 	window_mode = mode if _window_modes().has(mode) else "windowed"
 	vsync = bool(cfg.get_value("display", "vsync", true))
+	var size := parse_size(str(cfg.get_value("display", "window_size", "")))
+	window_size = size if WINDOW_SIZES.has(size) else DEFAULT_WINDOW_SIZE
+	var scale: Variant = cfg.get_value("display", "render_scale", 1.0)
+	render_scale = clampf(float(scale), RENDER_SCALE_MIN, RENDER_SCALE_MAX) if (scale is float or scale is int) else 1.0
 	autosave = bool(cfg.get_value("game", "autosave", true))
 	camera_sensitivity = clampf(float(cfg.get_value("camera", "sensitivity", 1.0)), SENSITIVITY_MIN, SENSITIVITY_MAX)
 	invert_x = bool(cfg.get_value("camera", "invert_x", false))
@@ -462,6 +555,14 @@ func load_file() -> bool:
 				_set_button(action, button)
 	_drop_duplicate_buttons()
 	return true
+
+
+## "1600x900" → Vector2i(1600, 900); anything else → Vector2i.ZERO.
+static func parse_size(text: String) -> Vector2i:
+	var parts := text.to_lower().split("x")
+	if parts.size() != 2 or not parts[0].strip_edges().is_valid_int() or not parts[1].strip_edges().is_valid_int():
+		return Vector2i.ZERO
+	return Vector2i(parts[0].strip_edges().to_int(), parts[1].strip_edges().to_int())
 
 
 ## A hand-edited file could give two actions the same key: the later ones fall back to

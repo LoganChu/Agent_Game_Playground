@@ -9,8 +9,9 @@ extends CanvasLayer
 ##               save (Day 111), pressed twice
 ##   Chapters    debug builds: jump to a story checkpoint in data/scenarios.json
 ##   Settings    volumes, text size and speed, camera sensitivity, invert and conversation framing, stick deadzone,
-##               display (window mode, vsync), autosave, Controls, Reset
-##   Controls    rebind each action (press the action, then the new key or pad button; Esc/B cancels)
+##               display (window mode, window size, 3D render scale, vsync), autosave, Controls, Reset
+##   Controls    rebind each action (press the action, then the new key or pad button; Esc/B cancels); Clear takes
+##               the quick save/load off the pad
 ## Settings are saved to user://settings.cfg as they change (a dragged slider once, when it
 ## is let go) and again when their pages are left. Esc backs out page by page; on the MAIN
 ## page it calls `_back_from_main()`.
@@ -256,7 +257,11 @@ func _show_page(which: Page) -> void:
 			_title.text = "Controls"
 			_note.text = "Pick an action, then press its new key or pad button. Arrow keys and Enter still work unless you take them for something else."
 			for action in _controls_actions():
-				_add("%s — %s" % [InputSetup.action_label(action), _binding_text(action)], _start_capture.bind(action))
+				var row := _add("%s — %s" % [InputSetup.action_label(action), _binding_text(action)], _start_capture.bind(action))
+				if GameSettings.can_clear_button(action) and GameSettings.current().button_for(action) != JOY_BUTTON_INVALID:
+					var clear := _add_beside(row, "Clear", "Take %s off the pad" % InputSetup.action_label(action),
+						_clear_pad_button.bind(action))
+					clear.set_meta(&"clear_action", action)
 			_add("Back", _show_page.bind(Page.SETTINGS))
 		_:
 			_build_page(which)
@@ -329,21 +334,38 @@ func _add_slot(slot: String, action: Callable) -> Button:
 ## Puts a Delete button beside a Load page slot's button (Day 111): the two share a row, the slot taking the width.
 ## A save from a newer build can be deleted too — it can't be loaded, and the player may want the slot back.
 func _add_delete(slot_button: Button, slot: String) -> void:
+	var delete := _add_beside(slot_button, "Delete", "Delete %s (press twice)" % SaveSystem.slot_label(slot), _delete.bind(slot))
+	delete.set_meta(&"delete_slot", slot)
+
+
+## Puts a small button beside `main_button` on one row, the main button taking the width; returns the small one.
+func _add_beside(main_button: Button, text: String, tooltip: String, action: Callable) -> Button:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override(&"separation", 8)
-	var at := slot_button.get_index()
-	_buttons.remove_child(slot_button)
-	slot_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row.add_child(slot_button)
-	var delete := Button.new()
-	delete.text = "Delete"
-	delete.set_meta(&"delete_slot", slot)
-	delete.tooltip_text = "Delete %s (press twice)" % SaveSystem.slot_label(slot)
-	delete.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	delete.pressed.connect(_delete.bind(slot))
-	row.add_child(delete)
+	var at := main_button.get_index()
+	_buttons.remove_child(main_button)
+	main_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(main_button)
+	var side := Button.new()
+	side.text = text
+	side.tooltip_text = tooltip
+	side.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	side.pressed.connect(action)
+	row.add_child(side)
 	_buttons.add_child(row)
 	_buttons.move_child(row, at)
+	return side
+
+
+## The Clear button beside `action`'s row on the Controls page (Day 115), or null (it has no pad button to take
+## away, or another page).
+func clear_button(action: String) -> Button:
+	for row in _buttons.get_children():
+		if row is HBoxContainer and not row.is_queued_for_deletion():
+			for inner in row.get_children():
+				if inner is Button and inner.get_meta(&"clear_action", "") == action:
+					return inner
+	return null
 
 
 ## The Settings page: a slider per audio bus, text size and speed, camera sensitivity, stick
@@ -365,6 +387,12 @@ func _build_settings() -> void:
 	_add_slider("Stick deadzone", settings.stick_deadzone * 100.0, GameSettings.DEADZONE_MIN * 100.0,
 		GameSettings.DEADZONE_MAX * 100.0, 5.0, "%d%%", func(value: float) -> void: settings.set_stick_deadzone(value / 100.0))
 	_add_toggle("Display: " + settings.window_mode_label(), settings.cycle_window_mode)
+	var size := _add_toggle("Window size: " + settings.window_size_label(), settings.cycle_window_size)
+	if settings.window_mode != "windowed":
+		size.disabled = true
+		size.tooltip_text = "Fullscreen uses the screen's own size."
+	_add_slider("3D render scale", settings.render_scale * 100.0, GameSettings.RENDER_SCALE_MIN * 100.0,
+		GameSettings.RENDER_SCALE_MAX * 100.0, 5.0, "%d%%", func(value: float) -> void: settings.set_render_scale(value / 100.0))
 	_add_toggle("VSync: " + _on_off(settings.vsync), func() -> void: settings.set_vsync(not settings.vsync))
 	_add_toggle("Autosave: " + _on_off(settings.autosave), func() -> void: settings.set_autosave(not settings.autosave))
 	_add_toggle("Button prompts: " + settings.prompt_style_label(), func() -> void:
@@ -377,9 +405,9 @@ func _build_settings() -> void:
 
 ## A Settings button that changes a value when pressed, saves, and rebuilds the page to show
 ## the new value (focus stays on it).
-func _add_toggle(text: String, change: Callable) -> void:
+func _add_toggle(text: String, change: Callable) -> Button:
 	var index := buttons().size()
-	_add(text, func() -> void:
+	return _add(text, func() -> void:
 		change.call()
 		_commit_settings()
 		_refresh_settings(index))
@@ -453,6 +481,18 @@ func _start_capture(action: String) -> void:
 		if button.text.begins_with(InputSetup.action_label(action) + " —"):
 			button.text = "%s — press %s…" % [InputSetup.action_label(action), what]
 	_note.text = "Press the new %s for %s. Esc / %s cancels." % [what.trim_prefix("a "), InputSetup.action_label(action), InputSetup.button_label(JOY_BUTTON_B)]
+
+
+## Takes a pad button away (the Controls page's Clear; Day 115). Focus goes back to the action's row.
+func _clear_pad_button(action: String) -> void:
+	var why := GameSettings.current().clear_button(action)
+	if why.is_empty():
+		_commit_settings()
+	_show_page(Page.CONTROLS)
+	for button in buttons():
+		if button.text.begins_with(InputSetup.action_label(action) + " —"):
+			_focus.call_deferred(button)
+	_note.text = why if not why.is_empty() else "%s: no pad button." % InputSetup.action_label(action)
 
 
 func _reset_settings() -> void:
