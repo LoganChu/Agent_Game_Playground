@@ -1818,6 +1818,11 @@ func _check_settings(main: Node) -> void:
 	if master:
 		master.value = 50.0
 		_check(is_equal_approx(AudioServer.get_bus_volume_db(0), linear_to_db(0.5)), "the master slider sets the Master bus")
+	var render := menu.slider("3D render scale")
+	_check(render != null, "Settings has a 3D render scale slider")
+	if render:
+		render.value = 75.0
+		_check(is_equal_approx(get_tree().root.scaling_3d_scale, 0.75), "the render scale slider scales the 3D view")
 	_check(menu.press("Controls") and menu.page == MenuScreen.Page.CONTROLS, "Settings opens Controls")
 	_check(menu.press("Journal"), "picking the journal to rebind")
 	await get_tree().process_frame
@@ -1857,6 +1862,7 @@ func _check_settings(main: Node) -> void:
 	await get_tree().process_frame
 	settings.reset()
 	_check(settings.button_for("inventory") == JOY_BUTTON_Y, "reset puts the satchel back on Y")
+	_check(is_equal_approx(get_tree().root.scaling_3d_scale, 1.0), "reset draws the 3D view at full scale")
 	_check(settings.key_for("journal") == KEY_J and is_equal_approx(AudioServer.get_bus_volume_db(0), linear_to_db(GameSettings.DEFAULT_VOLUME)), "reset to defaults")
 	DirAccess.remove_absolute(settings.path)
 
