@@ -2,6 +2,41 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-20 09:00 UTC — Day 115: window size, render scale, clearing a pad button (systems)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 114's `da79158`). Baseline: 858 tests + smoke + launch green before any edit.
+- **ROADMAP #2 was stale.** "The Cindermoor morning flag and a rest prompt" landed on Day 87 (the crown's `foot_rest`
+  sets `cindermoor_morning`, and every Cindermoor region has a morning override). Marked done.
+- **Systems (ROADMAP #5): settings follow-ups.**
+  - **Window size.** Settings → "Window size: 1280 × 720", stepping through 1280×720, 1600×900, 1920×1080, 2560×1440
+    and 3840×2160. Only sizes that fit the screen are offered, and the button is greyed out in fullscreen. The window
+    is centred when it changes. A maximized window is left as it is. Saved as `[display] window_size = "1600x900"`.
+  - **3D render scale.** A slider from 50 to 100 % sets the root viewport's `scaling_3d_scale`. The world is drawn
+    smaller and scaled up, and the UI stays sharp. It's for slower machines. Saved as `[display] render_scale`.
+  - **Clear for the quick save/load pad buttons.** Once Quicksave or Quickload has a pad button, the Controls page
+    shows a **Clear** beside its row. Clearing works only for actions that start with no button, so interact, the
+    journal and the rest can only be moved.
+    The Load page's Delete and this Clear now share `MenuScreen._add_beside`.
+- **Smoke:** in the running game, the render-scale slider scales the 3D view, and Reset puts it back to full.
+- **Tests:** `test_display_settings.gd` (4): sizes (cycling, wrapping, an unknown size ignored) and the scale on the root
+  viewport; the file round trip with bad sizes and scales falling back; clearing (only the quick ones, nothing to
+  clear, the InputMap and the file follow); the Settings and Controls pages (size steps and saves, the slider, the size
+  greyed out in fullscreen, Clear appears, clears and goes). 862 tests + smoke + launch green.
+
+**Decisions**
+- **Presets, not free sizes.** A list of common 16:9 sizes is easy to step through on a pad. The stretch mode is
+  already `canvas_items` / `expand`, so other aspect ratios still lay out. A free-size field can come later if wanted.
+- **Bilinear render scaling.** FSR 1/2 only make sense on Forward+/Vulkan, and nobody can judge them in this sandbox
+  (Compatibility renderer). That's left as an owner check in #5.
+- **Only actions with no default can be cleared.** If a player could clear interact, a pad-only player could lock
+  themselves out. The quick save/load start with no button, so "none" is a state they already know.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a content session** (due by ~Day 117), then polish twenty-one (due by ~Day 122). Fetch and
+   reset `main` before trusting it.
+
 ## 2026-11-19 21:00 UTC — Day 114: polish twenty (walking between placements)
 
 **Did**

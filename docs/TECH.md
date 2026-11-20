@@ -1237,6 +1237,7 @@ once, on `drag_ended`) and again on leaving.
 [display]  text_scale = 0.75..2.0   (menu presets 0.85 / 1.0 / 1.25 / 1.5 → UiTheme)
            text_speed = 0..400 chars/s (presets Slow 25 / Normal 50 / Fast 100 / Instant 0)
            window_mode = "windowed" | "fullscreen", vsync = bool   (Day 56; DisplayServer)
+           window_size = "1600x900" (one of WINDOW_SIZES; Day 115), render_scale = 0.5..1.0 (Day 115)
 [camera]   sensitivity = 0.25..2.5, invert_x, invert_y   (Player reads them per event)
            dialogue = bool (default true; Day 73: "Frame conversations")
 [pad]      stick_deadzone = 0.05..0.5 (default 0.2) → InputMap deadzone of the PAD_AXES actions
@@ -1285,6 +1286,17 @@ once, on `drag_ended`) and again on leaving.
   (group `dialogue_ui`). No timing gates: nothing waits on the reveal.
 - **Display (Day 56)**: `_apply_display` is a no-op under the headless display server, so
   tests and CI only check the stored values; it leaves a maximized window alone when windowed.
+- **Window size and render scale (Day 115)**: Settings → "Window size: 1280 × 720" steps through
+  `GameSettings.WINDOW_SIZES` that fit the window's screen (`fitting_window_sizes`: the usable rect; every size
+  headless), disabled in fullscreen. `_apply_display` sizes and centres the window only when its mode is plainly
+  `WINDOW_MODE_WINDOWED`, so a maximized window is left alone. "3D render scale" (50–100 %) sets the root viewport's
+  `scaling_3d_scale` (`_apply_render_scale`, also headless): the world draws smaller and is scaled up, the UI stays at
+  full resolution. Bilinear scaling; FSR is a later option once judged on Vulkan.
+- **Clearing a pad button (Day 115)**: `GameSettings.can_clear_button` holds for the actions whose default is no
+  button (quicksave, quickload); `clear_button` takes it away (the others can only be moved, so the game never loses
+  interact or the journal on a pad). The Controls page shows a **Clear** beside such a row while it has a button
+  (`MenuScreen._add_beside`, shared with the Load page's Delete). A cleared button is the default, so the file
+  simply drops the entry.
 - Loading clamps every value and ignores unknown/reserved/duplicate keys, so an old or
   hand-edited file never breaks the game. Tests use their own instance and path
   (`GameSettings.set_current`); the smoke test writes `user://smoke_settings.cfg`.

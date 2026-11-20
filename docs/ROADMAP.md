@@ -891,9 +891,8 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [S] **A systems session** (the Cindermoor morning flag #2, or #5's leftovers), then content (#1d/#1b; content is due
-   by ~Day 117: the last was Day 113). Polish twenty-one is due by ~Day 122 (candidates in #1a). Fetch and reset `main`
-   before trusting it.
+1. [C] **A content session** (#1d/#1b/#3; content is due by ~Day 117: the last was Day 113). Then polish twenty-one
+   (due by ~Day 122; candidates in #1a). Fetch and reset `main` before trusting it.
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
@@ -928,10 +927,9 @@ each .glb < 5 MB.
    down to the boat; a tallow-tin prop on the slip would help it read); Oda hearing the High Keeper's alive (she
    steered round the Spire 38 years); (Oriel at the chapter's next sitting: Day 95); Iver, Wenna and Ness have no lines yet for the
    stair climbed or Oriel told (Day 92/93; Hild's landed Day 93). Ness on the moor could hear Oriel went down to the boat.
-2. [S] **The days pass on Cindermoor** — *decided Day 86:* Cindermoor's clock is a **story clock**, not a free-running
-   day/night: flags move it, and each Cindermoor region carries light and fog overrides for it (`cindermoor_chapter_sat` →
-   night, `cindermoor_chapter_up` → dusk; first match wins, so later times go first in the list). Follow-up with the lower
-   rooms: the morning flag and a rest prompt; (the shared clock: Day 94, `data/clocks.json` / `StoryClock`).
+2. [S] ~~**The days pass on Cindermoor**~~ — done: the story clock (Day 86/94), the morning flag and the crown's rest
+   (`foot_rest` → `cindermoor_night` sets `cindermoor_morning`, Day 87). Day 115 found this item stale. A free-running
+   day/night elsewhere is not planned; any new time of day is a flag, a `clocks.json` line and overrides.
 3. [C] **Act II follow-ups** (fold a line or two into later sessions; Kindleby/the ring are behind the player now, so most
    need Act III to look back — letters, Oda's talk, or Keepers come down the lane in, LORE plan step 4):
    Aldous and the Hood-Pin (the hand on the stair; "tonight"); the Provost or Tobin seeing the
@@ -949,10 +947,12 @@ each .glb < 5 MB.
    the Day 12 glow/contrast/saturation grading, SSAO strength, the water colours).
    Needs the owner to run the game locally and report back.
 5. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56; pad rebinding and
-   prompt families Day 112): a resolution/scale option for windowed mode; the triggers as bindable buttons (they're
+   prompt families Day 112; window size, 3D render scale and Clear for the quick pad buttons Day 115): an **owner
+   check on a real screen** of the window sizes (centred, a maximized window left alone) and how low the render
+   scale reads (FSR instead of bilinear on Vulkan?); a borderless/exclusive fullscreen choice; the triggers as bindable buttons (they're
    axes in Godot); button **glyph icons** instead of names once there's art for them; an **owner check with real
    pads** (a Sony and a Switch pad: does Auto pick the right family, and does a Switch pad report positions as Godot
-   documents?); a "Clear" for the quick save/load pad buttons (today they can only be moved, not unset). (The "[Esc] back" hints follow the pad since Day 61.)
+   documents?). (The "[Esc] back" hints follow the pad since Day 61.)
 6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
    Saltmarrow and Shingle Point too (offshore, leaning back after the burn); (the ember light
    pushing fog back round the player: Day 78 — follow-up: let it ease the environment fog's thickening too if it reads
