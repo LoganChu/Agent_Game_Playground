@@ -653,6 +653,71 @@
         "if": "flag:cindermoor_choir_answered=named"
       },
       {
+        "say": "iver",
+        "text": "You went up. I heard the Provost count you at the door, one, and then the same again coming down. I've never heard her count anything twice.",
+        "if": [
+          "flag:cindermoor_stair_down",
+          "!flag:cindermoor_provost_knows",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "One of ours, she says. A novice. ...I rowed in every midsummer for thirty-one years. I'll have walked past you on the steps with my mind on a comma. I'm sorry. I'm listening now, if that's any good.",
+        "if": [
+          "flag:cindermoor_provost_knows",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "Her feet went different, after you told her. Lighter. Like somebody who's put a pack down and isn't sure she's allowed.",
+        "if": [
+          "flag:cindermoor_oriel_knows",
+          "flag:cindermoor_oriel_choice=",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "She's at the stair door. Breathing like she's at the top of a stair already.",
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "She went down to the boat. I listened to her the whole way down the road, and then nothing. Sitting, I'd think. In it.",
+        "if": [
+          "flag:cindermoor_oriel_choice=boat",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "She's stood behind the Provost. They breathe together, the pair of them. I don't think either of them knows.",
+        "if": [
+          "flag:cindermoor_oriel_choice=own",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "iver",
+        "text": "It's loud up there now. Not singing. Burning. I can hear it in my teeth when the wind's off the top.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "iver",
+        "text": "Quiet up there now. Properly quiet. I keep turning my head to it anyway. You don't stop listening because nobody's singing.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "iver",
+        "text": "They're still singing up there. I've stopped minding. You can live next to a thing you can hear. Lowsong taught me that.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
         "end": true
       }
     ],

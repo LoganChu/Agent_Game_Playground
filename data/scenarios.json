@@ -957,6 +957,20 @@
       "shot": "--camera=11.0,3.2,-0.6:6.8,1.9,-5.0"
     },
     {
+      "id": "word_goes_round",
+      "act": "Act III — The Spire",
+      "title": "Word Goes Round",
+      "inherits": "what_she_was",
+      "region": "cindermoor_boat_stair",
+      "spawn": "from_ferry",
+      "description": "Asked what she wanted, Oriel went down to sit in the eighth boat on its rollers. Back at the Boat Stair the Wakebearer tells Oda the High Keeper is alive: thirty-eight years she steered round that tower like a rock, and she'll take Oriel a cup, same as Merrit. At the Spire's foot Iver and Wenna Coll have a word each for the stair climbed and where Oriel went.",
+      "flags": {
+        "cindermoor_oriel_choice": "boat",
+        "cindermoor_oda_heard_oriel": true
+      },
+      "shot": "--camera=1.4,2.3,9.2:-3.6,0.8,3.0"
+    },
+    {
       "id": "the_lantern_room",
       "act": "Act III — The Spire",
       "title": "The Lantern Room",

@@ -911,6 +911,27 @@
         "if": "flag:wrackholm_last_line=came_in"
       },
       {
+        "say": "wenna",
+        "text": "Oda says there's a Wren keeping the Keepers' door at Kindleby, and he asks who's going by. Every one. Even her.",
+        "if": [
+          "flag:kindleby_aldous_door=kept",
+          "flag:kindleby_aldous_met_provost",
+          "!flag:wrackholm_wenna_heard_warden"
+        ]
+      },
+      {
+        "say": "wenna",
+        "text": "That's a warden. A horn's the same. You don't answer it to be kind. You answer it so somebody's been counted in.",
+        "if": [
+          "flag:kindleby_aldous_door=kept",
+          "flag:kindleby_aldous_met_provost",
+          "!flag:wrackholm_wenna_heard_warden"
+        ],
+        "set": {
+          "wrackholm_wenna_heard_warden": true
+        }
+      },
+      {
         "goto": "hub"
       }
     ],

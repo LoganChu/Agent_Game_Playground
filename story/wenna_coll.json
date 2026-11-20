@@ -1188,6 +1188,71 @@
         "if": "flag:cindermoor_eighth_told=told"
       },
       {
+        "say": "wenna_coll",
+        "text": "You went up and come down. Two hundred steps, they told me. I counted you on my fingers from here and ran out.",
+        "if": [
+          "flag:cindermoor_stair_down",
+          "!flag:cindermoor_provost_knows",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "One of theirs, the Provost says. A novice. ...You don't walk like one. You walk like somebody who's carried a sack a long way and put it down and still leans.",
+        "if": [
+          "flag:cindermoor_provost_knows",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "She looks at you different now. Like a collier looks at a clamp she raked out herself, years back, and come home to find still standing.",
+        "if": [
+          "flag:cindermoor_oriel_knows",
+          "flag:cindermoor_oriel_choice=",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Stood at that door with her hand out, not touching it. I know that one. That's how you stand at a clamp door when you don't know what's inside.",
+        "if": [
+          "flag:cindermoor_oriel_choice=climb",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Gone down to sit in her boat. I'd have done the same. You want to sit in the thing that'd take you away, even when you're not going.",
+        "if": [
+          "flag:cindermoor_oriel_choice=boat",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Stood with the Provost. Nobody told her where to stand. First thing I've seen her choose.",
+        "if": [
+          "flag:cindermoor_oriel_choice=own",
+          "flag:cindermoor_cradle_choice="
+        ]
+      },
+      {
+        "say": "wenna_coll",
+        "text": "My fourteen. Nobody'll want candles up here now it's lit. I'll carry them home for the huts. Hob's always short.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Fourteen candles and nowhere they're wanted. I'll light one of a night anyway. For whoever went out that window.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "wenna_coll",
+        "text": "Good job I kept fourteen back. It's a long dark round. Somebody'll want them before spring.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
         "end": true
       }
     ]

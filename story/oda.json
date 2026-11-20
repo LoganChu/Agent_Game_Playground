@@ -1674,6 +1674,45 @@
     ],
     "kindleby": [
       {
+        "say": "narrator",
+        "text": "Oda looks up the chapter-house steps to where the door-warden keeps the door, and shakes her head slowly, the way you would at weather.",
+        "if": [
+          "flag:kindleby_aldous_door=kept",
+          "flag:kindleby_aldous_met_provost",
+          "!flag:kindleby_oda_saw_warden"
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "There's a Wren on the Keepers' door. I went up for what they owe me on the oil, and he asked me where I was going. Thirty-eight years I've carried their oil up those steps, and nobody on that door ever asked me anything.",
+        "if": [
+          "flag:kindleby_aldous_door=kept",
+          "flag:kindleby_aldous_met_provost",
+          "!flag:kindleby_oda_saw_warden"
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "Sat on Tobin's stool to ask it, if you please. Like a harbormaster.",
+        "if": [
+          "flag:kindleby_aldous_door=kept",
+          "flag:kindleby_aldous_stool",
+          "!flag:kindleby_oda_saw_warden"
+        ]
+      },
+      {
+        "say": "oda",
+        "text": "I told him nowhere he'd know. He nodded like that was an answer. ...I think he wrote it down. I'll tell Wenna. She'll like that, a warden who asks.",
+        "if": [
+          "flag:kindleby_aldous_door=kept",
+          "flag:kindleby_aldous_met_provost",
+          "!flag:kindleby_oda_saw_warden"
+        ],
+        "set": {
+          "kindleby_oda_saw_warden": true
+        }
+      },
+      {
         "say": "oda",
         "text": "I'll lie here. Mind they don't keep you. Keepers are hospitable the way a net is hospitable.",
         "if": "!flag:kindleby_met_provost"
@@ -2231,6 +2270,17 @@
             "goto": "cindermoor_slips"
           },
           {
+            "text": "The High Keeper's alive. She's up on the crown.",
+            "if": [
+              "flag:cindermoor_eighth_met",
+              "!flag:cindermoor_oda_heard_oriel"
+            ],
+            "set": {
+              "cindermoor_oda_heard_oriel": true
+            },
+            "goto": "cindermoor_oriel"
+          },
+          {
             "text": "Take me back to Kindleby.",
             "goto": "cindermoor_no_lane"
           },
@@ -2354,6 +2404,17 @@
             "text": "Take me out to Kindleby.",
             "if": "flag:cindermoor_lane_out",
             "goto": "lane_out_again"
+          },
+          {
+            "text": "The High Keeper's alive. She's up on the crown.",
+            "if": [
+              "flag:cindermoor_eighth_met",
+              "!flag:cindermoor_oda_heard_oriel"
+            ],
+            "set": {
+              "cindermoor_oda_heard_oriel": true
+            },
+            "goto": "cindermoor_oriel"
           },
           {
             "text": "Not yet.",
@@ -2841,6 +2902,53 @@
       },
       {
         "goto": "start"
+      }
+    ],
+    "cindermoor_oriel": [
+      {
+        "say": "narrator",
+        "text": "Oda doesn't answer at once. She looks up the cinder road, into the fog, for longer than it takes to look at anything."
+      },
+      {
+        "say": "oda",
+        "text": "Alive. ...Thirty-eight years I've steered round that tower like it was a rock, because it was a rock. Somebody put the light out, everybody knew that much. I never once thought somebody might still be stood under it."
+      },
+      {
+        "say": "oda",
+        "text": "Walking round it. Three months. ...I'd have walked round it too, I expect. You walk round a thing you can't put down.",
+        "if": "!flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "oda",
+        "text": "And you told her what she did. Well. Then she's carrying it now, and not walking it. That's harder. It's also how you get anywhere.",
+        "if": "flag:cindermoor_eighth_told=told"
+      },
+      {
+        "say": "narrator",
+        "text": "Her eyes go past you to the eighth slip, where a woman sits very straight in a boat that never went anywhere.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "oda",
+        "text": "That's her? In the eighth boat? ...I'll take her a cup, same as Merrit. She'll not drink it. They never do, the first week.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "oda",
+        "text": "She let you light it. Or she didn't stop you. With Keepers I've never been able to tell the difference.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "oda",
+        "text": "So the Spire's dark, and the woman who darkened it is alive to see it. I'd like to ask her what for. I won't. She'll have had the right question by now, and it wasn't mine.",
+        "if": "!flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "if": "flag:cindermoor_counted_down",
+        "goto": "cindermoor_after"
+      },
+      {
+        "goto": "cindermoor"
       }
     ]
   }

@@ -1404,6 +1404,18 @@
     "kindleby_aldous_stool": {
       "description": "Day 113: the door-warden asked for a stool; the Wakebearer asked Tobin, who carried his quay-bell stool up the steps himself. Aldous sits on it by the chapter-house steps (aldous_warden_seated) and the bell's stool is gone.",
       "default": false
+    },
+    "cindermoor_oda_heard_oriel": {
+      "description": "Day 116: told Oda at the Boat Stair that the High Keeper is alive on the crown (once the Wakebearer has met Oriel on the ring path). Thirty-eight years she steered round the Spire; with Oriel in the eighth boat she'll take her a cup, as she does Merrit.",
+      "default": false
+    },
+    "kindleby_oda_saw_warden": {
+      "description": "Day 116: Oda at Kindleby's landing stage on the Wren keeping the chapter-house door (kindleby_aldous_door=kept): he asked her where she was going, the first on that door who ever did. She'll tell Wenna. One-time.",
+      "default": false
+    },
+    "wrackholm_wenna_heard_warden": {
+      "description": "Day 116: Wenna Garrow at Wrackholm heard from Oda of the Wren keeping the Keepers' door at Kindleby who asks who's going by: 'That's a warden. A horn's the same.' One-time.",
+      "default": false
     }
   }
 }
