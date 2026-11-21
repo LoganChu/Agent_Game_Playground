@@ -881,6 +881,20 @@
       "rotation_y": -95,
       "note": "At the very edge of the fourth cresset's light, her back to the doused one, facing whoever comes up the road. Gone with the others once the doused cresset is relit.",
       "if": "!flag:cindermoor_cresset_steps_5"
+    },
+    {
+      "npc": "ness",
+      "position": [
+        12.5,
+        0,
+        -32.4
+      ],
+      "rotation_y": -80,
+      "note": "After the count down (Day 118): back alone at the shelter's mouth, where the man sat on his basket, facing the road.",
+      "if": [
+        "flag:cindermoor_cresset_steps_5",
+        "flag:cindermoor_counted_down"
+      ]
     }
   ],
   "objects": [
@@ -917,8 +931,11 @@
         0.5,
         0
       ],
-      "if": "flag:cindermoor_cresset_steps_5",
-      "note": "Where Ness stood at the light's edge, after the relighting: the rake left leaning on the shelter."
+      "if": [
+        "flag:cindermoor_cresset_steps_5",
+        "!flag:cindermoor_counted_down"
+      ],
+      "note": "Where Ness stood at the light's edge, after the relighting: the rake left leaning on the shelter. Gone after the count down: Ness is back."
     }
   ],
   "exits": [

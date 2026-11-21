@@ -969,6 +969,28 @@
         "cupped"
       ]
     },
+    "cindermoor_ness_back": {
+      "description": "Day 118: after the count down Ness came back alone to the Unmoored's shelter on the long steps, and the Wakebearer asked her why (once): lit, the fog's thin everywhere and the others sit in a hollow under the crown; released, something went out along the shoulder singing and they stood up for it; dark, she watched the ember come back down the road.",
+      "default": false
+    },
+    "cindermoor_ness_heard_oriel": {
+      "description": "Day 118: told Ness, back at the shelter after the ending, that the one who was here first came down (once): where Oriel went (boat / climb / own / left be).",
+      "default": false
+    },
+    "cindermoor_ness_midwinter": {
+      "description": "Day 118, dark ending: whether the Wakebearer will ask the Unmoored at midwinter when the ember goes round the ring (the fen never asks them): '' (not said), 'ask' (she'll be asked, and may say no) or 'leave' (left be, as they came for). For the dark round.",
+      "default": "",
+      "values": [
+        "",
+        "ask",
+        "leave"
+      ],
+      "future": true
+    },
+    "cindermoor_ness_garrow": {
+      "description": "Day 118: asked Ness, back at the shelter after the Keepers relit her cresset, if Hild Garrow is kin (once). Garrow is a common Tidewright name; it was her man's, taken with the boat. No kin.",
+      "default": false
+    },
     "cindermoor_doused_seen": {
       "description": "Looked at the cresset past the Unmoored on the long steps: put out on purpose, raked and packed with wet cinder (Day 82). The way on up waits on it.",
       "default": false

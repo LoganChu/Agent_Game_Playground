@@ -3,6 +3,10 @@
   "knots": {
     "start": [
       {
+        "if": "flag:cindermoor_counted_down",
+        "goto": "after"
+      },
+      {
         "if": "!flag:cindermoor_ness_met",
         "goto": "first"
       },
@@ -356,6 +360,274 @@
           "cindermoor_spire_foot",
           "from_ness"
         ],
+        "end": true
+      }
+    ],
+    "after": [
+      {
+        "say": "narrator",
+        "text": "A tall woman stands at the mouth of the Unmoored's shelter, hooded, a short iron rake in a hand that's black to the wrist. The others' baskets and bundles are still where they left them. She's alone.",
+        "if": "!flag:cindermoor_ness_met"
+      },
+      {
+        "say": "ness",
+        "text": "You'll be the one that went up. I'm Ness. I'd have told you not to, if I'd been here.",
+        "if": "!flag:cindermoor_ness_met"
+      },
+      {
+        "say": "narrator",
+        "text": "Ness is back at the shelter's mouth, on her own, her rake in her hand again. The handle's worn pale where her hands went.",
+        "if": [
+          "flag:cindermoor_ness_met",
+          "!flag:cindermoor_keepers_relit"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "Ness is back at the shelter's mouth, on her own, the rake she took with her across her knees.",
+        "if": [
+          "flag:cindermoor_ness_met",
+          "flag:cindermoor_keepers_relit"
+        ]
+      },
+      {
+        "set": {
+          "cindermoor_ness_met": true
+        },
+        "goto": "after_hub"
+      }
+    ],
+    "after_hub": [
+      {
+        "choice": [
+          {
+            "text": "You came back.",
+            "if": "!flag:cindermoor_ness_back",
+            "set": {
+              "cindermoor_ness_back": true
+            },
+            "goto": "came_back"
+          },
+          {
+            "text": "The one who was here first. She came down.",
+            "if": [
+              "flag:cindermoor_eighth_met",
+              "!flag:cindermoor_ness_heard_oriel"
+            ],
+            "set": {
+              "cindermoor_ness_heard_oriel": true
+            },
+            "goto": "oriel"
+          },
+          {
+            "text": "At midwinter the ember goes round the ring. Shall I ask you?",
+            "if": [
+              "flag:cindermoor_cradle_choice=dark",
+              "flag:cindermoor_ness_midwinter="
+            ],
+            "goto": "midwinter"
+          },
+          {
+            "text": "Hild Garrow dug out the cresset. Any kin of yours?",
+            "if": [
+              "flag:cindermoor_keepers_relit",
+              "!flag:cindermoor_ness_garrow"
+            ],
+            "set": {
+              "cindermoor_ness_garrow": true
+            },
+            "goto": "garrow"
+          },
+          {
+            "text": "Leave her be.",
+            "goto": "after_bye"
+          }
+        ]
+      }
+    ],
+    "came_back": [
+      {
+        "say": "narrator",
+        "text": "The fog on the shoulder has gone thin as breath. You can see right along it now, to where the moor drops off to the water, and the Spire's light lies down the road behind you like something spilled.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "ness",
+        "text": "We went along the shoulder to where it was thickest. It isn't thick anywhere now. You can see a mile. So I came back. I don't know what for. The others went round under the crown, on the north side. There's a hollow there where it still lies, a little. They're sitting in that.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "ness",
+        "text": "Hild says it took you first. What you'd carried up. The stair, and the counting.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "ness",
+        "text": "Then you've had what we came up here for, and you never asked for it. I'm sorry. I'd not wish that on anybody who didn't choose it.",
+        "if": [
+          "flag:cindermoor_cradle_choice=lit",
+          "!flag:cindermoor_way_on=led"
+        ]
+      },
+      {
+        "say": "ness",
+        "text": "You're not counting now. I told you that's how you get back to things. I didn't mean it as a wish.",
+        "if": [
+          "flag:cindermoor_cradle_choice=lit",
+          "flag:cindermoor_way_on=led"
+        ]
+      },
+      {
+        "say": "narrator",
+        "text": "The fog lies on the shoulder as thick as ever. Ness stands just past the cresset's light, the way she stood before anybody climbed anything.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "ness",
+        "text": "Something came along the shoulder the night you went up. Out, not in. Singing, going away. We stood up for it, all of us. Nobody told us to.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "ness",
+        "text": "It's thick again. That's how we like it. I came back to see who'd let them out. Now I've seen.",
+        "if": "flag:cindermoor_cradle_choice=released"
+      },
+      {
+        "say": "narrator",
+        "text": "Ness turns her face a little aside as you come up. The ember's still in your hand. Nothing's changed on the shoulder; the fog's where it was.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "ness",
+        "text": "Still lit. You carried it down again. I watched it come down the road, one cresset and then the next, like somebody walking down with a lamp. Slower than you went up.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "ness",
+        "text": "Hild says you're to take it round the ring at midwinter, and every island chooses its own burning and writes it down.",
+        "if": "flag:cindermoor_cradle_choice=dark"
+      },
+      {
+        "say": "ness",
+        "text": "The others won't come back. I left my rake. That's all it was. You can't put a thing down and go back for it and still call it put down, so I suppose I hadn't.",
+        "if": "!flag:cindermoor_keepers_relit"
+      },
+      {
+        "say": "ness",
+        "text": "The others won't come back. I don't know why I did. I took my rake this time, and then I walked it back here.",
+        "if": "flag:cindermoor_keepers_relit"
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "oriel": [
+      {
+        "say": "ness",
+        "text": "Was she. I heard her feet at night, up the moor. Round and round, the same pace. Never stopped."
+      },
+      {
+        "say": "ness",
+        "text": "Down to the boat. The eighth one, that nobody rowed. Sitting in a boat that won't go anywhere. I know that one. I sat a year on the fen with a boat I'd not take out.",
+        "if": "flag:cindermoor_oriel_choice=boat"
+      },
+      {
+        "say": "ness",
+        "text": "Up the stair with you, and down again. Then she's stopped going round. I'll miss her feet. I didn't know I would.",
+        "if": "flag:cindermoor_oriel_choice=climb"
+      },
+      {
+        "say": "ness",
+        "text": "Stood behind the Provost, Hild says, and nobody told her to. That's the hardest place there is. Behind somebody who's going to ask you things.",
+        "if": "flag:cindermoor_oriel_choice=own"
+      },
+      {
+        "say": "ness",
+        "text": "She was here first. We only ever came up after her."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "midwinter": [
+      {
+        "say": "ness",
+        "text": "Ask us. The fen won't. Hesper says that's not her rule, it's the fen's, and she's right. Nobody puts the Unmoored on a list."
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll ask you. You can say no.",
+            "set": {
+              "cindermoor_ness_midwinter": "ask"
+            },
+            "goto": "midwinter_ask"
+          },
+          {
+            "text": "No. I'll leave you be.",
+            "set": {
+              "cindermoor_ness_midwinter": "leave"
+            },
+            "goto": "midwinter_leave"
+          }
+        ]
+      }
+    ],
+    "midwinter_ask": [
+      {
+        "say": "ness",
+        "text": "Then I'll say no. Probably. I'd like to be asked a thing I can say no to. It's been a long time since anybody asked me anything I could answer."
+      },
+      {
+        "say": "narrator",
+        "text": "She looks at the ember, not quite away from it, for the first time."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "midwinter_leave": [
+      {
+        "say": "ness",
+        "text": "Good. That's what we came for."
+      },
+      {
+        "say": "ness",
+        "text": "...Good."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "garrow": [
+      {
+        "say": "ness",
+        "text": "Garrow. Half the lanes are Garrows. You can't throw a rope on Wrackholm without a Garrow catching it."
+      },
+      {
+        "say": "ness",
+        "text": "It was my man's name. I took it with the boat. I never met her before she came up the road with a lantern on a boat-hook, and she never looked at me twice. Why would she."
+      },
+      {
+        "say": "ness",
+        "text": "She didn't look angry, did she. Digging it out. She looked like she'd been asked to."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "after_bye": [
+      {
+        "say": "narrator",
+        "text": "She nods, once, and looks back up the road, at the light.",
+        "if": "flag:cindermoor_cradle_choice=lit"
+      },
+      {
+        "say": "narrator",
+        "text": "She nods, once, and steps back out of the light.",
+        "if": "!flag:cindermoor_cradle_choice=lit"
+      },
+      {
         "end": true
       }
     ]
