@@ -1026,6 +1026,20 @@
       "shot": "--camera=12,6,17:-60,6,-6"
     },
     {
+      "id": "ness_comes_back",
+      "act": "Act III — The Spire",
+      "title": "Ness Comes Back",
+      "inherits": "the_homecoming",
+      "region": "cindermoor_long_steps",
+      "spawn": "from_crown",
+      "description": "After the Spire was lit the Wakebearer came back in to Cindermoor on the Mercy. The fog on the shoulder is thin as breath, and Ness Garrow has come back alone to the Unmoored's shelter, her rake in her hand again: the others sit in a hollow under the crown where a little of it still lies.",
+      "flags": {
+        "lanes_ferry_at": "cindermoor",
+        "cindermoor_ness_back": true
+      },
+      "shot": "--at=6.5,-29.0,-110 --settle=90"
+    },
+    {
       "id": "the_wrens_fire",
       "act": "Act III — The Spire",
       "title": "The Wrens' Fire",
