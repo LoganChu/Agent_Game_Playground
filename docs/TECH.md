@@ -270,6 +270,17 @@ talkable) to the new actor, which was built at once (the entry's node) and waits
 (`await_walker`); on arrival it `arrive`s with the walker's heading and eases to its placed facing, and the walker frees
 itself. If the new placement goes first, the walker fades out. Anything else (too far, water, blocked, seated) fades as
 before. The arrival's model/pose is a cut on arrival, like a swap in place.
+**Since Day 117, a blocked walk may bend.** `_walkers` asks `Region.walk_route(from, to, ignore)`, which returns the
+points walked through (the last is the new spot) or `[]`. Straight first (exactly `walkable_move`); if blocked,
+`route_between` tries bend points `WALK_ROUTE_OFFSETS` (1.5/2.5/3.5/5 m) to either side of the straight line — one bend at
+¼, ½ or ¾ along, or two bends held off the same side level with 15 %/85 % of the way — **shortest first, the first
+clear one wins**, and only routes within `WALK_ROUTE_STRETCH` (1.8×) of the straight distance (and ≤ `WALK_REACH` + 4 m)
+are tried. Every bent leg is probed by `_walk_leg_clear`: ground every 0.5 m (`_leg_points`; only the last leg stops
+0.9 m short), rays down the middle **and** `WALK_ROUTE_HALF_WIDTH` 0.3 m to either side, so a body never grazes the
+corner. `route_between(from, to, clear)` takes the clearance check as a Callable `(a, b, last, bent) -> bool`, so the
+tests try it on made-up obstacles (`tests/test_polish_twenty_one.gd`). The walker follows the bends (`walk_to`'s `via`;
+`walk_bends()` lists those left); the smoke test checks that some walk blocked by a Saltmarrow house bends round it
+with every leg clear. Still no navmesh: a route needing more than two bends fades.
 **Inland regions (Day 21, `thornwold_woods`):** no `water_level`; the walkable floor is the
 `base` height and steep `land` banks (rects along every edge, falloff ≲ 2 m) bound it, so the
 reachable area never touches `ground.bounds`. With no water the colour rules treat `base` as

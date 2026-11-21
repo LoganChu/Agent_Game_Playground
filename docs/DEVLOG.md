@@ -2,6 +2,43 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-21 09:00 UTC — Day 117: polish twenty-one (a walk bends round what's in the way)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 116's `6f3ac67`). Baseline: 868 tests + smoke + launch green before any edit.
+- **Polish (ROADMAP *Next up* #1, due by ~Day 122; #1a's walk follow-up): a walk with a path round an obstacle.** Since
+  Day 114 a near move walks only if the straight line is clear; a bench, a clamp or a house in the way meant a fade.
+  Now `Region.walk_route` tries the straight way first (exactly the old `walkable_move`), then routes that bend once
+  (at ¼, ½ or ¾ of the way, 1.5–5 m to one side) or twice (held off one side, round a longer obstacle). They're tried
+  shortest first, the first clear one wins, and none longer than 1.8× the straight distance. A bent leg is probed
+  on the ground and by rays down its middle and 0.3 m to either side, so the walker never clips the corner it turns.
+  The walker passes its bend points in order (`NpcActor.walk_to(…, via)`), then hands over at the new spot as before.
+- **Smoke:** `_check_walk_rays` now also asks for routes through each Saltmarrow house: 32 of the 36 blocked walks bend round, and every
+  leg of every bent route is clear in the real physics world.
+- **Tests:** `test_polish_twenty_one.gd` (5): a clear way stays straight (and swaps, too far, slab still don't walk);
+  a round obstacle takes one bend, the straight way asked first, a smaller obstacle a nearer bend; a long obstacle two
+  bends on one side; a wall across or nothing clear gives no route; the walker passes both bends on the ground and
+  hands over. 873 tests + smoke + launch green.
+
+**Decisions**
+- **Candidate bends, not a navmesh.** A few moves a playthrough don't justify baking navigation per region (and the
+  conditional props would need rebakes). A handful of fixed bend shapes covers a bench, a clamp or a house corner;
+  anything needing more still fades, which reads fine.
+- **The clearance check is a Callable.** The test runner has no physics world, so `route_between(from, to, clear)`
+  takes the leg check; the tests pass made-up obstacles and the smoke test checks real rays.
+- **The straight way keeps its thin probe.** Widening it too would have turned some Day 114 walks back into fades.
+  Only bent legs are probed to a body's width.
+
+**Not done / owner checks**
+- I didn't get a per-region tally of which story moves now bend (Oriel across the Spire's foot, Wenna round her
+  clamp were the Day 114 fades). A quick headless probe script hung and I dropped it. Next polish pass: a debug
+  `tools/debug/walk_probe.gd` that lists every placement pair and straight/bent/fades.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a content session** (due by ~Day 120; #1d/#1b/#3), or a systems session first. Fetch and
+   reset `main` before trusting it.
+
 ## 2026-11-20 21:00 UTC — Day 116: word goes round (content)
 
 **Did**

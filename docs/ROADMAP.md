@@ -891,9 +891,9 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [P] **Polish twenty-one** (due by ~Day 122; candidates in #1a), or a systems session first (#1c/#5/#6), then
-   content again by ~Day 120 (#1d/#1b/#3). Fetch and reset `main` before trusting it. (Done Day 116, content: word goes
-   round — Iver/Wenna Coll on the stair and Oriel, Oda on the High Keeper alive, Oda/Wenna on the Wren keeping a door.)
+1. [C] **A content session** (due by ~Day 120; #1d/#1b/#3), or a systems session first (#1c/#5/#6); polish
+   twenty-two by ~Day 125 (candidates in #1a). Fetch and reset `main` before trusting it. (Done Day 117, polish
+   twenty-one: a walk between placements bends once or twice round what blocks the straight way.)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
@@ -911,15 +911,16 @@ each .glb < 5 MB.
    jetty's foot after the homecoming; the chalk marks as a prop. Lowsong leftovers: a warm-step cue (released) and
    Iver's boat on the bottom (lit, lamp) are text-only — props would help. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish twenty-one candidates** (due by ~Day 122; Day 114 was twenty): the far Spire reads pale in the
+1a. [P] **Polish twenty-two candidates** (due by ~Day 125; Day 117 was twenty-one): the far Spire reads pale in the
    horizon wash on every island (Compatibility; judge on Vulkan); a **two-speaker shot in tight spots** (the Mercy's
    deck, #9: the arm backs off by the speakers' spread and may meet the rails; a third speaker already joins the same
    way); the lift outdoors needs an owner's feel check (it triggers under 60 % of the reach; tune `CAMERA_LIFT_CLEAR`
    if it's too eager); the last landing reads very dark in Compatibility (judge on Vulkan); the robe/white read on
    Oriel (Vulkan, #4); the tied Mercy's fore warp crosses the landing's head at shin height on the short quays (an
    owner check that it doesn't read as a tripwire); Oriel is out of the lantern room's first frame (a two-speaker
-   framing could bring her in). Walk follow-ups (Day 114): a walk **with a path** round an obstacle (Oriel across the
-   Spire's foot and Wenna round her clamp still fade: the straight way is blocked); a seated NPC standing up to walk
+   framing could bring her in). Walk follow-ups (Day 114): (a walk with a path round an obstacle: Day 117, one or two
+   bends); a **`tools/debug/walk_probe.gd`** listing every placement pair per region as straight / bent / fades (do Oriel
+   across the Spire's foot and Wenna round her clamp bend now?); a seated NPC standing up to walk
    (seated placements fade); a short sit-down blend on arriving at a seated spot (a cut today); an owner's eye on the
    walk speed (1.1 m/s). (Done Day 108: the warps, the lantern room's arrival, the far Spire on Gull's Head and Shingle
    Point. Done Day 111: mooring posts, Delete on the Load page. Done Day 114: a placement-to-placement move walks
