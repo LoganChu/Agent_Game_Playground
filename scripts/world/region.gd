@@ -22,6 +22,13 @@ const WALK_PROBE_STEP := 0.5
 const WALK_MAX_RISE := 0.45
 const WALK_PROBE_HEIGHTS: Array[float] = [0.45, 1.3]
 const WALK_PROBE_SHORT := 0.9
+## Day 117: when the straight way is blocked, a walk may bend once or twice round what's in the way (`walk_route`).
+## The bend points are tried this far (m) to either side of the straight line, the whole route may be at most
+## WALK_ROUTE_STRETCH times the straight distance (and never past WALK_REACH + 4 m), and a bent leg is probed
+## WALK_ROUTE_HALF_WIDTH (m) to either side as well as down its middle, so a body brushes past no corner.
+const WALK_ROUTE_OFFSETS: Array[float] = [1.5, 2.5, 3.5, 5.0]
+const WALK_ROUTE_STRETCH := 1.8
+const WALK_ROUTE_HALF_WIDTH := 0.3
 
 var region_id := ""
 var data: Dictionary = {}
@@ -90,7 +97,8 @@ func build(id: String) -> void:
 ## box is still talking about them walking there. A swap in place (the same NPC, another model or pose on
 ## the same spot, e.g. Corran without his cord) still happens at once.
 ## When `animate`, an NPC who comes or goes (not a swap in place) fades in or out (Day 94, NpcActor.fade_in/out).
-## One who moves to a near spot with a clear way there walks it instead (Day 114, `walkable_move`, NpcActor.walk_to).
+## One who moves to a near spot with a clear way there walks it instead (Day 114, `walkable_move`, NpcActor.walk_to),
+## bending round what stands in the straight way if it must (Day 117, `walk_route`).
 func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> void:
 	var world := GameState.world
 	_refresh_greying(world, animate)
@@ -112,7 +120,7 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 	held_npc_moves = 0
 	# NPCs who come, go or move (not a swap in place): held while the box is open, faded otherwise.
 	var moving := _held_npcs(changes)
-	var walks: Dictionary = {}  # npc id -> the actor that walks to the new spot
+	var walks: Dictionary = {}  # npc id -> the walk's bend points (the last is the new spot)
 	if hold_npc_moves:
 		var held := moving
 		held_npc_moves = held.size()
@@ -124,6 +132,7 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 	# Corran without his cord) can hand its turn-to-the-player over to its replacement.
 	var builds: Array[Dictionary] = []
 	var left: Dictionary = {}  # npc id -> the actor just removed
+	var walkers: Dictionary = {}  # npc id -> the actor that walks to its new spot
 	for change: Dictionary in changes:
 		var entry: Dictionary = change["entry"]
 		if change["want"]:
@@ -134,6 +143,7 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 		if node is NpcActor:
 			var actor := node as NpcActor
 			if walks.has(actor.npc_id):
+				walkers[actor.npc_id] = actor
 				continue  # walks over once its arrival is built
 			if animate and moving.has(actor.npc_id):
 				actor.fade_out()
@@ -144,13 +154,14 @@ func refresh_conditional(animate: bool = true, hold_npc_moves: bool = false) -> 
 		var node := _build(entry["kind"], entry["data"])
 		if node:
 			var before: NpcActor = left.get(str(entry["data"].get("npc", "")))
-			var walker: NpcActor = walks.get(str(entry["data"].get("npc", "")))
+			var walker: NpcActor = walkers.get(str(entry["data"].get("npc", "")))
 			if node is NpcActor and before != null:
 				(node as NpcActor).take_over(before)
 			elif node is NpcActor and walker != null:
 				(node as NpcActor).await_walker()
 				add_child(node)
-				walker.walk_to(node as NpcActor, ground_y)
+				var bends: Array[Vector3] = walks[walker.npc_id]
+				walker.walk_to(node as NpcActor, ground_y, bends.slice(0, bends.size() - 1))
 				entry["node"] = node
 				continue
 			elif node is NpcActor and animate and moving.has((node as NpcActor).npc_id):
@@ -184,9 +195,10 @@ func _held_npcs(changes: Array[Dictionary]) -> Dictionary:
 	return held
 
 
-## The NPCs among `moving` who walk to their new spot rather than fade (npc id -> the actor that walks): exactly one
-## placement going and one coming, a standing actor (not seated, not on a circuit, not itself mid-walk or fading)
-## going to a placement without a circuit, and `walkable_move` says the way is clear.
+## The NPCs among `moving` who walk to their new spot rather than fade (npc id -> the bend points of the walk, the
+## last being the new spot; the walker is the actor going): exactly one placement going and one coming, a standing
+## actor (not seated, not on a circuit, not itself mid-walk or fading) going to a placement without a circuit, and
+## `walk_route` finds a way there (straight, or bending round what's in the way).
 func _walkers(changes: Array[Dictionary], moving: Dictionary) -> Dictionary:
 	var going: Dictionary = {}  # npc id -> [actors]
 	var coming: Dictionary = {}  # npc id -> [entry data]
@@ -212,8 +224,9 @@ func _walkers(changes: Array[Dictionary], moving: Dictionary) -> Dictionary:
 		if actor.is_seated() or actor.walks_circuit() or actor.is_walking() or actor.is_leaving() \
 				or actor.is_awaiting_walker() or target.get("circuit") is Dictionary:
 			continue
-		if walkable_move(actor.position, place(target.get("position")), actor):
-			out[npc] = actor
+		var route := walk_route(actor.position, place(target.get("position")), actor)
+		if not route.is_empty():
+			out[npc] = route
 	return out
 
 
@@ -224,13 +237,106 @@ func walkable_move(from: Vector3, to: Vector3, ignore: NpcActor = null) -> bool:
 	return not points.is_empty() and walk_way_clear(points, ignore)
 
 
+## The way someone at `from` walks to `to` mid-visit (local positions): the points it passes, the last being `to`
+## itself, or [] when there's none. Straight if `walkable_move` holds; otherwise the shortest route bending once (or
+## twice, round a longer obstacle) to one side, every bent leg clear on the ground and to a body's width
+## (`_walk_leg_clear`). The straight distance must still be within WALK_REACH. A slab region never walks.
+func walk_route(from: Vector3, to: Vector3, ignore: NpcActor = null) -> Array[Vector3]:
+	return route_between(from, to, func(a: Vector3, b: Vector3, last: bool, bent: bool) -> bool:
+		return _walk_leg_clear(a, b, last, bent, ignore))
+
+
+## The route search behind `walk_route`, with the clearance check given: `clear(a, b, last, bent)` says whether the leg
+## from `a` to `b` can be walked, `last` when `b` is the destination (whose probe stops WALK_PROBE_SHORT short of it),
+## `bent` for a leg of a bent route rather than the straight way.
+## Bend points are taken WALK_ROUTE_OFFSETS to either side of the straight line: one bend at a quarter, half or three
+## quarters along it, or two bends level with both ends of it and held off the same side. The shortest clear route
+## within WALK_ROUTE_STRETCH of the straight distance wins. The tests try it on made-up obstacles (no physics there).
+func route_between(from: Vector3, to: Vector3, clear: Callable) -> Array[Vector3]:
+	var none: Array[Vector3] = []
+	var flat := Vector2(to.x - from.x, to.z - from.z)
+	var length := flat.length()
+	if field == null or length <= SWAP_IN_PLACE or length > WALK_REACH:
+		return none
+	if clear.call(from, to, true, false):
+		return [to] as Array[Vector3]
+	var along := flat / length
+	var side := Vector3(-along.y, 0.0, along.x)
+	var limit := minf(length * WALK_ROUTE_STRETCH, WALK_REACH + 4.0)
+	var routes: Array = []  # [length, bends (the last is `to`)], tried shortest first; the first clear one wins
+	for offset: float in WALK_ROUTE_OFFSETS:
+		for sign: float in [1.0, -1.0]:
+			var off := side * offset * sign
+			var shapes: Array = [[from.lerp(to, 0.5) + off], [from.lerp(to, 0.25) + off], [from.lerp(to, 0.75) + off],
+				[from + off + (to - from) * 0.15, to + off - (to - from) * 0.15]]
+			for shape: Array in shapes:
+				var bends: Array[Vector3] = []
+				for p: Vector3 in shape:
+					bends.append(Vector3(p.x, ground_y(p.x, p.z), p.z))
+				bends.append(to)
+				var total := _flat_length(from, bends)
+				if total <= limit:
+					routes.append([total, bends])
+	routes.sort_custom(func(a: Array, b: Array) -> bool: return a[0] < b[0])
+	for route: Array in routes:
+		var bends: Array[Vector3] = route[1]
+		var ok := true
+		var at := from
+		for i in bends.size():
+			if not clear.call(at, bends[i], i == bends.size() - 1, true):
+				ok = false
+				break
+			at = bends[i]
+		if ok:
+			return bends
+	return none
+
+
+static func _flat_length(from: Vector3, points: Array[Vector3]) -> float:
+	var total := 0.0
+	var at := from
+	for p: Vector3 in points:
+		total += Vector2(p.x - at.x, p.z - at.z).length()
+		at = p
+	return total
+
+
+## One leg of a walk, `a` to `b`: the ground clear along it (stopping WALK_PROBE_SHORT short of the destination when
+## `last`) and the way clear at WALK_PROBE_HEIGHTS. A leg of a bent route (`bent`) is also probed WALK_ROUTE_HALF_WIDTH
+## to either side, so it never grazes the corner it bends round; the straight way is exactly `walkable_move`.
+func _walk_leg_clear(a: Vector3, b: Vector3, last: bool, bent: bool, ignore: NpcActor) -> bool:
+	var points := _leg_points(a, b, WALK_PROBE_SHORT if last else 0.0)
+	if points.is_empty() or not walk_way_clear(points, ignore):
+		return false
+	if not bent:
+		return true
+	var dir := Vector2(b.x - a.x, b.z - a.z).normalized()
+	var side := Vector3(-dir.y, 0.0, dir.x) * WALK_ROUTE_HALF_WIDTH
+	for offset: Vector3 in [side, -side]:
+		var shifted: Array[Vector3] = []
+		for p: Vector3 in points:
+			shifted.append(p + offset)
+		if not walk_way_clear(shifted, ignore):
+			return false
+	return true
+
+
 ## The probe points of a straight walk from `from` to `to` (local), or [] if it can't be walked on the ground: farther
 ## than WALK_REACH (or a swap in place), off walkable cells, or a step steeper than WALK_MAX_RISE. The points run every
 ## WALK_PROBE_STEP on the ground and stop WALK_PROBE_SHORT before `to`.
 func walk_ground_clear(from: Vector3, to: Vector3) -> Array[Vector3]:
+	var length := Vector2(to.x - from.x, to.z - from.z).length()
+	if length <= SWAP_IN_PLACE or length > WALK_REACH:
+		return [] as Array[Vector3]
+	return _leg_points(from, to, WALK_PROBE_SHORT)
+
+
+## The probe points every WALK_PROBE_STEP on the ground from `from` to `to`, stopping `short` before `to`; [] when a
+## point is off walkable cells, a step rises or drops more than WALK_MAX_RISE, or there's no sculpted ground.
+func _leg_points(from: Vector3, to: Vector3, short: float) -> Array[Vector3]:
 	var points: Array[Vector3] = []
 	var length := Vector2(to.x - from.x, to.z - from.z).length()
-	if field == null or length <= SWAP_IN_PLACE or length > WALK_REACH:
+	if field == null or length < 0.01:
 		return points
 	var steps := maxi(1, ceili(length / WALK_PROBE_STEP))
 	var last_y := ground_y(from.x, from.z)
@@ -243,7 +349,7 @@ func walk_ground_clear(from: Vector3, to: Vector3) -> Array[Vector3]:
 		if not field.is_cell_walkable(cell.x, cell.y) or absf(y - last_y) > WALK_MAX_RISE:
 			return [] as Array[Vector3]
 		last_y = y
-		if length * (1.0 - t) >= WALK_PROBE_SHORT:
+		if length * (1.0 - t) >= short:
 			points.append(Vector3(x, y, z))
 	return points
 

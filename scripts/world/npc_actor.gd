@@ -62,6 +62,8 @@ var _leaving := false
 ## Walking to a new placement: the actor waiting there (null when not walking) and the region's ground height.
 var _walk_to: NpcActor = null
 var _walk_ground := Callable()
+## The bend points (region-local) still to pass on the way to `_walk_to`'s spot (Day 117: a route round an obstacle).
+var _walk_via: Array[Vector3] = []
 ## True while this actor waits, unseen and out of play, for a walker to reach its spot.
 var _awaiting := false
 
@@ -170,10 +172,17 @@ func arrive(heading: float) -> void:
 		_body.rotation.y = wrapf(heading - rotation.y, -PI, PI)
 
 
-## Starts walking to `arrival`'s spot (an actor waiting there, see `await_walker`) over ground `ground` (x, z) -> y.
-func walk_to(arrival: NpcActor, ground: Callable) -> void:
+## Starts walking to `arrival`'s spot (an actor waiting there, see `await_walker`) over ground `ground` (x, z) -> y,
+## passing the bend points `via` (in the same space as `position`) first, in order.
+func walk_to(arrival: NpcActor, ground: Callable, via: Array[Vector3] = []) -> void:
 	_walk_to = arrival
 	_walk_ground = ground
+	_walk_via = via.duplicate()
+
+
+## The bend points still to pass before the new spot (empty on a straight walk, or once round the last bend).
+func walk_bends() -> Array[Vector3]:
+	return _walk_via.duplicate()
 
 
 ## True while walking to a new placement.
@@ -185,14 +194,19 @@ func is_walking() -> bool:
 func step_walk(delta: float) -> float:
 	if not is_instance_valid(_walk_to) or _walk_to.is_queued_for_deletion() or _walk_to.is_leaving():
 		_walk_to = null
+		_walk_via.clear()
 		fade_out()
 		return 0.0
 	var speed := 0.0 if circuit_holds() else WALK_SPEED
 	if _rig:
 		_rig.move_speed = speed
-	var target := _walk_to.position
+	var reach := maxf(speed * delta, 0.02)
+	# Round a bend: on reaching it, the next point is the one walked to (the turn eases, as anywhere on the walk).
+	while not _walk_via.is_empty() and Vector2(_walk_via[0].x - position.x, _walk_via[0].z - position.z).length() <= reach:
+		_walk_via.remove_at(0)
+	var target := _walk_to.position if _walk_via.is_empty() else _walk_via[0]
 	var left := Vector2(target.x - position.x, target.z - position.z)
-	if left.length() <= maxf(speed * delta, 0.02):
+	if _walk_via.is_empty() and left.length() <= reach:
 		position = target
 		_walk_to.arrive(rotation.y + body_yaw())
 		_walk_to = null

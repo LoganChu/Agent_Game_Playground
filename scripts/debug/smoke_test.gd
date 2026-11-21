@@ -1565,9 +1565,11 @@ func _check_ground(main: Node) -> void:
 ## The Greying before the burn: walking up into the Gull's Head fog drains the ember and
 ## shows the meter; when it runs out the player is turned back to clear ground, refilled.
 ## Day 114: a walk between placements asks the physics world too. Through a house (open ground either side) the way
-## is blocked; out from where the Wakebearer stands, some way is clear.
+## is blocked; out from where the Wakebearer stands, some way is clear. Day 117: some of those blocked walks bend
+## round the house instead (`walk_route`), and every leg of every such route is clear down its middle.
 func _check_walk_rays(region: Region, player: Node3D) -> void:
 	var through := 0
+	var bent := 0
 	for entry: Dictionary in region.data.get("props", []):
 		if str(entry.get("shape", "")) != "house" or entry.has("if") or not str(entry.get("model", "")).ends_with(".glb"):
 			continue
@@ -1579,7 +1581,19 @@ func _check_walk_rays(region: Region, player: Node3D) -> void:
 				continue
 			through += 1
 			_check(not region.walk_way_clear(points), "a walk through the house at %s (%d°) is blocked" % [at, angle])
+			var route := region.walk_route(at - dir * 5.5, at + dir * 5.5)
+			if route.size() < 2:
+				continue
+			bent += 1
+			var leg_from := at - dir * 5.5
+			for i in route.size():
+				var short := Region.WALK_PROBE_SHORT if i == route.size() - 1 else 0.0
+				var leg := region._leg_points(leg_from, route[i], short)
+				_check(not leg.is_empty() and region.walk_way_clear(leg), "the bent walk round the house at %s (%d°): leg %d is clear" % [at, angle, i])
+				leg_from = route[i]
 	_check(through > 0, "some walk through a Saltmarrow house had open ground either side")
+	_check(bent > 0, "some walk blocked by a Saltmarrow house bends round it")
+	print("Smoke: %d walks through Saltmarrow houses, %d bend round" % [through, bent])
 	var from := region.to_local(player.global_position)
 	var open := 0
 	for angle in range(0, 360, 45):
