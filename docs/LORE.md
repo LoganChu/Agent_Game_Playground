@@ -2039,6 +2039,27 @@ The central isle, dark in the middle of the chart since the Snuffing. Nobody but
   Tobin's stool to ask it, "like a harbormaster"); she told him nowhere he'd know, and thinks he wrote it down. **She
   tells Wenna Garrow**, who says: "That's a warden. A horn's the same. You don't answer it to be kind. You answer it so
   somebody's been counted in."
+- **Ness comes back (Day 118 — `cindermoor_ness_back`, `cindermoor_ness_heard_oriel`, `cindermoor_ness_midwinter`,
+  `cindermoor_ness_garrow`).** After the count down **Ness Garrow is back, alone, at the mouth of the Unmoored's shelter**
+  on the long steps; the others don't come back. Relit by the Wakebearer, she'd left her rake ("You can't put a thing
+  down and go back for it and still call it put down, so I suppose I hadn't"); relit by Hild, she took it and walked it
+  back. Why she came:
+  - **lit** — the fog on the shoulder thin as breath; "It isn't thick anywhere now. You can see a mile." **The others sit
+    in a hollow under the crown, on the north side, where a little still lies.** Hild told her it took the Wakebearer
+    first: "Then you've had what we came up here for, and you never asked for it" (led: "You're not counting now. I told
+    you that's how you get back to things. I didn't mean it as a wish").
+  - **released** — the fog as thick as ever. "Something came along the shoulder the night you went up. Out, not in.
+    Singing, going away. We stood up for it, all of us. Nobody told us to." She came back to see who'd let them out.
+  - **dark** — she watched the ember come back down the road "one cresset and then the next ... slower than you went
+    up". **She asks to be asked at midwinter** (the fen never asks the Unmoored): asked — "Then I'll say no. Probably.
+    I'd like to be asked a thing I can say no to", and looks at the ember for the first time; left be — "Good. That's
+    what we came for. ...Good." *(For the dark round.)*
+  - **The one who was here first** (told once): she heard her feet at night up the moor. Boat — "I sat a year on the fen
+    with a boat I'd not take out"; climb — "I'll miss her feet. I didn't know I would"; own — "Behind somebody who's
+    going to ask you things". "She was here first. We only ever came up after her."
+  - **Garrow (decided):** a common Tidewright name — "Half the lanes are Garrows. You can't throw a rope on Wrackholm
+    without a Garrow catching it." It was **her man's name, taken with the boat**. Ness, Hild and Wenna Garrow are **not
+    kin**; Hild "looked like she'd been asked to".
 - **After the ember (Day 97, canon for play).** Lit or released, **the hand holds no ember** (in the cradle, or spent),
   and **the Greying takes nothing from the Wakebearer** any more: lit, because the grey has gone back everywhere (thin,
   about a third of what it was); released, because it lets them by, as it let the Mercy by. Dark, the ember still walks

@@ -2,6 +2,45 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-21 21:00 UTC — Day 118: Ness comes back (content)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session (no new art was needed). HEAD was
+  detached again; I reset `main` to `origin/main` (Day 117's `02e6aad`). Baseline: 873 tests + smoke + launch green.
+- **Content (ROADMAP #1b): Ness past the doused cresset.** She went off along the shoulder once the cresset was relit
+  and had nowhere to stand to hear about Oriel. Now, after the count down (`cindermoor_counted_down`), she's back alone
+  at the mouth of the Unmoored's shelter on the long steps (where the man sat on his basket). The "Look where the
+  Unmoored stood" object goes once she's back.
+  - **"You came back."** (once, `cindermoor_ness_back`): per ending — lit, the fog thin, the others in a hollow under
+    the crown, "you've had what we came up here for, and you never asked for it" (led: "You're not counting now");
+    released, "Out, not in. Singing ... We stood up for it"; dark, she watched the ember come back down the road. And
+    her rake: left on the shelter (relit by the Wakebearer) or taken and walked back (relit by Hild).
+  - **"The one who was here first. She came down."** (once, after meeting Oriel, `cindermoor_ness_heard_oriel`): boat,
+    climb or own, each with a line of hers.
+  - **Dark only: midwinter.** "Shall I ask you?" → ask (she'll probably say no, and looks at the ember for the first
+    time) or leave (`cindermoor_ness_midwinter`, `future`, for the dark round).
+  - **Garrow, decided** (after Hild relit her cresset, `cindermoor_ness_garrow`): a common Tidewright name, her man's,
+    taken with the boat. Ness, Hild and Wenna Garrow aren't kin. This closes the Day 84 note in ROADMAP.
+  - Never met her before (relit without talking): she introduces herself once.
+- Checkpoint `ness_comes_back` (lit, Mercy at Cindermoor, `docs/checkpoints/ness_comes_back.png`). LORE: *Ness comes
+  back* after *Word goes round*.
+- **Tests:** `test_ness_comes_back.gd` (7): where she stands (gone before the ending, the empty-place object, back
+  after, the first placement before the relighting); why per ending (+ led and Keepers-relit variants, once); never
+  met; where Oriel went (per choice, once, not before meeting her); midwinter in the dark (ask/leave, once, not lit);
+  Garrow (only after Hild, once); the checkpoint. 880 tests + smoke + launch green.
+
+**Decisions**
+- **She comes back alone; the others don't.** A crowd coming back would undo what relighting cost them. One who came
+  back for a rake she'd "put down" keeps the Unmoored's rule and shows its crack.
+- **Garrow is a common name, not a thread.** Making three Garrows kin would rewrite Ness's and Hild's canon for a
+  coincidence. Ness says it outright so a player who noticed gets an answer.
+- **The midwinter answer is a flag only.** Midwinter isn't played; `cindermoor_ness_midwinter` is marked `future` so
+  the dark round can read it if it's ever built.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a systems session** (#1c/#5/#6, or the `walk_probe` debug tool), content again by ~Day 122,
+   polish twenty-two by ~Day 125. Fetch and reset `main` before trusting it.
+
 ## 2026-11-21 09:00 UTC — Day 117: polish twenty-one (a walk bends round what's in the way)
 
 **Did**

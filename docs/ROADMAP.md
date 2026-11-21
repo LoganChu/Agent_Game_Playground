@@ -891,9 +891,9 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [C] **A content session** (due by ~Day 120; #1d/#1b/#3), or a systems session first (#1c/#5/#6); polish
-   twenty-two by ~Day 125 (candidates in #1a). Fetch and reset `main` before trusting it. (Done Day 117, polish
-   twenty-one: a walk between placements bends once or twice round what blocks the straight way.)
+1. [S] **A systems session** (#1c/#5/#6, or the `walk_probe` tool from #1a), then content again by ~Day 122
+   (#1d/#3) and polish twenty-two by ~Day 125 (candidates in #1a). Fetch and reset `main` before trusting it. (Done
+   Day 118, content: Ness comes back to the shelter after the ending — #1b.)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
@@ -928,8 +928,9 @@ each .glb < 5 MB.
 1b. [C] **Small follow-ups for step 6** (fold into the next content session): (Hild's rollers: Day 93, if Oriel goes
    down to the boat; a tallow-tin prop on the slip would help it read); (Oda hearing the High Keeper's alive: Day 116);
    (Oriel at the chapter's next sitting: Day 95); (Iver and Wenna Coll on the stair climbed and Oriel told: Day 116).
-   **Ness** still has no line past the doused cresset: she's gone off along the shoulder once it's relit, so she needs a
-   new placement first (on the moor's edge after the ending?) before she can hear Oriel went down to the boat.
+   (Ness past the doused cresset: Day 118, back at the shelter after the count down, hears where Oriel went.) Follow-ups:
+   the other Unmoored in their hollow under the crown (lit) as a placement or a look; `cindermoor_ness_midwinter` read
+   by the dark round if midwinter is ever played; Ness's rake as a prop leaning on the shelter (only text today).
 2. [S] ~~**The days pass on Cindermoor**~~ — done: the story clock (Day 86/94), the morning flag and the crown's rest
    (`foot_rest` → `cindermoor_night` sets `cindermoor_morning`, Day 87). Day 115 found this item stale. A free-running
    day/night elsewhere is not planned; any new time of day is a flag, a `clocks.json` line and overrides.
@@ -1080,8 +1081,7 @@ each .glb < 5 MB.
 - Settings save per change since Day 23, but a slider mid-drag when the OS closes the
   window loses that drag (saved on `drag_ended`). Harmless.
 - Last content session: Day 110 (the Provost home; Aldous before the Provost). Last polish: Day 108 (pass eighteen); **pass nineteen due by ~Day 113**.
-- Three Garrows (Wenna the Wrackholm lane-warden, Sister Hild, Ness of the Unmoored), probably by accident: decide whether
-  Garrow is just a common Tidewright name, or a thread (Hild relit the cresset Ness kept doused).
+- (Three Garrows: decided Day 118 — a common Tidewright name; Ness's was her man's, taken with the boat. Not kin.)
 - Last polish/debt session: Day 80 (polish eleven: what's still owed on the act cards, the more-below cue, the Bend
   checkpoint fix, Lowsong's smoke thread and log); next due by ~Day 88.
 - Last systems session: Day 82 (forgetting fog and waymark cressets); next due by ~Day 86-88 (day/night — the Quiet House's
