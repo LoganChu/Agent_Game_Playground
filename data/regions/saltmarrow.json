@@ -66,6 +66,34 @@
     }
   ],
   "footsteps": "grass",
+  "greying": [
+    {
+      "note": "Day 119, before the burn: a bank of the Greying lies off the harbor mouth, past the dock's end and the outer mooring post, the sea going grey into it. Over water only: nothing reachable is in it.",
+      "rect": [
+        -40,
+        27,
+        40,
+        42
+      ],
+      "strength": 0.85,
+      "falloff": 5.0,
+      "height": 3.4,
+      "if": "!quest:a_light_for_saltmarrow=done"
+    },
+    {
+      "note": "Day 119, after the burn: the bank has leaned back off the harbor mouth under the Gull's light, thinner and lower. (The lit ending thins it again with every other area: game.json after_the_ember.)",
+      "rect": [
+        -40,
+        31,
+        40,
+        42
+      ],
+      "strength": 0.5,
+      "falloff": 4.0,
+      "height": 2.4,
+      "if": "quest:a_light_for_saltmarrow=done"
+    }
+  ],
   "spawn_points": {
     "default": [
       0,

@@ -61,6 +61,34 @@
     }
   ],
   "footsteps": "shingle",
+  "greying": [
+    {
+      "note": "Day 119, before the burn: a bank of the Greying sits offshore past the spit's hook. Over water only: nothing reachable is in it.",
+      "rect": [
+        -44,
+        27,
+        44,
+        44
+      ],
+      "strength": 0.9,
+      "falloff": 5.0,
+      "height": 3.6,
+      "if": "!quest:a_light_for_saltmarrow=done"
+    },
+    {
+      "note": "Day 119, after the burn: the bank has leaned back from the beach under the Gull's light, thinner and lower.",
+      "rect": [
+        -44,
+        31,
+        44,
+        44
+      ],
+      "strength": 0.5,
+      "falloff": 4.0,
+      "height": 2.4,
+      "if": "quest:a_light_for_saltmarrow=done"
+    }
+  ],
   "spawn_points": {
     "default": [
       0,
