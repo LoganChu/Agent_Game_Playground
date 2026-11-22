@@ -891,9 +891,10 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [S] **A systems session** (#1c/#5/#6, or the `walk_probe` tool from #1a), then content again by ~Day 122
-   (#1d/#3) and polish twenty-two by ~Day 125 (candidates in #1a). Fetch and reset `main` before trusting it. (Done
-   Day 118, content: Ness comes back to the shelter after the ending — #1b.)
+1. [C] **A content session** (due by ~Day 122: #1d/#1b/#3, or a #6 piece with a line — Mara or Pell noticing the
+   offshore bank lean back), then polish twenty-two by ~Day 125 (candidates in #1a). Fetch and reset `main` before
+   trusting it. (Done Day 119, systems: exclusive fullscreen (#5) and the offshore Greying banks on Saltmarrow and
+   Shingle Point (#6).)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
@@ -953,12 +954,14 @@ each .glb < 5 MB.
 5. [S] **Settings follow-ups** (deadzone, display/vsync, text speed and pad prompts landed Day 56; pad rebinding and
    prompt families Day 112; window size, 3D render scale and Clear for the quick pad buttons Day 115): an **owner
    check on a real screen** of the window sizes (centred, a maximized window left alone) and how low the render
-   scale reads (FSR instead of bilinear on Vulkan?); a borderless/exclusive fullscreen choice; the triggers as bindable buttons (they're
+   scale reads (FSR instead of bilinear on Vulkan?); (borderless/exclusive fullscreen: Day 119 — an owner check that
+   exclusive switches cleanly on Windows and alt-tabs back); the triggers as bindable buttons (they're
    axes in Godot); button **glyph icons** instead of names once there's art for them; an **owner check with real
    pads** (a Sony and a Switch pad: does Auto pick the right family, and does a Switch pad report positions as Godot
    documents?). (The "[Esc] back" hints follow the pad since Day 61.)
-6. [S] **The Greying v2** (fold pieces into later sessions): fog pockets/banks on
-   Saltmarrow and Shingle Point too (offshore, leaning back after the burn); (the ember light
+6. [S] **The Greying v2** (fold pieces into later sessions): (offshore banks on Saltmarrow and Shingle Point, leaning
+   back after the burn: Day 119 — an owner's eye on how they read on Vulkan; the Compatibility shot shows a pale band on
+   the horizon); (the ember light
    pushing fog back round the player: Day 78 — follow-up: let it ease the environment fog's thickening too if it reads
    weakly in Forward+); paths that fade in thick fog
    (LORE: "a road forgets where it goes" — now Thornwold's theme, the Thornwold content); a Hushed NPC

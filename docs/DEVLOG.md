@@ -2,6 +2,43 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-22 09:00 UTC — Day 119: exclusive fullscreen; the Greying offshore (systems)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 118's `2f5fb7a`). Baseline: 880 tests + smoke + launch green before any edit.
+- **Settings (ROADMAP #5): borderless or exclusive fullscreen.** The Display row now steps Windowed → Borderless
+  fullscreen → Exclusive fullscreen. `GameSettings.display_mode_for` maps the setting to the DisplayServer mode, and
+  `is_fullscreen_mode` covers both kinds (the window size is greyed out in either). Saved as `window_mode =
+  "exclusive"`; an existing `"fullscreen"` keeps meaning borderless, so no settings file changes meaning.
+- **The Greying v2 (ROADMAP #6): offshore banks on Saltmarrow and Shingle Point.** Each Act I shore now has a bank of
+  the Greying lying out to sea to the south: thick (0.85–0.9, 3.4–3.6 m) before the Gull burns, leaned back after it
+  (inner edge 4 m further out, half strength, 2.4 m). The lit ending thins it again through the existing
+  `after_the_ember` scale. It is data only: the fog layers already sit on the water past the ground's bounds. It lies
+  wholly over water: no walkable cell, spawn, the dock's end or the Mercy's berth is in it, so the ember budgets and
+  the heartbeat cue never see it.
+- **Tests:** `test_greying_banks.gd` (4): the bank before the burn (thick out to sea, an edge reaching in, nothing
+  walkable or any spawn in it, the dock and the berth clear); leaned back after (thinner, its edge drawn off, ≤ half,
+  lower; the lit scale); both banks build a mesh on the water, offshore only; exclusive fullscreen (the mode map,
+  file round trip, the size greyed out, the menu label). `test_settings.gd` follows the three-step cycle. 884 tests +
+  smoke + launch green.
+
+**Decisions**
+- **Keep `"fullscreen"` as borderless and add `"exclusive"`.** Renaming the stored value would have needed a
+  migration for every settings file. Borderless is the safer default for alt-tabbing, and it's what Godot's
+  FULLSCREEN already was.
+- **Banks over water only.** A bank the player could walk into would need its own ember budget and turn the Act I
+  shore into a hazard the vertical slice never taught. Out at sea it's scenery that says the Greying is still out
+  there and that the Gull pushed it back. No character remarks on it yet; that's left for a content session.
+
+**Not done / owner checks**
+- On a real screen: how the banks read in Forward+ (the sandbox's Compatibility shot shows only a pale band on the
+  horizon) and whether exclusive fullscreen switches cleanly and alt-tabs back on Windows.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a content session** (due by ~Day 122), then polish twenty-two by ~Day 125. Fetch and
+   reset `main` before trusting it.
+
 ## 2026-11-21 21:00 UTC — Day 118: Ness comes back (content)
 
 **Did**

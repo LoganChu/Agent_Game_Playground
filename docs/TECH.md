@@ -675,6 +675,11 @@ headland areas carry `!quest:a_light_for_saltmarrow=done` and smaller pockets ap
 - **Turned back (Day 78):** the first time the ember runs out, `GreyingWalker` sets the saved flag
   `greying_turned_back` (`TURNED_BACK_FLAG`). Flags a system sets carry **`"set_by_code": true`** in
   `data/flags.json`, which exempts them from the validator's "never set by any content" check.
+- **Offshore banks (Day 119, Greying v2):** a `greying` area may lie wholly over water past a region's
+  `ground.bounds` (the fog layers sit on `Region.fog_surface`, the water level there). Saltmarrow and Shingle Point
+  each have one bank south of the harbor/beach, thick before the Gull burns and leaned back (inner edge 4 m further
+  out, half strength, lower) after it. Keep a bank's inner edge + falloff clear of every walkable cell, spawn, the
+  dock's end and the Mercy's berth: `tests/test_greying_banks.gd` checks all of them.
 
 ### The way up: forgetting fog and waymark cressets (Day 82)
 - **`"forgets": true`** on a Greying fog area (not a `clear` one): the road there forgets where it goes.
@@ -1247,7 +1252,8 @@ once, on `drag_ended`) and again on leaving.
 [audio]    Master/Music/Ambience/Effects/Voice = 0..1 (linear; 0 mutes the bus)
 [display]  text_scale = 0.75..2.0   (menu presets 0.85 / 1.0 / 1.25 / 1.5 → UiTheme)
            text_speed = 0..400 chars/s (presets Slow 25 / Normal 50 / Fast 100 / Instant 0)
-           window_mode = "windowed" | "fullscreen", vsync = bool   (Day 56; DisplayServer)
+           window_mode = "windowed" | "fullscreen" (borderless) | "exclusive" (Day 119), vsync = bool   (Day 56;
+           DisplayServer, via GameSettings.display_mode_for; an old file's "fullscreen" stays borderless)
            window_size = "1600x900" (one of WINDOW_SIZES; Day 115), render_scale = 0.5..1.0 (Day 115)
 [camera]   sensitivity = 0.25..2.5, invert_x, invert_y   (Player reads them per event)
            dialogue = bool (default true; Day 73: "Frame conversations")
