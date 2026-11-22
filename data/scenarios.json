@@ -128,6 +128,18 @@
       "shot": "--at=6,2,0"
     },
     {
+      "id": "the_bank_leans_back",
+      "act": "Act I — The Wake",
+      "title": "The Bank Leans Back",
+      "inherits": "aftermath_knot",
+      "region": "shingle_point",
+      "description": "After the founding knot burned, the Greying bank that lay off Shingle Point and the harbor mouth has leaned back out to sea, thinner and lower. Pell has watched it go; Mara has had Tam pace it from the outer post.",
+      "flags": {
+        "saltmarrow_mara_saw_beacon_lit": true
+      },
+      "shot": "--at=0,-6,180 --settle=90"
+    },
+    {
       "id": "ferry_arrived",
       "act": "Act I — The Wake",
       "title": "The ferry's arrival",

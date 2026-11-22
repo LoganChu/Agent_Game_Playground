@@ -9,6 +9,14 @@
       "description": "Player has met Pell on Shingle Point.",
       "default": false
     },
+    "shingle_pell_bank": {
+      "description": "Day 120: Pell told the player the grey out at sea is where lost things come from (before the burn).",
+      "default": false
+    },
+    "shingle_pell_bank_back": {
+      "description": "Day 120: Pell on the bank leaned back after the burn: proper sea things wash in now, just wet.",
+      "default": false
+    },
     "saltmarrow_met_mara": {
       "description": "Player has met Mara Tollen, the harbormaster.",
       "default": false
@@ -68,6 +76,18 @@
     },
     "saltmarrow_mara_saw_beacon_lit": {
       "description": "Player has spoken with Mara after the Gull's Beacon was relit (one-time aftermath scene).",
+      "default": false
+    },
+    "saltmarrow_mara_bank": {
+      "description": "Day 120: Mara told the player about the Greying bank lying off the harbor mouth (before the burn): nobody past the outer post, the lanes run through it.",
+      "default": false
+    },
+    "saltmarrow_mara_bank_back": {
+      "description": "Day 120: Mara on the bank leaned back after the burn (Tam paced it, Brenner and the cod grounds; per burn — the gull burn: somebody used to row out to its edge, she can't see who).",
+      "default": false
+    },
+    "saltmarrow_mara_bank_after": {
+      "description": "Day 120: Mara on the bank after the homecoming, per ending (lit: gone to a haze; released: just where the Gull leaned it; dark: the list's names will push it back).",
       "default": false
     },
     "saltmarrow_aldous_balked": {

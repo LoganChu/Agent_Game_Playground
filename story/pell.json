@@ -96,6 +96,30 @@
             "goto": "pebble_back"
           },
           {
+            "text": "What's that grey out on the water?",
+            "if": [
+              "!quest:a_light_for_saltmarrow=done",
+              "!flag:shingle_pell_bank"
+            ],
+            "set": {
+              "shingle_pell_bank": true
+            },
+            "goto": "bank",
+            "note": "Day 120: the offshore bank off Shingle Point (Day 119) before the burn."
+          },
+          {
+            "text": "The grey out at sea has pulled back.",
+            "if": [
+              "quest:a_light_for_saltmarrow=done",
+              "!flag:shingle_pell_bank_back"
+            ],
+            "set": {
+              "shingle_pell_bank_back": true
+            },
+            "goto": "bank_back",
+            "note": "Day 120: the bank leaned back after the burn."
+          },
+          {
             "text": "The beacon's lit.",
             "if": "quest:a_light_for_saltmarrow=done",
             "goto": "lit"
@@ -843,6 +867,54 @@
       {
         "say": "pell",
         "text": "It's going on top of the crate. Not in. ON. Keep the pouch. You're not done finding."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bank": [
+      {
+        "say": "pell",
+        "text": "That's where lost things come FROM. The tide goes in there with nothing and comes out with buttons."
+      },
+      {
+        "say": "pell",
+        "text": "Everything that washes up out of it is Hushed. A boot that doesn't know it's a boot. You pick it up and you can't think what feet are."
+      },
+      {
+        "say": "pell",
+        "text": "I don't go in past my knees. Mara says not past my ankles. We've agreed on knees. She doesn't know we've agreed."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bank_back": [
+      {
+        "say": "pell",
+        "text": "I KNOW. I watched it go. It went back slow, like the tide, except the tide comes back and this didn't."
+      },
+      {
+        "say": "pell",
+        "text": "Proper sea things wash in now. Kelp. A crab with one claw, very cross. A cork float with a mark burned in it. They're just WET. They don't make your head go soft."
+      },
+      {
+        "if": [
+          "flag:saltmarrow_pell_lent_pebble",
+          "flag:saltmarrow_beacon_burned=pebble"
+        ],
+        "say": "pell",
+        "text": "I keep thinking something of mine went out there. Into the grey. But it didn't, did it. It went up."
+      },
+      {
+        "if": "!flag:shingle_pell_bank",
+        "say": "pell",
+        "text": "Wet's better. I'm putting the cork in the crate anyway. Somebody's mark is somebody's."
+      },
+      {
+        "if": "flag:shingle_pell_bank",
+        "say": "pell",
+        "text": "You asked me what it was, before. It's further away now. That's what it is."
       },
       {
         "goto": "hub"

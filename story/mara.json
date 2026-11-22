@@ -204,6 +204,43 @@
             "goto": "gull_back"
           },
           {
+            "text": "There's grey lying out past the harbor mouth.",
+            "if": [
+              "!quest:a_light_for_saltmarrow=done",
+              "!flag:saltmarrow_mara_bank"
+            ],
+            "set": {
+              "saltmarrow_mara_bank": true
+            },
+            "goto": "bank",
+            "note": "Day 120: the offshore bank (Day 119) before the burn."
+          },
+          {
+            "text": "The grey off the harbor mouth has drawn back.",
+            "if": [
+              "quest:a_light_for_saltmarrow=done",
+              "!flag:saltmarrow_mara_bank_back",
+              "!flag:saltmarrow_homecoming_seen"
+            ],
+            "set": {
+              "saltmarrow_mara_bank_back": true
+            },
+            "goto": "bank_back",
+            "note": "Day 120: the bank leaned back after the burn, per burn."
+          },
+          {
+            "text": "The bank off the harbor mouth.",
+            "if": [
+              "flag:saltmarrow_homecoming_seen",
+              "!flag:saltmarrow_mara_bank_after"
+            ],
+            "set": {
+              "saltmarrow_mara_bank_after": true
+            },
+            "goto": "bank_after",
+            "note": "Day 120: the bank after the homecoming, per ending (lit thins it: game.json after_the_ember)."
+          },
+          {
             "text": "Aldous says the ferry might run again.",
             "if": "stage:across_the_grey=ask_mara",
             "goto": "ferry"
@@ -862,6 +899,107 @@
       },
       {
         "goto": "start"
+      }
+    ],
+    "bank": [
+      {
+        "say": "mara",
+        "text": "The Greying. Came in off the sea the week after the Snuffing and lay down out there like it had found a mooring."
+      },
+      {
+        "say": "mara",
+        "text": "Nobody takes a boat past the outer post now. Brenner went out for the cod grounds once. Came back with his nets full and couldn't tell me what they were for."
+      },
+      {
+        "say": "mara",
+        "text": "Every other island's on the far side of that. The lanes run through it. That's why there's been no ferry, and why there won't be, while the Gull's dark."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bank_back": [
+      {
+        "if": "flag:saltmarrow_mara_bank",
+        "say": "mara",
+        "text": "You asked me about that, before. Look at it now."
+      },
+      {
+        "say": "mara",
+        "text": "Leaned back off the mouth like a dog from a fire. Tam paced it from the outer post with an oar: four boat-lengths, and thinner. You can see the swell through it of a morning."
+      },
+      {
+        "say": "mara",
+        "text": "Brenner's on about the cod grounds again. I've told him the Gull reaches so far and no farther. He'll go anyway. Somebody always does."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "goto": "bank_back_gull"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "mara",
+        "text": "Something ought to be sung about it, a thing that size going back. Can't think what. Never had the voice anyway."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "mara",
+        "text": "Tam says it lies out there like a net with nobody hauling. He's been saying things like that since the lofts came back. I let him."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bank_back_gull": [
+      {
+        "say": "narrator",
+        "text": "She looks at the edge of it a long while, out past the post, where the swell goes pale."
+      },
+      {
+        "say": "mara",
+        "text": "Somebody used to row out to the edge of that and back, for a dare. Every spring, the first calm day. I can see the boat plain as I see you."
+      },
+      {
+        "say": "mara",
+        "text": "Can't see who's in it. Odd. Must have been before my time."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bank_after": [
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "mara",
+        "text": "Gone to a haze. Some mornings you can't find it at all. Brenner's out on the cod grounds every day the tide gives him, and he comes back knowing what his nets are for."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=lit",
+        "say": "mara",
+        "text": "I still go down to the outer post of a morning to look where it lay. Habit. Harbormaster's habit is counting what isn't there."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "mara",
+        "text": "Still out there, just where the Gull leaned it. No thicker, no thinner. Tam says it's waiting to see what the step's for."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "say": "mara",
+        "text": "I say it's fog. But I don't row out to it, and neither does he."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "mara",
+        "text": "Same as the day you left. The Gull holds it off the mouth and that's all the light we've got until midwinter."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "say": "mara",
+        "text": "Whoever's name goes first on that list, that's what they'll be pushing back. I make every one of them stand at the post and look at it before they write."
+      },
+      {
+        "goto": "hub"
       }
     ]
   }
