@@ -891,10 +891,11 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [C] **A content session** (due by ~Day 122: #1d/#1b/#3, or a #6 piece with a line — Mara or Pell noticing the
-   offshore bank lean back), then polish twenty-two by ~Day 125 (candidates in #1a). Fetch and reset `main` before
-   trusting it. (Done Day 119, systems: exclusive fullscreen (#5) and the offshore Greying banks on Saltmarrow and
-   Shingle Point (#6).)
+1. [P] **Polish twenty-two** (due by ~Day 125; candidates in #1a — the `walk_probe` debug tool first), or a systems
+   session first (#1c/#5/#6/#7), content again by ~Day 124 (#1d/#1b/#3). Fetch and reset `main` before trusting it.
+   (Done Day 120, content: the bank leans back — Mara and Pell on the offshore bank before/after the burn, Mara per
+   ending after the homecoming; checkpoint `the_bank_leans_back`. Follow-ups: Brenner as a placed NPC or a boat out past
+   the post after the burn; the cork float as a prop in Pell's crate; Tam on pacing it.)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
@@ -960,7 +961,7 @@ each .glb < 5 MB.
    pads** (a Sony and a Switch pad: does Auto pick the right family, and does a Switch pad report positions as Godot
    documents?). (The "[Esc] back" hints follow the pad since Day 61.)
 6. [S] **The Greying v2** (fold pieces into later sessions): (offshore banks on Saltmarrow and Shingle Point, leaning
-   back after the burn: Day 119 — an owner's eye on how they read on Vulkan; the Compatibility shot shows a pale band on
+   back after the burn: Day 119; Mara's and Pell's lines on them: Day 120 — an owner's eye on how they read on Vulkan; the Compatibility shot shows a pale band on
    the horizon); (the ember light
    pushing fog back round the player: Day 78 — follow-up: let it ease the environment fog's thickening too if it reads
    weakly in Forward+); paths that fade in thick fog

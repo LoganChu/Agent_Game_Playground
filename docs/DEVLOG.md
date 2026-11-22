@@ -2,6 +2,44 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-22 21:00 UTC — Day 120: the bank leans back (content)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session (no new art). HEAD was detached
+  again; I reset `main` to `origin/main` (Day 119's `fed3ec0`). Baseline: 884 tests + smoke + launch green.
+- **Content (ROADMAP *Next up* #1, due by ~Day 122; the #6 piece with a line): the offshore bank gets its lines.**
+  - **Mara, before the burn** (once, `saltmarrow_mara_bank`): the Greying lay down off the mouth after the Snuffing
+    "like it had found a mooring"; nobody past the outer post; Brenner went out for the cod grounds once and came back
+    with full nets and no idea what they were for; the lanes run through it, so no ferry while the Gull's dark.
+  - **Mara, after the burn** (once, `saltmarrow_mara_bank_back`, until the homecoming): leaned back "like a dog from a
+    fire", Tam paced it from the post with an oar, Brenner's itching for the cod grounds. Per burn: pebble, something
+    ought to be sung about it; knot, Tam's "net with nobody hauling"; **gull, somebody used to row out to its edge every
+    spring for a dare — she can see the boat, not who's in it** (Dunstan). "You asked me about that, before" if asked.
+  - **Mara, after the homecoming** (once, `saltmarrow_mara_bank_after`), per ending: lit, gone to a haze and Brenner on
+    the cod grounds; released, just where the Gull leaned it, nobody rows out; dark, held off till midwinter, and she
+    makes every name on the list stand at the post and look at it first.
+  - **Pell on Shingle Point**: before (`shingle_pell_bank`), it's where lost things come FROM, Hushed; after
+    (`shingle_pell_bank_back`), proper sea things wash in, "just WET" (a marked cork float for the crate); if their
+    pebble burned: "something of mine went out there… it went up."
+- Checkpoint `the_bank_leans_back` (Shingle Point after the knot burn, facing the bank; Pell's line waiting). LORE:
+  *The bank off the harbor mouth* at the end of Saltmarrow's Day 13 section.
+- **Tests:** `test_the_bank_leans_back.gd` (6): Mara before (once, not the after line); after per burn (once, each
+  burn's line only, the "asked before" variant); after the homecoming per ending (once, not before); Pell before/after
+  (+ the lent-pebble and asked-before variants); the data agrees (each bank thinner after the burn); the checkpoint.
+  890 tests + smoke + launch green.
+
+**Decisions**
+- **Lines, not new props.** The banks are scenery out at sea; a person saying what it is turns them into story. Brenner
+  stays offstage (named once on Day 4) rather than adding an NPC and a boat this session — logged as a follow-up.
+- **Mara's Act I line closes at the homecoming**, replaced by the per-ending one, so she never says Brenner's itching
+  to go in an ending where he's long since gone.
+- **The gull burn's beat is a memory with the person cut out**, the same shape as her two cups: it shows what the burn
+  took without anybody naming Dunstan.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **polish twenty-two** (due by ~Day 125; start with `tools/debug/walk_probe.gd`), or a systems
+   session first. Fetch and reset `main` before trusting it.
+
 ## 2026-11-22 09:00 UTC — Day 119: exclusive fullscreen; the Greying offshore (systems)
 
 **Did**

@@ -266,6 +266,17 @@ greyed net-lofts.
     Open hook for Act II; no canon yet on who, or whether they live.
   - Oda gives the player a berth "on the evening tide" (`saltmarrow_ferry_passage`): **Act I
     ends there.** The crossing itself opens Act II.
+- **The bank off the harbor mouth (Day 120).** The Greying came in off the sea the week after the Snuffing and lay
+  down offshore of Saltmarrow and Shingle Point "like it had found a mooring". Nobody takes a boat past the **outer post**;
+  **Brenner** (the old fisherman who dropped his pipe when the Gull caught) once went out for the **cod grounds** and came
+  back with full nets, not knowing what they were for. The lanes run through it — why no ferry came while the Gull was
+  dark. Pell: it's where lost things come from; everything washed out of it is Hushed.
+  - **After the burn** it leaned back: Tam paced it from the outer post with an oar, four boat-lengths, thinner. Proper
+    sea things wash in again, "just wet" (a cork float with a mark burned in it goes in Pell's crate). Gull burn: Mara
+    remembers somebody rowing out to its edge every spring for a dare — she can't see who (Dunstan).
+  - **After the homecoming**: lit, gone to a haze, Brenner on the cod grounds daily; released, just where the Gull leaned
+    it, and nobody rows out to it; dark, held off the mouth till midwinter — Mara makes everyone stand at the post and
+    look at it before they write their name on the list.
 
 ### 2. Thornwold (Act II — begun Day 17)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of
