@@ -31,8 +31,9 @@ const TEXT_SPEED_MAX := 400.0
 const DEADZONE_MIN := 0.05
 const DEADZONE_MAX := 0.5
 const DEFAULT_DEADZONE := 0.2
-## Window modes offered by the menu: [setting value, label].
-const WINDOW_MODES: Array = [["windowed", "Windowed"], ["fullscreen", "Fullscreen"]]
+## Window modes offered by the menu: [setting value, label]. "fullscreen" is borderless (a window the size of the
+## screen: alt-tab is instant); "exclusive" (Day 119) takes the screen over, which some drivers give lower latency.
+const WINDOW_MODES: Array = [["windowed", "Windowed"], ["fullscreen", "Borderless fullscreen"], ["exclusive", "Exclusive fullscreen"]]
 ## Window sizes the Settings page steps through in windowed mode (Day 115). The first is the project's own size.
 const WINDOW_SIZES: Array[Vector2i] = [
 	Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1920, 1080), Vector2i(2560, 1440), Vector2i(3840, 2160),
@@ -57,7 +58,7 @@ var invert_y := false
 ## Whether the camera swings round to frame both speakers while talking.
 var dialogue_camera := true
 var stick_deadzone := DEFAULT_DEADZONE
-## "windowed" or "fullscreen" (WINDOW_MODES).
+## "windowed", "fullscreen" (borderless) or "exclusive" (WINDOW_MODES).
 var window_mode := "windowed"
 ## The windowed-mode size (one of WINDOW_SIZES); fullscreen ignores it.
 var window_size := DEFAULT_WINDOW_SIZE
@@ -446,10 +447,11 @@ func _apply_display() -> void:
 	if DisplayServer.get_name() == "headless":
 		return
 	var current := DisplayServer.window_get_mode()
-	var fullscreen := current == DisplayServer.WINDOW_MODE_FULLSCREEN or current == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
-	if window_mode == "fullscreen" and not fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	elif window_mode == "windowed" and fullscreen:
+	var target := display_mode_for(window_mode)
+	if target != DisplayServer.WINDOW_MODE_WINDOWED:
+		if current != target:
+			DisplayServer.window_set_mode(target)
+	elif is_fullscreen_mode(current):
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	# Only a plain window takes the chosen size: a maximized one is left as the player made it.
 	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED and DisplayServer.window_get_size() != window_size:
@@ -457,6 +459,21 @@ func _apply_display() -> void:
 		var screen := DisplayServer.screen_get_usable_rect(DisplayServer.window_get_current_screen())
 		DisplayServer.window_set_position(screen.position + (screen.size - window_size) / 2)
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if vsync else DisplayServer.VSYNC_DISABLED)
+
+
+## The DisplayServer mode a `window_mode` setting asks for (windowed for anything unknown).
+static func display_mode_for(mode: String) -> DisplayServer.WindowMode:
+	match mode:
+		"fullscreen":
+			return DisplayServer.WINDOW_MODE_FULLSCREEN
+		"exclusive":
+			return DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+	return DisplayServer.WINDOW_MODE_WINDOWED
+
+
+## True for either fullscreen mode (a windowed size doesn't apply to it).
+static func is_fullscreen_mode(mode: DisplayServer.WindowMode) -> bool:
+	return mode == DisplayServer.WINDOW_MODE_FULLSCREEN or mode == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
 
 
 ## The root viewport's 3D scale. Runs headless too (the setting is just a number there).
