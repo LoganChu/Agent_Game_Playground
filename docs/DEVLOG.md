@@ -2,6 +2,41 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-23 09:00 UTC — Day 121: polish twenty-two (the walk probe)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I
+  reset `main` to `origin/main` (Day 120's `55098f6`). Baseline green.
+- **`WalkSurvey` (`scripts/world/walk_survey.gd`)**: for a built region, a row for every ordered pair of one NPC's
+  placements: `swap`, `straight`, `bent` (with the route) or `fades` with the reason (`seated`, `circuit`, `far`,
+  `ground`, `blocked`). It uses `Region.walk_route` as the game does, ignoring the walker's own body.
+- **`tools/debug/walk_probe.gd`** prints it per region, building each in the tree (props and other NPCs count;
+  `--flags=` sets the world state, `--walks` hides swaps and seated/circuit fades). It runs in ~6 s.
+- **What it found (default flags):** 220 pairs, 154 swaps, 17 straight walks, 2 bent, 47 fades (26 seated, 14 far,
+  7 circuit, none blocked or off the ground). This answers the Day 114 question: **Oriel at the Spire's foot walks**
+  between her climb and own spots (straight, 8 m), but standing up from her seat on the step fades (seated), and so
+  does stepping off her circuit. **Wenna at Coll's hearth bends** round the clamp from her first spot to her third
+  (via (6.0, 2.4)). All of Dunstan's fen moves fade (every spot he leaves is seated). Iver at Lowsong (31 m) and Jory
+  at Wrackholm (18 m) are past the reach.
+- **Tests:** `test_polish_twenty_two.gd` (4): placements per NPC; every pair in every region classified by the walk
+  rules (swap ≤ 1 m, a straight/bent walk in reach and ending at the new spot, within the stretch, a reason for every
+  fade); the reasons on known placements (Oriel seated/circuit/walking, Lowsong far); describe and tally. The smoke
+  test runs the survey in every region it visits and checks each walk's legs with rays (19 walks). 894 tests + smoke
+  + launch green.
+
+**Decisions**
+- **A survey class plus a thin tool**, not a tool alone: the tests and the smoke test use the same rows, so the probe
+  can't drift from what the game does.
+- **Every pair both ways**, not only the moves the flags can make. Working out which flag flips are reachable would
+  mean simulating the story; listing everything is cheap and a content session can read the pair it cares about.
+- **Seated standing up stays a fade.** The probe shows it's the commonest fade (Oriel, Wenna, Dunstan), but a seated
+  pose is a different model, so standing up would be a cut to the standing model before the walk. A fade reads
+  better than a pop until there's a stand-up blend. Logged in #1a.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a content session** (due by ~Day 124: #1d/#1b/#3, or the Day 120 bank follow-ups), or a
+   systems session first. Fetch and reset `main` before trusting it.
+
 ## 2026-11-22 21:00 UTC — Day 120: the bank leans back (content)
 
 **Did**

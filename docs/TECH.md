@@ -40,6 +40,7 @@ xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=saltmarrow \
 xvfb-run -a $GODOT --rendering-driver opengl3 --path . -- --region=gulls_head --flags=intro_seen \
     --at=0,-9,0 --settle=60 --screenshot=/abs/out.png      # player at x,z (camera yaw), wait N frames
 $GODOT --headless --path . -s res://tools/debug/terrain_map.gd [-- <region>]  # ASCII walkability map
+$GODOT --headless --path . -s res://tools/debug/walk_probe.gd [-- <region>… --flags=a,b --walks]  # every placement pair: swap/straight/bent/fades (why)
 $GODOT --headless --path . -s res://tools/debug/export_sounds.gd -- /abs/dir [ids…]  # the procedural sounds as .wav (audio review)
 .tools/bin/blender-py tools/blender/build_props.py          # rebuild .glb props (pine, rocks, beacon, net-loft)
 .tools/bin/blender-py tools/blender/build_characters.py [aldous aldous_seated aldous_warden oda hob hob_seated hob_lantern lamp lamp_named hesper corran corran_nocord unmoored_shawl unmoored_coat dunstan dunstan_seated dunstan_seated_cord dunstan_lantern dunstan_home dunstan_turning wenna wenna_nobrass jory yard_smock yard_smock_mallet yard_shawl yard_lad provost tobin keeper_sister keeper_brother keeper_pim hild hild_scraping iver …]  # rebuild characters (assets/models/characters/)
@@ -281,6 +282,14 @@ corner. `route_between(from, to, clear)` takes the clearance check as a Callable
 tests try it on made-up obstacles (`tests/test_polish_twenty_one.gd`). The walker follows the bends (`walk_to`'s `via`;
 `walk_bends()` lists those left); the smoke test checks that some walk blocked by a Saltmarrow house bends round it
 with every leg clear. Still no navmesh: a route needing more than two bends fades.
+**Since Day 121, `WalkSurvey` lists them all.** `WalkSurvey.survey(region)` gives a row for every ordered pair of one
+NPC's placements in a built region: `swap` (≤ `SWAP_IN_PLACE`), `straight`/`bent` (with the `walk_route`), or `fades` with
+the reason — `seated` (the spot it leaves is a seated idle), `circuit`, `far` (> `WALK_REACH`), `ground` (no walkable
+straight line) or `blocked` (the ground's fine but every way is shut). It lists every pair both ways, not only the moves
+the story's flags make. `tools/debug/walk_probe.gd` prints it per region, building each in the tree with `--flags=` set
+so the props shown then and the other NPCs count (it loads the region scripts at run time: a `-s` script naming the
+autoload-using classes outright won't compile). Before writing a new placement, run it to see whether the move walks.
+The smoke test runs the survey in every region it visits and checks every walk's legs with rays.
 **Inland regions (Day 21, `thornwold_woods`):** no `water_level`; the walkable floor is the
 `base` height and steep `land` banks (rects along every edge, falloff ≲ 2 m) bound it, so the
 reachable area never touches `ground.bounds`. With no water the colour rules treat `base` as

@@ -891,11 +891,12 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [P] **Polish twenty-two** (due by ~Day 125; candidates in #1a — the `walk_probe` debug tool first), or a systems
-   session first (#1c/#5/#6/#7), content again by ~Day 124 (#1d/#1b/#3). Fetch and reset `main` before trusting it.
-   (Done Day 120, content: the bank leans back — Mara and Pell on the offshore bank before/after the burn, Mara per
-   ending after the homecoming; checkpoint `the_bank_leans_back`. Follow-ups: Brenner as a placed NPC or a boat out past
-   the post after the burn; the cork float as a prop in Pell's crate; Tam on pacing it.)
+1. [C] **A content session** (due by ~Day 124: #1d/#1b/#3, or the Day 120 follow-ups — Brenner as a placed NPC or a
+   boat out past the post after the burn; the cork float as a prop in Pell's crate; Tam on pacing it), or a systems
+   session first (#1c/#5/#6/#7); polish twenty-three by ~Day 129. Before adding a placement, run
+   `tools/debug/walk_probe.gd` to see whether the move walks. Fetch and reset `main` before trusting it.
+   (Done Day 121, polish twenty-two: `WalkSurvey` + `tools/debug/walk_probe.gd`, every placement pair per region as
+   swap / straight / bent / fades (why); the smoke test checks every walk it finds with rays.)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
@@ -913,7 +914,7 @@ each .glb < 5 MB.
    jetty's foot after the homecoming; the chalk marks as a prop. Lowsong leftovers: a warm-step cue (released) and
    Iver's boat on the bottom (lit, lamp) are text-only — props would help. Fetch and reset `main` before trusting it.
 
-1a. [P] **Polish twenty-two candidates** (due by ~Day 125; Day 117 was twenty-one): the far Spire reads pale in the
+1a. [P] **Polish twenty-three candidates** (due by ~Day 129; Day 121 was twenty-two): the far Spire reads pale in the
    horizon wash on every island (Compatibility; judge on Vulkan); a **two-speaker shot in tight spots** (the Mercy's
    deck, #9: the arm backs off by the speakers' spread and may meet the rails; a third speaker already joins the same
    way); the lift outdoors needs an owner's feel check (it triggers under 60 % of the reach; tune `CAMERA_LIFT_CLEAR`
@@ -921,9 +922,9 @@ each .glb < 5 MB.
    Oriel (Vulkan, #4); the tied Mercy's fore warp crosses the landing's head at shin height on the short quays (an
    owner check that it doesn't read as a tripwire); Oriel is out of the lantern room's first frame (a two-speaker
    framing could bring her in). Walk follow-ups (Day 114): (a walk with a path round an obstacle: Day 117, one or two
-   bends); a **`tools/debug/walk_probe.gd`** listing every placement pair per region as straight / bent / fades (do Oriel
-   across the Spire's foot and Wenna round her clamp bend now?); a seated NPC standing up to walk
-   (seated placements fade); a short sit-down blend on arriving at a seated spot (a cut today); an owner's eye on the
+   bends); (the walk probe: Day 121 — Oriel walks climb↔own, Wenna bends round her clamp); a seated NPC
+   standing up to walk (the probe's commonest fade: 26 pairs — Oriel off her step, Wenna, all of Dunstan's fen moves;
+   needs a stand-up blend from the seated model, or it's a pop); a short sit-down blend on arriving at a seated spot (a cut today); an owner's eye on the
    walk speed (1.1 m/s). (Done Day 108: the warps, the lantern room's arrival, the far Spire on Gull's Head and Shingle
    Point. Done Day 111: mooring posts, Delete on the Load page. Done Day 114: a placement-to-placement move walks
    when the way is clear and near.)
