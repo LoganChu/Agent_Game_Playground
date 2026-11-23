@@ -90,6 +90,39 @@
       "description": "Day 120: Mara on the bank after the homecoming, per ending (lit: gone to a haze; released: just where the Gull leaned it; dark: the list's names will push it back).",
       "default": false
     },
+    "saltmarrow_met_brenner": {
+      "description": "Day 122: the player has met Brenner, the old fisherman on his fish box at the end of the breakwater.",
+      "default": false
+    },
+    "saltmarrow_brenner_cod_told": {
+      "description": "Day 122: Brenner told how he rowed through the bank to the cod grounds and came home not knowing what dinner was (before the burn, once Mara's mentioned it).",
+      "default": false
+    },
+    "saltmarrow_brenner_choir": {
+      "description": "Day 122: Brenner told the player about the Low Water's singing fog past the cod grounds, and the springtime dare to its edge (Dunstan's; after the gull burn, a tally stick for nobody).",
+      "default": false
+    },
+    "saltmarrow_brenner_cod": {
+      "description": "Day 122: what the player told Brenner after the bank leaned back: '' (not asked), 'go' (go to the cod grounds; the Gull will see him home) or 'wait' (Mara's word: wait and see how far the light reaches). Read by Brenner and Tam after the homecoming.",
+      "default": "",
+      "values": [
+        "",
+        "go",
+        "wait"
+      ]
+    },
+    "saltmarrow_brenner_float": {
+      "description": "Day 122: told the cork float in Pell's crate has his mark, Brenner said Pell should keep it (the crate's scrap says so after).",
+      "default": false
+    },
+    "saltmarrow_tam_bank": {
+      "description": "Day 122: Tam told how he paced the leaned-back bank from the outer post with an oar across Brenner's bow (four lengths; per burn).",
+      "default": false
+    },
+    "saltmarrow_tam_brenner_out": {
+      "description": "Day 122: in the lit ending after the homecoming, Tam pointed out Brenner on the cod grounds (per what the player told Brenner).",
+      "default": false
+    },
     "saltmarrow_aldous_balked": {
       "description": "After the beacon was lit, a player who had not been gentle with Aldous asked for his story; he refused and sent them away. Unlocks showing him the ember on the next visit.",
       "default": false

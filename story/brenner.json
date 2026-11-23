@@ -1,0 +1,471 @@
+{
+  "id": "brenner",
+  "knots": {
+    "start": [
+      {
+        "if": "flag:saltmarrow_homecoming_seen",
+        "goto": "home"
+      },
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "goto": "after"
+      },
+      {
+        "if": "!flag:saltmarrow_met_brenner",
+        "goto": "first"
+      },
+      {
+        "say": "brenner",
+        "text": "Still here. Still watching it. Mind my light."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "first": [
+      {
+        "set": {
+          "saltmarrow_met_brenner": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "An old man on an upturned fish box at the very end of the breakwater, baiting a hand line without looking at it. His eyes are on the grey out past the outer post."
+      },
+      {
+        "say": "brenner",
+        "text": "Don't stand in my light. What there is of it."
+      },
+      {
+        "say": "brenner",
+        "text": "Brenner. I fished the cod grounds forty-one years. Now I sit on a box and keep an eye on that, in case it gets ideas."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "hub": [
+      {
+        "choice": [
+          {
+            "text": "What are you watching?",
+            "goto": "watch"
+          },
+          {
+            "text": "Mara says you went out to the cod grounds.",
+            "if": [
+              "flag:saltmarrow_mara_bank",
+              "!flag:saltmarrow_brenner_cod_told"
+            ],
+            "set": {
+              "saltmarrow_brenner_cod_told": true
+            },
+            "goto": "cod"
+          },
+          {
+            "text": "What's out past the cod grounds?",
+            "if": "!flag:saltmarrow_brenner_choir",
+            "set": {
+              "saltmarrow_brenner_choir": true
+            },
+            "goto": "choir"
+          },
+          {
+            "text": "I'll leave you to it.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "watch": [
+      {
+        "say": "brenner",
+        "text": "That. Came in off the sea the week after the Snuffing and lay down off the mouth, and it hasn't moved an inch since. I'd know. I've been sat here."
+      },
+      {
+        "say": "brenner",
+        "text": "If it ever comes in over the wall, somebody ought to see it first and shout. Might as well be a man with nothing else to do."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "cod": [
+      {
+        "say": "brenner",
+        "text": "Second month after the Snuffing. A man's got to eat, and so has his harbor. I rowed out through that."
+      },
+      {
+        "say": "brenner",
+        "text": "Came out the far side and fished. Good cod, the nets full. And I stood in the boat holding one up like a letter in somebody else's hand. Couldn't think what it was for."
+      },
+      {
+        "say": "brenner",
+        "text": "Rowed home on the smell of the smokehouse. Mara met me at the post and took the fish off me. 'That's dinner, Brenner.' I said, 'What's dinner?'"
+      },
+      {
+        "say": "brenner",
+        "text": "Came back to me by morning. Most of it. I don't go out now."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "choir": [
+      {
+        "say": "brenner",
+        "text": "South. The Low Water: skerries and shallows you'd think you could wade, and the fog on it that sings. That one was there before the Snuffing. Always has been."
+      },
+      {
+        "say": "brenner",
+        "text": "You row to the edge of it on a calm day and ship your oars and it's voices. A lot of them, near enough. None of them saying anything you can catch."
+      },
+      {
+        "goto": "dare"
+      }
+    ],
+    "dare": [
+      {
+        "say": "brenner",
+        "text": "Dunstan Tollen used to row out to the edge of it every spring, first calm day, for a dare. From fourteen. The last half backward, so he could see the singing coming."
+      },
+      {
+        "say": "brenner",
+        "text": "I kept the tally for him. Notches on a stick. Mara never knew. Or knew and never said; that's Tollens."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "after": [
+      {
+        "if": "!flag:saltmarrow_met_brenner",
+        "goto": "after_first"
+      },
+      {
+        "say": "brenner",
+        "text": "Back again. Mind my light. There's more of it now."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "after_first": [
+      {
+        "set": {
+          "saltmarrow_met_brenner": true
+        }
+      },
+      {
+        "say": "narrator",
+        "text": "An old man on an upturned fish box at the very end of the breakwater, baiting a hand line. His hand goes to his mouth now and then, for something that isn't there."
+      },
+      {
+        "say": "brenner",
+        "text": "You'll be the one. The Gull. Brenner; I fished the cod grounds forty-one years, and I'd like to again."
+      },
+      {
+        "say": "brenner",
+        "text": "Dropped my pipe in the harbor when she caught. Forty years I had that pipe. Never even looked where it went. I was looking at the Gull."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "brenner",
+        "text": "Odd thing. I used to hum something round the stem of it, mending. Pipe's gone and the tune with it, and I can't tell you which I miss."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "brenner",
+        "text": "Mended a net this morning. Good net. Started it in the middle, the way you'd start a sentence in the middle. Where else would you start one?"
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "goto": "after_dunstan"
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "after_dunstan": [
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "Dunstan Tollen's home, and says he'll row me out to the cod grounds. Backward, I've no doubt."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "Big fellow rowed in on the evening tide the other week, facing backward. Says he'll take me out to the cod grounds. I said yes before I'd thought. Felt like I owed him a yes."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "after_hub": [
+      {
+        "choice": [
+          {
+            "text": "The grey's drawn back off the mouth.",
+            "if": "flag:saltmarrow_brenner_cod=",
+            "goto": "leaned"
+          },
+          {
+            "text": "Pell found a cork float with a mark burned in it.",
+            "if": [
+              "flag:shingle_pell_bank_back",
+              "!flag:saltmarrow_brenner_float"
+            ],
+            "set": {
+              "saltmarrow_brenner_float": true
+            },
+            "goto": "float"
+          },
+          {
+            "text": "What's out past the cod grounds?",
+            "if": "!flag:saltmarrow_brenner_choir",
+            "set": {
+              "saltmarrow_brenner_choir": true
+            },
+            "goto": "choir_after"
+          },
+          {
+            "text": "I'll leave you to it.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "leaned": [
+      {
+        "say": "brenner",
+        "text": "Four boat-lengths. Young Tam paced it with an oar across the bow, and I held the boat for him, because his hands were shaking. Mine weren't. Mine were itching."
+      },
+      {
+        "say": "brenner",
+        "text": "The cod grounds are just the far side of where it lies now. I can smell them. Mara says the Gull reaches so far and no farther, and I'm to wait and see how far."
+      },
+      {
+        "choice": [
+          {
+            "text": "Go. The Gull's lit. It'll see you home.",
+            "set": {
+              "saltmarrow_brenner_cod": "go"
+            },
+            "goto": "leaned_go"
+          },
+          {
+            "text": "Wait. Mara knows that light better than anyone.",
+            "set": {
+              "saltmarrow_brenner_cod": "wait"
+            },
+            "goto": "leaned_wait"
+          }
+        ]
+      }
+    ],
+    "leaned_go": [
+      {
+        "say": "brenner",
+        "text": "That's what I wanted to hear, and I'll thank Mara not to hear you say it."
+      },
+      {
+        "say": "narrator",
+        "text": "He winds the line back onto its winder, quick, the way a younger man would."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "leaned_wait": [
+      {
+        "say": "brenner",
+        "text": "You've been talking to Mara."
+      },
+      {
+        "say": "brenner",
+        "text": "...Aye. I've waited this long. I'll see what the light's worth before I lean my weight on it."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "float": [
+      {
+        "say": "brenner",
+        "text": "A ring with a bar through it? That's my mark. My father's, before me."
+      },
+      {
+        "say": "brenner",
+        "text": "Lost that whole string the day I went out through the grey. Never thought to see a cork of it again."
+      },
+      {
+        "say": "brenner",
+        "text": "No. Leave it with the child. A lost thing ought to go to somebody that wants it, and nobody wants a cork float like a child does. I'll go along the shingle and tell them so."
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "choir_after": [
+      {
+        "say": "brenner",
+        "text": "South. The Low Water: skerries and shallows, and the fog on it that sings. That one was there before the Snuffing. Always has been. The Gull looks right out over it."
+      },
+      {
+        "say": "brenner",
+        "text": "You row to the edge of it on a calm day and ship your oars and it's voices. None of them saying anything you can catch."
+      },
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "goto": "dare_after"
+      },
+      {
+        "goto": "dare_gull_after"
+      }
+    ],
+    "dare_after": [
+      {
+        "say": "brenner",
+        "text": "Dunstan Tollen used to row out to the edge of it every spring, for a dare. From fourteen. I kept the tally on a stick."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "brenner",
+        "text": "He's home now. I gave him the stick. He gave it back and said, 'Keep counting.'"
+      },
+      {
+        "if": "flag:saltmarrow_homecoming_seen",
+        "goto": "home_hub"
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "dare_gull_after": [
+      {
+        "say": "narrator",
+        "text": "He takes a short stick out of his gansey, notched all down one side, and turns it in his fingers."
+      },
+      {
+        "say": "brenner",
+        "text": "Somebody used to row out to the edge of it every spring, for a dare. I kept the tally. Twenty-two notches, every one cut by me. Can't tell you for who."
+      },
+      {
+        "say": "brenner",
+        "text": "Mara's been asking. I showed her the stick. She held it like it was warm."
+      },
+      {
+        "if": "flag:saltmarrow_homecoming_seen",
+        "goto": "home_hub"
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "home": [
+      {
+        "if": "!flag:saltmarrow_met_brenner",
+        "set": {
+          "saltmarrow_met_brenner": true
+        },
+        "say": "narrator",
+        "text": "An old man on an upturned fish box at the end of the breakwater, baiting a hand line. He looks at you as if you'd been gone a day."
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=released",
+        "goto": "home_released"
+      },
+      {
+        "if": "flag:cindermoor_cradle_choice=dark",
+        "goto": "home_dark"
+      },
+      {
+        "say": "brenner",
+        "text": "Back, then. Mind my light."
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "home_released": [
+      {
+        "say": "brenner",
+        "text": "Sat just where the Gull put it. No thicker, no thinner. Somebody sits up at the beacon of a night now, and I don't row past a thing that's keeping watch. Feels rude."
+      },
+      {
+        "if": "flag:saltmarrow_brenner_cod=go",
+        "say": "brenner",
+        "text": "I went the once, like you told me, before you came home. Got my cod and knew what they were for. Once was enough to know."
+      },
+      {
+        "if": "flag:saltmarrow_brenner_cod=wait",
+        "say": "brenner",
+        "text": "I waited, like you told me. Still waiting. I'm getting good at it."
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "home_dark": [
+      {
+        "say": "brenner",
+        "text": "Put my name on Mara's list. Fourth. She made me stand at the post and look at the grey first, and I looked, and I wrote."
+      },
+      {
+        "say": "brenner",
+        "text": "What I've got left to burn is mostly cod and forty years of weather. They're welcome to choose."
+      },
+      {
+        "if": "flag:saltmarrow_brenner_cod=go",
+        "say": "brenner",
+        "text": "I went out, the once, like you said. Glad of it. A man ought to know what he's putting his name to."
+      },
+      {
+        "if": "flag:saltmarrow_brenner_cod=wait",
+        "say": "brenner",
+        "text": "Never did go out. You said wait, and then there was nothing to wait for. I might, before midwinter. Just to have it."
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "home_hub": [
+      {
+        "choice": [
+          {
+            "text": "Pell found a cork float with your mark on it.",
+            "if": [
+              "flag:shingle_pell_bank_back",
+              "!flag:saltmarrow_brenner_float"
+            ],
+            "set": {
+              "saltmarrow_brenner_float": true
+            },
+            "goto": "float_home"
+          },
+          {
+            "text": "What's out past the cod grounds?",
+            "if": "!flag:saltmarrow_brenner_choir",
+            "set": {
+              "saltmarrow_brenner_choir": true
+            },
+            "goto": "choir_after"
+          },
+          {
+            "text": "I'll leave you to it.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "float_home": [
+      {
+        "say": "brenner",
+        "text": "My mark, aye. Leave it with the child. A lost thing ought to go to somebody that wants it. I'll tell them so."
+      },
+      {
+        "goto": "home_hub"
+      }
+    ]
+  }
+}

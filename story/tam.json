@@ -57,6 +57,31 @@
             "goto": "ferry_in"
           },
           {
+            "text": "Mara says you paced the bank with an oar.",
+            "if": [
+              "quest:a_light_for_saltmarrow=done",
+              "!flag:saltmarrow_tam_bank"
+            ],
+            "set": {
+              "saltmarrow_tam_bank": true
+            },
+            "goto": "bank_paced",
+            "note": "Day 122."
+          },
+          {
+            "text": "Where's Brenner?",
+            "if": [
+              "flag:saltmarrow_homecoming_seen",
+              "flag:cindermoor_cradle_choice=lit",
+              "!flag:saltmarrow_tam_brenner_out"
+            ],
+            "set": {
+              "saltmarrow_tam_brenner_out": true
+            },
+            "goto": "brenner_out",
+            "note": "Day 122: the lit ending, Brenner out on the cod grounds."
+          },
+          {
             "text": "Thanks, Tam.",
             "end": true
           }
@@ -145,6 +170,53 @@
       {
         "say": "tam",
         "text": "If she weighs you light, don't argue. Nobody's ever won an argument with Oda. Not even the sea."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "bank_paced": [
+      {
+        "say": "tam",
+        "text": "Out to the outer post in Brenner's boat, and on from there with the oar laid flat across the bow, so I'd know the moment the grey touched it."
+      },
+      {
+        "say": "tam",
+        "text": "Touched at four lengths. Thin as breath on a window. I said it out loud: four. Brenner wanted to keep going. I sat on his oars."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=pebble",
+        "say": "tam",
+        "text": "Rowed back singing. Not any song. I just wanted noise in the boat, and there wasn't any tune to hand."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=knot",
+        "say": "tam",
+        "text": "It lies out there like a net with nobody hauling. I keep saying things like that. Mara lets me."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "tam",
+        "text": "Brenner kept looking back over his shoulder all the way in. Like there ought to be another boat behind us."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "brenner_out": [
+      {
+        "say": "tam",
+        "text": "Out on the cod grounds. Every tide that'll have him. You can see him from the gate if you know where to look: past the post, a speck with a cap on."
+      },
+      {
+        "if": "flag:saltmarrow_brenner_cod=go",
+        "say": "tam",
+        "text": "Tells everyone you told him to go, back before it was safe. He's prouder of that than of the cod."
+      },
+      {
+        "if": "flag:saltmarrow_brenner_cod=wait",
+        "say": "tam",
+        "text": "Says you told him to wait, and he did, and it was worth it. He says it like it was his own idea."
       },
       {
         "goto": "hub"

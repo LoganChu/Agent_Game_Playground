@@ -1,0 +1,15 @@
+{
+  "id": "brenner",
+  "name": "Brenner",
+  "faction": "tidewrights",
+  "color": "slate",
+  "dialogue": "brenner",
+  "model": "res://assets/models/characters/brenner.glb",
+  "idle": "sit",
+  "faces_player": false,
+  "bio": "Saltmarrow's oldest fisherman, forty-one years on the cod grounds. Sits on a fish box at the end of the breakwater watching the Greying bank off the harbor mouth. Rowed through it once and came home not knowing what his catch was for; dropped his pipe in the harbor when the Gull caught. Kept the tally of Dunstan's springtime dare to the Low Water's edge.",
+  "voice": {
+    "sound": "voice_gruff",
+    "pitch": 0.74
+  }
+}

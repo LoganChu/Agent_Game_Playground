@@ -37,6 +37,10 @@
       {
         "if": "flag:saltmarrow_pell_float",
         "goto": "the_float"
+      },
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "goto": "cork"
       }
     ],
     "empty_nest": [
@@ -55,6 +59,10 @@
       {
         "if": "flag:saltmarrow_pell_float",
         "goto": "the_float"
+      },
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "goto": "cork"
       }
     ],
     "green_glass": [
@@ -65,12 +73,36 @@
       {
         "if": "flag:saltmarrow_pell_float",
         "goto": "the_float"
+      },
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "goto": "cork"
       }
     ],
     "the_float": [
       {
         "say": "narrator",
         "text": "And on top of everything, ON and not IN, sits a green glass net-float in a cage of tarred cord, frosted by the sea. The grey light goes green inside it. A scrap of sailcloth beside it says, in Pell's big letters: NOBODYS. SO MINE. LOOK DONT TUCH."
+      },
+      {
+        "if": "quest:a_light_for_saltmarrow=done",
+        "goto": "cork"
+      }
+    ],
+    "cork": [
+      {
+        "say": "narrator",
+        "text": "Pushed in at the edge, still damp: a round of cork with a hole through it, a hank of frayed line knotted in the hole, and a ring burned into its top with a bar through the ring."
+      },
+      {
+        "if": "!flag:saltmarrow_brenner_float",
+        "say": "narrator",
+        "text": "The scrap of sailcloth beside it says, in Pell's big letters: SOMBODYS."
+      },
+      {
+        "if": "flag:saltmarrow_brenner_float",
+        "say": "narrator",
+        "text": "The scrap beside it once said SOMBODYS. That's been crossed out, and underneath, bigger: BRENNERS. HE SAYS KEEP IT. SO MINE."
       }
     ]
   }

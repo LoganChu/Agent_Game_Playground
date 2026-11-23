@@ -140,6 +140,19 @@
       "shot": "--at=0,-6,180 --settle=90"
     },
     {
+      "id": "brenners_tally",
+      "act": "Act I — The Wake",
+      "title": "Brenner's Tally",
+      "inherits": "aftermath_gull",
+      "region": "saltmarrow",
+      "description": "After Mara's memory of Dunstan burned, old Brenner sits on his fish box at the end of the breakwater with no pipe, watching the bank lean back. He kept a tally stick for somebody's springtime dare to the Low Water's singing edge, and can't say who it was for.",
+      "flags": {
+        "saltmarrow_mara_saw_beacon_lit": true,
+        "saltmarrow_mara_bank_back": true
+      },
+      "shot": "--at=15.6,16.4,170 --settle=90"
+    },
+    {
       "id": "ferry_arrived",
       "act": "Act I — The Wake",
       "title": "The ferry's arrival",

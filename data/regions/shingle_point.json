@@ -518,6 +518,17 @@
       "halo_strength": 1.0,
       "halo_bloom": 0.6,
       "note": "Polish eighteen (Day 108): the Hearthspire lit, seen from Shingle Point — Saltmarrow's bearing carried across the seam (Shingle Point lies 26.5 m south in Saltmarrow's frame), a gold point low in the north-east over the spit, behind Saltmarrow's hill."
+    },
+    {
+      "model": "res://assets/models/dressing/cork_float.glb",
+      "position": [
+        5,
+        0,
+        1
+      ],
+      "rotation_y": 20,
+      "if": "quest:a_light_for_saltmarrow=done",
+      "note": "Day 122: on the lost-things crate's lid (the crate's own position and rotation): the cork float with Brenner's mark that washed in once the bank leaned back."
     }
   ],
   "npcs": [

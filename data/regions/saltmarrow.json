@@ -1443,6 +1443,31 @@
       "halo_strength": 1.0,
       "halo_bloom": 0.6,
       "note": "Day 98: the Hearthspire lit, seen from Saltmarrow — a gold point low in the north-east over the lofts (Cindermoor lies north-east of the Gull on the chart; far out past the fog, the halo carries it)."
+    },
+    {
+      "model": "res://assets/models/dressing/rowboat_out.glb",
+      "position": [
+        3.0,
+        -0.25,
+        30.0
+      ],
+      "rotation_y": 160,
+      "snap": false,
+      "if": [
+        "flag:saltmarrow_homecoming_seen",
+        "flag:cindermoor_cradle_choice=lit"
+      ],
+      "float": {
+        "bob": 0.05,
+        "roll": 3.0,
+        "period": 4.2,
+        "foam": [
+          0.6,
+          1.45
+        ],
+        "foam_y": 0.0
+      },
+      "note": "Day 122: the lit ending: Brenner out on the cod grounds past the outer post, rowing, in the haze where the bank lay."
     }
   ],
   "npcs": [
@@ -1544,6 +1569,48 @@
       "model": "res://assets/models/characters/dunstan_home.glb",
       "idle": "sit",
       "note": "Home (Day 51): on his own stool by Mara's door (the stool prop gives way to his model's), a cup in both hands, facing the harbor."
+    },
+    {
+      "npc": "brenner",
+      "position": [
+        16.6,
+        0,
+        19.0
+      ],
+      "rotation_y": -8,
+      "if": "!quest:a_light_for_saltmarrow=done",
+      "note": "Day 122: on a fish box at the end of the breakwater, pipe in his teeth, watching the bank off the harbor mouth."
+    },
+    {
+      "npc": "brenner",
+      "position": [
+        16.6,
+        0,
+        19.0
+      ],
+      "rotation_y": -8,
+      "model": "res://assets/models/characters/brenner_nopipe.glb",
+      "if": [
+        "quest:a_light_for_saltmarrow=done",
+        "!flag:saltmarrow_homecoming_seen"
+      ],
+      "note": "Day 122: after the burn, the same box with no pipe (he dropped it in the harbor when the Gull caught)."
+    },
+    {
+      "npc": "brenner",
+      "position": [
+        16.6,
+        0,
+        19.0
+      ],
+      "rotation_y": -8,
+      "model": "res://assets/models/characters/brenner_nopipe.glb",
+      "if": [
+        "quest:a_light_for_saltmarrow=done",
+        "flag:saltmarrow_homecoming_seen",
+        "!flag:cindermoor_cradle_choice=lit"
+      ],
+      "note": "Day 122: after the homecoming (released or dark): still on his box."
     }
   ],
   "exits": [
