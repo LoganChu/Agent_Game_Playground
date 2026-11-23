@@ -1510,6 +1510,7 @@ func _check_gates(main: Node, expect_open: bool) -> void:
 ## the player wading out to sea, and the Saltmarrow dock can be walked out onto.
 func _check_ground(main: Node) -> void:
 	var player: Player = get_tree().get_first_node_in_group(SaveSystem.PLAYER_GROUP)
+	var walks := 0
 	for region_id: String in Content.db.regions:
 		GameState.travel(region_id)
 		for i in 30:
@@ -1524,6 +1525,9 @@ func _check_ground(main: Node) -> void:
 			_check(absf(npc.position.y - region.ground_y(npc.position.x, npc.position.z)) < 0.01, "npc %s stands on the ground" % npc.npc_id)
 		if region_id == "saltmarrow":
 			_check_walk_rays(region, player)
+		walks += _check_walk_survey(region)
+	_check(walks > 0, "the walk survey finds some walk between placements in the running game")
+	print("Smoke: %d walks between placements surveyed in the tree" % walks)
 	GameState.travel("gulls_head")
 	for i in 3:
 		await get_tree().physics_frame
@@ -1602,6 +1606,24 @@ func _check_walk_rays(region: Region, player: Node3D) -> void:
 		if not points.is_empty() and region.walk_way_clear(points):
 			open += 1
 	_check(open > 0, "some walk out from the Saltmarrow spawn is clear")
+
+
+## Day 121: WalkSurvey in the running game (props and other NPCs in the way): every walk it finds between one NPC's
+## placements has each leg clear on the ground and down its middle. Returns how many walks it found.
+func _check_walk_survey(region: Region) -> int:
+	var walks := 0
+	for row: Dictionary in WalkSurvey.survey(region):
+		if row["kind"] != WalkSurvey.STRAIGHT and row["kind"] != WalkSurvey.BENT:
+			continue
+		walks += 1
+		var route: Array = row["route"]
+		var at: Vector3 = row["from_pos"]
+		for i in route.size():
+			var leg := region._leg_points(at, route[i], Region.WALK_PROBE_SHORT if i == route.size() - 1 else 0.0)
+			_check(not leg.is_empty() and region.walk_way_clear(leg, WalkSurvey._actor_at(region, row["npc"], row["from_pos"])),
+				"%s: %s — leg %d is clear" % [region.region_id, WalkSurvey.describe(row), i])
+			at = route[i]
+	return walks
 
 
 func _check_greying(main: Node) -> void:
