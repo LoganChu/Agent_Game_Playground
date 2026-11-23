@@ -277,6 +277,27 @@ greyed net-lofts.
   - **After the homecoming**: lit, gone to a haze, Brenner on the cod grounds daily; released, just where the Gull leaned
     it, and nobody rows out to it; dark, held off the mouth till midwinter — Mara makes everyone stand at the post and
     look at it before they write their name on the list.
+- **Brenner (Day 122).** Saltmarrow's oldest fisherman (forty-one years on the cod grounds) sits on an upturned fish box at
+  the **end of the breakwater** watching the bank, "in case it gets ideas". He rowed through it the second month after the
+  Snuffing, fished full nets on the far side and came home asking Mara "What's dinner?" (it came back by morning, most of
+  it). **He dropped his clay pipe in the harbor when the Gull caught** and has none since.
+  - **The Low Water from Saltmarrow's side.** Past the cod grounds, south, the skerries and the fog that sings: there
+    *before* the Snuffing, always. **Dunstan rowed out to the Choir's edge every spring, first calm day, from fourteen**,
+    the last half backward to see the singing coming; Brenner kept the tally on a notched stick (Mara never knew, or never
+    said). This is the dare Mara half-remembers after the gull burn (Day 120: she points at the nearer bank; it was the
+    Choir's edge). **Gull burn:** twenty-two notches, every one cut by Brenner, for nobody he can name ("Big hands, I
+    think. Laughing."); Mara held the stick "like it was warm". Dunstan home (not the gull burn): Brenner gave him the
+    stick back; "Keep counting."
+  - **His mark** is a ring with a bar through it, his father's before him; he lost a whole string of floats the day he
+    went through the grey. The cork that washed into **Pell's crate** is his; told, he says Pell should keep it ("nobody
+    wants a cork float like a child does") and the crate's scrap reads BRENNERS. HE SAYS KEEP IT. SO MINE.
+  - **Go or wait** (`saltmarrow_brenner_cod`): after the burn the player tells him to go to the cod grounds (the Gull will
+    see him home) or to wait on Mara's word. **Tam** paced the bank from the outer post in Brenner's boat with an oar
+    across the bow: touched at four lengths, and Tam sat on Brenner's oars to stop him going on.
+  - **After the homecoming**: lit — out on the cod grounds every tide, a speck with a cap on past the post (Tam: he tells
+    everyone he was told to go, or says waiting was his own idea); released — still on his box, he won't row past "a
+    thing that's keeping watch"; dark — **his name is fourth on Saltmarrow's midwinter list** ("what I've got left to burn
+    is mostly cod and forty years of weather").
 
 ### 2. Thornwold (Act II — begun Day 17)
 A forest island of pines and bramble-walls whose paths the fog keeps rearranging. Home of

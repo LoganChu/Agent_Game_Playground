@@ -891,12 +891,13 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [C] **A content session** (due by ~Day 124: #1d/#1b/#3, or the Day 120 follow-ups — Brenner as a placed NPC or a
-   boat out past the post after the burn; the cork float as a prop in Pell's crate; Tam on pacing it), or a systems
-   session first (#1c/#5/#6/#7); polish twenty-three by ~Day 129. Before adding a placement, run
-   `tools/debug/walk_probe.gd` to see whether the move walks. Fetch and reset `main` before trusting it.
-   (Done Day 121, polish twenty-two: `WalkSurvey` + `tools/debug/walk_probe.gd`, every placement pair per region as
-   swap / straight / bent / fades (why); the smoke test checks every walk it finds with rays.)
+1. [S] **A systems session** (#1c/#5/#6/#7, or #1a's stand-up blend); a content session due by ~Day 126 (#1d/#1b/#3
+   or the Day 122 follow-ups: Brenner's tally stick as a prop or an item; Brenner on the Mercy's dock or seeing Dunstan
+   off on the cod grounds together; Oda on the Low Water's dare if asked; Mara told where the dare really went);
+   polish twenty-three by ~Day 129. Fetch and reset `main` before trusting it.
+   (Done Day 122, content: Brenner on the breakwater — the cod grounds, the Low Water's dare and his tally, go/wait,
+   his mark on Pell's cork float (a prop on the crate), Tam pacing the bank, per ending after the homecoming with
+   his boat out past the post in the lit one.)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
@@ -943,7 +944,7 @@ each .glb < 5 MB.
    Hood-Pin; Iver home on Kindleby meeting Tobin/the colliers; the `stayed`
    ending's walk home (by oar, waving at the Mercy — Day 60); Pell aboard on Thornwold hearing Dunstan's home; Abe/Tolly or
    the Lamp on Wenna's bend; the colliers on Kindleby (Ottie looking north — does anyone go home?); Tobin/Oda noticing the
-   colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Low Water from Saltmarrow's side (Aldous, Mara —
+   colliers on the wall; the Lamp (a Keeper) seeing the Stair-Taper; the Low Water from Saltmarrow's side (Brenner and Dunstan's dare: Day 122; still Aldous, Mara —
    the Gull looks south over it). Pell isn't on the Mercy in Act III (they stayed at Bram's camp if they crossed).
 4. [P] **Color grading pass on a Vulkan machine** — the lower rooms read very dark in Compatibility (Day 87: judge on
    Vulkan before brightening); also the Compatibility-renderer paint contrast items (Day 84 left

@@ -2,6 +2,48 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-23 21:00 UTC — Day 122: Brenner's tally (content)
+
+**Did**
+- Tooling: `tools/setup.sh` installed Godot 4.7.2 and Blender 5.2.2 (bpy). `main` was already at `origin/main`
+  (Day 121's `d4165e9`). Baseline: 894 tests + smoke + launch green.
+- **Content (ROADMAP *Next up* #1, the Day 120 bank follow-ups): Brenner, the man Mara keeps naming.**
+  - **Brenner** (new NPC and character model): Saltmarrow's oldest fisherman on an upturned fish box at the **end of the
+    breakwater** (16.6, 19.0), looking out at the bank. Two models: `brenner` with his clay pipe before the burn,
+    `brenner_nopipe` after (he dropped it in the harbor when the Gull caught). Placements are at one spot, so the walk
+    probe reads every change as a swap.
+  - **Before the burn**: what he's watching; the cod grounds (once Mara's mentioned them: "What's dinner?"); what's past
+    them — **the Low Water's singing fog**, there before the Snuffing, and **Dunstan's springtime dare** to its edge, the
+    tally Brenner kept on a stick.
+  - **After the burn**: the pipe; per burn (pebble: the tune he hummed round the stem; knot: a net started in the middle;
+    gull: **twenty-two notches for nobody**, Mara holding the stick "like it was warm"); Dunstan home ("Keep counting";
+    after the gull burn, "a big fellow" he owed a yes). **Go or wait** (`saltmarrow_brenner_cod`) on the leaned-back bank.
+    **The cork float** in Pell's crate is his mark: he says Pell keeps it.
+  - **Pell's crate**: a new `cork_float` prop on its lid after the burn, and its narration (SOMBODYS, then BRENNERS. HE
+    SAYS KEEP IT. SO MINE.).
+  - **Tam** tells how he paced the bank (four lengths, sat on Brenner's oars; per burn), and in the lit ending points out
+    Brenner on the cod grounds (per go/wait). **After the homecoming**: lit, a new `rowboat_out` prop (Brenner at the
+    oars) floats past the outer post and he's off his box; released, he won't row past the warm step's watch; dark, his
+    name's fourth on the midwinter list. Both remember what the player said.
+- Checkpoint `brenners_tally` (after the gull burn, on the breakwater). LORE: *Brenner* after Saltmarrow's bank section.
+- **Tests:** `test_brenners_tally.gd` (7): where he shows (pipe/no pipe/lit boat); before the burn; after per burn
+  (no Dunstan by name after the gull burn); go/wait and the float (the crate's text and prop); the homecoming per ending ×
+  go/wait and Tam's lit line; Tam's pacing per burn; the checkpoint. 901 tests + smoke + launch green.
+
+**Decisions**
+- **The dare was to the Low Water, not the bank.** Day 120 had Mara remember somebody rowing "to the edge of that" every
+  spring — but the bank only came in three months ago. Rather than rewrite her line, Brenner says where the dare really
+  went (the Choir's edge, there long before the Snuffing): her memory of it is muddled because the person in it was cut
+  out. This also starts ROADMAP #3's "the Low Water from Saltmarrow's side".
+- **A placed NPC rather than more lines for Mara.** Mara had named Brenner three times; giving him a box and a voice
+  makes the harbor feel lived-in and gives the go/wait choice somebody to answer to after the ending.
+- **In the lit ending he's a boat, not a talker.** The lit ending's whole point at Saltmarrow is boats out past the wall;
+  Tam carries his go/wait payoff instead.
+
+**Next run should**
+1. ROADMAP *Next up* #1: a **systems session** (#1c/#5/#6/#7) — the last two were content and polish; polish
+   twenty-three by ~Day 129. Fetch and reset `main` before trusting it.
+
 ## 2026-11-23 09:00 UTC — Day 121: polish twenty-two (the walk probe)
 
 **Did**
