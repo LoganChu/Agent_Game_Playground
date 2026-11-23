@@ -758,11 +758,54 @@ def build_bottle_corked() -> None:
     export("bottle_corked")
 
 
+def build_cork_float() -> None:
+    """Day 122: the cork float Pell put in the lost-things crate after the bank leaned back: a slab of cork
+    cut round, a hole through the middle with a hank of frayed line still knotted in it, and Brenner's
+    mark burned into the top (a ring with a bar through it). Modelled where it sits on a crate's lid
+    (place it with the crate's own position and rotation), with Pell's scrap of sailcloth beside it."""
+    reset()
+    z = 0.8
+    cork, burn = mat("driftwood", -0.25), mat("ink", 0.15)
+    cyl("Cork", 0.13, 0.12, 0.07, 8, (0.05, -0.02, z), cork, rot_z=0.2)
+    cyl("Hole", 0.03, 0.03, 0.072, 6, (0.05, -0.02, z), mat("ink", -0.2))
+    for k in range(6):  # the burned ring
+        a = k / 6 * math.tau
+        box("Mark", (0.035, 0.012, 0.004), (0.05 + math.cos(a) * 0.075, -0.02 + math.sin(a) * 0.075, z + 0.07), burn,
+            rot_z=a + math.pi / 2)
+    box("Bar", (0.15, 0.014, 0.004), (0.05, -0.02, z + 0.07), burn, rot_z=0.9)
+    rod("Line", (0.05, -0.02, z + 0.07), (-0.12, 0.12, z + 0.01), 0.01, mat("bone", -0.35), verts=4)
+    rod("Line", (-0.12, 0.12, z + 0.01), (-0.2, 0.08, z + 0.01), 0.01, mat("bone", -0.35), verts=4)
+    box("Scrap", (0.16, 0.11, 0.006), (0.2, 0.17, z), mat("bone", -0.1), rot_z=-0.3)
+    for i in range(3):  # Pell's big letters
+        box("Letter", (0.025, 0.04, 0.004), (0.15 + i * 0.04, 0.17 - i * 0.012, z + 0.006), burn, rot_z=-0.3)
+    export("cork_float")
+
+
+def build_rowboat_out() -> None:
+    """Day 122: Brenner out on the cod grounds (the lit ending, after the homecoming): the rowboat with its
+    oars out and a man at them in a flat cap, a fish box in the stern. Origin at the WATERLINE (snap false,
+    at the water level); seen from the shore, past the outer post."""
+    reset()
+    _rowboat(mat("tide", -0.2), mat("coal", -0.2))
+    merge_by_material()
+    for obj in list(bpy.context.scene.objects):
+        obj.location = (0, 0, -0.2)
+    for side in (-1, 1):
+        rod("Oar", (side * 0.3, -0.1, 0.32), (side * 1.6, -0.35, -0.05), 0.03, mat("driftwood", 0.1))
+    knit = mat("slate", -0.05)
+    cyl("Body", 0.2, 0.17, 0.5, 6, (0, 0.05, 0.12), knit)
+    cyl("Head", 0.12, 0.11, 0.2, 6, (0, 0.05, 0.62), mat("driftwood", -0.12))
+    cyl("Cap", 0.14, 0.12, 0.06, 6, (0, 0.03, 0.8), mat("abyss", -0.25))
+    box("Beard", (0.18, 0.08, 0.12), (0, -0.07, 0.6), mat("bone", 0.0))
+    box("FishBox", (0.5, 0.36, 0.22), (0, 1.0, 0.1), mat("driftwood", -0.4))
+    export("rowboat_out")
+
+
 BUILDERS = [build_dock, build_rowboat, build_rowboat_upturned, build_moored_boat, build_smokehouse, build_barrel,
             build_barrels, build_crate, build_lantern_post, build_signal_lantern, build_fence, build_stool, build_cups,
             build_net_racks, build_driftwood_log, build_wreck, build_reeds, build_grass, build_beacon_lit,
             build_ferry, build_ferry_tied, build_bundle, build_pell_gull, build_mooring_post,
-            build_bottle_corked]
+            build_bottle_corked, build_cork_float, build_rowboat_out]
 
 if __name__ == "__main__":
     only = [a for a in sys.argv[1:] if not a.startswith("-")]

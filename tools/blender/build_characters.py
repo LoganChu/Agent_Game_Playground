@@ -2210,6 +2210,69 @@ def _oriel(seated: bool) -> None:
     assemble(b, "oriel_seated" if seated else "oriel", scale=1.05)
 
 
+def build_brenner() -> None:
+    """Brenner (Day 122), Saltmarrow's oldest fisherman, sat on an upturned fish box at the end of the
+    breakwater looking out at the bank: a faded knit gansey and oilskin bib, a flat cap, a white beard
+    cut square, a hand line half-baited across his knees and his clay pipe in his teeth. (He dropped
+    the pipe in the harbor when the Gull caught: `brenner_nopipe` after the burn.)"""
+    _brenner(pipe=True)
+
+
+def build_brenner_nopipe() -> None:
+    """Brenner after the burn: the same, with no pipe (it's on the bottom of the harbor)."""
+    _brenner(pipe=False)
+
+
+def _brenner(pipe: bool) -> None:
+    reset_scene()
+    b = Body(seated=True, build=1.12)
+    knit = material("slate", -0.05)
+    skin = material("driftwood", -0.12)
+    bib = material("ember", -0.55)
+    base_body(b, skin, bib, material("ink", 0.12), knit, sleeves=knit)
+    t = b.parts["Torso"]
+    t.append(limb((0, 0, b.hip - 0.04), (0, 0, b.waist + 0.04), 0.3, 0.29, knit, verts=8))          # gansey skirt
+    for z in (b.waist + 0.14, b.waist + 0.26, b.waist + 0.38):                                    # knit ribs
+        t.append(ring(0.3, z, 0.022, material("slate", -0.25)))
+    t.append(block((0.34, 0.04, 0.3), (0, -0.25, b.waist + 0.1), bib))                            # oilskin bib
+    for x in (0.12, -0.12):
+        t.append(limb((x, -0.24, b.waist + 0.24), (x * 1.3, -0.06, b.shoulder + 0.02), 0.025, 0.025, bib, verts=4))
+    t.append(ring(0.1, b.neck, 0.06, knit))
+    h = b.parts["Head"]
+    beard = material("bone", 0.0)
+    h.append(block((0.26, 0.14, 0.15), (0, -0.15, b.head - 0.17), beard))                          # square-cut beard
+    h.append(ball(0.2, (0, 0.03, b.head + 0.02), beard, scale=(1.18, 1.1, 0.9)))                  # white hair at the sides
+    cap = material("abyss", -0.25)
+    h.append(ball(0.245, (0, 0.02, b.head + 0.1), cap, scale=(1.05, 1.1, 0.5)))                   # flat cap
+    h.append(block((0.3, 0.14, 0.03), (0, -0.24, b.head + 0.09), cap, rot=(math.radians(-10), 0, 0)))  # its peak
+    for ex in (0.075, -0.075):                                                                    # white brows
+        h.append(block((0.07, 0.03, 0.025), Vector((ex, -b.head_r * 0.95, b.head + 0.07)), beard))
+    if pipe:
+        clay = material("bone", -0.2)
+        mouth = Vector((0.06, -b.head_r * 1.02, b.head - 0.08))
+        bowl = mouth + Vector((0.05, -0.15, -0.04))
+        h.append(limb(mouth, bowl, 0.012, 0.012, clay, verts=4))
+        h.append(limb(bowl, bowl + Vector((0, 0, 0.06)), 0.026, 0.03, clay, verts=6))
+        h.append(ball(0.022, bowl + Vector((0, 0, 0.06)), material("coal", -0.2), segments=5, rings=3))
+    # The hand line across his knees: a wooden winder on the left knee, line and hooks trailing.
+    line = material("bone", -0.35)
+    winder = material("driftwood", -0.3)
+    b.parts["LegL"].append(block((0.2, 0.06, 0.12), (0.14, -0.3, b.hip + 0.14), winder))
+    b.parts["LegL"].append(block((0.21, 0.065, 0.06), (0.14, -0.3, b.hip + 0.14), line))
+    b.parts["LegL"].append(limb((0.06, -0.3, b.hip + 0.15), (-0.22, -0.36, b.hip + 0.12), 0.006, 0.006, line, verts=3))
+    b.parts["LegR"].append(limb((-0.22, -0.36, b.hip + 0.12), (-0.26, -0.45, b.hip - 0.2), 0.006, 0.006, line, verts=3))
+    b.parts["Stool"].append(block((0.62, 0.46, b.hip - 0.06), (0, 0.02, (b.hip - 0.06) / 2), material("driftwood", -0.4)))  # fish box
+    b.parts["Stool"].append(block((0.64, 0.48, 0.04), (0, 0.02, b.hip - 0.06), material("driftwood", -0.22)))
+    b.parts["Stool"].append(block((0.06, 0.5, 0.3), (0.31, 0.02, 0.12), material("driftwood", -0.55)))
+    b.parts["Stool"].append(block((0.06, 0.5, 0.3), (-0.31, 0.02, 0.12), material("driftwood", -0.55)))
+    # Hands down at the line, baiting; head up, though, looking out past it.
+    b.arm_rest["ArmL"] = (math.radians(-48), 0, math.radians(-10))
+    b.arm_rest["ArmR"] = (math.radians(-52), 0, math.radians(16))
+    b.torso_rest = (math.radians(8), 0, 0)
+    b.head_rest = (math.radians(-6), 0, 0)
+    assemble(b, "brenner_nopipe" if not pipe else "brenner", scale=0.97)
+
+
 BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, build_aldous_seated, build_aldous_warden,
             build_aldous_warden_seated, build_aldous_seated_sober, build_tam, build_hesk, build_oda, build_bram,
             build_hob, build_hob_seated, build_hob_lantern, build_lamp, build_lamp_named, build_hesper, build_corran, build_corran_nocord,
@@ -2220,7 +2283,8 @@ BUILDERS = [build_wakebearer, build_ness, build_mara, build_pell, build_aldous, 
             build_ottie, build_ottie_cap, build_ottie_home, build_ottie_home_cap, build_ottie_home_unshod,
             build_ottie_home_unshod_cap, build_wenna_coll, build_wenna_coll_lantern, build_wenna_coll_rake, build_abe, build_tolly,
             build_tolly_lantern, build_provost, build_tobin, build_keeper_sister, build_keeper_brother,
-            build_keeper_pim, build_hild, build_hild_scraping, build_iver, build_iver_nolamp, build_merrit, build_oriel, build_oriel_seated]
+            build_keeper_pim, build_hild, build_hild_scraping, build_iver, build_iver_nolamp, build_merrit, build_oriel, build_oriel_seated,
+            build_brenner, build_brenner_nopipe]
 
 if __name__ == "__main__":
     import sys
