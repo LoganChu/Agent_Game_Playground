@@ -365,6 +365,24 @@
       "shot": "--camera=4.2,1.6,-25.6:0.8,0.5,-29.6"
     },
     {
+      "id": "the_tally_stick",
+      "act": "Act II — The Drift",
+      "title": "The tally stick",
+      "inherits": "dunstan_found",
+      "region": "glasswater_fen",
+      "spawn": "from_punt",
+      "description": "Dunstan found, and you carry Brenner's tally stick from Saltmarrow: twenty-two notches, one for every spring Dunstan rowed back inside the outer post from the Low Water's singing edge. Walk out along the boards and give it him.",
+      "flags": {
+        "saltmarrow_met_brenner": true,
+        "saltmarrow_brenner_choir": true,
+        "saltmarrow_brenner_tally_given": true
+      },
+      "items": {
+        "brenners_tally": 1
+      },
+      "shot": "--camera=4.2,1.6,-25.6:0.8,0.5,-29.6"
+    },
+    {
       "id": "wrackholm",
       "act": "Act II — The Drift",
       "title": "East-about to Wrackholm",
