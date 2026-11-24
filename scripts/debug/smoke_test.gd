@@ -129,6 +129,16 @@ func _check_ambience(main: Node) -> void:
 		await get_tree().process_frame
 	_check(audio.layer_playing("surf") and audio.layer_playing("wind_low"), "Shingle Point's surf and wind play")
 	_check(not audio.ambience_targets().has("gulls"), "no gulls on Shingle Point before the beacon burns")
+	# Day 123: the surf plays from the shore nearest the player, not everywhere at once.
+	var region: Region = main.get("region")
+	var player: Node3D = main.get("player")
+	var shore := region.shore_points()
+	var at := audio.layer_position("surf")
+	_check(audio.layer_anchored("surf") and not shore.is_empty() and at != Vector3.INF, "Shingle Point's surf comes from its shore")
+	if at != Vector3.INF:
+		var want := ShoreSound.anchor(shore, player.global_position)
+		_check(Vector2(at.x - want.x, at.z - want.z).length() < 3.0, "the surf sits at the shore nearest the player (%s, want %s)" % [at, want])
+	_check(audio.layer_gain("surf") >= 0.35 and audio.layer_gain("surf") <= 1.0, "the surf's gain follows the distance to the water (%s)" % audio.layer_gain("surf"))
 	audio.history.clear()
 	audio.speak("pell", "Oi! You. Yes, you, with the hand.")
 	for i in 30:

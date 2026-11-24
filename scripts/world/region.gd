@@ -422,6 +422,12 @@ static func prop_sounds(region_data: Dictionary) -> Array:
 	return ids
 
 
+## Where the region's ground meets its water (ShoreSound: the surf plays from here), in
+## world space; empty for a region without sculpted ground or water.
+func shore_points() -> PackedVector3Array:
+	return field.shore_points() if field else PackedVector3Array()
+
+
 ## The footstep surface under `pos` (data/audio.json "footsteps"): a pier deck (or anything
 ## built, standing well above the ground — a dock, a boardwalk) sounds as `boards`, unless
 ## the region says otherwise (`footsteps_raised`: the Teeth's slabs are rock); shallow water

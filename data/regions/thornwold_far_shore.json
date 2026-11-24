@@ -21,7 +21,10 @@
   "ambience": [
     {
       "sound": "surf",
-      "volume": 1.0
+      "volume": 1.0,
+      "at": "shore",
+      "reach": 12,
+      "floor": 0.35
     },
     {
       "sound": "wind_high",

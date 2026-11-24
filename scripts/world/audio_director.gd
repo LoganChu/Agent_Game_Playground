@@ -3,7 +3,8 @@ extends Node
 ## The soundscape (Day 46), a child of main beside Atmosphere. Everything plays through the
 ## Settings buses by name (GameSettings.BUSES) and every sound is a SoundBank id:
 ##   - region `ambience` layers ([{sound, volume, if}]), crossfaded on arrival and when the
-##     story changes them (gulls come back to Saltmarrow once the Gull's Beacon burns);
+##     story changes them (gulls come back to Saltmarrow once the Gull's Beacon burns); a
+##     layer marked `"at": "shore"` plays from the nearest shoreline instead (ShoreSound);
 ##   - the player's footsteps on the surface underfoot (Region.footstep_surface);
 ##   - dialogue voices: a few blips per line in the speaker's `voice` ({sound, pitch});
 ##   - story sounds from a dialogue step's `sound` (a horn, a beacon catching);
@@ -36,6 +37,13 @@ var _region_data: Dictionary = {}
 var _layers: Dictionary = {}
 var _levels: Dictionary = {}
 var _targets: Dictionary = {}
+## Anchored layers' specs (sound id -> ShoreSound.spec) and the gain each is at now.
+var _anchors: Dictionary = {}
+var _gains: Dictionary = {}
+## The region's shoreline (TerrainField.shore_points) and where the listener stands.
+var _shore := PackedVector3Array()
+var _listener := Vector3.INF
+var _retired := 0
 var _pool: Array[AudioStreamPlayer] = []
 var _next_voice := 0
 var _heart: AudioStreamPlayer
@@ -98,6 +106,9 @@ func _exit_tree() -> void:
 		if child is AudioStreamPlayer:
 			(child as AudioStreamPlayer).stop()
 			(child as AudioStreamPlayer).stream = null
+		elif child is AudioStreamPlayer3D:
+			(child as AudioStreamPlayer3D).stop()
+			(child as AudioStreamPlayer3D).stream = null
 	SoundBank.clear()
 
 
@@ -136,9 +147,22 @@ static func ambience_layers(region_data: Dictionary, world: WorldState) -> Dicti
 	return layers
 
 
-## A new region: its layers fade in (a layer the last region shared carries on).
-func enter_region(region_data: Dictionary) -> void:
+## The region's anchored ambience layers whose `if` holds: sound id -> ShoreSound.spec
+## (the first holding entry of a sound that names an `at`).
+static func ambience_anchors(region_data: Dictionary, world: WorldState) -> Dictionary:
+	var anchors := {}
+	for entry: Dictionary in region_data.get("ambience", []):
+		var id := str(entry.get("sound", ""))
+		if entry.has("at") and not anchors.has(id) and Conditions.evaluate(entry.get("if"), world):
+			anchors[id] = ShoreSound.spec(entry)
+	return anchors
+
+
+## A new region: its layers fade in (a layer the last region shared carries on). `shore` is
+## its shoreline (Region.shore_points) for layers that play from the water's edge.
+func enter_region(region_data: Dictionary, shore: PackedVector3Array = PackedVector3Array()) -> void:
 	_region_data = region_data
+	_shore = shore
 	_last_counts = GameState.world.inventory.duplicate()
 	refresh(true)
 
@@ -146,16 +170,29 @@ func enter_region(region_data: Dictionary) -> void:
 ## Re-reads the region's layers against the story (live: a beacon lit mid-visit).
 func refresh(animate: bool = true) -> void:
 	_targets = ambience_layers(_region_data, GameState.world)
+	_anchors = ambience_anchors(_region_data, GameState.world) if not _shore.is_empty() else {}
 	SoundBank.warm(Content.db, _targets.keys())
 	for id: String in _targets:
+		var anchored := _anchors.has(id)
+		if _layers.has(id) and (_layers[id] is AudioStreamPlayer3D) != anchored:
+			# The same sound from somewhere else now (shore <-> everywhere): the old player
+			# fades out under another name while the new one fades in.
+			_retired += 1
+			var key := "%s~%d" % [id, _retired]
+			_layers[key] = _layers[id]
+			_levels[key] = _levels[id]
+			_layers.erase(id)
+			_levels.erase(id)
 		if not _layers.has(id):
-			var player := AudioStreamPlayer.new()
+			var player: Node = _shore_player() if anchored else AudioStreamPlayer.new()
 			player.name = "Ambience_" + id
-			player.bus = SoundBank.bus(Content.db, id)
-			player.volume_db = linear_to_db(0.0001)
+			player.set("bus", SoundBank.bus(Content.db, id))
+			player.set("volume_db", linear_to_db(0.0001))
 			add_child(player)
 			_layers[id] = player
 			_levels[id] = 0.0
+		if anchored:
+			_place_anchor(_layers[id] as AudioStreamPlayer3D, false)
 	if not animate:
 		for id: String in _layers:
 			_levels[id] = float(_targets.get(id, 0.0))
@@ -168,8 +205,60 @@ func ambience_targets() -> Dictionary:
 
 ## Whether layer `id` is audible now (started and above silence; tests).
 func layer_playing(id: String) -> bool:
-	var player: AudioStreamPlayer = _layers.get(id)
-	return player != null and player.playing and float(_levels.get(id, 0.0)) > 0.0
+	var player: Node = _layers.get(id)
+	return player != null and bool(player.get("playing")) and float(_levels.get(id, 0.0)) > 0.0
+
+
+## Whether layer `id` plays from the shore (a positional player at the water's edge).
+func layer_anchored(id: String) -> bool:
+	return _layers.get(id) is AudioStreamPlayer3D
+
+
+## Where an anchored layer is coming from now (Vector3.INF for a plain or missing layer).
+func layer_position(id: String) -> Vector3:
+	var player: Variant = _layers.get(id)
+	return (player as AudioStreamPlayer3D).position if player is AudioStreamPlayer3D else Vector3.INF
+
+
+## The share of its volume an anchored layer is at for the listener's distance to the water
+## (1.0 for a plain layer).
+func layer_gain(id: String) -> float:
+	return float(_gains.get(id, 1.0))
+
+
+## Where the player stands (main, every frame): anchored layers follow the shore near them.
+func follow_listener(pos: Vector3) -> void:
+	_listener = pos
+
+
+## A positional player for a shore layer: no distance falloff (ShoreSound.gain does that,
+## so it can be tuned in data), just the direction to the water.
+func _shore_player() -> AudioStreamPlayer3D:
+	var player := AudioStreamPlayer3D.new()
+	player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_DISABLED
+	player.max_distance = 0.0
+	player.doppler_tracking = AudioStreamPlayer3D.DOPPLER_TRACKING_DISABLED
+	player.max_db = 0.0
+	return player
+
+
+## Slides an anchored player toward the shore point nearest the listener (`snap`: jump
+## there) and records its gain.
+func _place_anchor(player: AudioStreamPlayer3D, snap: bool, delta: float = 0.0) -> void:
+	var id := player.name.trim_prefix("Ambience_")
+	var spec: Dictionary = _anchors.get(id, {})
+	if spec.is_empty() or _listener == Vector3.INF:
+		_gains[id] = float(spec.get("floor", 1.0)) if not spec.is_empty() else 1.0
+		return
+	var target := ShoreSound.anchor(_shore, _listener)
+	if target == Vector3.INF:
+		return
+	# The first placement jumps; after that it slides along the shore. (The director is a plain
+	# Node, so a child's position is its place in the world.)
+	var jump := snap or not player.has_meta("placed")
+	player.position = target if jump else player.position.move_toward(target, ShoreSound.SLIDE * delta)
+	player.set_meta("placed", true)
+	_gains[id] = ShoreSound.gain(ShoreSound.distance(_shore, _listener), float(spec["reach"]), float(spec["floor"]))
 
 
 ## The Greying around the player (0..1): muffles the Ambience bus and brings up the ember's
@@ -346,24 +435,30 @@ func on_turned_back() -> void:
 func _process(delta: float) -> void:
 	_update_music(delta)
 	for id: String in _layers.keys():
-		var player: AudioStreamPlayer = _layers[id]
+		var player: Node = _layers[id]
 		var target := float(_targets.get(id, 0.0))
 		var level := move_toward(float(_levels[id]), target, delta / FADE)
-		if not player.playing:
+		if not bool(player.get("playing")):
 			if target <= 0.0:
 				level = 0.0
 			elif SoundBank.is_ready(Content.db, id):
-				player.stream = SoundBank.stream(Content.db, id)
+				var stream := SoundBank.stream(Content.db, id)
+				player.set("stream", stream)
 				# Somewhere into the loop, so the same layer never starts on the same swell.
-				player.play(_rng.randf_range(0.0, maxf(0.01, player.stream.get_length() - 0.1)) if player.stream else 0.0)
+				player.call("play", _rng.randf_range(0.0, maxf(0.01, stream.get_length() - 0.1)) if stream else 0.0)
 			else:
 				level = 0.0
 		_levels[id] = level
-		player.volume_db = linear_to_db(maxf(0.0001, level))
+		var heard := level
+		if player is AudioStreamPlayer3D and _anchors.has(id):
+			_place_anchor(player as AudioStreamPlayer3D, false, delta)
+			heard *= float(_gains.get(id, 1.0))
+		player.set("volume_db", linear_to_db(maxf(0.0001, heard)))
 		if level <= 0.0 and target <= 0.0:
 			player.queue_free()
 			_layers.erase(id)
 			_levels.erase(id)
+			_gains.erase(id)
 	var i := 0
 	while i < _blips.size():
 		_blips[i][0] = float(_blips[i][0]) - delta

@@ -907,6 +907,21 @@ func _validate_region(id: String, region: Dictionary) -> void:
 ## Region `events` (arrival events, main.gd): each needs an id, an `if`, a dialogue and a
 ## `set` that switches its own `if` off (a `!flag:x` term with x in `set`), so an event can
 ## never fire twice.
+## An ambience layer's `at` (Day 123, ShoreSound): a known place, a sensible `reach` and
+## `floor`, and a region with water for the shore to be at.
+func _check_ambience_anchor(where: String, layer: Dictionary, region: Dictionary) -> void:
+	var at := str(layer["at"])
+	if not ShoreSound.PLACES.has(at):
+		_err(where, "ambience '%s' at '%s' is not a place sound can come from (%s)" % [layer["sound"], at, ShoreSound.PLACES])
+		return
+	if not region.has("ground") or not region.has("water_level"):
+		_err(where, "ambience '%s' at the shore needs sculpted ground and a water_level" % layer["sound"])
+	if layer.has("reach") and (not (layer["reach"] is float or layer["reach"] is int) or float(layer["reach"]) <= ShoreSound.NEAR):
+		_err(where, "ambience '%s' reach must be a number of metres over %s" % [layer["sound"], ShoreSound.NEAR])
+	if layer.has("floor") and (not (layer["floor"] is float or layer["floor"] is int) or float(layer["floor"]) < 0.0 or float(layer["floor"]) > 1.0):
+		_err(where, "ambience '%s' floor must be in [0, 1]" % layer["sound"])
+
+
 ## A region's `ambience` layers, `footsteps` surfaces and its props' `sound`s (Day 46).
 func _validate_region_audio(where: String, region: Dictionary) -> void:
 	var ambience: Variant = region.get("ambience", [])
@@ -922,6 +937,8 @@ func _validate_region_audio(where: String, region: Dictionary) -> void:
 			if volume <= 0.0 or volume > 1.0:
 				_err(where, "ambience volume must be in (0, 1]")
 			_ref_condition(where, (layer as Dictionary).get("if"))
+			if (layer as Dictionary).has("at"):
+				_check_ambience_anchor(where, layer as Dictionary, region)
 	var surfaces: Dictionary = (db.audio.get("footsteps", {}) as Dictionary).get("surfaces", {})
 	for key: String in ["footsteps", "footsteps_raised"]:
 		if region.has(key) and not surfaces.has(str(region[key])):

@@ -35,6 +35,7 @@ var colors: Dictionary = {}
 var cols := 0  ## vertices along x
 var rows := 0  ## vertices along z
 var heights := PackedFloat32Array()
+var _shore_cache := PackedVector3Array()
 
 
 ## Builds the field from a region's `ground` dictionary. `water` = the region's water_level
@@ -90,6 +91,40 @@ func _build() -> void:
 		for ix in cols:
 			var p := vertex_xz(ix, iz)
 			heights[iz * cols + ix] = shape_height(p.x, p.y) + _noise(ix, iz) * roughness
+
+
+## Where the ground meets the water (Day 123: the surf comes from here): a point on every
+## grid edge whose two vertices sit either side of `water_level`, at the crossing and at the
+## water's height, thinned to one per `spacing` metres. Empty when the region has no water.
+## Piers don't count (the sea runs under them). Cached for the default spacing.
+func shore_points(spacing: float = 2.0) -> PackedVector3Array:
+	if is_inf(water_level):
+		return PackedVector3Array()
+	if spacing == 2.0 and not _shore_cache.is_empty():
+		return _shore_cache
+	var points := PackedVector3Array()
+	var taken := {}
+	for iz in rows:
+		for ix in cols:
+			var h := vertex_height(ix, iz) - water_level
+			for step: Vector2i in [Vector2i(1, 0), Vector2i(0, 1)]:
+				var jx := ix + step.x
+				var jz := iz + step.y
+				if jx >= cols or jz >= rows:
+					continue
+				var g := vertex_height(jx, jz) - water_level
+				if (h >= 0.0) == (g >= 0.0):
+					continue
+				var t := h / (h - g)
+				var p := vertex_xz(ix, iz).lerp(vertex_xz(jx, jz), t)
+				var key := Vector2i(floori(p.x / spacing), floori(p.y / spacing))
+				if taken.has(key):
+					continue
+				taken[key] = true
+				points.append(Vector3(p.x, water_level, p.y))
+	if spacing == 2.0:
+		_shore_cache = points
+	return points
 
 
 func vertex_xz(ix: int, iz: int) -> Vector2:

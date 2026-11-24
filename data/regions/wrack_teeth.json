@@ -36,7 +36,10 @@
   "ambience": [
     {
       "sound": "surf",
-      "volume": 1.0
+      "volume": 1.0,
+      "at": "shore",
+      "reach": 8,
+      "floor": 0.6
     },
     {
       "sound": "surf_far",

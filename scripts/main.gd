@@ -346,7 +346,7 @@ func load_region(region_id: String, spawn: String) -> void:
 		player.face_towards((facing as Vector3) - Vector3(player.global_position.x, 0.0, player.global_position.z))
 	player.set_camera_reach(float(region.data.get("camera_distance", 0.0)))
 	greying.enter_region(region)
-	audio.enter_region(region.data)
+	audio.enter_region(region.data, region.shore_points())
 	_apply_region_mood(false)
 	hud.show_region_title(str(region.data.get("name", region_id)))
 	# A load can jump the story anywhere; only acts ended *in play* get a card.
@@ -457,6 +457,7 @@ func _apply_region_mood(animate: bool) -> void:
 func _process(delta: float) -> void:
 	atmosphere.follow_greying(greying.depth, delta)
 	audio.follow_greying(greying.depth)
+	audio.follow_listener(player.global_position)
 	if title_screen.is_open():
 		player.turn_camera(TITLE_DRIFT * delta)
 	elif region != null:

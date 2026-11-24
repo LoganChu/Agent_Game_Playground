@@ -53,7 +53,10 @@
   "ambience": [
     {
       "sound": "surf",
-      "volume": 0.9
+      "volume": 0.9,
+      "at": "shore",
+      "reach": 11,
+      "floor": 0.35
     },
     {
       "sound": "harbor_lap",
