@@ -891,13 +891,12 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [S] **A systems session** (#1c/#5/#6/#7, or #1a's stand-up blend); a content session due by ~Day 126 (#1d/#1b/#3
-   or the Day 122 follow-ups: Brenner's tally stick as a prop or an item; Brenner on the Mercy's dock or seeing Dunstan
-   off on the cod grounds together; Oda on the Low Water's dare if asked; Mara told where the dare really went);
-   polish twenty-three by ~Day 129. Fetch and reset `main` before trusting it.
-   (Done Day 122, content: Brenner on the breakwater — the cod grounds, the Low Water's dare and his tally, go/wait,
-   his mark on Pell's cork float (a prop on the crate), Tam pacing the bank, per ending after the homecoming with
-   his boat out past the post in the lit one.)
+1. [C] **A content session** (due by ~Day 126: #1d/#1b/#3 or the Day 122 follow-ups: Brenner's tally stick as a prop
+   or an item; Brenner on the Mercy's dock or seeing Dunstan off on the cod grounds together; Oda on the Low Water's
+   dare if asked; Mara told where the dare really went); polish twenty-three by ~Day 129. Fetch and reset `main`
+   before trusting it.
+   (Done Day 123, systems: the surf plays from the shore — `"at": "shore"` ambience layers anchored at the nearest
+   shoreline, louder by the water, panned toward it; on five coastal regions. Done Day 122, content: Brenner.)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)
@@ -975,8 +974,10 @@ each .glb < 5 MB.
    voices' timbre, whether the heartbeat is too much — export them with `tools/debug/export_sounds.gd`);
    **music** (title theme and lighting cue landed Day 74: an owner listen; a quiet motif for Act ends and the ferry
    crossings; a sparse in-world piece per island later — or real recordings); oars as the skiff comes in (with the
-   rowing out); real recordings to replace recipes (`"file"`); sound sources placed in the world (surf at
-   the shoreline instead of everywhere at once, the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
+   rowing out); real recordings to replace recipes (`"file"`); sound sources placed in the world ((surf at
+   the shoreline: Day 123 — an owner listen on headphones that the pan reads and the inland floor isn't too quiet;
+   `harbor_lap` at Kindleby/Wrackholm/Saltmarrow could anchor to the harbor's water only, which needs a shore
+   filtered by a rect), the ferry's creak, the Unmoored's breath); paint-zone surfaces (a
    path of stone through grass) and NPC footsteps; dialogue `sound` on more story beats (the bramble wall parting,
    the Book shut, the horn on every sailing).
 8. [A] **Dressing follow-ups** (next art-led session due ~Day 84-86; last Day 81 new kit / Day 76 dressing): Cindermoor — the east stair door reads shut, not ajar; the worn ring round the Spire barely shows (Day 83). Kindleby — the Quiet House's step

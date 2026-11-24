@@ -2,6 +2,46 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-24 09:00 UTC — Day 123: surf from the shore (systems)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. `main` was at `origin/main`
+  (Day 122's `46c11bd`). Baseline green.
+- **Systems (ROADMAP *Next up* #1 → #7, "sound sources placed in the world: surf at the shoreline instead of
+  everywhere at once").**
+  - `TerrainField.shore_points()`: every grid edge whose two vertices sit either side of the water level gives a point
+    at the crossing, thinned to one per 2 m (55–125 per region, ~4 ms, cached). `Region.shore_points()` exposes it.
+  - `ShoreSound` (`scripts/core/shore_sound.gd`, pure logic): a layer's `spec` (`at`, `reach`, `floor`), the
+    `nearest` point, `distance`, `gain` (full within 2.5 m, smoothstep down to the floor at the reach) and the
+    `anchor` (the nearest point, pushed out to ≥ 3 m so standing at the waterline doesn't swing it ear to ear).
+  - `AudioDirector`: an ambience entry with `"at": "shore"` gets an `AudioStreamPlayer3D` (attenuation off, so it
+    only pans) at the anchor; it slides along the shore at 14 m/s as the nearest point changes, and its volume is
+    the fade × the gain. Main feeds `follow_listener` every frame. A region without water plays the layer plain; a
+    layer changing between shore and plain hands over with a crossfade.
+  - Data: Shingle Point, Kindleby, Wrackholm, the far shore and the Teeth play `surf` from the shore (reach 8–16 m,
+    floor 0.35–0.6, picked from a probe of how far the walkable ground gets from the water: 3–18 m). Validator:
+    `at` must be `shore`, sane `reach`/`floor`, and the region needs ground and water.
+- **Tests:** `test_shore_sound.gd` (6): the shoreline of a made-up island; gain by distance; the anchor; every
+  coastal region's walkable ground hears the surf between its floor and full; the director placing, sliding,
+  scaling and handing over; the validator. The smoke run checks Shingle Point's surf is anchored at the shore
+  nearest the player. 907 tests + smoke + launch green.
+
+**Decisions**
+- **Attenuation off, gain by our own curve.** Godot's distance models would fall off from a point that keeps moving;
+  the distance that matters is to the *coastline*, so the curve is ours (testable, tunable in data) and the 3D
+  player only gives the direction.
+- **A floor, not silence.** The islands are small and the sea is always there; inland the surf drops to a floor
+  rather than vanishing, so no region suddenly goes quiet.
+- **Saltmarrow and the old road stay plain.** Saltmarrow's `surf_far` is a distant bed behind the breakwater; the
+  old road has no water in its ground. `harbor_lap` stays plain too (its water would need a shore limited to the
+  harbor) — logged in #7.
+- **Not judged by ear.** The sandbox has no audio out; the numbers come from the probe. An owner listen on
+  headphones is logged in #7.
+
+**Next run should**
+1. ROADMAP *Next up* #1: **a content session** (due by ~Day 126). Polish twenty-three by ~Day 129. Fetch and reset
+   `main` before trusting it.
+
 ## 2026-11-23 21:00 UTC — Day 122: Brenner's tally (content)
 
 **Did**

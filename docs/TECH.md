@@ -87,6 +87,7 @@ scripts/
     region_events.gd      RegionEvents — region arrival events (which fires, applying its flags)
     sound_synth.gd        SoundSynth — renders a data/audio.json recipe into an AudioStreamWAV
     sound_bank.gd         SoundBank — rendered sounds by id, cached, rendered off the main thread
+    shore_sound.gd        ShoreSound — ambience from the shoreline: nearest point, gain by distance (Day 123)
     lanes.gd              Lanes — the lane map's logic: known ports, open lanes, voyage → knot
     act_recap.gd          ActRecap — act_ends in game.json: which acts are reached, recap lines
     json_util.gd, layers.gd
@@ -1353,6 +1354,19 @@ it uses (ambience on arrival, prop sounds as it builds; every one-shot cue at st
   with the last region carries on. The world sounds different after a burn: gulls come back
   to Saltmarrow and Shingle Point once the Gull's Beacon burns (and the headland's wind
   drops), birds to Thornwold, frogs to the fen, gulls to Wrackholm and the Teeth.
+- **Shore layers** (Day 123): an ambience entry with `"at": "shore"` (+ `reach` m, default 16, and
+  `floor` 0..1, default 0.35) plays from where the ground meets the water instead of everywhere.
+  `TerrainField.shore_points()` finds the crossings on the height grid (one per 2 m, at the water
+  level; piers ignored); `Region.shore_points()` hands them to `AudioDirector.enter_region`, and
+  main feeds `follow_listener(player position)` every frame. The layer's player is an
+  `AudioStreamPlayer3D` with attenuation off (so it only pans toward the water); it sits at
+  `ShoreSound.anchor` (the nearest shore point, never nearer than 3 m so it doesn't swing ear to
+  ear at the waterline) and slides 14 m/s when the nearest point changes; its volume is the
+  layer's fade × `ShoreSound.gain` (full within 2.5 m, smoothstep down to `floor` at `reach`).
+  A region without water plays the same layer plain; a layer switching between shore and plain
+  fades the old player out under `<id>~n`. The validator checks `at` (only `shore`), `reach`,
+  `floor` and that the region has ground and water. Shore surf: Shingle Point, Kindleby,
+  Wrackholm, the far shore, the Teeth (Saltmarrow's harbor and the old road keep plain beds).
 - **Prop sounds**: a prop's `"sound": {"id", "offset", "range", "volume"}` is a positional
   `SoundEmitter` (AudioStreamPlayer3D) that starts once rendered — every lit beacon's `fire`,
   the charcoal clamps' `embers`.
