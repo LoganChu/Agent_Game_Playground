@@ -288,6 +288,15 @@ greyed net-lofts.
     Choir's edge). **Gull burn:** twenty-two notches, every one cut by Brenner, for nobody he can name ("Big hands, I
     think. Laughing."); Mara held the stick "like it was warm". Dunstan home (not the gull burn): Brenner gave him the
     stick back; "Keep counting."
+  - **The tally stick (Day 124).** Brenner's rule: he never cut a notch till the boat was back inside the outer post —
+    *you don't count a man till he's home*. After the burn he'll give the stick to the player to carry to Dunstan
+    ("twenty-two and none owing; the twenty-third's his to bring me"), or after the gull burn to whoever it was for.
+    **Dunstan** counts it: the dare was never the going, it was **turning round at the edge** (gull burn: he's the only
+    one left who knows he turned round). Walking home, he takes it up the breakwater and has Brenner cut the
+    **twenty-third notch** ("Keep counting"); after the gull burn Brenner doesn't know him and cuts it anyway, hands
+    shaking. Staying on the fen, Dunstan notches its other side for every board he turns. **Mara knew all along** (down
+    at the outer post every spring with her arms folded so he'd see she wasn't watching); after the gull burn, told it
+    was the Low Water and not the bank, she sees the remembered boat in the right water: "They always turned round."
   - **His mark** is a ring with a bar through it, his father's before him; he lost a whole string of floats the day he
     went through the grey. The cork that washed into **Pell's crate** is his; told, he says Pell should keep it ("nobody
     wants a cork float like a child does") and the crate's scrap reads BRENNERS. HE SAYS KEEP IT. SO MINE.

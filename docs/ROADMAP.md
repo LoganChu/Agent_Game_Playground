@@ -891,12 +891,12 @@ each .glb < 5 MB.
       `test_polish_twenty.gd` (5); the smoke test checks the rays in the running game.
 
 ### Next up
-1. [C] **A content session** (due by ~Day 126: #1d/#1b/#3 or the Day 122 follow-ups: Brenner's tally stick as a prop
-   or an item; Brenner on the Mercy's dock or seeing Dunstan off on the cod grounds together; Oda on the Low Water's
-   dare if asked; Mara told where the dare really went); polish twenty-three by ~Day 129. Fetch and reset `main`
-   before trusting it.
-   (Done Day 123, systems: the surf plays from the shore — `"at": "shore"` ambience layers anchored at the nearest
-   shoreline, louder by the water, panned toward it; on five coastal regions. Done Day 122, content: Brenner.)
+1. [S/P] **A systems session or polish twenty-three** (#1a, due by ~Day 129; next content due by ~Day 128: #1d/#1b/#3
+   or the Day 122/124 follow-ups — Brenner on the Mercy's dock or out on the cod grounds with Dunstan; Oda on the Low
+   Water's dare if asked; the tally stick as a Blender prop on Brenner's box, a fresh twenty-third notch once cut).
+   Fetch and reset `main` before trusting it.
+   (Done Day 124, content: the tally stick — Brenner gives it after the burn, Dunstan counts it on the fen/at home/
+   turning boards, the twenty-third notch, Mara told where the dare went. Done Day 123, systems: surf from the shore.)
 1c. [S] **Save follow-ups, what's left** (Day 109 did versions, play time, per-story autosaves and thumbnails): an
    **owner check on a real screen** that the "Saving…" cue reads and the Load page thumbnails look right (the sandbox
    never writes one: headless); Steam Cloud-friendly paths with the Steamworks item. (Delete on the Load page: Day 111.)

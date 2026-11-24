@@ -2,6 +2,48 @@
 
 Newest entries first. Each entry: what was done, decisions & why, problems, next steps.
 
+## 2026-11-24 21:00 UTC — Day 124: the tally stick (content)
+
+**Did**
+- Tooling: `tools/setup.sh godot` installed Godot 4.7.2. No Blender work this session. HEAD was detached again; I reset
+  `main` to `origin/main` (Day 123's `c2a113b`). Baseline green.
+- **Content (ROADMAP *Next up* #1, the Day 122 follow-ups): Brenner's tally stick as an item, carried to Dunstan, and
+  Mara told where the dare went.**
+  - **Brenner's rule**: he never cut a notch till the boat was back inside the outer post — *you don't count a man till
+    he's home*. After the burn, once he's told the dare, he'll give the player the stick (new item `brenners_tally`):
+    "twenty-two and none owing; the twenty-third's his to bring me" (gull burn: "no use to me, counting for nobody").
+  - **Dunstan** takes it on the fen (his talk hub, so also straight after the first meeting), on his stool at home, or
+    turning the boards: the dare was never the going, it was the turning round (gull burn: he's the only one left who
+    knows he turned round). Not home yet: "This time I went in. No notch for that." Home: he walks it up the breakwater;
+    stayed: a notch on the other side for every board turned (the stayed narration shows it at his belt).
+  - **Payoff**: once Dunstan's home with it, Brenner tells (once, before or after the homecoming) how he cut the
+    **twenty-third** with Dunstan sat on his box, "Keep counting"; after the gull burn he doesn't know him and cuts it
+    anyway, hands shaking. Dunstan's home lines remember it. While the player still carries it and Dunstan's home,
+    Brenner reminds them to give it him, not Brenner. The old "I gave him the stick" line only plays if the stick never
+    left Brenner.
+  - **Mara** (`saltmarrow_mara_dare`): told about the tally, she knew all along (at the outer post every spring with
+    her arms folded). After the gull burn, told it was the Low Water and not the bank, the boat she half-remembers is
+    put in the right water: "They always turned round." Both react to the stick being in the player's pocket.
+- Checkpoint `the_tally_stick` (Dunstan found on the fen, the stick in hand). LORE: *The tally stick* under Brenner.
+- **Tests:** `test_the_tally_stick.gd` (5): Brenner gives it per burn and only once, after the burn and the dare;
+  Dunstan on the fen (per burn, only with the stick); home and stayed per burn (the reminder, the twenty-third told once,
+  the homecoming's ending lines still play after it, the stale line suppressed); Mara per burn and with the stick in hand;
+  the checkpoint.
+
+**Decisions**
+- **An item, not a prop.** The roadmap allowed either; an item the player carries across two acts gives the Day 122
+  thread a payoff the player causes, which a prop on a box can't. A Blender stick on Brenner's box (with a fresh notch)
+  would still help it read: logged.
+- **Not before the burn.** Before the Gull's lit there's no ferry to carry it on, and Brenner's "none owing" only lands
+  once the bank has leaned back.
+- **Brenner's homecoming branches go through a new `home_tail` knot** so the one-time twenty-third beat plays after the
+  ending's lines rather than skipping them (the first test run caught that).
+- Oda on the dare (another Day 122 follow-up) left for a later session.
+
+**Next run should**
+1. ROADMAP *Next up* #1: a **systems session** or **polish twenty-three** (due by ~Day 129). Fetch and reset `main`
+   before trusting it.
+
 ## 2026-11-24 09:00 UTC — Day 123: surf from the shore (systems)
 
 **Did**
