@@ -286,6 +286,32 @@
             "goto": "gull_from_dunstan"
           },
           {
+            "text": "Brenner kept a tally of Dunstan's dare. To the Low Water's edge.",
+            "if": [
+              "flag:saltmarrow_brenner_choir",
+              "!flag:saltmarrow_mara_dare",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
+            "set": {
+              "saltmarrow_mara_dare": true
+            },
+            "goto": "dare",
+            "note": "Day 124: the tally stick."
+          },
+          {
+            "text": "Brenner says the dare went to the Low Water's edge. Not the bank.",
+            "if": [
+              "flag:saltmarrow_brenner_choir",
+              "!flag:saltmarrow_mara_dare",
+              "flag:saltmarrow_beacon_burned=gull"
+            ],
+            "set": {
+              "saltmarrow_mara_dare": true
+            },
+            "goto": "dare_gull",
+            "note": "Day 124: the tally stick."
+          },
+          {
             "text": "I'll be going.",
             "end": true
           }
@@ -997,6 +1023,79 @@
         "if": "flag:cindermoor_cradle_choice=dark",
         "say": "mara",
         "text": "Whoever's name goes first on that list, that's what they'll be pushing back. I make every one of them stand at the post and look at it before they write."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dare": [
+      {
+        "say": "mara",
+        "text": "A tally."
+      },
+      {
+        "say": "narrator",
+        "text": "For a moment she looks about fourteen, and cross about it."
+      },
+      {
+        "say": "mara",
+        "text": "I knew. Every spring, the first calm day, I'd be down at the outer post with my arms folded, so he'd see I wasn't watching. Twenty-two springs."
+      },
+      {
+        "say": "mara",
+        "text": "Brenner thinks I never knew. Let him. You don't take the count off a man who's kept it."
+      },
+      {
+        "if": "item:brenners_tally",
+        "say": "mara",
+        "text": "And you've got it in your pocket. Taking it to him? Don't tell him I knew. Let him have that one."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_tally",
+          "flag:fen_dunstan_walk=home"
+        ],
+        "say": "mara",
+        "text": "He sat on Brenner's box and had the old man cut a twenty-third. I watched from the post. Arms folded."
+      },
+      {
+        "goto": "hub"
+      }
+    ],
+    "dare_gull": [
+      {
+        "say": "mara",
+        "text": "The Low Water."
+      },
+      {
+        "say": "narrator",
+        "text": "She turns from the harbor mouth to the south, past the Gull, where the skerries go out pale toward the singing."
+      },
+      {
+        "say": "mara",
+        "text": "That's right. The bank wasn't there, then. I'd put the boat where the grey is, because the grey's what I look at now."
+      },
+      {
+        "say": "mara",
+        "text": "I can see it better for being told. Further out, oars shipped, sun on the water, and them sat so still to listen. Then turning her round. They always turned round."
+      },
+      {
+        "if": "!flag:saltmarrow_brenner_tally_given",
+        "say": "mara",
+        "text": "Brenner showed me his stick. Twenty-two. I keep meaning to ask him who for, and then not."
+      },
+      {
+        "if": "item:brenners_tally",
+        "say": "mara",
+        "text": "Brenner says you've his stick now. Mind it. It's the only count there is."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_tally",
+          "flag:fen_dunstan_walk=home"
+        ],
+        "say": "mara",
+        "text": "The big fellow on the stool laughed when I told him that, and spilled his cup. Wouldn't say why. Then he went up the breakwater to sit with Brenner."
       },
       {
         "goto": "hub"

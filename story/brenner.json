@@ -143,6 +143,36 @@
         "goto": "after_first"
       },
       {
+        "if": [
+          "flag:fen_dunstan_tally",
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_brenner_tally_home"
+        ],
+        "set": {
+          "saltmarrow_brenner_tally_home": true
+        },
+        "goto": "tally_home_after",
+        "note": "Day 124: the tally stick."
+      },
+      {
+        "if": [
+          "item:brenners_tally",
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "brenner",
+        "text": "He's home, and you've still my stick in your pocket. Give it him, not me. He'll want to count it himself."
+      },
+      {
+        "if": [
+          "item:brenners_tally",
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "brenner",
+        "text": "Big fellow on Mara's stool asked me had I a stick. Can't think how he knew. Then I remembered I'd given it you."
+      },
+      {
         "say": "brenner",
         "text": "Back again. Mind my light. There's more of it now."
       },
@@ -227,6 +257,34 @@
               "saltmarrow_brenner_choir": true
             },
             "goto": "choir_after"
+          },
+          {
+            "text": "Could I carry that tally stick to Dunstan? In case I find him.",
+            "if": [
+              "flag:saltmarrow_brenner_choir",
+              "!flag:saltmarrow_brenner_tally_given",
+              "!flag:fen_dunstan_walk=home",
+              "!flag:saltmarrow_beacon_burned=gull"
+            ],
+            "set": {
+              "saltmarrow_brenner_tally_given": true
+            },
+            "goto": "tally_give",
+            "note": "Day 124: the tally stick."
+          },
+          {
+            "text": "Could I carry that stick? In case I find who it was for.",
+            "if": [
+              "flag:saltmarrow_brenner_choir",
+              "!flag:saltmarrow_brenner_tally_given",
+              "!flag:fen_dunstan_walk=home",
+              "flag:saltmarrow_beacon_burned=gull"
+            ],
+            "set": {
+              "saltmarrow_brenner_tally_given": true
+            },
+            "goto": "tally_give",
+            "note": "Day 124: the tally stick."
           },
           {
             "text": "I'll leave you to it.",
@@ -329,7 +387,10 @@
         "text": "Dunstan Tollen used to row out to the edge of it every spring, for a dare. From fourteen. I kept the tally on a stick."
       },
       {
-        "if": "flag:fen_dunstan_walk=home",
+        "if": [
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_brenner_tally_given"
+        ],
         "say": "brenner",
         "text": "He's home now. I gave him the stick. He gave it back and said, 'Keep counting.'"
       },
@@ -343,14 +404,21 @@
     ],
     "dare_gull_after": [
       {
+        "if": "!flag:saltmarrow_brenner_tally_given",
         "say": "narrator",
         "text": "He takes a short stick out of his gansey, notched all down one side, and turns it in his fingers."
+      },
+      {
+        "if": "flag:saltmarrow_brenner_tally_home",
+        "say": "narrator",
+        "text": "He takes the stick out of his gansey. There's a fresh notch at the bottom, paler than the rest."
       },
       {
         "say": "brenner",
         "text": "Somebody used to row out to the edge of it every spring, for a dare. I kept the tally. Twenty-two notches, every one cut by me. Can't tell you for who."
       },
       {
+        "if": "!flag:saltmarrow_brenner_tally_given",
         "say": "brenner",
         "text": "Mara's been asking. I showed her the stick. She held it like it was warm."
       },
@@ -384,7 +452,7 @@
         "text": "Back, then. Mind my light."
       },
       {
-        "goto": "home_hub"
+        "goto": "home_tail"
       }
     ],
     "home_released": [
@@ -403,7 +471,7 @@
         "text": "I waited, like you told me. Still waiting. I'm getting good at it."
       },
       {
-        "goto": "home_hub"
+        "goto": "home_tail"
       }
     ],
     "home_dark": [
@@ -426,7 +494,7 @@
         "text": "Never did go out. You said wait, and then there was nothing to wait for. I might, before midwinter. Just to have it."
       },
       {
-        "goto": "home_hub"
+        "goto": "home_tail"
       }
     ],
     "home_hub": [
@@ -462,6 +530,135 @@
       {
         "say": "brenner",
         "text": "My mark, aye. Leave it with the child. A lost thing ought to go to somebody that wants it. I'll tell them so."
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "tally_home_after": [
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "He came up the breakwater the first morning with my own stick in his fist. You put it there, he says."
+      },
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "Sat himself on my box, which nobody does, and stood over me while I cut the twenty-third. Took me four goes. Then he gave it back and said, 'Keep counting.'"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "That big fellow off the fen came up the breakwater with my stick. Said the notches were his. Said I'd cut every one of them the day he rowed back past the post, and I don't count a man till he's home."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "Which is my rule. I've never told it anybody."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "So I cut him a twenty-third, and my hands were shaking, and I don't know why. He gave it back and said, 'Keep counting.'"
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "tally_home_home": [
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "He came up the breakwater the first morning with my own stick in his fist. You put it there, he says."
+      },
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "Sat himself on my box, which nobody does, and stood over me while I cut the twenty-third. Took me four goes. Then he gave it back and said, 'Keep counting.'"
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "That big fellow off the fen came up the breakwater with my stick. Said the notches were his. Said I'd cut every one of them the day he rowed back past the post, and I don't count a man till he's home."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "Which is my rule. I've never told it anybody."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "So I cut him a twenty-third, and my hands were shaking, and I don't know why. He gave it back and said, 'Keep counting.'"
+      },
+      {
+        "goto": "home_hub"
+      }
+    ],
+    "tally_give": [
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "narrator",
+        "text": "He takes it out of his gansey: a hazel switch gone dark with handling, notched all down one side."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "narrator",
+        "text": "He turns the stick in his fingers a while before he holds it out."
+      },
+      {
+        "say": "brenner",
+        "text": "Twenty-two. I never cut one till the boat was back inside the outer post. That was my rule. You don't count a man till he's home."
+      },
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "Take it, then. If you find him, tell him that's twenty-two and none owing. The twenty-third's his to bring me."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "brenner",
+        "text": "Take it. It's no use to me, counting for nobody. If it's somebody's, they're out there, not here."
+      },
+      {
+        "say": "narrator",
+        "text": "You put Brenner's tally stick away.",
+        "give_item": "brenners_tally"
+      },
+      {
+        "goto": "after_hub"
+      }
+    ],
+    "home_tail": [
+      {
+        "if": [
+          "flag:fen_dunstan_tally",
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_brenner_tally_home"
+        ],
+        "set": {
+          "saltmarrow_brenner_tally_home": true
+        },
+        "goto": "tally_home_home",
+        "note": "Day 124: the tally stick."
+      },
+      {
+        "if": [
+          "item:brenners_tally",
+          "flag:fen_dunstan_walk=home",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "brenner",
+        "text": "He's home, and you've still my stick in your pocket. Give it him, not me. He'll want to count it himself."
+      },
+      {
+        "if": [
+          "item:brenners_tally",
+          "flag:fen_dunstan_walk=home",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "brenner",
+        "text": "Big fellow on Mara's stool asked me had I a stick. Can't think how he knew. Then I remembered I'd given it you."
       },
       {
         "goto": "home_hub"

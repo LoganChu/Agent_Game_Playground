@@ -323,6 +323,16 @@
             "goto": "climb"
           },
           {
+            "text": "Brenner kept this for you. Your tally.",
+            "if": "item:brenners_tally",
+            "take_item": "brenners_tally",
+            "set": {
+              "fen_dunstan_tally": true
+            },
+            "goto": "tally",
+            "note": "Day 124: the tally stick."
+          },
+          {
             "text": "I'll leave you to it.",
             "end": true
           }
@@ -743,11 +753,27 @@
         "if": "flag:saltmarrow_beacon_burned=gull"
       },
       {
+        "if": "flag:fen_dunstan_tally",
+        "say": "narrator",
+        "text": "Brenner's stick is pushed through his belt. A row of fresh notches has started down its other side, one for each board.",
+        "note": "Day 124: the tally stick."
+      },
+      {
         "choice": [
           {
             "text": "Oda says the Mercy will carry you home when you're done. No fare.",
             "if": "stage:word_on_the_water=to_dunstan",
             "goto": "no_fare"
+          },
+          {
+            "text": "Brenner kept this for you. Your tally.",
+            "if": "item:brenners_tally",
+            "take_item": "brenners_tally",
+            "set": {
+              "fen_dunstan_tally": true
+            },
+            "goto": "tally",
+            "note": "Day 124: the tally stick."
           },
           {
             "text": "I'll leave you to it.",
@@ -795,6 +821,24 @@
         "if": "flag:fen_dunstan_rule=asked"
       },
       {
+        "if": [
+          "flag:fen_dunstan_tally",
+          "!flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "dunstan",
+        "text": "Walked Brenner's stick up to him the first morning and sat on his box till he'd cut the twenty-third. He gave it back. 'Keep counting,' I said. He will, too.",
+        "note": "Day 124: the tally stick."
+      },
+      {
+        "if": [
+          "flag:fen_dunstan_tally",
+          "flag:saltmarrow_beacon_burned=gull"
+        ],
+        "say": "dunstan",
+        "text": "Took the old fellow on the breakwater his stick back. He doesn't know me either. He cut the notch anyway. Some things a hand keeps when the head's let go.",
+        "note": "Day 124: the tally stick."
+      },
+      {
         "choice": [
           {
             "text": "Oda says your berth's still swung on the Slow Mercy.",
@@ -804,6 +848,16 @@
           {
             "text": "Was it worth the walk back?",
             "goto": "worth"
+          },
+          {
+            "text": "Brenner kept this for you. Your tally.",
+            "if": "item:brenners_tally",
+            "take_item": "brenners_tally",
+            "set": {
+              "fen_dunstan_tally": true
+            },
+            "goto": "tally",
+            "note": "Day 124: the tally stick."
           },
           {
             "text": "I'll leave you to your cup.",
@@ -890,6 +944,64 @@
         "choice": [
           {
             "text": "I'll tell her.",
+            "end": true
+          }
+        ]
+      }
+    ],
+    "tally": [
+      {
+        "say": "narrator",
+        "text": "He takes the stick and runs his thumb down the notches, lips moving, the way you'd count a catch onto the quay."
+      },
+      {
+        "say": "dunstan",
+        "text": "Twenty-two. Old Brenner. He'd sit on the outer post with this and his pipe, and not cut a notch till I was back inside it. Said you don't count a man till he's home."
+      },
+      {
+        "if": "!flag:saltmarrow_beacon_burned=gull",
+        "say": "dunstan",
+        "text": "Twenty-two springs and I never once went in. Out to the edge, ship the oars, listen, and turn her round. That was the whole dare. Mara thought it was the going. It was always the turning round."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "dunstan",
+        "text": "And he gave it you because he doesn't know whose it is. You'd not have it else."
+      },
+      {
+        "if": "flag:saltmarrow_beacon_burned=gull",
+        "say": "dunstan",
+        "text": "Twenty-two springs, and every one I turned round at the edge and came home. It's a queer thing, being the only one left who knows you turned round."
+      },
+      {
+        "if": [
+          "!flag:fen_dunstan_walk=home",
+          "!flag:fen_dunstan_walk=stayed"
+        ],
+        "say": "dunstan",
+        "text": "This time I went in. No notch for that. It'll want one more, and he'll cut it, when I'm back past his post. If."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=home",
+        "say": "dunstan",
+        "text": "I'll walk it up the breakwater in the morning. He'll want to cut the twenty-third himself, and I'll want to watch him do it."
+      },
+      {
+        "if": "flag:fen_dunstan_walk=stayed",
+        "say": "dunstan",
+        "text": "I'll cut one for every board I turn. He'll not mind. It's counting a man home, either way."
+      },
+      {
+        "if": [
+          "!flag:fen_dunstan_walk=home",
+          "!flag:fen_dunstan_walk=stayed"
+        ],
+        "goto": "talk"
+      },
+      {
+        "choice": [
+          {
+            "text": "I'll leave you to it.",
             "end": true
           }
         ]
